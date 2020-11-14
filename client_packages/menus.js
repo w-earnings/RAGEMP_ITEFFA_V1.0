@@ -3,16 +3,12 @@ global.menu = null;
 
 global.menuCheck = function () {
     if (global.menu !== null) {
-        //mp.gui.chat.push('menu:yes');
         if (global.menuOpened) {
-            //mp.gui.chat.push('menuOpen:yes');
             return true;
         }
-        //mp.gui.chat.push('menuOpen:no');
         return false;
     }
     else {
-        //mp.gui.chat.push('menu:no');
         return true;
     }
 };
@@ -379,7 +375,6 @@ function openSM(type, data) {
     if (global.menuCheck()) return;
     global.menu.execute('menu.show()');
     switch (type) {
-        //case 0: menu.execute(`openWorks(${data});`); break;
         case 1: menu.execute(`openShop('${data}');`); break;
         case 2: menu.execute(`openBlack('${data}');`); break;
         case 3: menu.execute(`openFib('${data}');`); break;
@@ -638,33 +633,6 @@ mp.events.add('fmenu', (act, data1, data2) => {
     global.menuClose();
 });
 
-// PLAYERLIST //
-var pliststate = false;
-mp.keys.bind(0x77, false, function () { // F8
-    if (localplayer.getVariable('IS_ADMIN') == true) {
-        if (pliststate) closePlayerList();
-        else openPlayerList();
-    }
-    
-});
-function openPlayerList() {
-    if (global.menuCheck()) return;
-    global.menuOpen();
-    global.menu.execute('plist.show()');
-    mp.players.forEach((player) => {
-        global.menu.execute(`plist.add(${player.getVariable('REMOTE_ID')},'${player.name}',0,${player.ping})`)
-    });
-    pliststate = true;
-}
-function closePlayerList() {
-    global.menuClose();
-    global.menu.execute('plist.hide()');
-    pliststate = false;
-}
-// MATS //
-/*mp.keys.bind(0x78, false, function () { // F9
-    mp.events.call('matsOpen', true);
-});*/
 mp.events.add('matsOpen', (isArmy, isMed) => {
     if (global.menuCheck()) return;
     global.menuOpen();
