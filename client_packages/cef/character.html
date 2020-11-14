@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>redage.net - Character editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/character.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/phone.css">
+    <link rel="stylesheet" type="text/css" href="css/slider.css">
+    <style>
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            font-family: "Ubuntu", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor">
+		<div class="container">
+			<h1>Создание персонажа</h1> 
+			<div class="tabs">
+				<div id="content-1">
+					<div class="element">
+						<label>Выберите пол:</label>
+						<div class="switch">
+							<div id="gendermale" class="btn on">Мужской</div>
+							<div id="genderfemale" class="btn">Женский</div>
+						</div>
+					</div>
+					<div class="element">
+						<label>Отец:</label>
+						<list id="father" num=""></list>
+					</div>
+					<div class="element">
+						<label>Мать:</label>
+						<list id="mother" num=""></list>
+					</div>
+					<div class="element">
+						<label>Схожесть:</label>
+						<div class="slider">
+							<input id="similar" type="range" value="0.5" step="0.1" min="0" max="1.0">
+						</div>
+						<output id="similar">0.5</output>
+					</div>
+					<div class="element">
+						<label>Цвет кожи:</label>
+						<div class="slider">
+							<input id="skin" type="range" value="0.5" step="0.1" min="0" max="1">
+						</div>
+						<output id="skin">0.5</output>
+					</div>
+				</div> 
+				<div id="content-2">
+					<div class="wrapper">
+						<div class="wrap-1">
+							<input type="radio" id="tab-1" name="tabs">
+							<label for="tab-1"><div>Нос</div><div class="cross"></div></label>
+							<div class="content">
+								<div class="element">
+									<label>Ширина носа:</label>
+									<div class="slider">
+										<input id="noseWidth" type="range" value="0" step="0.1" min="-1" max="1">
+									</div>
+									<output id="noseWidth">0</output>
+								</div>
+								<div class="element">
+									<label>Высота носа:</label>
+									<div class="slider">
+										<input id="noseHeight" type="range" value="0" step="0.1" min="-1" max="1">
+									</div>
+									<output id="noseHeight">0</output>
+								</div>
+								<div class="element">
+									<label>Длина кончика носа:</label>
+    			        			<div class="slider">
+     			           			<input id="noseTipLength" type="range" value="0" step="0.1" min="-1" max="1">
+									</div>
+     			       			<output id="noseTipLength">0</output>
+								</div>
+								<div class="element">
+      			      			<label>Глубина моста носа:</label>
+									<div class="slider">
+										<input id="noseDepth" type="range" value="0" step="0.1" min="-1" max="1">
+									</div>
+            						<output id="noseDepth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Высота кончика носа:</label>
+            						<div class="slider">
+            			    			<input id="noseTipHeight" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="noseTipHeight">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Поломаность носа:</label>
+            						<div class="slider">
+                						<input id="noseBroke" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="noseBroke">0</output>
+        						</div>
+							</div>
+						</div>
+
+						<div class="wrap-2">
+							<input type="radio" id="tab-2" name="tabs">
+							<label for="tab-2"><div>Глаза и Щеки</div><div class="cross"></div></label>
+							<div class="content">
+								<div class="element">
+									<label>Высота бровей:</label>
+            						<div class="slider">
+                						<input id="eyebrowHeight" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="eyebrowHeight">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Глубина бровей:</label>
+            						<div class="slider">
+                						<input id="eyebrowDepth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="eyebrowDepth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Высота скул:</label>
+            						<div class="slider">
+                						<input id="cheekboneHeight" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="cheekboneHeight">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Ширина скул:</label>
+            						<div class="slider">
+                						<input id="cheekboneWidth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="cheekboneWidth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Глубина щеки:</label>
+            						<div class="slider">
+                						<input id="cheekDepth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="cheekDepth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Размер глаз:</label>
+            						<div class="slider">
+                						<input id="eyeScale" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="eyeScale">0</output>
+        						</div>
+							</div>
+						</div>
+						<div class="wrap-3">
+							<input type="radio" id="tab-3" name="tabs">
+							<label for="tab-3"><div>Остальное</div><div class="cross"></div></label>
+							<div class="content">
+								<div class="element">
+								<label>Толщина губ:</label>
+									<div class="slider">
+                						<input id="lipThickness" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="lipThickness">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Ширина челюсти:</label>
+            						<div class="slider">
+                						<input id="jawWidth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="jawWidth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Форма челюсти:</label>
+            						<div class="slider">
+                						<input id="jawShape" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="jawShape">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Высота подбородка:</label>
+            						<div class="slider">
+                						<input id="chinHeight" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="chinHeight">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Глубина подбородка:</label>
+            						<div class="slider">
+                						<input id="chinDepth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="chinDepth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Ширина подбородка:</label>
+            						<div class="slider">
+                						<input id="chinWidth" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="chinWidth">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Подбородочный отступ:</label>
+            						<div class="slider">
+                						<input id="chinIndent" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="chinIndent">0</output>
+        						</div>
+        						<div class="element">
+            						<label>Обхват шеи:</label>
+            						<div class="slider">
+                						<input id="neck" type="range" value="0" step="0.1" min="-1" max="1">
+            						</div>
+            						<output id="neck">0</output>
+        						</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div id="content-3">
+					<div v-if="!isSurgery">
+						<h3>Внешность</h3>
+            			<div class="element">
+                			<label>Волосы:</label>
+                			<list id="hairM" v-if="gender"></list>
+                			<list id="hairF" v-if="!gender"></list>
+            			</div>
+            			<div class="element">
+                			<label>Брови:</label>
+                			<list id="eyebrowsM" v-if="gender"></list>
+                			<list id="eyebrowsF" v-if="!gender"></list>
+            			</div>
+            			<div class="element" v-if="gender">
+                			<label>Бородка:</label>
+                			<list id="beard"></list>
+            			</div>
+            			<div class="element">
+                			<label>Цвет волос:</label>
+                			<list id="hairColor"></list>
+            			</div>
+            			<div class="element">
+                			<label>Цвет глаз:</label>
+                			<list id="eyeColor"></list>
+            			</div>
+        			</div>
+				</div> 
+				<div class="tabs__links">
+					<a href="#content-1" class="button1"><img src="https://imgur.com/5FLIBOY.png" class="img"></a> 
+					<a href="#content-2" class="button1"><img src="https://imgur.com/LEMEQvY.png" class="img"></a> 
+					<a href="#content-3" class="button1"><img src="https://imgur.com/BIFoM5Y.png" class="img"></a>
+				</div>
+			</div>
+			<div @click="save" class="button">Сохранить</div>
+		</div>
+	</div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/rangeslider.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/character.js"></script>
+</body>
+</html>

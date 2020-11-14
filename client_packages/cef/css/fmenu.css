@@ -1,0 +1,126 @@
+﻿.fmenu {
+    border: solid 2px #fff;
+    border-radius: 25px;
+    background: #23272A;
+    padding: 15px;
+    background-size: cover;
+    position: absolute;
+    width: 848px;
+    /* height: 550px; */
+    left: 50%;
+    top: 50%;
+    margin-left: -424px;
+    margin-top: -275px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+    .fmenu .right {
+        float: right;
+        width: 466px;
+        height: initial;
+        text-align: center;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+
+    .fmenu .left {
+        text-align: left;
+        float: left;
+        width: 347px;
+        height: 550px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        background: #2C2F33;
+    }
+
+    .fmenu h1 {
+        color: white;
+        font-size: 14pt;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 25px 16px;
+    }
+
+    .fmenu .btns {
+        padding: 20px;
+    }
+
+    .fmenu .btn {
+        margin-bottom: 15px;
+        border-radius: 5px;
+        transition: .6s;
+        background: #2C2F33;
+        padding: 10px;
+        font-size: 16pt;
+        cursor: pointer;
+        color: #fff;
+    }
+
+        .fmenu .btn:hover{
+            background-color: #fff;
+            color: #2C2F33;
+        }
+
+        .fmenu .btn.active {
+            background-color: #fff;
+            color: #2C2F33;
+        }
+
+    .fmenu table {
+        width: 100%;
+        padding: 10px;
+        font-size: 11pt;
+    }
+
+        .fmenu table th {
+            font-weight: normal;
+            color: #fff;
+        }
+
+    .fmenu .info p {
+        color: #fff;
+        display: inline-block;
+        margin: 20px 20px;
+    }
+
+    .fmenu .online {
+        color: rgb(59, 224, 67) !important;
+    }
+
+    .fmenu .offline {
+        color: rgb(241, 28, 28) !important;
+    }
+
+    .fmenu .info span {
+        color: #fff;
+    }
+
+    .fmenu .btn-submit {
+        transition: .6s;
+        border-radius: 3px;
+        margin-top: 15px;
+        box-sizing: border-box;
+        display: inline-block;
+        background-color: #15B84C;
+        padding: 10px;
+        width: 250px;
+        font-size: 15pt;
+        color: white;
+        cursor: pointer;
+    }
+
+    .fmenu .btn-submit:hover{
+        background-color: rgb(15, 128, 52);
+    }
+
+    .fmenu input {
+        border-radius: 3px;
+        border: none;
+        padding: 10px;
+        font-size: 15pt;
+        margin: 10px;
+        width: 250px;
+    }

@@ -1,0 +1,10 @@
+Version 13 30
+{
+	Image prop_vw_casino_table_leather_s.dds
+	Type Regular
+	PixelFormat DXT1
+	Levels 7
+	Usage SPECULAR
+	UsageFlags -
+	ExtraFlags 0
+}

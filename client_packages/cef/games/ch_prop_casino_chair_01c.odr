@@ -1,0 +1,52 @@
+Version 165 32
+{
+	Shaders
+	{
+		normal_spec_detail.sps
+		{
+			DiffuseSampler Prop_Casino_Track_Chair_d
+			DetailSampler env_noise_concrete
+			BumpSampler Prop_Casino_Track_Chair_n
+			SpecSampler Prop_Casino_Track_Chair_s
+			DetailSettings 0.10000000 0.10000000 10.00000000 10.00000000
+			UseTessellation 0.00000000
+			Bumpiness 1.00000000
+			SpecMapIntMask 1.00000000 0.00000000 0.00000000
+			SpecularIntensityMult 1.00000000
+			SpecularFalloffMult 58.36800000
+			SpecularFresnel 0.97000000
+		}
+		normal_spec_reflect.sps
+		{
+			DiffuseSampler Prop_Casino_Track_Chair_d
+			BumpSampler Prop_Casino_Track_Chair_n
+			SpecSampler Prop_Casino_Track_Chair_s
+			EnvironmentSampler Prop_Vw_Casino_Silver_Reflection
+			UseTessellation 0.00000000
+			ReflectivePower 1.00000000
+			Bumpiness 1.00000000
+			SpecMapIntMask 1.00000000 1.00000000 1.00000000
+			SpecularIntensityMult 1.00000000
+			SpecularFalloffMult 75.00000000
+			SpecularFresnel 0.10000000
+		}
+	}
+	Skeleton ch_prop_casino_chair_01c\ch_prop_casino_chair_01c.skel
+	LodGroup
+	{
+		Center -0.06175500 -0.00955500 0.63543900
+		Radius 0.74045500
+		AABBMin -0.35912900 -0.24632500 0.00000000
+		AABBMax 0.23561900 0.22721400 1.27087800
+		High 9998.00000000
+		{
+			ch_prop_casino_chair_01c\ch_prop_casino_chair_01c_high.mesh 0
+		}
+		Med 9998.00000000
+		Low 9998.00000000
+		Vlow 9998.00000000
+	}
+	Joints null
+	Light null
+	Bound ch_prop_casino_chair_01c\ch_prop_casino_chair_01c.bound
+}

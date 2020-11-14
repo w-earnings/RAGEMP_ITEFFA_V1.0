@@ -1,0 +1,10 @@
+Version 13 30
+{
+	Image leathershagreen01_dn.dds
+	Type Regular
+	PixelFormat DXT1
+	Levels 7
+	Usage DETAIL
+	UsageFlags -
+	ExtraFlags 0
+}

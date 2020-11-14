@@ -1,0 +1,575 @@
+<html lang="ru"><head>
+	<meta charset="UTF-8">
+	<title>city-rp.com - Android</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="css/u.css">
+	<link rel="stylesheet" href="css/android.css">
+	<title>Android</title>
+</head>
+<body>
+
+	<div class="android phone noselect">
+		<div v-show="isScreen('main')" class="main-screen screen">
+			<div class="top df">
+				<div class="gps"><img src="assets/android/img/main-screen/gps.svg" alt=""></div>
+				<div class="roaming"><img src="assets/android/img/main-screen/roaming.svg" alt=""></div>
+				<div class="roaming-text">4G+</div>
+				<div class="battery"><img src="assets/android/img/main-screen/battery.svg" alt=""></div>
+			</div>
+			<div class="time">
+				{{timenow}}
+			</div>
+
+			<div class="icons all-c">
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="openAsd()">
+						<div class="img all-c"><img src="assets/android/img/main-screen/1024x1024bb.png"></div>
+						<span>Реклама</span>
+					</a>
+				</div>
+				<div class="icon all-c bank bg1">
+					<a class="all-c f-column" @click="open('online_bank')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/bank-building.svg"></div>
+						<span>Online Bank</span>
+					</a>
+				</div>
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="open('my_number')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/dribb.png"></div>
+						<span>Мой номер</span>
+					</a>
+				</div>
+				<div class="icon all-c transport bg2">
+					<a class="all-c f-column" @click="openT('car_find')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/transport.svg"></div>
+						<span>Car Find</span>
+					</a>
+				</div>
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="openT('events')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/25533.png"></div>
+						<span>Мероприятия</span>
+					</a>
+				</div>
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="openT('gps')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/PngItem_4414447.png"></div>
+						<span>GPS</span>
+					</a>
+				</div>
+				<div class="icon all-c music">
+					<a class="all-c f-column" @click="openT('music_cloud')">
+						<div class="img all-c bg#fff"><img src="assets/android/img/main-screen/music.svg"></div>
+						<span>Music Cloud</span>
+					</a>
+				</div>
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="openT('auction')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/512x512bb.png"></div>
+						<span>Аукцион</span>
+					</a>
+				</div>
+				<div class="icon all-c">
+					<a class="all-c f-column" @click="openT('trade_board')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/tasks.png"></div>
+						<span>Trade Board</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="pinned-icons all-c">
+
+				<div class="icon all-c icon-phone">
+					<a class="all-c f-col" @click="open('my_phone')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/phone.svg"></div>
+						<span>Телефон</span>
+					</a>
+				</div>
+				<div class="icon all-c icon-comment">
+					<a class="all-c f-col" @click="openT('messages')">
+						<div class="img all-c"><img src="assets/android/img/main-screen/comment.svg"></div>
+						<span>Сообщения</span>
+					</a>
+				</div>
+				<div class="icon all-c icon-worldwide">
+					<a class="all-c f-col">
+						<div class="img all-c"><img src="assets/android/img/main-screen/worldwide.svg"></div>
+						<span>Интернет</span>
+					</a>
+				</div>
+				<div class="icon all-c icon-camera">
+					<a class="all-c f-col">
+						<div class="img all-c"><img src="assets/android/img/main-screen/camera.svg"></div>
+						<span>Камера</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="navigation df ai-center jc-evenly">
+				<a @click="hide()" class="flow">
+					<img src="assets/android/img/main-screen/flow.svg">
+				</a>
+				<a @click="hide()" class="home">
+					<img src="assets/android/img/main-screen/home.svg">
+				</a>
+				<a @click="hide()" class="back">
+					<img src="assets/android/img/main-screen/back.svg">
+				</a>
+			</div>
+		</div>
+
+		<div v-show="currScreen !== 'main'" class="apps screen">
+			<div class="header ai-end jc-center">
+				<div class="title">
+					<a @click="open('weazel_news')" v-if="isScreen('weazel_news')"><span class="w">Weazel</span><span class="p">News</span></a>
+					<a @click="open('online_bank')" v-if="isScreen('online_bank')"><span class="w">Online</span><span class="p">Bank</span></a>
+					<a @click="open('my_number')" v-if="isScreen('my_number')"><span class="w">Мой</span><span class="p">Номер</span></a>
+					<a @click="open('car_find')" v-if="isScreen('car_find')"><span class="w">Car</span><span class="p">Find</span></a>
+					<a @click="open('events')" v-if="isScreen('events')"><span class="w"></span><span class="p">Мероприятия</span></a>
+					<a @click="open('gps')" v-if="isScreen('gps')"><span class="w"></span><span class="p">GPS</span></a>
+					<a @click="open('music_cloud')" v-if="isScreen('music_cloud')"><span class="w">Music</span><span class="p">Cloud</span></a>
+					<a @click="open('auction')" v-if="isScreen('auction')"><span class="w"></span><span class="p">Аукцион</span></a>
+					<a @click="open('trade_board')" v-if="isScreen('trade_board')"><span class="w">Trade</span><span class="p">Board</span></a>
+
+					<a @click="open('messages')" v-if="isScreen('messages')"><span class="w"></span><span class="p">Сообщения</span></a>
+					<a @click="open('my_phone')" v-if="isScreen('my_phone')"><span class="w">My</span><span class="p">Phone</span></a>
+					<a @click="open('internet')" v-if="isScreen('internet')"><span class="w"></span><span class="p">Internet</span></a>
+					<a @click="open('camera')" v-if="isScreen('camera')"><span class="w"></span><span class="p">Camera</span></a>
+				</div>
+				<div class="icon" :class="currScreen">
+					<div v-show="isScreen('weazel_news')" class="a" @click="setState('add')">
+						<img src="assets/android/img/screens/weazel-news-add.svg" alt="">
+					</div>
+					<div v-show="isScreen('messages')" class="a" @click="setState('add')">
+						<img src="assets/android/img/screens/new-message.svg" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div v-if="isScreen('weazel_news')" class="app-screen weazel-news-screen">
+				<div v-show="isState('list')" class="scrollable-wrap wrap list">
+					<div class="scrollable-line"></div>
+					<div class="items scrollable">
+
+						<div v-for="(item, i) in weazelNewsList" class="item">
+							<div class="texts">
+								<div class="text">{{item.title}}</div>
+								<div class="text">Цена: {{item.price}}$</div>
+								<div class="text"><span class="purple-text">Телефон:</span> {{item.phone}}</div>
+							</div>
+							<a class="whatsapp" @click="call(item.phone)">
+								<img src="assets/android/img/screens/whatsapp.svg" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div v-show="isState('add')" class="add">
+					<div class="form">
+						<textarea cols="30" v-model="newAdInp" rows="10" placeholder="Текст объявления"></textarea>
+						<input type="text" v-model="newAdInpPrice" class="is-number" maxlength="9" placeholder="Цена/Бюджет">
+						<div @click="sendAd()" class="a a-button all-c">Отправить</div>
+						<div class="mt-2 tac desc">
+							Цена объявления: <span class="purple-text bold">500$</span> <br> <span class="purple-text bold">15$</span> за символ
+						</div>
+						<div class="news-logo jc-center mt-2">
+							<img src="assets/android/img/screens/news-logo.svg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('online_bank')" class="app-screen online-bank-screen">
+				<div class="wrap">
+					<div class="tac" font="regular 14/19">На вашем счету:</div>
+					<div class="tac purple-text" font="medium 16/21">{{ user.bankBalance }}$</div>
+					<div class="items w-70p mx-a scroll-hide" font="regular">
+						<div v-if="isState('no')">
+							<div class="item a a-button all-c">Оплатить Телефон</div>
+							<div class="item a a-button all-c">Оплатить Дом</div>
+							<div class="item a a-button all-c">Оплатить Бизнес</div>
+							<div @click="setState('transfer')" class="item a a-button all-c">Денежные переводы</div>
+						</div>
+						<div v-if="isState('transfer')">
+							<input class="tac mb-1" type="number" placeholder="Сумма..." font="medium">
+							<div class="item a a-button all-c">Оплатить</div>
+							<div @click="setState('no')"  class="item a back-button all-c">Назад</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('my_number')" class="app-screen my-number-screen">
+				<div class="wrap">
+					<div class="tac" font="regular 14/19">Ваш баланс:</div>
+					<div class="tac purple-text" font="medium 16/21">{{ user.numberBalance }}$</div>
+
+					<div class="copy-wrap mt-1 ai-center">
+						<div class="number tac all-c">
+							<div>Номер:</div>&nbsp;
+							<input id="copynumber" font="regular 14/19" type="text" readonly class="all-none" :value="user.number">
+						</div>
+						<div class="a copy all-c copy2buf" data-clipboard-target="#copynumber">
+							<img src="assets/android/img/screens/copy-icon.svg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div v-if="isScreen('car_find')" class="app-screen car-find-screen">
+				<div v-if="isState('list')" class="wrap list" :class="{'scrollable-wrap': carList.length >= 3}">
+					<div v-if="carList.length >= 3" class="scrollable-line"></div>
+					<div class="items " :class="{'scrollable': carList.length >= 3}">
+
+						<div v-for="(item, i) in carList" @click="openCar(i)" class="a item f-column jc-end">
+							<img class="bg" src="assets/android/img/screens/car-find-item-bg.svg" alt="">
+							<div class="number" font="medium 10/13">{{item.number}}</div>
+							<div class="title" font="light 10/13">Автомобиль</div>
+							<div class="name" font="italic bold 18/21 Arial">{{item.name}}</div>
+							<div class="photo">
+								<img :src="item.image" alt="">
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div v-if="isState('car')" class="wrap car">
+					<div class="action-car f-column jc-between">
+						<div class="a a-button gps all-c">
+							<span font="regular">Найти по GPS</span>
+							<img src="assets/android/img/screens/gps-icon-btn.svg" alt="">
+						</div>
+						<div class="a a-button gps all-c">
+							<span font="regular">Эвакуировать</span>
+							<img src="assets/android/img/screens/car-icon-btn.svg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('events')" class="app-screen events-screen">
+				<div class="wrap" :class="{'scrollable-wrap': eventsList.length >= 2}">
+					<div v-if="eventsList.length >= 2" class="scrollable-line"></div>
+					<div class="items " :class="{'scrollable': eventsList.length >= 2}">
+						<div class="title tac" font="regular 12/16">Список доступных<br> мероприятий:</div>
+
+						<div v-for="(item, i) in eventsList" class="item mt-1">
+							<div class="time" font="regular 12/16">Старт {{ item.time }}</div>
+							<div class="info f-wrap mt-0-5">
+								<div class="img w-70p">
+									<img :src="item.image" alt="">
+								</div>
+								<div class="count f-column all-c w-30p">
+									<div class="male">
+										<img src="assets/android/img/screens/male.svg" alt="">
+									</div>
+									<div font="medium 10/13" class="number">{{item.fill}}/{{item.count}}</div>
+								</div>
+								<div class="title tac" font="bold italic 16/21">
+									{{item.name}}
+								</div>
+							</div>
+							<div font="regular 12/16" class="a a-button w-70p mt-0-5 mx-a">Зарегестироваться</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('gps')" class="app-screen gps-screen">
+				<div class="items w-70p mx-a scroll-hide" font="regular">
+					<div
+						class="item a a-button all-c"
+						v-for="(item, i) in gpsList"
+						v-if="item[2] === 3 && item[0] !== 'close'"
+						@click="openGps(item[0])"
+					>{{ item[1] }}</div>
+					<div @click="open('main'); home();" class="item a back-button all-c">Закрыть</div>
+				</div>
+			</div>
+
+			<div v-if="isScreen('music_cloud')" class="app-screen music-cloud-screen">
+				<div v-show="isState('player')" class="player">
+					<div class="preview all-c">
+						<div @click="favMusic()" class="heart">
+							<svg class="svg-heart" :class="{active: musicList[currMusic].fav}" xmlns="http://www.w3.org/2000/svg" width="21.862" height="19.45" viewBox="0 0 21.862 19.45" >
+								<path d="M20.128,1.9A5.879,5.879,0,0,0,15.755,0,5.5,5.5,0,0,0,12.32,1.186a7.028,7.028,0,0,0-1.389,1.45,7.024,7.024,0,0,0-1.389-1.45A5.5,5.5,0,0,0,6.108,0,5.879,5.879,0,0,0,1.735,1.9,6.834,6.834,0,0,0,0,6.57,8.137,8.137,0,0,0,2.169,11.9,46.236,46.236,0,0,0,7.6,16.991c.752.641,1.6,1.368,2.49,2.141a1.283,1.283,0,0,0,1.69,0c.885-.774,1.738-1.5,2.491-2.142A46.21,46.21,0,0,0,19.694,11.9,8.136,8.136,0,0,0,21.862,6.57,6.833,6.833,0,0,0,20.128,1.9Zm0,0" transform="translate(-0.001)"/>
+							</svg>
+						</div>
+						<div class="logo all-c">
+							<img class="mr-0-5" src="assets/android/img/music-cloud/music.svg" alt="">
+						</div>
+					</div>
+					<div class="slider-load">
+						<div class="fill"></div>
+						<div class="circle"></div>
+					</div>
+					<div class="info ai-center f-column tac">
+						<div class="volume mt-1">
+							<a>Громкость</a>
+						</div>
+
+						<a @click="setState('list')" class="name-music mt-1">
+							<span class="db title truncate">{{musicList[currMusic].title}}</span>
+							<span class="db desc truncate">{{musicList[currMusic].desc}}</span>
+						</a>
+
+						<div class="controlls f-row ai-center jc-center w-100p">
+							<a @click="music_prev()" class="prev ai-center jc-center">
+								<img src="assets/android/img/music-cloud/prev.svg" alt="">
+							</a>
+							<a @click="music_play()" class="play ai-center jc-center">
+								<img class="play-icon" v-show="!is_music_play" src="assets/android/img/music-cloud/play.svg" alt="">
+								<img v-show="is_music_play" src="assets/android/img/music-cloud/pause.svg" alt="">
+							</a>
+							<a @click="music_next()" class="next ai-center jc-center">
+								<img src="assets/android/img/music-cloud/next.svg" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div v-show="isState('list')" class="listmusic scrollable-wrap">
+					<div class="scrollable-line"></div>
+					<div class="items df f-row jc-between scrollable">
+
+						<div v-for="(item, i) in musicList" class="item a" @click="playMusic(i)">
+							<div class="preview all-c">
+								<div class="heart">
+									<svg class="svg-heart" :class="{active: item.fav}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.862 19.45" >
+										<path d="M20.128,1.9A5.879,5.879,0,0,0,15.755,0,5.5,5.5,0,0,0,12.32,1.186a7.028,7.028,0,0,0-1.389,1.45,7.024,7.024,0,0,0-1.389-1.45A5.5,5.5,0,0,0,6.108,0,5.879,5.879,0,0,0,1.735,1.9,6.834,6.834,0,0,0,0,6.57,8.137,8.137,0,0,0,2.169,11.9,46.236,46.236,0,0,0,7.6,16.991c.752.641,1.6,1.368,2.49,2.141a1.283,1.283,0,0,0,1.69,0c.885-.774,1.738-1.5,2.491-2.142A46.21,46.21,0,0,0,19.694,11.9,8.136,8.136,0,0,0,21.862,6.57,6.833,6.833,0,0,0,20.128,1.9Zm0,0" transform="translate(-0.001)"/>
+									</svg>
+								</div>
+								<div class="logo all-c">
+									<img class="mr-0-5" src="assets/android/img/music-cloud/music.svg" alt="">
+								</div>
+							</div>
+							<div class="name-music">
+								<span class="db title truncate">{{ item.title }}</span>
+								<span class="db desc truncate">{{ item.desc }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('auction')" class="app-screen auction-screen">
+				<div class="wrap">
+					<div class="title tac" font="regular 14/19">Приложение<br> в разработке:</div>
+				</div>
+			</div>
+			<div v-if="isScreen('trade_board')" class="app-screen trade-board-screen">
+				<div class="wrap">
+					<div class="title tac" font="regular 14/19">Приложение<br> в разработке:</div>
+				</div>
+			</div>
+
+			<div v-if="isScreen('messages')" class="app-screen messages-screen">
+				<div v-show="isState('list')" class="scrollable-wrap wrap list">
+					<div class="scrollable-line"></div>
+					<div class="items scrollable">
+
+						<div v-for="(item, i) in getLastMessagesList()" @click="openChat(i)" class="a item df ai-center w-100p">
+							<div class="icon " :class="{new: !item.message.read && item.message.type === 'in'}">
+								<img src="assets/android/img/screens/user.svg" alt="">
+							</div>
+							<div class="info w-80p">
+								<div class="from purple-text" font='medium 14/19'>{{item.from}}</div>
+								<div class="text truncate" font='light 12/16' >
+									<span v-if="item.message.type === 'out'" class="purple-text" font="bold">Вы: </span>
+									{{item.message.text}}
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div v-show="state_messages !== state.messages.list" class="open-chat">
+					<div v-if="isState('add')" class="add">
+						<div class="add-wrap">
+							<input type="text" placeholder="Номер получателя..." font="medium 14/19">
+						</div>
+					</div>
+					<div v-if="isState('show')" class="show">
+						<div class="messaeg-from tac" font="medium 14/19">{{getFromMessage(currChat)}}</div>
+						<div class="list-messages ai-start f-column" font="light 12/16">
+							<div v-for="(item, i) in messagesList[currChat].messages" class="message" :class="item.type">{{ item.text }}</div>
+						</div>
+					</div>
+
+					<div class="form write-area ai-center">
+						<div class="write ai-center">
+							<input type="text" placeholder="Сообщение...">
+							<div class="a mail all-c">
+								<img src="assets/android/img/screens/mail-btn.svg" alt="">
+							</div>
+						</div>
+						<div class="a geo all-c">
+							<img src="assets/android/img/screens/geo-btn.svg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isScreen('my_phone')" class="app-screen my-phone-screen">
+				<div class="wrap w-100p" :class="{main:isState('main'),call:isState('call')}">
+
+					<div v-if="isState('main')" >
+						<div class="phone-number all-c">
+							<div font="regular 24/32" class="number">{{ currNumberInput }}&nbsp;</div>
+							<div class="backspace a" @click="backspaceNumber()">
+								<img src="assets/android/img/screens/backspace.svg" alt="">
+							</div>
+						</div>
+
+						<div class="numbers-wrap f-row f-wrap jc-between w-100p">
+							<div v-for="(item, i) in numbersToClick" class="number"
+								:class="{
+									'jc-start': (i === 0 || i % 3 === 0),
+									'jc-center': (i === 1 || i % 3 === 1),
+									'jc-end': (i === 2 || i % 3 === 2),
+								}"
+								@click="clickOnNumber(item)"
+							>
+								<div class="a all-c">{{ item }}</div>
+							</div>
+						</div>
+					</div>
+
+					<div v-if="isState('contacts')" class="contacts-list list-of-contacts">
+						<input type="text" class="inp-find-contact" v-model="searchContact" placeholder="Поиск...">
+
+						<div class="items" font="medium 12/16">
+							<div v-for="(item, i) in filteredListContacts" class="item ai-center a" @click="openContact(i)">
+								<img width="16.5" height="16.5" src="assets/android/img/screens/user.svg" alt="">
+								<span>{{item.name}}</span>
+							</div>
+						</div>
+
+						<div class="add-new all-c a" @click="setState('newContact'); contactName = contactNumber = ''">
+							<img src="assets/android/img/screens/plus.svg" alt="">
+						</div>
+					</div>
+
+					<div v-if="isState('history')" class="call-history-list list-of-contacts">
+						<div class="items" font="medium 12/16">
+
+							<div v-for="(item, i) in callHistory" class="item ai-center a" @click="call(item)">
+								<img width="16.5" height="16.5" src="assets/android/img/screens/user.svg" alt="">
+								<span>{{ getContactNameByPhone(item) }}</span>
+							</div>
+
+						</div>
+					</div>
+
+					<div v-if="isEditContact" class="contact-edit w-100p">
+						<div class="title tac" font="medium 14/19">
+							<span v-if="isState('newContact')">Новый контакт:</span>
+							<span v-if="isState('editContact')">Изменить контакт:</span>
+							<span v-if="isState('viewContact')">Ваш контакт:</span>
+						</div>
+
+						<div class="form w-100p mt-1">
+							<input :readonly="isState('viewContact')" maxlength="32" type="text" v-model="contactName" class="name" placeholder="Имя...">
+
+							<div class="number-input-wrap ai-center" :class="{copyWrap: isState('viewContact')}">
+								<input :disabled="isState('editContact')" :readonly="isState('viewContact')" maxlength="9" type="text" name="contactNumber" id="copyContactNumber" v-model="contactNumber" class="surname is-number" placeholder="Номер телефона...">
+								<div v-if="isState('viewContact')" class="a copy all-c copy2buf" data-clipboard-target="#copyContactNumber">
+									<img src="assets/android/img/screens/copy-icon.svg" alt="">
+								</div>
+							</div>
+
+							<div class="w-70p wrap-btn mx-a mt-0-5">
+								<div v-show="isState('viewContact')">
+									<div @click="call('contact')" class="a a-call a-button all-c">Позвонить</div>
+								</div>
+								<div v-show="isState('newContact')" >
+									<div @click="newContact()" class="mt-0-5 a a-button all-c">Сохранить контакт</div>
+								</div>
+								<div v-show="isState('editContact')" >
+									<div @click="editContact()" class="mt-0-5 a a-button all-c">Сохранить контакт</div>
+								</div>
+
+								<div v-show="isState('viewContact')">
+									<div @click="setState('editContact')" class=" mt-0-5 a a-button all-c">Изменить контакт</div>
+								</div>
+
+								<div v-show="isState('viewContact')">
+									<div @click="deleteContact()" class="a-del mt-0-5 a a-button all-c">Удалить контакт</div>
+								</div>
+
+								<div @click="openT('contacts')" class="a back-button all-c mt-0-5">Назад</div>
+							</div>
+						</div>
+					</div>
+
+					<div v-if="!isState('callIn') && !isState('callOn')" class="numbers-wrap funcs-number-wrap f-row f-wrap jc-between w-100p">
+						<div class="number funcs history-btn jc-start">
+							<div @click="setState('history')" class="a all-c">
+								<img src="assets/android/img/screens/history-contact.svg" alt="">
+							</div>
+						</div>
+
+						<div v-if="isState('main')" @click="call('number')" class="number funcs phone-btn jc-center">
+							<div class="a all-c">
+								<img src="assets/android/img/screens/phone-icon.svg" alt="">
+							</div>
+						</div>
+
+						<div v-if="state_my_phone !== state.my_phone.main" @click="setState('main')" class="number funcs phone-btn jc-center">
+							<div class="a all-c">
+								<img src="assets/android/img/screens/open-type-menu.svg" alt="">
+							</div>
+						</div>
+
+						<div @click="openT('contacts')" class="number funcs contacts-btn jc-end">
+							<div class="a all-c">
+								<img src="assets/android/img/screens/user-contacts.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div v-if="isState('callIn') || isState('callOn')" class="call" :class="{on: isCallOn, out: (!isCallOn && !isState('callIn'))}">
+						<div class="name truncate" :font="isCallOn ? 'light 18/24' : 'light 24/32'">{{ getContactNameByPhone(numberCall) }}</div>
+						<div class="status" :font="isCallOn ? 'light 10/13' : 'light 14/19'">{{ statusCall }}</div>
+
+						<div class="icon all-c">
+							<img src="assets/android/img/screens/male2.svg" alt="">
+						</div>
+
+						<div class="wrap-acts jc-between w-100p">
+							<div @click="aceptCall()"  class="act-accept a all-c">
+								<img src="assets/android/img/screens/phone-icon.svg" alt="">
+							</div>
+							<div @click="dismissCall()" class="act-dismiss a all-c">
+								<img src="assets/android/img/screens/phone-icon.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div v-if="isScreen('internet')" class="app-screen internet-screen">
+			</div>
+			<div v-if="isScreen('camera')" class="app-screen camera-screen"></div>
+
+
+			<div class="go-to-home all-c">
+				<a @click="open('main')" class="">
+					<img src="assets/android/img/home.svg" alt="">
+				</a>
+			</div>
+		</div>
+
+		<div class="elem-camera">
+			<img src="assets/android/img/main-screen/camera-lens.png" alt="">
+		</div>
+	</div>
+
+	<div id="effect"></div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/move.min.js"></script>
+	<script src="js/u.js"></script>
+	<script src="js/android.js"></script>
+	<script>
+	</script>
+</body>
+</html>

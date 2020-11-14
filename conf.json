@@ -1,0 +1,13 @@
+{
+	"maxplayers" : 100,
+	"name" : "Isengard", 
+	"gamemode" : "freeroam", 
+	"stream-distance" : 500.0,
+	"announce" : false,
+	"csharp" : "enabled",
+	"bind" : "0.0.0.0",
+	"port": 22005,
+	"voice-chat": true,
+	"api-threading-debugging": false,
+	"voice-chat-sample-rate": 48000
+}

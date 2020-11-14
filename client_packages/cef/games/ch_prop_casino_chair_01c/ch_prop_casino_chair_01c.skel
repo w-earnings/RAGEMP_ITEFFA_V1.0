@@ -1,0 +1,57 @@
+Version 165 30
+{
+	DataCRC 1702760356
+	NumBones 5
+	Bone Root_Prop_Casino_Chair_01c 0
+	{
+		MirrorBoneId 0
+		Flags ROT_X ROT_Y ROT_Z TRANS_X TRANS_Y TRANS_Z
+		RotationQuaternion 0.00000000 0.00000000 0.00000000 1.00000000
+		LocalOffset 0.00000000 0.00000000 0.00000000
+		Scale 1.00000000 1.00000000 1.00000000
+		Children 1
+		{
+			Bone Main_Prop_Casino_Chair_01c 55426
+			{
+				MirrorBoneId 55426
+				Flags ROT_X ROT_Y ROT_Z
+				RotationQuaternion 0.00000000 0.00000000 0.00000000 1.00000000
+				LocalOffset 0.00000000 0.00000000 0.00000000
+				Scale 1.00000000 1.00000000 1.00000000
+				Children 1
+				{
+					Bone Marker_Prop_Casino_Chair_01c 35425
+					{
+						MirrorBoneId 35425
+						Flags ROT_X ROT_Y ROT_Z
+						RotationQuaternion 0.00000000 0.00000000 0.00000000 1.00000000
+						LocalOffset 0.00000000 0.00000000 0.00000000
+						Scale 1.00000000 1.00000000 1.00000000
+						Children 1
+						{
+							Bone Chair_Base_01 47381
+							{
+								MirrorBoneId 47381
+								Flags ROT_X ROT_Y ROT_Z TRANS_X TRANS_Y TRANS_Z
+								RotationQuaternion 0.00000000 0.00000000 0.00000000 1.00000000
+								LocalOffset 0.00000000 0.00000000 0.00000000
+								Scale 1.00000000 1.00000000 1.00000000
+								Children 1
+								{
+									Bone Chair_Seat_01 1205
+									{
+										MirrorBoneId 1205
+										Flags ROT_X ROT_Y ROT_Z TRANS_X TRANS_Y TRANS_Z
+										RotationQuaternion 0.00000000 0.00000000 0.00000000 1.00000000
+										LocalOffset -0.00839600 0.00000000 0.56818600
+										Scale 1.00000000 1.00000000 1.00000000
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

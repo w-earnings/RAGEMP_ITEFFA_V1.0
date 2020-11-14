@@ -1,0 +1,1173 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CMapTypes>
+  <extensions/>
+  <archetypes>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.97600700" y="-0.49581900" z="0.00000000"/>
+      <bbMax x="0.97757100" y="0.69071100" z="1.07028400"/>
+      <bsCentre x="0.00078201" y="0.09744600" z="0.53514200"/>
+      <bsRadius value="1.26192600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_blackjack_01a</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_blackjack_01a</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="-0.00000100" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28702"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000100" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28701"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28807"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28806"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28805"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.47355700" y="-0.99031400" z="0.00000000"/>
+      <bbMax x="1.47355300" y="0.69071100" z="1.16838000"/>
+      <bsCentre x="-0.00000203" y="-0.14980150" z="0.58419000"/>
+      <bsRadius value="1.79418600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_blackjack_01b</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_blackjack_01b</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="33638"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5338"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5332"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5333"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5334"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5337"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5336"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000095" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="5335"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28056"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28060"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28057"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28059"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28055"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Blackjack_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28054"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="30.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.23559200" y="-0.37765600" z="0.00010300"/>
+      <bbMax x="0.23560000" y="0.22691900" z="1.27087800"/>
+      <bsCentre x="0.00000401" y="-0.07536849" z="0.63549050"/>
+      <bsRadius value="0.74202460"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_chair_01a</name>
+      <textureDictionary>ch_prop_casino_chair_01a</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary>prop_ch_casino_tables</physicsDictionary>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>ch_prop_casino_chair_01a</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="30.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.23557300" y="-0.37765600" z="0.00020500"/>
+      <bbMax x="0.23558100" y="0.22717500" z="1.16838000"/>
+      <bsCentre x="0.00000399" y="-0.07524052" z="0.58429250"/>
+      <bsRadius value="0.69864860"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_chair_01b</name>
+      <textureDictionary>ch_prop_casino_chair_01b</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary>prop_ch_casino_tables</physicsDictionary>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>ch_prop_casino_chair_01b</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.35913000" y="-0.24632500" z="0.00000000"/>
+      <bbMax x="0.23561900" y="0.22721400" z="1.27087800"/>
+      <bsCentre x="-0.06175551" y="-0.00955550" z="0.63543900"/>
+      <bsRadius value="0.74045530"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_chair_01c</name>
+      <textureDictionary>ch_prop_casino_chair_01a</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary>prop_ch_casino_tables</physicsDictionary>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>ch_prop_casino_chair_01c</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.47433800" y="-0.99031300" z="0.00000000"/>
+      <bbMax x="1.47277100" y="0.68931300" z="1.16838000"/>
+      <bsCentre x="-0.00078344" y="-0.15050000" z="0.58419000"/>
+      <bsRadius value="1.79385800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_poker_01a</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_poker_01a</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="33638"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28694"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28695"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28696"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="-0.00000098" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28697"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28807"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28806"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="28805"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28698"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28700"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28701"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28702"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28699"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.47433800" y="-0.98226600" z="0.00000000"/>
+      <bbMax x="1.47277100" y="0.68931300" z="1.16838000"/>
+      <bsCentre x="-0.00078344" y="-0.14647650" z="0.58419000"/>
+      <bsRadius value="1.79197800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_poker_01b</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_poker_01b</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="29511"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24932"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24933"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24934"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24935"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24917"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24916"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_upholstrey</fxName>
+          <fxType value="4"/>
+          <boneTag value="24915"/>
+          <scale value="0.30000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="24936"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="24937"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="24938"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="24913"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Poker_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="24914"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.18772000" y="-1.23920700" z="0.00000000"/>
+      <bbMax x="1.74881500" y="0.99780400" z="1.16838000"/>
+      <bsCentre x="0.28054750" y="-0.12070160" z="0.58419000"/>
+      <bsRadius value="1.93601200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_roulette_01a</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_roulette_01a</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00122198" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41543"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00111961" y="-0.00176400" z="0.00219697"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41544"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00027084" y="-0.00047198" z="0.00006098"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41545"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00193977" y="-0.00038502" z="-0.00030500"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41546"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9990"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9986"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="10098"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="-1"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="10097"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9991"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9993"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9992"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9987"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9989"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01a</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="9988"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="0"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="537001984"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.18772000" y="-1.23920700" z="0.00000000"/>
+      <bbMax x="1.74881500" y="0.99780400" z="1.16838000"/>
+      <bsCentre x="0.28054750" y="-0.12070160" z="0.58419000"/>
+      <bsRadius value="1.93601200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>ch_prop_casino_roulette_01b</name>
+      <textureDictionary>ch_prop_casino_tables</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_FRAGMENT</assetType>
+      <assetName>ch_prop_casino_roulette_01b</assetName>
+      <extensions>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41543"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41544"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="-0.00195313" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41546"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_casino_chips</fxName>
+          <fxType value="4"/>
+          <boneTag value="41545"/>
+          <scale value="1.10000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28059"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28060"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28061"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="-0.00000095" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28062"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="-0.00000095" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28054"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="-0.00000095" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28055"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000095" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28057"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="-0.00000191" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28058"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28056"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28133"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+        <Item type="CExtensionDefParticleEffect">
+          <name>Prop_Casino_Roulette_01b</name>
+          <offsetPosition x="0.00000000" y="0.00000000" z="0.00000000"/>
+          <offsetRotation x="0.00000000" y="0.00000000" z="0.00000000" w="1.00000000"/>
+          <fxName>dst_wood_chunky</fxName>
+          <fxType value="4"/>
+          <boneTag value="28134"/>
+          <scale value="0.40000000"/>
+          <probability value="100"/>
+          <flags value="8"/>
+          <color value="0xFFFFFFFF"/>
+        </Item>
+      </extensions>
+    </Item>
+  </archetypes>
+  <name>ch_prop_ch_casino_tables</name>
+  <dependencies/>
+  <compositeEntityTypes/>
+</CMapTypes>

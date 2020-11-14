@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>redage.net - Respawn selector</title>
+        <link rel="stylesheet" href="css/respawn.css">
+        <link rel="stylesheet" href="css/fontslogin.css">
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/respawn.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+    
+                $("body").css("display", "none");
+    
+                $("body").fadeIn(2000);
+    
+            });
+        </script>
+    </head>
+    <body>
+        <div class="wraper">
+            <div class="box1">
+                <div class="respawnOnExit">
+                    <img class="logoImages" src="images/logo_onExit.png" alt="logo">
+                    <p class="text">Появиться на точке <br /><span>последнего выхода</span></p>
+                    <hr style="width: 65%; color: #ffffff; margin-top: 3.8%">
+                    <p class="textDescription">Вы не потеряете ничего.</p>
+                    <button onclick="spawn(0)" type="button" class="button">Появиться на месте выхода</button>
+                </div>
+            </div>
+    
+            <div class="box2">
+                <div class="respawnFraction">
+                    <img class="logoImages" src="images/logo_onFr.png" alt="logo">
+                    <p class="text">Появиться на <br /><span>территории фракции</span></p>
+                    <hr style="width: 65%; color: #ffffff; margin-top: 3.8%">
+                    <p class="textDescription">При заходе в игру через данную опцию, вы теряете все содержимое личного инвентаря, кроме одежды.</p>
+                    <button onclick="spawn(1)" type="button" class="button">Появиться во фракции</button>
+                </div>
+            </div>
+    
+            <div class="noBox2">
+                <div class="noHome">
+                    <p class="notext">Вступите во фракцию,<br /> чтобы <span>разблокировать<br /> и появляться</span> там</p>
+                    <img class="lockImg" src="images/lock.png" alt="lock">
+                </div>
+            </div>
+    
+            <div class="box3">
+                <div class="respawnHome">
+                    <img class="logoImages" src="images/logo_onHome.png" alt="logo">
+                    <p class="text">Появиться в <br /><span>своем доме</span></p>
+                    <hr style="width: 65%; color: #ffffff; margin-top: 3.8%">
+                    <p class="textDescription">При заходе в игру через данную опцию, вы теряете все содержимое личного инвентаря, кроме одежды.</p>
+                    <button onclick="spawn(2)" type="button" class="button">Появиться дома</button>
+                </div>
+            </div>
+    
+            <div class="noBox3">
+                <div class="noHome">
+                    <p class="notext">Купите себе дом,<br /> чтобы <span>разблокировать<br /> и появляться</span> в нем</p>
+                    <img class="lockImg" src="images/lock.png" alt="lock">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

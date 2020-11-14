@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>redage.net - Disconnect page</title>
+    <link rel="stylesheet" href="css/disconnect.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="bg-image"></div>
+        <div class="blur"></div>
+        <div class="main">
+            <img src="images/wifi.png" alt="wifi" class="wifi">
+            <img src="images/logo.svg" alt="logo" class="logo">
+            <div class="main__info">
+                <div id="header" class="main__info__title">Соединение было прервано</div>
+                <div class="main__info__reason">
+                    <div class="main__info__reason__title">Причина:</div>
+                    <div id="reason" class="main__info__reason__name">анти-афк</div>
+                </div>
+            </div>
+            <div class="tip">Быстро перезайти на сервер можно через кнопку F1<br>и выбрать наш сервер в списке.</div>
+        </div>
+        <img src="images/man.png" alt="мужик с радио" class="radio-man">
+    </div>
+    <script>
+        function lostConnection(header, reason) {
+            let replaceHeader = document.getElementById('header');
+            replaceHeader.innerHTML = header;
+
+            let replaceReason = document.getElementById('reason');
+            replaceReason.innerHTML = reason;
+        }
+        lostConnection('Соединение потеряно', '');
+    </script>
+</body>
+</html>

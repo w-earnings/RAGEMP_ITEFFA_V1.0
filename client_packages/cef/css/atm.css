@@ -1,0 +1,287 @@
+.atm{
+    position: absolute;
+    height: 534px;
+    width: 800px;
+    background-image: url('https://i.imgur.com/3ZzhRd8.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 15px;
+    left:50%;
+    top:50%;
+    margin-left: -400px;
+    margin-top: -300px;
+}
+.atm .left{
+    height: 125px;
+    width: 720px;
+    background: #00000040;
+    display: inline-flex;
+    position: static;
+    margin-top: 211px;
+    margin-left: 40px;
+    margin-block-end: 10px;
+}
+.atm .right{
+    width: 800px;
+    height: 300px;
+    /* margin-top: 344px; */
+    /* float: right; */
+}
+.atm .block{
+    background-color: #00000050;
+    border-radius: 5px;
+    width: 115px;
+    padding: 5px;
+    height: 115px;
+}
+.atm .block:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block1{
+    background-color: #00000050;
+    border-radius: 5px;
+    width: 115px;
+    padding: 5px;
+    height: 115px;
+    margin-left: 35px;
+}
+.atm .block1:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block2{
+     background-color: #00000050;
+     border-radius: 5px;
+     width: 115px;
+     padding: 5px;
+     height: 115px;
+     margin-left: 35px;
+}
+.atm .block2:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block3{
+    background-color: #00000050;
+    border-radius: 5px;
+    width: 115px;
+    padding: 5px;
+    height: 115px;
+    margin-left: 35px;
+}
+.atm .block3:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block4{
+    background-color: #00000050;
+    border-radius: 5px;
+    width: 115px;
+    padding: 5px;
+    height: 115px;
+    margin-left: 35px;
+}
+.atm .block4:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block5{
+    width: 110px;
+    color: #fff;
+    /* padding: 3px; */
+    text-align: center;
+    background: linear-gradient(56deg, rgba(254,67,62,1) 37%, rgba(255,99,90,1) 56%);
+    position: relative;
+    border-radius: 5px;
+    top: 15px;
+    margin-left: 345px;
+}
+.atm .block5:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block6{
+    width: 150px;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+    background: linear-gradient(56deg, rgba(254,67,62,1) 37%, rgba(255,99,90,1) 56%);
+    position: relative;
+    border-radius: 5px;
+}
+.atm .block6:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block7{
+    width: 150px;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+    background: linear-gradient(56deg, rgba(254,67,62,1) 37%, rgba(255,99,90,1) 56%);
+    position: relative;
+    border-radius: 5px;
+    left: 20px;
+}
+.atm .block7:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .block8{
+    width: 150px;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+    background-color: #00000040;
+    position: relative;
+    border-radius: 5px;
+    left: 324px;
+}
+.atm .block8:hover{
+    background: linear-gradient(56deg, rgba(254,67,62,0.5) 37%, rgba(255,99,90,0.5) 56%);
+}
+.atm .left p{
+    font-size: 14pt;
+    /* background: #fff; */
+    /* height: 125px; */
+    width: 197px;
+    margin: 0;
+    padding: 5px;
+    top: -16px;
+    /* left: -52px; */
+    position: relative;
+    text-align: center;
+    margin-left: 2px;
+    display: inline-block;
+    color: rgba(254,67,62,1);
+    font-weight: 700;
+}
+.atm .right p{
+    color: white;
+    padding: 9px;
+    /* margin-top: 82px; */
+    text-align: center;
+    font-size: 13px;
+    /* margin: 0; */
+}
+.atm input{
+    width: 270px;
+    margin: 5px;
+    padding: 6px;
+    top: -5px;
+    left: -4px;
+    font-weight: 700;
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-size: 14pt;
+    border: 1px solid rgba(254,67,62,0.5);
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(0,0,0,0);
+}
+.atm p.subinfo{
+    /* width: 94%; */
+    position: absolute;
+    top: 370px;
+    font-size: 25px;
+    font-weight: 600;
+    left: 101px;
+    color: #ffffff;
+}
+img.png1 {
+    /* background: #fff; */
+    top: 3px;
+    position: relative;
+}
+img.png2 {
+    /* background: #fff; */
+    position: relative;
+    /* top: 10px; */
+}
+img.png3 {
+    /* background: #fff; */
+    height: 60px;
+    top: 3px;
+    position: relative;
+}
+img.png4 {
+    /* background: #fff; */
+    height: 60px;
+    top: 5px;
+    position: relative;
+}
+.number {
+    /* background: #bbbbbb90; */
+    width: 240px;
+    height: 125px;
+    text-align: center;
+}
+.holder {
+    /* background: #aaaaaa90; */
+    width: 240px;
+    height: 125px;
+    text-align: center;
+}
+.balance {
+    /* background: #eeeeee90; */
+    width: 240px;
+    height: 125px;
+    text-align: center;
+}
+p.lex{
+    color: #fff!important;
+    width: 150px!important;
+    top: -4px !important;
+    padding: 0px!important;
+}
+p.lex1{
+    color: #fff!important;
+    width: 150px!important;
+    font-size: 17px!important;
+    font-weight: 600;
+    padding: 0px!important;
+}
+.blintik{
+    text-align:center;
+    color: #fff;
+    display: inline-flex;
+    width: 725px;
+    margin-left: 42.5px;
+}
+.blintik p{
+    color: #fff;
+}
+.blintik2{
+    text-align:center;
+    color: #fff;
+    /* display: inline-flex; */
+    width: 725px;
+    height: 176px;
+    margin-left: 37.5px;
+}
+.blintik2 p{
+    color: #fff;
+}
+.gern{
+    text-align:center;
+    color: #fff;
+    background: #00000040;
+    position: relative;
+    width: 285px;
+    height: 108px;
+    border-radius: 5px;
+    border-top: 4px solid rgba(254,67,62,1);
+    margin-block-end: 10px;
+    left: 220px;
+}
+.gern p{
+    color: #fff;
+}
+.gern2{
+    text-align:center;
+    color: #fff;
+    display: inline-flex;
+    width: 325px;
+    /* top: 10px; */
+    position: relative;
+    /* height: 42px; */
+    margin-left: px;
+}
+.gern2 p{
+    color: #fff;
+    font-weight: 700;
+}

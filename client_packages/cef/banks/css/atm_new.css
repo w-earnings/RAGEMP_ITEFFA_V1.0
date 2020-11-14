@@ -1,0 +1,330 @@
+	@media  (max-width: 1300px)  {
+		.atm_new {
+			zoom: 70%
+			}
+	}
+	@media (min-width: 1301px) and (max-width: 1400px) {
+		.atm_new  {zoom: 80%}
+	}
+	@media (min-width: 1401px) and (max-width: 1650px) {
+		.atm_new {zoom: 80%}
+	}
+	@media (min-width: 1651px) and (max-width: 2560px) {
+		.atm_new {zoom: 100%}
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Regular.woff);
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap
+	}
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Semibold.woff);
+		font-weight: 500;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Light.woff);
+		font-weight: 100;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Bold.woff);
+		font-weight: 900;
+		font-style: normal;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Extrabld.woff);
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap
+	}
+
+	*, a:focus {
+		outline: none !important;
+        transition: all .33s;
+	}
+    .atm_new input[type='text']:focus{
+        border-bottom: 2px solid #b3ff20;
+        transition: all .33s;
+    }
+	.atm_new{
+		font-family: ProximaNova,sans-serif;
+	}
+	.atm_new .ico{
+		margin: -6px;
+		padding-right: 2vh;
+	}
+	.atm_new .bgshow{
+		position: absolute;
+		background:url('../UI/inv/bgshow.png');
+		box-shadow: inset 0 0 678px 586px rgb(29 27 40 / 60%);
+		background-size: 100% 100%;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		transition: all .54s;
+	}
+	.atm_new .contents .bg-atm {
+		position: fixed;
+		background: #ffffff03;
+		width: 34vh;
+		transform: skew(4deg) rotate(0deg);
+		left: -4vh;
+		height: 100%;
+		top: 9vh;
+	}
+	.atm_new .contents .border-right-bg {
+		border-right: 1px solid #ffffff38;
+		position: fixed;
+		width: 10vh;
+		transform: skew(4deg) rotate(0deg);
+		left: 28vh;
+		height: 100%;
+	}
+	.atm_new .contents .name-atm {
+		position: absolute;
+		margin-left: 4vh;
+	}
+	.atm_new .contents .name-atm h1 {
+		font-weight: 500;
+		color: #b3ff20;
+		font-size: 2.6vh;
+	}
+	.atm_new .contents .name-atm h1 b {
+		font-weight: 400;
+		color: #ffffff;
+	}
+	.atm_new .contents .name-atm-welcome {
+		position: absolute;
+		top: -19vh;
+	}
+	.atm_new .contents .name-atm-welcome h1 {
+		font-weight: 500;
+		color: #b3ff20;
+		font-size: 6.6vh;
+	}
+	.atm_new .contents .name-atm-welcome h1 b {
+		font-weight: 400;
+		color: #ffffff;
+	}
+	.atm_new .contents .info-atm {
+		color: white;
+		position: absolute;
+		top: 10vh;
+		left: 2vh;
+		font-weight: 100;
+		font-size: 2.7vh;
+		display: flex;
+		border-bottom: 1px solid #ffffff14;
+	}
+	.atm_new .contents .info-atm b{
+		font-weight: 100;
+		font-size: 1.3vh;
+		color: #ffffff91;
+	}
+	.atm_new .contents .info-atm .one{
+		border-right: 1px solid #ffffff14;
+		padding-right: 2vh;
+		margin-bottom: 3vh;
+	}
+	.atm_new .contents .info-atm .balance{
+		margin-left: 2vh;
+		color: #b3ff20;
+	}
+	.atm_new .contents .btnlink{
+		position: absolute;
+		top: 22vh;
+		left: 4vh;
+		font-weight: 400;
+		color: white;
+	}
+	.atm_new .contents .btnlink .border{
+		border-bottom: 1px solid #ffffff14;
+		margin-bottom: 2vh;
+		margin-top: 2vh;
+	}
+	.atm_new .contents .btnlink .btn{
+		padding: 1.5vh;
+		color: white;
+		transition: all .68s;
+	}
+	.atm_new .contents .btnlink .btn:hover{
+		color:black;
+		border:none;
+		background: #81bd0c;
+		transition: all .98s;
+		padding: 1.5vh;
+		background-blend-mode: difference;
+	}
+	.atm_new .contents .btnlink .btnexit{
+		padding: 1vh;
+		margin-top: 13vh;
+		color: white;
+		transition: all .68s;	
+	}
+	.atm_new .contents .btnlink .btnexit:hover{
+		background: #81bd0c;
+		padding: 1.5vh;
+		color: black;
+		transition: all .68s;
+	}
+	.atm_new .contents .btnlink .btnActive{
+		background: #81bd0c;
+		padding: 1.5vh;
+		color: black;
+		transition: all .68s;
+	}
+	.atm_new .contents .center-block{
+		position: absolute;
+		left: 45%;
+		display: flex;
+		top: 2vh;	
+	}
+	.atm_new .contents .center-block .btncenter{
+		color: white;
+		font-weight: 400;
+        margin-right: 5vh;
+		padding-bottom: 1vh;
+		transition: all .68s;
+	}
+	.atm_new .contents .center-block .btncenter:hover{
+		color: #b3ff20;
+		font-weight: 400;
+		margin-right: 5vh;
+		padding-bottom: 1vh;
+		border-bottom: 1px solid #b3ff20;
+		transition: all .68s;
+	}
+	.atm_new .contents .center-block .btncenterActive{
+		color: #b3ff20;
+		font-weight: 400;
+		margin-right: 5vh;
+		padding-bottom: 1vh;
+		border-bottom: 1px solid #b3ff20;
+		transition: all .68s;
+	}
+	.atm_new .contents  .info{
+		color: white;
+		position: absolute;
+		font-weight: 100;
+		display: flex;
+		justify-content: center;
+		top: 30vh;
+		left: 42%;
+		font-size: 1vh;
+	}
+	.atm_new .contents .info h1{
+		font-weight: 100;
+	}
+	.atm_new .input-atm{
+		position: absolute;
+		left: 45%;
+		display: flex;
+		top: 32vh;
+	}
+	.atm_new .blocks{
+		position: absolute;
+		left: 45%;
+		top: 20vh;
+		font-weight: 100;
+		color: white;
+		border: 1px solid#ffffff6b;
+		padding: 3vh;
+		transition: all .68s;
+	}
+	.atm_new .blocks:hover{
+		color: black;
+		background: #ffffffed;
+		transition: all .68s;
+	}
+	.atm_new .blockGreen{
+		position: fixed;
+		width: 20vh;
+		height: 15vh;
+		background: #b3f336;
+		bottom: -6vh;
+		left: 5vh;
+		transform: skew(36deg) rotate(-11deg);
+	}
+	.atm_new .blockWhite{
+		position: fixed;
+		width: 24vh;
+		height: 15vh;
+		background: #ffffff;
+		bottom: -5vh;
+		left: -10vh;
+		transform: skew(36deg) rotate(-9deg);
+	}
+	
+	.atm_new .input-atm input{
+		background: none;
+		padding: 4vh;
+		font-size: 1.6vh;
+		padding-bottom: 4px;
+		border-bottom: 2px solid #ffffff38;
+		color: white;
+		border-top: none;
+		border-left: none;
+		letter-spacing: 0.1em;
+		border-right: none;
+	}
+	.atm_new .input-atm input .placeholder{
+		color: white;
+	}
+	.atm_new .input-atm input::placeholder {
+	color: #ffffff61;
+	}
+	.atm_new .input-atm input::-webkit-input-placeholder {color:#ffffff61;}
+	.atm_new .input-atm input::-moz-placeholder {color:#ffffff61;}
+	.atm_new .input-atm input:-moz-placeholder {color:#ffffff61;}
+	.atm_new .input-atm input:-ms-input-placeholder {color:#ffffff61;}
+	.atm_new .input-atm a{
+		position: absolute;
+		color: #ffffffb8;
+		font-size: 1.4vh;
+		font-weight: 100;
+	}
+	.atm_new .input-atm .subdata{
+		position: absolute;
+		color: white;
+		font-weight: 100;
+		margin-top: -0.4vh;
+		margin-left: 19vh;
+	}
+	.atm_new .input-atm .next{
+		border: 1px solid #ffffff4f;
+		width: 10vh;
+		line-height: 3vh;
+		text-align: center;
+		color: white;
+		letter-spacing: 0.1em;
+		margin-left: 3vh;
+		font-weight: 400;
+		transition: all .68s;
+	}
+	.atm_new .input-atm .next:hover{
+		background: #b3ff20;
+		color: black;
+		font-weight: 400;
+		transition: all .68s;
+	}
+	
+	.fade-enter-active, .fade-leave-active {
+	  transition: opacity .58s
+	}
+	.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+	  opacity: 0
+	}
+	

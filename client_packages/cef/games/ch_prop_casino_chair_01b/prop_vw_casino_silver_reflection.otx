@@ -1,0 +1,10 @@
+Version 13 30
+{
+	Image prop_vw_casino_silver_reflection.dds
+	Type Regular
+	PixelFormat DXT1
+	Levels 6
+	Usage DIFFUSE
+	UsageFlags -
+	ExtraFlags 0
+}

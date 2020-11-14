@@ -1,0 +1,10 @@
+Version 13 30
+{
+	Image prop_vw_card_machine_01a_s.dds
+	Type Regular
+	PixelFormat DXT1
+	Levels 6
+	Usage SPECULAR
+	UsageFlags -
+	ExtraFlags 0
+}

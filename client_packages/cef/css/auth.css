@@ -1,0 +1,2273 @@
+	* {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		overflow-y: hidden;
+	}
+
+	a {
+		font-family: Montserrat, sans-serif;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Regular.woff);
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Semibold.woff);
+		font-weight: 500;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Light.woff);
+		font-weight: 100;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Bold.woff);
+		font-weight: 900;
+		font-style: normal;
+		font-display: swap
+	}
+
+	@font-face {
+		font-family: ProximaNova;
+		src: url(../fonts/ProximaNova-Extrabld.woff);
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap
+	}
+
+	@media (max-width: 1300px) {
+		.gta-acount {
+			zoom: 70%
+		}
+	}
+
+	@media (min-width: 1301px) and (max-width: 1400px) {
+		.gta-acount {
+			zoom: 80%
+		}
+	}
+
+	@media (min-width: 1401px) and (max-width: 1650px) {
+		.gta-acount {
+			zoom: 80%
+		}
+	}
+
+	@media (min-width: 1651px) and (max-width: 2560px) {
+		.gta-acount {
+			zoom: 100%
+		}
+	}
+
+	.gta-acount .bgshow {
+		position: absolute;
+		background: url('../img/bgshow.png');
+		box-shadow: inset 0 0 678px 586px rgba(29, 27, 40, 0.91);
+		background-size: 100% 100%;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.gta-acount .btnlink {
+		color: #ffffff6b;
+		position: fixed;
+		justify-content: center;
+		top: 4vh;
+		display: flex;
+		text-align: center;
+		font-weight: 100;
+		font-family: ProximaNova, sans-serif;
+		font-size: 1.8vh;
+	}
+	.gta-acount .personimg {
+		position: relative;
+		width: 18%;
+		left: 14%;
+		margin-right: 93px;
+		margin-top: 29vh;
+		margin-bottom: -38%;
+		opacity: 0.23;
+		display: initial;
+	}
+
+	.gta-acount .btnActive {
+		margin-right: 2vh;
+		color: white;
+		transition: all .98s;
+		border-bottom: 2px solid #eda123bd;
+		padding-bottom: 17px;
+	}
+
+	.gta-acount .btn {
+		margin-right: 2vh;
+		color: #ffffff78;
+		transition: all .98s;
+	}
+
+	.gta-acount .btnActive:hover {
+		color: white;
+		cursor: pointer;
+		transition: all .98s;
+		border-bottom: 2px solid #eda123bd;
+	}
+
+	.gta-acount .btn:hover {
+		color: white;
+		cursor: pointer;
+		transition: all .98s;
+		border-bottom: 2px solid #eda123bd;
+	}
+
+	.gta-acount .border_bottom {
+		border-bottom: 2px solid #ffffff17;
+		position: absolute;
+		top: 4vh;
+		width: 150vh;
+	}
+
+	.gta-acount .password-control {
+		position: absolute;
+		top: 1.7vh;
+		right: 4vh;
+		display: inline-block;
+		width: 20%;
+		height: 34%;
+		background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+	}
+
+	.gta-acount .password-control.view {
+		background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
+	}
+
+	.gta-acount .gta-acount__content .the-input {
+		border: 1px solid #ffffff42;
+		box-sizing: border-box;
+		margin: 0;
+		width: 58%;
+		padding: 1.3vh 1vh 0;
+		line-height: 4vh;
+		font-weight: 100;
+		font-size: 1.5vh;
+		font-family: ProximaNova, sans-serif;
+		color: rgb(255 255 255);
+	}
+
+	.gta-acount .input-cont {
+		position: relative;
+		justify-content: center;
+		display: flex;
+		margin-bottom: 2vh;
+	}
+
+	.gta-acount .input-cont1 {
+	display: flex;
+    margin-bottom: 21px;
+    width: 28vh;
+    margin-left: -7px;
+    margin-top: 31px;
+	}
+
+	.gta-acount .input-cont .label {
+		width: 100%;
+		position: absolute;
+		font-size: 1.11111vh;
+		left: 23%;
+		top: 7%;
+		font-weight: 100;
+		font-family: ProximaNova, sans-serif;
+		color: #ffffffa8;
+	}
+
+	.gta-acount .welcomeAuth {
+		position: relative;
+		top: -4vh;
+		left: 21%;
+	}
+
+	.gta-acount .welcomeAuth .prev {
+		color: #ffffffd1;
+		font-weight: 100;
+		font-size: 1.5vh;
+		font-family: ProximaNova, sans-serif;
+	}
+
+	.gta-acount .welcomeAuth h1 {
+		font-weight: 100;
+		font-size: 2.8vh;
+		font-family: ProximaNova, sans-serif;
+		margin-bottom: 1vh;
+	}
+
+	.gta-acount .btnEnter {
+		width: 29%;
+		height: 22%;
+		align-items: center;
+		line-height: 6vh;
+		text-align: center;
+		background: #d6d6d630;
+		font-size: 1.7vh;
+		color: white;
+		transition: all .33s;
+		margin-left: 50%;
+		margin-top: -1%;
+		position: relative;
+	}
+
+	.gta-acount .btnEnter:hover {
+		cursor: pointer;
+		background: #ffffff;
+		color: black;
+		transition: all .33s;
+	}
+
+	.gta-acount .btnEnterSlot {
+		width: 56%;
+		height: 22%;
+		align-items: center;
+		line-height: 6vh;
+		text-align: center;
+		background: #607D8B;
+		font-size: 1.7vh;
+		color: white;
+		transition: all .33s;
+		margin-left: 11%;
+		margin-top: -1%;
+		position: relative;
+	}
+
+	.gta-acount .btnBlock {
+		width: 56%;
+		height: 22%;
+		align-items: center;
+		line-height: 6vh;
+		text-align: center;
+		background: #ffffff;
+		color: black;
+		font-size: 1.7vh;
+		transition: all .33s;
+		margin-left: 7%;
+		margin-top: -2%;
+		position: relative;
+		cursor: pointer;
+	}
+
+	.gta-acount .btnEnterSlot:hover {
+		cursor: pointer;
+		background: #ffffff;
+		color: black;
+		transition: all .33s;
+	}
+
+	.gta-acount .btnBuySlot {
+	align-items: center;
+    line-height: 6vh;
+    text-align: center;
+    background: #ef4343;
+    font-size: 1.7vh;
+    color: white;
+    transition: all .33s;
+    width: 56%;
+    left: 2px;
+    border: none;
+    margin-top: 63%;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+	}
+
+	.gta-acount .btnBuySlot:hover {
+		cursor: pointer;
+		background: #ffffff;
+		color: black;
+		transition: all .33s;
+	}
+	
+
+	.label__checkbox {
+	  display: none;
+	}
+
+	.label__check {
+	  display: inline-block;
+	  border-radius: 50%;
+	  border: 5px solid rgba(0,0,0,0.1);
+	  background: white;
+	  vertical-align: middle;
+	  margin-right: 20px;
+	  width: 2em;
+	  height: 2em;
+	  cursor: pointer;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  transition: border .3s ease;
+	  
+	  i.icon {
+		opacity: 0.2;
+		font-size: ~'calc(1rem + 1vw)';
+		color: transparent;
+		transition: opacity .3s .1s ease;
+		-webkit-text-stroke: 3px rgba(0,0,0,.5);
+	  }
+	  
+	  &:hover {
+		border: 5px solid rgba(0,0,0,0.2);
+	  }
+	}
+
+	.label__checkbox:checked + .label__text .label__check {
+	  animation: check .0s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+	  
+	  .icon {
+		opacity: 1;
+		transform: scale(0);
+		color: white;
+		-webkit-text-stroke: 0;
+	  }
+	}
+
+	.center {
+		position: absolute;
+		top: 61%;
+		left: 26%;
+		transform: translate(-50%,-50%);
+	}
+
+	@keyframes icon {
+	  from {
+		opacity: 0;
+		transform: scale(0.3);
+	  }
+	  to {
+		opacity: 1;
+		transform: scale(1)
+	  }
+	}
+
+	@keyframes check {
+	  0% {
+		width: 1.5em;
+		height: 1.5em;
+		border-width: 5px;
+	  }
+	  10% {
+		width: 1.5em;
+		height: 1.5em;
+		opacity: 0.1;
+		background: rgba(0,0,0,0.2);
+		border-width: 15px;
+	  }
+	  12% {
+		width: 1.5em;
+		height: 1.5em;
+		opacity: 0.4;
+		background: rgba(0,0,0,0.1);
+		border-width: 0;
+	  }
+	  50% {
+		width: 2em;
+		height: 2em;
+		background: #ef4343;
+		border: 0;
+		opacity: 0.6;
+	  }
+	  100% {
+		width: 2em;
+		height: 2em;
+		background: #ef4343;
+		border: 0;
+		opacity: 1;
+	  }
+	}
+
+	.savemy{
+		position: absolute;
+		width: 9vh;
+		font-size: 0.8em;
+		top: 29px;
+		left: 39px;
+	}
+	
+	
+	.gta-acount .btnCreateSlot {
+    width: 56%;
+    height: 22%;
+    align-items: center;
+    line-height: 6vh;
+    text-align: center;
+    background: #607D8B;
+    font-size: 1.7vh;
+    color: white;
+    transition: all .33s;
+    margin-left: 2vh;
+    bottom: -68px;
+    margin-top: 3.6vh;
+    position: relative;
+	}
+	.gta-acount .levelStats {
+		position: relative;
+    margin-left: 207px;
+    border: 2px solid #F44336;
+    width: 40px;
+    line-height: 36px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1.5vh;
+    margin-bottom: 0px;
+    margin-top: -36px;
+	}
+
+	.gta-acount .btnCreateSlot:hover {
+		cursor: pointer;
+		background: #ffffff;
+		color: black;
+		transition: all .33s;
+	}
+
+	.gta-acount input[type='text'],
+	.gta-acount input[type='email'],
+	.gta-acount input[type='date'],
+	.gta-acount input[type='password'] {
+		display: block;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		width: 500px;
+		margin-right: 8px;
+		margin-left: 12px;
+		padding: 1vh;
+		color: #fff;
+		border: none;
+		border-bottom: 1px solid rgba(255, 255, 255, .3);
+		outline: none;
+		background-color: transparent;
+		background-repeat: no-repeat;
+		background-size: 25px;
+		box-shadow: none;
+	}
+
+	.gta-acount input[type='text']:focus,
+	.gta-acount input[type='email']:focus,
+	.gta-acount input[type='date']:focus,
+	.gta-acount input[type='password']:focus {
+		border-bottom: 1px solid #ef4343;
+		/* Firefox 19+ */
+		/* Firefox 18- */
+	}
+
+	.gta-acount input[type='text']:focus::-webkit-input-placeholder,
+	.gta-acount input[type='email']:focus::-webkit-input-placeholder,
+	.gta-acount input[type='date']:focus::-webkit-input-placeholder,
+	.gta-acount input[type='password']:focus::-webkit-input-placeholder {
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #fff;
+	}
+
+	.gta-acount input[type='text']:focus::-moz-placeholder,
+	.gta-acount input[type='email']:focus::-moz-placeholder,
+	.gta-acount input[type='date']:focus::-moz-placeholder,
+	.gta-acount input[type='password']:focus::-moz-placeholder {
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #fff;
+	}
+
+	.gta-acount input[type='text']:focus:-moz-placeholder,
+	.gta-acount input[type='email']:focus:-moz-placeholder,
+	.gta-acount input[type='date']:focus:-moz-placeholder,
+	.gta-acount input[type='password']:focus:-moz-placeholder {
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #fff;
+	}
+
+	create-person-2 .gta-acount input[type='text']:focus:-ms-input-placeholder,
+	.gta-acount input[type='email']:focus:-ms-input-placeholder,
+	.gta-acount input[type='date']:focus:-ms-input-placeholder,
+	.gta-acount input[type='password']:focus:-ms-input-placeholder {
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #fff;
+	}
+
+	.gta-acount input[type='text'] ::-webkit-input-placeholder,
+	.gta-acount input[type='email'] ::-webkit-input-placeholder,
+	.gta-acount input[type='date'] ::-webkit-input-placeholder,
+	.gta-acount input[type='password'] ::-webkit-input-placeholder {
+		color: #a0a0a0;
+	}
+
+	.gta-acount input[type='text'] ::-moz-placeholder,
+	.gta-acount input[type='email'] ::-moz-placeholder,
+	.gta-acount input[type='date'] ::-moz-placeholder,
+	.gta-acount input[type='password'] ::-moz-placeholder {
+		color: #a0a0a0;
+	}
+
+	.gta-acount input[type='text'] :-moz-placeholder,
+	.gta-acount input[type='email'] :-moz-placeholder,
+	.gta-acount input[type='date'] :-moz-placeholder,
+	.gta-acount input[type='password'] :-moz-placeholder {
+		color: #a0a0a0;
+	}
+
+	.gta-acount input[type='text'] :-ms-input-placeholder,
+	.gta-acount input[type='email'] :-ms-input-placeholder,
+	.gta-acount input[type='date'] :-ms-input-placeholder,
+	.gta-acount input[type='password'] :-ms-input-placeholder {
+		color: #a0a0a0;
+	}
+
+	.gta-acount input[type='text']:-webkit-autofill,
+	.gta-acount input[type='email']:-webkit-autofill,
+	.gta-acount input[type='date']:-webkit-autofill,
+	.gta-acount input[type='password']:-webkit-autofill {
+		color: #fff !important;
+		background-color: transparent !important;
+	}
+
+
+	/*
+	.gta-acount input[type='text'].entry-login {
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALgSURBVHgB7ZpLa9VAHMVP9Fr1WusLxIVFUKkPECq6EF0oCEXwia5Ev4N+hH4PN25cFKlaF26Lq64qLnzga6EiCC7qq9be9jY9h+SWSSgt3Jl/Ekp+cJg7A3cmJzOZ/GcyEQIQx/FOJqepA1QftR52zFE/qVfUZBRFf1UYwROaOM7kArURxTNF3aeZX+vgAU3sYXIR5ZgQO6hbvI5mA13CP6s3z1NuHW3qD2zRsN3q5HdTp7o2QrZQ/U7+P/WY+siubsMI3kC1e5I6S3VG1IDP0FKFm5z8N+q9pQnB+qeZTFDTTvEuHyMbcvkZNhKjANhOC8kwXroWr4e9StRGqkZtpGqsGSM+L0QFay+d/HeUSNdGOJcrAn2CimA6tBhOFBZMmhmhiSNM7jA9hgIwMcKL38vkEtWkLjPfD2OCG+FFb2ZyFUlQKXqo2yzfB0OCG+EkMMNknGo5xXpWtAA6BCNMhhbNvEEyo807xeqZ6zRzEAZYzlpvkSy08j1zjWb2IzBmRrQ2oV7z5wiyPdOLpGeOIiANVjiM4pEZ9UybZt8hAGXGWnpmgk3NZQeNPQhEmUY0CTzg0PqKADRY0TAMSUOVG8gGqDIxyrY/IxA+Yfyq0MQgk6FcOwr/H4Y0ARgaSU1cQXb4ysRYaBOAXdCod8RQrn4Np2c08QEGBO8RmtDGnfaEm05xpydMTAiLoFHfLx5Rv9Mi9cSIpQlhFTRqH3iM+kc9DTXFrtgmDNFSlyZmYQDrvstkeydv+kK0MrEcPh96dDfOOUVfeOEvUBI+s5Yi2MFcXaUZqbdMq0ZtpGrURqqGj5FWLt+bHiIwRycdkD3vMudjRAcEXDPa7z3MRiwP1HSi6zPInn6Y6voOpnf/JjXgFOvbtz7kL8AO3SjtK7udMO7zoYde4uf8qV3DhtNIH4pFJ4QmvR72NFwfpQoLDnP8oO7pzFaQhzM97nSC0gb1NtjOhlq4ycAnaoImtObBIpcB0gBGbKXVAAAAAElFTkSuQmCC');
+		background-position: 94% 7px;
+	}
+
+	.gta-acount input[type='text'].entry-login:focus {
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJ9SURBVHgB7Zq9SxxBGMafTY6Y5Cy1sEogVYoUKRLyUSRlLggxYAIpzR8SISR/QkgTiF3aQIqAnYU2Iih4jYViodyJouCd3/D6DDuH43BXuPOxe7I/eHjZAffdx5nZeWdvAA+IyAPqJ7VKHUtY2tQy9YUagS94sw/UpuRDnbqnniOBA7zJY4Y56jbyo069zmyEJm4y/KNqRvMJtUWdIRwD1DBVMdq+Iys0MkTtGd18KOkwu4WA8P7D1Ffq1Mi9gKzwjx9Z43WachqqV8g9KJfnZesGslO1rneSJBFEgHlaDMdGU9XFSKEojRSN0kjRuDZGKshOg5oyrpdQcnW4CK6Zq3HQocX730UkghmhiTEGtT/5hH5F12Ebuteb1At4xh5a8I2uiutWQblP1eCR4EZ0knFVkVpm1PU7eCKWkYSaoI669MwreCCKEZ0o6dEzTR/DLJoRnUyZedOjZ8bhgG2kEtxNdwap30zd5ibpPzyQZ62lzEz5mjN5F41q5T+FB/I0ovbdHzm05tAPcOiM9ZjsTmtKHq/fbctEo69ev7z3e0k/2pmoNeUtPCARaq1ePdFyXTusPMGNVKkVy0RTPNZZOk9YIzrJc7koTVT0slZYOaIY6ZQmamIH2VhJ5For2FZXYu7ZudgdIBKZPwfxn3CfYdJomuWD/0K/QSPPrDfTH0Qk6tCKSWmkaJRGikZphLSt6xGJ9/O0OjAwYDS1XYzsIt2udnhK1STwF3hVXTNMID390GHd9QjHX2rUaFZHOLZ1DEW3IxyTrodqnjDMUHeQH6vUS6fJztpqnuEztYN8UCeDRvkcDfiAPfOQ+iHpwbMTCYvaqC1S36ihzjOcA86QfNOkiNRFAAAAAElFTkSuQmCC');
+	}*/
+
+	.gta-acount input[type='text'].new-user__login {
+		background-position: 95% 7px;
+	}
+
+	.gta-acount input[type='text'].new-user__login+.placeholder {
+		font-size: 20px;
+		position: absolute;
+		top: 6px;
+		left: 37px;
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		pointer-events: none;
+		opacity: .8;
+		color: #a0a0a0;
+	}
+
+	.gta-acount input[type='text'].new-user__login+.placeholder span {
+		text-decoration: underline;
+		color: #ef4343;
+	}
+
+	.gta-acount input[type='text'].new-user__login:valid+.placeholder {
+		display: none;
+	}
+
+	.gta-acount input[type='text'].new-user__login:focus+.placeholder {
+		opacity: 1;
+		color: #fff;
+	}
+
+
+	/*.gta-acount input[type='password'] {
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARHSURBVHgB7VrZahRBFL1jErcYdwX3KO4LLqioiLuI6IOg6ItP/oDf4Jf4oA+C+qCguGCCQSFoyIImJKJk0YgSjWRVsnqOXZ3U3HRnMtVjpqM5cJiuvl3VdWq9dXsSkmEMDg7Ox89GcDXI63wwAXaBrWAd2Ai2JBKJQckQEpIhQEABfg6BW8HpKR4fAMvAYoj5JRlAZCEQwDLY+ufBmZIe2Ev3wPdReyeSECPiIHhARvYCK8bW7jXvyTXP6Hf2g0/BV1HE5Eo0rASPSnLlWJlm8KX5/WnsM8Bl4F5wlZUnBzwBfgM/iCOcewS9wWF0BVxg3e4An4HVaN2+kHxsPM6jY2CBZaKQ68jXLQ6YIu7YJckiOsHbqEhVmAiCNrASl7fEG3Y+FoI7xRFOQtCq08QTYqMIFfwoYwSe/Yyfh+r2YVN22nDtEY7xuVa6HayS9FENtlnpPLBQHOAqZI0kz69KtPCApAnk4dCqVLdXiANchcxS6RZxR6NKzxYHuArRG1+XuKNNpfPFAa5CdL4ou/JAirLHhCjLb6wwKSRumBQSN4zqNBo3fbl4uy3X9zxj0jt7g4xcRscKuvYbrDRd/zpz3WPKbQK/YgPtCSskVAhErBPPQ6UzF9Xdjwou7/SOH0NMoKsfKAQi6GafkdRH1vEGver7EPNGG0bMEYhgN5+V+IkgODLOoo4bgwxDMIelU6DtSvMoWi6eTxTFFXEBG5OnUJ4qc8y9qeBp1LUZPdPhP6jH/iZwnpWmd3oHGd5J9lCLSnNeXJDhUcKFh3O43H9ID61ClX6RZRF/YCZ4kbq91k5oIYtUukLiA92g8+2EFqKPmZ0SH7Sr9FQ7MerOnsmQZlQE1CVp65j0teKG/1sI1vV8cFaILRecYxxObUuAs8GckLzTWW5Q3lRI2xnES3aI54dNwfVzTMISy8bI42XxPOMGpG/4YSJTuXPgNrDX2D5ZebnBcdOjh10KPpE04NIju8VrAObdo2zbZdi9LxTP3ffB6AhFUBCXTh0e3Wfu076VvSMj0Rdy7STEXs87lO27DEdU6KPZZxSeJbpDytFp+nRB8WNGMwcMkyKbLueMR+ZFHOclyvZWvFYtBCswdFp9Aw9FaOW74sWMv4CvVV4OJQrl3CsNCYQ/EC8y2W/KGELSpMKLrop18kNh12SCYHIfiRv+GSHZDiqkBczhJfjZb5L8tP3Dt00oIeJ9Avc/9/FYftM36KHVbydcP4P9DaAuXNbtw9Qc266F6A1ulcQH9idtIikgqIU0qPRxOnmSZZi/hxxRt5vshBbCc7G9oy4GL6GgFdkYZnhnHsiQ7UVwqWVidKfWfjbI1T4p3l8ybNC3oVvSL+MLukH8x4RelMqwYj2wbwStWsXiTaQt1j32XIHEAzXgY30zLPZLgYw48uwRlyWaQ54x34dBDmWqzwr85r0ZXC9ej+TJ+IKuP1fSerAGAurDHvwNF5FB8U9RCcIAAAAASUVORK5CYII=');
+		background-position: 95% 7px;
+	}
+
+	.gta-acount input[type='password']:focus {
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPGSURBVHgB7ZpNSBVRFMfPsy+1UlMDKxUlpI2RREVJRBJF0semTYsWEQUiRC5cFBEFQZtCgj4W9mGBJCQEtYkIykIMbCHulCIRU1NEw9J6aN3+hzfEnfPeTG9Gm7nU+8OPeXfuPXfOeXO/34vQPEsptR6XvaAKrAP5IA18Ah/AE9AGeiORyCyZJgRQCFrAhPqzJsEDsJpMEZyJgN1gVHkX21RzHRSmrCDOgGgCJ3+AcTBgMW7dk5oGdRSm4MB+MCMcmwVPwUFQANJBBiiyvv3H4Kew+QYOUBjCg/NAr3BoEBwGS1zsOLAaMCxse0AuBS089IJwZARUerDfDL6IOk5RkMIDs6zmoOsIeRRsjoo63oEVFJS4PQsHuDMvIo+CzVLQr9Uz7bevpJE/7RLpO5jcZsijYDOFyyPtVgbYTj7kNxA5kb0k/+oU6SLyIb+ByNFlkPxrTKTzyYf8BrJApD03Kxdbz32N5TcQqeBGGgfNVyATFLJSb8Q0/TNNa6FbJmbZTFwqKLbbKwTpVlaJKHoVZT+TP+WIdAXqarI+T4N+0A66rQnUm1Rsyd0FvqvwxfsY9mWP1yCOqfhFoQlin04kGwTvJyaVuWLf4t5MRASRh8tbUKrd5pm3EbwGoxSs2B/e45wk+4zPS6It6DNDCa0QSK2InpfY4WxB7X7tAFPCt1o3gxZR+LQK+4SDfh9ynBW+tboZdInChWSI4EuJ8K1bz5cTYrZIz2V5Pt/qF+nlekIGYmtG6EyKDFECX2y+ptZapun/DgQjxkpQ4JDHx6PFiYZt3EtTsaPTdAfbbLBKzXXIRwV9+vjmUOa4ip0/8ZnveZFXodXRpjtsBdGqYue+caeSSB8CX638Gw5fhK6+uQbyRisyLPIuiodt0vLKlP3w+pawfa7XqxKcOCr7SrxHz/PTtIYcPrPe8/Osz7xG0+ehMbIf/QwI24/a5xEQpXjdB7MWTeSkJN8It/EGcB2UirzFoA7cBdUJbKvAbVAPlom8XHAJNIKNDs/mpcpWsEG59aNkAjFVqXnENKUCCUM8CIBmcA+sdStodGdX9t8sn+l58o1EhWEWGSL4wnulMu1WsZ4vA5EbKV+/Hv0l8ZJGnztsE6oM5JVIn1MGbHfhwxpcrojb7W4G5Sq2INTVCSpBDgUsnv3BNtAhfGIfy/Wy8lyL0zdBjaiT1028TopSsOI/HvDiUS77G0C961acv3nwUJkr3gqkUzJSsb9ZXFZmnf+yL9eUw99DIi7B8ECwE/BJ4z7AHS6TghX/jMAj6QvQDDqcmtMvBy1/l7v9MMYAAAAASUVORK5CYII=');
+	}*/
+
+	.gta-acount input[type='email'] {
+		background-position: 95% 7px;
+	}
+
+	.gta-acount input.promo-code {
+		height: 50px;
+		margin-top: 33px;
+		border: 1px solid rgba(255, 255, 255, .3);
+		-webkit-border-radius: 4px;
+		border-radius: 4px;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATGSURBVHgB7Zrfb1RFFMfPxRZKobU0iASVIqUxYPxtGmOMPpAYnwzxhUf/RBOJGn3QRB8ErRpFISol9UepIOIipa1Uun4/zBl6c+nunbubwC253+Sbu7l75sw5M+fMnJ3ZzCqg3W5neoyJU+KEuE8cEK+Iv4lz4oUsy5ZK9Ax6+wPio+Ju8V9xQfxV/FlsSU/bEpFZBciAST2mxYPuQBEtcUb8SkasdNAxpMdh8VULg1LETXFW/Fz8XXr+swQkOyIDHtHjmIXRi1jxjodzupbFb8SPZcTNgo4H9DgqPuNtbr0WmUG+G8qJMyjvScc5S8BAipAMGNHjDXdiTbwonrIQSmtuwMvik/75WXFB7X6I4eFhedid2C6uit+KX7rzOLJHfF3cZWG2XlO7i9JxrczGUkfcgOcs5ANGXRBPSPmlnNg1yX2k542coU+57BWXGXY9PAkXZu2TQgi2pOdvPd8UiYCHxef17tOyfNli5dgq7nVZOv1a/LMopI4YVfJj3l/tF48QTh5SU24cBl1GtkMe/eV98B2Lwh63wfp1ZIc44p8XMbTL6GDEGQszQ4gd8rbwiLjNQk5977J3QLoJ1Xnvy7ztTrP+HRlyAwAh0XFpdSO+s5CogFkhJJnRSX/HbHzhsp1AH6sb9N8RKcnOFC/nlJKEi52EZeCqQolZIb7JL3IGo+OgnUXGuoM+ovHLbkNXpMzIdTGuGkzzQY/5bjhr6zP3uIV9x/zdmW4NpXury8dw/se6DFxEiiPE+08Wdl5m8EXxUIkzV8W4/pOwMVnPuWHdMOV90GbF25TNYAgtX2IJG0aBpbO4UcaY3eYyx8XTanfeDSsmP+0JCRI7OsxnltZ9ale0gwF90ELZ8nSuf6KB2ZgotGm7PUTKIotP5iNLQlJ6PCaOWsXS5R6AnMMJ6jI21TkcwQk2INbrujtQBA6xjL9DaL1g604QJiyPN6w6CDtWKnZuwuiXDfQQ94QPUUC4zrtsVaDnIQthTtn0Eo6wvmfe6buKt1nrAZpZlsxjbij58YF0XS7I0OnbFjY4qoP3JdOyHiBdrGzH3akDJNmof0diXbLNAwbiun8ewZGYF8Rb8g+ZGgBbY3WQbbF14zPbfMke98E2H2L5QXE4ZpsH4xZsBksk+x8WSgJWnaNKojkLxWFV0H60gjyy0+pvyaqDVY/SJ1YMCzhy0sLyi3esOGyKa9YbymqwPJh9NuFe8jLzvuLP5Bkcocw4Ib5iYYdHIKUG6xfRmF7B/sM+xI+52QEOCDS9HL8wC29ZqLVY23+0hPI5B2q1Jyw9z/rtg33vM/E8v21uFY0UXQKK4y5L9XqyymblG+JeS3ek3z6wtRV/oN2NELoraBypGxpH6obGkbqhcaRuaBypGxpH6obGkbqhcaRuaBypG+5LR/JnWRzT1PH4FHvzR0i3bc7f6nI3wtEMR/4c2E3q1ILjmtQDtO2FTobVvng/viP3Gdmdkkk91WRg97tt5rZezX95G1LK/02m/T0OcOeXeurIaHHxMuht6KR4iYPxY66fO8BFS7/oQf94NFU8paOgD+OXxXt2Tu24dZrwzsatN9DprhKZwQSZjRD/DzOTf1mckThi/LuHE73dVp9cwQEud7gqP134U4/9D9jodcthwAw4AAAAAElFTkSuQmCC');
+		background-position: 95% 11px;
+	}
+
+	.gta-acount input.promo-code:focus {
+		border: 1px solid #ef4343;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAASySURBVHgB7ZpLaB1lFMfPvU1a0dhGsTYmYiMVrH1owaqI9VHEqCjFhYibGlE3igouFMGFK90oirpoEbpQfCyMEnxstNKiFiUqVEVaEZuUVpPaRFPtI01uM/39M2eaYXpz585NWibl/uHHncycOec78z3mm+9LwTIoCII5/CyGu+BGuBrOhj/gG9gK3xcKhaEUP7rnJrgFrofL4T/YDl/DZ7AbP8fsVIgCdEA3HAnKqxeegeYKPprhEbctp6MeYy2cZTMtnF4HO2IBx2EYBqAUO/8PvASNZXw0wsvwd8z+mPsYdp+RdsGdNpPCYSts8wBj8CN0wmJog2WwCQ55YfbD/VCM+Sj6uUG3ke0GWOk+5Otu2OkxpG8V22ZCOCrAc+583J0v1/mE3XnwBhxwu0/gstj1C2GzXxtx2+Yy8VZ4DNkdhueTsWpNZD50+RMagoeCsNOXs10eK6yayrMwF+bBg7Hms122U/iY4zGGPKZin5tWzqKlaxG0+fEA9FQYTXbCB3AAFsAd0Orc6+dG4D23PUnuuwf2+amWWHybTiIKHj0RFWLKodUL8Q7s9lM3wLWwCjr83O+wIWVoVYxDfqzm12QparB0DcO/Mad6j/RPZUwB1Yk/5PAq998JoxCNYl3Y/G+VpRgLYvGHU+yrqhFV8V8QWNhEblObT7lHiQz68Vrd48c611XpxiB8Wcq+xWP+aZPNrHb5qPWAd1RpL6xTJ65wTxO8HZwsnWtKiXefxwg85vpqRq2GqLD8nG9hp1LzSdbUfjhsYXXL5iN4n/u+5HcPJNu7/Kmdq0lFCY9BL6zmvnLlUHNaA+shGhX3eeybE/foD/UhtZR+murE01YgdcjHLOycbTFHeVXJwiS2wVuwRYms5mATrLDq+kyepIR+g04l8iYHD1uYhDrWDjho2TUfroQLLGxSX5Xxo/6hWa9agTp+j9tm1TmwzMLWM256L5FIn3esg9BhNYp722GL++qHpWVslvq1wG3brUZx7+1eZmmPauFiv6aO9YvNHv1sk8NyqxKJOraqOLDZI5V1zI+LRZssvBKa/izz9CqqhInvhWjupMnhEps90ifCIj8e1IvoJ7jVwlHnBTrOVn6PWHbp/ksy2Mv2ceINWnbpE1hTn2gy+4MSecXCoUxzGw2NWgyo9aN/bgbbdnjCwuEzq9QFNN9Tt9Cbf6MS2QyPwtNwjRem0U69ipYt8aQ0OOk9tBE+b2CeMkr1fuoX9C2hOVcfdFsV0+eYNEe7x8InXY36phlDL9sX4QtyKE1MGvWRQzKa0I3GgrzG+b4qA5i/3FZZtkSmE0Nl7VUSujbb5lZTqp5I3lRPJG+qJ5I31RPJm+qJ5E31RPKmeiJ5Uz2RvKmeSN50Riaij/ho+XSe5TNJLZZE+5cqayl+IZL2RvQfOhfBStCyfbdVv7CtZaT4OtVC7QEmbBbGjmXbgs2IVSctyq3xsknay98bv3hCOH2VnyctrA0lsMsmV7zTpIeiXV/tymqlUnvtyU0cFV57hVp81p7kgFW/0SP/S7zMWp18naWgp8pa+kaMNmBKQX6lsn0XJDaSkjWiJ3aphZv86+AKy09fUS1oW/BjeJfa+DV+8Ths8fsmuxz72AAAAABJRU5ErkJggg==');
+	}
+
+	.gta-acount .checkbox-and-link {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		margin-bottom: 59px;
+		padding-top: 5px;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox'] {
+		display: none;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']+label {
+		font-size: 20px;
+		position: relative;
+		display: -webkit-inline-box;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		padding-left: 72px;
+		cursor: pointer;
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']+label:hover {
+		color: #ef4343;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']+label::before,
+	.gta-acount .checkbox-and-link input[type='checkbox']+label::after {
+		position: absolute;
+		display: block;
+		content: '';
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']+label::before {
+		top: 2px;
+		left: 12px;
+		width: 44px;
+		height: 24px;
+		-webkit-border-radius: 18px;
+		border-radius: 18px;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']+label::after {
+		top: 4px;
+		left: 12px;
+		width: 20px;
+		height: 20px;
+		-webkit-border-radius: 24px;
+		border-radius: 24px;
+		background: #fff;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAD+SURBVHgBtZJNasJAGIbfmem2YNpV6aKlvUAP4MIaQdBVoXu9ifEGnkAUDyCu/QuI11DxAslGTDDJ+I2KGoI6QXxgYDL5npdvfoA7YUiJk8tluBAVEt3nbLaTKmBdKn14vm/T9POwNNAOWBWLb5sgmEjg+7goZcR1ZLdcNvwg6MfkPfbNDtSewfkYjP3Efki5QBT9sntkw7YXzMnn/6igqTqlYRnDYVtXVp/MMc05TqcKAVTDMOzpyIonGpnzmhBoQYgZTb9uyQoeSVlHEi15F/A6GjWoVQuXuCIrjrfgFAo1KrbSyLGARIiGnAhQuKb5Ty/uXXpe92U6XeLRbAGWCIv/Ks65mgAAAABJRU5ErkJggg==');
+		background-repeat: no-repeat;
+		background-position: center;
+		-webkit-background-size: 8px 8px;
+		background-size: 8px;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']:checked+label::before {
+		background-color: #ef4343;
+	}
+
+	.gta-acount .checkbox-and-link input[type='checkbox']:checked+label::after {
+		left: 35px;
+	}
+
+	.gta-acount .checkbox-and-link .restore-pw {
+		font-size: 20px;
+		display: -webkit-inline-box;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		height: 29px;
+		margin-left: 170px;
+		/*border-bottom: 1px solid #fff;*/
+	}
+
+	.gta-acount .checkbox-and-link .restore-pw:hover {
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #ef4343;
+	}
+
+	.gta-acount .btn-cont {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+
+	.gta-acount .btn-cont input,
+	.gta-acount .btn-cont a {
+		font-size: 20px;
+		display: -webkit-inline-box;
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		height: 60px;
+		margin-right: 10px;
+		margin-left: 10px;
+		cursor: pointer;
+		-webkit-transition: all .33s;
+		-o-transition: all .33s;
+		transition: all .33s;
+		color: #fff;
+		border: 1px solid rgba(255, 255, 255, .5);
+		-webkit-border-radius: 200px;
+		border-radius: 200px;
+		background: none;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+	}
+
+	.gta-acount .btn-cont input {
+		border: 1px solid rgba(255, 255, 255, 0);
+		background-image: -webkit-linear-gradient(193.14deg, #ff8686 3.2%, #ef4343 95.93%);
+		background-image: -o-linear-gradient(193.14deg, #ff8686 3.2%, #ef4343 95.93%);
+		background-image: linear-gradient(256.86deg, #ff8686 3.2%, #ef4343 95.93%);
+	}
+
+	.gta-acount .btn-cont input:hover {
+		border: 1px solid rgba(255, 255, 255, .5);
+	}
+
+	.gta-acount .btn-cont a:hover {
+		color: #ef4343;
+		border: 1px solid #ef4343;
+	}
+
+	.gta-acount .btn-cont a.btn-restore {
+		width: 100%;
+	}
+
+	.gta-acount .btn-cont input.btn-enter {
+		width: 100%;
+	}
+
+	.gta-acount .btn-cont a.btn-register {
+		width: 100%;
+	}
+
+	.gta-acount .btn-cont a.btn-back {
+		width: 152px;
+		padding-left: 20px;
+		background-image: url(../img/ico_back.png);
+		background-repeat: no-repeat;
+		background-position: 32px center;
+		-webkit-background-size: 19px 19px;
+		background-size: 19px;
+	}
+
+	.gta-acount .btn-cont a.btn-back:hover {
+		background-image: url(../img/ico_back_focus.png);
+	}
+
+	.gta-acount {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		overflow: hidden;
+		min-height: 100vh;
+		color: #fff;
+		background-repeat: no-repeat;
+		background-position: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+	}
+
+	.gta-acount__content {
+		position: relative;
+		width: 520px;
+		min-height: 500px;
+		padding-top: 42px;
+	}
+
+	.gta-acount__content img {
+		position: absolute;
+	}
+
+	.gta-acount__content img.logo {
+		width: 100%;
+	}
+
+	.gta-acount__content header {
+		margin-bottom: 27px;
+	}
+
+	.gta-acount__content header h2 {
+		font-size: 35px;
+		margin-bottom: 13px;
+		padding-left: 95px;
+		background-image: url('data:image/png;base64,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');
+		background-repeat: no-repeat;
+		background-position: 36px -2px;
+		-webkit-background-size: 40px 40px;
+		background-size: 40px;
+	}
+
+	.gta-acount__content header p {
+		font-size: 20px;
+		line-height: 32px;
+		padding-left: 38px;
+	}
+
+	.js-person-name {
+		text-transform: capitalize;
+	}
+
+	.gta-acount.authorization {
+		font-family: Montserrat, sans-serif;
+		background-image: url(../img/bg_auth.png);
+		-webkit-background-size: cover;
+		background-size: cover;
+	}
+
+	.gta-acount.restorepass {
+		font-family: Montserrat, sans-serif;
+		background-image: url(../img/bg_auth.png);
+		-webkit-background-size: cover;
+		background-size: cover;
+	}
+
+	.gta-acount.restorepass .gta-acount__content {
+		margin-top: 130px;
+	}
+
+	.gta-acount.restorepass .gta-acount__content form .btn-cont {
+		margin-top: 45px;
+	}
+
+	.gta-acount.registration {
+		font-family: Montserrat, sans-serif;
+		background-image: url(''), url(../img/bg_auth.png);
+		-webkit-background-size: 400px auto, cover;
+		background-size: 400px auto, cover;
+	}
+
+	.gta-acount.registration .gta-acount__content {
+		margin-top: 130px;
+	}
+
+	.gta-acount.registration .gta-acount__content form .btn-cont {
+		margin-top: 38px;
+	}
+
+	.gta-acount.delete-person {
+		font-family: Montserrat, sans-serif;
+		background-color: rgba(239, 67, 67, .95);
+		background-image: url(../img/person_carpet.png);
+		background-position: left bottom;
+		-webkit-background-size: 970px auto;
+		background-size: 970px auto;
+	}
+
+	.gta-acount.delete-person .delete-person__alert {
+		width: 600px;
+		height: 462px;
+		padding: 57px 41px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+		background: #1f1f1f;
+		-webkit-box-shadow: 0 30px 50px rgba(0, 0, 0, .25);
+		box-shadow: 0 30px 50px rgba(0, 0, 0, .25);
+	}
+
+	.gta-acount.delete-person .delete-person__alert h2 {
+		font-size: 35px;
+		line-height: 45px;
+		margin-bottom: 16px;
+	}
+
+	.gta-acount.delete-person .delete-person__alert h2 span {
+		color: #ef4343;
+	}
+
+	.gta-acount.delete-person .delete-person__alert p {
+		font-size: 25px;
+		line-height: 35px;
+	}
+
+	.gta-acount.delete-person .delete-person__alert .btn-cont {
+		margin-top: 48px;
+	}
+
+	.gta-acount.delete-person .delete-person__alert .btn-cont a {
+		font-size: 18px;
+		line-height: 25px;
+		margin: 0;
+	}
+
+	.gta-acount.delete-person .delete-person__alert .btn-cont .btn-cancel {
+		width: 185px;
+		border: 1px solid rgba(255, 255, 255, 0);
+		background-color: #ef4343;
+	}
+
+	.gta-acount.delete-person .delete-person__alert .btn-cont .btn-cancel:hover {
+		color: #fff;
+		border: 1px solid rgba(255, 255, 255, .5);
+	}
+
+	.gta-acount.delete-person .delete-person__alert .btn-cont .btn-confirm {
+		width: 310px;
+	}
+
+	.gta-acount.rules {
+		font-family: Montserrat, sans-serif;
+		background-color: rgba(239, 67, 67, .95);
+		background-image: url(../img/person_rules.png);
+		background-position: left bottom;
+		-webkit-background-size: 800px auto;
+		background-size: 800px auto;
+	}
+
+	.gta-acount.rules .rules__content {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		width: 1030px;
+		height: 800px;
+	}
+
+	.gta-acount.rules .rules__time {
+		padding-top: 61px;
+		padding-right: 5px;
+		padding-bottom: 61px;
+		-webkit-box-flex: 0;
+		-webkit-flex: 0 0 41%;
+		-ms-flex: 0 0 41%;
+		flex: 0 0 41%;
+	}
+
+	.gta-acount.rules .rules__time h2 {
+		font-size: 40px;
+		line-height: 51px;
+		margin-bottom: 22px;
+	}
+
+	.gta-acount.rules .rules__time p {
+		font-size: 30px;
+		line-height: 42px;
+		margin-bottom: 29px;
+	}
+
+	.gta-acount.rules .rules__time time {
+		font-size: 100px;
+		font-weight: bold;
+		line-height: 120px;
+	}
+
+	.gta-acount.rules .rules__text {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		padding: 50px 40px;
+		padding-right: 13px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+		background: #1f1f1f;
+		-webkit-box-flex: 0;
+		-webkit-flex: 0 0 59%;
+		-ms-flex: 0 0 59%;
+		flex: 0 0 59%;
+	}
+
+	.gta-acount.rules .rules__text h2 {
+		font-size: 35px;
+		font-weight: 500;
+		line-height: 40px;
+		margin-top: 14px;
+		margin-bottom: 20px;
+		padding-right: 30px;
+		padding-left: 10px;
+	}
+
+	.gta-acount.rules .rules__text .rules__list {
+		overflow-y: scroll;
+		max-height: 500px;
+		padding-right: 70px;
+		padding-left: 10px;
+	}
+
+	.gta-acount.rules .rules__text .rules__list::-webkit-scrollbar {
+		width: 6px;
+		background-color: transparent !important;
+	}
+
+	.gta-acount.rules .rules__text .rules__list::-webkit-scrollbar-thumb {
+		-webkit-border-radius: 100px;
+		border-radius: 100px;
+		background-color: #515151 !important;
+	}
+
+	.gta-acount.rules .rules__text .rules__list p {
+		font-size: 18px;
+		line-height: 25px;
+		margin-bottom: 6px;
+	}
+
+	.gta-acount.rules .rules__text .btn-cont {
+		margin-top: auto;
+		padding-right: 24px;
+	}
+
+	.gta-acount.rules .rules__text .btn-cont a {
+		font-family: inherit;
+		font-size: 18px;
+		line-height: 26px;
+		height: 55px;
+		-webkit-border-radius: 100px;
+		border-radius: 100px;
+	}
+
+	.gta-acount.rules .rules__text .btn-cont a.btn-cancel {
+		width: 149px;
+		border: 1px solid #ef4343;
+	}
+
+	.gta-acount.rules .rules__text .btn-cont a.btn-confirm {
+		width: 336px;
+		border: 1px solid rgba(255, 255, 255, 0);
+		background: #ef4343;
+	}
+
+	.gta-acount.rules .rules__text .btn-cont a.btn-confirm:hover {
+		color: #fff;
+		border: 1px solid rgba(255, 255, 255, .5);
+	}
+
+	.switch-content .auth-page {
+		display: none;
+	}
+
+	.switch-content .rest-page {
+		display: none;
+	}
+
+	.switch-content .reg-page {
+		display: none;
+	}
+
+	.switch-content .auth-page.show {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+
+	.switch-content .rest-page.show {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+
+	.switch-content .reg-page.show {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+
+	.switch-content .slots-page {
+		display: none;
+	}
+
+	.switch-content .slots-page.show {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		background: transparent;
+	}
+
+	.switch-content .delete-person-page {
+		display: none;
+	}
+
+	.switch-content .delete-person-page.show {
+		position: absolute;
+		z-index: 100;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+
+	.gta-acount.authorization .gta-acount__content form#auth-form {
+		margin-top: 30px;
+		/*margin-bottom: 200px;*/
+	}
+
+	.gta-acount.authorization .gta-acount__content img.logo {
+		position: static;
+	}
+
+	.gta-acount.authorization .gta-acount__content {
+		min-height: 100vh;
+		padding: 0;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.gta-acount .gta-acount__content form label {
+		padding-left: 10px;
+	}
+
+	.gta-acount .gta-acount__content form label[for="entry-password-id"] svg {
+		margin-bottom: 2px;
+	}
+
+	.gta-acount .gta-acount__content form label .text {
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		line-height: 22px;
+		bottom: 5px;
+		position: relative;
+	}
+
+	.gta-acount .gta-acount__content .the-btn-enter {
+		display: block;
+		width: 100%;
+		background: linear-gradient(241.24deg, #9020F9 -2.66%, #166AE9 105.54%);
+		border-radius: 6px;
+		margin: 0;
+		height: 51px;
+	}
+
+	.gta-acount .gta-acount__content .the-input[type="password"]::placeholder {}
+
+	.gta-acount.authorization .gta-acount__content .restore-pw,
+	.gta-acount.authorization .gta-acount__content .btn-register {
+		display: block;
+		width: 100%;
+		border-radius: 6px;
+		margin: 0;
+		height: 51px;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		margin-top: 24px;
+		border: 1px solid #FFFFFF;
+		box-sizing: border-box;
+		border-radius: 6px;
+	}
+
+	.gta-acount .gta-acount__content .btn-cont {
+		display: block;
+	}
+
+	.gta-acount.reg-and-restore .man {
+		background: url(../img/person_radio2.png) no-repeat left bottom;
+		z-index: 22;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 22vw;
+		height: 70vh;
+		background-size: 100% auto;
+	}
+
+	.gta-acount.authorization .man {
+		background: url(../img/person_radio.png) no-repeat left bottom;
+		z-index: 22;
+		position: absolute;
+		bottom: 0;
+		right: 3vw;
+		width: 27vw;
+		height: 100vh;
+		background-size: 100% auto;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content {
+		margin: 0;
+		padding: 0;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .right,
+	.gta-acount.reg-and-restore .gta-acount__content .left {
+		width: 50%;
+		height: calc(100vh - 103px * 2);
+		margin: 103px 0;
+		position: relative;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .right {
+		width: 50%;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .left svg {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+	}
+
+	input.btn-register-end,
+	input.btn-restore-end {
+		width: 100%;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .left {}
+
+	.gta-acount.reg-and-restore .gta-acount__content .left .content-the {
+		width: 60%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: 0px 25%;
+		align-items: center;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .left .content-the img {
+		position: static;
+		width: 100%;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .left .content-the a {
+		margin-top: 25px;
+		z-index: 3;
+	}
+
+	.gta-acount.reg-and-restore .gta-acount__content .right form {
+		width: 50%;
+	}
+
+	.left-top-sign {
+		position: absolute;
+		margin-left: 550px;
+		margin-top: 75px;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+	}
+
+	.left-top-sign .with-margin {
+		margin-right: 20px;
+	}
+
+	.left-top-sign .title {
+		margin-top: 16px;
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 30.4px;
+		line-height: 37px;
+		color: #FFFFFF;
+	}
+
+	.left-top-sign .copy {
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 41.9809px;
+		line-height: 51px;
+		color: #FFFFFF;
+	}
+
+	.left-top-reg {
+		position: absolute;
+		left: 130px;
+		top: 310px;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+	}
+
+	.left-top-reg .with-margin {
+		margin-right: 20px;
+	}
+
+	.left-top-reg .title {
+		margin-top: 10px;
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 30.4px;
+		line-height: 37px;
+		color: #FFFFFF;
+	}
+
+	.left-top-reg .copy {
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 41.9809px;
+		line-height: 51px;
+		color: #FFFFFF;
+	}
+
+	.left-top-save {
+		position: absolute;
+		left: 185px;
+		top: 290px;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+	}
+
+	.left-top-save .with-margin {
+		margin-right: 20px;
+	}
+
+	.left-top-save .title {
+		margin-top: 10px;
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 30.4px;
+		line-height: 37px;
+		color: #FFFFFF;
+	}
+
+	.left-top-save .copy {
+		font-family: Montserrat, sans-serif;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 41.9809px;
+		line-height: 51px;
+		color: #FFFFFF;
+	}
+
+
+	/*slots*/
+
+	body {
+		/*background: rebeccapurple;*/
+	}
+
+	.switch-content .slots-page.show .text,
+	.switch-content .slots-page.show {
+		font-size: 1.2vw;
+	}
+
+	.info-slot {
+		position: absolute;
+		left: 2%;
+		min-width: 22vw;
+		background: #212832;
+		color: white;
+		padding: 1em;
+		border-radius: 40px;
+	}
+
+	.info-slot .name {
+		text-align: center;
+	}
+
+	.info-slot .wrap-info {
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+	}
+
+	.info-slot .wrap-info>* {
+		flex: 1 0 50%;
+		text-align: center;
+	}
+
+	.info-slot .delet-char {
+		position: absolute;
+		bottom: -3em;
+		width: 90%;
+		left: 5%;
+	}
+
+	.info-chars {
+		position: absolute;
+		right: 2%;
+		min-width: 22vw;
+		color: white;
+	}
+
+	.info-chars {
+		height: 100vh;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.info-chars .main-info,
+	.info-chars .char {
+		margin-bottom: 1em;
+		height: 8vh;
+		display: flex;
+		align-items: center;
+		background: #212832;
+		padding: 1em;
+		width: 100%;
+	}
+
+	.info-chars .main-info {
+		min-height: 8vh;
+		height: auto;
+		flex-wrap: wrap;
+	}
+
+	.info-chars .main-info a {
+		flex: 1 0 100%;
+		color: #166AE9;
+		margin-top: 1em;
+	}
+
+	.info-chars .char {
+		cursor: pointer;
+	}
+
+	.info-chars .char>i {
+		margin-right: 1em;
+	}
+
+	.info-chars .char .text {
+		margin-right: 1em;
+		font-size: 0.9vw;
+	}
+
+	.info-chars .char .level {
+		width: 6vh;
+		height: 6vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: auto;
+		border-radius: 50%;
+		border: 1px dotted #166AE9;
+	}
+
+	.choose-chars {
+		position: absolute;
+		color: white;
+		left: 0;
+		bottom: 5vh;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.choose-chars .btn {
+		padding: 1.5vh 4vw;
+		font-size: 1.2vw;
+	}
+
+	.info-chars .char .text>*,
+	.info-chars .char .level span,
+	.info-chars .char .level i {
+		display: none;
+	}
+
+	.info-chars .char.non-active .level i.fa-lock,
+	.info-chars .char.free.active .level i.fa-user-plus,
+	.info-chars .char.active:not(.free):not(.non-active) .level span,
+	.info-chars .char.active:not(.free):not(.non-active) .text h3,
+	.info-chars .char.active.free .text .empty,
+	.info-chars .char.active.non-active .text .empty {
+		display: block;
+	}
+
+	.form-new-char {
+		position: absolute;
+		left: 50%;
+		width: 28vw;
+		color: white;
+		background: rgb(33, 40, 50);
+		padding: 1em;
+		border-radius: 10px;
+		transform: translate(-50%, -50%);
+		top: 40%;
+		z-index: 2;
+	}
+
+	.gta-acount.slots input[type="text"] {
+		padding-left: 10px;
+	}
+
+	.bg-hide-form-new-char {
+		position: absolute;
+		/*background: red;*/
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+
+	.are-you-sure-delete {
+		position: absolute;
+		left: 50%;
+		min-width: 28vw;
+		width: auto;
+		transform: translate(-50%, -50%);
+		top: 40%;
+		z-index: 2;
+	}
+
+	.buttons-wrap {
+		width: 35%;
+		margin: 0 auto;
+	}
+
+	.buttons-wrap .button {
+		width: 5em;
+	}
+
+	@-webkit-keyframes opacity {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes opacity {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.opacity {
+		-webkit-animation-name: opacity;
+		animation-name: opacity;
+		animation-name: opacity;
+		-webkit-animation-duration: .5s;
+		animation-duration: .5s;
+		-webkit-animation-timing-function: ease;
+		animation-timing-function: ease;
+	}
+
+	@-webkit-keyframes slide {
+		from {
+			background-position-y: -1000px;
+		}
+		to {
+			background-position-y: bottom;
+		}
+	}
+
+	@keyframes slide {
+		from {
+			background-position-y: -1000px;
+		}
+		to {
+			background-position-y: bottom;
+		}
+	}
+
+	@media screen and (min-width: 1921px) {}
+
+	@media screen and (min-width: 2400px) {}
+
+	@media screen and (min-width: 3500px) {}
+
+	@media screen and (max-height: 950px) and (min-width: 1600px) {}
+
+	@media screen and (max-height: 850px) and (min-width: 1415px) {}
+
+	@media screen and (max-height: 706px) and (min-width: 1201px) {}
+
+	@media screen and (max-width: 1600px) and (min-height: 860px) {}
+
+	@media screen and (max-width: 1414px) and (min-height: 705px) {}
+
+	@media screen and (max-width: 1200px) and (min-height: 500px) {}
+
+	@media screen and (max-width: 1200px),
+	(max-height: 499px) {}
+
+	@media screen and (max-height: 950px) {
+		.gta-acount.slots .slots__wrapper {
+			height: auto;
+			min-height: 600px;
+		}
+		.gta-acount.slots .slots__wrapper header {
+			margin-bottom: 40px;
+		}
+		.gta-acount.slots .slots__wrapper header img {
+			width: 330px;
+		}
+		.gta-acount.slots .slots__wrapper header p {
+			width: 300px;
+			margin-top: 32px;
+		}
+		.gta-acount.slots .slots__wrapper header .red-bucks {
+			width: 450px;
+			height: 70px;
+			margin-top: 13px;
+			padding-top: 5px;
+			padding-left: 70px;
+			background-color: rgba(0, 0, 0, 0);
+			background-position: 29px center;
+			-webkit-background-size: 25px auto;
+			background-size: 25px auto;
+		}
+		.gta-acount.slots .slots__wrapper header .red-bucks span {
+			font-size: 18px;
+		}
+		.gta-acount.slots .slots__wrapper header .red-bucks__total b {
+			font-size: 25px;
+		}
+		.gta-acount.slots .slots__wrapper header .red-bucks__total a {
+			font-size: 18px;
+		}
+		.gta-acount.slots .slots__cols a.btn {
+			width: 100%;
+		}
+		.gta-acount.slots .slots__cols>div {
+			height: 700px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form input[type='submit'] {
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='submit'] {
+			width: 100%;
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.create-new {
+			margin-top: 25px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='submit'] {
+			width: 100%;
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.transfer-person {
+			margin-top: 25px;
+		}
+	}
+
+	@media screen and (max-width: 1450px),
+	(max-height: 950px) {
+		.gta-acount.slots .slots__cols {
+			padding-right: 15px;
+		}
+		.gta-acount.slots .slots__cols>div {
+			width: 32%;
+			padding-right: 25px;
+			padding-left: 25px;
+		}
+		.gta-acount.slots .slots__cols>div h2 {
+			font-size: 30px;
+			line-height: 39px;
+			margin-top: 5px;
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div p {
+			font-size: 16px;
+			line-height: 21px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form .input-cont {
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form input {
+			font-size: 16px;
+			padding-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form input[type='submit'] {
+			width: 100%;
+			margin-top: 15px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='submit'] {
+			width: 100%;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.create-new {
+			margin-top: 25px;
+			background-position: 25% 15px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='submit'] {
+			width: 100%;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.transfer-person {
+			margin-top: 25px;
+			background-position: 25% 15px;
+		}
+		.gta-acount.slots .slots__cols>div.non-active::before {
+			top: 40px;
+			width: 140px;
+			height: 140px;
+			margin-left: -70px;
+		}
+	}
+
+	@media screen and (max-height: 835px) {
+		.gta-acount.slots .slots__cols a.btn {
+			height: 35px;
+		}
+		.gta-acount.slots .slots__cols>div {
+			height: 480px;
+			padding-top: 150px;
+		}
+		.gta-acount.slots .slots__cols>div h2 {
+			font-size: 25px;
+			line-height: 33px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .person-cont {
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .person-cont .active-persone {
+			width: 200px;
+			margin-left: -100px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper .person-cont::after {
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+		}
+		.gta-acount.slots .slots__cols>div.free::before {
+			top: 42px;
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+			-webkit-background-size: 40px auto;
+			background-size: 40px auto;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper .some-persone {
+			height: 150px;
+			min-height: auto;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.create-new {
+			margin-top: 56px;
+			padding-left: 0;
+			background: none;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.transfer-person {
+			/* margin-top: 56px; */
+			padding-left: 0;
+			background: none;
+		}
+		.gta-acount.slots .slots__cols>div.non-active::before {
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+			-webkit-background-size: 40px auto;
+			background-size: 40px auto;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form input[type='submit'] {
+			height: 35px;
+			margin-top: 20px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper a.delete-cancel {
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper h3 {
+			margin-top: 2px;
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .characteristics {
+			margin-bottom: 20px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .characteristics li {
+			font-size: 16px;
+			margin-bottom: 8px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper a.btn-enter {
+			margin-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper h2 {
+			margin-bottom: 31px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper a.cancel {
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input {
+			font-size: 16px;
+			padding-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='date']+.placeholder {
+			font-size: 16px;
+			top: 2px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='date'] {
+			padding-top: 0;
+			padding-left: 130px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='submit'] {
+			height: 35px;
+			margin-top: 17px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form .input-cont {
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper h2 {
+			margin-bottom: 31px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper a.cancel {
+			margin-top: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input {
+			font-size: 16px;
+			padding-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='date']+.placeholder {
+			font-size: 16px;
+			top: 2px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='date'] {
+			padding-top: 0;
+			padding-left: 130px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='submit'] {
+			height: 35px;
+			margin-top: 17px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form .input-cont {
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason {
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason h4,
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason p {
+			font-size: 16px;
+			line-height: 21px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__dates {
+			margin-top: 20px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__dates li {
+			font-size: 16px;
+			line-height: 21px;
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols>div.non-active .non-active__wrapper p.bonus {
+			margin-bottom: 28px;
+		}
+	}
+
+	@media screen and (max-width: 1420px) {
+		.gta-acount.slots .slots__wrapper {
+			width: 100%;
+			min-width: 800px;
+		}
+	}
+
+	@media screen and (max-width: 1305px) {
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input {
+			font-size: 16px;
+			padding-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='date'] {
+			padding-left: 130px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='date']+.placeholder {
+			font-size: 16px;
+			top: 2px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input {
+			font-size: 16px;
+			padding-bottom: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='date'] {
+			padding-left: 130px;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='date']+.placeholder {
+			font-size: 16px;
+			top: 2px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason h4,
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason p {
+			font-size: 16px;
+			line-height: 21px;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__dates li {
+			font-size: 16px;
+			line-height: 21px;
+			margin-bottom: 10px;
+		}
+		.gta-acount.slots .slots__cols a.btn {
+			width: 100%;
+		}
+	}
+
+	@media screen and (max-width: 1100px) {
+		.gta-acount.slots .slots__wrapper header {
+			-webkit-box-pack: justify;
+			-webkit-justify-content: space-between;
+			-ms-flex-pack: justify;
+			justify-content: space-between;
+		}
+		.gta-acount.slots .slots__wrapper header p {
+			font-size: 16px;
+			line-height: 22px;
+			width: 200px;
+			margin-top: 42px;
+		}
+		.gta-acount.slots .slots__wrapper header .red-bucks {
+			width: 250px;
+			margin-left: 0;
+			padding-left: 0;
+			background-image: none;
+		}
+		.gta-acount.slots .slots__cols a.btn {
+			font-size: 16px;
+			height: 35px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper form input[type='submit'] {
+			font-size: 16px;
+			height: 35px;
+		}
+		.gta-acount.slots .slots__cols>div.free.create .free__wrapper form input[type='submit'] {
+			font-size: 16px;
+			height: 35px;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.create-new {
+			padding-left: 0;
+			background-image: none;
+		}
+		.gta-acount.slots .slots__cols>div.free.transfer .free__wrapper form input[type='submit'] {
+			font-size: 16px;
+			height: 35px;
+		}
+		.gta-acount.slots .slots__cols>div.free .free__wrapper a.transfer-person {
+			padding-left: 0;
+			background-image: none;
+		}
+	}
+
+	@media screen and (max-width: 980px) {
+		.gta-acount.slots .slots__cols>div {
+			padding-right: 10px;
+			padding-left: 10px;
+		}
+		.gta-acount.slots .slots__cols>div h2 {
+			font-size: 25px;
+			line-height: 33px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .characteristics li {
+			font-size: 16px;
+			margin-bottom: 8px;
+		}
+		.gta-acount.slots .slots__cols>div.active.delete .active__wrapper .person-cont::after {
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+		}
+		.gta-acount.slots .slots__cols>div.active .active__wrapper .person-cont .active-persone {
+			width: 250px;
+			margin-left: -125px;
+		}
+		.gta-acount.slots .slots__cols>div.free::before {
+			top: 42px;
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+			-webkit-background-size: 40px auto;
+			background-size: 40px auto;
+		}
+		.gta-acount.slots .slots__cols>div.non-active::before {
+			width: 80px;
+			height: 80px;
+			margin-left: -40px;
+			-webkit-background-size: 40px auto;
+			background-size: 40px auto;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__dates li {
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			text-align: center;
+			-webkit-box-align: start;
+			-webkit-align-items: flex-start;
+			-ms-flex-align: start;
+			align-items: flex-start;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__reason {
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+		.gta-acount.slots .slots__cols>div.free.blocked .blocked-cont__dates {
+			margin-top: 5px;
+		}
+		.gta-acount.slots .slots__cols>div.non-active .non-active__wrapper p.price {
+			margin-top: 10px;
+		}
+	}
+
+	@media screen and (max-width: 950px) {
+		.gta-acount__content img.logo {
+			/*margin-left: -250px;*/
+		}
+	}
+
+	@media screen and (max-width: 801px) {
+		.gta-acount {
+			min-width: 800px;
+		}
+	}
+
+	@media screen and (max-height: 850px) {
+		.gta-acount__content img.logo {
+			/*margin-left: -150px;*/
+		}
+		.gta-acount.registration .gta-acount__content {
+			/*margin-top: 50px;*/
+			padding-top: 20px;
+		}
+		.gta-acount.registration .gta-acount__content header {
+			margin-bottom: 15px;
+		}
+		.gta-acount.registration .gta-acount__content form .input-cont {
+			margin-bottom: 15px;
+		}
+		.gta-acount.registration .gta-acount__content form .btn-cont {
+			margin-top: 30px;
+		}
+		.gta-acount.registration .gta-acount__content form input.promo-code {
+			margin-top: 15px;
+		}
+		.gta-acount.delete-person {
+			-webkit-background-size: 680px auto;
+			background-size: 680px auto;
+		}
+		.gta-acount.delete-person .delete-person__alert {
+			opacity: .95;
+		}
+	}
+
+	@media screen and (max-height: 601px) {
+		body {
+			overflow: auto;
+		}
+		.gta-acount {
+			min-height: 600px;
+		}
+	}
+
+	@media screen and (max-width: 1800px) {
+		.gta-acount.rules .rules__time {
+			padding-right: 30px;
+			padding-left: 30px;
+			background: rgba(0, 0, 0, .75);
+		}
+		.gta-acount.rules .rules__text {
+			-webkit-border-radius: 0;
+			border-radius: 0;
+		}
+	}
+
+	@media screen and (max-height: 930px) {
+		.gta-acount.rules {
+			-webkit-background-size: 500px auto;
+			background-size: 500px auto;
+		}
+	}
+
+	@media screen and (max-width: 1050px),
+	(max-height: 930px) {
+		.gta-acount.rules .rules__content {
+			width: 800px;
+			height: 600px;
+		}
+		.gta-acount.rules .rules__time {
+			padding: 30px;
+		}
+		.gta-acount.rules .rules__time h2 {
+			font-size: 30px;
+			line-height: 40px;
+			margin-top: 14px;
+		}
+		.gta-acount.rules .rules__time p {
+			font-size: 20px;
+			line-height: 26px;
+		}
+		.gta-acount.rules .rules__time time {
+			font-size: 60px;
+			line-height: 80px;
+		}
+		.gta-acount.rules .rules__text {
+			padding: 0;
+			padding-top: 30px;
+			padding-bottom: 40px;
+			padding-left: 20px;
+		}
+		.gta-acount.rules .rules__text h2 {
+			font-size: 30px;
+			line-height: 40px;
+			padding: 0;
+			padding-right: 30px;
+		}
+		.gta-acount.rules .rules__text .rules__list {
+			max-height: 400px;
+			margin-bottom: 30px;
+			padding: 0;
+			padding-right: 30px;
+		}
+		.gta-acount.rules .rules__text .btn-cont {
+			padding: 0;
+			padding-right: 30px;
+		}
+		.gta-acount.rules .rules__text .btn-cont a {
+			height: 45px;
+			margin: 0;
+		}
+		.gta-acount.rules .rules__text .btn-cont a.btn-cancel {
+			width: 25%;
+		}
+		.gta-acount.rules .rules__text .btn-cont a.btn-confirm {
+			width: 70%;
+		}
+	}
+
+
+	/* FIXES 29-12-18 */
+
+	.slot-col.free.create #transfer-person-1,
+	.slot-col.free.create #transfer-person-2,
+	.slot-col.free.create #transfer-person-3 {
+		display: none;
+	}
+
+	.slot-col.free.create .cancel.js-transfer-cancel-1,
+	.slot-col.free.create .cancel.js-transfer-cancel-2,
+	.slot-col.free.create .cancel.js-transfer-cancel-3 {
+		display: none !important;
+	}
+
+	.slot-col.free.transfer #create-person-1,
+	.slot-col.free.transfer #create-person-2,
+	.slot-col.free.transfer #create-person-3 {
+		display: none;
+	}
+
+	.slot-col.free.transfer .cancel.js-create-cancel-1,
+	.slot-col.free.transfer .cancel.js-create-cancel-2,
+	.slot-col.free.transfer .cancel.js-create-cancel-3 {
+		display: none !important;
+	}
+
+	#transfer-person-1__pw-id,
+	#transfer-person-2__pw-id,
+	#transfer-person-3__pw-id {
+		background-image: none;
+	}
+
+	@media(max-width: 1280px) {
+		.gta-acount.reg-and-restore .gta-acount__content .right form {
+			width: 75%;
+		}
+	}
+
+	@media(max-height: 768px) {
+		.left-top-sign {
+			left: 22px;
+			top: 17px;
+		}
+		.gta-acount.authorization .gta-acount__content img.logo {
+			width: 60%;
+			margin: 0 auto;
+		}
+	}
+
+	@media(max-height: 640px) {
+		.gta-acount .gta-acount__content .the-input {
+			padding: 9px 10px;
+		}
+		.gta-acount input.promo-code {
+			height: auto;
+		}
+		.gta-acount.reg-and-restore .gta-acount__content form .btn-cont {
+			margin-top: 10px;
+		}
+		.gta-acount.reg-and-restore .gta-acount__content form input.promo-code {
+			margin-top: 3px;
+		}
+		.gta-acount.reg-and-restore .gta-acount__content .left .content-the a {
+			padding: 6px 0px 7px;
+			width: 250px;
+			font-size: 15px;
+			line-height: 22px;
+		}
+	}

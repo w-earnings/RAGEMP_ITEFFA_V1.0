@@ -1,0 +1,479 @@
+﻿<!--
+Разработано группой 3oxaan Group
+Верстка и функционал находится под Авторскими правами.
+Все права защищены.
+
+Заказать верстку интерфейсов можно тут ->>> https://discord.gg/f88XaR2
+
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1.0" name="viewport">
+	<link href="../banks/fonts/font/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../banks/css/atm_new.css">
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+   <div class="atm_new" v-if="active">
+	  <div class="bgshow"></div>
+	  <transition name="fade">
+		<div class="contents" v-if="page == 0">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+				<div class="center-block">
+				</div>
+			<div class="info">
+			<div class="name-atm-welcome">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			<h1 style="text-align:center"><b style="font-weight: 500;color:#b3f336">{{holder}}</b> Добро пожаловать в наш банк<br>Мы очень благодарны тем что Вы пользуетесь нашим банком <br><b style="font-weight: 500; color:#b3f336">{{holder}}</b> если Вы нашли недочёт или-же неисправность в системе<br>Напишите нам /report, и мы устраним данную проблему в ближайшее время.</h1>
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			  </div>
+			</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 1">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btnActive" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenter" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+			<div class="btncenter" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+			</div>
+			<div class="info">
+			<h1>Выберите операцию которую хотите использовать</h1>
+			</div>
+			<div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+					</div>
+			</div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 2">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btnActive" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenterActive" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+			<div class="btncenter" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+			</div>
+			<div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+					</div>
+			</div>
+		</div>
+		
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 3">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btnActive" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenter" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+			<div class="btncenterActive" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+			</div>
+			<div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+				</div>
+			</div>
+			</div>
+		
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 4">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btnActive" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenter" v-on:click="pages(5)" @click="btn" id="4">Перевести на другой счёт</div>
+			</div>
+			<div class="info">
+			<h1>Выберите операцию которую хотите использовать</h1>
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 5">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btnActive" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenterActive" v-on:click="pages(5)" @click="btn" id="4">Перевести на другой счёт</div>
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 6">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btnActive" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenter" v-on:click="pages(7)" @click="btn" id="2">Оплатить налог</div>
+			</div>
+			<div class="info">
+			<h1>Выберите операцию которую хотите использовать</h1>
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+			 <div v-if="type == 3">
+                <div v-for="(b, i) in subdata">
+                    <div @click="btn" :id="i" class="block8">
+						<p :id="i" class="lex1">{{b}}</p>
+					</div>
+                </div>
+            </div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 7">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btnActive" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btn" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenterActive" v-on:click="pages(7)" @click="btn" id="2">Оплатить налог</div>
+			</div>
+			<div class="info">
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+			 <div v-if="type == 3">
+                <div v-for="(b, i) in subdata">
+                    <div @click="btn" :id="i" class="block8">
+						<p :id="i" class="lex1">{{b}}</p>
+					</div>
+                </div>
+            </div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 8">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btnActive" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenter" v-on:click="pages(9)" @click="btn" id="3">Оплатить налог</div>
+			</div>
+			<div class="info">
+			<h1>Выберите операцию которую хотите использовать</h1>
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+			 <div v-if="type == 3">
+                <div v-for="(b, i) in subdata">
+                    <div @click="btn" :id="i" class="block8">
+						<p :id="i" class="lex1">{{b}}</p>
+					</div>
+                </div>
+            </div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		<div class="contents" v-if="page == 9">
+			<div class="bg-atm"></div>
+			<div class="border-right-bg"></div>
+			
+			<div class="name-atm">
+			<h1>FLEECA <b>Bank<b></h1>
+			</div>
+			
+			<div class="info-atm">
+				<a class="one">{{number}} <br><b>Номер счёта </b></a>
+				<a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+			</div>
+			
+			<div class="btnlink">
+				<div class="btn" v-on:click="pages(0)"><img src="ico/home.png" class="ico">Главная</div>
+				<div class="btn" v-on:click="pages(1)"><img src="ico/yp.png" class="ico">Управление счётом</div>
+				<div class="btn" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+				<div class="border"></div>
+				<div class="btn" @click="pages(6)"><img src="ico/taxes.png" class="ico">Оплатить налог за дом</div>
+				<div class="btnActive" @click="pages(8)"><img src="ico/taxes.png" class="ico">Оплатить налог за бизнес</div>
+				<div @click="exit" class="btnexit" style=""><img src="ico/exit.png" class="ico">Выйти</div>
+			</div>
+				<div class="blockGreen"></div>
+				<div class="blockWhite"></div>
+			<div class="center-block">
+			<div class="btncenterActive" v-on:click="pages(9)" @click="btn" id="3">Оплатить налог</div>
+			</div>
+			<div class="info">
+			</div>
+			<div v-if="type == 2">
+				<div class="input-atm">
+				<a>Укажите свою сумму</a>
+				<input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+				<div @click="next" id="next" class="next"><p id="next">Далее</p></div>
+					<p class="subdata">{{subdata}}</p>
+				</div>
+			</div>
+			 <div v-if="type == 3">
+                <div v-for="(b, i) in subdata">
+                    <div @click="btn" :id="i" class="blocks">
+						<p :id="i" class="texxt">{{b}}</p>
+					</div>
+                </div>
+            </div>
+		</div>
+	</transition>
+	 <transition name="fade">
+		
+	</div>
+	
+	
+   	<script>Vue.filter('formatThousands', (x) => {return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");})</script> 
+	<script>Vue.filter('formatThousands1', (x) => {return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");})</script> 
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="js/atm.js"></script>
+</body>
+
+</html>
+
+<!--
+
+
+
+
+-->
