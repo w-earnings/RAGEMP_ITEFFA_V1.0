@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="css/lift.css">
     <link rel="stylesheet" href="css/petrol.css">
     <link rel="stylesheet" href="css/fmenu.css">
-    <link rel="stylesheet" href="css/plist.css">
     <link rel="stylesheet" href="css/mats.css">
     <link rel="stylesheet" href="css/auto.css">
 	<link rel="stylesheet" href="css/pet.css">
@@ -186,44 +185,6 @@
             </div>
         </div>
     </div>
-    <!--<div style="display: none;">
-        <div class="right" v-show="submenu">
-            <div class="info" v-if="menu == 1">
-                <p class="online" v-on:click="showonly = 1">В сети <span>{{oncounter}}</span></p>
-                <p class="offline" v-on:click="showonly = 0">Не в сети <span>{{ofcounter}}</span></p>
-                <p class="all" v-on:click="showonly = 2">Всего <span>{{counter}}</span></p>
-            </div>
-            <hr v-if="menu == 1">
-            <table v-if="menu == 1">
-                <tr>
-                    <th v-on:click="sortMembers(1)" v-bind:class="{selectedSort: playerssort == 1, reversedSort: sortrevert}">ID</th>
-                    <th v-on:click="sortMembers(2)" v-bind:class="{selectedSort: playerssort == 2, reversedSort: sortrevert}">NAME</th>
-                    <th v-on:click="sortMembers(3)" v-bind:class="{selectedSort: playerssort == 3, reversedSort: sortrevert}">LVL</th>
-                    <th v-on:click="sortMembers(4)" v-bind:class="{selectedSort: playerssort == 4, reversedSort: sortrevert}">RANK</th>
-                </tr>
-                <tr v-for="member in members" v-if="showonly == 2 ? true : showonly == member[0]">
-                    <th>{{member[1]}}</th>
-                    <th v-bind:class="[ member[0] ? 'online' : 'offline' ]">{{member[2]}}</th>
-                    <th>{{member[3]}}</th>
-                    <th>{{member[4]}}</th>
-                </tr>
-            </table>
-            <h1 v-if="menu > 1">{{header[menu]}}</h1>
-            <input placeholder="Имя_Фамилия" v-model="input" v-if="menu > 1">
-            <input placeholder="Новый ранг" v-model="rank" v-if="menu > 3">
-            <div @click="submit" class="btn-submit" v-if="menu > 1">{{btntext[menu]}}</div>
-        </div>
-        <div class="left">
-            <h1>Управление организацией</h1>
-            <div class="btns">
-                <div @click="btn(1,$event)" class="btn" v-bind:class="{active: btnactive[1]}">Члены организации</div>
-                <div @click="btn(2,$event)" class="btn" v-bind:class="{active: btnactive[2]}">Принять в организацию</div>
-                <div @click="btn(3,$event)" class="btn" v-bind:class="{active: btnactive[3]}">Выгнать из организации</div>
-                <div @click="btn(4,$event)" class="btn" v-bind:class="{active: btnactive[4]}">Изменить ранг</div>
-                <div @click="btn(0,$event)" class="btn">Выйти</div>
-            </div>
-        </div>
-    </div>-->
     <div class="joblist" v-if="active">
         <div class="adaptive">
             <div class="boxtop">
@@ -264,25 +225,7 @@
             </div>
         </div>
     </div>
-    <div class="plist" v-if="active">
-        <div class="head"><img src="images/hud/logo.png"><h1>fenix-rp.ru</h1><span>Players: {{ online }}</span></div>
-        <div class="list">
-            <table>
-                <tr>
-                    <th v-on:click="sortPlayers(0)" v-bind:class="{selectedSort: playerssort == 0, reversedSort: sortrevert}">ID</th>
-                    <th v-on:click="sortPlayers(1)" v-bind:class="{selectedSort: playerssort == 1, reversedSort: sortrevert}">Никнейм</th>
-                    <th v-on:click="sortPlayers(2)" v-bind:class="{selectedSort: playerssort == 2, reversedSort: sortrevert}">Уровень</th>
-                    <th v-on:click="sortPlayers(3)" v-bind:class="{selectedSort: playerssort == 3, reversedSort: sortrevert}">Пинг</th>
-                </tr>
-                <tr v-for="item in items">
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+	
     <div class="mats" v-if="active">
         <div v-if="isMed">
             <div class="btns">
@@ -600,7 +543,6 @@
     <script src="js/lift.js"></script>
     <script src="js/petrol.js"></script>
     <script src="js/fmenu.js"></script>
-    <script src="js/plist.js"></script>
     <script src="js/mats.js"></script>
     <script src="js/auto.js"></script>
 	<script src="js/pet.js"></script>
