@@ -125,7 +125,7 @@ setTimeout(function () {
 
 setInterval(function () {
     var name = (localplayer.getVariable('REMOTE_ID') == undefined) ? `Не авторизован` : `Игрок №${localplayer.getVariable("REMOTE_ID")}`;
-	mp.discord.update('RedAge RP v2.0', name);
+	mp.discord.update('iTeffa.com', name);
 }, 10000);
 
 var pedsaying = null;
@@ -242,8 +242,11 @@ mp.events.add('UpdateBank', function (temp, amount) {
 });
 
 // // // // // // //
-require('./client/utils/keys.js');
+require('./game_resources/handlers/plugins/bind_keys.js');
 require('./menus.js');
+require('./game_resources/handlers/control/cmd_online.js');
+
+
 require('./lscustoms.js');
 require('./client/player/afksystem.js');
 require('./character.js');
