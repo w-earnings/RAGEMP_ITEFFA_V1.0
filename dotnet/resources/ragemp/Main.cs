@@ -1690,59 +1690,65 @@ namespace iTeffa
             catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
         }
 
+
         [RemoteEvent("signup")]
-        public async Task ClientEvent_signup(Player player, params object[] arguments)
+        public void ClientEvent_signup(Player player, params object[] arguments)
         {
-            try
+            NAPI.Task.Run(async () =>
             {
-                if (player.HasData("CheatTrigger"))
+                try
                 {
-                    int cheatCode = player.GetData<int>("CheatTrigger");
-                    if (cheatCode > 1)
+                    if (player.HasData("CheatTrigger"))
                     {
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, "Непредвиденная ошибка! Попробуйте перезайти.", 10000);
-                        player.Kick();
-                        return;
+                        int cheatCode = player.GetData<int>("CheatTrigger");
+                        if (cheatCode > 1)
+                        {
+                            //Log.Write($"CheatKick: {((Cheat)cheatCode).ToString()} on {player.Name} ", nLog.Type.Warn);
+                            Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, "Непредвиденная ошибка! Попробуйте перезайти.", 10000);
+                            player.Kick();
+                            return;
+                        }
                     }
-                }
 
-                Log.Write($"{player.Name} try to signup step 1");
+                    Log.Write($"{player.Name} try to signup step 1");
 
-                string login = arguments[0].ToString().ToLower();
-                string pass = arguments[1].ToString();
-                string email = arguments[2].ToString();
-                string promo = arguments[3].ToString();
+                    string login = arguments[0].ToString().ToLower();
+                    string pass = arguments[1].ToString();
+                    string email = arguments[2].ToString();
+                    string promo = arguments[3].ToString();
 
-                Ban ban = Ban.Get1(player);
-                if (ban != null)
-                {
-                    if (ban.isHard && ban.CheckDate())
+                    Ban ban = Ban.Get1(player);
+                    if (ban != null)
                     {
-                        NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until.ToString()}. Причина: {ban.Reason} ({ban.ByAdmin})"));
-                        return;
+                        if (ban.isHard && ban.CheckDate())
+                        {
+                            NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until.ToString()}. Причина: {ban.Reason} ({ban.ByAdmin})"));
+                            return;
+                        }
                     }
-                }
 
-                Log.Write($"{player.Name} try to signup step 2");
-                Account user = new Account();
-                RegisterEvent result = await user.Register(player, login, pass, email, promo);
-                if (result == RegisterEvent.Error)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Непредвиденная ошибка!", 3000);
-                else if (result == RegisterEvent.SocialReg)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "На этот SocialClub уже зарегистрирован игровой аккаунт!", 3000);
-                else if (result == RegisterEvent.UserReg)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Данное имя пользователя уже занято!", 3000);
-                else if (result == RegisterEvent.EmailReg)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Данный email уже занят!", 3000);
-                else if (result == RegisterEvent.DataError)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Ошибка в заполнении полей!", 3000);
-                Log.Write($"{player.Name} try to signup step 3");
-                return;
-            }
-            catch (Exception e) { Log.Write("signup: " + e.Message, nLog.Type.Error); }
+                    Log.Write($"{player.Name} try to signup step 2");
+                    Account user = new Account();
+                    RegisterEvent result = await user.Register(player, login, pass, email, promo);
+                    if (result == RegisterEvent.Error)
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Непредвиденная ошибка!", 3000);
+                    else if (result == RegisterEvent.SocialReg)
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "На этот SocialClub уже зарегистрирован игровой аккаунт!", 3000);
+                    else if (result == RegisterEvent.UserReg)
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Данное имя пользователя уже занято!", 3000);
+                    else if (result == RegisterEvent.EmailReg)
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Данный email уже занят!", 3000);
+                    else if (result == RegisterEvent.DataError)
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Ошибка в заполнении полей!", 3000);
+                    Log.Write($"{player.Name} try to signup step 3");
+                    return;
+                }
+                catch (Exception e) { Log.Write("signup: " + e.Message, nLog.Type.Error); }
+
+            });
         }
         #endregion Account
-        
+
         [RemoteEvent("engineCarPressed")]
         public void ClientEvent_engineCarPressed(Player player, params object[] arguments)
         {
