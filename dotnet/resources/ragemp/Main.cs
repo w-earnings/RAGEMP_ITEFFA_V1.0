@@ -1633,20 +1633,26 @@ namespace iTeffa
             }
         }
         [RemoteEvent("signin")]
-        public async void ClientEvent_signin(Player player, params object[] arguments)
+        public void ClientEvent_signin(Player player, params object[] arguments)
         {
-            try
+            NAPI.Task.Run(async () =>
             {
-                if (player.HasData("CheatTrigger"))
+                try
+                {
+                    if (player.HasData("CheatTrigger"))
+                    await Log.WriteAsync($"{player.Name} try to signin step 1");
+                    string login = arguments[0].ToString();
+                    string pass = arguments[1].ToString();
 
-                await Log.WriteAsync($"{player.Name} try to signin step 1");
-                string login = arguments[0].ToString();
-                string pass = arguments[1].ToString();
-                
-                await SignInOnTimer(player, login, pass);
-            }
-            catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
+                    await SignInOnTimer(player, login, pass);
+                }
+                catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
+            });
         }
+
+
+
+
         public async Task SignInOnTimer(Player player, string login, string pass)
         {
             try
