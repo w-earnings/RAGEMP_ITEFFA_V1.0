@@ -165,13 +165,13 @@ namespace iTeffa.Kernel
                 return vNumber;
             }
 
-            //if (!BusinessManager.takeProd(biz.ID, 1, vName, prod.Price))
-            //{
-            //    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Транспортного средства больше нет на складе", 3000);
-            //    return vNumber;
-            //}
+            if (!BusinessManager.takeProd(biz.ID, 1, vName, prod.Price))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Транспортного средства больше нет на складе", 3000);
+                return vNumber;
+            }
 
-            Finance.Wallet.Change(player, -prod.Price);
+                Finance.Wallet.Change(player, -prod.Price);
 
             GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", prod.Price, $"buyCar({vName})");
 
