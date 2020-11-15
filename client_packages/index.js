@@ -242,7 +242,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
 });
 
 // // // // // // //
-+require('./game_resources/handlers/plugins/bind_keys.js');
+require('./game_resources/handlers/plugins/bind_keys.js');
 require('./menus.js');
 require('./game_resources/handlers/control/cmd_online.js');
 
@@ -283,15 +283,15 @@ require('./scripts/publicGarage/index.js');
 require('./scripts/SmoothThrottle/SmoothThrottle.js');
 require('./banks/atm.js');
 
-require('./configs/tattoo.js');
 require('./configs/barber.js');
 require('./configs/clothes.js');
 require('./configs/natives.js');
-require('./configs/tuning.js');
+
+require('./game_resources/handlers/configs/tattoo.js');
+require('./game_resources/handlers/configs/tuning.js');
 
 require('./realtor.js');
 
-// // // // // // //
 
 if (mp.storage.data.friends == undefined) {
     mp.storage.data.friends = {};

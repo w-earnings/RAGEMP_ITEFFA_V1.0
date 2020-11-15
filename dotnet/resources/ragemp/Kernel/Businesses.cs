@@ -81,63 +81,65 @@ namespace iTeffa.Kernel
 
         public static List<string> BusinessTypeNames = new List<string>()
         {
-            "24/7",
-            "Заправка",
-            "Авто-премиум",
-            "Авто-люкс",
-            "Автосалон",
-            "Мотомагазин",
-            "Оружия",
-            "Магазин одежды",
-            "Бургерная",
-            "Тату-салон",
-            "Парикмахерская",
-            "Магазин масок",
-            "Тюнинг",
-            "Автомойка",
-            "Магазин животных",
-            "Рыболовный магазин",
-            "Скупка рыбы",
+            "24/7",               // 0
+            "Заправка",           // 1
+
+            "Авто-премиум",       // 2
+            "Авто-люкс",          // 3
+            "Автосалон",          // 4
+            "Мотомагазин",        // 5 
+
+            "Оружия",             // 6
+            "Магазин одежды",     // 7
+            "Бургерная",          // 8
+            "Тату-салон",         // 9
+            "Парикмахерская",     // 10
+            "Магазин масок",      // 11
+            "Тюнинг",             // 12
+            "Автомойка",          // 13
+            "Магазин животных",   // 14
+            "FishShop",           // 15
+            "SellShop",           // 16
         };
         public static List<int> BlipByType = new List<int>()
         {
-            52, // 24/7
-            361, // petrol station
-            530, // premium
-            523, // sport
-            225, // middle
-            522, // moto
-            110, // gun shop
-            73, // clothes shop
-            106, // burger-shot
-            75, // tattoo-salon
-            71, // barber-shop
-            362, // masks shop
-            72, // ls customs
-            569, // carwash
-            251, // aero shop
-            371, // FishShop
-            628, // SellShop
+            52,                   // 0
+            361,                  // 1
+            530,                  // 2
+            523,                  // 3
+            225,                  // 4
+            522,                  // 5
+            110,                  // 6
+            73,                   // 7
+            106,                  // 8
+            75,                   // 9
+            71,                   // 10
+            362,                  // 11
+            72,                   // 12
+            569,                  // 13
+            251,                  // 14
+            371,                  // 15
+            628,                  // 16
         };
         public static List<int> BlipColorByType = new List<int>()
         {
-            4, // 24/7
-            76, // petrol station
-            45, // showroom
-            45, // showroom
-            45, // showroom
-            45, // showroom
-            76, // gun shop
-            4, // clothes shop
-            70, // burger-shot
-            8, // tattoo-salon
-            45, // barber-shop
-            4, // masks shop
-            40, // ls customs
-            17, // carwash
-            15, // aero shop
-            3, // fishshop
-            3, // sellshop
+            4,                    // 0
+            76,                   // 1
+            45,                   // 2
+            45,                   // 3
+            45,                   // 4
+            45,                   // 5
+            76,                   // 6
+            4,                    // 7
+            70,                   // 8
+            8,                    // 9
+            45,                   // 10
+            4,                    // 11
+            40,                   // 12
+            17,                   // 13
+            15,                   // 14
+            3,                    // 15
+            3,                    // 16
         };
         private static List<string> FishProducts = new List<string>()
         {
@@ -171,10 +173,10 @@ namespace iTeffa.Kernel
             "Rabbit",
         };
         public static List<int> PetHashes = new List<int>() {
-            1318032802, // Husky
+            1318032802,
             1125994524,
             1832265812,
-            882848737, // Retriever
+            882848737,
             -1788665315,
             1126154828,
             -1384627013,
@@ -183,106 +185,13 @@ namespace iTeffa.Kernel
         };
         public static List<List<string>> CarsNames = new List<List<string>>()
         {
-            new List<string>() // premium
-            {
-                "Sultan",
-                "SultanRS",
-                "Kuruma",
-                "Fugitive",
-                "Tailgater",
-                "Sentinel",
-                "F620",
-                "Schwarzer",
-                "Exemplar",
-                "Felon",
-                "Schafter2",
-                "Jackal",
-                "Oracle2",
-                "Surano",
-                "Zion",
-                "Dominator",
-                "FQ2",
-                "Gresley",
-                "Serrano",
-                "Dubsta",
-                "Rocoto",
-                "Cavalcade2",
-                "XLS",
-                "Baller2",
-                "Elegy",
-                "Banshee",
-                "Massacro2",
-                "GP1"
-            }, // premium
-            new List<string>() // sport
-            {
-                "Comet2",
-                "Coquette",
-                "Ninef",
-                "Ninef2",
-                "Jester",
-                "Elegy2",
-                "Infernus",
-                "Carbonizzare",
-                "Dubsta2",
-                "Baller3",
-                "Huntley",
-                "Superd",
-                "Windsor",
-                "BestiaGTS",
-                "Banshee2",
-                "EntityXF",
-                "Neon",
-                "Jester2",
-                "Turismor",
-                "Penetrator",
-                "Omnis",
-                "Reaper",
-                "Italigtb2",
-                "Xa21",
-                "Osiris",
-                "Pfister811",
-                "Zentorno",
-            },
-            new List<string>() // middle
-            {
-                "Apriora",
-            },
-            new List<string>() // moto
-            {
-                "Faggio2",
-                "Sanchez2",
-                "Enduro",
-                "PCJ",
-                "Hexer",
-                "Lectro",
-                "Nemesis",
-                "Hakuchou",
-                "Ruffian",
-                "Bmx",
-                "Scorcher",
-                "BF400",
-                "CarbonRS",
-                "Bati",
-                "Double",
-                "Diablous",
-                "Cliffhanger",
-                "Akuma",
-                "Thrust",
-                "Nightblade",
-                "Vindicator",
-                "Ratbike",
-                "Blazer",
-                "Gargoyle",
-                "Sanctus"
-            }, // moto
-            new List<string>() // aero room
-            {
-                "Buzzard2",
-                "Mammatus",
-                "Luxor2"
-            }, // aero room
+            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
         };
+
         private static List<string> GunNames = new List<string>()
         {
             "Pistol",
@@ -307,1620 +216,507 @@ namespace iTeffa.Kernel
             "Сим-карта",
             "Связка ключей",
         };
-        private static List<string> BurgerProducts = new List<string>()
-        {
-            "Бургер",
-            "Хот-Дог",
-            "Сэндвич",
-            "eCola",
-            "Sprunk",
-        };
+        private static List<string> BurgerProducts = new List<string>(){"Бургер","Хот-Дог","Сэндвич","eCola","Sprunk"};
 
+        #region Татуировки
         public static List<List<BusinessTattoo>> BusinessTattoos = new List<List<BusinessTattoo>>()
         {
-            // Torso
+            #region Торс
             new List<BusinessTattoo>()
             {
-	            // Левый сосок  -   0
-                // Правый сосок -   1
-                // Живот        -   2
-                // Левый низ спины    -   3
-	            // Правый низ спины    -   4
-                // Левый верх спины   -   5
-                // Правый верх спины   -   6
-                // Левый бок    -   7
-                // Правый бок   -   8
-                // Не работают: Skull of Suits, 
-                //Новое
-                new BusinessTattoo(new List<int>(){0,1},"In the Pocket", "mpvinewood_overlays", "MP_Vinewood_Tat_000_M", "MP_Vinewood_Tat_000_F",1500), new BusinessTattoo(new List<int>(){5,6}, "Jackpot", "mpvinewood_overlays", "MP_Vinewood_Tat_001_M", "MP_Vinewood_Tat_001_F",1350),  new BusinessTattoo(new List<int>(){0}, "Royal Flush", "mpvinewood_overlays", "MP_Vinewood_Tat_003_M", "MP_Vinewood_Tat_003_F",1700),    new BusinessTattoo(new List<int>(){5,6}, "Wheel of Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_006_M", "MP_Vinewood_Tat_006_F",2750),   new BusinessTattoo(new List<int>(){5,6}, "777", "mpvinewood_overlays", "MP_Vinewood_Tat_007_M", "MP_Vinewood_Tat_007_F",7777),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Snake Eyes", "mpvinewood_overlays", "MP_Vinewood_Tat_008_M", "MP_Vinewood_Tat_008_F",3500),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Till Death Do Us Part", "mpvinewood_overlays", "MP_Vinewood_Tat_009_M", "MP_Vinewood_Tat_009_F",2000),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Photo Finish", "mpvinewood_overlays", "MP_Vinewood_Tat_010_M", "MP_Vinewood_Tat_010_F",2550), new BusinessTattoo(new List<int>(){3,4,5,6}, "Life's a Gamble", "mpvinewood_overlays", "MP_Vinewood_Tat_011_M", "MP_Vinewood_Tat_011_F",4500),  new BusinessTattoo(new List<int>(){2}, "Skull of Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_012_M", "MP_Vinewood_Tat_012_F",2750), new BusinessTattoo(new List<int>(){3,4,5,6}, "The Jolly Joker", "mpvinewood_overlays", "MP_Vinewood_Tat_015_M", "MP_Vinewood_Tat_015_F",2000),  new BusinessTattoo(new List<int>(){2}, "Rose & Aces", "mpvinewood_overlays", "MP_Vinewood_Tat_016_M", "MP_Vinewood_Tat_016_F",3000),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Roll the Dice", "mpvinewood_overlays", "MP_Vinewood_Tat_017_M", "MP_Vinewood_Tat_017_F",1550),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Show Your Hand", "mpvinewood_overlays", "MP_Vinewood_Tat_021_M", "MP_Vinewood_Tat_021_F",1750),   new BusinessTattoo(new List<int>(){1}, "Blood Money", "mpvinewood_overlays", "MP_Vinewood_Tat_022_M", "MP_Vinewood_Tat_022_F",2550),    new BusinessTattoo(new List<int>(){0,1}, "Lucky 7s", "mpvinewood_overlays", "MP_Vinewood_Tat_023_M", "MP_Vinewood_Tat_023_F",3550), new BusinessTattoo(new List<int>(){2}, "Cash Mouth", "mpvinewood_overlays", "MP_Vinewood_Tat_024_M", "MP_Vinewood_Tat_024_F",5000), new BusinessTattoo(new List<int>(){3,4,5,6}, "The Table", "mpvinewood_overlays", "MP_Vinewood_Tat_029_M", "MP_Vinewood_Tat_029_F",3550),    new BusinessTattoo(new List<int>(){3,4,5,6}, "The Royals", "mpvinewood_overlays", "MP_Vinewood_Tat_030_M", "MP_Vinewood_Tat_030_F",2550),   new BusinessTattoo(new List<int>(){2}, "Gambling Royalty", "mpvinewood_overlays", "MP_Vinewood_Tat_031_M", "MP_Vinewood_Tat_031_F",4750),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Play Your Ace", "mpvinewood_overlays", "MP_Vinewood_Tat_032_M", "MP_Vinewood_Tat_032_F",6000),    new BusinessTattoo(new List<int>(){2}, "Refined Hustler", "mpbusiness_overlays", "MP_Buis_M_Stomach_000", "",3000), new BusinessTattoo(new List<int>(){1}, "Rich", "mpbusiness_overlays", "MP_Buis_M_Chest_000", "",1750),  new BusinessTattoo(new List<int>(){0}, "$$$", "mpbusiness_overlays", "MP_Buis_M_Chest_001", "",1750),   new BusinessTattoo(new List<int>(){3,4}, "Makin' Paper", "mpbusiness_overlays", "MP_Buis_M_Back_000", "",2000), new BusinessTattoo(new List<int>(){0,1}, "High Roller", "mpbusiness_overlays", "", "MP_Buis_F_Chest_000",1750), new BusinessTattoo(new List<int>(){0,1}, "Makin' Money", "mpbusiness_overlays", "", "MP_Buis_F_Chest_001",2500),    new BusinessTattoo(new List<int>(){1}, "Love Money", "mpbusiness_overlays", "", "MP_Buis_F_Chest_002",1750),    new BusinessTattoo(new List<int>(){2}, "Diamond Back", "mpbusiness_overlays", "", "MP_Buis_F_Stom_000",3000),   new BusinessTattoo(new List<int>(){8}, "Santo Capra Logo", "mpbusiness_overlays", "", "MP_Buis_F_Stom_001",2000),   new BusinessTattoo(new List<int>(){8}, "Money Bag", "mpbusiness_overlays", "", "MP_Buis_F_Stom_002",2000),  new BusinessTattoo(new List<int>(){3,4}, "Respect", "mpbusiness_overlays", "", "MP_Buis_F_Back_000",2000),  new BusinessTattoo(new List<int>(){3,4}, "Gold Digger", "mpbusiness_overlays", "", "MP_Buis_F_Back_001",2500),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Carp Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_005", "MP_Xmas2_F_Tat_005",6250), new BusinessTattoo(new List<int>(){3,4,5,6}, "Carp Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_006", "MP_Xmas2_F_Tat_006",6250),  new BusinessTattoo(new List<int>(){1}, "Time To Die", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_009", "MP_Xmas2_F_Tat_009",1250),    new BusinessTattoo(new List<int>(){5,6}, "Roaring Tiger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_011", "MP_Xmas2_F_Tat_011",2250),    new BusinessTattoo(new List<int>(){7}, "Lizard", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_013", "MP_Xmas2_F_Tat_013",2000), new BusinessTattoo(new List<int>(){5,6}, "Japanese Warrior", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_015", "MP_Xmas2_F_Tat_015",2100), new BusinessTattoo(new List<int>(){0}, "Loose Lips Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_016", "MP_Xmas2_F_Tat_016",1750), new BusinessTattoo(new List<int>(){0}, "Loose Lips Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_017", "MP_Xmas2_F_Tat_017",1750),   new BusinessTattoo(new List<int>(){0,1}, "Royal Dagger Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_018", "MP_Xmas2_F_Tat_018",2500), new BusinessTattoo(new List<int>(){0,1}, "Royal Dagger Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_019", "MP_Xmas2_F_Tat_019",2500),   new BusinessTattoo(new List<int>(){2,8}, "Executioner", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_028", "MP_Xmas2_F_Tat_028",2000),  new BusinessTattoo(new List<int>(){5,6}, "Bullet Proof", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_000_M", "MP_Gunrunning_Tattoo_000_F",2000), new BusinessTattoo(new List<int>(){3,4}, "Crossed Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_001_M", "MP_Gunrunning_Tattoo_001_F",2000),  new BusinessTattoo(new List<int>(){5,6}, "Butterfly Knife", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_009_M", "MP_Gunrunning_Tattoo_009_F",2250),  new BusinessTattoo(new List<int>(){2}, "Cash Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_010_M", "MP_Gunrunning_Tattoo_010_F",3000), new BusinessTattoo(new List<int>(){1}, "Dollar Daggers", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_012_M", "MP_Gunrunning_Tattoo_012_F",1750), new BusinessTattoo(new List<int>(){5,6}, "Wolf Insignia", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_013_M", "MP_Gunrunning_Tattoo_013_F",2250),    new BusinessTattoo(new List<int>(){5,6}, "Backstabber", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_014_M", "MP_Gunrunning_Tattoo_014_F",2250),  new BusinessTattoo(new List<int>(){0,1}, "Dog Tags", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_017_M", "MP_Gunrunning_Tattoo_017_F",2500), new BusinessTattoo(new List<int>(){3,4}, "Dual Wield Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_018_M", "MP_Gunrunning_Tattoo_018_F",2250), new BusinessTattoo(new List<int>(){5,6}, "Pistol Wings", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_019_M", "MP_Gunrunning_Tattoo_019_F",2250), new BusinessTattoo(new List<int>(){0,1}, "Crowned Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_020_M", "MP_Gunrunning_Tattoo_020_F",2500),  new BusinessTattoo(new List<int>(){5}, "Explosive Heart", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_022_M", "MP_Gunrunning_Tattoo_022_F",1750),    new BusinessTattoo(new List<int>(){0,1}, "Micro SMG Chain", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_028_M", "MP_Gunrunning_Tattoo_028_F",2500),  new BusinessTattoo(new List<int>(){2}, "Win Some Lose Some", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_029_M", "MP_Gunrunning_Tattoo_029_F",3000), new BusinessTattoo(new List<int>(){5,6}, "Crossed Arrows", "mphipster_overlays", "FM_Hip_M_Tat_000", "FM_Hip_F_Tat_000",2250),  new BusinessTattoo(new List<int>(){1}, "Chemistry", "mphipster_overlays", "FM_Hip_M_Tat_002", "FM_Hip_F_Tat_002",1750), new BusinessTattoo(new List<int>(){7}, "Feather Birds", "mphipster_overlays", "FM_Hip_M_Tat_006", "FM_Hip_F_Tat_006",200),  new BusinessTattoo(new List<int>(){5,6}, "Infinity", "mphipster_overlays", "FM_Hip_M_Tat_011", "FM_Hip_F_Tat_011",2250),    new BusinessTattoo(new List<int>(){5,6}, "Antlers", "mphipster_overlays", "FM_Hip_M_Tat_012", "FM_Hip_F_Tat_012",2250), new BusinessTattoo(new List<int>(){0,1}, "Boombox", "mphipster_overlays", "FM_Hip_M_Tat_013", "FM_Hip_F_Tat_013",2500), new BusinessTattoo(new List<int>(){6}, "Pyramid", "mphipster_overlays", "FM_Hip_M_Tat_024", "FM_Hip_F_Tat_024",1750),   new BusinessTattoo(new List<int>(){5}, "Watch Your Step", "mphipster_overlays", "FM_Hip_M_Tat_025", "FM_Hip_F_Tat_025",1750),   new BusinessTattoo(new List<int>(){2,8}, "Sad", "mphipster_overlays", "FM_Hip_M_Tat_029", "FM_Hip_F_Tat_029",3750), new BusinessTattoo(new List<int>(){3,4}, "Shark Fin", "mphipster_overlays", "FM_Hip_M_Tat_030", "FM_Hip_F_Tat_030",2250),   new BusinessTattoo(new List<int>(){5,6}, "Skateboard", "mphipster_overlays", "FM_Hip_M_Tat_031", "FM_Hip_F_Tat_031",2250),  new BusinessTattoo(new List<int>(){6}, "Paper Plane", "mphipster_overlays", "FM_Hip_M_Tat_032", "FM_Hip_F_Tat_032",1750),   new BusinessTattoo(new List<int>(){0,1}, "Stag", "mphipster_overlays", "FM_Hip_M_Tat_033", "FM_Hip_F_Tat_033",2500),    new BusinessTattoo(new List<int>(){2,8}, "Sewn Heart", "mphipster_overlays", "FM_Hip_M_Tat_035", "FM_Hip_F_Tat_035",3750),  new BusinessTattoo(new List<int>(){3}, "Tooth", "mphipster_overlays", "FM_Hip_M_Tat_041", "FM_Hip_F_Tat_041",2000), new BusinessTattoo(new List<int>(){5,6}, "Triangles", "mphipster_overlays", "FM_Hip_M_Tat_046", "FM_Hip_F_Tat_046",2250),   new BusinessTattoo(new List<int>(){1}, "Cassette", "mphipster_overlays", "FM_Hip_M_Tat_047", "FM_Hip_F_Tat_047",1750),  new BusinessTattoo(new List<int>(){5,6}, "Block Back", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_000_M", "MP_MP_ImportExport_Tat_000_F",2250), new BusinessTattoo(new List<int>(){5,6}, "Power Plant", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_001_M", "MP_MP_ImportExport_Tat_001_F",2250),    new BusinessTattoo(new List<int>(){5,6}, "Tuned to Death", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_002_M", "MP_MP_ImportExport_Tat_002_F",2250), new BusinessTattoo(new List<int>(){5,6}, "Serpents of Destruction", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_009_M", "MP_MP_ImportExport_Tat_009_F",2250),    new BusinessTattoo(new List<int>(){5,6}, "Take the Wheel", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_010_M", "MP_MP_ImportExport_Tat_010_F",2250), new BusinessTattoo(new List<int>(){5,6}, "Talk Shit Get Hit", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_011_M", "MP_MP_ImportExport_Tat_011_F",2250),  new BusinessTattoo(new List<int>(){0}, "King Fight", "mplowrider_overlays", "MP_LR_Tat_001_M", "MP_LR_Tat_001_F",1750), new BusinessTattoo(new List<int>(){0,1}, "Holy Mary", "mplowrider_overlays", "MP_LR_Tat_002_M", "MP_LR_Tat_002_F",2500),    new BusinessTattoo(new List<int>(){7}, "Gun Mic", "mplowrider_overlays", "MP_LR_Tat_004_M", "MP_LR_Tat_004_F",2000),    new BusinessTattoo(new List<int>(){6}, "Amazon", "mplowrider_overlays", "MP_LR_Tat_009_M", "MP_LR_Tat_009_F",1750), new BusinessTattoo(new List<int>(){3,4,5,6}, "Bad Angel", "mplowrider_overlays", "MP_LR_Tat_010_M", "MP_LR_Tat_010_F",6000),    new BusinessTattoo(new List<int>(){1}, "Love Gamble", "mplowrider_overlays", "MP_LR_Tat_013_M", "MP_LR_Tat_013_F",1750),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Love is Blind", "mplowrider_overlays", "MP_LR_Tat_014_M", "MP_LR_Tat_014_F",1250),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Sad Angel", "mplowrider_overlays", "MP_LR_Tat_021_M", "MP_LR_Tat_021_F",5500),    new BusinessTattoo(new List<int>(){1}, "Royal Takeover", "mplowrider_overlays", "MP_LR_Tat_026_M", "MP_LR_Tat_026_F",1750), new BusinessTattoo(new List<int>(){1}, "Turbulence", "mpairraces_overlays", "MP_Airraces_Tattoo_000_M", "MP_Airraces_Tattoo_000_F",1750),   new BusinessTattoo(new List<int>(){5,6}, "Pilot Skull", "mpairraces_overlays", "MP_Airraces_Tattoo_001_M", "MP_Airraces_Tattoo_001_F",2250),    new BusinessTattoo(new List<int>(){5,6}, "Winged Bombshell", "mpairraces_overlays", "MP_Airraces_Tattoo_002_M", "MP_Airraces_Tattoo_002_F",2250),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Balloon Pioneer", "mpairraces_overlays", "MP_Airraces_Tattoo_004_M", "MP_Airraces_Tattoo_004_F",5000),    new BusinessTattoo(new List<int>(){5,6}, "Parachute Belle", "mpairraces_overlays", "MP_Airraces_Tattoo_005_M", "MP_Airraces_Tattoo_005_F",2250),    new BusinessTattoo(new List<int>(){2}, "Bombs Away", "mpairraces_overlays", "MP_Airraces_Tattoo_006_M", "MP_Airraces_Tattoo_006_F",3000),   new BusinessTattoo(new List<int>(){5,6}, "Eagle Eyes", "mpairraces_overlays", "MP_Airraces_Tattoo_007_M", "MP_Airraces_Tattoo_007_F",2250), new BusinessTattoo(new List<int>(){0}, "Demon Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_000_M", "MP_MP_Biker_Tat_000_F",1750),   new BusinessTattoo(new List<int>(){0,1}, "Both Barrels", "mpbiker_overlays", "MP_MP_Biker_Tat_001_M", "MP_MP_Biker_Tat_001_F",2500),    new BusinessTattoo(new List<int>(){2}, "Web Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_003_M", "MP_MP_Biker_Tat_003_F",3000), new BusinessTattoo(new List<int>(){0,1}, "Made In America", "mpbiker_overlays", "MP_MP_Biker_Tat_005_M", "MP_MP_Biker_Tat_005_F",2500), new BusinessTattoo(new List<int>(){3,4}, "Chopper Freedom", "mpbiker_overlays", "MP_MP_Biker_Tat_006_M", "MP_MP_Biker_Tat_006_F",2000), new BusinessTattoo(new List<int>(){5,6}, "Freedom Wheels", "mpbiker_overlays", "MP_MP_Biker_Tat_008_M", "MP_MP_Biker_Tat_008_F",2250),  new BusinessTattoo(new List<int>(){2}, "Skull Of Taurus", "mpbiker_overlays", "MP_MP_Biker_Tat_010_M", "MP_MP_Biker_Tat_010_F",3250),   new BusinessTattoo(new List<int>(){5,6}, "R.I.P. My Brothers", "mpbiker_overlays", "MP_MP_Biker_Tat_011_M", "MP_MP_Biker_Tat_011_F",2250),  new BusinessTattoo(new List<int>(){0,1}, "Demon Crossbones", "mpbiker_overlays", "MP_MP_Biker_Tat_013_M", "MP_MP_Biker_Tat_013_F",3000),    new BusinessTattoo(new List<int>(){5,6}, "Clawed Beast", "mpbiker_overlays", "MP_MP_Biker_Tat_017_M", "MP_MP_Biker_Tat_017_F",2250),    new BusinessTattoo(new List<int>(){1}, "Skeletal Chopper", "mpbiker_overlays", "MP_MP_Biker_Tat_018_M", "MP_MP_Biker_Tat_018_F",1800),  new BusinessTattoo(new List<int>(){0,1}, "Gruesome Talons", "mpbiker_overlays", "MP_MP_Biker_Tat_019_M", "MP_MP_Biker_Tat_019_F",2750), new BusinessTattoo(new List<int>(){5,6}, "Flaming Reaper", "mpbiker_overlays", "MP_MP_Biker_Tat_021_M", "MP_MP_Biker_Tat_021_F",2250),  new BusinessTattoo(new List<int>(){0,1}, "Western MC", "mpbiker_overlays", "MP_MP_Biker_Tat_023_M", "MP_MP_Biker_Tat_023_F",2750),  new BusinessTattoo(new List<int>(){0,1}, "American Dream", "mpbiker_overlays", "MP_MP_Biker_Tat_026_M", "MP_MP_Biker_Tat_026_F",2650),  new BusinessTattoo(new List<int>(){0}, "Bone Wrench", "mpbiker_overlays", "MP_MP_Biker_Tat_029_M", "MP_MP_Biker_Tat_029_F",1650),   new BusinessTattoo(new List<int>(){5,6}, "Brothers For Life", "mpbiker_overlays", "MP_MP_Biker_Tat_030_M", "MP_MP_Biker_Tat_030_F",2300),   new BusinessTattoo(new List<int>(){2}, "Gear Head", "mpbiker_overlays", "MP_MP_Biker_Tat_031_M", "MP_MP_Biker_Tat_031_F",3000), new BusinessTattoo(new List<int>(){0}, "Western Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_032_M", "MP_MP_Biker_Tat_032_F",1800), new BusinessTattoo(new List<int>(){1}, "Brotherhood of Bikes", "mpbiker_overlays", "MP_MP_Biker_Tat_034_M", "MP_MP_Biker_Tat_034_F",1850),  new BusinessTattoo(new List<int>(){2}, "Gas Guzzler", "mpbiker_overlays", "MP_MP_Biker_Tat_039_M", "MP_MP_Biker_Tat_039_F",2850),   new BusinessTattoo(new List<int>(){0,1}, "No Regrets", "mpbiker_overlays", "MP_MP_Biker_Tat_041_M", "MP_MP_Biker_Tat_041_F",2500),  new BusinessTattoo(new List<int>(){3,4}, "Ride Forever", "mpbiker_overlays", "MP_MP_Biker_Tat_043_M", "MP_MP_Biker_Tat_043_F",2100),    new BusinessTattoo(new List<int>(){0,1}, "Unforgiven", "mpbiker_overlays", "MP_MP_Biker_Tat_050_M", "MP_MP_Biker_Tat_050_F",3000),  new BusinessTattoo(new List<int>(){2}, "Biker Mount", "mpbiker_overlays", "MP_MP_Biker_Tat_052_M", "MP_MP_Biker_Tat_052_F",2500),   new BusinessTattoo(new List<int>(){1}, "Reaper Vulture", "mpbiker_overlays", "MP_MP_Biker_Tat_058_M", "MP_MP_Biker_Tat_058_F",1750),    new BusinessTattoo(new List<int>(){1}, "Faggio", "mpbiker_overlays", "MP_MP_Biker_Tat_059_M", "MP_MP_Biker_Tat_059_F",1750),    new BusinessTattoo(new List<int>(){0}, "We Are The Mods!", "mpbiker_overlays", "MP_MP_Biker_Tat_060_M", "MP_MP_Biker_Tat_060_F",1850),  new BusinessTattoo(new List<int>(){3,4,5,6}, "SA Assault", "mplowrider2_overlays", "MP_LR_Tat_000_M", "MP_LR_Tat_000_F",5500),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Love the Game", "mplowrider2_overlays", "MP_LR_Tat_008_M", "MP_LR_Tat_008_F",5250),   new BusinessTattoo(new List<int>(){7}, "Lady Liberty", "mplowrider2_overlays", "MP_LR_Tat_011_M", "MP_LR_Tat_011_F",2100),  new BusinessTattoo(new List<int>(){0}, "Royal Kiss", "mplowrider2_overlays", "MP_LR_Tat_012_M", "MP_LR_Tat_012_F",1750),    new BusinessTattoo(new List<int>(){2}, "Two Face", "mplowrider2_overlays", "MP_LR_Tat_016_M", "MP_LR_Tat_016_F",3100),  new BusinessTattoo(new List<int>(){1}, "Death Behind", "mplowrider2_overlays", "MP_LR_Tat_019_M", "MP_LR_Tat_019_F",1750),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Dead Pretty", "mplowrider2_overlays", "MP_LR_Tat_031_M", "MP_LR_Tat_031_F",5250), new BusinessTattoo(new List<int>(){3,4,5,6}, "Reign Over", "mplowrider2_overlays", "MP_LR_Tat_032_M", "MP_LR_Tat_032_F",5600),  new BusinessTattoo(new List<int>(){2}, "Abstract Skull", "mpluxe_overlays", "MP_LUXE_TAT_003_M", "MP_LUXE_TAT_003_F",2750), new BusinessTattoo(new List<int>(){1}, "Eye of the Griffin", "mpluxe_overlays", "MP_LUXE_TAT_007_M", "MP_LUXE_TAT_007_F",1850), new BusinessTattoo(new List<int>(){1}, "Flying Eye", "mpluxe_overlays", "MP_LUXE_TAT_008_M", "MP_LUXE_TAT_008_F",1800), new BusinessTattoo(new List<int>(){0,1}, "Ancient Queen", "mpluxe_overlays", "MP_LUXE_TAT_014_M", "MP_LUXE_TAT_014_F",2600),    new BusinessTattoo(new List<int>(){0}, "Smoking Sisters", "mpluxe_overlays", "MP_LUXE_TAT_015_M", "MP_LUXE_TAT_015_F",1750),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Feather Mural", "mpluxe_overlays", "MP_LUXE_TAT_024_M", "MP_LUXE_TAT_024_F",6250),    new BusinessTattoo(new List<int>(){0}, "The Howler", "mpluxe2_overlays", "MP_LUXE_TAT_002_M", "MP_LUXE_TAT_002_F",1750),    new BusinessTattoo(new List<int>(){0,1,2,8}, "Geometric Galaxy", "mpluxe2_overlays", "MP_LUXE_TAT_012_M", "MP_LUXE_TAT_012_F",7000),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Cloaked Angel", "mpluxe2_overlays", "MP_LUXE_TAT_022_M", "MP_LUXE_TAT_022_F",6000),   new BusinessTattoo(new List<int>(){0}, "Reaper Sway", "mpluxe2_overlays", "MP_LUXE_TAT_025_M", "MP_LUXE_TAT_025_F",1750),   new BusinessTattoo(new List<int>(){1}, "Cobra Dawn", "mpluxe2_overlays", "MP_LUXE_TAT_027_M", "MP_LUXE_TAT_027_F",1800),    new BusinessTattoo(new List<int>(){3,4,5,6}, "Geometric Design T", "mpluxe2_overlays", "MP_LUXE_TAT_029_M", "MP_LUXE_TAT_029_F",5500),  new BusinessTattoo(new List<int>(){1}, "Bless The Dead", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_000_M", "MP_Smuggler_Tattoo_000_F",1000),   new BusinessTattoo(new List<int>(){2}, "Dead Lies", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_002_M", "MP_Smuggler_Tattoo_002_F",3000),    new BusinessTattoo(new List<int>(){5,6}, "Give Nothing Back", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_003_M", "MP_Smuggler_Tattoo_003_F",2000),  new BusinessTattoo(new List<int>(){5,6}, "Never Surrender", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_006_M", "MP_Smuggler_Tattoo_006_F",2100),    new BusinessTattoo(new List<int>(){0,1}, "No Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_007_M", "MP_Smuggler_Tattoo_007_F",2500),   new BusinessTattoo(new List<int>(){5,6}, "Tall Ship Conflict", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_009_M", "MP_Smuggler_Tattoo_009_F",2000), new BusinessTattoo(new List<int>(){2}, "See You In Hell", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_010_M", "MP_Smuggler_Tattoo_010_F",3000),  new BusinessTattoo(new List<int>(){5,6}, "Torn Wings", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_013_M", "MP_Smuggler_Tattoo_013_F",2100), new BusinessTattoo(new List<int>(){2}, "Jolly Roger", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_015_M", "MP_Smuggler_Tattoo_015_F",3000),  new BusinessTattoo(new List<int>(){5,6}, "Skull Compass", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_016_M", "MP_Smuggler_Tattoo_016_F",2000),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Framed Tall Ship", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_017_M", "MP_Smuggler_Tattoo_017_F",5500),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Finders Keepers", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_018_M", "MP_Smuggler_Tattoo_018_F",6000),    new BusinessTattoo(new List<int>(){0}, "Lost At Sea", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_019_M", "MP_Smuggler_Tattoo_019_F",1750),  new BusinessTattoo(new List<int>(){0,1}, "Dead Tales", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_021_M", "MP_Smuggler_Tattoo_021_F",2000), new BusinessTattoo(new List<int>(){5}, "X Marks The Spot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_022_M", "MP_Smuggler_Tattoo_022_F",1750), new BusinessTattoo(new List<int>(){3,4,5,6}, "Pirate Captain", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_024_M", "MP_Smuggler_Tattoo_024_F",5500), new BusinessTattoo(new List<int>(){3,4,5,6}, "Claimed By The Beast", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_025_M", "MP_Smuggler_Tattoo_025_F",5500),   new BusinessTattoo(new List<int>(){0,1}, "Wheels of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_011_M", "MP_MP_Stunt_Tat_011_F",2000), new BusinessTattoo(new List<int>(){7}, "Punk Biker", "mpstunt_overlays", "MP_MP_Stunt_Tat_012_M", "MP_MP_Stunt_Tat_012_F",2000),    new BusinessTattoo(new List<int>(){2}, "Bat Cat of Spades", "mpstunt_overlays", "MP_MP_Stunt_Tat_014_M", "MP_MP_Stunt_Tat_014_F",3100), new BusinessTattoo(new List<int>(){0}, "Vintage Bully", "mpstunt_overlays", "MP_MP_Stunt_Tat_018_M", "MP_MP_Stunt_Tat_018_F",1750), new BusinessTattoo(new List<int>(){1}, "Engine Heart", "mpstunt_overlays", "MP_MP_Stunt_Tat_019_M", "MP_MP_Stunt_Tat_019_F",1750),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_024_M", "MP_MP_Stunt_Tat_024_F",5000),   new BusinessTattoo(new List<int>(){5,6}, "Winged Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_026_M", "MP_MP_Stunt_Tat_026_F",2000),    new BusinessTattoo(new List<int>(){0}, "Punk Road Hog", "mpstunt_overlays", "MP_MP_Stunt_Tat_027_M", "MP_MP_Stunt_Tat_027_F",1750), new BusinessTattoo(new List<int>(){3,4}, "Majestic Finish", "mpstunt_overlays", "MP_MP_Stunt_Tat_029_M", "MP_MP_Stunt_Tat_029_F",2000), new BusinessTattoo(new List<int>(){6}, "Man's Ruin", "mpstunt_overlays", "MP_MP_Stunt_Tat_030_M", "MP_MP_Stunt_Tat_030_F",2100),    new BusinessTattoo(new List<int>(){1}, "Sugar Skull Trucker", "mpstunt_overlays", "MP_MP_Stunt_Tat_033_M", "MP_MP_Stunt_Tat_033_F",1750),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Feather Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_034_M", "MP_MP_Stunt_Tat_034_F",1250),   new BusinessTattoo(new List<int>(){5}, "Big Grills", "mpstunt_overlays", "MP_MP_Stunt_Tat_037_M", "MP_MP_Stunt_Tat_037_F",1750),    new BusinessTattoo(new List<int>(){5,6}, "Monkey Chopper", "mpstunt_overlays", "MP_MP_Stunt_Tat_040_M", "MP_MP_Stunt_Tat_040_F",2000),  new BusinessTattoo(new List<int>(){5,6}, "Brapp", "mpstunt_overlays", "MP_MP_Stunt_Tat_041_M", "MP_MP_Stunt_Tat_041_F",2000),   new BusinessTattoo(new List<int>(){0,1}, "Ram Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_044_M", "MP_MP_Stunt_Tat_044_F",2000),   new BusinessTattoo(new List<int>(){5,6}, "Full Throttle", "mpstunt_overlays", "MP_MP_Stunt_Tat_046_M", "MP_MP_Stunt_Tat_046_F",2100),   new BusinessTattoo(new List<int>(){5,6}, "Racing Doll", "mpstunt_overlays", "MP_MP_Stunt_Tat_048_M", "MP_MP_Stunt_Tat_048_F",2100), new BusinessTattoo(new List<int>(){0}, "Blackjack", "multiplayer_overlays", "FM_Tat_Award_M_003", "FM_Tat_Award_F_003",1800),   new BusinessTattoo(new List<int>(){2}, "Hustler", "multiplayer_overlays", "FM_Tat_Award_M_004", "FM_Tat_Award_F_004",3250), new BusinessTattoo(new List<int>(){5,6}, "Angel", "multiplayer_overlays", "FM_Tat_Award_M_005", "FM_Tat_Award_F_005",2100), new BusinessTattoo(new List<int>(){3,4}, "Los Santos Customs", "multiplayer_overlays", "FM_Tat_Award_M_008", "FM_Tat_Award_F_008",8400),    new BusinessTattoo(new List<int>(){1}, "Blank Scroll", "multiplayer_overlays", "FM_Tat_Award_M_011", "FM_Tat_Award_F_011",1800),    new BusinessTattoo(new List<int>(){1}, "Embellished Scroll", "multiplayer_overlays", "FM_Tat_Award_M_012", "FM_Tat_Award_F_012",1800),  new BusinessTattoo(new List<int>(){1}, "Seven Deadly Sins", "multiplayer_overlays", "FM_Tat_Award_M_013", "FM_Tat_Award_F_013",1800),   new BusinessTattoo(new List<int>(){3,4}, "Trust No One", "multiplayer_overlays", "FM_Tat_Award_M_014", "FM_Tat_Award_F_014",2100),  new BusinessTattoo(new List<int>(){5,6}, "Clown", "multiplayer_overlays", "FM_Tat_Award_M_016", "FM_Tat_Award_F_016",2000), new BusinessTattoo(new List<int>(){5,6}, "Clown and Gun", "multiplayer_overlays", "FM_Tat_Award_M_017", "FM_Tat_Award_F_017",2100), new BusinessTattoo(new List<int>(){5,6}, "Clown Dual Wield", "multiplayer_overlays", "FM_Tat_Award_M_018", "FM_Tat_Award_F_018",2000),  new BusinessTattoo(new List<int>(){6,6}, "Clown Dual Wield Dollars", "multiplayer_overlays", "FM_Tat_Award_M_019", "FM_Tat_Award_F_019",2100),  new BusinessTattoo(new List<int>(){2}, "Faith T", "multiplayer_overlays", "FM_Tat_M_004", "FM_Tat_F_004",3100), new BusinessTattoo(new List<int>(){3,4,5,6}, "Skull on the Cross", "multiplayer_overlays", "FM_Tat_M_009", "FM_Tat_F_009",6000),    new BusinessTattoo(new List<int>(){1}, "LS Flames", "multiplayer_overlays", "FM_Tat_M_010", "FM_Tat_F_010",1800),   new BusinessTattoo(new List<int>(){5}, "LS Script", "multiplayer_overlays", "FM_Tat_M_011", "FM_Tat_F_011",2100),   new BusinessTattoo(new List<int>(){2}, "Los Santos Bills", "multiplayer_overlays", "FM_Tat_M_012", "FM_Tat_F_012",3000),    new BusinessTattoo(new List<int>(){6}, "Eagle and Serpent", "multiplayer_overlays", "FM_Tat_M_013", "FM_Tat_F_013",2100),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Evil Clown", "multiplayer_overlays", "FM_Tat_M_016", "FM_Tat_F_016",5750),    new BusinessTattoo(new List<int>(){3,4,5,6}, "The Wages of Sin", "multiplayer_overlays", "FM_Tat_M_019", "FM_Tat_F_019",5500),  new BusinessTattoo(new List<int>(){3,4,5,6}, "Dragon T", "multiplayer_overlays", "FM_Tat_M_020", "FM_Tat_F_020",5000),  new BusinessTattoo(new List<int>(){0,1,2,8}, "Flaming Cross", "multiplayer_overlays", "FM_Tat_M_024", "FM_Tat_F_024",6750), new BusinessTattoo(new List<int>(){0}, "LS Bold", "multiplayer_overlays", "FM_Tat_M_025", "FM_Tat_F_025",1800), new BusinessTattoo(new List<int>(){2,8}, "Trinity Knot", "multiplayer_overlays", "FM_Tat_M_029", "FM_Tat_F_029",4100),  new BusinessTattoo(new List<int>(){5,6}, "Lucky Celtic Dogs", "multiplayer_overlays", "FM_Tat_M_030", "FM_Tat_F_030",2100), new BusinessTattoo(new List<int>(){1}, "Flaming Shamrock", "multiplayer_overlays", "FM_Tat_M_034", "FM_Tat_F_034",1700),    new BusinessTattoo(new List<int>(){2}, "Way of the Gun", "multiplayer_overlays", "FM_Tat_M_036", "FM_Tat_F_036",3000),  new BusinessTattoo(new List<int>(){0,1}, "Stone Cross", "multiplayer_overlays", "FM_Tat_M_044", "FM_Tat_F_044",2100),   new BusinessTattoo(new List<int>(){3,4,5,6}, "Skulls and Rose", "multiplayer_overlays", "FM_Tat_M_045", "FM_Tat_F_045",5500),
-
-                // Старые тату
-                /*
-                new BusinessTattoo(new List<int>(){ 2 }, "Refined Hustler", "mpbusiness_overlays", "MP_Buis_M_Stomach_000", String.Empty, 3000),
-                new BusinessTattoo(new List<int>(){ 1 }, "Rich", "mpbusiness_overlays", "MP_Buis_M_Chest_000", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "$$$", "mpbusiness_overlays", "MP_Buis_M_Chest_001", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Makin' Paper", "mpbusiness_overlays", "MP_Buis_M_Back_000", String.Empty, 2000),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "High Roller", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Chest_000", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Makin' Money", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Chest_001", 2500),
-                new BusinessTattoo(new List<int>(){ 1 }, "Love Money", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Chest_002", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Diamond Back", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Stom_000", 3000),
-                new BusinessTattoo(new List<int>(){ 8 }, "Santo Capra Logo", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Stom_001", 2000),
-                new BusinessTattoo(new List<int>(){ 8 }, "Money Bag", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Stom_002", 2000),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Respect", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Back_000", 2000),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Gold Digger", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Back_001", 2500),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Carp Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_005", "MP_Xmas2_F_Tat_005", 6250),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Carp Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_006", "MP_Xmas2_F_Tat_006", 6250),
-                new BusinessTattoo(new List<int>(){ 1 }, "Time To Die", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_009", "MP_Xmas2_F_Tat_009", 1250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Roaring Tiger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_011", "MP_Xmas2_F_Tat_011", 2250),
-                new BusinessTattoo(new List<int>(){ 7 }, "Lizard", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_013", "MP_Xmas2_F_Tat_013", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Japanese Warrior", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_015", "MP_Xmas2_F_Tat_015", 2100),
-                new BusinessTattoo(new List<int>(){ 0 }, "Loose Lips Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_016", "MP_Xmas2_F_Tat_016", 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "Loose Lips Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_017", "MP_Xmas2_F_Tat_017", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Royal Dagger Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_018", "MP_Xmas2_F_Tat_018", 2500),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Royal Dagger Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_019", "MP_Xmas2_F_Tat_019", 2500),
-                new BusinessTattoo(new List<int>(){ 2, 8 }, "Executioner", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_028", "MP_Xmas2_F_Tat_028", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Bullet Proof", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_000_M", "MP_Gunrunning_Tattoo_000_F", 2000),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Crossed Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_001_M", "MP_Gunrunning_Tattoo_001_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Butterfly Knife", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_009_M", "MP_Gunrunning_Tattoo_009_F", 2250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Cash Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_010_M", "MP_Gunrunning_Tattoo_010_F", 3000),
-                new BusinessTattoo(new List<int>(){ 1 }, "Dollar Daggers", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_012_M", "MP_Gunrunning_Tattoo_012_F", 1750),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Wolf Insignia", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_013_M", "MP_Gunrunning_Tattoo_013_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Backstabber", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_014_M", "MP_Gunrunning_Tattoo_014_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Dog Tags", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_017_M", "MP_Gunrunning_Tattoo_017_F", 2500),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Dual Wield Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_018_M", "MP_Gunrunning_Tattoo_018_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Pistol Wings", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_019_M", "MP_Gunrunning_Tattoo_019_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Crowned Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_020_M", "MP_Gunrunning_Tattoo_020_F", 2500),
-                new BusinessTattoo(new List<int>(){ 5 }, "Explosive Heart", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_022_M", "MP_Gunrunning_Tattoo_022_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Micro SMG Chain", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_028_M", "MP_Gunrunning_Tattoo_028_F", 2500),
-                new BusinessTattoo(new List<int>(){ 2 }, "Win Some Lose Some", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_029_M", "MP_Gunrunning_Tattoo_029_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Crossed Arrows", "mphipster_overlays", "FM_Hip_M_Tat_000", "FM_Hip_F_Tat_000", 2250),
-                new BusinessTattoo(new List<int>(){ 1 }, "Chemistry", "mphipster_overlays", "FM_Hip_M_Tat_002", "FM_Hip_F_Tat_002", 1750),
-                new BusinessTattoo(new List<int>(){ 7 }, "Feather Birds", "mphipster_overlays", "FM_Hip_M_Tat_006", "FM_Hip_F_Tat_006", 200),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Infinity", "mphipster_overlays", "FM_Hip_M_Tat_011", "FM_Hip_F_Tat_011", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Antlers", "mphipster_overlays", "FM_Hip_M_Tat_012", "FM_Hip_F_Tat_012", 2250),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Boombox", "mphipster_overlays", "FM_Hip_M_Tat_013", "FM_Hip_F_Tat_013", 2500),
-                new BusinessTattoo(new List<int>(){ 6 }, "Pyramid", "mphipster_overlays", "FM_Hip_M_Tat_024", "FM_Hip_F_Tat_024", 1750),
-                new BusinessTattoo(new List<int>(){ 5 }, "Watch Your Step", "mphipster_overlays", "FM_Hip_M_Tat_025", "FM_Hip_F_Tat_025", 1750),
-                new BusinessTattoo(new List<int>(){ 2, 8 }, "Sad", "mphipster_overlays", "FM_Hip_M_Tat_029", "FM_Hip_F_Tat_029", 3750),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Shark Fin", "mphipster_overlays", "FM_Hip_M_Tat_030", "FM_Hip_F_Tat_030", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Skateboard", "mphipster_overlays", "FM_Hip_M_Tat_031", "FM_Hip_F_Tat_031", 2250),
-                new BusinessTattoo(new List<int>(){ 6 }, "Paper Plane", "mphipster_overlays", "FM_Hip_M_Tat_032", "FM_Hip_F_Tat_032", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Stag", "mphipster_overlays", "FM_Hip_M_Tat_033", "FM_Hip_F_Tat_033", 2500),
-                new BusinessTattoo(new List<int>(){ 2, 8 }, "Sewn Heart", "mphipster_overlays", "FM_Hip_M_Tat_035", "FM_Hip_F_Tat_035", 3750),
-                new BusinessTattoo(new List<int>(){ 3 }, "Tooth", "mphipster_overlays", "FM_Hip_M_Tat_041", "FM_Hip_F_Tat_041", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Triangles", "mphipster_overlays", "FM_Hip_M_Tat_046", "FM_Hip_F_Tat_046", 2250),
-                new BusinessTattoo(new List<int>(){ 1 }, "Cassette", "mphipster_overlays", "FM_Hip_M_Tat_047", "FM_Hip_F_Tat_047", 1750),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Block Back", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_000_M", "MP_MP_ImportExport_Tat_000_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Power Plant", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_001_M", "MP_MP_ImportExport_Tat_001_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Tuned to Death", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_002_M", "MP_MP_ImportExport_Tat_002_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Serpents of Destruction", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_009_M", "MP_MP_ImportExport_Tat_009_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Take the Wheel", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_010_M", "MP_MP_ImportExport_Tat_010_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Talk Shit Get Hit", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_011_M", "MP_MP_ImportExport_Tat_011_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0 }, "King Fight", "mplowrider_overlays", "MP_LR_Tat_001_M", "MP_LR_Tat_001_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Holy Mary", "mplowrider_overlays", "MP_LR_Tat_002_M", "MP_LR_Tat_002_F", 2500),
-                new BusinessTattoo(new List<int>(){ 7 }, "Gun Mic", "mplowrider_overlays", "MP_LR_Tat_004_M", "MP_LR_Tat_004_F", 2000),
-                new BusinessTattoo(new List<int>(){ 6 }, "Amazon", "mplowrider_overlays", "MP_LR_Tat_009_M", "MP_LR_Tat_009_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Bad Angel", "mplowrider_overlays", "MP_LR_Tat_010_M", "MP_LR_Tat_010_F", 6000),
-                new BusinessTattoo(new List<int>(){ 1 }, "Love Gamble", "mplowrider_overlays", "MP_LR_Tat_013_M", "MP_LR_Tat_013_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Love is Blind", "mplowrider_overlays", "MP_LR_Tat_014_M", "MP_LR_Tat_014_F", 1250),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Sad Angel", "mplowrider_overlays", "MP_LR_Tat_021_M", "MP_LR_Tat_021_F", 5500),
-                new BusinessTattoo(new List<int>(){ 1 }, "Royal Takeover", "mplowrider_overlays", "MP_LR_Tat_026_M", "MP_LR_Tat_026_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Turbulence", "mpairraces_overlays", "MP_Airraces_Tattoo_000_M", "MP_Airraces_Tattoo_000_F", 1750),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Pilot Skull", "mpairraces_overlays", "MP_Airraces_Tattoo_001_M", "MP_Airraces_Tattoo_001_F", 2250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Winged Bombshell", "mpairraces_overlays", "MP_Airraces_Tattoo_002_M", "MP_Airraces_Tattoo_002_F", 2250),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Balloon Pioneer", "mpairraces_overlays", "MP_Airraces_Tattoo_004_M", "MP_Airraces_Tattoo_004_F", 5000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Parachute Belle", "mpairraces_overlays", "MP_Airraces_Tattoo_005_M", "MP_Airraces_Tattoo_005_F", 2250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Bombs Away", "mpairraces_overlays", "MP_Airraces_Tattoo_006_M", "MP_Airraces_Tattoo_006_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Eagle Eyes", "mpairraces_overlays", "MP_Airraces_Tattoo_007_M", "MP_Airraces_Tattoo_007_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0 }, "Demon Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_000_M", "MP_MP_Biker_Tat_000_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Both Barrels", "mpbiker_overlays", "MP_MP_Biker_Tat_001_M", "MP_MP_Biker_Tat_001_F", 2500),
-                new BusinessTattoo(new List<int>(){ 2 }, "Web Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_003_M", "MP_MP_Biker_Tat_003_F", 3000),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Made In America", "mpbiker_overlays", "MP_MP_Biker_Tat_005_M", "MP_MP_Biker_Tat_005_F", 2500),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Chopper Freedom", "mpbiker_overlays", "MP_MP_Biker_Tat_006_M", "MP_MP_Biker_Tat_006_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Freedom Wheels", "mpbiker_overlays", "MP_MP_Biker_Tat_008_M", "MP_MP_Biker_Tat_008_F", 2250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Skull Of Taurus", "mpbiker_overlays", "MP_MP_Biker_Tat_010_M", "MP_MP_Biker_Tat_010_F", 3250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "R.I.P. My Brothers", "mpbiker_overlays", "MP_MP_Biker_Tat_011_M", "MP_MP_Biker_Tat_011_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Demon Crossbones", "mpbiker_overlays", "MP_MP_Biker_Tat_013_M", "MP_MP_Biker_Tat_013_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Clawed Beast", "mpbiker_overlays", "MP_MP_Biker_Tat_017_M", "MP_MP_Biker_Tat_017_F", 2250),
-                new BusinessTattoo(new List<int>(){ 1 }, "Skeletal Chopper", "mpbiker_overlays", "MP_MP_Biker_Tat_018_M", "MP_MP_Biker_Tat_018_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Gruesome Talons", "mpbiker_overlays", "MP_MP_Biker_Tat_019_M", "MP_MP_Biker_Tat_019_F", 2750),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Flaming Reaper", "mpbiker_overlays", "MP_MP_Biker_Tat_021_M", "MP_MP_Biker_Tat_021_F", 2250),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Western MC", "mpbiker_overlays", "MP_MP_Biker_Tat_023_M", "MP_MP_Biker_Tat_023_F", 2750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "American Dream", "mpbiker_overlays", "MP_MP_Biker_Tat_026_M", "MP_MP_Biker_Tat_026_F", 2650),
-                new BusinessTattoo(new List<int>(){ 0 }, "Bone Wrench", "mpbiker_overlays", "MP_MP_Biker_Tat_029_M", "MP_MP_Biker_Tat_029_F", 1650),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Brothers For Life", "mpbiker_overlays", "MP_MP_Biker_Tat_030_M", "MP_MP_Biker_Tat_030_F", 2300),
-                new BusinessTattoo(new List<int>(){ 2 }, "Gear Head", "mpbiker_overlays", "MP_MP_Biker_Tat_031_M", "MP_MP_Biker_Tat_031_F", 3000),
-                new BusinessTattoo(new List<int>(){ 0 }, "Western Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_032_M", "MP_MP_Biker_Tat_032_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Brotherhood of Bikes", "mpbiker_overlays", "MP_MP_Biker_Tat_034_M", "MP_MP_Biker_Tat_034_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Gas Guzzler", "mpbiker_overlays", "MP_MP_Biker_Tat_039_M", "MP_MP_Biker_Tat_039_F", 2850),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "No Regrets", "mpbiker_overlays", "MP_MP_Biker_Tat_041_M", "MP_MP_Biker_Tat_041_F", 2500),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Ride Forever", "mpbiker_overlays", "MP_MP_Biker_Tat_043_M", "MP_MP_Biker_Tat_043_F", 2100),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Unforgiven", "mpbiker_overlays", "MP_MP_Biker_Tat_050_M", "MP_MP_Biker_Tat_050_F", 3000),
-                new BusinessTattoo(new List<int>(){ 2 }, "Biker Mount", "mpbiker_overlays", "MP_MP_Biker_Tat_052_M", "MP_MP_Biker_Tat_052_F", 2500),
-                new BusinessTattoo(new List<int>(){ 1 }, "Reaper Vulture", "mpbiker_overlays", "MP_MP_Biker_Tat_058_M", "MP_MP_Biker_Tat_058_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Faggio", "mpbiker_overlays", "MP_MP_Biker_Tat_059_M", "MP_MP_Biker_Tat_059_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "We Are The Mods!", "mpbiker_overlays", "MP_MP_Biker_Tat_060_M", "MP_MP_Biker_Tat_060_F", 1850),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "SA Assault", "mplowrider2_overlays", "MP_LR_Tat_000_M", "MP_LR_Tat_000_F", 5500),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Love the Game", "mplowrider2_overlays", "MP_LR_Tat_008_M", "MP_LR_Tat_008_F", 5250),
-                new BusinessTattoo(new List<int>(){ 7 }, "Lady Liberty", "mplowrider2_overlays", "MP_LR_Tat_011_M", "MP_LR_Tat_011_F", 2100),
-                new BusinessTattoo(new List<int>(){ 0 }, "Royal Kiss", "mplowrider2_overlays", "MP_LR_Tat_012_M", "MP_LR_Tat_012_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Two Face", "mplowrider2_overlays", "MP_LR_Tat_016_M", "MP_LR_Tat_016_F", 3100),
-                new BusinessTattoo(new List<int>(){ 1 }, "Death Behind", "mplowrider2_overlays", "MP_LR_Tat_019_M", "MP_LR_Tat_019_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Dead Pretty", "mplowrider2_overlays", "MP_LR_Tat_031_M", "MP_LR_Tat_031_F", 5250),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Reign Over", "mplowrider2_overlays", "MP_LR_Tat_032_M", "MP_LR_Tat_032_F", 5600),
-                new BusinessTattoo(new List<int>(){ 2 }, "Abstract Skull", "mpluxe_overlays", "MP_LUXE_TAT_003_M", "MP_LUXE_TAT_003_F", 2750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Eye of the Griffin", "mpluxe_overlays", "MP_LUXE_TAT_007_M", "MP_LUXE_TAT_007_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Flying Eye", "mpluxe_overlays", "MP_LUXE_TAT_008_M", "MP_LUXE_TAT_008_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Ancient Queen", "mpluxe_overlays", "MP_LUXE_TAT_014_M", "MP_LUXE_TAT_014_F", 2600),
-                new BusinessTattoo(new List<int>(){ 0 }, "Smoking Sisters", "mpluxe_overlays", "MP_LUXE_TAT_015_M", "MP_LUXE_TAT_015_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Feather Mural", "mpluxe_overlays", "MP_LUXE_TAT_024_M", "MP_LUXE_TAT_024_F", 6250),
-                new BusinessTattoo(new List<int>(){ 0 }, "The Howler", "mpluxe2_overlays", "MP_LUXE_TAT_002_M", "MP_LUXE_TAT_002_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1, 2, 8 }, "Geometric Galaxy", "mpluxe2_overlays", "MP_LUXE_TAT_012_M", "MP_LUXE_TAT_012_F", 7000),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Cloaked Angel", "mpluxe2_overlays", "MP_LUXE_TAT_022_M", "MP_LUXE_TAT_022_F", 6000),
-                new BusinessTattoo(new List<int>(){ 0 }, "Reaper Sway", "mpluxe2_overlays", "MP_LUXE_TAT_025_M", "MP_LUXE_TAT_025_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Cobra Dawn", "mpluxe2_overlays", "MP_LUXE_TAT_027_M", "MP_LUXE_TAT_027_F", 1800),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Geometric Design T", "mpluxe2_overlays", "MP_LUXE_TAT_029_M", "MP_LUXE_TAT_029_F", 5500),
-                new BusinessTattoo(new List<int>(){ 1 }, "Bless The Dead", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_000_M", "MP_Smuggler_Tattoo_000_F", 1000),
-                new BusinessTattoo(new List<int>(){ 2 }, "Dead Lies", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_002_M", "MP_Smuggler_Tattoo_002_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Give Nothing Back", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_003_M", "MP_Smuggler_Tattoo_003_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Never Surrender", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_006_M", "MP_Smuggler_Tattoo_006_F", 2100),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "No Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_007_M", "MP_Smuggler_Tattoo_007_F", 2500),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Tall Ship Conflict", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_009_M", "MP_Smuggler_Tattoo_009_F", 2000),
-                new BusinessTattoo(new List<int>(){ 2 }, "See You In Hell", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_010_M", "MP_Smuggler_Tattoo_010_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Torn Wings", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_013_M", "MP_Smuggler_Tattoo_013_F", 2100),
-                new BusinessTattoo(new List<int>(){ 2 }, "Jolly Roger", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_015_M", "MP_Smuggler_Tattoo_015_F", 3000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Skull Compass", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_016_M", "MP_Smuggler_Tattoo_016_F", 2000),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Framed Tall Ship", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_017_M", "MP_Smuggler_Tattoo_017_F", 5500),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Finders Keepers", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_018_M", "MP_Smuggler_Tattoo_018_F", 6000),
-                new BusinessTattoo(new List<int>(){ 0 }, "Lost At Sea", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_019_M", "MP_Smuggler_Tattoo_019_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Dead Tales", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_021_M", "MP_Smuggler_Tattoo_021_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5 }, "X Marks The Spot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_022_M", "MP_Smuggler_Tattoo_022_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Pirate Captain", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_024_M", "MP_Smuggler_Tattoo_024_F", 5500),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Claimed By The Beast", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_025_M", "MP_Smuggler_Tattoo_025_F", 5500),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Wheels of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_011_M", "MP_MP_Stunt_Tat_011_F", 2000),
-                new BusinessTattoo(new List<int>(){ 7 }, "Punk Biker", "mpstunt_overlays", "MP_MP_Stunt_Tat_012_M", "MP_MP_Stunt_Tat_012_F", 2000),
-                new BusinessTattoo(new List<int>(){ 2 }, "Bat Cat of Spades", "mpstunt_overlays", "MP_MP_Stunt_Tat_014_M", "MP_MP_Stunt_Tat_014_F", 3100),
-                new BusinessTattoo(new List<int>(){ 0 }, "Vintage Bully", "mpstunt_overlays", "MP_MP_Stunt_Tat_018_M", "MP_MP_Stunt_Tat_018_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Engine Heart", "mpstunt_overlays", "MP_MP_Stunt_Tat_019_M", "MP_MP_Stunt_Tat_019_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_024_M", "MP_MP_Stunt_Tat_024_F", 5000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Winged Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_026_M", "MP_MP_Stunt_Tat_026_F", 2000),
-                new BusinessTattoo(new List<int>(){ 0 }, "Punk Road Hog", "mpstunt_overlays", "MP_MP_Stunt_Tat_027_M", "MP_MP_Stunt_Tat_027_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Majestic Finish", "mpstunt_overlays", "MP_MP_Stunt_Tat_029_M", "MP_MP_Stunt_Tat_029_F", 2000),
-                new BusinessTattoo(new List<int>(){ 6 }, "Man's Ruin", "mpstunt_overlays", "MP_MP_Stunt_Tat_030_M", "MP_MP_Stunt_Tat_030_F", 2100),
-                new BusinessTattoo(new List<int>(){ 1 }, "Sugar Skull Trucker", "mpstunt_overlays", "MP_MP_Stunt_Tat_033_M", "MP_MP_Stunt_Tat_033_F", 1750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Feather Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_034_M", "MP_MP_Stunt_Tat_034_F", 1250),
-                new BusinessTattoo(new List<int>(){ 5 }, "Big Grills", "mpstunt_overlays", "MP_MP_Stunt_Tat_037_M", "MP_MP_Stunt_Tat_037_F", 1750),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Monkey Chopper", "mpstunt_overlays", "MP_MP_Stunt_Tat_040_M", "MP_MP_Stunt_Tat_040_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Brapp", "mpstunt_overlays", "MP_MP_Stunt_Tat_041_M", "MP_MP_Stunt_Tat_041_F", 2000),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Ram Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_044_M", "MP_MP_Stunt_Tat_044_F", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Full Throttle", "mpstunt_overlays", "MP_MP_Stunt_Tat_046_M", "MP_MP_Stunt_Tat_046_F", 2100),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Racing Doll", "mpstunt_overlays", "MP_MP_Stunt_Tat_048_M", "MP_MP_Stunt_Tat_048_F", 2100),
-                new BusinessTattoo(new List<int>(){ 0 }, "Blackjack", "multiplayer_overlays", "FM_Tat_Award_M_003", "FM_Tat_Award_F_003", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Hustler", "multiplayer_overlays", "FM_Tat_Award_M_004", "FM_Tat_Award_F_004", 3250),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Angel", "multiplayer_overlays", "FM_Tat_Award_M_005", "FM_Tat_Award_F_005", 2100),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Los Santos Customs", "multiplayer_overlays", "FM_Tat_Award_M_008", "FM_Tat_Award_F_008", 8400),
-                new BusinessTattoo(new List<int>(){ 1 }, "Blank Scroll", "multiplayer_overlays", "FM_Tat_Award_M_011", "FM_Tat_Award_F_011", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Embellished Scroll", "multiplayer_overlays", "FM_Tat_Award_M_012", "FM_Tat_Award_F_012", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Seven Deadly Sins", "multiplayer_overlays", "FM_Tat_Award_M_013", "FM_Tat_Award_F_013", 1800),
-                new BusinessTattoo(new List<int>(){ 3, 4 }, "Trust No One", "multiplayer_overlays", "FM_Tat_Award_M_014", "FM_Tat_Award_F_014", 2100),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Clown", "multiplayer_overlays", "FM_Tat_Award_M_016", "FM_Tat_Award_F_016", 2000),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Clown and Gun", "multiplayer_overlays", "FM_Tat_Award_M_017", "FM_Tat_Award_F_017", 2100),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Clown Dual Wield", "multiplayer_overlays", "FM_Tat_Award_M_018", "FM_Tat_Award_F_018", 2000),
-                new BusinessTattoo(new List<int>(){ 6, 6 }, "Clown Dual Wield Dollars", "multiplayer_overlays", "FM_Tat_Award_M_019", "FM_Tat_Award_F_019", 2100),
-                new BusinessTattoo(new List<int>(){ 2 }, "Faith T", "multiplayer_overlays", "FM_Tat_M_004", "FM_Tat_F_004", 3100),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Skull on the Cross", "multiplayer_overlays", "FM_Tat_M_009", "FM_Tat_F_009", 6000),
-                new BusinessTattoo(new List<int>(){ 1 }, "LS Flames", "multiplayer_overlays", "FM_Tat_M_010", "FM_Tat_F_010", 1800),
-                new BusinessTattoo(new List<int>(){ 5 }, "LS Script", "multiplayer_overlays", "FM_Tat_M_011", "FM_Tat_F_011", 2100),
-                new BusinessTattoo(new List<int>(){ 2 }, "Los Santos Bills", "multiplayer_overlays", "FM_Tat_M_012", "FM_Tat_F_012", 3000),
-                new BusinessTattoo(new List<int>(){ 6 }, "Eagle and Serpent", "multiplayer_overlays", "FM_Tat_M_013", "FM_Tat_F_013", 2100),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Evil Clown", "multiplayer_overlays", "FM_Tat_M_016", "FM_Tat_F_016", 5750),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "The Wages of Sin", "multiplayer_overlays", "FM_Tat_M_019", "FM_Tat_F_019", 5500),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Dragon T", "multiplayer_overlays", "FM_Tat_M_020", "FM_Tat_F_020", 5000),
-                new BusinessTattoo(new List<int>(){ 0, 1, 2, 8 }, "Flaming Cross", "multiplayer_overlays", "FM_Tat_M_024", "FM_Tat_F_024", 6750),
-                new BusinessTattoo(new List<int>(){ 0 }, "LS Bold", "multiplayer_overlays", "FM_Tat_M_025", "FM_Tat_F_025", 1800),
-                new BusinessTattoo(new List<int>(){ 2, 8 }, "Trinity Knot", "multiplayer_overlays", "FM_Tat_M_029", "FM_Tat_F_029", 4100),
-                new BusinessTattoo(new List<int>(){ 5, 6 }, "Lucky Celtic Dogs", "multiplayer_overlays", "FM_Tat_M_030", "FM_Tat_F_030", 2100),
-                new BusinessTattoo(new List<int>(){ 1 }, "Flaming Shamrock", "multiplayer_overlays", "FM_Tat_M_034", "FM_Tat_F_034", 1700),
-                new BusinessTattoo(new List<int>(){ 2 }, "Way of the Gun", "multiplayer_overlays", "FM_Tat_M_036", "FM_Tat_F_036", 3000),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Stone Cross", "multiplayer_overlays", "FM_Tat_M_044", "FM_Tat_F_044", 2100),
-                new BusinessTattoo(new List<int>(){ 3, 4, 5, 6 }, "Skulls and Rose", "multiplayer_overlays", "FM_Tat_M_045", "FM_Tat_F_045", 5500),
-                */
+                // iTeffa => 0 - Левый сосок | 1 - Правый сосок | 2 - Живот | 3 - Левый низ спины | 4 - Правый низ спины | 5 - Левый верх спины | 6 - Правый верх спины | 7 - Левый бок | 8 - Правый бок| ERROR: Skull of Suits
+                new BusinessTattoo(new List<int>(){0,1},"In the Pocket", "mpvinewood_overlays", "MP_Vinewood_Tat_000_M", "MP_Vinewood_Tat_000_F",1500), 
+                new BusinessTattoo(new List<int>(){5,6}, "Jackpot", "mpvinewood_overlays", "MP_Vinewood_Tat_001_M", "MP_Vinewood_Tat_001_F",1350),  
+                new BusinessTattoo(new List<int>(){0}, "Royal Flush", "mpvinewood_overlays", "MP_Vinewood_Tat_003_M", "MP_Vinewood_Tat_003_F",1700),
+                new BusinessTattoo(new List<int>(){5,6}, "Wheel of Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_006_M", "MP_Vinewood_Tat_006_F",2750),
+                new BusinessTattoo(new List<int>(){5,6}, "777", "mpvinewood_overlays", "MP_Vinewood_Tat_007_M", "MP_Vinewood_Tat_007_F",7777),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Snake Eyes", "mpvinewood_overlays", "MP_Vinewood_Tat_008_M", "MP_Vinewood_Tat_008_F",3500),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Till Death Do Us Part", "mpvinewood_overlays", "MP_Vinewood_Tat_009_M", "MP_Vinewood_Tat_009_F",2000),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Photo Finish", "mpvinewood_overlays", "MP_Vinewood_Tat_010_M", "MP_Vinewood_Tat_010_F",2550),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Life's a Gamble", "mpvinewood_overlays", "MP_Vinewood_Tat_011_M", "MP_Vinewood_Tat_011_F",4500),
+                new BusinessTattoo(new List<int>(){2}, "Skull of Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_012_M", "MP_Vinewood_Tat_012_F",2750),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "The Jolly Joker", "mpvinewood_overlays", "MP_Vinewood_Tat_015_M", "MP_Vinewood_Tat_015_F",2000),
+                new BusinessTattoo(new List<int>(){2}, "Rose & Aces", "mpvinewood_overlays", "MP_Vinewood_Tat_016_M", "MP_Vinewood_Tat_016_F",3000),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Roll the Dice", "mpvinewood_overlays", "MP_Vinewood_Tat_017_M", "MP_Vinewood_Tat_017_F",1550),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Show Your Hand", "mpvinewood_overlays", "MP_Vinewood_Tat_021_M", "MP_Vinewood_Tat_021_F",1750),
+                new BusinessTattoo(new List<int>(){1}, "Blood Money", "mpvinewood_overlays", "MP_Vinewood_Tat_022_M", "MP_Vinewood_Tat_022_F",2550),
+                new BusinessTattoo(new List<int>(){0,1}, "Lucky 7s", "mpvinewood_overlays", "MP_Vinewood_Tat_023_M", "MP_Vinewood_Tat_023_F",3550),
+                new BusinessTattoo(new List<int>(){2}, "Cash Mouth", "mpvinewood_overlays", "MP_Vinewood_Tat_024_M", "MP_Vinewood_Tat_024_F",5000),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "The Table", "mpvinewood_overlays", "MP_Vinewood_Tat_029_M", "MP_Vinewood_Tat_029_F",3550),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "The Royals", "mpvinewood_overlays", "MP_Vinewood_Tat_030_M", "MP_Vinewood_Tat_030_F",2550),
+                new BusinessTattoo(new List<int>(){2}, "Gambling Royalty", "mpvinewood_overlays", "MP_Vinewood_Tat_031_M", "MP_Vinewood_Tat_031_F",4750),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Play Your Ace", "mpvinewood_overlays", "MP_Vinewood_Tat_032_M", "MP_Vinewood_Tat_032_F",6000),
+                new BusinessTattoo(new List<int>(){2}, "Refined Hustler", "mpbusiness_overlays", "MP_Buis_M_Stomach_000", "",3000),
+                new BusinessTattoo(new List<int>(){1}, "Rich", "mpbusiness_overlays", "MP_Buis_M_Chest_000", "",1750),
+                new BusinessTattoo(new List<int>(){0}, "$$$", "mpbusiness_overlays", "MP_Buis_M_Chest_001", "",1750),
+                new BusinessTattoo(new List<int>(){3,4}, "Makin' Paper", "mpbusiness_overlays", "MP_Buis_M_Back_000", "",2000),
+                new BusinessTattoo(new List<int>(){0,1}, "High Roller", "mpbusiness_overlays", "", "MP_Buis_F_Chest_000",1750),
+                new BusinessTattoo(new List<int>(){0,1}, "Makin' Money", "mpbusiness_overlays", "", "MP_Buis_F_Chest_001",2500),
+                new BusinessTattoo(new List<int>(){1}, "Love Money", "mpbusiness_overlays", "", "MP_Buis_F_Chest_002",1750),
+                new BusinessTattoo(new List<int>(){2}, "Diamond Back", "mpbusiness_overlays", "", "MP_Buis_F_Stom_000",3000),
+                new BusinessTattoo(new List<int>(){8}, "Santo Capra Logo", "mpbusiness_overlays", "", "MP_Buis_F_Stom_001",2000),
+                new BusinessTattoo(new List<int>(){8}, "Money Bag", "mpbusiness_overlays", "", "MP_Buis_F_Stom_002",2000),
+                new BusinessTattoo(new List<int>(){3,4}, "Respect", "mpbusiness_overlays", "", "MP_Buis_F_Back_000",2000),
+                new BusinessTattoo(new List<int>(){3,4}, "Gold Digger", "mpbusiness_overlays", "", "MP_Buis_F_Back_001",2500),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Carp Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_005", "MP_Xmas2_F_Tat_005",6250),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Carp Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_006", "MP_Xmas2_F_Tat_006",6250),
+                new BusinessTattoo(new List<int>(){1}, "Time To Die", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_009", "MP_Xmas2_F_Tat_009",1250),
+                new BusinessTattoo(new List<int>(){5,6}, "Roaring Tiger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_011", "MP_Xmas2_F_Tat_011",2250),
+                new BusinessTattoo(new List<int>(){7}, "Lizard", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_013", "MP_Xmas2_F_Tat_013",2000),
+                new BusinessTattoo(new List<int>(){5,6}, "Japanese Warrior", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_015", "MP_Xmas2_F_Tat_015",2100),
+                new BusinessTattoo(new List<int>(){0}, "Loose Lips Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_016", "MP_Xmas2_F_Tat_016",1750),
+                new BusinessTattoo(new List<int>(){0}, "Loose Lips Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_017", "MP_Xmas2_F_Tat_017",1750),
+                new BusinessTattoo(new List<int>(){0,1}, "Royal Dagger Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_018", "MP_Xmas2_F_Tat_018",2500),
+                new BusinessTattoo(new List<int>(){0,1}, "Royal Dagger Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_019", "MP_Xmas2_F_Tat_019",2500),
+                new BusinessTattoo(new List<int>(){2,8}, "Executioner", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_028", "MP_Xmas2_F_Tat_028",2000),
+                new BusinessTattoo(new List<int>(){5,6}, "Bullet Proof", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_000_M", "MP_Gunrunning_Tattoo_000_F",2000),
+                new BusinessTattoo(new List<int>(){3,4}, "Crossed Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_001_M", "MP_Gunrunning_Tattoo_001_F",2000),
+                new BusinessTattoo(new List<int>(){5,6}, "Butterfly Knife", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_009_M", "MP_Gunrunning_Tattoo_009_F",2250),
+                new BusinessTattoo(new List<int>(){2}, "Cash Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_010_M", "MP_Gunrunning_Tattoo_010_F",3000),
+                new BusinessTattoo(new List<int>(){1}, "Dollar Daggers", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_012_M", "MP_Gunrunning_Tattoo_012_F",1750), 
+                new BusinessTattoo(new List<int>(){5,6}, "Wolf Insignia", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_013_M", "MP_Gunrunning_Tattoo_013_F",2250),   
+                new BusinessTattoo(new List<int>(){5,6}, "Backstabber", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_014_M", "MP_Gunrunning_Tattoo_014_F",2250),  
+                new BusinessTattoo(new List<int>(){0,1}, "Dog Tags", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_017_M", "MP_Gunrunning_Tattoo_017_F",2500), 
+                new BusinessTattoo(new List<int>(){3,4}, "Dual Wield Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_018_M", "MP_Gunrunning_Tattoo_018_F",2250), 
+                new BusinessTattoo(new List<int>(){5,6}, "Pistol Wings", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_019_M", "MP_Gunrunning_Tattoo_019_F",2250), 
+                new BusinessTattoo(new List<int>(){0,1}, "Crowned Weapons", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_020_M", "MP_Gunrunning_Tattoo_020_F",2500),  
+                new BusinessTattoo(new List<int>(){5}, "Explosive Heart", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_022_M", "MP_Gunrunning_Tattoo_022_F",1750),    
+                new BusinessTattoo(new List<int>(){0,1}, "Micro SMG Chain", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_028_M", "MP_Gunrunning_Tattoo_028_F",2500),  
+                new BusinessTattoo(new List<int>(){2}, "Win Some Lose Some", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_029_M", "MP_Gunrunning_Tattoo_029_F",3000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Crossed Arrows", "mphipster_overlays", "FM_Hip_M_Tat_000", "FM_Hip_F_Tat_000",2250),  
+                new BusinessTattoo(new List<int>(){1}, "Chemistry", "mphipster_overlays", "FM_Hip_M_Tat_002", "FM_Hip_F_Tat_002",1750),
+                new BusinessTattoo(new List<int>(){7}, "Feather Birds", "mphipster_overlays", "FM_Hip_M_Tat_006", "FM_Hip_F_Tat_006",200), 
+                new BusinessTattoo(new List<int>(){5,6}, "Infinity", "mphipster_overlays", "FM_Hip_M_Tat_011", "FM_Hip_F_Tat_011",2250),  
+                new BusinessTattoo(new List<int>(){5,6}, "Antlers", "mphipster_overlays", "FM_Hip_M_Tat_012", "FM_Hip_F_Tat_012",2250),
+                new BusinessTattoo(new List<int>(){0,1}, "Boombox", "mphipster_overlays", "FM_Hip_M_Tat_013", "FM_Hip_F_Tat_013",2500),
+                new BusinessTattoo(new List<int>(){6}, "Pyramid", "mphipster_overlays", "FM_Hip_M_Tat_024", "FM_Hip_F_Tat_024",1750),  
+                new BusinessTattoo(new List<int>(){5}, "Watch Your Step", "mphipster_overlays", "FM_Hip_M_Tat_025", "FM_Hip_F_Tat_025",1750),  
+                new BusinessTattoo(new List<int>(){2,8}, "Sad", "mphipster_overlays", "FM_Hip_M_Tat_029", "FM_Hip_F_Tat_029",3750),
+                new BusinessTattoo(new List<int>(){3,4}, "Shark Fin", "mphipster_overlays", "FM_Hip_M_Tat_030", "FM_Hip_F_Tat_030",2250), 
+                new BusinessTattoo(new List<int>(){5,6}, "Skateboard", "mphipster_overlays", "FM_Hip_M_Tat_031", "FM_Hip_F_Tat_031",2250),
+                new BusinessTattoo(new List<int>(){6}, "Paper Plane", "mphipster_overlays", "FM_Hip_M_Tat_032", "FM_Hip_F_Tat_032",1750), 
+                new BusinessTattoo(new List<int>(){0,1}, "Stag", "mphipster_overlays", "FM_Hip_M_Tat_033", "FM_Hip_F_Tat_033",2500),  
+                new BusinessTattoo(new List<int>(){2,8}, "Sewn Heart", "mphipster_overlays", "FM_Hip_M_Tat_035", "FM_Hip_F_Tat_035",3750),  
+                new BusinessTattoo(new List<int>(){3}, "Tooth", "mphipster_overlays", "FM_Hip_M_Tat_041", "FM_Hip_F_Tat_041",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Triangles", "mphipster_overlays", "FM_Hip_M_Tat_046", "FM_Hip_F_Tat_046",2250),  
+                new BusinessTattoo(new List<int>(){1}, "Cassette", "mphipster_overlays", "FM_Hip_M_Tat_047", "FM_Hip_F_Tat_047",1750), 
+                new BusinessTattoo(new List<int>(){5,6}, "Block Back", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_000_M", "MP_MP_ImportExport_Tat_000_F",2250), 
+                new BusinessTattoo(new List<int>(){5,6}, "Power Plant", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_001_M", "MP_MP_ImportExport_Tat_001_F",2250),   
+                new BusinessTattoo(new List<int>(){5,6}, "Tuned to Death", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_002_M", "MP_MP_ImportExport_Tat_002_F",2250),
+                new BusinessTattoo(new List<int>(){5,6}, "Serpents of Destruction", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_009_M", "MP_MP_ImportExport_Tat_009_F",2250),  
+                new BusinessTattoo(new List<int>(){5,6}, "Take the Wheel", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_010_M", "MP_MP_ImportExport_Tat_010_F",2250),
+                new BusinessTattoo(new List<int>(){5,6}, "Talk Shit Get Hit", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_011_M", "MP_MP_ImportExport_Tat_011_F",2250),
+                new BusinessTattoo(new List<int>(){0}, "King Fight", "mplowrider_overlays", "MP_LR_Tat_001_M", "MP_LR_Tat_001_F",1750),
+                new BusinessTattoo(new List<int>(){0,1}, "Holy Mary", "mplowrider_overlays", "MP_LR_Tat_002_M", "MP_LR_Tat_002_F",2500),    
+                new BusinessTattoo(new List<int>(){7}, "Gun Mic", "mplowrider_overlays", "MP_LR_Tat_004_M", "MP_LR_Tat_004_F",2000),   
+                new BusinessTattoo(new List<int>(){6}, "Amazon", "mplowrider_overlays", "MP_LR_Tat_009_M", "MP_LR_Tat_009_F",1750), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Bad Angel", "mplowrider_overlays", "MP_LR_Tat_010_M", "MP_LR_Tat_010_F",6000),
+                new BusinessTattoo(new List<int>(){1}, "Love Gamble", "mplowrider_overlays", "MP_LR_Tat_013_M", "MP_LR_Tat_013_F",1750),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Love is Blind", "mplowrider_overlays", "MP_LR_Tat_014_M", "MP_LR_Tat_014_F",1250),   
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Sad Angel", "mplowrider_overlays", "MP_LR_Tat_021_M", "MP_LR_Tat_021_F",5500),  
+                new BusinessTattoo(new List<int>(){1}, "Royal Takeover", "mplowrider_overlays", "MP_LR_Tat_026_M", "MP_LR_Tat_026_F",1750), 
+                new BusinessTattoo(new List<int>(){1}, "Turbulence", "mpairraces_overlays", "MP_Airraces_Tattoo_000_M", "MP_Airraces_Tattoo_000_F",1750), 
+                new BusinessTattoo(new List<int>(){5,6}, "Pilot Skull", "mpairraces_overlays", "MP_Airraces_Tattoo_001_M", "MP_Airraces_Tattoo_001_F",2250),
+                new BusinessTattoo(new List<int>(){5,6}, "Winged Bombshell", "mpairraces_overlays", "MP_Airraces_Tattoo_002_M", "MP_Airraces_Tattoo_002_F",2250),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Balloon Pioneer", "mpairraces_overlays", "MP_Airraces_Tattoo_004_M", "MP_Airraces_Tattoo_004_F",5000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Parachute Belle", "mpairraces_overlays", "MP_Airraces_Tattoo_005_M", "MP_Airraces_Tattoo_005_F",2250),  
+                new BusinessTattoo(new List<int>(){2}, "Bombs Away", "mpairraces_overlays", "MP_Airraces_Tattoo_006_M", "MP_Airraces_Tattoo_006_F",3000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Eagle Eyes", "mpairraces_overlays", "MP_Airraces_Tattoo_007_M", "MP_Airraces_Tattoo_007_F",2250),
+                new BusinessTattoo(new List<int>(){0}, "Demon Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_000_M", "MP_MP_Biker_Tat_000_F",1750), 
+                new BusinessTattoo(new List<int>(){0,1}, "Both Barrels", "mpbiker_overlays", "MP_MP_Biker_Tat_001_M", "MP_MP_Biker_Tat_001_F",2500),  
+                new BusinessTattoo(new List<int>(){2}, "Web Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_003_M", "MP_MP_Biker_Tat_003_F",3000),
+                new BusinessTattoo(new List<int>(){0,1}, "Made In America", "mpbiker_overlays", "MP_MP_Biker_Tat_005_M", "MP_MP_Biker_Tat_005_F",2500),
+                new BusinessTattoo(new List<int>(){3,4}, "Chopper Freedom", "mpbiker_overlays", "MP_MP_Biker_Tat_006_M", "MP_MP_Biker_Tat_006_F",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Freedom Wheels", "mpbiker_overlays", "MP_MP_Biker_Tat_008_M", "MP_MP_Biker_Tat_008_F",2250), 
+                new BusinessTattoo(new List<int>(){2}, "Skull Of Taurus", "mpbiker_overlays", "MP_MP_Biker_Tat_010_M", "MP_MP_Biker_Tat_010_F",3250), 
+                new BusinessTattoo(new List<int>(){5,6}, "R.I.P. My Brothers", "mpbiker_overlays", "MP_MP_Biker_Tat_011_M", "MP_MP_Biker_Tat_011_F",2250), 
+                new BusinessTattoo(new List<int>(){0,1}, "Demon Crossbones", "mpbiker_overlays", "MP_MP_Biker_Tat_013_M", "MP_MP_Biker_Tat_013_F",3000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Clawed Beast", "mpbiker_overlays", "MP_MP_Biker_Tat_017_M", "MP_MP_Biker_Tat_017_F",2250),   
+                new BusinessTattoo(new List<int>(){1}, "Skeletal Chopper", "mpbiker_overlays", "MP_MP_Biker_Tat_018_M", "MP_MP_Biker_Tat_018_F",1800), 
+                new BusinessTattoo(new List<int>(){0,1}, "Gruesome Talons", "mpbiker_overlays", "MP_MP_Biker_Tat_019_M", "MP_MP_Biker_Tat_019_F",2750),
+                new BusinessTattoo(new List<int>(){5,6}, "Flaming Reaper", "mpbiker_overlays", "MP_MP_Biker_Tat_021_M", "MP_MP_Biker_Tat_021_F",2250), 
+                new BusinessTattoo(new List<int>(){0,1}, "Western MC", "mpbiker_overlays", "MP_MP_Biker_Tat_023_M", "MP_MP_Biker_Tat_023_F",2750), 
+                new BusinessTattoo(new List<int>(){0,1}, "American Dream", "mpbiker_overlays", "MP_MP_Biker_Tat_026_M", "MP_MP_Biker_Tat_026_F",2650), 
+                new BusinessTattoo(new List<int>(){0}, "Bone Wrench", "mpbiker_overlays", "MP_MP_Biker_Tat_029_M", "MP_MP_Biker_Tat_029_F",1650),  
+                new BusinessTattoo(new List<int>(){5,6}, "Brothers For Life", "mpbiker_overlays", "MP_MP_Biker_Tat_030_M", "MP_MP_Biker_Tat_030_F",2300),
+                new BusinessTattoo(new List<int>(){2}, "Gear Head", "mpbiker_overlays", "MP_MP_Biker_Tat_031_M", "MP_MP_Biker_Tat_031_F",3000),
+                new BusinessTattoo(new List<int>(){0}, "Western Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_032_M", "MP_MP_Biker_Tat_032_F",1800),
+                new BusinessTattoo(new List<int>(){1}, "Brotherhood of Bikes", "mpbiker_overlays", "MP_MP_Biker_Tat_034_M", "MP_MP_Biker_Tat_034_F",1850), 
+                new BusinessTattoo(new List<int>(){2}, "Gas Guzzler", "mpbiker_overlays", "MP_MP_Biker_Tat_039_M", "MP_MP_Biker_Tat_039_F",2850), 
+                new BusinessTattoo(new List<int>(){0,1}, "No Regrets", "mpbiker_overlays", "MP_MP_Biker_Tat_041_M", "MP_MP_Biker_Tat_041_F",2500),
+                new BusinessTattoo(new List<int>(){3,4}, "Ride Forever", "mpbiker_overlays", "MP_MP_Biker_Tat_043_M", "MP_MP_Biker_Tat_043_F",2100), 
+                new BusinessTattoo(new List<int>(){0,1}, "Unforgiven", "mpbiker_overlays", "MP_MP_Biker_Tat_050_M", "MP_MP_Biker_Tat_050_F",3000), 
+                new BusinessTattoo(new List<int>(){2}, "Biker Mount", "mpbiker_overlays", "MP_MP_Biker_Tat_052_M", "MP_MP_Biker_Tat_052_F",2500),  
+                new BusinessTattoo(new List<int>(){1}, "Reaper Vulture", "mpbiker_overlays", "MP_MP_Biker_Tat_058_M", "MP_MP_Biker_Tat_058_F",1750),  
+                new BusinessTattoo(new List<int>(){1}, "Faggio", "mpbiker_overlays", "MP_MP_Biker_Tat_059_M", "MP_MP_Biker_Tat_059_F",1750),  
+                new BusinessTattoo(new List<int>(){0}, "We Are The Mods!", "mpbiker_overlays", "MP_MP_Biker_Tat_060_M", "MP_MP_Biker_Tat_060_F",1850), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "SA Assault", "mplowrider2_overlays", "MP_LR_Tat_000_M", "MP_LR_Tat_000_F",5500), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Love the Game", "mplowrider2_overlays", "MP_LR_Tat_008_M", "MP_LR_Tat_008_F",5250), 
+                new BusinessTattoo(new List<int>(){7}, "Lady Liberty", "mplowrider2_overlays", "MP_LR_Tat_011_M", "MP_LR_Tat_011_F",2100),
+                new BusinessTattoo(new List<int>(){0}, "Royal Kiss", "mplowrider2_overlays", "MP_LR_Tat_012_M", "MP_LR_Tat_012_F",1750),   
+                new BusinessTattoo(new List<int>(){2}, "Two Face", "mplowrider2_overlays", "MP_LR_Tat_016_M", "MP_LR_Tat_016_F",3100),  
+                new BusinessTattoo(new List<int>(){1}, "Death Behind", "mplowrider2_overlays", "MP_LR_Tat_019_M", "MP_LR_Tat_019_F",1750), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Dead Pretty", "mplowrider2_overlays", "MP_LR_Tat_031_M", "MP_LR_Tat_031_F",5250), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Reign Over", "mplowrider2_overlays", "MP_LR_Tat_032_M", "MP_LR_Tat_032_F",5600), 
+                new BusinessTattoo(new List<int>(){2}, "Abstract Skull", "mpluxe_overlays", "MP_LUXE_TAT_003_M", "MP_LUXE_TAT_003_F",2750), 
+                new BusinessTattoo(new List<int>(){1}, "Eye of the Griffin", "mpluxe_overlays", "MP_LUXE_TAT_007_M", "MP_LUXE_TAT_007_F",1850),
+                new BusinessTattoo(new List<int>(){1}, "Flying Eye", "mpluxe_overlays", "MP_LUXE_TAT_008_M", "MP_LUXE_TAT_008_F",1800),
+                new BusinessTattoo(new List<int>(){0,1}, "Ancient Queen", "mpluxe_overlays", "MP_LUXE_TAT_014_M", "MP_LUXE_TAT_014_F",2600),
+                new BusinessTattoo(new List<int>(){0}, "Smoking Sisters", "mpluxe_overlays", "MP_LUXE_TAT_015_M", "MP_LUXE_TAT_015_F",1750),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Feather Mural", "mpluxe_overlays", "MP_LUXE_TAT_024_M", "MP_LUXE_TAT_024_F",6250),   
+                new BusinessTattoo(new List<int>(){0}, "The Howler", "mpluxe2_overlays", "MP_LUXE_TAT_002_M", "MP_LUXE_TAT_002_F",1750),  
+                new BusinessTattoo(new List<int>(){0,1,2,8}, "Geometric Galaxy", "mpluxe2_overlays", "MP_LUXE_TAT_012_M", "MP_LUXE_TAT_012_F",7000),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Cloaked Angel", "mpluxe2_overlays", "MP_LUXE_TAT_022_M", "MP_LUXE_TAT_022_F",6000), 
+                new BusinessTattoo(new List<int>(){0}, "Reaper Sway", "mpluxe2_overlays", "MP_LUXE_TAT_025_M", "MP_LUXE_TAT_025_F",1750),
+                new BusinessTattoo(new List<int>(){1}, "Cobra Dawn", "mpluxe2_overlays", "MP_LUXE_TAT_027_M", "MP_LUXE_TAT_027_F",1800),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Geometric Design T", "mpluxe2_overlays", "MP_LUXE_TAT_029_M", "MP_LUXE_TAT_029_F",5500),
+                new BusinessTattoo(new List<int>(){1}, "Bless The Dead", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_000_M", "MP_Smuggler_Tattoo_000_F",1000),  
+                new BusinessTattoo(new List<int>(){2}, "Dead Lies", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_002_M", "MP_Smuggler_Tattoo_002_F",3000),   
+                new BusinessTattoo(new List<int>(){5,6}, "Give Nothing Back", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_003_M", "MP_Smuggler_Tattoo_003_F",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Never Surrender", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_006_M", "MP_Smuggler_Tattoo_006_F",2100),
+                new BusinessTattoo(new List<int>(){0,1}, "No Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_007_M", "MP_Smuggler_Tattoo_007_F",2500),   
+                new BusinessTattoo(new List<int>(){5,6}, "Tall Ship Conflict", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_009_M", "MP_Smuggler_Tattoo_009_F",2000), 
+                new BusinessTattoo(new List<int>(){2}, "See You In Hell", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_010_M", "MP_Smuggler_Tattoo_010_F",3000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Torn Wings", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_013_M", "MP_Smuggler_Tattoo_013_F",2100),
+                new BusinessTattoo(new List<int>(){2}, "Jolly Roger", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_015_M", "MP_Smuggler_Tattoo_015_F",3000),
+                new BusinessTattoo(new List<int>(){5,6}, "Skull Compass", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_016_M", "MP_Smuggler_Tattoo_016_F",2000), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Framed Tall Ship", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_017_M", "MP_Smuggler_Tattoo_017_F",5500), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Finders Keepers", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_018_M", "MP_Smuggler_Tattoo_018_F",6000),   
+                new BusinessTattoo(new List<int>(){0}, "Lost At Sea", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_019_M", "MP_Smuggler_Tattoo_019_F",1750), 
+                new BusinessTattoo(new List<int>(){0,1}, "Dead Tales", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_021_M", "MP_Smuggler_Tattoo_021_F",2000), 
+                new BusinessTattoo(new List<int>(){5}, "X Marks The Spot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_022_M", "MP_Smuggler_Tattoo_022_F",1750),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Pirate Captain", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_024_M", "MP_Smuggler_Tattoo_024_F",5500),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Claimed By The Beast", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_025_M", "MP_Smuggler_Tattoo_025_F",5500),
+                new BusinessTattoo(new List<int>(){0,1}, "Wheels of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_011_M", "MP_MP_Stunt_Tat_011_F",2000), 
+                new BusinessTattoo(new List<int>(){7}, "Punk Biker", "mpstunt_overlays", "MP_MP_Stunt_Tat_012_M", "MP_MP_Stunt_Tat_012_F",2000),  
+                new BusinessTattoo(new List<int>(){2}, "Bat Cat of Spades", "mpstunt_overlays", "MP_MP_Stunt_Tat_014_M", "MP_MP_Stunt_Tat_014_F",3100),
+                new BusinessTattoo(new List<int>(){0}, "Vintage Bully", "mpstunt_overlays", "MP_MP_Stunt_Tat_018_M", "MP_MP_Stunt_Tat_018_F",1750), 
+                new BusinessTattoo(new List<int>(){1}, "Engine Heart", "mpstunt_overlays", "MP_MP_Stunt_Tat_019_M", "MP_MP_Stunt_Tat_019_F",1750), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_024_M", "MP_MP_Stunt_Tat_024_F",5000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Winged Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_026_M", "MP_MP_Stunt_Tat_026_F",2000), 
+                new BusinessTattoo(new List<int>(){0}, "Punk Road Hog", "mpstunt_overlays", "MP_MP_Stunt_Tat_027_M", "MP_MP_Stunt_Tat_027_F",1750), 
+                new BusinessTattoo(new List<int>(){3,4}, "Majestic Finish", "mpstunt_overlays", "MP_MP_Stunt_Tat_029_M", "MP_MP_Stunt_Tat_029_F",2000),
+                new BusinessTattoo(new List<int>(){6}, "Man's Ruin", "mpstunt_overlays", "MP_MP_Stunt_Tat_030_M", "MP_MP_Stunt_Tat_030_F",2100),   
+                new BusinessTattoo(new List<int>(){1}, "Sugar Skull Trucker", "mpstunt_overlays", "MP_MP_Stunt_Tat_033_M", "MP_MP_Stunt_Tat_033_F",1750),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Feather Road Kill", "mpstunt_overlays", "MP_MP_Stunt_Tat_034_M", "MP_MP_Stunt_Tat_034_F",1250), 
+                new BusinessTattoo(new List<int>(){5}, "Big Grills", "mpstunt_overlays", "MP_MP_Stunt_Tat_037_M", "MP_MP_Stunt_Tat_037_F",1750),  
+                new BusinessTattoo(new List<int>(){5,6}, "Monkey Chopper", "mpstunt_overlays", "MP_MP_Stunt_Tat_040_M", "MP_MP_Stunt_Tat_040_F",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Brapp", "mpstunt_overlays", "MP_MP_Stunt_Tat_041_M", "MP_MP_Stunt_Tat_041_F",2000), 
+                new BusinessTattoo(new List<int>(){0,1}, "Ram Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_044_M", "MP_MP_Stunt_Tat_044_F",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Full Throttle", "mpstunt_overlays", "MP_MP_Stunt_Tat_046_M", "MP_MP_Stunt_Tat_046_F",2100), 
+                new BusinessTattoo(new List<int>(){5,6}, "Racing Doll", "mpstunt_overlays", "MP_MP_Stunt_Tat_048_M", "MP_MP_Stunt_Tat_048_F",2100),
+                new BusinessTattoo(new List<int>(){0}, "Blackjack", "multiplayer_overlays", "FM_Tat_Award_M_003", "FM_Tat_Award_F_003",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Hustler", "multiplayer_overlays", "FM_Tat_Award_M_004", "FM_Tat_Award_F_004",3250),
+                new BusinessTattoo(new List<int>(){5,6}, "Angel", "multiplayer_overlays", "FM_Tat_Award_M_005", "FM_Tat_Award_F_005",2100),
+                new BusinessTattoo(new List<int>(){3,4}, "Los Santos Customs", "multiplayer_overlays", "FM_Tat_Award_M_008", "FM_Tat_Award_F_008",8400),  
+                new BusinessTattoo(new List<int>(){1}, "Blank Scroll", "multiplayer_overlays", "FM_Tat_Award_M_011", "FM_Tat_Award_F_011",1800),   
+                new BusinessTattoo(new List<int>(){1}, "Embellished Scroll", "multiplayer_overlays", "FM_Tat_Award_M_012", "FM_Tat_Award_F_012",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Seven Deadly Sins", "multiplayer_overlays", "FM_Tat_Award_M_013", "FM_Tat_Award_F_013",1800),  
+                new BusinessTattoo(new List<int>(){3,4}, "Trust No One", "multiplayer_overlays", "FM_Tat_Award_M_014", "FM_Tat_Award_F_014",2100), 
+                new BusinessTattoo(new List<int>(){5,6}, "Clown", "multiplayer_overlays", "FM_Tat_Award_M_016", "FM_Tat_Award_F_016",2000), 
+                new BusinessTattoo(new List<int>(){5,6}, "Clown and Gun", "multiplayer_overlays", "FM_Tat_Award_M_017", "FM_Tat_Award_F_017",2100), 
+                new BusinessTattoo(new List<int>(){5,6}, "Clown Dual Wield", "multiplayer_overlays", "FM_Tat_Award_M_018", "FM_Tat_Award_F_018",2000), 
+                new BusinessTattoo(new List<int>(){6,6}, "Clown Dual Wield Dollars", "multiplayer_overlays", "FM_Tat_Award_M_019", "FM_Tat_Award_F_019",2100),
+                new BusinessTattoo(new List<int>(){2}, "Faith T", "multiplayer_overlays", "FM_Tat_M_004", "FM_Tat_F_004",3100), 
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Skull on the Cross", "multiplayer_overlays", "FM_Tat_M_009", "FM_Tat_F_009",6000),
+                new BusinessTattoo(new List<int>(){1}, "LS Flames", "multiplayer_overlays", "FM_Tat_M_010", "FM_Tat_F_010",1800), 
+                new BusinessTattoo(new List<int>(){5}, "LS Script", "multiplayer_overlays", "FM_Tat_M_011", "FM_Tat_F_011",2100), 
+                new BusinessTattoo(new List<int>(){2}, "Los Santos Bills", "multiplayer_overlays", "FM_Tat_M_012", "FM_Tat_F_012",3000),  
+                new BusinessTattoo(new List<int>(){6}, "Eagle and Serpent", "multiplayer_overlays", "FM_Tat_M_013", "FM_Tat_F_013",2100),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Evil Clown", "multiplayer_overlays", "FM_Tat_M_016", "FM_Tat_F_016",5750),  
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "The Wages of Sin", "multiplayer_overlays", "FM_Tat_M_019", "FM_Tat_F_019",5500),
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Dragon T", "multiplayer_overlays", "FM_Tat_M_020", "FM_Tat_F_020",5000), 
+                new BusinessTattoo(new List<int>(){0,1,2,8}, "Flaming Cross", "multiplayer_overlays", "FM_Tat_M_024", "FM_Tat_F_024",6750),
+                new BusinessTattoo(new List<int>(){0}, "LS Bold", "multiplayer_overlays", "FM_Tat_M_025", "FM_Tat_F_025",1800),
+                new BusinessTattoo(new List<int>(){2,8}, "Trinity Knot", "multiplayer_overlays", "FM_Tat_M_029", "FM_Tat_F_029",4100),
+                new BusinessTattoo(new List<int>(){5,6}, "Lucky Celtic Dogs", "multiplayer_overlays", "FM_Tat_M_030", "FM_Tat_F_030",2100), 
+                new BusinessTattoo(new List<int>(){1}, "Flaming Shamrock", "multiplayer_overlays", "FM_Tat_M_034", "FM_Tat_F_034",1700),  
+                new BusinessTattoo(new List<int>(){2}, "Way of the Gun", "multiplayer_overlays", "FM_Tat_M_036", "FM_Tat_F_036",3000), 
+                new BusinessTattoo(new List<int>(){0,1}, "Stone Cross", "multiplayer_overlays", "FM_Tat_M_044", "FM_Tat_F_044",2100),   
+                new BusinessTattoo(new List<int>(){3,4,5,6}, "Skulls and Rose", "multiplayer_overlays", "FM_Tat_M_045", "FM_Tat_F_045",5500)
             },
-
-            // Head
+            #endregion Торс
+            #region Голова
             new List<BusinessTattoo>(){
-	            // Передняя шея -   0
-                // Левая шея    -   1
-                // Правая шея   -   2
-                // Задняя шея   -   3
-	            // Левая щека - 4
-                // Правая щека - 5
-
-                //Новые
-                new BusinessTattoo(new List<int>(){0},"Cash is King", "mpbusiness_overlays", "MP_Buis_M_Neck_000", "",1750),    new BusinessTattoo(new List<int>(){1}, "Bold Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_001", "",1750),   new BusinessTattoo(new List<int>(){2}, "Script Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_002", "",1750), new BusinessTattoo(new List<int>(){3}, "$100", "mpbusiness_overlays", "MP_Buis_M_Neck_003", "",1750),   new BusinessTattoo(new List<int>(){1}, "Val-de-Grace Logo", "mpbusiness_overlays", "", "MP_Buis_F_Neck_000",1750),  new BusinessTattoo(new List<int>(){2}, "Money Rose", "mpbusiness_overlays", "", "MP_Buis_F_Neck_001",1750), new BusinessTattoo(new List<int>(){2}, "Los Muertos", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_007", "MP_Xmas2_F_Tat_007",1750),    new BusinessTattoo(new List<int>(){1}, "Snake Head Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_024", "MP_Xmas2_F_Tat_024",1750), new BusinessTattoo(new List<int>(){1}, "Snake Head Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_025", "MP_Xmas2_F_Tat_025",1750),   new BusinessTattoo(new List<int>(){2}, "Beautiful Death", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_029", "MP_Xmas2_F_Tat_029",1750),    new BusinessTattoo(new List<int>(){1}, "Lock & Load", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_003_M", "MP_Gunrunning_Tattoo_003_F",1750),    new BusinessTattoo(new List<int>(){2}, "Beautiful Eye", "mphipster_overlays", "FM_Hip_M_Tat_005", "FM_Hip_F_Tat_005",1750), new BusinessTattoo(new List<int>(){1}, "Geo Fox", "mphipster_overlays", "FM_Hip_M_Tat_021", "FM_Hip_F_Tat_021",1750),   new BusinessTattoo(new List<int>(){5}, "Morbid Arachnid", "mpbiker_overlays", "MP_MP_Biker_Tat_009_M", "MP_MP_Biker_Tat_009_F",1750),   new BusinessTattoo(new List<int>(){2}, "FTW", "mpbiker_overlays", "MP_MP_Biker_Tat_038_M", "MP_MP_Biker_Tat_038_F",1750),   new BusinessTattoo(new List<int>(){1}, "Western Stylized", "mpbiker_overlays", "MP_MP_Biker_Tat_051_M", "MP_MP_Biker_Tat_051_F",1750),  new BusinessTattoo(new List<int>(){1}, "Sinner", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_011_M", "MP_Smuggler_Tattoo_011_F",1750),   new BusinessTattoo(new List<int>(){2}, "Thief", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_012_M", "MP_Smuggler_Tattoo_012_F",1750),    new BusinessTattoo(new List<int>(){1}, "Stunt Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_000_M", "MP_MP_Stunt_Tat_000_F",1750),   new BusinessTattoo(new List<int>(){5}, "Scorpion", "mpstunt_overlays", "MP_MP_Stunt_Tat_004_M", "MP_MP_Stunt_Tat_004_F",200),   new BusinessTattoo(new List<int>(){2}, "Toxic Spider", "mpstunt_overlays", "MP_MP_Stunt_Tat_006_M", "MP_MP_Stunt_Tat_006_F",200),   new BusinessTattoo(new List<int>(){2}, "Bat Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_017_M", "MP_MP_Stunt_Tat_017_F",200),  new BusinessTattoo(new List<int>(){2}, "Flaming Quad", "mpstunt_overlays", "MP_MP_Stunt_Tat_042_M", "MP_MP_Stunt_Tat_042_F",1750),
-
-
-                /* Старые тату
-                new BusinessTattoo(new List<int>(){ 0 }, "Cash is King", "mpbusiness_overlays", "MP_Buis_M_Neck_000", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Bold Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_001", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Script Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_002", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 3 }, "$100", "mpbusiness_overlays", "MP_Buis_M_Neck_003", String.Empty, 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Val-de-Grace Logo", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Neck_000", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Money Rose", "mpbusiness_overlays", String.Empty, "MP_Buis_F_Neck_001", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Los Muertos", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_007", "MP_Xmas2_F_Tat_007", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Snake Head Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_024", "MP_Xmas2_F_Tat_024", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Snake Head Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_025", "MP_Xmas2_F_Tat_025", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Beautiful Death", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_029", "MP_Xmas2_F_Tat_029", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Lock & Load", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_003_M", "MP_Gunrunning_Tattoo_003_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Beautiful Eye", "mphipster_overlays", "FM_Hip_M_Tat_005", "FM_Hip_F_Tat_005", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Geo Fox", "mphipster_overlays", "FM_Hip_M_Tat_021", "FM_Hip_F_Tat_021", 1750),
-                new BusinessTattoo(new List<int>(){ 5 }, "Morbid Arachnid", "mpbiker_overlays", "MP_MP_Biker_Tat_009_M", "MP_MP_Biker_Tat_009_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "FTW", "mpbiker_overlays", "MP_MP_Biker_Tat_038_M", "MP_MP_Biker_Tat_038_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Western Stylized", "mpbiker_overlays", "MP_MP_Biker_Tat_051_M", "MP_MP_Biker_Tat_051_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Sinner", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_011_M", "MP_Smuggler_Tattoo_011_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Thief", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_012_M", "MP_Smuggler_Tattoo_012_F", 1750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Stunt Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_000_M", "MP_MP_Stunt_Tat_000_F", 1750),
-                new BusinessTattoo(new List<int>(){ 5 }, "Scorpion", "mpstunt_overlays", "MP_MP_Stunt_Tat_004_M", "MP_MP_Stunt_Tat_004_F", 200),
-                new BusinessTattoo(new List<int>(){ 2 }, "Toxic Spider", "mpstunt_overlays", "MP_MP_Stunt_Tat_006_M", "MP_MP_Stunt_Tat_006_F", 200),
-                new BusinessTattoo(new List<int>(){ 2 }, "Bat Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_017_M", "MP_MP_Stunt_Tat_017_F", 200),
-                new BusinessTattoo(new List<int>(){ 2 }, "Flaming Quad", "mpstunt_overlays", "MP_MP_Stunt_Tat_042_M", "MP_MP_Stunt_Tat_042_F", 1750),
-                */
+                // iTeffa => 0 - Передняя шея | 1 - Левая шея | 2 - Правая шея | 3 - Задняя шея | 4 - Левая щека | 5 - Правая щека
+                new BusinessTattoo(new List<int>(){0},"Cash is King", "mpbusiness_overlays", "MP_Buis_M_Neck_000", "",1750),
+                new BusinessTattoo(new List<int>(){1}, "Bold Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_001", "",1750),
+                new BusinessTattoo(new List<int>(){1}, "Val-de-Grace Logo", "mpbusiness_overlays", "", "MP_Buis_F_Neck_000",1750),
+                new BusinessTattoo(new List<int>(){1}, "Snake Head Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_024", "MP_Xmas2_F_Tat_024",1750),
+                new BusinessTattoo(new List<int>(){1}, "Snake Head Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_025", "MP_Xmas2_F_Tat_025",1750),
+                new BusinessTattoo(new List<int>(){1}, "Lock & Load", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_003_M", "MP_Gunrunning_Tattoo_003_F",1750),
+                new BusinessTattoo(new List<int>(){1}, "Western Stylized", "mpbiker_overlays", "MP_MP_Biker_Tat_051_M", "MP_MP_Biker_Tat_051_F",1750),
+                new BusinessTattoo(new List<int>(){1}, "Sinner", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_011_M", "MP_Smuggler_Tattoo_011_F",1750),
+                new BusinessTattoo(new List<int>(){1}, "Geo Fox", "mphipster_overlays", "FM_Hip_M_Tat_021", "FM_Hip_F_Tat_021",1750),
+                new BusinessTattoo(new List<int>(){1}, "Stunt Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_000_M", "MP_MP_Stunt_Tat_000_F",1750),
+                new BusinessTattoo(new List<int>(){2}, "Script Dollar Sign", "mpbusiness_overlays", "MP_Buis_M_Neck_002", "",1750),
+                new BusinessTattoo(new List<int>(){2}, "Toxic Spider", "mpstunt_overlays", "MP_MP_Stunt_Tat_006_M", "MP_MP_Stunt_Tat_006_F",200),
+                new BusinessTattoo(new List<int>(){2}, "Bat Wheel", "mpstunt_overlays", "MP_MP_Stunt_Tat_017_M", "MP_MP_Stunt_Tat_017_F",200),
+                new BusinessTattoo(new List<int>(){2}, "Flaming Quad", "mpstunt_overlays", "MP_MP_Stunt_Tat_042_M", "MP_MP_Stunt_Tat_042_F",1750),
+                new BusinessTattoo(new List<int>(){2}, "Money Rose", "mpbusiness_overlays", "", "MP_Buis_F_Neck_001",1750),
+                new BusinessTattoo(new List<int>(){2}, "Los Muertos", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_007", "MP_Xmas2_F_Tat_007",1750),  
+                new BusinessTattoo(new List<int>(){2}, "Beautiful Death", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_029", "MP_Xmas2_F_Tat_029",1750),  
+                new BusinessTattoo(new List<int>(){2}, "Beautiful Eye", "mphipster_overlays", "FM_Hip_M_Tat_005", "FM_Hip_F_Tat_005",1750),
+                new BusinessTattoo(new List<int>(){2}, "FTW", "mpbiker_overlays", "MP_MP_Biker_Tat_038_M", "MP_MP_Biker_Tat_038_F",1750),
+                new BusinessTattoo(new List<int>(){2}, "Thief", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_012_M", "MP_Smuggler_Tattoo_012_F",1750),
+                new BusinessTattoo(new List<int>(){3}, "$100", "mpbusiness_overlays", "MP_Buis_M_Neck_003", "",1750),
+                new BusinessTattoo(new List<int>(){5}, "Morbid Arachnid", "mpbiker_overlays", "MP_MP_Biker_Tat_009_M", "MP_MP_Biker_Tat_009_F",1750),  
+                new BusinessTattoo(new List<int>(){5}, "Scorpion", "mpstunt_overlays", "MP_MP_Stunt_Tat_004_M", "MP_MP_Stunt_Tat_004_F",200)
             },
-
-            // Left Arm
+            #endregion Голова
+            #region Левая рука
             new List<BusinessTattoo>()
             {
-                // Кисть        -   0
-                // До локтя     -   1
-                // Выше локтя   -   2
-
-                //Новое
-                new BusinessTattoo(new List<int>(){1,2},"Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_002_M", "MP_Vinewood_Tat_002_F",2500), new BusinessTattoo(new List<int>(){1,2}, "Get Lucky", "mpvinewood_overlays", "MP_Vinewood_Tat_005_M", "MP_Vinewood_Tat_005_F",3000),    new BusinessTattoo(new List<int>(){1}, "Vice", "mpvinewood_overlays", "MP_Vinewood_Tat_014_M", "MP_Vinewood_Tat_014_F",1800),   new BusinessTattoo(new List<int>(){1,2}, "Can't Win Them All", "mpvinewood_overlays", "MP_Vinewood_Tat_019_M", "MP_Vinewood_Tat_019_F",4000),   new BusinessTattoo(new List<int>(){1,2}, "Banknote Rose", "mpvinewood_overlays", "MP_Vinewood_Tat_026_M", "MP_Vinewood_Tat_026_F",3500),    new BusinessTattoo(new List<int>(){1}, "$100 Bill", "mpbusiness_overlays", "MP_Buis_M_LeftArm_000", "",1850),   new BusinessTattoo(new List<int>(){1,2}, "All-Seeing Eye", "mpbusiness_overlays", "MP_Buis_M_LeftArm_001", "",780), new BusinessTattoo(new List<int>(){1}, "Greed is Good", "mpbusiness_overlays", "", "MP_Buis_F_LArm_000",1800),  new BusinessTattoo(new List<int>(){1}, "Skull Rider", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_000", "MP_Xmas2_F_Tat_000",1850),    new BusinessTattoo(new List<int>(){1}, "Electric Snake", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_010", "MP_Xmas2_F_Tat_010",1800), new BusinessTattoo(new List<int>(){2}, "8 Ball Skull", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_012", "MP_Xmas2_F_Tat_012",1900),   new BusinessTattoo(new List<int>(){0}, "Time's Up Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_020", "MP_Xmas2_F_Tat_020",1300),  new BusinessTattoo(new List<int>(){0}, "Time's Up Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_021", "MP_Xmas2_F_Tat_021",1300),    new BusinessTattoo(new List<int>(){0}, "Sidearm", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_004_M", "MP_Gunrunning_Tattoo_004_F",1350),    new BusinessTattoo(new List<int>(){2}, "Bandolier", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_008_M", "MP_Gunrunning_Tattoo_008_F",1780),  new BusinessTattoo(new List<int>(){1,2}, "Spiked Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_015_M", "MP_Gunrunning_Tattoo_015_F",3800), new BusinessTattoo(new List<int>(){2}, "Blood Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_016_M", "MP_Gunrunning_Tattoo_016_F",1800),    new BusinessTattoo(new List<int>(){1}, "Praying Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_025_M", "MP_Gunrunning_Tattoo_025_F",1800),  new BusinessTattoo(new List<int>(){2}, "Serpent Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_027_M", "MP_Gunrunning_Tattoo_027_F",1850),   new BusinessTattoo(new List<int>(){1}, "Diamond Sparkle", "mphipster_overlays", "FM_Hip_M_Tat_003", "FM_Hip_F_Tat_003",1800),   new BusinessTattoo(new List<int>(){0}, "Bricks", "mphipster_overlays", "FM_Hip_M_Tat_007", "FM_Hip_F_Tat_007",1300),    new BusinessTattoo(new List<int>(){2}, "Mustache", "mphipster_overlays", "FM_Hip_M_Tat_015", "FM_Hip_F_Tat_015",1800),  new BusinessTattoo(new List<int>(){1}, "Lightning Bolt", "mphipster_overlays", "FM_Hip_M_Tat_016", "FM_Hip_F_Tat_016",1800),    new BusinessTattoo(new List<int>(){2}, "Pizza", "mphipster_overlays", "FM_Hip_M_Tat_026", "FM_Hip_F_Tat_026",1800), new BusinessTattoo(new List<int>(){1}, "Padlock", "mphipster_overlays", "FM_Hip_M_Tat_027", "FM_Hip_F_Tat_027",2000),   new BusinessTattoo(new List<int>(){1}, "Thorny Rose", "mphipster_overlays", "FM_Hip_M_Tat_028", "FM_Hip_F_Tat_028",2000),   new BusinessTattoo(new List<int>(){0}, "Stop", "mphipster_overlays", "FM_Hip_M_Tat_034", "FM_Hip_F_Tat_034",1250),  new BusinessTattoo(new List<int>(){2}, "Sunrise", "mphipster_overlays", "FM_Hip_M_Tat_037", "FM_Hip_F_Tat_037",1850),   new BusinessTattoo(new List<int>(){1,2}, "Sleeve", "mphipster_overlays", "FM_Hip_M_Tat_039", "FM_Hip_F_Tat_039",4500),  new BusinessTattoo(new List<int>(){2}, "Triangle White", "mphipster_overlays", "FM_Hip_M_Tat_043", "FM_Hip_F_Tat_043",1850),    new BusinessTattoo(new List<int>(){0}, "Peace", "mphipster_overlays", "FM_Hip_M_Tat_048", "FM_Hip_F_Tat_048",1300), new BusinessTattoo(new List<int>(){1,2}, "Piston Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_004_M", "MP_MP_ImportExport_Tat_004_F",3800),  new BusinessTattoo(new List<int>(){1,2}, "Scarlett", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_008_M", "MP_MP_ImportExport_Tat_008_F",3750),   new BusinessTattoo(new List<int>(){1}, "No Evil", "mplowrider_overlays", "MP_LR_Tat_005_M", "MP_LR_Tat_005_F",1780),    new BusinessTattoo(new List<int>(){2}, "Los Santos Life", "mplowrider_overlays", "MP_LR_Tat_027_M", "MP_LR_Tat_027_F",1800),    new BusinessTattoo(new List<int>(){1,2}, "City Sorrow", "mplowrider_overlays", "MP_LR_Tat_033_M", "MP_LR_Tat_033_F",3800),  new BusinessTattoo(new List<int>(){1,2}, "Toxic Trails", "mpairraces_overlays", "MP_Airraces_Tattoo_003_M", "MP_Airraces_Tattoo_003_F",15700),  new BusinessTattoo(new List<int>(){1}, "Urban Stunter", "mpbiker_overlays", "MP_MP_Biker_Tat_012_M", "MP_MP_Biker_Tat_012_F",1850), new BusinessTattoo(new List<int>(){2}, "Macabre Tree", "mpbiker_overlays", "MP_MP_Biker_Tat_016_M", "MP_MP_Biker_Tat_016_F",2000),  new BusinessTattoo(new List<int>(){2}, "Cranial Rose", "mpbiker_overlays", "MP_MP_Biker_Tat_020_M", "MP_MP_Biker_Tat_020_F",1800),  new BusinessTattoo(new List<int>(){1,2}, "Live to Ride", "mpbiker_overlays", "MP_MP_Biker_Tat_024_M", "MP_MP_Biker_Tat_024_F",3800),    new BusinessTattoo(new List<int>(){2}, "Good Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_025_M", "MP_MP_Biker_Tat_025_F",1100), new BusinessTattoo(new List<int>(){2}, "Chain Fist", "mpbiker_overlays", "MP_MP_Biker_Tat_035_M", "MP_MP_Biker_Tat_035_F",1600),    new BusinessTattoo(new List<int>(){2}, "Ride Hard Die Fast", "mpbiker_overlays", "MP_MP_Biker_Tat_045_M", "MP_MP_Biker_Tat_045_F",1800),    new BusinessTattoo(new List<int>(){1}, "Muffler Helmet", "mpbiker_overlays", "MP_MP_Biker_Tat_053_M", "MP_MP_Biker_Tat_053_F",1850),    new BusinessTattoo(new List<int>(){2}, "Poison Scorpion", "mpbiker_overlays", "MP_MP_Biker_Tat_055_M", "MP_MP_Biker_Tat_055_F",1800),   new BusinessTattoo(new List<int>(){2}, "Love Hustle", "mplowrider2_overlays", "MP_LR_Tat_006_M", "MP_LR_Tat_006_F",1800),   new BusinessTattoo(new List<int>(){1,2}, "Skeleton Party", "mplowrider2_overlays", "MP_LR_Tat_018_M", "MP_LR_Tat_018_F",3700),  new BusinessTattoo(new List<int>(){1}, "My Crazy Life", "mplowrider2_overlays", "MP_LR_Tat_022_M", "MP_LR_Tat_022_F",1850), new BusinessTattoo(new List<int>(){2}, "Archangel & Mary", "mpluxe_overlays", "MP_LUXE_TAT_020_M", "MP_LUXE_TAT_020_F",1800),   new BusinessTattoo(new List<int>(){1}, "Gabriel", "mpluxe_overlays", "MP_LUXE_TAT_021_M", "MP_LUXE_TAT_021_F",1800),    new BusinessTattoo(new List<int>(){1}, "Fatal Dagger", "mpluxe2_overlays", "MP_LUXE_TAT_005_M", "MP_LUXE_TAT_005_F",1800),  new BusinessTattoo(new List<int>(){1}, "Egyptian Mural", "mpluxe2_overlays", "MP_LUXE_TAT_016_M", "MP_LUXE_TAT_016_F",1780),    new BusinessTattoo(new List<int>(){2}, "Divine Goddess", "mpluxe2_overlays", "MP_LUXE_TAT_018_M", "MP_LUXE_TAT_018_F",1780),    new BusinessTattoo(new List<int>(){1}, "Python Skull", "mpluxe2_overlays", "MP_LUXE_TAT_028_M", "MP_LUXE_TAT_028_F",1850),  new BusinessTattoo(new List<int>(){1,2}, "Geometric Design LA", "mpluxe2_overlays", "MP_LUXE_TAT_031_M", "MP_LUXE_TAT_031_F",3800), new BusinessTattoo(new List<int>(){1}, "Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_004_M", "MP_Smuggler_Tattoo_004_F",1800),    new BusinessTattoo(new List<int>(){1}, "Horrors Of The Deep", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_008_M", "MP_Smuggler_Tattoo_008_F",1850),  new BusinessTattoo(new List<int>(){1,2}, "Mermaid's Curse", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_014_M", "MP_Smuggler_Tattoo_014_F",3800),    new BusinessTattoo(new List<int>(){2}, "8 Eyed Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_001_M", "MP_MP_Stunt_Tat_001_F",1750),  new BusinessTattoo(new List<int>(){0}, "Big Cat", "mpstunt_overlays", "MP_MP_Stunt_Tat_002_M", "MP_MP_Stunt_Tat_002_F",1250),   new BusinessTattoo(new List<int>(){2}, "Moonlight Ride", "mpstunt_overlays", "MP_MP_Stunt_Tat_008_M", "MP_MP_Stunt_Tat_008_F",1800),    new BusinessTattoo(new List<int>(){1}, "Piston Head", "mpstunt_overlays", "MP_MP_Stunt_Tat_022_M", "MP_MP_Stunt_Tat_022_F",1800),   new BusinessTattoo(new List<int>(){1,2}, "Tanked", "mpstunt_overlays", "MP_MP_Stunt_Tat_023_M", "MP_MP_Stunt_Tat_023_F",3750),  new BusinessTattoo(new List<int>(){1}, "Stuntman's End", "mpstunt_overlays", "MP_MP_Stunt_Tat_035_M", "MP_MP_Stunt_Tat_035_F",1800),    new BusinessTattoo(new List<int>(){2}, "Kaboom", "mpstunt_overlays", "MP_MP_Stunt_Tat_039_M", "MP_MP_Stunt_Tat_039_F",1850),    new BusinessTattoo(new List<int>(){2}, "Engine Arm", "mpstunt_overlays", "MP_MP_Stunt_Tat_043_M", "MP_MP_Stunt_Tat_043_F",1800),    new BusinessTattoo(new List<int>(){1}, "Burning Heart", "multiplayer_overlays", "FM_Tat_Award_M_001", "FM_Tat_Award_F_001",1850),   new BusinessTattoo(new List<int>(){2}, "Racing Blonde", "multiplayer_overlays", "FM_Tat_Award_M_007", "FM_Tat_Award_F_007",1850),   new BusinessTattoo(new List<int>(){2}, "Racing Brunette", "multiplayer_overlays", "FM_Tat_Award_M_015", "FM_Tat_Award_F_015",1850), new BusinessTattoo(new List<int>(){1,2}, "Serpents", "multiplayer_overlays", "FM_Tat_M_005", "FM_Tat_F_005",1780),  new BusinessTattoo(new List<int>(){1,2}, "Oriental Mural", "multiplayer_overlays", "FM_Tat_M_006", "FM_Tat_F_006",3800),    new BusinessTattoo(new List<int>(){2}, "Zodiac Skull", "multiplayer_overlays", "FM_Tat_M_015", "FM_Tat_F_015",1800),    new BusinessTattoo(new List<int>(){2}, "Lady M", "multiplayer_overlays", "FM_Tat_M_031", "FM_Tat_F_031",1850),  new BusinessTattoo(new List<int>(){2}, "Dope Skull", "multiplayer_overlays", "FM_Tat_M_041", "FM_Tat_F_041",1800),
-
-
-                /* Старое
-                new BusinessTattoo(new List<int>(){ 1 }, "$100 Bill", "mpbusiness_overlays", "MP_Buis_M_LeftArm_000", String.Empty, 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "All-Seeing Eye", "mpbusiness_overlays", "MP_Buis_M_LeftArm_001", String.Empty, 780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Greed is Good", "mpbusiness_overlays", String.Empty, "MP_Buis_F_LArm_000", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Skull Rider", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_000", "MP_Xmas2_F_Tat_000", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Electric Snake", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_010", "MP_Xmas2_F_Tat_010", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "8 Ball Skull", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_012", "MP_Xmas2_F_Tat_012", 1900),
-                new BusinessTattoo(new List<int>(){ 0 }, "Time's Up Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_020", "MP_Xmas2_F_Tat_020", 1300),
-                new BusinessTattoo(new List<int>(){ 0 }, "Time's Up Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_021", "MP_Xmas2_F_Tat_021", 1300),
-                new BusinessTattoo(new List<int>(){ 0 }, "Sidearm", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_004_M", "MP_Gunrunning_Tattoo_004_F", 1350),
-                new BusinessTattoo(new List<int>(){ 2 }, "Bandolier", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_008_M", "MP_Gunrunning_Tattoo_008_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Spiked Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_015_M", "MP_Gunrunning_Tattoo_015_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Blood Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_016_M", "MP_Gunrunning_Tattoo_016_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Praying Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_025_M", "MP_Gunrunning_Tattoo_025_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Serpent Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_027_M", "MP_Gunrunning_Tattoo_027_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Diamond Sparkle", "mphipster_overlays", "FM_Hip_M_Tat_003", "FM_Hip_F_Tat_003", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Bricks", "mphipster_overlays", "FM_Hip_M_Tat_007", "FM_Hip_F_Tat_007", 1300),
-                new BusinessTattoo(new List<int>(){ 2 }, "Mustache", "mphipster_overlays", "FM_Hip_M_Tat_015", "FM_Hip_F_Tat_015", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Lightning Bolt", "mphipster_overlays", "FM_Hip_M_Tat_016", "FM_Hip_F_Tat_016", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Pizza", "mphipster_overlays", "FM_Hip_M_Tat_026", "FM_Hip_F_Tat_026", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Padlock", "mphipster_overlays", "FM_Hip_M_Tat_027", "FM_Hip_F_Tat_027", 2000),
-                new BusinessTattoo(new List<int>(){ 1 }, "Thorny Rose", "mphipster_overlays", "FM_Hip_M_Tat_028", "FM_Hip_F_Tat_028", 2000),
-                new BusinessTattoo(new List<int>(){ 0 }, "Stop", "mphipster_overlays", "FM_Hip_M_Tat_034", "FM_Hip_F_Tat_034", 1250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Sunrise", "mphipster_overlays", "FM_Hip_M_Tat_037", "FM_Hip_F_Tat_037", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Sleeve", "mphipster_overlays", "FM_Hip_M_Tat_039", "FM_Hip_F_Tat_039", 4500),
-                new BusinessTattoo(new List<int>(){ 2 }, "Triangle White", "mphipster_overlays", "FM_Hip_M_Tat_043", "FM_Hip_F_Tat_043", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Peace", "mphipster_overlays", "FM_Hip_M_Tat_048", "FM_Hip_F_Tat_048", 1300),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Piston Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_004_M", "MP_MP_ImportExport_Tat_004_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Scarlett", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_008_M", "MP_MP_ImportExport_Tat_008_F", 3750),
-                new BusinessTattoo(new List<int>(){ 1 }, "No Evil", "mplowrider_overlays", "MP_LR_Tat_005_M", "MP_LR_Tat_005_F", 1780),
-                new BusinessTattoo(new List<int>(){ 2 }, "Los Santos Life", "mplowrider_overlays", "MP_LR_Tat_027_M", "MP_LR_Tat_027_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "City Sorrow", "mplowrider_overlays", "MP_LR_Tat_033_M", "MP_LR_Tat_033_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Toxic Trails", "mpairraces_overlays", "MP_Airraces_Tattoo_003_M", "MP_Airraces_Tattoo_003_F", 15700),
-                new BusinessTattoo(new List<int>(){ 1 }, "Urban Stunter", "mpbiker_overlays", "MP_MP_Biker_Tat_012_M", "MP_MP_Biker_Tat_012_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Macabre Tree", "mpbiker_overlays", "MP_MP_Biker_Tat_016_M", "MP_MP_Biker_Tat_016_F", 2000),
-                new BusinessTattoo(new List<int>(){ 2 }, "Cranial Rose", "mpbiker_overlays", "MP_MP_Biker_Tat_020_M", "MP_MP_Biker_Tat_020_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Live to Ride", "mpbiker_overlays", "MP_MP_Biker_Tat_024_M", "MP_MP_Biker_Tat_024_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Good Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_025_M", "MP_MP_Biker_Tat_025_F", 1100),
-                new BusinessTattoo(new List<int>(){ 2 }, "Chain Fist", "mpbiker_overlays", "MP_MP_Biker_Tat_035_M", "MP_MP_Biker_Tat_035_F", 1600),
-                new BusinessTattoo(new List<int>(){ 2 }, "Ride Hard Die Fast", "mpbiker_overlays", "MP_MP_Biker_Tat_045_M", "MP_MP_Biker_Tat_045_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Muffler Helmet", "mpbiker_overlays", "MP_MP_Biker_Tat_053_M", "MP_MP_Biker_Tat_053_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Poison Scorpion", "mpbiker_overlays", "MP_MP_Biker_Tat_055_M", "MP_MP_Biker_Tat_055_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Love Hustle", "mplowrider2_overlays", "MP_LR_Tat_006_M", "MP_LR_Tat_006_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Skeleton Party", "mplowrider2_overlays", "MP_LR_Tat_018_M", "MP_LR_Tat_018_F", 3700),
-                new BusinessTattoo(new List<int>(){ 1 }, "My Crazy Life", "mplowrider2_overlays", "MP_LR_Tat_022_M", "MP_LR_Tat_022_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Archangel & Mary", "mpluxe_overlays", "MP_LUXE_TAT_020_M", "MP_LUXE_TAT_020_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Gabriel", "mpluxe_overlays", "MP_LUXE_TAT_021_M", "MP_LUXE_TAT_021_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Fatal Dagger", "mpluxe2_overlays", "MP_LUXE_TAT_005_M", "MP_LUXE_TAT_005_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Egyptian Mural", "mpluxe2_overlays", "MP_LUXE_TAT_016_M", "MP_LUXE_TAT_016_F", 1780),
-                new BusinessTattoo(new List<int>(){ 2 }, "Divine Goddess", "mpluxe2_overlays", "MP_LUXE_TAT_018_M", "MP_LUXE_TAT_018_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Python Skull", "mpluxe2_overlays", "MP_LUXE_TAT_028_M", "MP_LUXE_TAT_028_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Geometric Design LA", "mpluxe2_overlays", "MP_LUXE_TAT_031_M", "MP_LUXE_TAT_031_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_004_M", "MP_Smuggler_Tattoo_004_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Horrors Of The Deep", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_008_M", "MP_Smuggler_Tattoo_008_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Mermaid's Curse", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_014_M", "MP_Smuggler_Tattoo_014_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "8 Eyed Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_001_M", "MP_MP_Stunt_Tat_001_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "Big Cat", "mpstunt_overlays", "MP_MP_Stunt_Tat_002_M", "MP_MP_Stunt_Tat_002_F", 1250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Moonlight Ride", "mpstunt_overlays", "MP_MP_Stunt_Tat_008_M", "MP_MP_Stunt_Tat_008_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Piston Head", "mpstunt_overlays", "MP_MP_Stunt_Tat_022_M", "MP_MP_Stunt_Tat_022_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Tanked", "mpstunt_overlays", "MP_MP_Stunt_Tat_023_M", "MP_MP_Stunt_Tat_023_F", 3750),
-                new BusinessTattoo(new List<int>(){ 1 }, "Stuntman's End", "mpstunt_overlays", "MP_MP_Stunt_Tat_035_M", "MP_MP_Stunt_Tat_035_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Kaboom", "mpstunt_overlays", "MP_MP_Stunt_Tat_039_M", "MP_MP_Stunt_Tat_039_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Engine Arm", "mpstunt_overlays", "MP_MP_Stunt_Tat_043_M", "MP_MP_Stunt_Tat_043_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Burning Heart", "multiplayer_overlays", "FM_Tat_Award_M_001", "FM_Tat_Award_F_001", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Racing Blonde", "multiplayer_overlays", "FM_Tat_Award_M_007", "FM_Tat_Award_F_007", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Racing Brunette", "multiplayer_overlays", "FM_Tat_Award_M_015", "FM_Tat_Award_F_015", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Serpents", "multiplayer_overlays", "FM_Tat_M_005", "FM_Tat_F_005", 1780),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Oriental Mural", "multiplayer_overlays", "FM_Tat_M_006", "FM_Tat_F_006", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Zodiac Skull", "multiplayer_overlays", "FM_Tat_M_015", "FM_Tat_F_015", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Lady M", "multiplayer_overlays", "FM_Tat_M_031", "FM_Tat_F_031", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Dope Skull", "multiplayer_overlays", "FM_Tat_M_041", "FM_Tat_F_041", 1800),
-                */
+                // iTeffa => 0 - Кисть| 1 - До локтя | 2 - Выше локтя
+                new BusinessTattoo(new List<int>(){1,2},"Suits", "mpvinewood_overlays", "MP_Vinewood_Tat_002_M", "MP_Vinewood_Tat_002_F",2500), 
+                new BusinessTattoo(new List<int>(){1,2}, "Get Lucky", "mpvinewood_overlays", "MP_Vinewood_Tat_005_M", "MP_Vinewood_Tat_005_F",3000),    
+                new BusinessTattoo(new List<int>(){1}, "Vice", "mpvinewood_overlays", "MP_Vinewood_Tat_014_M", "MP_Vinewood_Tat_014_F",1800),   
+                new BusinessTattoo(new List<int>(){1,2}, "Can't Win Them All", "mpvinewood_overlays", "MP_Vinewood_Tat_019_M", "MP_Vinewood_Tat_019_F",4000),  
+                new BusinessTattoo(new List<int>(){1,2}, "Banknote Rose", "mpvinewood_overlays", "MP_Vinewood_Tat_026_M", "MP_Vinewood_Tat_026_F",3500),    
+                new BusinessTattoo(new List<int>(){1}, "$100 Bill", "mpbusiness_overlays", "MP_Buis_M_LeftArm_000", "",1850),   
+                new BusinessTattoo(new List<int>(){1,2}, "All-Seeing Eye", "mpbusiness_overlays", "MP_Buis_M_LeftArm_001", "",780),
+                new BusinessTattoo(new List<int>(){1}, "Greed is Good", "mpbusiness_overlays", "", "MP_Buis_F_LArm_000",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Skull Rider", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_000", "MP_Xmas2_F_Tat_000",1850),    
+                new BusinessTattoo(new List<int>(){1}, "Electric Snake", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_010", "MP_Xmas2_F_Tat_010",1800), 
+                new BusinessTattoo(new List<int>(){2}, "8 Ball Skull", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_012", "MP_Xmas2_F_Tat_012",1900),  
+                new BusinessTattoo(new List<int>(){0}, "Time's Up Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_020", "MP_Xmas2_F_Tat_020",1300),
+                new BusinessTattoo(new List<int>(){0}, "Time's Up Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_021", "MP_Xmas2_F_Tat_021",1300),  
+                new BusinessTattoo(new List<int>(){0}, "Sidearm", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_004_M", "MP_Gunrunning_Tattoo_004_F",1350),  
+                new BusinessTattoo(new List<int>(){2}, "Bandolier", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_008_M", "MP_Gunrunning_Tattoo_008_F",1780), 
+                new BusinessTattoo(new List<int>(){1,2}, "Spiked Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_015_M", "MP_Gunrunning_Tattoo_015_F",3800),
+                new BusinessTattoo(new List<int>(){2}, "Blood Money", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_016_M", "MP_Gunrunning_Tattoo_016_F",1800),  
+                new BusinessTattoo(new List<int>(){1}, "Praying Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_025_M", "MP_Gunrunning_Tattoo_025_F",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Serpent Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_027_M", "MP_Gunrunning_Tattoo_027_F",1850),
+                new BusinessTattoo(new List<int>(){1}, "Diamond Sparkle", "mphipster_overlays", "FM_Hip_M_Tat_003", "FM_Hip_F_Tat_003",1800),   
+                new BusinessTattoo(new List<int>(){0}, "Bricks", "mphipster_overlays", "FM_Hip_M_Tat_007", "FM_Hip_F_Tat_007",1300),  
+                new BusinessTattoo(new List<int>(){2}, "Mustache", "mphipster_overlays", "FM_Hip_M_Tat_015", "FM_Hip_F_Tat_015",1800),
+                new BusinessTattoo(new List<int>(){1}, "Lightning Bolt", "mphipster_overlays", "FM_Hip_M_Tat_016", "FM_Hip_F_Tat_016",1800),    
+                new BusinessTattoo(new List<int>(){2}, "Pizza", "mphipster_overlays", "FM_Hip_M_Tat_026", "FM_Hip_F_Tat_026",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Padlock", "mphipster_overlays", "FM_Hip_M_Tat_027", "FM_Hip_F_Tat_027",2000),   
+                new BusinessTattoo(new List<int>(){1}, "Thorny Rose", "mphipster_overlays", "FM_Hip_M_Tat_028", "FM_Hip_F_Tat_028",2000),  
+                new BusinessTattoo(new List<int>(){0}, "Stop", "mphipster_overlays", "FM_Hip_M_Tat_034", "FM_Hip_F_Tat_034",1250), 
+                new BusinessTattoo(new List<int>(){2}, "Sunrise", "mphipster_overlays", "FM_Hip_M_Tat_037", "FM_Hip_F_Tat_037",1850),  
+                new BusinessTattoo(new List<int>(){1,2}, "Sleeve", "mphipster_overlays", "FM_Hip_M_Tat_039", "FM_Hip_F_Tat_039",4500), 
+                new BusinessTattoo(new List<int>(){2}, "Triangle White", "mphipster_overlays", "FM_Hip_M_Tat_043", "FM_Hip_F_Tat_043",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Peace", "mphipster_overlays", "FM_Hip_M_Tat_048", "FM_Hip_F_Tat_048",1300), 
+                new BusinessTattoo(new List<int>(){1,2}, "Piston Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_004_M", "MP_MP_ImportExport_Tat_004_F",3800), 
+                new BusinessTattoo(new List<int>(){1,2}, "Scarlett", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_008_M", "MP_MP_ImportExport_Tat_008_F",3750), 
+                new BusinessTattoo(new List<int>(){1}, "No Evil", "mplowrider_overlays", "MP_LR_Tat_005_M", "MP_LR_Tat_005_F",1780),  
+                new BusinessTattoo(new List<int>(){2}, "Los Santos Life", "mplowrider_overlays", "MP_LR_Tat_027_M", "MP_LR_Tat_027_F",1800), 
+                new BusinessTattoo(new List<int>(){1,2}, "City Sorrow", "mplowrider_overlays", "MP_LR_Tat_033_M", "MP_LR_Tat_033_F",3800),
+                new BusinessTattoo(new List<int>(){1,2}, "Toxic Trails", "mpairraces_overlays", "MP_Airraces_Tattoo_003_M", "MP_Airraces_Tattoo_003_F",15700),  
+                new BusinessTattoo(new List<int>(){1}, "Urban Stunter", "mpbiker_overlays", "MP_MP_Biker_Tat_012_M", "MP_MP_Biker_Tat_012_F",1850),
+                new BusinessTattoo(new List<int>(){2}, "Macabre Tree", "mpbiker_overlays", "MP_MP_Biker_Tat_016_M", "MP_MP_Biker_Tat_016_F",2000),  
+                new BusinessTattoo(new List<int>(){2}, "Cranial Rose", "mpbiker_overlays", "MP_MP_Biker_Tat_020_M", "MP_MP_Biker_Tat_020_F",1800), 
+                new BusinessTattoo(new List<int>(){1,2}, "Live to Ride", "mpbiker_overlays", "MP_MP_Biker_Tat_024_M", "MP_MP_Biker_Tat_024_F",3800),   
+                new BusinessTattoo(new List<int>(){2}, "Good Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_025_M", "MP_MP_Biker_Tat_025_F",1100),
+                new BusinessTattoo(new List<int>(){2}, "Chain Fist", "mpbiker_overlays", "MP_MP_Biker_Tat_035_M", "MP_MP_Biker_Tat_035_F",1600),  
+                new BusinessTattoo(new List<int>(){2}, "Ride Hard Die Fast", "mpbiker_overlays", "MP_MP_Biker_Tat_045_M", "MP_MP_Biker_Tat_045_F",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Muffler Helmet", "mpbiker_overlays", "MP_MP_Biker_Tat_053_M", "MP_MP_Biker_Tat_053_F",1850),  
+                new BusinessTattoo(new List<int>(){2}, "Poison Scorpion", "mpbiker_overlays", "MP_MP_Biker_Tat_055_M", "MP_MP_Biker_Tat_055_F",1800),  
+                new BusinessTattoo(new List<int>(){2}, "Love Hustle", "mplowrider2_overlays", "MP_LR_Tat_006_M", "MP_LR_Tat_006_F",1800),   
+                new BusinessTattoo(new List<int>(){1,2}, "Skeleton Party", "mplowrider2_overlays", "MP_LR_Tat_018_M", "MP_LR_Tat_018_F",3700), 
+                new BusinessTattoo(new List<int>(){1}, "My Crazy Life", "mplowrider2_overlays", "MP_LR_Tat_022_M", "MP_LR_Tat_022_F",1850),
+                new BusinessTattoo(new List<int>(){2}, "Archangel & Mary", "mpluxe_overlays", "MP_LUXE_TAT_020_M", "MP_LUXE_TAT_020_F",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Gabriel", "mpluxe_overlays", "MP_LUXE_TAT_021_M", "MP_LUXE_TAT_021_F",1800),  
+                new BusinessTattoo(new List<int>(){1}, "Fatal Dagger", "mpluxe2_overlays", "MP_LUXE_TAT_005_M", "MP_LUXE_TAT_005_F",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Egyptian Mural", "mpluxe2_overlays", "MP_LUXE_TAT_016_M", "MP_LUXE_TAT_016_F",1780),   
+                new BusinessTattoo(new List<int>(){2}, "Divine Goddess", "mpluxe2_overlays", "MP_LUXE_TAT_018_M", "MP_LUXE_TAT_018_F",1780),  
+                new BusinessTattoo(new List<int>(){1}, "Python Skull", "mpluxe2_overlays", "MP_LUXE_TAT_028_M", "MP_LUXE_TAT_028_F",1850), 
+                new BusinessTattoo(new List<int>(){1,2}, "Geometric Design LA", "mpluxe2_overlays", "MP_LUXE_TAT_031_M", "MP_LUXE_TAT_031_F",3800),
+                new BusinessTattoo(new List<int>(){1}, "Honor", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_004_M", "MP_Smuggler_Tattoo_004_F",1800),  
+                new BusinessTattoo(new List<int>(){1}, "Horrors Of The Deep", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_008_M", "MP_Smuggler_Tattoo_008_F",1850), 
+                new BusinessTattoo(new List<int>(){1,2}, "Mermaid's Curse", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_014_M", "MP_Smuggler_Tattoo_014_F",3800),  
+                new BusinessTattoo(new List<int>(){2}, "8 Eyed Skull", "mpstunt_overlays", "MP_MP_Stunt_Tat_001_M", "MP_MP_Stunt_Tat_001_F",1750),
+                new BusinessTattoo(new List<int>(){0}, "Big Cat", "mpstunt_overlays", "MP_MP_Stunt_Tat_002_M", "MP_MP_Stunt_Tat_002_F",1250),  
+                new BusinessTattoo(new List<int>(){2}, "Moonlight Ride", "mpstunt_overlays", "MP_MP_Stunt_Tat_008_M", "MP_MP_Stunt_Tat_008_F",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Piston Head", "mpstunt_overlays", "MP_MP_Stunt_Tat_022_M", "MP_MP_Stunt_Tat_022_F",1800),  
+                new BusinessTattoo(new List<int>(){1,2}, "Tanked", "mpstunt_overlays", "MP_MP_Stunt_Tat_023_M", "MP_MP_Stunt_Tat_023_F",3750), 
+                new BusinessTattoo(new List<int>(){1}, "Stuntman's End", "mpstunt_overlays", "MP_MP_Stunt_Tat_035_M", "MP_MP_Stunt_Tat_035_F",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Kaboom", "mpstunt_overlays", "MP_MP_Stunt_Tat_039_M", "MP_MP_Stunt_Tat_039_F",1850), 
+                new BusinessTattoo(new List<int>(){2}, "Engine Arm", "mpstunt_overlays", "MP_MP_Stunt_Tat_043_M", "MP_MP_Stunt_Tat_043_F",1800),   
+                new BusinessTattoo(new List<int>(){1}, "Burning Heart", "multiplayer_overlays", "FM_Tat_Award_M_001", "FM_Tat_Award_F_001",1850),  
+                new BusinessTattoo(new List<int>(){2}, "Racing Blonde", "multiplayer_overlays", "FM_Tat_Award_M_007", "FM_Tat_Award_F_007",1850),   
+                new BusinessTattoo(new List<int>(){2}, "Racing Brunette", "multiplayer_overlays", "FM_Tat_Award_M_015", "FM_Tat_Award_F_015",1850), 
+                new BusinessTattoo(new List<int>(){1,2}, "Serpents", "multiplayer_overlays", "FM_Tat_M_005", "FM_Tat_F_005",1780),
+                new BusinessTattoo(new List<int>(){1,2}, "Oriental Mural", "multiplayer_overlays", "FM_Tat_M_006", "FM_Tat_F_006",3800),  
+                new BusinessTattoo(new List<int>(){2}, "Zodiac Skull", "multiplayer_overlays", "FM_Tat_M_015", "FM_Tat_F_015",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Lady M", "multiplayer_overlays", "FM_Tat_M_031", "FM_Tat_F_031",1850), 
+                new BusinessTattoo(new List<int>(){2}, "Dope Skull", "multiplayer_overlays", "FM_Tat_M_041", "FM_Tat_F_041",1800)
             },
-            
-            // RightArm
+            #endregion Левая рука
+            #region Правая рука
             new List<BusinessTattoo>()
             {
-                // Кисть        -   0
-                // До локтя     -   1
-                // Выше локтя   -   2
-
-                //Новое
-                new BusinessTattoo(new List<int>(){1,2},"Lady Luck", "mpvinewood_overlays", "MP_Vinewood_Tat_004_M", "MP_Vinewood_Tat_004_F",1800), new BusinessTattoo(new List<int>(){1,2}, "The Gambler's Life", "mpvinewood_overlays", "MP_Vinewood_Tat_018_M", "MP_Vinewood_Tat_018_F",1800),   new BusinessTattoo(new List<int>(){1}, "Queen of Roses", "mpvinewood_overlays", "MP_Vinewood_Tat_025_M", "MP_Vinewood_Tat_025_F",1000), new BusinessTattoo(new List<int>(){2}, "Skull & Aces", "mpvinewood_overlays", "MP_Vinewood_Tat_028_M", "MP_Vinewood_Tat_028_F",2000),   new BusinessTattoo(new List<int>(){2}, "Dollar Skull", "mpbusiness_overlays", "MP_Buis_M_RightArm_000", "",1780),   new BusinessTattoo(new List<int>(){1}, "Green", "mpbusiness_overlays", "MP_Buis_M_RightArm_001", "",1780),  new BusinessTattoo(new List<int>(){1}, "Dollar Sign", "mpbusiness_overlays", "", "MP_Buis_F_RArm_000",1800),    new BusinessTattoo(new List<int>(){2}, "Snake Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_003", "MP_Xmas2_F_Tat_003",1780),  new BusinessTattoo(new List<int>(){2}, "Snake Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_004", "MP_Xmas2_F_Tat_004",1850),   new BusinessTattoo(new List<int>(){1}, "Death Before Dishonor", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_008", "MP_Xmas2_F_Tat_008",1800),  new BusinessTattoo(new List<int>(){1}, "You're Next Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_022", "MP_Xmas2_F_Tat_022",850), new BusinessTattoo(new List<int>(){1}, "You're Next Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_023", "MP_Xmas2_F_Tat_023",1800),  new BusinessTattoo(new List<int>(){0}, "Fuck Luck Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_026", "MP_Xmas2_F_Tat_026",1250),  new BusinessTattoo(new List<int>(){0}, "Fuck Luck Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_027", "MP_Xmas2_F_Tat_027",1250),    new BusinessTattoo(new List<int>(){0}, "Grenade", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_002_M", "MP_Gunrunning_Tattoo_002_F",1250),    new BusinessTattoo(new List<int>(){2}, "Have a Nice Day", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_021_M", "MP_Gunrunning_Tattoo_021_F",1780),    new BusinessTattoo(new List<int>(){1}, "Combat Reaper", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_024_M", "MP_Gunrunning_Tattoo_024_F",1850),  new BusinessTattoo(new List<int>(){2}, "Single Arrow", "mphipster_overlays", "FM_Hip_M_Tat_001", "FM_Hip_F_Tat_001",1800),  new BusinessTattoo(new List<int>(){1}, "Bone", "mphipster_overlays", "FM_Hip_M_Tat_004", "FM_Hip_F_Tat_004",1800),  new BusinessTattoo(new List<int>(){2}, "Cube", "mphipster_overlays", "FM_Hip_M_Tat_008", "FM_Hip_F_Tat_008",1800),  new BusinessTattoo(new List<int>(){0}, "Horseshoe", "mphipster_overlays", "FM_Hip_M_Tat_010", "FM_Hip_F_Tat_010",1250), new BusinessTattoo(new List<int>(){1}, "Spray Can", "mphipster_overlays", "FM_Hip_M_Tat_014", "FM_Hip_F_Tat_014",1800), new BusinessTattoo(new List<int>(){1}, "Eye Triangle", "mphipster_overlays", "FM_Hip_M_Tat_017", "FM_Hip_F_Tat_017",1850),  new BusinessTattoo(new List<int>(){1}, "Origami", "mphipster_overlays", "FM_Hip_M_Tat_018", "FM_Hip_F_Tat_018",1800),   new BusinessTattoo(new List<int>(){1,2}, "Geo Pattern", "mphipster_overlays", "FM_Hip_M_Tat_020", "FM_Hip_F_Tat_020",3800), new BusinessTattoo(new List<int>(){1}, "Pencil", "mphipster_overlays", "FM_Hip_M_Tat_022", "FM_Hip_F_Tat_022",1800),    new BusinessTattoo(new List<int>(){0}, "Smiley", "mphipster_overlays", "FM_Hip_M_Tat_023", "FM_Hip_F_Tat_023",1300),    new BusinessTattoo(new List<int>(){2}, "Shapes", "mphipster_overlays", "FM_Hip_M_Tat_036", "FM_Hip_F_Tat_036",1800),    new BusinessTattoo(new List<int>(){2}, "Triangle Black", "mphipster_overlays", "FM_Hip_M_Tat_044", "FM_Hip_F_Tat_044",1800),    new BusinessTattoo(new List<int>(){1}, "Mesh Band", "mphipster_overlays", "FM_Hip_M_Tat_045", "FM_Hip_F_Tat_045",1850), new BusinessTattoo(new List<int>(){1,2}, "Mechanical Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_003_M", "MP_MP_ImportExport_Tat_003_F",3800),  new BusinessTattoo(new List<int>(){1,2}, "Dialed In", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_005_M", "MP_MP_ImportExport_Tat_005_F",3850),  new BusinessTattoo(new List<int>(){1,2}, "Engulfed Block", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_006_M", "MP_MP_ImportExport_Tat_006_F",3800), new BusinessTattoo(new List<int>(){1,2}, "Drive Forever", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_007_M", "MP_MP_ImportExport_Tat_007_F",3800),  new BusinessTattoo(new List<int>(){1}, "Seductress", "mplowrider_overlays", "MP_LR_Tat_015_M", "MP_LR_Tat_015_F",1980), new BusinessTattoo(new List<int>(){2}, "Swooping Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_007_M", "MP_MP_Biker_Tat_007_F",1800),    new BusinessTattoo(new List<int>(){2}, "Lady Mortality", "mpbiker_overlays", "MP_MP_Biker_Tat_014_M", "MP_MP_Biker_Tat_014_F",1850),    new BusinessTattoo(new List<int>(){2}, "Eagle Emblem", "mpbiker_overlays", "MP_MP_Biker_Tat_033_M", "MP_MP_Biker_Tat_033_F",1980),  new BusinessTattoo(new List<int>(){1}, "Grim Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_042_M", "MP_MP_Biker_Tat_042_F",1850),    new BusinessTattoo(new List<int>(){2}, "Skull Chain", "mpbiker_overlays", "MP_MP_Biker_Tat_046_M", "MP_MP_Biker_Tat_046_F",1800),   new BusinessTattoo(new List<int>(){1,2}, "Snake Bike", "mpbiker_overlays", "MP_MP_Biker_Tat_047_M", "MP_MP_Biker_Tat_047_F",3800),  new BusinessTattoo(new List<int>(){2}, "These Colors Don't Run", "mpbiker_overlays", "MP_MP_Biker_Tat_049_M", "MP_MP_Biker_Tat_049_F",1800),    new BusinessTattoo(new List<int>(){2}, "Mum", "mpbiker_overlays", "MP_MP_Biker_Tat_054_M", "MP_MP_Biker_Tat_054_F",1850),   new BusinessTattoo(new List<int>(){1}, "Lady Vamp", "mplowrider2_overlays", "MP_LR_Tat_003_M", "MP_LR_Tat_003_F",1780), new BusinessTattoo(new List<int>(){2}, "Loving Los Muertos", "mplowrider2_overlays", "MP_LR_Tat_028_M", "MP_LR_Tat_028_F",1850),    new BusinessTattoo(new List<int>(){1}, "Black Tears", "mplowrider2_overlays", "MP_LR_Tat_035_M", "MP_LR_Tat_035_F",1850),   new BusinessTattoo(new List<int>(){1}, "Floral Raven", "mpluxe_overlays", "MP_LUXE_TAT_004_M", "MP_LUXE_TAT_004_F",1800),   new BusinessTattoo(new List<int>(){1,2}, "Mermaid Harpist", "mpluxe_overlays", "MP_LUXE_TAT_013_M", "MP_LUXE_TAT_013_F",3800),  new BusinessTattoo(new List<int>(){2}, "Geisha Bloom", "mpluxe_overlays", "MP_LUXE_TAT_019_M", "MP_LUXE_TAT_019_F",1780),   new BusinessTattoo(new List<int>(){1}, "Intrometric", "mpluxe2_overlays", "MP_LUXE_TAT_010_M", "MP_LUXE_TAT_010_F",1780),   new BusinessTattoo(new List<int>(){2}, "Heavenly Deity", "mpluxe2_overlays", "MP_LUXE_TAT_017_M", "MP_LUXE_TAT_017_F",1750),    new BusinessTattoo(new List<int>(){2}, "Floral Print", "mpluxe2_overlays", "MP_LUXE_TAT_026_M", "MP_LUXE_TAT_026_F",1800),  new BusinessTattoo(new List<int>(){1,2}, "Geometric Design RA", "mpluxe2_overlays", "MP_LUXE_TAT_030_M", "MP_LUXE_TAT_030_F",3800), new BusinessTattoo(new List<int>(){1}, "Crackshot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_001_M", "MP_Smuggler_Tattoo_001_F",1800),    new BusinessTattoo(new List<int>(){2}, "Mutiny", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_005_M", "MP_Smuggler_Tattoo_005_F",1980),   new BusinessTattoo(new List<int>(){1,2}, "Stylized Kraken", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_023_M", "MP_Smuggler_Tattoo_023_F",3800),    new BusinessTattoo(new List<int>(){1}, "Poison Wrench", "mpstunt_overlays", "MP_MP_Stunt_Tat_003_M", "MP_MP_Stunt_Tat_003_F",1750), new BusinessTattoo(new List<int>(){2}, "Arachnid of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_009_M", "MP_MP_Stunt_Tat_009_F",1850), new BusinessTattoo(new List<int>(){2}, "Grave Vulture", "mpstunt_overlays", "MP_MP_Stunt_Tat_010_M", "MP_MP_Stunt_Tat_010_F",1780), new BusinessTattoo(new List<int>(){1,2}, "Coffin Racer", "mpstunt_overlays", "MP_MP_Stunt_Tat_016_M", "MP_MP_Stunt_Tat_016_F",3800),    new BusinessTattoo(new List<int>(){0}, "Biker Stallion", "mpstunt_overlays", "MP_MP_Stunt_Tat_036_M", "MP_MP_Stunt_Tat_036_F",1250),    new BusinessTattoo(new List<int>(){1}, "One Down Five Up", "mpstunt_overlays", "MP_MP_Stunt_Tat_038_M", "MP_MP_Stunt_Tat_038_F",1850),  new BusinessTattoo(new List<int>(){1,2}, "Seductive Mechanic", "mpstunt_overlays", "MP_MP_Stunt_Tat_049_M", "MP_MP_Stunt_Tat_049_F",3800),  new BusinessTattoo(new List<int>(){2}, "Grim Reaper Smoking Gun", "multiplayer_overlays", "FM_Tat_Award_M_002", "FM_Tat_Award_F_002",1850), new BusinessTattoo(new List<int>(){1}, "Ride or Die RA", "multiplayer_overlays", "FM_Tat_Award_M_010", "FM_Tat_Award_F_010",1800),  new BusinessTattoo(new List<int>(){1,2}, "Brotherhood", "multiplayer_overlays", "FM_Tat_M_000", "FM_Tat_F_000",3800),   new BusinessTattoo(new List<int>(){1,2}, "Dragons", "multiplayer_overlays", "FM_Tat_M_001", "FM_Tat_F_001",3800),   new BusinessTattoo(new List<int>(){2}, "Dragons and Skull", "multiplayer_overlays", "FM_Tat_M_003", "FM_Tat_F_003",1850),   new BusinessTattoo(new List<int>(){1,2}, "Flower Mural", "multiplayer_overlays", "FM_Tat_M_014", "FM_Tat_F_014",3800),  new BusinessTattoo(new List<int>(){1,2,0}, "Serpent Skull RA", "multiplayer_overlays", "FM_Tat_M_018", "FM_Tat_F_018",4500),    new BusinessTattoo(new List<int>(){2}, "Virgin Mary", "multiplayer_overlays", "FM_Tat_M_027", "FM_Tat_F_027",1850), new BusinessTattoo(new List<int>(){1}, "Mermaid", "multiplayer_overlays", "FM_Tat_M_028", "FM_Tat_F_028",1850), new BusinessTattoo(new List<int>(){1}, "Dagger", "multiplayer_overlays", "FM_Tat_M_038", "FM_Tat_F_038",1800),  new BusinessTattoo(new List<int>(){2}, "Lion", "multiplayer_overlays", "FM_Tat_M_047", "FM_Tat_F_047",1800),
-
-                
-                /* Старое
-                new BusinessTattoo(new List<int>(){ 2 }, "Dollar Skull", "mpbusiness_overlays", "MP_Buis_M_RightArm_000", String.Empty, 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Green", "mpbusiness_overlays", "MP_Buis_M_RightArm_001", String.Empty, 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Dollar Sign", "mpbusiness_overlays", String.Empty, "MP_Buis_F_RArm_000", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Snake Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_003", "MP_Xmas2_F_Tat_003", 1780),
-                new BusinessTattoo(new List<int>(){ 2 }, "Snake Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_004", "MP_Xmas2_F_Tat_004", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Death Before Dishonor", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_008", "MP_Xmas2_F_Tat_008", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "You're Next Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_022", "MP_Xmas2_F_Tat_022", 850),
-                new BusinessTattoo(new List<int>(){ 1 }, "You're Next Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_023", "MP_Xmas2_F_Tat_023", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Fuck Luck Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_026", "MP_Xmas2_F_Tat_026", 1250),
-                new BusinessTattoo(new List<int>(){ 0 }, "Fuck Luck Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_027", "MP_Xmas2_F_Tat_027", 1250),
-                new BusinessTattoo(new List<int>(){ 0 }, "Grenade", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_002_M", "MP_Gunrunning_Tattoo_002_F", 1250),
-                new BusinessTattoo(new List<int>(){ 2 }, "Have a Nice Day", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_021_M", "MP_Gunrunning_Tattoo_021_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Combat Reaper", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_024_M", "MP_Gunrunning_Tattoo_024_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Single Arrow", "mphipster_overlays", "FM_Hip_M_Tat_001", "FM_Hip_F_Tat_001", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Bone", "mphipster_overlays", "FM_Hip_M_Tat_004", "FM_Hip_F_Tat_004", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Cube", "mphipster_overlays", "FM_Hip_M_Tat_008", "FM_Hip_F_Tat_008", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Horseshoe", "mphipster_overlays", "FM_Hip_M_Tat_010", "FM_Hip_F_Tat_010", 1250),
-                new BusinessTattoo(new List<int>(){ 1 }, "Spray Can", "mphipster_overlays", "FM_Hip_M_Tat_014", "FM_Hip_F_Tat_014", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Eye Triangle", "mphipster_overlays", "FM_Hip_M_Tat_017", "FM_Hip_F_Tat_017", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Origami", "mphipster_overlays", "FM_Hip_M_Tat_018", "FM_Hip_F_Tat_018", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Geo Pattern", "mphipster_overlays", "FM_Hip_M_Tat_020", "FM_Hip_F_Tat_020", 3800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Pencil", "mphipster_overlays", "FM_Hip_M_Tat_022", "FM_Hip_F_Tat_022", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Smiley", "mphipster_overlays", "FM_Hip_M_Tat_023", "FM_Hip_F_Tat_023", 1300),
-                new BusinessTattoo(new List<int>(){ 2 }, "Shapes", "mphipster_overlays", "FM_Hip_M_Tat_036", "FM_Hip_F_Tat_036",1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Triangle Black", "mphipster_overlays", "FM_Hip_M_Tat_044", "FM_Hip_F_Tat_044",1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Mesh Band", "mphipster_overlays", "FM_Hip_M_Tat_045", "FM_Hip_F_Tat_045", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Mechanical Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_003_M", "MP_MP_ImportExport_Tat_003_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Dialed In", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_005_M", "MP_MP_ImportExport_Tat_005_F", 3850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Engulfed Block", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_006_M", "MP_MP_ImportExport_Tat_006_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Drive Forever", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_007_M", "MP_MP_ImportExport_Tat_007_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Seductress", "mplowrider_overlays", "MP_LR_Tat_015_M", "MP_LR_Tat_015_F", 1980),
-                new BusinessTattoo(new List<int>(){ 2 }, "Swooping Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_007_M", "MP_MP_Biker_Tat_007_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Lady Mortality", "mpbiker_overlays", "MP_MP_Biker_Tat_014_M", "MP_MP_Biker_Tat_014_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Eagle Emblem", "mpbiker_overlays", "MP_MP_Biker_Tat_033_M", "MP_MP_Biker_Tat_033_F", 1980),
-                new BusinessTattoo(new List<int>(){ 1 }, "Grim Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_042_M", "MP_MP_Biker_Tat_042_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Skull Chain", "mpbiker_overlays", "MP_MP_Biker_Tat_046_M", "MP_MP_Biker_Tat_046_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Snake Bike", "mpbiker_overlays", "MP_MP_Biker_Tat_047_M", "MP_MP_Biker_Tat_047_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "These Colors Don't Run", "mpbiker_overlays", "MP_MP_Biker_Tat_049_M", "MP_MP_Biker_Tat_049_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Mum", "mpbiker_overlays", "MP_MP_Biker_Tat_054_M", "MP_MP_Biker_Tat_054_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Lady Vamp", "mplowrider2_overlays", "MP_LR_Tat_003_M", "MP_LR_Tat_003_F", 1780),
-                new BusinessTattoo(new List<int>(){ 2 }, "Loving Los Muertos", "mplowrider2_overlays", "MP_LR_Tat_028_M", "MP_LR_Tat_028_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Black Tears", "mplowrider2_overlays", "MP_LR_Tat_035_M", "MP_LR_Tat_035_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Floral Raven", "mpluxe_overlays", "MP_LUXE_TAT_004_M", "MP_LUXE_TAT_004_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Mermaid Harpist", "mpluxe_overlays", "MP_LUXE_TAT_013_M", "MP_LUXE_TAT_013_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Geisha Bloom", "mpluxe_overlays", "MP_LUXE_TAT_019_M", "MP_LUXE_TAT_019_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Intrometric", "mpluxe2_overlays", "MP_LUXE_TAT_010_M", "MP_LUXE_TAT_010_F", 1780),
-                new BusinessTattoo(new List<int>(){ 2 }, "Heavenly Deity", "mpluxe2_overlays", "MP_LUXE_TAT_017_M", "MP_LUXE_TAT_017_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Floral Print", "mpluxe2_overlays", "MP_LUXE_TAT_026_M", "MP_LUXE_TAT_026_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Geometric Design RA", "mpluxe2_overlays", "MP_LUXE_TAT_030_M", "MP_LUXE_TAT_030_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Crackshot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_001_M", "MP_Smuggler_Tattoo_001_F", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Mutiny", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_005_M", "MP_Smuggler_Tattoo_005_F", 1980),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Stylized Kraken", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_023_M", "MP_Smuggler_Tattoo_023_F", 3800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Poison Wrench", "mpstunt_overlays", "MP_MP_Stunt_Tat_003_M", "MP_MP_Stunt_Tat_003_F", 1750),
-                new BusinessTattoo(new List<int>(){ 2 }, "Arachnid of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_009_M", "MP_MP_Stunt_Tat_009_F", 1850),
-                new BusinessTattoo(new List<int>(){ 2 }, "Grave Vulture", "mpstunt_overlays", "MP_MP_Stunt_Tat_010_M", "MP_MP_Stunt_Tat_010_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Coffin Racer", "mpstunt_overlays", "MP_MP_Stunt_Tat_016_M", "MP_MP_Stunt_Tat_016_F", 3800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Biker Stallion", "mpstunt_overlays", "MP_MP_Stunt_Tat_036_M", "MP_MP_Stunt_Tat_036_F", 1250),
-                new BusinessTattoo(new List<int>(){ 1 }, "One Down Five Up", "mpstunt_overlays", "MP_MP_Stunt_Tat_038_M", "MP_MP_Stunt_Tat_038_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Seductive Mechanic", "mpstunt_overlays", "MP_MP_Stunt_Tat_049_M", "MP_MP_Stunt_Tat_049_F", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Grim Reaper Smoking Gun", "multiplayer_overlays", "FM_Tat_Award_M_002", "FM_Tat_Award_F_002", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Ride or Die RA", "multiplayer_overlays", "FM_Tat_Award_M_010", "FM_Tat_Award_F_010", 1800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Brotherhood", "multiplayer_overlays", "FM_Tat_M_000", "FM_Tat_F_000", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Dragons", "multiplayer_overlays", "FM_Tat_M_001", "FM_Tat_F_001", 3800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Dragons and Skull", "multiplayer_overlays", "FM_Tat_M_003", "FM_Tat_F_003", 1850),
-                new BusinessTattoo(new List<int>(){ 1, 2 }, "Flower Mural", "multiplayer_overlays", "FM_Tat_M_014", "FM_Tat_F_014", 3800),
-                new BusinessTattoo(new List<int>(){ 1, 2, 0 }, "Serpent Skull RA", "multiplayer_overlays", "FM_Tat_M_018", "FM_Tat_F_018", 4500),
-                new BusinessTattoo(new List<int>(){ 2 }, "Virgin Mary", "multiplayer_overlays", "FM_Tat_M_027", "FM_Tat_F_027", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Mermaid", "multiplayer_overlays", "FM_Tat_M_028", "FM_Tat_F_028", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Dagger", "multiplayer_overlays", "FM_Tat_M_038", "FM_Tat_F_038", 1800),
-                new BusinessTattoo(new List<int>(){ 2 }, "Lion", "multiplayer_overlays", "FM_Tat_M_047", "FM_Tat_F_047", 1800),
-                */
+                // iTeffa => 0 - Кисть | 1 - До локтя | 2 - Выше локтя
+                new BusinessTattoo(new List<int>(){1,2},"Lady Luck", "mpvinewood_overlays", "MP_Vinewood_Tat_004_M", "MP_Vinewood_Tat_004_F",1800), 
+                new BusinessTattoo(new List<int>(){1,2}, "The Gambler's Life", "mpvinewood_overlays", "MP_Vinewood_Tat_018_M", "MP_Vinewood_Tat_018_F",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Queen of Roses", "mpvinewood_overlays", "MP_Vinewood_Tat_025_M", "MP_Vinewood_Tat_025_F",1000), 
+                new BusinessTattoo(new List<int>(){2}, "Skull & Aces", "mpvinewood_overlays", "MP_Vinewood_Tat_028_M", "MP_Vinewood_Tat_028_F",2000),   
+                new BusinessTattoo(new List<int>(){2}, "Dollar Skull", "mpbusiness_overlays", "MP_Buis_M_RightArm_000", "",1780),  
+                new BusinessTattoo(new List<int>(){1}, "Green", "mpbusiness_overlays", "MP_Buis_M_RightArm_001", "",1780),  
+                new BusinessTattoo(new List<int>(){1}, "Dollar Sign", "mpbusiness_overlays", "", "MP_Buis_F_RArm_000",1800),  
+                new BusinessTattoo(new List<int>(){2}, "Snake Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_003", "MP_Xmas2_F_Tat_003",1780),  
+                new BusinessTattoo(new List<int>(){2}, "Snake Shaded", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_004", "MP_Xmas2_F_Tat_004",1850),   
+                new BusinessTattoo(new List<int>(){1}, "Death Before Dishonor", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_008", "MP_Xmas2_F_Tat_008",1800),  
+                new BusinessTattoo(new List<int>(){1}, "You're Next Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_022", "MP_Xmas2_F_Tat_022",850), 
+                new BusinessTattoo(new List<int>(){1}, "You're Next Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_023", "MP_Xmas2_F_Tat_023",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Fuck Luck Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_026", "MP_Xmas2_F_Tat_026",1250), 
+                new BusinessTattoo(new List<int>(){0}, "Fuck Luck Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_027", "MP_Xmas2_F_Tat_027",1250),  
+                new BusinessTattoo(new List<int>(){0}, "Grenade", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_002_M", "MP_Gunrunning_Tattoo_002_F",1250), 
+                new BusinessTattoo(new List<int>(){2}, "Have a Nice Day", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_021_M", "MP_Gunrunning_Tattoo_021_F",1780),    
+                new BusinessTattoo(new List<int>(){1}, "Combat Reaper", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_024_M", "MP_Gunrunning_Tattoo_024_F",1850), 
+                new BusinessTattoo(new List<int>(){2}, "Single Arrow", "mphipster_overlays", "FM_Hip_M_Tat_001", "FM_Hip_F_Tat_001",1800), 
+                new BusinessTattoo(new List<int>(){1}, "Bone", "mphipster_overlays", "FM_Hip_M_Tat_004", "FM_Hip_F_Tat_004",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Cube", "mphipster_overlays", "FM_Hip_M_Tat_008", "FM_Hip_F_Tat_008",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Horseshoe", "mphipster_overlays", "FM_Hip_M_Tat_010", "FM_Hip_F_Tat_010",1250),
+                new BusinessTattoo(new List<int>(){1}, "Spray Can", "mphipster_overlays", "FM_Hip_M_Tat_014", "FM_Hip_F_Tat_014",1800),
+                new BusinessTattoo(new List<int>(){1}, "Eye Triangle", "mphipster_overlays", "FM_Hip_M_Tat_017", "FM_Hip_F_Tat_017",1850),
+                new BusinessTattoo(new List<int>(){1}, "Origami", "mphipster_overlays", "FM_Hip_M_Tat_018", "FM_Hip_F_Tat_018",1800),   
+                new BusinessTattoo(new List<int>(){1,2}, "Geo Pattern", "mphipster_overlays", "FM_Hip_M_Tat_020", "FM_Hip_F_Tat_020",3800), 
+                new BusinessTattoo(new List<int>(){1}, "Pencil", "mphipster_overlays", "FM_Hip_M_Tat_022", "FM_Hip_F_Tat_022",1800),   
+                new BusinessTattoo(new List<int>(){0}, "Smiley", "mphipster_overlays", "FM_Hip_M_Tat_023", "FM_Hip_F_Tat_023",1300),  
+                new BusinessTattoo(new List<int>(){2}, "Shapes", "mphipster_overlays", "FM_Hip_M_Tat_036", "FM_Hip_F_Tat_036",1800), 
+                new BusinessTattoo(new List<int>(){2}, "Triangle Black", "mphipster_overlays", "FM_Hip_M_Tat_044", "FM_Hip_F_Tat_044",1800),
+                new BusinessTattoo(new List<int>(){1}, "Mesh Band", "mphipster_overlays", "FM_Hip_M_Tat_045", "FM_Hip_F_Tat_045",1850), 
+                new BusinessTattoo(new List<int>(){1,2}, "Mechanical Sleeve", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_003_M", "MP_MP_ImportExport_Tat_003_F",3800),  
+                new BusinessTattoo(new List<int>(){1,2}, "Dialed In", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_005_M", "MP_MP_ImportExport_Tat_005_F",3850),  
+                new BusinessTattoo(new List<int>(){1,2}, "Engulfed Block", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_006_M", "MP_MP_ImportExport_Tat_006_F",3800),
+                new BusinessTattoo(new List<int>(){1,2}, "Drive Forever", "mpimportexport_overlays", "MP_MP_ImportExport_Tat_007_M", "MP_MP_ImportExport_Tat_007_F",3800), 
+                new BusinessTattoo(new List<int>(){1}, "Seductress", "mplowrider_overlays", "MP_LR_Tat_015_M", "MP_LR_Tat_015_F",1980),
+                new BusinessTattoo(new List<int>(){2}, "Swooping Eagle", "mpbiker_overlays", "MP_MP_Biker_Tat_007_M", "MP_MP_Biker_Tat_007_F",1800),   
+                new BusinessTattoo(new List<int>(){2}, "Lady Mortality", "mpbiker_overlays", "MP_MP_Biker_Tat_014_M", "MP_MP_Biker_Tat_014_F",1850),  
+                new BusinessTattoo(new List<int>(){2}, "Eagle Emblem", "mpbiker_overlays", "MP_MP_Biker_Tat_033_M", "MP_MP_Biker_Tat_033_F",1980),  
+                new BusinessTattoo(new List<int>(){1}, "Grim Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_042_M", "MP_MP_Biker_Tat_042_F",1850),   
+                new BusinessTattoo(new List<int>(){2}, "Skull Chain", "mpbiker_overlays", "MP_MP_Biker_Tat_046_M", "MP_MP_Biker_Tat_046_F",1800), 
+                new BusinessTattoo(new List<int>(){1,2}, "Snake Bike", "mpbiker_overlays", "MP_MP_Biker_Tat_047_M", "MP_MP_Biker_Tat_047_F",3800),
+                new BusinessTattoo(new List<int>(){2}, "These Colors Don't Run", "mpbiker_overlays", "MP_MP_Biker_Tat_049_M", "MP_MP_Biker_Tat_049_F",1800),  
+                new BusinessTattoo(new List<int>(){2}, "Mum", "mpbiker_overlays", "MP_MP_Biker_Tat_054_M", "MP_MP_Biker_Tat_054_F",1850),  
+                new BusinessTattoo(new List<int>(){1}, "Lady Vamp", "mplowrider2_overlays", "MP_LR_Tat_003_M", "MP_LR_Tat_003_F",1780), 
+                new BusinessTattoo(new List<int>(){2}, "Loving Los Muertos", "mplowrider2_overlays", "MP_LR_Tat_028_M", "MP_LR_Tat_028_F",1850),  
+                new BusinessTattoo(new List<int>(){1}, "Black Tears", "mplowrider2_overlays", "MP_LR_Tat_035_M", "MP_LR_Tat_035_F",1850),   
+                new BusinessTattoo(new List<int>(){1}, "Floral Raven", "mpluxe_overlays", "MP_LUXE_TAT_004_M", "MP_LUXE_TAT_004_F",1800),  
+                new BusinessTattoo(new List<int>(){1,2}, "Mermaid Harpist", "mpluxe_overlays", "MP_LUXE_TAT_013_M", "MP_LUXE_TAT_013_F",3800),
+                new BusinessTattoo(new List<int>(){2}, "Geisha Bloom", "mpluxe_overlays", "MP_LUXE_TAT_019_M", "MP_LUXE_TAT_019_F",1780), 
+                new BusinessTattoo(new List<int>(){1}, "Intrometric", "mpluxe2_overlays", "MP_LUXE_TAT_010_M", "MP_LUXE_TAT_010_F",1780),  
+                new BusinessTattoo(new List<int>(){2}, "Heavenly Deity", "mpluxe2_overlays", "MP_LUXE_TAT_017_M", "MP_LUXE_TAT_017_F",1750),  
+                new BusinessTattoo(new List<int>(){2}, "Floral Print", "mpluxe2_overlays", "MP_LUXE_TAT_026_M", "MP_LUXE_TAT_026_F",1800), 
+                new BusinessTattoo(new List<int>(){1,2}, "Geometric Design RA", "mpluxe2_overlays", "MP_LUXE_TAT_030_M", "MP_LUXE_TAT_030_F",3800),
+                new BusinessTattoo(new List<int>(){1}, "Crackshot", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_001_M", "MP_Smuggler_Tattoo_001_F",1800),  
+                new BusinessTattoo(new List<int>(){2}, "Mutiny", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_005_M", "MP_Smuggler_Tattoo_005_F",1980), 
+                new BusinessTattoo(new List<int>(){1,2}, "Stylized Kraken", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_023_M", "MP_Smuggler_Tattoo_023_F",3800), 
+                new BusinessTattoo(new List<int>(){1}, "Poison Wrench", "mpstunt_overlays", "MP_MP_Stunt_Tat_003_M", "MP_MP_Stunt_Tat_003_F",1750), 
+                new BusinessTattoo(new List<int>(){2}, "Arachnid of Death", "mpstunt_overlays", "MP_MP_Stunt_Tat_009_M", "MP_MP_Stunt_Tat_009_F",1850), 
+                new BusinessTattoo(new List<int>(){2}, "Grave Vulture", "mpstunt_overlays", "MP_MP_Stunt_Tat_010_M", "MP_MP_Stunt_Tat_010_F",1780), 
+                new BusinessTattoo(new List<int>(){1,2}, "Coffin Racer", "mpstunt_overlays", "MP_MP_Stunt_Tat_016_M", "MP_MP_Stunt_Tat_016_F",3800),  
+                new BusinessTattoo(new List<int>(){0}, "Biker Stallion", "mpstunt_overlays", "MP_MP_Stunt_Tat_036_M", "MP_MP_Stunt_Tat_036_F",1250), 
+                new BusinessTattoo(new List<int>(){1}, "One Down Five Up", "mpstunt_overlays", "MP_MP_Stunt_Tat_038_M", "MP_MP_Stunt_Tat_038_F",1850),
+                new BusinessTattoo(new List<int>(){1,2}, "Seductive Mechanic", "mpstunt_overlays", "MP_MP_Stunt_Tat_049_M", "MP_MP_Stunt_Tat_049_F",3800),  
+                new BusinessTattoo(new List<int>(){2}, "Grim Reaper Smoking Gun", "multiplayer_overlays", "FM_Tat_Award_M_002", "FM_Tat_Award_F_002",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Ride or Die RA", "multiplayer_overlays", "FM_Tat_Award_M_010", "FM_Tat_Award_F_010",1800),
+                new BusinessTattoo(new List<int>(){1,2}, "Brotherhood", "multiplayer_overlays", "FM_Tat_M_000", "FM_Tat_F_000",3800), 
+                new BusinessTattoo(new List<int>(){1,2}, "Dragons", "multiplayer_overlays", "FM_Tat_M_001", "FM_Tat_F_001",3800), 
+                new BusinessTattoo(new List<int>(){2}, "Dragons and Skull", "multiplayer_overlays", "FM_Tat_M_003", "FM_Tat_F_003",1850), 
+                new BusinessTattoo(new List<int>(){1,2}, "Flower Mural", "multiplayer_overlays", "FM_Tat_M_014", "FM_Tat_F_014",3800), 
+                new BusinessTattoo(new List<int>(){1,2,0}, "Serpent Skull RA", "multiplayer_overlays", "FM_Tat_M_018", "FM_Tat_F_018",4500), 
+                new BusinessTattoo(new List<int>(){2}, "Virgin Mary", "multiplayer_overlays", "FM_Tat_M_027", "FM_Tat_F_027",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Mermaid", "multiplayer_overlays", "FM_Tat_M_028", "FM_Tat_F_028",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Dagger", "multiplayer_overlays", "FM_Tat_M_038", "FM_Tat_F_038",1800),  
+                new BusinessTattoo(new List<int>(){2}, "Lion", "multiplayer_overlays", "FM_Tat_M_047", "FM_Tat_F_047",1800)
             },
-
-            // LeftLeg
+            #endregion Правая рука
+            #region Левая нога
             new List<BusinessTattoo>()
             {
-	            // До колена    -   0
-                // Выше колена  -   1
-
-                //Новое
-                new BusinessTattoo(new List<int>(){0},"One-armed Bandit", "mpvinewood_overlays", "MP_Vinewood_Tat_013_M", "MP_Vinewood_Tat_013_F",1850),    new BusinessTattoo(new List<int>(){0}, "8-Ball Rose", "mpvinewood_overlays", "MP_Vinewood_Tat_027_M", "MP_Vinewood_Tat_027_F",2500),    new BusinessTattoo(new List<int>(){0}, "Single", "mpbusiness_overlays", "", "MP_Buis_F_LLeg_000",1850), new BusinessTattoo(new List<int>(){0}, "Spider Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_001", "MP_Xmas2_F_Tat_001",1850), new BusinessTattoo(new List<int>(){0}, "Spider Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_002", "MP_Xmas2_F_Tat_002",1850),   new BusinessTattoo(new List<int>(){0}, "Patriot Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_005_M", "MP_Gunrunning_Tattoo_005_F",1850),  new BusinessTattoo(new List<int>(){1}, "Stylized Tiger", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_007_M", "MP_Gunrunning_Tattoo_007_F",1800), new BusinessTattoo(new List<int>(){0,1}, "Death Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_011_M", "MP_Gunrunning_Tattoo_011_F",3500),  new BusinessTattoo(new List<int>(){1}, "Rose Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_023_M", "MP_Gunrunning_Tattoo_023_F",1850),  new BusinessTattoo(new List<int>(){0}, "Squares", "mphipster_overlays", "FM_Hip_M_Tat_009", "FM_Hip_F_Tat_009",1800),   new BusinessTattoo(new List<int>(){0}, "Charm", "mphipster_overlays", "FM_Hip_M_Tat_019", "FM_Hip_F_Tat_019",1850), new BusinessTattoo(new List<int>(){0}, "Black Anchor", "mphipster_overlays", "FM_Hip_M_Tat_040", "FM_Hip_F_Tat_040",1800),  new BusinessTattoo(new List<int>(){0}, "LS Serpent", "mplowrider_overlays", "MP_LR_Tat_007_M", "MP_LR_Tat_007_F",1850), new BusinessTattoo(new List<int>(){0}, "Presidents", "mplowrider_overlays", "MP_LR_Tat_020_M", "MP_LR_Tat_020_F",1800), new BusinessTattoo(new List<int>(){0}, "Rose Tribute", "mpbiker_overlays", "MP_MP_Biker_Tat_002_M", "MP_MP_Biker_Tat_002_F",1850),  new BusinessTattoo(new List<int>(){0}, "Ride or Die LL", "mpbiker_overlays", "MP_MP_Biker_Tat_015_M", "MP_MP_Biker_Tat_015_F",1800),    new BusinessTattoo(new List<int>(){0}, "Bad Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_027_M", "MP_MP_Biker_Tat_027_F",1850),  new BusinessTattoo(new List<int>(){0}, "Engulfed Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_036_M", "MP_MP_Biker_Tat_036_F",1850),    new BusinessTattoo(new List<int>(){1}, "Scorched Soul", "mpbiker_overlays", "MP_MP_Biker_Tat_037_M", "MP_MP_Biker_Tat_037_F",1850), new BusinessTattoo(new List<int>(){1}, "Ride Free", "mpbiker_overlays", "MP_MP_Biker_Tat_044_M", "MP_MP_Biker_Tat_044_F",1850), new BusinessTattoo(new List<int>(){1}, "Bone Cruiser", "mpbiker_overlays", "MP_MP_Biker_Tat_056_M", "MP_MP_Biker_Tat_056_F",1850),  new BusinessTattoo(new List<int>(){0,1}, "Laughing Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_057_M", "MP_MP_Biker_Tat_057_F",3500),  new BusinessTattoo(new List<int>(){0}, "Death Us Do Part", "mplowrider2_overlays", "MP_LR_Tat_029_M", "MP_LR_Tat_029_F",1850),  new BusinessTattoo(new List<int>(){0}, "Serpent of Death", "mpluxe_overlays", "MP_LUXE_TAT_000_M", "MP_LUXE_TAT_000_F",1850),   new BusinessTattoo(new List<int>(){0}, "Cross of Roses", "mpluxe2_overlays", "MP_LUXE_TAT_011_M", "MP_LUXE_TAT_011_F",1850),    new BusinessTattoo(new List<int>(){0}, "Dagger Devil", "mpstunt_overlays", "MP_MP_Stunt_Tat_007_M", "MP_MP_Stunt_Tat_007_F",1780),  new BusinessTattoo(new List<int>(){1}, "Dirt Track Hero", "mpstunt_overlays", "MP_MP_Stunt_Tat_013_M", "MP_MP_Stunt_Tat_013_F",1800),   new BusinessTattoo(new List<int>(){0,1}, "Golden Cobra", "mpstunt_overlays", "MP_MP_Stunt_Tat_021_M", "MP_MP_Stunt_Tat_021_F",3500),    new BusinessTattoo(new List<int>(){0}, "Quad Goblin", "mpstunt_overlays", "MP_MP_Stunt_Tat_028_M", "MP_MP_Stunt_Tat_028_F",1800),   new BusinessTattoo(new List<int>(){0}, "Stunt Jesus", "mpstunt_overlays", "MP_MP_Stunt_Tat_031_M", "MP_MP_Stunt_Tat_031_F",1850),   new BusinessTattoo(new List<int>(){0}, "Dragon and Dagger", "multiplayer_overlays", "FM_Tat_Award_M_009", "FM_Tat_Award_F_009",1850),   new BusinessTattoo(new List<int>(){0}, "Melting Skull", "multiplayer_overlays", "FM_Tat_M_002", "FM_Tat_F_002",1850),   new BusinessTattoo(new List<int>(){0}, "Dragon Mural", "multiplayer_overlays", "FM_Tat_M_008", "FM_Tat_F_008",1850),    new BusinessTattoo(new List<int>(){0}, "Serpent Skull LL", "multiplayer_overlays", "FM_Tat_M_021", "FM_Tat_F_021",1850),    new BusinessTattoo(new List<int>(){0}, "Hottie", "multiplayer_overlays", "FM_Tat_M_023", "FM_Tat_F_023",1850),  new BusinessTattoo(new List<int>(){0}, "Smoking Dagger", "multiplayer_overlays", "FM_Tat_M_026", "FM_Tat_F_026",1850),  new BusinessTattoo(new List<int>(){0}, "Faith LL", "multiplayer_overlays", "FM_Tat_M_032", "FM_Tat_F_032",1850),    new BusinessTattoo(new List<int>(){0,1}, "Chinese Dragon", "multiplayer_overlays", "FM_Tat_M_033", "FM_Tat_F_033",3500),    new BusinessTattoo(new List<int>(){0}, "Dragon LL", "multiplayer_overlays", "FM_Tat_M_035", "FM_Tat_F_035",1800),   new BusinessTattoo(new List<int>(){0}, "Grim Reaper", "multiplayer_overlays", "FM_Tat_M_037", "FM_Tat_F_037",1850),
-
-
-                /* Старое
-                new BusinessTattoo(new List<int>(){ 0 }, "Single", "mpbusiness_overlays", String.Empty, "MP_Buis_F_LLeg_000", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Spider Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_001", "MP_Xmas2_F_Tat_001", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Spider Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_002", "MP_Xmas2_F_Tat_002", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Patriot Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_005_M", "MP_Gunrunning_Tattoo_005_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Stylized Tiger", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_007_M", "MP_Gunrunning_Tattoo_007_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Death Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_011_M", "MP_Gunrunning_Tattoo_011_F", 3500),
-                new BusinessTattoo(new List<int>(){ 1 }, "Rose Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_023_M", "MP_Gunrunning_Tattoo_023_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Squares", "mphipster_overlays", "FM_Hip_M_Tat_009", "FM_Hip_F_Tat_009", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Charm", "mphipster_overlays", "FM_Hip_M_Tat_019", "FM_Hip_F_Tat_019", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Black Anchor", "mphipster_overlays", "FM_Hip_M_Tat_040", "FM_Hip_F_Tat_040", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "LS Serpent", "mplowrider_overlays", "MP_LR_Tat_007_M", "MP_LR_Tat_007_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Presidents", "mplowrider_overlays", "MP_LR_Tat_020_M", "MP_LR_Tat_020_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Rose Tribute", "mpbiker_overlays", "MP_MP_Biker_Tat_002_M", "MP_MP_Biker_Tat_002_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Ride or Die LL", "mpbiker_overlays", "MP_MP_Biker_Tat_015_M", "MP_MP_Biker_Tat_015_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Bad Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_027_M", "MP_MP_Biker_Tat_027_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Engulfed Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_036_M", "MP_MP_Biker_Tat_036_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Scorched Soul", "mpbiker_overlays", "MP_MP_Biker_Tat_037_M", "MP_MP_Biker_Tat_037_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Ride Free", "mpbiker_overlays", "MP_MP_Biker_Tat_044_M", "MP_MP_Biker_Tat_044_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Bone Cruiser", "mpbiker_overlays", "MP_MP_Biker_Tat_056_M", "MP_MP_Biker_Tat_056_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Laughing Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_057_M", "MP_MP_Biker_Tat_057_F", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Death Us Do Part", "mplowrider2_overlays", "MP_LR_Tat_029_M", "MP_LR_Tat_029_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Serpent of Death", "mpluxe_overlays", "MP_LUXE_TAT_000_M", "MP_LUXE_TAT_000_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Cross of Roses", "mpluxe2_overlays", "MP_LUXE_TAT_011_M", "MP_LUXE_TAT_011_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Dagger Devil", "mpstunt_overlays", "MP_MP_Stunt_Tat_007_M", "MP_MP_Stunt_Tat_007_F", 1780),
-                new BusinessTattoo(new List<int>(){ 1 }, "Dirt Track Hero", "mpstunt_overlays", "MP_MP_Stunt_Tat_013_M", "MP_MP_Stunt_Tat_013_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Golden Cobra", "mpstunt_overlays", "MP_MP_Stunt_Tat_021_M", "MP_MP_Stunt_Tat_021_F", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Quad Goblin", "mpstunt_overlays", "MP_MP_Stunt_Tat_028_M", "MP_MP_Stunt_Tat_028_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Stunt Jesus", "mpstunt_overlays", "MP_MP_Stunt_Tat_031_M", "MP_MP_Stunt_Tat_031_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Dragon and Dagger", "multiplayer_overlays", "FM_Tat_Award_M_009", "FM_Tat_Award_F_009", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Melting Skull", "multiplayer_overlays", "FM_Tat_M_002", "FM_Tat_F_002", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Dragon Mural", "multiplayer_overlays", "FM_Tat_M_008", "FM_Tat_F_008", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Serpent Skull LL", "multiplayer_overlays", "FM_Tat_M_021", "FM_Tat_F_021", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Hottie", "multiplayer_overlays", "FM_Tat_M_023", "FM_Tat_F_023", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Smoking Dagger", "multiplayer_overlays", "FM_Tat_M_026", "FM_Tat_F_026", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Faith LL", "multiplayer_overlays", "FM_Tat_M_032", "FM_Tat_F_032", 1850),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Chinese Dragon", "multiplayer_overlays", "FM_Tat_M_033", "FM_Tat_F_033", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Dragon LL", "multiplayer_overlays", "FM_Tat_M_035", "FM_Tat_F_035", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Grim Reaper", "multiplayer_overlays", "FM_Tat_M_037", "FM_Tat_F_037", 1850),
-                */
+                // iTeffa => 0 - До колена | 1 - Выше колена
+                new BusinessTattoo(new List<int>(){0},"One-armed Bandit", "mpvinewood_overlays", "MP_Vinewood_Tat_013_M", "MP_Vinewood_Tat_013_F",1850),    
+                new BusinessTattoo(new List<int>(){0}, "8-Ball Rose", "mpvinewood_overlays", "MP_Vinewood_Tat_027_M", "MP_Vinewood_Tat_027_F",2500),    
+                new BusinessTattoo(new List<int>(){0}, "Single", "mpbusiness_overlays", "", "MP_Buis_F_LLeg_000",1850),
+                new BusinessTattoo(new List<int>(){0}, "Spider Outline", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_001", "MP_Xmas2_F_Tat_001",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Spider Color", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_002", "MP_Xmas2_F_Tat_002",1850),  
+                new BusinessTattoo(new List<int>(){0}, "Patriot Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_005_M", "MP_Gunrunning_Tattoo_005_F",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Stylized Tiger", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_007_M", "MP_Gunrunning_Tattoo_007_F",1800), 
+                new BusinessTattoo(new List<int>(){0,1}, "Death Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_011_M", "MP_Gunrunning_Tattoo_011_F",3500),  
+                new BusinessTattoo(new List<int>(){1}, "Rose Revolver", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_023_M", "MP_Gunrunning_Tattoo_023_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Squares", "mphipster_overlays", "FM_Hip_M_Tat_009", "FM_Hip_F_Tat_009",1800),   
+                new BusinessTattoo(new List<int>(){0}, "Charm", "mphipster_overlays", "FM_Hip_M_Tat_019", "FM_Hip_F_Tat_019",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Black Anchor", "mphipster_overlays", "FM_Hip_M_Tat_040", "FM_Hip_F_Tat_040",1800), 
+                new BusinessTattoo(new List<int>(){0}, "LS Serpent", "mplowrider_overlays", "MP_LR_Tat_007_M", "MP_LR_Tat_007_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Presidents", "mplowrider_overlays", "MP_LR_Tat_020_M", "MP_LR_Tat_020_F",1800),
+                new BusinessTattoo(new List<int>(){0}, "Rose Tribute", "mpbiker_overlays", "MP_MP_Biker_Tat_002_M", "MP_MP_Biker_Tat_002_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Ride or Die LL", "mpbiker_overlays", "MP_MP_Biker_Tat_015_M", "MP_MP_Biker_Tat_015_F",1800),  
+                new BusinessTattoo(new List<int>(){0}, "Bad Luck", "mpbiker_overlays", "MP_MP_Biker_Tat_027_M", "MP_MP_Biker_Tat_027_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Engulfed Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_036_M", "MP_MP_Biker_Tat_036_F",1850),  
+                new BusinessTattoo(new List<int>(){1}, "Scorched Soul", "mpbiker_overlays", "MP_MP_Biker_Tat_037_M", "MP_MP_Biker_Tat_037_F",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Ride Free", "mpbiker_overlays", "MP_MP_Biker_Tat_044_M", "MP_MP_Biker_Tat_044_F",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Bone Cruiser", "mpbiker_overlays", "MP_MP_Biker_Tat_056_M", "MP_MP_Biker_Tat_056_F",1850), 
+                new BusinessTattoo(new List<int>(){0,1}, "Laughing Skull", "mpbiker_overlays", "MP_MP_Biker_Tat_057_M", "MP_MP_Biker_Tat_057_F",3500), 
+                new BusinessTattoo(new List<int>(){0}, "Death Us Do Part", "mplowrider2_overlays", "MP_LR_Tat_029_M", "MP_LR_Tat_029_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Serpent of Death", "mpluxe_overlays", "MP_LUXE_TAT_000_M", "MP_LUXE_TAT_000_F",1850),  
+                new BusinessTattoo(new List<int>(){0}, "Cross of Roses", "mpluxe2_overlays", "MP_LUXE_TAT_011_M", "MP_LUXE_TAT_011_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Dagger Devil", "mpstunt_overlays", "MP_MP_Stunt_Tat_007_M", "MP_MP_Stunt_Tat_007_F",1780),  
+                new BusinessTattoo(new List<int>(){1}, "Dirt Track Hero", "mpstunt_overlays", "MP_MP_Stunt_Tat_013_M", "MP_MP_Stunt_Tat_013_F",1800), 
+                new BusinessTattoo(new List<int>(){0,1}, "Golden Cobra", "mpstunt_overlays", "MP_MP_Stunt_Tat_021_M", "MP_MP_Stunt_Tat_021_F",3500),  
+                new BusinessTattoo(new List<int>(){0}, "Quad Goblin", "mpstunt_overlays", "MP_MP_Stunt_Tat_028_M", "MP_MP_Stunt_Tat_028_F",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Stunt Jesus", "mpstunt_overlays", "MP_MP_Stunt_Tat_031_M", "MP_MP_Stunt_Tat_031_F",1850),  
+                new BusinessTattoo(new List<int>(){0}, "Dragon and Dagger", "multiplayer_overlays", "FM_Tat_Award_M_009", "FM_Tat_Award_F_009",1850),  
+                new BusinessTattoo(new List<int>(){0}, "Melting Skull", "multiplayer_overlays", "FM_Tat_M_002", "FM_Tat_F_002",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Dragon Mural", "multiplayer_overlays", "FM_Tat_M_008", "FM_Tat_F_008",1850),    
+                new BusinessTattoo(new List<int>(){0}, "Serpent Skull LL", "multiplayer_overlays", "FM_Tat_M_021", "FM_Tat_F_021",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Hottie", "multiplayer_overlays", "FM_Tat_M_023", "FM_Tat_F_023",1850),
+                new BusinessTattoo(new List<int>(){0}, "Smoking Dagger", "multiplayer_overlays", "FM_Tat_M_026", "FM_Tat_F_026",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Faith LL", "multiplayer_overlays", "FM_Tat_M_032", "FM_Tat_F_032",1850),   
+                new BusinessTattoo(new List<int>(){0,1}, "Chinese Dragon", "multiplayer_overlays", "FM_Tat_M_033", "FM_Tat_F_033",3500),  
+                new BusinessTattoo(new List<int>(){0}, "Dragon LL", "multiplayer_overlays", "FM_Tat_M_035", "FM_Tat_F_035",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Grim Reaper", "multiplayer_overlays", "FM_Tat_M_037", "FM_Tat_F_037",1850)
             },
-            
-            // RightLeg
+            #endregion Левая нога
+            #region Правая нога
             new List<BusinessTattoo>()
             {
-	            // До колена    -   0
-                // Выше колена  -   1
-
-                //Новое
-                new BusinessTattoo(new List<int>(){0},"Cash is King", "mpvinewood_overlays", "MP_Vinewood_Tat_020_M", "MP_Vinewood_Tat_020_F",2500),    new BusinessTattoo(new List<int>(){0}, "Diamond Crown", "mpbusiness_overlays", "", "MP_Buis_F_RLeg_000",1800),  new BusinessTattoo(new List<int>(){0}, "Floral Dagger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_014", "MP_Xmas2_F_Tat_014",1750),  new BusinessTattoo(new List<int>(){0}, "Combat Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_006_M", "MP_Gunrunning_Tattoo_006_F",1800),   new BusinessTattoo(new List<int>(){0}, "Restless Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_026_M", "MP_Gunrunning_Tattoo_026_F",1850), new BusinessTattoo(new List<int>(){1}, "Pistol Ace", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_030_M", "MP_Gunrunning_Tattoo_030_F",16850),    new BusinessTattoo(new List<int>(){0}, "Grub", "mphipster_overlays", "FM_Hip_M_Tat_038", "FM_Hip_F_Tat_038",1800),  new BusinessTattoo(new List<int>(){0}, "Sparkplug", "mphipster_overlays", "FM_Hip_M_Tat_042", "FM_Hip_F_Tat_042",1800), new BusinessTattoo(new List<int>(){0}, "Ink Me", "mplowrider_overlays", "MP_LR_Tat_017_M", "MP_LR_Tat_017_F",1800), new BusinessTattoo(new List<int>(){0}, "Dance of Hearts", "mplowrider_overlays", "MP_LR_Tat_023_M", "MP_LR_Tat_023_F",1850),    new BusinessTattoo(new List<int>(){0,1}, "Dragon's Fury", "mpbiker_overlays", "MP_MP_Biker_Tat_004_M", "MP_MP_Biker_Tat_004_F",3500),   new BusinessTattoo(new List<int>(){0}, "Western Insignia", "mpbiker_overlays", "MP_MP_Biker_Tat_022_M", "MP_MP_Biker_Tat_022_F",1800),  new BusinessTattoo(new List<int>(){1}, "Dusk Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_028_M", "MP_MP_Biker_Tat_028_F",1800),    new BusinessTattoo(new List<int>(){1}, "American Made", "mpbiker_overlays", "MP_MP_Biker_Tat_040_M", "MP_MP_Biker_Tat_040_F",1850), new BusinessTattoo(new List<int>(){0}, "STFU", "mpbiker_overlays", "MP_MP_Biker_Tat_048_M", "MP_MP_Biker_Tat_048_F",1800),  new BusinessTattoo(new List<int>(){0}, "San Andreas Prayer", "mplowrider2_overlays", "MP_LR_Tat_030_M", "MP_LR_Tat_030_F",1850),    new BusinessTattoo(new List<int>(){0}, "Elaborate Los Muertos", "mpluxe_overlays", "MP_LUXE_TAT_001_M", "MP_LUXE_TAT_001_F",1850),  new BusinessTattoo(new List<int>(){0}, "Starmetric", "mpluxe2_overlays", "MP_LUXE_TAT_023_M", "MP_LUXE_TAT_023_F",1750),    new BusinessTattoo(new List<int>(){0,1}, "Homeward Bound", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_020_M", "MP_Smuggler_Tattoo_020_F",3500), new BusinessTattoo(new List<int>(){0}, "Demon Spark Plug", "mpstunt_overlays", "MP_MP_Stunt_Tat_005_M", "MP_MP_Stunt_Tat_005_F",1850),  new BusinessTattoo(new List<int>(){1}, "Praying Gloves", "mpstunt_overlays", "MP_MP_Stunt_Tat_015_M", "MP_MP_Stunt_Tat_015_F",1850),    new BusinessTattoo(new List<int>(){0}, "Piston Angel", "mpstunt_overlays", "MP_MP_Stunt_Tat_020_M", "MP_MP_Stunt_Tat_020_F",1850),  new BusinessTattoo(new List<int>(){1}, "Speed Freak", "mpstunt_overlays", "MP_MP_Stunt_Tat_025_M", "MP_MP_Stunt_Tat_025_F",1800),   new BusinessTattoo(new List<int>(){0}, "Wheelie Mouse", "mpstunt_overlays", "MP_MP_Stunt_Tat_032_M", "MP_MP_Stunt_Tat_032_F",1750), new BusinessTattoo(new List<int>(){0,1}, "Severed Hand", "mpstunt_overlays", "MP_MP_Stunt_Tat_045_M", "MP_MP_Stunt_Tat_045_F",3500),    new BusinessTattoo(new List<int>(){0}, "Brake Knife", "mpstunt_overlays", "MP_MP_Stunt_Tat_047_M", "MP_MP_Stunt_Tat_047_F",1750),   new BusinessTattoo(new List<int>(){0}, "Skull and Sword", "multiplayer_overlays", "FM_Tat_Award_M_006", "FM_Tat_Award_F_006",1850), new BusinessTattoo(new List<int>(){0}, "The Warrior", "multiplayer_overlays", "FM_Tat_M_007", "FM_Tat_F_007",1850), new BusinessTattoo(new List<int>(){0}, "Tribal", "multiplayer_overlays", "FM_Tat_M_017", "FM_Tat_F_017",1800),  new BusinessTattoo(new List<int>(){0}, "Fiery Dragon", "multiplayer_overlays", "FM_Tat_M_022", "FM_Tat_F_022",1850),    new BusinessTattoo(new List<int>(){0}, "Broken Skull", "multiplayer_overlays", "FM_Tat_M_039", "FM_Tat_F_039",1850),    new BusinessTattoo(new List<int>(){0,1}, "Flaming Skull", "multiplayer_overlays", "FM_Tat_M_040", "FM_Tat_F_040",3400), new BusinessTattoo(new List<int>(){0}, "Flaming Scorpion", "multiplayer_overlays", "FM_Tat_M_042", "FM_Tat_F_042",1850),    new BusinessTattoo(new List<int>(){0}, "Indian Ram", "multiplayer_overlays", "FM_Tat_M_043", "FM_Tat_F_043",1850),
-
-
-                /* Старое
-                new BusinessTattoo(new List<int>(){ 0 }, "Diamond Crown", "mpbusiness_overlays", String.Empty, "MP_Buis_F_RLeg_000", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Floral Dagger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_014", "MP_Xmas2_F_Tat_014", 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "Combat Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_006_M", "MP_Gunrunning_Tattoo_006_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Restless Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_026_M", "MP_Gunrunning_Tattoo_026_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Pistol Ace", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_030_M", "MP_Gunrunning_Tattoo_030_F", 16850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Grub", "mphipster_overlays", "FM_Hip_M_Tat_038", "FM_Hip_F_Tat_038", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Sparkplug", "mphipster_overlays", "FM_Hip_M_Tat_042", "FM_Hip_F_Tat_042", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Ink Me", "mplowrider_overlays", "MP_LR_Tat_017_M", "MP_LR_Tat_017_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Dance of Hearts", "mplowrider_overlays", "MP_LR_Tat_023_M", "MP_LR_Tat_023_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Dragon's Fury", "mpbiker_overlays", "MP_MP_Biker_Tat_004_M", "MP_MP_Biker_Tat_004_F", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Western Insignia", "mpbiker_overlays", "MP_MP_Biker_Tat_022_M", "MP_MP_Biker_Tat_022_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "Dusk Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_028_M", "MP_MP_Biker_Tat_028_F", 1800),
-                new BusinessTattoo(new List<int>(){ 1 }, "American Made", "mpbiker_overlays", "MP_MP_Biker_Tat_040_M", "MP_MP_Biker_Tat_040_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "STFU", "mpbiker_overlays", "MP_MP_Biker_Tat_048_M", "MP_MP_Biker_Tat_048_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "San Andreas Prayer", "mplowrider2_overlays", "MP_LR_Tat_030_M", "MP_LR_Tat_030_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Elaborate Los Muertos", "mpluxe_overlays", "MP_LUXE_TAT_001_M", "MP_LUXE_TAT_001_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Starmetric", "mpluxe2_overlays", "MP_LUXE_TAT_023_M", "MP_LUXE_TAT_023_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Homeward Bound", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_020_M", "MP_Smuggler_Tattoo_020_F", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Demon Spark Plug", "mpstunt_overlays", "MP_MP_Stunt_Tat_005_M", "MP_MP_Stunt_Tat_005_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Praying Gloves", "mpstunt_overlays", "MP_MP_Stunt_Tat_015_M", "MP_MP_Stunt_Tat_015_F", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Piston Angel", "mpstunt_overlays", "MP_MP_Stunt_Tat_020_M", "MP_MP_Stunt_Tat_020_F", 1850),
-                new BusinessTattoo(new List<int>(){ 1 }, "Speed Freak", "mpstunt_overlays", "MP_MP_Stunt_Tat_025_M", "MP_MP_Stunt_Tat_025_F", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Wheelie Mouse", "mpstunt_overlays", "MP_MP_Stunt_Tat_032_M", "MP_MP_Stunt_Tat_032_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Severed Hand", "mpstunt_overlays", "MP_MP_Stunt_Tat_045_M", "MP_MP_Stunt_Tat_045_F", 3500),
-                new BusinessTattoo(new List<int>(){ 0 }, "Brake Knife", "mpstunt_overlays", "MP_MP_Stunt_Tat_047_M", "MP_MP_Stunt_Tat_047_F", 1750),
-                new BusinessTattoo(new List<int>(){ 0 }, "Skull and Sword", "multiplayer_overlays", "FM_Tat_Award_M_006", "FM_Tat_Award_F_006", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "The Warrior", "multiplayer_overlays", "FM_Tat_M_007", "FM_Tat_F_007", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Tribal", "multiplayer_overlays", "FM_Tat_M_017", "FM_Tat_F_017", 1800),
-                new BusinessTattoo(new List<int>(){ 0 }, "Fiery Dragon", "multiplayer_overlays", "FM_Tat_M_022", "FM_Tat_F_022", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Broken Skull", "multiplayer_overlays", "FM_Tat_M_039", "FM_Tat_F_039", 1850),
-                new BusinessTattoo(new List<int>(){ 0, 1 }, "Flaming Skull", "multiplayer_overlays", "FM_Tat_M_040", "FM_Tat_F_040", 3400),
-                new BusinessTattoo(new List<int>(){ 0 }, "Flaming Scorpion", "multiplayer_overlays", "FM_Tat_M_042", "FM_Tat_F_042", 1850),
-                new BusinessTattoo(new List<int>(){ 0 }, "Indian Ram", "multiplayer_overlays", "FM_Tat_M_043", "FM_Tat_F_043", 1850)
-                */
+	            // iTeffa => 0 - До колена | 1 - Выше колена.
+                new BusinessTattoo(new List<int>(){0},"Cash is King", "mpvinewood_overlays", "MP_Vinewood_Tat_020_M", "MP_Vinewood_Tat_020_F",2500),    
+                new BusinessTattoo(new List<int>(){0}, "Diamond Crown", "mpbusiness_overlays", "", "MP_Buis_F_RLeg_000",1800),  
+                new BusinessTattoo(new List<int>(){0}, "Floral Dagger", "mpchristmas2_overlays", "MP_Xmas2_M_Tat_014", "MP_Xmas2_F_Tat_014",1750),  
+                new BusinessTattoo(new List<int>(){0}, "Combat Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_006_M", "MP_Gunrunning_Tattoo_006_F",1800),   
+                new BusinessTattoo(new List<int>(){0}, "Restless Skull", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_026_M", "MP_Gunrunning_Tattoo_026_F",1850), 
+                new BusinessTattoo(new List<int>(){1}, "Pistol Ace", "mpgunrunning_overlays", "MP_Gunrunning_Tattoo_030_M", "MP_Gunrunning_Tattoo_030_F",16850),    
+                new BusinessTattoo(new List<int>(){0}, "Grub", "mphipster_overlays", "FM_Hip_M_Tat_038", "FM_Hip_F_Tat_038",1800),  
+                new BusinessTattoo(new List<int>(){0}, "Sparkplug", "mphipster_overlays", "FM_Hip_M_Tat_042", "FM_Hip_F_Tat_042",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Ink Me", "mplowrider_overlays", "MP_LR_Tat_017_M", "MP_LR_Tat_017_F",1800), 
+                new BusinessTattoo(new List<int>(){0}, "Dance of Hearts", "mplowrider_overlays", "MP_LR_Tat_023_M", "MP_LR_Tat_023_F",1850),    
+                new BusinessTattoo(new List<int>(){0,1}, "Dragon's Fury", "mpbiker_overlays", "MP_MP_Biker_Tat_004_M", "MP_MP_Biker_Tat_004_F",3500),   
+                new BusinessTattoo(new List<int>(){0}, "Western Insignia", "mpbiker_overlays", "MP_MP_Biker_Tat_022_M", "MP_MP_Biker_Tat_022_F",1800),  
+                new BusinessTattoo(new List<int>(){1}, "Dusk Rider", "mpbiker_overlays", "MP_MP_Biker_Tat_028_M", "MP_MP_Biker_Tat_028_F",1800),    
+                new BusinessTattoo(new List<int>(){1}, "American Made", "mpbiker_overlays", "MP_MP_Biker_Tat_040_M", "MP_MP_Biker_Tat_040_F",1850), 
+                new BusinessTattoo(new List<int>(){0}, "STFU", "mpbiker_overlays", "MP_MP_Biker_Tat_048_M", "MP_MP_Biker_Tat_048_F",1800),  
+                new BusinessTattoo(new List<int>(){0}, "San Andreas Prayer", "mplowrider2_overlays", "MP_LR_Tat_030_M", "MP_LR_Tat_030_F",1850),    
+                new BusinessTattoo(new List<int>(){0}, "Elaborate Los Muertos", "mpluxe_overlays", "MP_LUXE_TAT_001_M", "MP_LUXE_TAT_001_F",1850),  
+                new BusinessTattoo(new List<int>(){0}, "Starmetric", "mpluxe2_overlays", "MP_LUXE_TAT_023_M", "MP_LUXE_TAT_023_F",1750),    
+                new BusinessTattoo(new List<int>(){0,1}, "Homeward Bound", "mpsmuggler_overlays", "MP_Smuggler_Tattoo_020_M", "MP_Smuggler_Tattoo_020_F",3500), 
+                new BusinessTattoo(new List<int>(){0}, "Demon Spark Plug", "mpstunt_overlays", "MP_MP_Stunt_Tat_005_M", "MP_MP_Stunt_Tat_005_F",1850),  
+                new BusinessTattoo(new List<int>(){1}, "Praying Gloves", "mpstunt_overlays", "MP_MP_Stunt_Tat_015_M", "MP_MP_Stunt_Tat_015_F",1850),    
+                new BusinessTattoo(new List<int>(){0}, "Piston Angel", "mpstunt_overlays", "MP_MP_Stunt_Tat_020_M", "MP_MP_Stunt_Tat_020_F",1850),  
+                new BusinessTattoo(new List<int>(){1}, "Speed Freak", "mpstunt_overlays", "MP_MP_Stunt_Tat_025_M", "MP_MP_Stunt_Tat_025_F",1800),   
+                new BusinessTattoo(new List<int>(){0}, "Wheelie Mouse", "mpstunt_overlays", "MP_MP_Stunt_Tat_032_M", "MP_MP_Stunt_Tat_032_F",1750), 
+                new BusinessTattoo(new List<int>(){0,1}, "Severed Hand", "mpstunt_overlays", "MP_MP_Stunt_Tat_045_M", "MP_MP_Stunt_Tat_045_F",3500),    
+                new BusinessTattoo(new List<int>(){0}, "Brake Knife", "mpstunt_overlays", "MP_MP_Stunt_Tat_047_M", "MP_MP_Stunt_Tat_047_F",1750),   
+                new BusinessTattoo(new List<int>(){0}, "Skull and Sword", "multiplayer_overlays", "FM_Tat_Award_M_006", "FM_Tat_Award_F_006",1850), 
+                new BusinessTattoo(new List<int>(){0}, "The Warrior", "multiplayer_overlays", "FM_Tat_M_007", "FM_Tat_F_007",1850), 
+                new BusinessTattoo(new List<int>(){0}, "Tribal", "multiplayer_overlays", "FM_Tat_M_017", "FM_Tat_F_017",1800),  
+                new BusinessTattoo(new List<int>(){0}, "Fiery Dragon", "multiplayer_overlays", "FM_Tat_M_022", "FM_Tat_F_022",1850),    
+                new BusinessTattoo(new List<int>(){0}, "Broken Skull", "multiplayer_overlays", "FM_Tat_M_039", "FM_Tat_F_039",1850),    
+                new BusinessTattoo(new List<int>(){0,1}, "Flaming Skull", "multiplayer_overlays", "FM_Tat_M_040", "FM_Tat_F_040",3400), 
+                new BusinessTattoo(new List<int>(){0}, "Flaming Scorpion", "multiplayer_overlays", "FM_Tat_M_042", "FM_Tat_F_042",1850),    
+                new BusinessTattoo(new List<int>(){0}, "Indian Ram", "multiplayer_overlays", "FM_Tat_M_043", "FM_Tat_F_043",1850)
             }
-
+            #endregion Правая нога
         };
+        #endregion Татуировки
+        #region Тюниг автомобиля
         public static Dictionary<string, Dictionary<int, List<Tuple<int, string, int>>>> Tuning = new Dictionary<string, Dictionary<int, List<Tuple<int, string, int>>>>()
         {
-            { "Apriora", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 10000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 10000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 12000),
-                    new Tuple<int, string, int>(3, "Вариант 4", 13000),
-                    new Tuple<int, string, int>(4, "Вариант 5", 14000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 10000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 11000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 13000),
-                    new Tuple<int, string, int>(3, "Вариант 4", 16000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 22000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 26000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 16000),
-                    new Tuple<int, string, int>(3, "Вариант 4", 13000),
-                    new Tuple<int, string, int>(4, "Вариант 5", 15000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 3000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 10000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 12000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 14000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 10000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 15000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 12000),
-                    new Tuple<int, string, int>(3, "Вариант 4", 16000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 13000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 15000),
-                    new Tuple<int, string, int>(2, "Вариант 3", 16000),
-                    new Tuple<int, string, int>(3, "Вариант 4", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Вариант 1", 13000),
-                    new Tuple<int, string, int>(1, "Вариант 2", 15000),
-                }},
-            }},
-            { "Issi2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 7000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 8000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 10000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 7000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной зад. бампер", 8000),
-                }},
-            }},
-            { "GP1", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Сдвоенный глушитель 2", 23000),
-                    new Tuple<int, string, int>(2, "Счетверенный глушитель LM", 15000),
-                    new Tuple<int, string, int>(3, "Глушитель LM (карбон)", 19000),
-                    new Tuple<int, string, int>(4, "Глушитель LM доп.цвета", 18000),
-                    new Tuple<int, string, int>(5, "Большой глушитель", 13000),
-                    new Tuple<int, string, int>(6, "Большой укороченный", 16000),
-                    new Tuple<int, string, int>(7, "Большой (карбон)", 11000),
-                    new Tuple<int, string, int>(8, "Большой доп.цвета", 17000),
-                    new Tuple<int, string, int>(9, "Глушитель Offset (карбон)", 10000),
-                    new Tuple<int, string, int>(10, "Глушитель Offset доп.цвета", 19000),
-                    new Tuple<int, string, int>(11, "Набор глушителей LM", 30000),
-                    new Tuple<int, string, int>(12, "Набор LM (карбон)", 25000),
-                    new Tuple<int, string, int>(13, "Набор LM доп.цвета", 13000),
-                    new Tuple<int, string, int>(15, "Большой набор (карбон)", 24000),
-                    new Tuple<int, string, int>(16, "Большой набор доп.цвета", 20000),
-                    new Tuple<int, string, int>(17, "Набор глушителей Offset", 21000),
-                    new Tuple<int, string, int>(17, "Набор Offset доп.цвета", 21000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Полуспортивные пороги", 20000),
-                    new Tuple<int, string, int>(1, "Спортивные пороги", 21000),
-                    new Tuple<int, string, int>(2, "Заказные пороги", 23000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Заказной капот", 16000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот", 16000),
-                    new Tuple<int, string, int>(2, "Капот с воздухозаборником", 15000),
-                    new Tuple<int, string, int>(3, "Капот с воздухозаборником 2", 15000),
-                    new Tuple<int, string, int>(4, "Капот с мелкой решеткой", 15000),
-                    new Tuple<int, string, int>(5, "Капот со шторками", 15000),
-                    new Tuple<int, string, int>(6, "Капот LM", 18000),
-                    new Tuple<int, string, int>(7, "Капот LM (карбон)", 20000),
-                    new Tuple<int, string, int>(8, "Трековый капот", 17000),
-                    new Tuple<int, string, int>(9, "Спортивный капот", 15000),
-                    new Tuple<int, string, int>(10, "Гоночный капот (карбон)", 15000),
-                    new Tuple<int, string, int>(11, "Капот GT", 20000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Слегка поднятый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Поднятый спойлер (карбон)", 16000),
-                    new Tuple<int, string, int>(3, "Спойлер Branch", 13000),
-                    new Tuple<int, string, int>(4, "Низкий спойлер", 15000),
-                    new Tuple<int, string, int>(5, "Спойлер Tuner", 15000),
-                    new Tuple<int, string, int>(6, "Двухцветный спойлер", 15000),
-                    new Tuple<int, string, int>(7, "Спойлер LM", 15000),
-                    new Tuple<int, string, int>(8, "GT Wing", 15000),
-                    new Tuple<int, string, int>(9, "Поднятый и LM спойлеры", 15000),
-                    new Tuple<int, string, int>(10, "Поднятый и LM (карбон)", 15000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной бампер", 13000),
-                    new Tuple<int, string, int>(1, "Концептуальный бампер", 15000),
-                    new Tuple<int, string, int>(2, "Чемпионский бампер", 15000),
-                    new Tuple<int, string, int>(3, "Спортивный бампер", 15000),
-                    new Tuple<int, string, int>(4, "Бампер Tuner", 15000),
-                    new Tuple<int, string, int>(5, "Бампер LM", 15000),
-                    new Tuple<int, string, int>(6, "Турнирный бампер", 15000),
-                    new Tuple<int, string, int>(7, "Бампер Contest", 15000),
-                    new Tuple<int, string, int>(8, "Бампер GT", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. диффузор", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Диффузор с цветной каймой", 15000),
-                }},
-            }},
-            { "Omnis", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель Tuner", 18000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный спойлер", 5000),
-                    new Tuple<int, string, int>(0, "Нет", 3000),
-                    new Tuple<int, string, int>(1, "Гигантский спойлер", 26000),
-                }},
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Без раскраски", 5000),
-                    new Tuple<int, string, int>(0, "Раллийная классическая", 18000),
-                    new Tuple<int, string, int>(1, "Раллийная ретро", 10000),
-                }},
-            }},
-            { "Reaper", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный спойлер", 5000),
-                    new Tuple<int, string, int>(0, "Маленький спойлер", 10000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 15000),
-                    new Tuple<int, string, int>(2, "Высокий спойлер", 25000),
-                }},
-            }},
-            { "Zentorno", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Двойной глушитель", 18000),
-                    new Tuple<int, string, int>(1, "Большой глушитель", 20000),
-                    new Tuple<int, string, int>(2, "Двойной овальный глушитель", 25000),
-                    new Tuple<int, string, int>(3, "Большой овальный глушитель", 22000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Пороги основного цвета", 10000),
-                    new Tuple<int, string, int>(1, "Пороги дополнительного цвета", 15000),
-                    new Tuple<int, string, int>(2, "Карбоновые пороги", 16000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот без воздухозаборников", 20000),
-                    new Tuple<int, string, int>(1, "Полоса доп.цвета на капоте", 30000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный спойлер", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер основного цвета", 10000),
-                    new Tuple<int, string, int>(1, "Низкий спойлер дополнительного цвета", 15000),
-                    new Tuple<int, string, int>(2, "Низкий карбоновый спойлер", 25000),
-                    new Tuple<int, string, int>(3, "Маленький спойлер основного цвета", 15000),
-                    new Tuple<int, string, int>(4, "Маленький спойлер дополнительного цвета", 20000),
-                    new Tuple<int, string, int>(5, "Маленький карбоновый спойлер", 25000),
-                    new Tuple<int, string, int>(6, "GT спойлер", 40000),
-                }},
-            }},
-            { "Italigtb2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Двойной глушитель", 18000),
-                    new Tuple<int, string, int>(1, "Большой глушитель", 20000),
-                    new Tuple<int, string, int>(2, "Двойной овальный глушитель", 25000),
-                    new Tuple<int, string, int>(3, "Большой овальный глушитель", 22000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги 1", 10000),
-                    new Tuple<int, string, int>(1, "Заказные пороги 2", 15000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Заказной капот", 20000),
-                    new Tuple<int, string, int>(1, "Полоса на капоте 1", 30000),
-                    new Tuple<int, string, int>(2, "Полоса на капоте 2", 30000),
-                    new Tuple<int, string, int>(3, "Карбоновый капот", 30000),
-                    new Tuple<int, string, int>(4, "Заказной карбоновый капот", 30000),
-                    new Tuple<int, string, int>(8, "Карбоновый капот с воздухозаборником", 30000),
-                    new Tuple<int, string, int>(9, "Капот с двумя воздухозаборниками", 30000),
-                    new Tuple<int, string, int>(10, "Капот с тремя воздухозаборниками", 35000),
-                    new Tuple<int, string, int>(11, "Капот с воздухозаборниками", 35000),
-                    new Tuple<int, string, int>(12, "Капот с воздухозаборниками", 35000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный спойлер", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер 1", 10000),
-                    new Tuple<int, string, int>(1, "Низкий спойлер 2", 15000),
-                    new Tuple<int, string, int>(2, "Низкий спойлер 3", 25000),
-                    new Tuple<int, string, int>(3, "Низкий карбоновый спойлер 1", 15000),
-                    new Tuple<int, string, int>(4, "Низкий карбоновый спойлер 2", 20000),
-                    new Tuple<int, string, int>(5, "Низкий карбоновый спойлер 3", 25000),
-                    new Tuple<int, string, int>(6, "Низкий карбоновый спойлер 4", 30000),
-                    new Tuple<int, string, int>(7, "Средний спойлер", 25000),
-                    new Tuple<int, string, int>(8, "Средний карбоновый спойлер", 30000),
-                }},
-            }},
-            { "Xa21", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Заказной глушитель", 18000),
-                    new Tuple<int, string, int>(1, "Двойной глушитель", 20000),
-                    new Tuple<int, string, int>(4, "Двойной заказной глушитель", 25000),
-                    new Tuple<int, string, int>(5, "Четырехствольный глушитель 1", 22000),
-                    new Tuple<int, string, int>(11, "Четырехствольный глушитель 2", 30000),
-                    new Tuple<int, string, int>(13, "Четырехствольный глушитель 3", 35000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная раскраска двигателя", 5000),
-                    new Tuple<int, string, int>(1, "Основная раскраска двигателя 1", 10000),
-                    new Tuple<int, string, int>(2, "Дополнительная раскраска двигателя 1", 15000),
-                    new Tuple<int, string, int>(4, "Основная раскраска двигателя 2", 20000),
-                    new Tuple<int, string, int>(5, "Дополнительная раскраска двигателя 2", 25000),
-                    new Tuple<int, string, int>(7, "Основная раскраска двигателя 3", 25000),
-                    new Tuple<int, string, int>(8, "Дополнительная раскраска двигателя 3", 30000),
-                }},
-            }},
-            { "Osiris", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий карбоновый спойлер", 7000),
-                    new Tuple<int, string, int>(1, "Поднятый карбоновый спойлер", 8000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной бампер осн.цвета", 13000),
-                    new Tuple<int, string, int>(1, "Заказной бампер доп.цвета", 15000),
-                    new Tuple<int, string, int>(2, "Заказной карбоновый бампер", 20000),
-                    new Tuple<int, string, int>(3, "Спортивный бампер осн.цвета", 15000),
-                    new Tuple<int, string, int>(4, "Спортивный бампер доп.цвета", 20000),
-                    new Tuple<int, string, int>(5, "Спортивный карбоновый бампер", 25000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. диффузор", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый диффузор", 13000),
-                }},
-            }},
-            { "Pfister811", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Черный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Четырехствольный глушитель", 10000),
-                    new Tuple<int, string, int>(2, "Четырехствольный черный глушитель", 10000),
-                    new Tuple<int, string, int>(3, "Четырехствольный глушитель 2", 12000),
-                    new Tuple<int, string, int>(4, "Четырехствольный черный глушитель 2", 12000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 7000),
-                    new Tuple<int, string, int>(0, "Заказные карбоновые пороги", 9000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Линия на капоте", 10000),
-                    new Tuple<int, string, int>(1, "Двойная линия на капоте", 20000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот", 30000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной пер. бампер", 13000),
-                    new Tuple<int, string, int>(0, "Карбоновый пер. бампер", 15000),
-                }},
-            }},
-            { "Primo", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Расширенный глушитель", 10000),
-                    new Tuple<int, string, int>(2, "Титановый глушитель", 10000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 7000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 7000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 8000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 3000),
-                    new Tuple<int, string, int>(0, "Хромированная решетка", 6000),
-                    new Tuple<int, string, int>(1, "Спортивная решетка", 5000),
-                    new Tuple<int, string, int>(2, "Сетчатая решетка", 7000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной пер. бампер", 13000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной зад. бампер", 13000),
-                }},
-            }},
-            { "Emperor", new Dictionary<int, List<Tuple<int, string, int>>>() { }},
-            { "Penetrator", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный титановый", 7000),
-                    new Tuple<int, string, int>(1, "Двойной титановый (хром)", 30000),
-                    new Tuple<int, string, int>(2, "Парный гоночный", 10000),
-                    new Tuple<int, string, int>(3, "Двойной гоночный титановый", 12000),
-                    new Tuple<int, string, int>(4, "Парный гоночный титановый", 16000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                    new Tuple<int, string, int>(1, "Карбоновые обтекатели", 11000),
-                    new Tuple<int, string, int>(2, "Полуспортивные пороги", 13000),
-                    new Tuple<int, string, int>(3, "Карбоновые пороги (чать)", 12000),
-                    new Tuple<int, string, int>(4, "Перевернутые пороги", 19000),
-                    new Tuple<int, string, int>(5, "Карбоновые пороги (все)", 16000),
-                    new Tuple<int, string, int>(6, "Пороги GT", 16000),
-                    new Tuple<int, string, int>(7, "Карбоновые GT (часть)", 16000),
-                    new Tuple<int, string, int>(8, "Перевернутые GT", 14000),
-                    new Tuple<int, string, int>(9, "Карбоновые GT (все)", 20000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Стандартный капот 2", 16000),
-                    new Tuple<int, string, int>(1, "Капот с воздухозаборником", 14000),
-                    new Tuple<int, string, int>(2, "С забором воздуха (карбон)", 15000),
-                    new Tuple<int, string, int>(3, "Стандартный капот (карбон)", 15000),
-                    new Tuple<int, string, int>(4, "Карбоновый капот", 15000),
-                    new Tuple<int, string, int>(5, "Капот с воздухозаборником", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Дрифт-спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Карбоновый спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Спойлер Tuner", 16000),
-                    new Tuple<int, string, int>(3, "Карбоновый спойлер 2", 13000),
-                    new Tuple<int, string, int>(4, "GT Wing", 15000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный двигатель", 3000),
-                    new Tuple<int, string, int>(0, "Модификация для двигателя 1", 6000),
-                    new Tuple<int, string, int>(1, "Модификация для двигателя 2", 15000),
-                    new Tuple<int, string, int>(2, "Модификация для двигателя 3", 17000),
-                    new Tuple<int, string, int>(3, "Модификация для двигателя 4", 27000),
-                    new Tuple<int, string, int>(4, "Модификация для двигателя 5", 17000),
-                    new Tuple<int, string, int>(5, "Модификация для двигателя 6", 27000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный двигатель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный двигатель", 10000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Бампер с радиатором", 13000),
-                    new Tuple<int, string, int>(1, "Бампер Chin (карбон)", 15000),
-                    new Tuple<int, string, int>(2, "С радиатором (карбон)", 15000),
-                    new Tuple<int, string, int>(3, "Карбоновый сплиттер", 15000),
-                    new Tuple<int, string, int>(4, "Решетка со сплиттером", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Хромированные сплиттеры", 13000),
-                    new Tuple<int, string, int>(1, "Заказной бампер", 15000),
-                    new Tuple<int, string, int>(2, "Передний бампер (карбон)", 17000),
-                    new Tuple<int, string, int>(3, "Задний бампер (карбон)", 17000),
-                    new Tuple<int, string, int>(4, "Бампер Aero (карбон)", 17000),
-                    new Tuple<int, string, int>(5, "Задний бампер Aero (карбон)", 17000),
-                }},
-            }},
-            { "Bison3", new Dictionary<int, List<Tuple<int, string, int>>>() { }},
-            { "Turismor", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Хромированный глушитель", 10000),
-                    new Tuple<int, string, int>(2, "Гоночный глушитель", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "GT Wing", 26000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Крашеная крыша", 30000),
-                }},
-            }},
-            { "Jester2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Хромированный глушитель", 14000),
-                    new Tuple<int, string, int>(2, "Гоночный глушитель", 16000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                    new Tuple<int, string, int>(1, "Спортивные пороги", 11000),
-                    new Tuple<int, string, int>(2, "Карбоновые обтекатели", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Крашеный спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Карбоновый спойлер 2", 16000),
-                    new Tuple<int, string, int>(3, "GT Wing", 13000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Задний дефлектор", 30000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 13000),
-                    new Tuple<int, string, int>(1, "Сплиттер с канардами", 15000),
-                    new Tuple<int, string, int>(2, "Сплиттер с крылышками", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Крашеный задний диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Карбоновый зад. диффузор", 15000),
-                }},
-            }},
-            { "Neon", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Пороги осн.цвета", 20000),
-                    new Tuple<int, string, int>(1, "Пороги доп.цвета", 11000),
-                    new Tuple<int, string, int>(2, "Карбоновые пороги", 13000),
-                    new Tuple<int, string, int>(3, "Гоночные осн.цвета", 16000),
-                    new Tuple<int, string, int>(4, "Гоночный доп.цвета", 16000),
-                    new Tuple<int, string, int>(5, "Карбоновые гоночные", 13000),
-                    new Tuple<int, string, int>(6, "Competition осн.цвета", 16000),
-                    new Tuple<int, string, int>(7, "Competition доп.цвета", 19000),
-                    new Tuple<int, string, int>(8, "Карбоновые Competition", 20000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Две полосы", 16000),
-                    new Tuple<int, string, int>(1, "Одна полоса", 14000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер осн.цвета", 22000),
-                    new Tuple<int, string, int>(1, "Спойлер доп.цвета", 26000),
-                    new Tuple<int, string, int>(2, "Карбоновый спойлер", 16000),
-                    new Tuple<int, string, int>(3, "Гоночный спойлер", 13000),
-                    new Tuple<int, string, int>(4, "Туринговый спойлер", 15000),
-                    new Tuple<int, string, int>(5, "Спойлер Competition", 15000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное зеркало", 5000),
-                    new Tuple<int, string, int>(0, "Зеркало 1", 12000),
-                    new Tuple<int, string, int>(1, "Зеркало 2", 12000),
-                    new Tuple<int, string, int>(2, "Зеркало 3", 12000),
-                    new Tuple<int, string, int>(3, "Зеркало 4", 12000),
-                    new Tuple<int, string, int>(4, "Зеркало 5", 12000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Сплиттер осн.цвета", 13000),
-                    new Tuple<int, string, int>(1, "Сплиттер доп.цвета", 13000),
-                    new Tuple<int, string, int>(2, "Карбоновый сплиттер", 15000),
-                    new Tuple<int, string, int>(3, "Сплиттер Competition", 15000),
-                    new Tuple<int, string, int>(4, "Competition доп.цвета", 15000),
-                    new Tuple<int, string, int>(5, "Карбоновый Competition", 17000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад.диффузор", 5000),
-                    new Tuple<int, string, int>(0, "Гоночный диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Гоночный диффузор (карбон)", 15000),
-                }},
-            }},
-            { "Massacro2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановые насадки", 7000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Боковой обтекатель", 30000),
-                    new Tuple<int, string, int>(1, "Карбоновый боковой", 11000),
-                    new Tuple<int, string, int>(2, "Гоночный боковой", 13000),
-                    new Tuple<int, string, int>(3, "Гоночный карбоновый", 16000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 16000),
-                    new Tuple<int, string, int>(1, "Капот с забором воздуха", 14000),
-                    new Tuple<int, string, int>(2, "Гоночный карбоновый капот", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Низкий карбоновый спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Гоночное крыло", 16000),
-                    new Tuple<int, string, int>(3, "Крыло GT", 13000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное крыло", 5000),
-                    new Tuple<int, string, int>(0, "Гоночные воздухозаборники", 22000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый сплиттер", 13000),
-                    new Tuple<int, string, int>(1, "Сплиттер", 15000),
-                    new Tuple<int, string, int>(2, "Гоночный сплиттер", 16000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Задний диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Гоночный задний диффузор", 15000),
-                }},
-            }},
-            { "Turismo2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновые кончики", 7000),
-                    new Tuple<int, string, int>(1, "Хромированные кончики", 10000),
-                    new Tuple<int, string, int>(2, "Титановые кончики", 14000),
-                    new Tuple<int, string, int>(3, "Широкий глушитель", 13000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Пороги доп.цвета", 30000),
-                    new Tuple<int, string, int>(1, "Пороги (карбон)", 11000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с полосой", 16000),
-                    new Tuple<int, string, int>(1, "Вентилируемый капот", 14000),
-                    new Tuple<int, string, int>(2, "Вентилируемый с полосой", 15000),
-                    new Tuple<int, string, int>(3, "Гоночный капот", 12000),
-                    new Tuple<int, string, int>(4, "Гоночный с полосой", 14000),
-                    new Tuple<int, string, int>(5, "Капот GT", 15000),
-                    new Tuple<int, string, int>(6, "Капот GT с полосой", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Стандартный спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Спойлер доп.цвета", 26000),
-                    new Tuple<int, string, int>(2, "Карбоновый спойлер", 16000),
-                    new Tuple<int, string, int>(3, "Крыло GT", 13000),
-                    new Tuple<int, string, int>(4, "Крыло GT доп.цвета", 15000),
-                    new Tuple<int, string, int>(5, "Крыло GT (карбон)", 12000),
-                    new Tuple<int, string, int>(6, "Гоночное крыло", 16000),
-                    new Tuple<int, string, int>(7, "Гоночное крыло доп.цвета", 13000),
-                    new Tuple<int, string, int>(8, "Гоночное крыло (карбон)", 18000),
-                    new Tuple<int, string, int>(9, "Турнирный спойлер", 20000),
-                    new Tuple<int, string, int>(10, "Турнирный доп.цвета", 21000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Облегченный бампер", 13000),
-                    new Tuple<int, string, int>(1, "Классический бампер", 15000),
-                    new Tuple<int, string, int>(2, "Гоночный пер. бампер", 15000),
-                    new Tuple<int, string, int>(3, "Гоночный бампер (карбон)", 15000),
-                    new Tuple<int, string, int>(4, "Передний бампер GT", 15000),
-                    new Tuple<int, string, int>(5, "Бампер GT (карбон)", 15000),
-                }},
-            }},
-            { "EntityXF", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Тройной глушитель", 10000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновые пороги", 30000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый спойлер", 22000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Сплиттер с канардами", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 13000),
-                }},
-            }},
-            { "Banshee2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Гоночный глушитель", 10000),
-                    new Tuple<int, string, int>(2, "Хромированный глушитель", 12000),
-                    new Tuple<int, string, int>(3, "Сдвоенный глушитель 2", 14000),
-                    new Tuple<int, string, int>(4, "Насадка на выхлоп", 16000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                    new Tuple<int, string, int>(1, "Низкие пороги", 11000),
-                    new Tuple<int, string, int>(2, "Полуспортивные пороги", 13000),
-                    new Tuple<int, string, int>(3, "Спортивные пороги", 16000),
-                    new Tuple<int, string, int>(4, "Карбоновые обтекатели", 16000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 16000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот", 14000),
-                    new Tuple<int, string, int>(2, "Накладные арки", 15000),
-                    new Tuple<int, string, int>(3, "Гладкий капот", 15000),
-                    new Tuple<int, string, int>(4, "Двойной воздухозабор", 15000),
-                    new Tuple<int, string, int>(5, "Двойной воздухозабор (накл)", 15000),
-                    new Tuple<int, string, int>(6, "Капот с фильтром", 15000),
-                    new Tuple<int, string, int>(7, "Открытый воздухозаборник", 15000),
-                    new Tuple<int, string, int>(8, "Капот с фильтром (хром)", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Дрифт-спойлер", 16000),
-                    new Tuple<int, string, int>(3, "Крыло GT (высокое)", 13000),
-                    new Tuple<int, string, int>(4, "Спойлер Экстрим", 15000),
-                    new Tuple<int, string, int>(5, "Крыло Атака на асфальт", 16000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная задняя дверь", 5000),
-                    new Tuple<int, string, int>(0, "Задний багажник", 13000),
-                    new Tuple<int, string, int>(1, "Накладной багажник", 15000),
-                    new Tuple<int, string, int>(2, "Багажник (карбон)", 15000),
-                    new Tuple<int, string, int>(3, "Багажник и панели (карбон)", 15000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное крыло", 5000),
-                    new Tuple<int, string, int>(0, "Задние надкрылки", 22000),
-                    new Tuple<int, string, int>(1, "Задние надкрылки (карбон)", 22000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Кабрио", 30000),
-                }},
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Без винил", 5000),
-                    new Tuple<int, string, int>(0, "Винилы 1", 13000),
-                    new Tuple<int, string, int>(1, "Винилы 2", 15000),
-                    new Tuple<int, string, int>(2, "Винилы 3", 15000),
-                    new Tuple<int, string, int>(3, "Винилы 4", 18000),
-                    new Tuple<int, string, int>(4, "Винилы 5", 19000),
-                    new Tuple<int, string, int>(5, "Винилы 6", 20000),
-                    new Tuple<int, string, int>(6, "Винилы 7", 35000),
-                    new Tuple<int, string, int>(7, "Винилы 8", 45000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый передний бампер", 13000),
-                    new Tuple<int, string, int>(1, "Накладные арки", 15000),
-                    new Tuple<int, string, int>(2, "Классический бампер RS", 15000),
-                    new Tuple<int, string, int>(3, "Дрифтовый бампер RS", 15000),
-                    new Tuple<int, string, int>(4, "Бампер GT", 15000),
-                    new Tuple<int, string, int>(5, "Бампер Street SPL", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная зад. бампер", 5000),
-                }},
-            }},
-            { "Banshee", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 7000),
-                    new Tuple<int, string, int>(1, "Сдвоенный глушитель", 10000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 12000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 12000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 16000),
-                    new Tuple<int, string, int>(2, "Дрифт-спойлер", 16000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Кабрио", 30000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый пер. бампер", 13000),
-                }},
-            }},
-            { "BestiaGTS", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 10000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновые обтекатели", 6000),
-                    new Tuple<int, string, int>(1, "Полуспортивные пороги", 7000),
-                    new Tuple<int, string, int>(2, "Спортивные пороги", 8000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Гладкий капот", 16000),
-                    new Tuple<int, string, int>(1, "Двойной забор воздуха", 14000),
-                    new Tuple<int, string, int>(2, "Двойной карбоновый", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 26000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Евробампер", 13000),
-                    new Tuple<int, string, int>(1, "Гоночный бампер", 15000),
-                    new Tuple<int, string, int>(3, "Дрифт-бампер", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                }},
-            }},
-            { "BJXL", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Подножки", 6000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Багажник на крыше", 7000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Силовой бампер", 13000),
-                }},
-            }},
-            { "Comet2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Глушитель двустволка", 25000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный спойлер", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "GT Wing", 26000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Надкрылки", 22000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Сплиттер с канардами", 19000),
-                    new Tuple<int, string, int>(1, "Сплиттер с канардами 2", 22000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                }},
-            }},
-            { "Coquette", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 25000),
-                    new Tuple<int, string, int>(1, "Хромированный глушитель", 26000),
-                    new Tuple<int, string, int>(2, "Расширенный глушитель", 26000),
-                    new Tuple<int, string, int>(3, "Титановый глушитель", 30000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 25000),
-                    new Tuple<int, string, int>(1, "Карбоновые обтекатели", 26000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 2000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 11000),
-                    new Tuple<int, string, int>(1, "С двойным забором воздуха", 11000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот 1", 14000),
-                    new Tuple<int, string, int>(3, "Карбоновый капот 2", 15000),
-                    new Tuple<int, string, int>(4, "Спортивный капот", 16000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Спойлер Tuner", 26000),
-                    new Tuple<int, string, int>(3, "Дрифт-спойлер", 26000),
-                    new Tuple<int, string, int>(4, "GT Wing", 26000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное крыло", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновые панели", 22000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 3000),
-                    new Tuple<int, string, int>(0, "Кабрио", 9000),
-                    new Tuple<int, string, int>(1, "Заказная крыша", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 19000),
-                    new Tuple<int, string, int>(1, "Крашенный сплиттер", 22000),
-                    new Tuple<int, string, int>(2, "Карбоновый сплиттер", 22000),
-                    new Tuple<int, string, int>(3, "Бампер Extremo Aero", 22000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Крашеный задний бампер", 19000),
-                    new Tuple<int, string, int>(1, "Карбоновый зад. диффузор", 22000),
-                    new Tuple<int, string, int>(2, "Заказной задний бампер", 22000),
-                    new Tuple<int, string, int>(3, "Карбоновый дифф. и крюк", 22000),
-                }},
-            }},
-            { "Windsor", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Без раскраски", 5000),
-                    new Tuple<int, string, int>(0, "Монограмма Sessanta Nove", 18000),
-                    new Tuple<int, string, int>(1, "Многоцв. Sessanta Nove", 10000),
-                    new Tuple<int, string, int>(2, "Геометр. Sessanta Nove", 14000),
-                    new Tuple<int, string, int>(3, "Монограмма Perseus Wings", 16000),
-                    new Tuple<int, string, int>(4, "Моногр. Perseus Green Wings", 16000),
-                    new Tuple<int, string, int>(5, "Santo Capra Python", 16000),
-                    new Tuple<int, string, int>(6, "Santo Capra Cheetah", 16000),
-                    new Tuple<int, string, int>(7, "Yeti Mall Ninja", 16000),
-                }},
-
-            }},
-            { "Superd", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Huntley", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 25000),
-                    new Tuple<int, string, int>(1, "Сдвоенный глушитель", 26000),
-                    new Tuple<int, string, int>(2, "Сдвоенный титановый", 26000),
-                    new Tuple<int, string, int>(3, "Расширенный глушитель", 30000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 25000),
-                    new Tuple<int, string, int>(1, "С двойным забором воздуха", 26000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот", 26000),
-                    new Tuple<int, string, int>(3, "Карбоновый капот 2", 30000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Багажник на крыше", 25000),
-                }},
-            }},
-            { "Baller3", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Dubsta2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель", 25000),
-                    new Tuple<int, string, int>(1, "Сдвоенный титановый", 26000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот внедорожника", 25000),
-                    new Tuple<int, string, int>(1, "Капот с запаской", 26000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное левое крыло", 5000),
-                    new Tuple<int, string, int>(0, "Шноркель", 25000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Багажник на крыше", 25000),
-                    new Tuple<int, string, int>(1, "Багажник с прожекторами", 25000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Кунгурятник с дугой", 19000),
-                    new Tuple<int, string, int>(1, "Кунгурятник с дугой и фары", 22000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                }},
-            }},
-            { "Carbonizzare", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 25000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 25000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Средний спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 26000),
-                }},
-            }},
-            { "Infernus", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный заказной", 25000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "GT Wing", 26000),
-                }},
-            }},
-            { "Elegy2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 26000),
-                    new Tuple<int, string, int>(1, "Гоночный глушитель", 10000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги 1", 30000),
-                    new Tuple<int, string, int>(1, "Заказные пороги 2", 11000),
-                    new Tuple<int, string, int>(2, "Заказные пороги 3", 13000),
-                    new Tuple<int, string, int>(3, "Заказные пороги 4", 16000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 16000),
-                    new Tuple<int, string, int>(1, "С двойным забором воздуха", 14000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот", 15000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Спойлер Tuner", 16000),
-                    new Tuple<int, string, int>(3, "Карбоновый спойлер", 13000),
-                    new Tuple<int, string, int>(4, "GT Wing", 15000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 3000),
-                    new Tuple<int, string, int>(0, "Черная решетка", 26000),
-                    new Tuple<int, string, int>(1, "Открытый интеркулер", 11000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновая крыша", 30000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый сплиттер", 13000),
-                    new Tuple<int, string, int>(1, "Сплиттер с канардами", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Крашеный задний бампер", 15000),
-                    new Tuple<int, string, int>(2, "Крашеный бампер и дифф.", 17000),
-                }},
-            }},
-            { "Jester", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 26000),
-                    new Tuple<int, string, int>(1, "Хромированный титановый", 10000),
-                    new Tuple<int, string, int>(2, "Гоночный глушитель", 14000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                    new Tuple<int, string, int>(1, "Спортивные пороги", 11000),
-                    new Tuple<int, string, int>(2, "Карбоновые обтекатели", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый спойлер", 22000),
-                    new Tuple<int, string, int>(1, "Крашеный спойлер", 26000),
-                    new Tuple<int, string, int>(2, "Карбоновый спойлер 2", 11000),
-                    new Tuple<int, string, int>(3, "GT Wing", 15000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Задний дефлектор", 26000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 13000),
-                    new Tuple<int, string, int>(1, "Сплиттер с канардами", 15000),
-                    new Tuple<int, string, int>(2, "Сплиттер с крылышками", 17600),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Крашеный задний диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Карбоновый зад. диффузор", 15000),
-                }},
-            }},
-            { "Ninef2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 26000),
-                    new Tuple<int, string, int>(1, "Сдвоенный титановый", 30000),
-                    new Tuple<int, string, int>(2, "Расширенный глушитель", 14000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 14000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 15000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 17600),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 13000),
-                }},
-            }},
-            { "Ninef", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 16000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 30000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 11000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 15000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 17600),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 17600),
-                }},
-            }},
+            #region Sultan
             { "Sultan", new Dictionary<int, List<Tuple<int, string, int>>>() {
                 { 0, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный глушитель", 2000),
@@ -1955,181 +751,10 @@ namespace iTeffa.Kernel
                 { 9, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
                     new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 18000),
-                }},
+                }}
             }},
-            { "SultanRS", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 2000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель Tuner", 8000),
-                    new Tuple<int, string, int>(1, "Титановый глушитель Tuner", 9000),
-                    new Tuple<int, string, int>(2, "Раздвоенный глушитель", 15000),
-                    new Tuple<int, string, int>(3, "Раздвоенный короткий глушитель", 14000),
-                    new Tuple<int, string, int>(4, "Титановый короткий глушитель Tuner", 10000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 3000),
-                    new Tuple<int, string, int>(0, "Брызговики чёрного цвета", 9000),
-                    new Tuple<int, string, int>(1, "Брызговики основного цвета", 15000),
-                    new Tuple<int, string, int>(2, "Брызговики дополнительного цвета", 15000),
-                    new Tuple<int, string, int>(3, "Заказные пороги", 12000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 2000),
-                    new Tuple<int, string, int>(0, "С двойным забором воздуха", 11000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот 1", 14000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот 2", 15000),
-                    new Tuple<int, string, int>(3, "Карбоновый капот 3", 16000),
-                    new Tuple<int, string, int>(4, "Карбоновый капот 4", 17000),
-                    new Tuple<int, string, int>(5, "Изрисованный капот", 25000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 1000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер 1", 6000),
-                    new Tuple<int, string, int>(1, "Приподнятый спойлер 1", 8000),
-                    new Tuple<int, string, int>(2, "GT Wing 1", 12000),
-                    new Tuple<int, string, int>(3, "Низкий спойлер 2", 11000),
-                    new Tuple<int, string, int>(4, "Низкий спойлер 3", 11000),
-                    new Tuple<int, string, int>(5, "Низкий спойлер 4", 11000),
-                    new Tuple<int, string, int>(6, "Низкий спойлер 5", 11000),
-                    new Tuple<int, string, int>(7, "Низкий спойлер 6", 11000),
-                    new Tuple<int, string, int>(8, "Приподнятый спойлер 2", 13000),
-                    new Tuple<int, string, int>(9, "Приподнятый спойлер 3", 15000),
-                    new Tuple<int, string, int>(10, "Карбоновый спойлер 1", 20000),
-                    new Tuple<int, string, int>(11, "Карбоновый спойлер 2", 20000),
-                    new Tuple<int, string, int>(12, "Карбоновый спойлер 3", 20000),
-                    new Tuple<int, string, int>(13, "Массивный карбоновый спойлер", 21000),
-                    new Tuple<int, string, int>(14, "Высокий спойлер", 25000),
-                    new Tuple<int, string, int>(15, "Комбо-спойлер", 27000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный радиатор", 1000),
-                    new Tuple<int, string, int>(0, "Заказной радиатор", 10000),
-                    new Tuple<int, string, int>(1, "Спортивный радиатор", 15000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 1000),
-                    new Tuple<int, string, int>(0, "Расширение основного цвета", 10000),
-                    new Tuple<int, string, int>(1, "Расширение черного цвета", 15000),
-                    new Tuple<int, string, int>(5, "Максимальное расширение", 20000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер на крыше", 15000),
-                    new Tuple<int, string, int>(1, "Острая крыша", 10000),
-                    new Tuple<int, string, int>(2, "Карбоновая крыша", 15000),
-                    new Tuple<int, string, int>(3, "Спойлер с карбоновой крышей", 20000),
-                    new Tuple<int, string, int>(4, "Острая карбоновая крыша", 13000),
-                }},
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Без раскраски", 5000),
-                    new Tuple<int, string, int>(0, "Полоса по бокам", 18000),
-                    new Tuple<int, string, int>(1, "Черная раскраска SULTAN RS", 20000),
-                    new Tuple<int, string, int>(2, "Белая раскраска SULTAN RS", 20000),
-                    new Tuple<int, string, int>(3, "Голубая полоса сбоку", 25000),
-                    new Tuple<int, string, int>(4, "Раскраска KARIN", 26000),
-                    new Tuple<int, string, int>(5, "Раскраска REDWOOD", 26000),
-                    new Tuple<int, string, int>(6, "Раскраска KARIN 2", 26000),
-                    new Tuple<int, string, int>(7, "Изрисованная раскраска", 40000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний бампер 1", 14000),
-                    new Tuple<int, string, int>(1, "Передний бампер 2", 18000),
-                    new Tuple<int, string, int>(2, "Передний бампер 3", 20000),
-                    new Tuple<int, string, int>(3, "Передний бампер 4", 18000),
-                    new Tuple<int, string, int>(4, "Передний бампер 5", 15000),
-                    new Tuple<int, string, int>(5, "Передний бампер 6", 17000),
-                    new Tuple<int, string, int>(6, "Передний бампер 7", 16000),
-                    new Tuple<int, string, int>(7, "Передний бампер 8", 15000),
-                    new Tuple<int, string, int>(8, "Передний бампер 9", 20000),
-                    new Tuple<int, string, int>(9, "Передний бампер 10", 25000),
-                    new Tuple<int, string, int>(10, "Передний бампер 11", 23000),
-                    new Tuple<int, string, int>(11, "Передний бампер 12", 20000),
-                    new Tuple<int, string, int>(12, "Передний бампер 13", 21000),
-                    new Tuple<int, string, int>(13, "Передний бампер 14", 18000),
-                    new Tuple<int, string, int>(14, "Передний бампер 15", 30000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Задний бампер 1", 18000),
-                    new Tuple<int, string, int>(1, "Задний бампер 2", 20000),
-                    new Tuple<int, string, int>(2, "Задний бампер 3", 22000),
-                    new Tuple<int, string, int>(3, "Задний бампер 4", 19000),
-                    new Tuple<int, string, int>(4, "Задний бампер 5", 21000),
-                    new Tuple<int, string, int>(5, "Задний бампер 6", 25000),
-                    new Tuple<int, string, int>(6, "Задний бампер 7", 23000),
-                    new Tuple<int, string, int>(7, "Задний бампер 8", 20000),
-                }},
-            }},
-            { "Fugitive", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Tailgater", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель", 8000),
-                    new Tuple<int, string, int>(1, "Сдвоенный титановый", 10000),
-                    new Tuple<int, string, int>(2, "Хромированный глушитель", 14000),
-                    new Tuple<int, string, int>(3, "Сдвоенный глушитель", 16000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 9000),
-                    new Tuple<int, string, int>(1, "Низкие пороги", 11000),
-                    new Tuple<int, string, int>(2, "Полуспортивные пороги", 13000),
-                    new Tuple<int, string, int>(3, "Спортивные пороги", 16000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с воздухозаборником", 16000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот", 14000),
-                    new Tuple<int, string, int>(2, "Капот с воздухозаборником 2", 15000),
-                    new Tuple<int, string, int>(3, "Спортивный капот", 19000),
-                    new Tuple<int, string, int>(4, "Капот с забором воздуха", 9000),
-                    new Tuple<int, string, int>(5, "С двойным забором воздуха", 11000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Лип-спойлер", 6000),
-                    new Tuple<int, string, int>(1, "Низкий спойлер", 8000),
-                    new Tuple<int, string, int>(2, "Средний спойлер", 11000),
-                    new Tuple<int, string, int>(3, "Поднятый спойлер", 13000),
-                    new Tuple<int, string, int>(4, "Карбоновый спойлер", 15000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 3000),
-                    new Tuple<int, string, int>(0, "Черная решетка", 7000),
-                    new Tuple<int, string, int>(1, "Хромированная решетка", 11000),
-                    new Tuple<int, string, int>(2, "Сетчатая решетка", 13000),
-                    new Tuple<int, string, int>(3, "Разделенная решетка", 15000),
-                    new Tuple<int, string, int>(4, "Спортивная решетка", 17000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное крыло", 5000),
-                    new Tuple<int, string, int>(0, "Надкрылки", 8000),
-                    new Tuple<int, string, int>(1, "Хромовые арки", 10000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновая крыша", 9000),
-                    new Tuple<int, string, int>(1, "Багажник над крышой", 7000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Крашеный сплиттер", 13000),
-                    new Tuple<int, string, int>(1, "Передний сплиттер", 15000),
-                    new Tuple<int, string, int>(2, "Краш. бампер и сплиттер", 17000),
-                    new Tuple<int, string, int>(3, "Сплиттер и интеркулер", 17600),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 13000),
-                    new Tuple<int, string, int>(1, "Крашеный задний бампер", 15000),
-                    new Tuple<int, string, int>(2, "Спортивный задний бампер", 17000),
-                    new Tuple<int, string, int>(3, "Крашеный бампер и дифф.", 17600),
-                }},
-
-            }},
+            #endregion Sultan
+            #region Kuruma
             { "Kuruma", new Dictionary<int, List<Tuple<int, string, int>>>() {
                 { 0, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
@@ -2154,487 +779,40 @@ namespace iTeffa.Kernel
                     new Tuple<int, string, int>(0, "Заказной бампер осн.цвета", 11000),
                     new Tuple<int, string, int>(1, "Заказной бампер доп.цвета", 15000),
                     new Tuple<int, string, int>(2, "Заказной карбоновый бампер", 15000),
-                }},
+                }}
             }},
-            { "Sentinel", new Dictionary<int, List<Tuple<int, string, int>>>() {
+            #endregion Kuruma
+            #region Jackal
+            { "Jackal", new Dictionary<int, List<Tuple<int, string, int>>>() {
                 { 0, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 10000),
-                    new Tuple<int, string, int>(1, "Титановый глушитель", 12000),
-                    new Tuple<int, string, int>(2, "Расширенный глушитель", 14000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 11000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 17000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Лип-спойлер", 7000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 11000),
-                    new Tuple<int, string, int>(2, "Поднятый спойлер", 13000),
-                    new Tuple<int, string, int>(3, "Карбоновый спойлер", 15000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Открытый интеркулер", 11000),
-                    new Tuple<int, string, int>(1, "Сплиттер с канардами", 15000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 11000),
-                    new Tuple<int, string, int>(1, "Карбоновый дифф. и крюк", 15000),
-                }},
-            }},
-
-            { "F620", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-
-            { "Schwarzer", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                    { 0, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                        new Tuple<int, string, int>(0, "Сдвоенный глушитель", 10000),
-                        new Tuple<int, string, int>(1, "Сдвоенный титановый", 13000),
-                        new Tuple<int, string, int>(2, "Овальный глушитель", 15000),
-                        new Tuple<int, string, int>(3, "Гоночный глушитель", 17000),
-                    }},
-                    { 1, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                        new Tuple<int, string, int>(0, "Заказные пороги 1", 11000),
-                        new Tuple<int, string, int>(1, "Заказные пороги 2", 13000),
-                    }},
-                    { 2, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                        new Tuple<int, string, int>(0, "Карбоновый капот", 13000),
-                    }},
-                    { 3, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Нет", 5000),
-                        new Tuple<int, string, int>(0, "Спойлер утиный хвост", 11000),
-                        new Tuple<int, string, int>(1, "Поднятый спойлер", 13000),
-                        new Tuple<int, string, int>(2, "Карбоновый спойлер", 17000),
-                    }},
-                    { 4, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                        new Tuple<int, string, int>(0, "Решетка с логотипом", 7000),
-                    }},
-                    { 6, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                        new Tuple<int, string, int>(0, "Карбоновая крыша", 11000),
-                    }},
-                    { 8, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                        new Tuple<int, string, int>(0, "Евробампер", 9000),
-                        new Tuple<int, string, int>(1, "Открытый интеркулер", 11000),
-                        new Tuple<int, string, int>(2, "Сплиттер и интеркулер", 13000),
-                    }},
-                    { 9, new List<Tuple<int, string, int>>() {
-                        new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                        new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 13000),
-                    }},
-                }},
-
-            { "Exemplar", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-
-            { "Felon", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 15000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 13000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с воздухозаборником", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 9000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 11000),
-                }},
-            }},
-
-            { "Schafter2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 13000),
-                    new Tuple<int, string, int>(1, "Хромированный глушитель", 15000),
-                    new Tuple<int, string, int>(2, "Сдвоенный глушитель", 17000),
-                    new Tuple<int, string, int>(3, "Титановый глушитель", 19000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги 1", 11000),
-                    new Tuple<int, string, int>(1, "Карбоновые обтекатели", 13000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забором воздуха", 13000),
-                    new Tuple<int, string, int>(1, "Карбоновый капот 1", 17000),
-                    new Tuple<int, string, int>(2, "Карбоновый капот 2", 19000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Лип-спойлер", 9000),
-                    new Tuple<int, string, int>(1, "Карбоновый спойлер", 15000),
-                    new Tuple<int, string, int>(2, "Поднятый спойлер", 19000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Хромированная решетка", 9000),
-                    new Tuple<int, string, int>(1, "Спортивная решетка", 13000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновая крыша", 15000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 15000),
-                    new Tuple<int, string, int>(1, "Карбоновый сплиттер", 17000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 15000),
-                    new Tuple<int, string, int>(0, "Заказной зад. бампер", 17000),
-                }},
-            }},
-
-            { "Patriot", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-
-            { "Cavalcade", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Улучшенный глушитель", 9000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Решетка радиатора с прорезями", 5000),
-                    new Tuple<int, string, int>(0, "Сетчетая решетка", 7000),
-                    new Tuple<int, string, int>(1, "Хромированная решетка", 11000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 9000),
-                    new Tuple<int, string, int>(1, "Бампер Extreme Aero", 13000),
-                }},
-            }},
-
-            { "Landstalker", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 9000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Багажник на крыше", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 13000),
-                }},
-            }},
-
-            { "Baller", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Заказной глушитель", 13000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 14000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной передний 1", 15000),
-                    new Tuple<int, string, int>(1, "Заказной передний 2", 17000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 15000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 17000),
-                }},
-            }},
-
-            { "Seminole", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-
-            { "RancherXL", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Buffalo", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель Tuner", 15000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 16000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 14000),
-                }},
-            }},
-            { "Gauntlet", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-
-
-            { "Phoenix", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 9000),
-                    new Tuple<int, string, int>(1, "Титановый глушитель Tuner", 11000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 13000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забралом", 9000),
-                    new Tuple<int, string, int>(1, "Тройной суперчарджер", 11000),
-                    new Tuple<int, string, int>(2, "Суперчарджер", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Средний спойлер", 9000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 11000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Железная маска", 9000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Стеклянная крыша", 13000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Широкий передний спойлер", 15000),
-                    new Tuple<int, string, int>(1, "Заказной спойлер", 17000),
-                }},
-            }},
-            { "Radi", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Glendale", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 9000),
-                    new Tuple<int, string, int>(1, "Двойной глушитель", 11000),
-                    new Tuple<int, string, int>(2, "Глушитель двустволка", 13000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 11000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Доп. цвет капота", 9000),
-                    new Tuple<int, string, int>(1, "Классический капот", 11000),
-                    new Tuple<int, string, int>(2, "Доп. классический капот", 13000),
-                    new Tuple<int, string, int>(3, "Капот в полоску", 15000),
-                    new Tuple<int, string, int>(4, "Доп. капот в полоску", 17000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Багажник на крыше", 5000),
-                    new Tuple<int, string, int>(1, "Багажник для поездки", 5000),
-                    new Tuple<int, string, int>(2, "Загруженный багаж", 7000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной бампер", 7000),
-                }},
-            }},
-            { "Serrano", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 6000),
-                    new Tuple<int, string, int>(1, "Сдвоенный глушитель", 7000),
-                    new Tuple<int, string, int>(2, "Титановый глушитель", 8000),
-                    new Tuple<int, string, int>(3, "Хромированный глушитель", 9000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 9000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер на крыше", 9000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Решетка с логотипом", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной передний спойлер", 9000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 11000),
-                }},
-            }},
-
-            { "Zion", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 9000),
-                    new Tuple<int, string, int>(1, "Сдвоенный глушитель", 11000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 13000),
-                }},
-
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Поднятый спойлер", 11000),
-                    new Tuple<int, string, int>(1, "Средний спойлер", 13000),
-                    new Tuple<int, string, int>(2, "Карбоновый спойлер", 15000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновая крыша", 14000),
-                }},
-            }},
-            { "Surge", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 7000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер Tuner", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 10800),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 9000),
-                }},
-            }},
-            { "Stanier", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-
-            { "Stratum", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-
-            { "Tampa", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 7000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Простой воздухозаборник", 7000),
-                    new Tuple<int, string, int>(1, "Двойной воздухозаборник", 9000),
-                    new Tuple<int, string, int>(2, "Тройной суперчарджер", 11000),
-                    new Tuple<int, string, int>(3, "Суперчарджер", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Дрэг-спойлер", 9000),
-                    new Tuple<int, string, int>(1, "Спойлер Утиный хвост", 11000),
-                    new Tuple<int, string, int>(2, "Низкий спойлер", 12000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Разделенная решетка", 7000),
-                    new Tuple<int, string, int>(1, "Хромированная решетка", 9000),
-                    new Tuple<int, string, int>(2, "Открытая решетка", 10000),
-                    new Tuple<int, string, int>(3, "Открытая решетка", 11000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Крашеная крыша", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной передний спойлер", 7000),
-                    new Tuple<int, string, int>(1, "Широкий передний спойлер", 8000),
-                    new Tuple<int, string, int>(2, "Перекрашеный бампер", 9000),
-                    new Tuple<int, string, int>(3, "Перекрашеный спойлер", 11000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Покрашенный бампер", 7000),
-                    new Tuple<int, string, int>(1, "Крашеные отражатели", 9000),
-                    new Tuple<int, string, int>(2, "Крашеная задняя часть", 11000),
-                }},
-            }},
-
-            { "Prairie", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель Tuner", 7000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 7000),
-                    new Tuple<int, string, int>(1, "Облегченный капот", 8000),
-                    new Tuple<int, string, int>(2, "Облегченный капот (карбон)", 9000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 7000),
-                    new Tuple<int, string, int>(1, "Карбоновый спойлер", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Сплитер с канардами", 9000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый дифф. и крюк", 9000),
-                }},
-            }},
-
-            { "XLS", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-
-            { "Gresley", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные глушитель", 5000),
                     new Tuple<int, string, int>(0, "Сдвоенный глушитель", 9000),
                 }},
                 { 1, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 8000),
+                    new Tuple<int, string, int>(0, "Заказные пороги", 11000),
                 }},
                 { 2, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с забралом", 13000),
+                    new Tuple<int, string, int>(0, "Капот с воздухозаборником", 9000),
+                    new Tuple<int, string, int>(1, "Капот с забором воздуха", 11000),
+                }},
+                { 3, new List<Tuple<int, string, int>>() {
+                    new Tuple<int, string, int>(-1, "Нет", 5000),
+                    new Tuple<int, string, int>(0, "Заказной спойлер 1", 9000),
+                    new Tuple<int, string, int>(1, "Заказной спойлер 2", 13000),
                 }},
                 { 8, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый сплиттер", 15000),
+                    new Tuple<int, string, int>(0, "Передний сплиттер", 11000),
                 }},
                 { 9, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 15000),
-                }},
+                    new Tuple<int, string, int>(0, "Заказной задний бампер", 13000),
+                }}
             }},
-
+            #endregion Jackal
+            #region Surano
             { "Surano", new Dictionary<int, List<Tuple<int, string, int>>>() {
                 { 0, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартные глушитель", 5000),
@@ -2661,141 +839,10 @@ namespace iTeffa.Kernel
                 { 9, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
                     new Tuple<int, string, int>(0, "Карбоновый зад. диффузор", 17000),
-                }},
+                }}
             }},
-
-            { "Tornado3", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Tornado4", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Emperor2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Voodoo2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Regina", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Ingot", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Picador", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Manana", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Глушитель Двустволка", 7000),
-                    new Tuple<int, string, int>(1, "Двойной глушитель", 9000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное крыло", 5000),
-                    new Tuple<int, string, int>(0, "Дуговые огни", 11000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Полоса на лобовое стекло", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Бампер и нижняя губа", 7000),
-                    new Tuple<int, string, int>(1, "Отделка бампера", 9000),
-                    new Tuple<int, string, int>(2, "Нижняя губа", 11000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Габаритные усы", 11000),
-                }},
-            }},
-            { "Asea", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель Tuner", 5000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 3000),
-                    new Tuple<int, string, int>(2, "Капот в наклейках", 5000),
-                    new Tuple<int, string, int>(3, "Накладка и наклейки", 7000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное левое крыло", 5000),
-                    new Tuple<int, string, int>(0, "Левое крыло в наклейках", 3000),
-                    new Tuple<int, string, int>(1, "Стандартное правое крыло", 3000),
-                    new Tuple<int, string, int>(2, "Правое крыло в наклейках", 3000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновая крыша", 5000),
-                    new Tuple<int, string, int>(1, "Кузов в наклейках", 5000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 3000),
-                    new Tuple<int, string, int>(1, "Открытый интеркулер", 5000),
-                    new Tuple<int, string, int>(2, "Раллийный бампер", 5000),
-                    new Tuple<int, string, int>(3, "Бампер в наклейках", 5000),
-                }},
-            }},
-            { "Elegy", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(5, "Титановый глушитель Tuner", 10000),
-                    new Tuple<int, string, int>(6, "Двойной глушитель", 15000),
-                    new Tuple<int, string, int>(7, "Двойной титановый глушитель", 17000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги осн.цвета", 10000),
-                    new Tuple<int, string, int>(0, "Заказные пороги доп.цвета", 12000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Изрисованный капот", 15000),
-                    new Tuple<int, string, int>(2, "Капот с воздухозаборником 1", 10000),
-                    new Tuple<int, string, int>(3, "Капот с воздухозаборником 2", 13000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер 1", 5000),
-                    new Tuple<int, string, int>(1, "Низкий спойлер 2", 6000),
-                    new Tuple<int, string, int>(2, "Низкий спойлер 3", 7000),
-                    new Tuple<int, string, int>(3, "Низкий спойлер 4", 8000),
-                    new Tuple<int, string, int>(4, "Низкий спойлер 5", 9000),
-                    new Tuple<int, string, int>(5, "Средний бампер доп.цвета 1", 15000),
-                    new Tuple<int, string, int>(9, "Средний бампер доп.цвета 2", 25000),
-                    new Tuple<int, string, int>(19, "Заказной спойлер", 35000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Заказная решетка радиатора 1", 5000),
-                    new Tuple<int, string, int>(1, "Заказная решетка радиатора 2", 6000),
-                }},
-                { 5, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартное расширение", 5000),
-                    new Tuple<int, string, int>(2, "Расширение 1", 5000),
-                    new Tuple<int, string, int>(3, "Расширение 2", 8000),
-                }},
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Без раскраски", 5000),
-                    new Tuple<int, string, int>(0, "Двойная белая полоса", 18000),
-                    new Tuple<int, string, int>(1, "Двойная черная полоса", 20000),
-                    new Tuple<int, string, int>(2, "Раскраска Ракета", 20000),
-                    new Tuple<int, string, int>(3, "Раскраска Luxe", 30000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Изрисованный бампер", 15000),
-                    new Tuple<int, string, int>(1, "Карбоновый бампер 1", 12000),
-                    new Tuple<int, string, int>(2, "Бампер осн.цвета", 13000),
-                    new Tuple<int, string, int>(4, "Карбоновый бампер 2", 17000),
-                    new Tuple<int, string, int>(5, "Карбоновый бампер 3", 20000),
-                }},
-            }},
-            { "Baller2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Cavalcade2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
-            { "Rocoto", new Dictionary<int, List<Tuple<int, string, int>>>() {
-            }},
+            #endregion Surano
+            #region Dubsta
             { "Dubsta", new Dictionary<int, List<Tuple<int, string, int>>>() {
                 { 0, new List<Tuple<int, string, int>>() {
                     new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
@@ -2838,239 +885,16 @@ namespace iTeffa.Kernel
                     new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
                     new Tuple<int, string, int>(0, "Хромированный бампер", 11000),
                     new Tuple<int, string, int>(1, "Черный бампер", 13000),
-                }},
+                }}
             }},
-            { "Oracle2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель", 9000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 11000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель", 13000),
-                }},
-            }},
-            { "Oracle", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Ruiner", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Расширенный глушитель", 3000),
-                    new Tuple<int, string, int>(1, "Сдвоенный титановый", 5000),
-                    new Tuple<int, string, int>(2, "Титановый глушитель Tuner", 6000),
-                    new Tuple<int, string, int>(3, "Глушитель Shakotan", 7000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 3000),
-                    new Tuple<int, string, int>(1, "Капот с воздухозаборником", 15000),
-                    new Tuple<int, string, int>(2, "Капот и протекторы фар", 6000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Средний спойлер", 5000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 6000),
-                    new Tuple<int, string, int>(2, "Дрэг-спойлер", 7000),
-                    new Tuple<int, string, int>(3, "GT Wing", 9000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной спойлер", 5000),
-                    new Tuple<int, string, int>(1, "Спойлер и охладитель масла", 7000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                }},
-            }},
-            { "Minivan", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Blista2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель Tuner", 3000),
-                    new Tuple<int, string, int>(1, "Расширенный глушитель", 5000),
-                    new Tuple<int, string, int>(2, "Гоночный глушитель", 6000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 5000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 5000),
-                    new Tuple<int, string, int>(1, "Капот с забором воздуха", 6000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 3000),
-                    new Tuple<int, string, int>(1, "Крашенный спойлер", 5000),
-                    new Tuple<int, string, int>(2, "Спойлер Tuner", 6000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Полоса на лобовое стекло", 3000),
-                }},
-            }},
-            { "Stalion", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Кабрио", 7000),
-                    new Tuple<int, string, int>(0, "Заказная крыша", 9000),
-                }},
-            }},
-            { "Asterope", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Washington", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Premier", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Овальный глушитель", 3000),
-                    new Tuple<int, string, int>(1, "Расширенный глушитель", 5000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 5000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер Tuner", 7000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 7000),
-                }},
-            }},
-
-            { "Intruder", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Хромированный глушитель ", 5000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Боковые пороги Bippu", 3000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Низкий спойлер", 5000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной передний бампер", 5000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 5000),
-                }},
-            }},
-            { "Dilettante", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Voodoo", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Двойной глушитель", 3000),
-                    new Tuple<int, string, int>(1, "Двойной сдвоенный глушитель", 5000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Хромированная решетка", 3000),
-                    new Tuple<int, string, int>(1, "Тонкая хроом. решетка", 5000),
-                    new Tuple<int, string, int>(2, "Зубастая решетка радиатора", 6000),
-                }},
-                { 7, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная раскраска", 5000),
-                    new Tuple<int, string, int>(0, "Зеленые полосы", 7000),
-                    new Tuple<int, string, int>(1, "Синие полосы", 7000),
-                    new Tuple<int, string, int>(2, "Зеленые полосы с фреской", 8000),
-                    new Tuple<int, string, int>(3, "Синие полосы с фреской", 8000),
-                    new Tuple<int, string, int>(4, "Искусно-синий", 11000),
-                    new Tuple<int, string, int>(5, "Искусно-оранжевый", 11000),
-                    new Tuple<int, string, int>(6, "Запутанная геометрия", 2000),
-                    new Tuple<int, string, int>(7, "Формы", 10000),
-                    new Tuple<int, string, int>(8, "Саккубус", 3000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Обтекаемый хромированный", 5000),
-                    new Tuple<int, string, int>(1, "Мощный хромированный", 7000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                }},
-            }},
-            { "FQ2", new Dictionary<int, List<Tuple<int, string, int>>>() {
-
-            }},
-            { "Dominator", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Титановый глушитель ", 9000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 9000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Карбоновый капот", 11000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Спойлер утиный хвост", 11000),
-                    new Tuple<int, string, int>(1, "Поднятый спойлер", 13000),
-                }},
-                { 4, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная решетка", 5000),
-                    new Tuple<int, string, int>(0, "Заказная решетка радиатора", 11000),
-                }},
-                { 6, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартная крыша", 5000),
-                    new Tuple<int, string, int>(0, "Задний дефлектор", 7000),
-                    new Tuple<int, string, int>(1, "Карбоновая крыша", 9000),
-                    new Tuple<int, string, int>(2, "Дефлектор и крыша карбон", 11000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 11000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Крашенный задний бампер", 11000),
-                }},
-            }},
-            { "Jackal", new Dictionary<int, List<Tuple<int, string, int>>>() {
-                { 0, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный глушитель", 5000),
-                    new Tuple<int, string, int>(0, "Сдвоенный глушитель", 9000),
-                }},
-                { 1, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартные пороги", 5000),
-                    new Tuple<int, string, int>(0, "Заказные пороги", 11000),
-                }},
-                { 2, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный капот", 5000),
-                    new Tuple<int, string, int>(0, "Капот с воздухозаборником", 9000),
-                    new Tuple<int, string, int>(1, "Капот с забором воздуха", 11000),
-                }},
-                { 3, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Нет", 5000),
-                    new Tuple<int, string, int>(0, "Заказной спойлер 1", 9000),
-                    new Tuple<int, string, int>(1, "Заказной спойлер 2", 13000),
-                }},
-                { 8, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный пер. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Передний сплиттер", 11000),
-                }},
-                { 9, new List<Tuple<int, string, int>>() {
-                    new Tuple<int, string, int>(-1, "Стандартный зад. бампер", 5000),
-                    new Tuple<int, string, int>(0, "Заказной задний бампер", 13000),
-                }},
-            }},
+            #endregion Dubsta
+            #region Rocoto
+            {"Rocoto", new Dictionary<int, List<Tuple<int, string, int>>>() {}}
+            #endregion
         };
+        #endregion Тюниг автомобиля
+
+
         public static Dictionary<int, Dictionary<string, int>> TuningPrices = new Dictionary<int, Dictionary<string, int>>()
         {
             { 10, new Dictionary<string, int>() { // engine_menu
@@ -3299,18 +1123,11 @@ namespace iTeffa.Kernel
                 { 19, 30300 },
             }},
         };
-
+        
         public static Dictionary<string, int> ProductsCapacity = new Dictionary<string, int>()
         {
-            { "Расходники", 800 }, // tattoo shop
-            { "Татуировки", 0 },
-            { "Парики", 0 }, // barber-shop
-            { "Бургер", 250}, // burger-shot
-            { "Хот-Дог", 100},
-            { "Сэндвич", 100},
-            { "eCola", 100},
-            { "Sprunk", 100},
-            { "Монтировка", 50}, // market
+            #region 24/7 Маркет
+            { "Монтировка", 50},
             { "Фонарик", 50},
             { "Молоток", 50},
             { "Гаечный ключ", 50},
@@ -3319,6 +1136,16 @@ namespace iTeffa.Kernel
             { "Пицца", 50},
             { "Сим-карта", 50},
             { "Связка ключей", 50},
+            #endregion 24/7 Маркет
+
+            { "Расходники", 800 }, // tattoo shop
+            { "Татуировки", 0 },
+            { "Парики", 0 }, // barber-shop
+            { "Бургер", 250}, // burger-shot
+            { "Хот-Дог", 100},
+            { "Сэндвич", 100},
+            { "eCola", 100},
+            { "Sprunk", 100},
             { "Бензин", 20000}, // petrol
             { "Одежда", 7000}, // clothes
             { "Маски", 100}, // masks
@@ -3326,94 +1153,14 @@ namespace iTeffa.Kernel
             { "Средство для мытья", 200 }, // carwash
             { "Корм для животных", 20 }, // petshop
 
-            { "Sultan", 10 }, // premium
-            { "SultanRS", 10 },
-            { "Kuruma", 10 },
-            { "Fugitive", 10 },
-            { "Tailgater", 10 },
-            { "Sentinel", 10 },
-            { "F620", 10 },
-            { "Schwarzer", 10 },
-            { "Exemplar", 10 },
-            { "Felon", 10 },
-            { "Schafter2", 10 },
-            { "Jackal", 10 },
-            { "Oracle2", 10 },
-            { "Surano", 10 },
-            { "Zion", 10 },
-            { "Dominator", 10 },
-            { "FQ2", 10 },
-            { "Gresley", 10 },
-            { "Serrano", 10 },
-            { "Dubsta", 10 },
-            { "Rocoto", 10 },
-            { "Cavalcade2", 10 },
-            { "XLS", 10 },
-            { "Baller2", 10 },
-            { "Elegy", 10 },
-            { "Banshee", 10 },
-            { "Massacro2", 10 },
-            { "GP1", 10 },
-
-            { "Comet2", 10 }, // luxe
-            { "Coquette", 10 },
-            { "Ninef", 10 },
-            { "Ninef2", 10 },
-            { "Jester", 10 },
-            { "Elegy2", 10 },
-            { "Infernus", 10 },
-            { "Carbonizzare", 10 },
-            { "Dubsta2", 10 },
-            { "Baller3", 10 },
-            { "Huntley", 10 },
-            { "Superd", 10 },
-            { "Windsor", 10 },
-            { "BestiaGTS", 10 },
-            { "Banshee2", 10 },
-            { "EntityXF", 10 },
-            { "Neon", 10 },
-            { "Jester2", 10 },
-            { "Turismor", 10 },
-            { "Penetrator", 10 },
-            { "Omnis", 10 },
-            { "Reaper", 10 },
-            { "Italigtb2", 10 },
-            { "Xa21", 10 },
-            { "Osiris", 10 },
-            { "Pfister811", 10 },
-            { "Zentorno", 10 },
-
-            { "Apriora", 10 },
-
-            { "Faggio2", 10 }, // moto
-            { "Sanchez2", 10 },
-            { "Enduro", 10 },
-            { "PCJ", 10 },
-            { "Hexer", 10 },
-            { "Lectro", 10 },
-            { "Nemesis", 10 },
-            { "Hakuchou", 10 },
-            { "Ruffian", 10 },
-            { "Bmx",10},
-            { "Scorcher",10},
-            { "BF400", 10 },
-            { "CarbonRS", 10 },
-            { "Bati", 10 },
-            { "Double", 10 },
-            { "Diablous", 10 },
-            { "Cliffhanger", 10 },
-            { "Akuma", 10 },
-            { "Thrust", 10 },
-            { "Nightblade", 10 },
-            { "Vindicator", 10 },
-            { "Ratbike", 10 },
-            { "Blazer", 10 },
-            { "Gargoyle", 10 },
-            { "Sanctus", 10 },
-
-            { "Buzzard2", 10 },
-            { "Mammatus", 10 },
-            { "Luxor2", 10 },
+            #region Автосалоны
+            {"Sultan", 100},
+            {"Kuruma", 100},
+            {"Jackal", 100},
+            {"Surano", 100},
+            {"Dubsta", 100},
+            {"Rocoto", 100},
+            #endregion Автосалоны
 
             { "Pistol", 20}, // gun shop
             { "CombatPistol", 20},
@@ -3441,14 +1188,7 @@ namespace iTeffa.Kernel
         };
         public static Dictionary<string, int> ProductsOrderPrice = new Dictionary<string, int>()
         {
-            {"Расходники",50},
-            {"Татуировки",20},
-            {"Парики",20},
-            {"Бургер",100},
-            {"Хот-Дог",60},
-            {"Сэндвич",30},
-            {"eCola",20},
-            {"Sprunk",30},
+            #region 24/7 Маркет
             {"Монтировка",200},
             {"Фонарик",240},
             {"Молоток",200},
@@ -3458,6 +1198,16 @@ namespace iTeffa.Kernel
             {"Пицца",100},
             {"Сим-карта",200},
             {"Связка ключей",200},
+            #endregion 24/7 Маркет
+
+            {"Расходники",50},
+            {"Татуировки",20},
+            {"Парики",20},
+            {"Бургер",100},
+            {"Хот-Дог",60},
+            {"Сэндвич",30},
+            {"eCola",20},
+            {"Sprunk",30},
             {"Бензин",1},
             {"Одежда",50},
             {"Маски",2000},
@@ -3465,94 +1215,14 @@ namespace iTeffa.Kernel
             {"Средство для мытья",200},
             {"Корм для животных", 450000 }, // petshop
 
-            {"Sultan",112500},
-            {"SultanRS",800000},
-            {"Kuruma",400000},
-            {"Fugitive",92500},
-            {"Tailgater",95000},
-            {"Sentinel",112500},
-            {"F620",120000},
-            {"Schwarzer",182500},
-            {"Exemplar",187500},
-            {"Felon",207500},
-            {"Schafter2",200000},
-            {"Jackal",225000},
-            {"Oracle2",250000},
-            {"Surano",300000},
-            {"Zion",325000},
-            {"Dominator",375000},
-            {"FQ2",225000},
-            {"Gresley",262500},
-            {"Serrano",275000},
-            {"Dubsta",325000},
-            {"Rocoto",337500},
-            {"Cavalcade2",375000},
-            {"XLS",400000},
-            {"Baller2",450000},
-            { "Elegy", 700000 },
-            { "Banshee", 675000 },
-            { "Massacro2", 595000 },
-            { "GP1", 625000 },
-
-            {"Comet2",442000},
-            {"Coquette",432000},
-            {"Ninef",455000},
-            {"Ninef2",460000},
-            {"Jester",492000},
-            {"Elegy2",385000},
-            {"Infernus",465000},
-            {"Carbonizzare",485000},
-            {"Dubsta2",410000},
-            {"Baller3",490000},
-            {"Huntley",410000},
-            {"Superd",700000},
-            {"Windsor",650000},
-            { "BestiaGTS", 452000 },
-            { "Banshee2", 745000 },
-            { "EntityXF", 810000 },
-            { "Neon", 895000 },
-            { "Jester2", 810000 },
-            { "Turismor", 1200000 },
-            { "Penetrator", 1150000 },
-            { "Omnis", 695000 },
-            { "Reaper", 2000000 },
-            { "Italigtb2", 1600000 },
-            { "Xa21", 3000000 },
-            { "Osiris", 3100000 },
-            { "Pfister811", 4000000 },
-            { "Zentorno", 5500000 }, // SUPER PREMIUM
-
-            { "Apriora", 140000 },
-
-            {"Faggio2",2500},
-            {"Sanchez2",17500},
-            {"Enduro",20000},
-            {"PCJ",32500},
-            {"Hexer",35000},
-            {"Lectro",37500},
-            {"Nemesis",37500},
-            {"Hakuchou",42500},
-            {"Ruffian",47500},
-            {"Bmx",40000},
-            {"Scorcher",50000},
-            {"BF400",50000},
-            {"CarbonRS",57500},
-            {"Bati",70000},
-            {"Double",75000},
-            {"Diablous",100000},
-            {"Cliffhanger",112500},
-            {"Akuma",137500},
-            {"Thrust",165000},
-            { "Nightblade", 60000 },
-            { "Vindicator", 85000 },
-            { "Ratbike", 45000 },
-            { "Blazer", 52000 },
-            { "Gargoyle", 68000 },
-            { "Sanctus", 5000000 },
-
-            { "Buzzard2", 1800000 },
-            { "Mammatus", 3000000 },
-            { "Luxor2", 7500000 },
+            #region Автосалоны
+            {"Sultan", 100000}, 
+            {"Kuruma", 100000}, 
+            {"Jackal", 100000}, 
+            {"Surano", 100000}, 
+            {"Dubsta", 100000}, 
+            {"Rocoto", 100000},
+            #endregion Автосалоны
 
             {"Pistol",720},
             {"CombatPistol",900},
