@@ -1617,7 +1617,8 @@ namespace iTeffa
                                 });
                                 Notify.Send(client, NotifyType.Success, NotifyPosition.Center, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
                                 Connect.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{Main.RestorePass[client].Item2}' AND `socialclub`='{Main.RestorePass[client].Item3}'");
-                                await SignInOnTimer(client, Main.RestorePass[client].Item2, newpas.ToString());  // Отправляем в логин по этим данным
+                                SignInOnTimer(client, RestorePass[client].Item2, newpas.ToString());  // Отправляем в логин по этим данным
+
                                 Main.RestorePass.Remove(client); // Удаляем из списка тех, кто восстанавливает пароль
                             } // тут можно else { // и считать сколько раз он ввёл неправильные данные
                         }
@@ -1635,28 +1636,23 @@ namespace iTeffa
         [RemoteEvent("signin")]
         public void ClientEvent_signin(Player player, params object[] arguments)
         {
-            NAPI.Task.Run(async () =>
+            string nickname = NAPI.Player.GetPlayerName(player);
+            try
             {
-                try
-                {
-                    if (player.HasData("CheatTrigger"))
-                    await Log.WriteAsync($"{player.Name} try to signin step 1");
-                    string login = arguments[0].ToString();
-                    string pass = arguments[1].ToString();
-
-                    await SignInOnTimer(player, login, pass);
-                }
-                catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
-            });
+                Log.Write($"{nickname} try to signin step 1");
+                string login = arguments[0].ToString();
+                string pass = arguments[1].ToString();
+                SignInOnTimer(player, login, pass);
+                Log.Write($"{nickname} try to signin step 1.5");
+            }
+            catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
         }
 
-
-
-
-        public async Task SignInOnTimer(Player player, string login, string pass)
+        public async void SignInOnTimer(Player player, string login, string pass)
         {
             try
             {
+                string nickname = NAPI.Player.GetPlayerName(player);
                 if (Emails.ContainsKey(login))
                     login = Emails[login];
                 else
@@ -1671,7 +1667,7 @@ namespace iTeffa
                         return;
                     }
                 }
-                await Log.WriteAsync($"{player.Name} try to signin step 2");
+                Log.Write($"{nickname} try to signin step 2");
                 Account user = new Account();
                 LoginEvent result = await user.LoginIn(player, login, pass);
                 if (result == LoginEvent.Authorized)
@@ -1690,7 +1686,7 @@ namespace iTeffa
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "SocialClub, с которого Вы подключены, не совпадает с тем, который привязан к аккаунту.", 3000);
                 }
-                await Log.WriteAsync($"{player.Name} try to signin step 3");
+                Log.Write($"{nickname} try to signin step 3");
                 return;
             }
             catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
