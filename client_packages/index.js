@@ -242,8 +242,12 @@ mp.events.add('UpdateBank', function (temp, amount) {
 });
 
 // // // // // // //
-require('./client/utils/keys.js');
++require('./game_resources/handlers/plugins/bind_keys.js');
 require('./menus.js');
+require('./game_resources/handlers/control/cmd_online.js');
+
+
+
 require('./lscustoms.js');
 require('./client/player/afksystem.js');
 require('./character.js');

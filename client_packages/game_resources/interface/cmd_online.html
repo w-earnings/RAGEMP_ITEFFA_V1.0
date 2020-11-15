@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Project-iTeffa | F8 - Меню администратора.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./assets/fonts/icons/fontello.css">
+	<link rel="stylesheet" href="./assets/css/menus/cmd_online.css"> 
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  </head>
+  <body class="wrapper">
+    <main id="app" class="content" v-if="active">
+	  <header>
+	    <span class="text-left">Онлайн: {{items.length}} из 1500 </span>
+		<i @click="closepanel()" class="icon-cancel"></i>
+	  </header>
+      <div class="title">
+		<p style="width:37px"><i style="color: #ff0000" class="icon-check"></i></p>
+		<p style="width:45px"><i style="color: #1500ff" class="icon-hash"></i></p>
+		<p style="width:130px">Никнейм</p>
+		<p style="width:135px">Команды</p>
+		<p style="width:45px"><i style="color: #ff0000" class="icon-signal"></i></p>
+	  </div>
+	  <div class="scroll">
+	    <div class="users" v-for="item in items">
+		  <p style="width:37px">
+		    <i class="icon-lock-open" style="color: #00cd6b" aria-hidden="true" v-if="item[0] > 0" :title="item[0]"></i>
+            <i class="icon-lock" style="color: #ff8888" aria-hidden="true" v-else></i>
+		  </p>
+		  <p style="width:45px">{{item[1]}}</p>
+		  <p style="width:130px">{{item[2]}}</p>
+		  <p style="width:135px">
+		    <i style="color:#f6ff00" @click="comand(`tp ` + item[1])" title="Телепорт к игроку" class="icon-location" aria-hidden="true"></i>
+            <i style="color:#f6ff00" @click="comand(`kick ` + item[1] + ` Неизвестна`)" title="Кикнуть игрока" class="icon-clock" aria-hidden="true"></i>
+            <i style="color:#f6ff00" @click="comand(`ban ` + item[1] + ` 20000000 Неизвестна`)" title="Забанить игрока" class="icon-block" aria-hidden="true"></i>
+            <i style="color:#f6ff00" @click="selectPlayer(item)" title="Другие команды" class="icon-sliders" aria-hidden="true"></i>
+		  </p>
+		  <p style="width:45px">{{item[3]}}</p>
+	    </div>
+	  </div>
+	  <!--<footer><i class="icon-hash"></i> iTeffa.com</footer>-->
+	  <transition name="modal">
+		<div class="content" style="background: #18191D" v-if="activeModal">
+	      <header>
+			<span class="text-left">Аккаунт: {{item[2]}} </span>
+			<i @click="cancelmodal" class="icon-cancel"></i>
+		  </header>
+			<div class="cmdlist scroll">
+			  <p><center>Плагин команд в разработке...</center></p>
+			  <div v-for="(cmd, index) in cmdlist" v-if="getState(cmd.Command)">
+				<span>
+				  <input v-model="text[index]" type="text" :placeholder="getArgs(cmd.Command)" :disabled="getArgs(cmd.Command) == ``">
+				</span>
+				<p>
+				  <a class="btnModal btnGps" @click="text[index] == null ? comand(cmd.Command + ` ` + item[1]) : comand(cmd.Command + ` ` + item[1] + ` ` + text[index])">{{cmd.Command}}</a>
+				</p>
+			  </div>
+		    </div>
+		<!--<footer><i class="icon-hash"></i> iTeffa.com</footer>-->
+        </div>
+      </transition>
+	  <transition name="fade">
+        <div class="fade" v-if="activeModal"></div>
+      </transition>	
+	</main>
+	<script src="./assets/js/commands.js"></script>
+    <script src="./assets/js/cmd_online.js"></script>
+  </body>
+</html>

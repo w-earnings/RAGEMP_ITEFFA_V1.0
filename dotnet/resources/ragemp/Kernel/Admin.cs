@@ -27,6 +27,45 @@ namespace iTeffa.Kernel
             Group.LoadCommandsConfigs();
         }
 
+
+
+
+
+        [RemoteEvent("openCmdOnline")]
+        public static void OpenCmdOnline(Player player)
+        {
+            CharacterData acc = Main.Players[player];
+            List<Group.GroupCommand> cmds = new List<Group.GroupCommand>();
+            List<object> players = new List<object>();
+            if (acc.AdminLVL > 0)
+            {
+                foreach (Group.GroupCommand item in Group.GroupCommands)
+                {
+                    if (item.IsAdmin)
+                    {
+                        if (item.MinLVL <= acc.AdminLVL)
+                        {
+                            cmds.Add(item);
+                        }
+                    }
+                }
+                foreach (var p in Main.Players.Keys.ToList())
+                {
+                    string[] data = { Main.Players[p].AdminLVL.ToString(), p.Value.ToString(), p.Name.ToString(), p.Ping.ToString() };
+                    players.Add(data);
+                }
+
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(cmds);
+                string json2 = Newtonsoft.Json.JsonConvert.SerializeObject(players);
+                Trigger.ClientEvent(player, "openCmdOnline", json, json2);
+            }
+            cmds.Clear();
+            players.Clear();
+        }
+
+
+
+
         public static void sendRedbucks(Player player, Player target, int amount)
         {
             if (!Group.CanUseCmd(player, "givereds")) return;
@@ -158,8 +197,6 @@ namespace iTeffa.Kernel
             }
             Main.Players[target].AdminLVL = 0;
 
-            //Main.AdminSlots.Remove(target.GetData("RealSocialClub"));
-
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы забрали права у администратора {target.Name}", 3000);
             Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} забрал у Вас админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"delAdmin", $"{target.Name}");
@@ -190,7 +227,7 @@ namespace iTeffa.Kernel
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выдали игроку {target.Name} {rank} уровень админ. прав", 3000);
             Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} выдал Вам {rank} уровень админ. прав", 3000);
             Main.Players[target].AdminLVL = rank;
-            //Main.AdminSlots[target.GetData("RealSocialClub")].AdminLVL = rank;
+
             GameLog.Admin($"{player.Name}", $"setAdminRank({rank})", $"{target.Name}");
         }
         public static void setPlayerVipLvl(Player player, Player target, int rank)
@@ -1073,7 +1110,7 @@ namespace iTeffa.Kernel
 
     public class Group
     {
-        private static List<GroupCommand> GroupCommands = new List<GroupCommand>();
+        public static List<GroupCommand> GroupCommands = new List<GroupCommand>();
         public static void LoadCommandsConfigs()
         {
             DataTable result = Connect.QueryRead($"SELECT * FROM adminaccess");
@@ -1168,7 +1205,7 @@ namespace iTeffa.Kernel
             return false;
         }
 
-        internal class GroupCommand
+        public class GroupCommand
         {
             public GroupCommand(string command, bool isAdmin, int minlvl)
             {
