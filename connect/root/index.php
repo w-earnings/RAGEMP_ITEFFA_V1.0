@@ -1,12 +1,10 @@
 <?php
 # Разрешаем прямой доступ
-define('SECURITY_WSCMS', true);
+define('SECURITY_ITEFFA', true);
 # Подключаем файлы конфигурации ядра
-require ('ws-kernel/inc/start.php');
-
+require ('iteffa-kernel/inc/start.php');
 # Очистка запроса модуля
 $module = $_GET['url'];
-
 // Проверка наличия файла в запросе
 if (preg_match('/\.php$/i', $module)) { $module_file = true;
 } else {$module_file = false;}
@@ -33,8 +31,6 @@ $module['pages'] = 'index';
 if (isset($_GET['id'])) $ID = (int) $_GET['id']; else $ID = 0;
 if (isset($_GET['url']) && preg_match('#^([A-z0-9\.]+)$#i', $_GET['url']))  {
 if (is_file('iteffa-pages/'.$_GET['url'].'.php')) $module['pages'] = $_GET['url']; }
-require 'iteffa-pages/'.$module['pages'].'.php';
-}
-
+require 'iteffa-pages/'.$module['pages'].'.php'; }
 # Подключаем ноги сайта
-require ('ws-kernel/inc/exit.php');
+require ('iteffa-kernel/inc/exit.php');
