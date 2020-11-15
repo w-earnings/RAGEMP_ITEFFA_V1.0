@@ -80,24 +80,6 @@ namespace iTeffa.Houses
             GarageID = garageID;
             BankID = bank;
             Roommates = roommates;
-
-            #region Creating Blip
-            blip = NAPI.Blip.CreateBlip(Position);
-            if (string.IsNullOrEmpty(Owner))
-            {
-                blip.Sprite = 40;
-                blip.Color = 2;
-            }
-            else
-            {
-                blip.Sprite = 40;
-                blip.Color = 49;
-            }
-
-            blip.Scale = 0.6f;
-            blip.ShortRange = true;
-            #endregion
-
             #region Creating Marker & Colshape
             shape = NAPI.ColShape.CreateCylinderColShape(position, 1, 2, 0);
             shape.OnEntityEnterColShape += (s, ent) =>
