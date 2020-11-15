@@ -1,0 +1,6 @@
+[Sun Nov 15 07:51:35.251911 2020] [mpm_winnt:notice] [pid 8368:tid 792] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
+[Sun Nov 15 07:51:35.251911 2020] [mpm_winnt:notice] [pid 8368:tid 792] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
+[Sun Nov 15 07:51:35.251911 2020] [core:notice] [pid 8368:tid 792] AH00094: Command line: 'C:\\Project\\00000001\\connect/apache2/bin/httpd_usbwv8.exe -d C:/Project/00000001/connect/apache2'
+[Sun Nov 15 07:51:35.255925 2020] [mpm_winnt:notice] [pid 8368:tid 792] AH00418: Parent: Created child process 6836
+[Sun Nov 15 07:51:36.741540 2020] [mpm_winnt:notice] [pid 6836:tid 752] AH00354: Child: Starting 64 worker threads.
+[Sun Nov 15 07:51:39.130014 2020] [:error] [pid 6836:tid 1280] [client ::1:57249] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'u1083682_elpato'@'194.28.4.19' (using password: YES) in C:\\Project\\00000001\\connect\\root\\engine\\config\\database.php on line 10
