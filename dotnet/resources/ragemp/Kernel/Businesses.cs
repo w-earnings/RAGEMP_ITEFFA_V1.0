@@ -84,10 +84,10 @@ namespace iTeffa.Kernel
             "24/7",               // 0
             "Заправка",           // 1
 
-            "Авто-премиум",       // 2
-            "Авто-люкс",          // 3
-            "Автосалон",          // 4
-            "Мотомагазин",        // 5 
+            "Автосалон #1",       // 2
+            "Автосалон #2",       // 3
+            "Автосалон #3",       // 4
+            "Автосалон #4",       // 5 
 
             "Оружия",             // 6
             "Магазин одежды",     // 7
@@ -893,8 +893,6 @@ namespace iTeffa.Kernel
             #endregion
         };
         #endregion Тюниг автомобиля
-
-
         public static Dictionary<int, Dictionary<string, int>> TuningPrices = new Dictionary<int, Dictionary<string, int>>()
         {
             { 10, new Dictionary<string, int>() { // engine_menu
@@ -1123,7 +1121,7 @@ namespace iTeffa.Kernel
                 { 19, 30300 },
             }},
         };
-        
+        #region Колличество Продукции
         public static Dictionary<string, int> ProductsCapacity = new Dictionary<string, int>()
         {
             #region 24/7 Маркет
@@ -1137,7 +1135,6 @@ namespace iTeffa.Kernel
             { "Сим-карта", 50},
             { "Связка ключей", 50},
             #endregion 24/7 Маркет
-
             { "Расходники", 800 }, // tattoo shop
             { "Татуировки", 0 },
             { "Парики", 0 }, // barber-shop
@@ -1152,16 +1149,6 @@ namespace iTeffa.Kernel
             { "Запчасти", 10000}, // ls customs
             { "Средство для мытья", 200 }, // carwash
             { "Корм для животных", 20 }, // petshop
-
-            #region Автосалоны
-            {"Sultan", 100},
-            {"Kuruma", 100},
-            {"Jackal", 100},
-            {"Surano", 100},
-            {"Dubsta", 100},
-            {"Rocoto", 100},
-            #endregion Автосалоны
-
             { "Pistol", 20}, // gun shop
             { "CombatPistol", 20},
             { "Revolver", 20},
@@ -1170,11 +1157,21 @@ namespace iTeffa.Kernel
             { "CombatPDW", 20},
             { "MachinePistol", 20},
             { "Патроны", 5000},
-
+            #region Автосалоны
+            {"Sultan", 100},
+            {"Kuruma", 100},
+            {"Jackal", 100},
+            {"Surano", 100},
+            {"Dubsta", 100},
+            {"Rocoto", 100},
+            #endregion Автосалоны
+            #region FishShop
             { "Удочка", 10 },
             { "Улучшенная удочка", 10 },
             { "Удочка MK2", 10 },
             { "Наживка", 10 },
+            #endregion FishShop
+            #region SellShop
             { "Корюшка", 1 },
             { "Кунджа", 1 },
             { "Лосось", 1 },
@@ -1184,8 +1181,11 @@ namespace iTeffa.Kernel
             { "Тунец", 1 },
             { "Угорь", 1 },
             { "Чёрный амур", 1 },
-            { "Щука", 1 },
+            { "Щука", 1 }
+            #endregion SellShop
         };
+        #endregion Колличество Продукции
+        #region Цена - Продукции
         public static Dictionary<string, int> ProductsOrderPrice = new Dictionary<string, int>()
         {
             #region 24/7 Маркет
@@ -1199,7 +1199,6 @@ namespace iTeffa.Kernel
             {"Сим-карта",200},
             {"Связка ключей",200},
             #endregion 24/7 Маркет
-
             {"Расходники",50},
             {"Татуировки",20},
             {"Парики",20},
@@ -1214,16 +1213,6 @@ namespace iTeffa.Kernel
             {"Запчасти",400},
             {"Средство для мытья",200},
             {"Корм для животных", 450000 }, // petshop
-
-            #region Автосалоны
-            {"Sultan", 100000}, 
-            {"Kuruma", 100000}, 
-            {"Jackal", 100000}, 
-            {"Surano", 100000}, 
-            {"Dubsta", 100000}, 
-            {"Rocoto", 100000},
-            #endregion Автосалоны
-
             {"Pistol",720},
             {"CombatPistol",900},
             {"Revolver",12800},
@@ -1232,7 +1221,35 @@ namespace iTeffa.Kernel
             {"CombatPDW",3600},
             {"MachinePistol",2160},
             {"Патроны",4},
+            #region Автосалоны
+            {"Sultan", 100000}, 
+            {"Kuruma", 100000}, 
+            {"Jackal", 100000}, 
+            {"Surano", 100000}, 
+            {"Dubsta", 100000}, 
+            {"Rocoto", 100000},
+            #endregion Автосалоны
+            #region FishShop
+            { "Удочка", 2000 },
+            { "Улучшенная удочка", 5000 },
+            { "Удочка MK2", 9000 },
+            { "Наживка", 45 },
+            #endregion FishShop
+            #region SellShop
+            {"Корюшка",13},
+            {"Кунджа",16},
+            {"Лосось",10},
+            {"Окунь",4},
+            {"Осётр",5},
+            {"Скат",12},
+            {"Тунец",18},
+            {"Угорь",5},
+            {"Чёрный амур",15},
+            {"Щука",6},
+            #endregion SellShop
         };
+        #endregion Цена - Продукции
+
 
         public static List<Product> fillProductList(int type)
         {
@@ -1318,14 +1335,14 @@ namespace iTeffa.Kernel
                 case 15:
                     foreach (var name in FishProducts)
                     {
-                        Product product = new Product(RodManager.ProductsRodPrice[name], 0, 1, name, false);
+                        Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
                 case 16:
                     foreach (var name in SellProducts)
                     {
-                        Product product = new Product(RodManager.ProductsSellPrice[name], 0, 1, name, false);
+                        Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;

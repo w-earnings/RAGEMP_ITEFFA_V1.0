@@ -3,24 +3,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using iTeffa.Interface;
-using iTeffa.Finance;
 using iTeffa.Settings;
-using System.Threading;
-
 
 namespace iTeffa.Kernel
 {
     class RodManager : Script
     {
-
-        // Как сделать чтобы вещь выпадала с большим шансом?
-        // Добавляем намного больше строчек одного и тоже предмета
-        // напрмер предмет Щука, добавим 10 раз[цифры менять надо], значит
-        // в 10 раз будет чаще выпадать
-
         [ServerEvent(Event.PlayerDeath)]
         public void OnPlayerDeath(Player player, Player killer, uint reason)
         {
@@ -120,26 +108,6 @@ namespace iTeffa.Kernel
             }
             return type;
         }
-
-        public static Dictionary<string, int> ProductsSellPrice = new Dictionary<string, int>()
-        {
-            {"Корюшка",13},
-            {"Кунджа",16},
-            {"Лосось",10},
-            {"Окунь",4},
-            {"Осётр",5},
-            {"Скат",12},
-            {"Тунец",18},
-            {"Угорь",5},
-            {"Чёрный амур",15},
-            {"Щука",6},
-        };
-
-        public static Dictionary<string, int> ProductsRodPrice = new Dictionary<string, int>()
-        {
-            {"Удочка", 1000},
-            {"Наживка", 100},
-        };
 
         public static string GetNameByItemType(ItemType tupe)
         {
@@ -263,7 +231,7 @@ namespace iTeffa.Kernel
                 {
                     if (player != null && Main.Players.ContainsKey(player))
                     {
-                        RodManager.allowfish(player);
+                        allowfish(player);
                     }
                 }
                 catch { }
@@ -294,38 +262,38 @@ namespace iTeffa.Kernel
             if (tryAdd == -1 || tryAdd > 0)
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно места в инвентаре", 3000);
-                RodManager.crashpros(player);
+                crashpros(player);
                 return;
             }
             if (player.GetData<int>("FISHLEVEL") == 1)
             {
                 var rnd = new Random();
-                int fishco = rnd.Next(1, RodManager.FishItems1.Count);
-                nInventory.Add(player, new nItem(RodManager.FishItems1[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(RodManager.FishItems1[fishco])}", 3000);
+                int fishco = rnd.Next(1, FishItems1.Count);
+                nInventory.Add(player, new nItem(FishItems1[fishco], 1));
+                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems1[fishco])}", 3000);
             }
             if (player.GetData<int>("FISHLEVEL") == 2)
             {
                 var rnd = new Random();
-                int fishco = rnd.Next(1, RodManager.FishItems2.Count);
-                nInventory.Add(player, new nItem(RodManager.FishItems2[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(RodManager.FishItems2[fishco])}", 3000);
+                int fishco = rnd.Next(1, FishItems2.Count);
+                nInventory.Add(player, new nItem(FishItems2[fishco], 1));
+                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems2[fishco])}", 3000);
             }
             if (player.GetData<int>("FISHLEVEL") == 3)
             {
                 var rnd = new Random();
-                int fishco = rnd.Next(1, RodManager.FishItems3.Count);
-                nInventory.Add(player, new nItem(RodManager.FishItems3[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(RodManager.FishItems3[fishco])}", 3000);
+                int fishco = rnd.Next(1, FishItems3.Count);
+                nInventory.Add(player, new nItem(FishItems3[fishco], 1));
+                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems3[fishco])}", 3000);
             }
-            RodManager.crashpros(player);
+            crashpros(player);
         }
 
         [RemoteEvent("stopFishDrop")]
         public static void stopFishDrop(Player player)
         {
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Рыба сошла с крючка!", 3000);
-            RodManager.crashpros(player);
+            crashpros(player);
         }
 
         public static void useInventory(Player player, int level)
@@ -356,7 +324,7 @@ namespace iTeffa.Kernel
             var rndf = new Random();
             nInventory.Remove(player, ItemType.Naz, 1);
             player.SetData("FISHLEVEL", level);
-            RodManager.setallow(player);
+            setallow(player);
             Commands.RPChat("me", player, $"Начал(а) рыбачить");
         }
 
@@ -367,37 +335,21 @@ namespace iTeffa.Kernel
             public Vector3 AreaPoint { get; set; }
 
             [JsonIgnore]
-            private Blip blip = null;
+            private readonly Blip blip = null;
             [JsonIgnore]
             private ColShape shape = null;
-            //[JsonIgnore]
-            //private TextLabel label = null;
-            //[JsonIgnore]
-            //private Marker marker = null;
-
             public Roding(int id, Vector3 areapoint, float radius)
             {
-                // var
                 ID = id;
                 AreaPoint = areapoint;
                 Radius = radius;
-
-
-                // Create blip
                 blip = NAPI.Blip.CreateBlip(68, AreaPoint, 1, 67, "Место для рыбалки", 255, 0, true);
-
-                //Create shape
                 shape = NAPI.ColShape.CreateCylinderColShape(AreaPoint, Radius, 3, 0);
-
-
-                //Shape rules
                 shape.OnEntityEnterColShape += (s, entity) =>
                 {
                     try
                     {
                         entity.SetData("ALLOWFISHING", true);
-                        //Debug
-                        //Log.Write("Player enter in ColShape.", nLog.Type.Info);
                     }
                     catch (Exception e) { Console.WriteLine("shape.OnEntityEnterColshape: " + e.Message); }
                 };
@@ -405,29 +357,12 @@ namespace iTeffa.Kernel
                 {
                     try
                     {
-                        //Set Data
                         entity.SetData("ALLOWFISHING", false);
-                        //Debug
-                        //Log.Write("Player exit in ColShape.", nLog.Type.Info);
-                        //Stop Animation
-                        //NAPI.Player.StopPlayerAnimation(entity);
-                        //Remove object from left hand
-                        //BasicSync.DetachObject(entity);
                     }
                     catch (Exception e) { Console.WriteLine("shape.OnEntityEnterColshape: " + e.Message); }
                 };
-
-                //Debug place
-                //label = NAPI.TextLabel.CreateTextLabel("Место ловли рыбы", new Vector3(AreaPoint.X, AreaPoint.Y, AreaPoint.Z + 1.5), 20F, 0.5F, 0, new Color(255, 255, 255), true, 0);
-
-                //Create marker
-                //marker = NAPI.Marker.CreateMarker(1, AreaPoint - new Vector3(0, 0, 1f - 0.3f), new Vector3(), new Vector3(), Radius, new Color(255, 255, 255, 220), false, 0);
-
             }
 
         }
-
-
-
     }
 }
