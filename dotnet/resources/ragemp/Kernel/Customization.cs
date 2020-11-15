@@ -1947,6 +1947,8 @@ namespace iTeffa.Kernel
                 new Clothes(93, new List<int>() { 0,1 }, 38000),
             }},
         };
+
+        #region Список масок
         public static List<Clothes> Masks = new List<Clothes>()
         {
             new Clothes(1, new List<int>() { 0,1,2,3 }, 5000),
@@ -2090,7 +2092,6 @@ namespace iTeffa.Kernel
             new Clothes(163, new List<int>() { 0 }, 10000),
             new Clothes(164, new List<int>() { 0 }, 10000),
             new Clothes(165, new List<int>() { 0 }, 10000),
-
             new Clothes(167, new List<int>() { 0 }, 1000),
             new Clothes(168, new List<int>() { 0 }, 10000),
             new Clothes(169, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 }, 1000),
@@ -2102,25 +2103,11 @@ namespace iTeffa.Kernel
             new Clothes(176, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 }, 10000),
             new Clothes(178, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 }, 5000),
             new Clothes(179, new List<int>() { 0,1,2,3,4,5,6,7 }, 5000),
-
-        /*То что было
-        new Clothes(111, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 }, 3500),
-        new Clothes(51, new List<int>() { 0,1,2,3,4,5,6,7,8,9 }, 3500),
-        new Clothes(54, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10 }, 4000),
-        new Clothes(118, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 }, 3500),
-        new Clothes(119, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 }, 3700),
-        new Clothes(57, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 }, 3500),
-        new Clothes(58, new List<int>() { 0,1,2,3,4,5,6,7,8,9 }, 4000),
-        new Clothes(117, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 }, 3500),
-        new Clothes(52, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10 }, 4000),
-        new Clothes(53, new List<int>() { 0,1,2,3,4,5,6,7,8 }, 4000),
-        new Clothes(113, new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 }, 4500),
-        */
-    };
-
+        };
+        #endregion Список масок
+        #region Список типа масок
         public static Dictionary<int, Tuple<bool, bool, bool>> MaskTypes = new Dictionary<int, Tuple<bool, bool, bool>>()
         {
-
             { 1, new Tuple<bool, bool, bool>(false, false, false) },
             { 2, new Tuple<bool, bool, bool>(false, false, false) },
             { 3, new Tuple<bool, bool, bool>(false, false, false) },
@@ -2274,8 +2261,9 @@ namespace iTeffa.Kernel
             { 176, new Tuple<bool, bool, bool>(false, false, false) },
             { 178, new Tuple<bool, bool, bool>(false, false, false) },
             { 179, new Tuple<bool, bool, bool>(false, false, false) }
-
         };
+        #endregion Список типа масок
+
 
         public static Dictionary<bool, Dictionary<int, int>> AccessoryRHand = new Dictionary<bool, Dictionary<int, int>>()
         {

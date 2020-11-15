@@ -284,9 +284,8 @@ require('./scripts/SmoothThrottle/SmoothThrottle.js');
 require('./banks/atm.js');
 
 require('./configs/barber.js');
-require('./configs/clothes.js');
 require('./configs/natives.js');
-
+require('./game_resources/handlers/configs/clothe.js');
 require('./game_resources/handlers/configs/tattoo.js');
 require('./game_resources/handlers/configs/tuning.js');
 
