@@ -1,0 +1,12 @@
+connect\apache2
+connect\lang
+connect\php
+connect\phpmyadmin
+connect\settings
+usbwebserver.exe
+dotnet/server_exceptions.txt
+dotnet/server_logs.txt
+client_packages/game_resources/dlcpacks
+coords.txt
+*.pid
+*.err
