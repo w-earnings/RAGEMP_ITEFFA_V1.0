@@ -68,7 +68,7 @@ namespace iTeffa.Kernel
 
         public static void sendCoins(Player player, Player target, int amount)
         {
-            if (!Group.CanUseCmd(player, "givereds")) return;
+            if (!Group.CanUseCmd(player, "givecoins")) return;
 
             if (Main.Accounts[target].Coins + amount < 0) amount = 0;
             Main.Accounts[target].Coins += amount;
@@ -77,7 +77,7 @@ namespace iTeffa.Kernel
             Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отправили {target.Name} {amount} coins", 3000);
             Notify.Send(target, NotifyType.Success, NotifyPosition.BottomCenter, $"+{amount} coins", 3000);
 
-            GameLog.Admin(player.Name, $"givereds({amount})", target.Name);
+            GameLog.Admin(player.Name, $"givecoins({amount})", target.Name);
         }
         public static void stopServer(Player sender, string reason = "Сервер выключен.")
         {

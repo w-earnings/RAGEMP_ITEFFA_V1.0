@@ -554,8 +554,11 @@ namespace iTeffa.Kernel
             }
 
         }
-        [Command("givereds")]
-        public static void CMD_givereds(Player player, int id, int amount)
+
+
+        #region Донат команды
+        [Command("givecoins")]
+        public static void CMD_givecoins(Player player, int id, int amount)
         {
             try
             {
@@ -569,6 +572,28 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
+
+        [Command("takecoins")]
+        public static void CMD_offredbaks(Player client, string name, long amount)
+        {
+            if (!Group.CanUseCmd(client, "takecoins")) return;
+            try
+            {
+                name = name.ToLower();
+                KeyValuePair<Player, nAccount.Account> acc = Main.Accounts.FirstOrDefault(x => x.Value.Login == name);
+                if (acc.Value != null)
+                {
+                    Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок онлайн! {acc.Key.Name}:{acc.Key.Value}", 8000);
+                    return;
+                }
+                Connect.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
+                GameLog.Admin(client.Name, $"takecoins({amount})", name);
+            }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
+        }
+        #endregion Донат команды
+
+
         [Command("checkprop")]
         public static void CMD_checkProperety(Player player, int id)
         {
@@ -3251,24 +3276,7 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-        [Command("offgivereds")]
-        public static void CMD_offredbaks(Player client, string name, long amount)
-        {
-            if (!Group.CanUseCmd(client, "offcoins")) return;
-            try
-            {
-                name = name.ToLower();
-                KeyValuePair<Player, nAccount.Account> acc = Main.Accounts.FirstOrDefault(x => x.Value.Login == name);
-                if (acc.Value != null)
-                {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок онлайн! {acc.Key.Name}:{acc.Key.Value}", 8000);
-                    return;
-                }
-                Connect.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
-                GameLog.Admin(client.Name, $"offgivereds({amount})", name);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
-        }
+
         [Command("mute", GreedyArg = true)]
         public static void CMD_muteTarget(Player player, int id, int time, string reason)
         {

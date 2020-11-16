@@ -23,7 +23,7 @@ const cmds = {
 	  args: "кол-во",
 	  target: true
   },
-  "givereds": {
+  "givecoins": {
 	  args: "кол-во",
 	  target: true
   },

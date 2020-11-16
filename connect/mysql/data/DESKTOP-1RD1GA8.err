@@ -117,3 +117,106 @@
 2020-11-13 21:03:59 16544 [Note] IPv6 is available.
 2020-11-13 21:03:59 16544 [Note]   - '::' resolves to '::';
 2020-11-13 21:03:59 16544 [Note] Server socket created on IP: '::'.
+2020-11-16 05:22:32 18668 [Note] Plugin 'FEDERATED' is disabled.
+2020-11-16 05:22:32 18668 [Note] InnoDB: The InnoDB memory heap is disabled
+2020-11-16 05:22:32 18668 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-11-16 05:22:32 18668 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2020-11-16 05:22:32 18668 [Note] InnoDB: Not using CPU crc32 instructions
+2020-11-16 05:22:32 18668 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2020-11-16 05:22:32 18668 [Note] InnoDB: Completed initialization of buffer pool
+2020-11-16 05:22:32 18668 [ERROR] InnoDB: C:\Project\00000001\connect\mysql\data\ibdata1 can't be opened in read-write mode
+2020-11-16 05:22:32 18668 [ERROR] InnoDB: The system tablespace must be writable!
+2020-11-16 05:22:32 18668 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-11-16 05:22:32 18668 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-11-16 05:22:32 18668 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-11-16 05:22:32 18668 [ERROR] Aborting
+
+2020-11-16 05:22:32 18668 [Note] Binlog end
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'partition'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'PERFORMANCE_SCHEMA'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_DATAFILES'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_TABLESPACES'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN_COLS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_FIELDS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_COLUMNS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_INDEXES'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_TABLESTATS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_SYS_TABLES'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_INDEX_TABLE'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_INDEX_CACHE'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_CONFIG'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_BEING_DELETED'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_DELETED'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_FT_DEFAULT_STOPWORD'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_METRICS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_BUFFER_POOL_STATS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE_LRU'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX_RESET'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMPMEM_RESET'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMPMEM'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMP_RESET'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_CMP'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_LOCK_WAITS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_LOCKS'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'INNODB_TRX'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'BLACKHOLE'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'ARCHIVE'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'MRG_MYISAM'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'MyISAM'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'MEMORY'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'CSV'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'sha256_password'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'mysql_old_password'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'mysql_native_password'
+2020-11-16 05:22:32 18668 [Note] Shutting down plugin 'binlog'
+2020-11-16 05:22:32 18668 [Note] C:\Project\00000001\connect/mysql/bin/mysqld_usbwv8.exe: Shutdown complete
+
+2020-11-16 05:22:43 13296 [Note] Plugin 'FEDERATED' is disabled.
+2020-11-16 05:22:43 13296 [Note] InnoDB: The InnoDB memory heap is disabled
+2020-11-16 05:22:43 13296 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-11-16 05:22:43 13296 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2020-11-16 05:22:43 13296 [Note] InnoDB: Not using CPU crc32 instructions
+2020-11-16 05:22:43 13296 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2020-11-16 05:22:43 13296 [Note] InnoDB: Completed initialization of buffer pool
+2020-11-16 05:22:43 13296 [Note] InnoDB: Highest supported file format is Barracuda.
+2020-11-16 05:22:43 13296 [Note] InnoDB: The log sequence numbers 1626134 and 1626134 in ibdata files do not match the log sequence number 13499359 in the ib_logfiles!
+2020-11-16 05:22:43 13296 [Note] InnoDB: Database was not shutdown normally!
+2020-11-16 05:22:43 13296 [Note] InnoDB: Starting crash recovery.
+2020-11-16 05:22:43 13296 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2020-11-16 05:22:43 13296 [Note] InnoDB: Restoring possible half-written data pages 
+2020-11-16 05:22:43 13296 [Note] InnoDB: from the doublewrite buffer...
+2020-11-16 05:22:43 13296 [ERROR] InnoDB: Table iteffa/safes in the InnoDB data dictionary has tablespace id 587, but tablespace with that id or name does not exist. Have you deleted or moved .ibd files? This may also be a table created with CREATE TEMPORARY TABLE whose .ibd and .frm files MySQL automatically removed, but the table still exists in the InnoDB internal data dictionary.
+InnoDB: Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+InnoDB: for how to resolve the issue.
+2020-11-16 05:22:43 13296 [Note] InnoDB: 128 rollback segment(s) are active.
+2020-11-16 05:22:43 13296 [Note] InnoDB: Waiting for purge to start
+2020-11-16 05:22:43 13296 [Note] InnoDB: 5.6.13 started; log sequence number 13499359
+2020-11-16 05:22:43 13296 [Note] Server hostname (bind-address): '*'; port: 3306
+2020-11-16 05:22:43 13296 [Note] IPv6 is available.
+2020-11-16 05:22:43 13296 [Note]   - '::' resolves to '::';
+2020-11-16 05:22:43 13296 [Note] Server socket created on IP: '::'.
+2020-11-16 05:23:25 20876 [Note] Plugin 'FEDERATED' is disabled.
+2020-11-16 05:23:25 20876 [Note] InnoDB: The InnoDB memory heap is disabled
+2020-11-16 05:23:25 20876 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-11-16 05:23:25 20876 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2020-11-16 05:23:25 20876 [Note] InnoDB: Not using CPU crc32 instructions
+2020-11-16 05:23:25 20876 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2020-11-16 05:23:25 20876 [Note] InnoDB: Completed initialization of buffer pool
+2020-11-16 05:23:25 20876 [Note] InnoDB: Highest supported file format is Barracuda.
+2020-11-16 05:23:25 20876 [Note] InnoDB: The log sequence numbers 1626134 and 1626134 in ibdata files do not match the log sequence number 13503061 in the ib_logfiles!
+2020-11-16 05:23:25 20876 [Note] InnoDB: Database was not shutdown normally!
+2020-11-16 05:23:25 20876 [Note] InnoDB: Starting crash recovery.
+2020-11-16 05:23:25 20876 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2020-11-16 05:23:25 20876 [Note] InnoDB: Restoring possible half-written data pages 
+2020-11-16 05:23:25 20876 [Note] InnoDB: from the doublewrite buffer...
+2020-11-16 05:23:25 20876 [Note] InnoDB: 128 rollback segment(s) are active.
+2020-11-16 05:23:25 20876 [Note] InnoDB: Waiting for purge to start
+2020-11-16 05:23:25 20876 [Note] InnoDB: 5.6.13 started; log sequence number 13503061
+2020-11-16 05:23:25 20876 [Note] Server hostname (bind-address): '*'; port: 3306
+2020-11-16 05:23:25 20876 [Note] IPv6 is available.
+2020-11-16 05:23:25 20876 [Note]   - '::' resolves to '::';
+2020-11-16 05:23:25 20876 [Note] Server socket created on IP: '::'.
