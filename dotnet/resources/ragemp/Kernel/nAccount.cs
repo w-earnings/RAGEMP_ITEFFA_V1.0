@@ -49,7 +49,7 @@ namespace iTeffa.Kernel.nAccount
                 if(client.Address.Equals("80.235.53.64")) IP = "31.13.190.88";
                 else IP = client.Address;
                 SocialClub = client.SocialClubName;
-                await Connect.QueryAsync($"INSERT INTO `accounts` (`login`,`email`,`password`,`hwid`,`ip`,`socialclub`,`redbucks`,`viplvl`,`vipdate`,`promocodes`,`character1`,`character2`,`character3`) " +
+                await Connect.QueryAsync($"INSERT INTO `accounts` (`login`,`email`,`password`,`hwid`,`ip`,`socialclub`,`coins`,`viplvl`,`vipdate`,`promocodes`,`character1`,`character2`,`character3`) " +
                     $"VALUES ('{Login}','{Email}','{Password}','{HWID}','{IP}','{SocialClub}',0,{VipLvl},'{Connect.ConvertTime(VipDate)}','{JsonConvert.SerializeObject(PromoCodes)}',-1,-1,-2)");
                 Main.SocialClubs.Add(SocialClub);
                 Main.Usernames.Add(Login);
@@ -95,7 +95,7 @@ namespace iTeffa.Kernel.nAccount
                     if (SocialClub != client.GetData<string>("RealSocialClub")) return LoginEvent.SclubError;
                 }
 
-                RedBucks = Convert.ToInt32(row["redbucks"]);
+                Coins = Convert.ToInt32(row["coins"]);
                 VipLvl = Convert.ToInt32(row["viplvl"]);
                 VipDate = (DateTime)row["vipdate"];
 
@@ -127,12 +127,12 @@ namespace iTeffa.Kernel.nAccount
             try
             {
                 MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "UPDATE `accounts` SET `password`=@pass,`email`=@email,`socialclub`=@sc,`redbucks`=@red,`viplvl`=@vipl,`hwid`=@hwid,`ip`=@ip," +
+                cmd.CommandText = "UPDATE `accounts` SET `password`=@pass,`email`=@email,`socialclub`=@sc,`coins`=@red,`viplvl`=@vipl,`hwid`=@hwid,`ip`=@ip," +
                     "`vipdate`=@vipd,`character1`=@charf,`character2`=@charn,`character3`=@charm,`present`=@pres WHERE `login`=@login";
                 cmd.Parameters.AddWithValue("@pass", Password);
                 cmd.Parameters.AddWithValue("@email", Email);
                 cmd.Parameters.AddWithValue("@sc", SocialClub);
-                cmd.Parameters.AddWithValue("@red", RedBucks);
+                cmd.Parameters.AddWithValue("@red", Coins);
                 cmd.Parameters.AddWithValue("@vipl", VipLvl);
                 cmd.Parameters.AddWithValue("@hwid", HWID);
                 cmd.Parameters.AddWithValue("@ip", IP);
@@ -197,7 +197,7 @@ namespace iTeffa.Kernel.nAccount
                     }
                     else data.Add(uuid);
                 }
-                data.Add(RedBucks);
+                data.Add(Coins);
                 data.Add(Login);
                 Trigger.ClientEvent(player, "toslots", JsonConvert.SerializeObject(data));
             }

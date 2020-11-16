@@ -677,7 +677,7 @@ namespace iTeffa
                 }
                 Trigger.ClientEvent(player, "acpos");
                 Trigger.ClientEvent(player, "ready");
-                Trigger.ClientEvent(player, "redset", Accounts[player].RedBucks);
+                Trigger.ClientEvent(player, "redset", Accounts[player].Coins);
 
                 player.SetData("spmode", false);
                 player.SetSharedData("InDeath", false);

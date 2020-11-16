@@ -565,7 +565,7 @@ namespace iTeffa.Kernel
                     Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
-                Admin.sendRedbucks(player, target, amount);
+                Admin.sendCoins(player, target, amount);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
@@ -3254,7 +3254,7 @@ namespace iTeffa.Kernel
         [Command("offgivereds")]
         public static void CMD_offredbaks(Player client, string name, long amount)
         {
-            if (!Group.CanUseCmd(client, "offredbucks")) return;
+            if (!Group.CanUseCmd(client, "offcoins")) return;
             try
             {
                 name = name.ToLower();
@@ -3264,7 +3264,7 @@ namespace iTeffa.Kernel
                     Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок онлайн! {acc.Key.Name}:{acc.Key.Value}", 8000);
                     return;
                 }
-                Connect.Query($"update `accounts` set `redbucks`=`redbucks`+{amount} where `login`='{name}'");
+                Connect.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
                 GameLog.Admin(client.Name, $"offgivereds({amount})", name);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }

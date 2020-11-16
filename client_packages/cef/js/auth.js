@@ -21,7 +21,7 @@ var slots = new Vue({
 			blockM: ["Бан", "Cam", "then", "when"],
 			blockR: ["Бан", "Cam", "then", "when"],
 			uuids: [0, 0, 0],
-			redbucks: -1,
+			coins: -1,
 			login: "username",
 			currSlotId: 0,
 			currSlot: ["", "", 7, 0, 0, "", 0, 0],
@@ -144,7 +144,7 @@ function toslots(data) {
 		}
 	}
 
-	slots.redbucks = data[3];
+	slots.coins = data[3];
 	slots.login = data[4];
 
 	slotL.addClass('active');
@@ -159,7 +159,7 @@ function toslots(data) {
 function unlockSlot(data) {
 	slotR.removeClass('non-active');
 	slotR.addClass('free');
-	slots.redbucks = data;
+	slots.coins = data;
 }
 
 function delchar(data) {

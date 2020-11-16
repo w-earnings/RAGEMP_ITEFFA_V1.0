@@ -111,21 +111,21 @@ namespace iTeffa.Finance
                             var client = Main.Accounts.FirstOrDefault(a => a.Value.Login == name).Key;
                             if (client == null || client.IsNull || !Main.Accounts.ContainsKey(client))
                             {
-                                Connect.Query($"update `accounts` set `redbucks`=`redbucks`+{reds} where `login`='{name}'");
+                                Connect.Query($"update `accounts` set `coins`=`coins`+{reds} where `login`='{name}'");
                             }
                             else
                             {
                                 lock (Main.Players)
                                 {
-                                    Main.Accounts[client].RedBucks += reds;
+                                    Main.Accounts[client].Coins += reds;
                                 }
                                 NAPI.Task.Run(() =>
                                 {
                                     try
                                     {
                                         if (!Main.Accounts.ContainsKey(client)) return;
-                                        Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вам пришли {reds} Redbucks", 3000);
-                                        Trigger.ClientEvent(client, "starset", Main.Accounts[client].RedBucks);
+                                        Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вам пришли {reds} Coins", 3000);
+                                        Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
                                     }
                                     catch { }
                                 });
@@ -346,12 +346,12 @@ namespace iTeffa.Finance
                 {
                     case Type.WheelsRun:
                         {
-                            if (Main.Accounts[client].RedBucks < 500)
+                            if (Main.Accounts[client].Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateChar");
                             Trigger.ClientEvent(client, "WheelsRun");
                             break;
@@ -372,7 +372,7 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Введите количество, равное 1 или больше.", 3000);
                                 return;
                             }
-                            if (Main.Accounts[client].RedBucks < amount * 100)
+                            if (Main.Accounts[client].Coins < amount * 100)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
@@ -383,7 +383,7 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно места в инвентаре", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 100 * amount;
+                            Main.Accounts[client].Coins -= 100 * amount;
                             GameLog.Money(acc.Login, "server", 100 * amount, "donateChar");
                             nInventory.Add(client, new nItem(ItemType.GiveBox, amount, ""));
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили {amount} кейсов", 3000);
@@ -393,19 +393,19 @@ namespace iTeffa.Finance
 
                     case Type.Character:
                         {
-                            if (acc.RedBucks < 100)
+                            if (acc.Coins < 100)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 100;
+                            Main.Accounts[client].Coins -= 100;
                             GameLog.Money(acc.Login, "server", 100, "donateChar");
                             Customization.SendToCreator(client);
                             break;
                         }
                     case Type.Nickname:
                         {
-                            if (acc.RedBucks < 25)
+                            if (acc.Coins < 25)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
@@ -446,7 +446,7 @@ namespace iTeffa.Finance
                             else
                             {
                                 Character.toChange.Add(client.Name, data);
-                                Main.Accounts[client].RedBucks -= 25;
+                                Main.Accounts[client].Coins -= 25;
                                 NAPI.Player.KickPlayer(target, "Смена ника");
                             }
                             GameLog.Money(acc.Login, "server", 25, "donateName");
@@ -466,12 +466,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Введите количество, равное 1 или больше.", 3000);
                                 return;
                             }
-                            if (Main.Accounts[client].RedBucks < amount)
+                            if (Main.Accounts[client].Coins < amount)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= amount;
+                            Main.Accounts[client].Coins -= amount;
                             GameLog.Money(acc.Login, "server", amount, "donateConvert");
                             amount = amount * 100;
                             Wallet.Change(client, +amount);
@@ -486,12 +486,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
-                            if (acc.RedBucks < 300)
+                            if (acc.Coins < 300)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 300;
+                            Main.Accounts[client].Coins -= 300;
                             GameLog.Money(acc.Login, "server", 300, "donateBVip");
                             Main.Accounts[client].VipLvl = 1;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
@@ -505,12 +505,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
-                            if (acc.RedBucks < 600)
+                            if (acc.Coins < 600)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 600;
+                            Main.Accounts[client].Coins -= 600;
                             GameLog.Money(acc.Login, "server", 600, "donateSVip");
                             Main.Accounts[client].VipLvl = 2;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
@@ -524,12 +524,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
-                            if (acc.RedBucks < 800)
+                            if (acc.Coins < 800)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 800;
+                            Main.Accounts[client].Coins -= 800;
                             GameLog.Money(acc.Login, "server", 800, "donateGVip");
                             Main.Accounts[client].VipLvl = 3;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
@@ -543,12 +543,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
-                            if (acc.RedBucks < 1000)
+                            if (acc.Coins < 1000)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 1000;
+                            Main.Accounts[client].Coins -= 1000;
                             GameLog.Money(acc.Login, "server", 1000, "donatePVip");
                             Main.Accounts[client].VipLvl = 4;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
@@ -562,12 +562,12 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "У вас нет Warn'a!", 3000);
                                 return;
                             }
-                            if (acc.RedBucks < 250)
+                            if (acc.Coins < 250)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 250;
+                            Main.Accounts[client].Coins -= 250;
                             GameLog.Money(acc.Login, "server", 250, "donateWarn");
                             Main.Players[client].Warns -= 1;
                             Dashboard.sendStats(client);
@@ -576,12 +576,12 @@ namespace iTeffa.Finance
                     case Type.Slot:
                         {
                             Log.Debug("Unlock slot");
-                            if (acc.RedBucks < 1000)
+                            if (acc.Coins < 1000)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 1000;
+                            Main.Accounts[client].Coins -= 1000;
                             GameLog.Money(acc.Login, "server", 1000, "donateSlot");
 
                             if (acc.VipLvl == 0)
@@ -597,18 +597,18 @@ namespace iTeffa.Finance
                             else Main.Accounts[client].VipDate = Main.Accounts[client].VipDate.AddDays(30);
 
                             Main.Accounts[client].Characters[2] = -1;
-                            Trigger.ClientEvent(client, "unlockSlot", Main.Accounts[client].RedBucks);
-                            Connect.Query($"update `accounts` set `redbucks`={Main.Accounts[client].RedBucks} where `login`='{Main.Accounts[client].Login}'");
+                            Trigger.ClientEvent(client, "unlockSlot", Main.Accounts[client].Coins);
+                            Connect.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                             return;
                         }
                     case Type.Money1:
                         {
-                            if (acc.RedBucks < 2500)
+                            if (acc.Coins < 2500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 2500;
+                            Main.Accounts[client].Coins -= 2500;
                             GameLog.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 100000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $100 000", 3000);
@@ -617,12 +617,12 @@ namespace iTeffa.Finance
                         }
                     case Type.Money2:
                         {
-                            if (acc.RedBucks < 2500)
+                            if (acc.Coins < 2500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 2500;
+                            Main.Accounts[client].Coins -= 2500;
                             GameLog.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 300000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $300 000", 3000);
@@ -631,12 +631,12 @@ namespace iTeffa.Finance
                         }
                     case Type.Money3:
                         {
-                            if (acc.RedBucks < 2500)
+                            if (acc.Coins < 2500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 2500;
+                            Main.Accounts[client].Coins -= 2500;
                             GameLog.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 500000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $500 000", 3000);
@@ -645,12 +645,12 @@ namespace iTeffa.Finance
                         }
                     case Type.Money4:
                         {
-                            if (acc.RedBucks < 2500)
+                            if (acc.Coins < 2500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-                            Main.Accounts[client].RedBucks -= 2500;
+                            Main.Accounts[client].Coins -= 2500;
                             GameLog.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 1000000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $1 000 000", 3000);
@@ -659,14 +659,14 @@ namespace iTeffa.Finance
                         }
                     case Type.Box1:
                         {
-                            if (acc.RedBucks < 500)
+                            if (acc.Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
 
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
@@ -678,14 +678,14 @@ namespace iTeffa.Finance
                         }
                     case Type.Box2:
                         {
-                            if (acc.RedBucks < 500)
+                            if (acc.Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
 
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
@@ -697,14 +697,14 @@ namespace iTeffa.Finance
                         }
                     case Type.Box3:
                         {
-                            if (acc.RedBucks < 500)
+                            if (acc.Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
 
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
@@ -716,14 +716,14 @@ namespace iTeffa.Finance
                         }
                     case Type.Box4:
                         {
-                            if (acc.RedBucks < 500)
+                            if (acc.Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
 
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
@@ -735,7 +735,7 @@ namespace iTeffa.Finance
                         }
                     case Type.Lic1:
                         {
-                            if (acc.RedBucks < 500)
+                            if (acc.Coins < 500)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
@@ -746,7 +746,7 @@ namespace iTeffa.Finance
                                 return;
                             }
 
-                            Main.Accounts[client].RedBucks -= 500;
+                            Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Main.Players[client].Licenses[1] = true;
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели легковую лицензию", 3000);
@@ -755,7 +755,7 @@ namespace iTeffa.Finance
                         }
                     case Type.Lic2:
                         {
-                            if (acc.RedBucks < 600)
+                            if (acc.Coins < 600)
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
@@ -766,7 +766,7 @@ namespace iTeffa.Finance
                                 return;
                             }
 
-                            Main.Accounts[client].RedBucks -= 600;
+                            Main.Accounts[client].Coins -= 600;
                             GameLog.Money(acc.Login, "server", 600, "donateBox1");
                             Main.Players[client].Licenses[2] = true;
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели грузовую лицензию", 3000);
@@ -775,8 +775,8 @@ namespace iTeffa.Finance
                         }
                 }
 
-                Connect.Query($"update `accounts` set `redbucks`={Main.Accounts[client].RedBucks} where `login`='{Main.Accounts[client].Login}'");
-                Trigger.ClientEvent(client, "redset", Main.Accounts[client].RedBucks);
+                Connect.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
+                Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
             }
             catch (Exception e) { Log.Write("donate: " + e.Message, nLog.Type.Error); }
         }

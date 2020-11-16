@@ -66,16 +66,16 @@ namespace iTeffa.Kernel
 
 
 
-        public static void sendRedbucks(Player player, Player target, int amount)
+        public static void sendCoins(Player player, Player target, int amount)
         {
             if (!Group.CanUseCmd(player, "givereds")) return;
 
-            if (Main.Accounts[target].RedBucks + amount < 0) amount = 0;
-            Main.Accounts[target].RedBucks += amount;
-            Trigger.ClientEvent(target, "starset", Main.Accounts[target].RedBucks);
+            if (Main.Accounts[target].Coins + amount < 0) amount = 0;
+            Main.Accounts[target].Coins += amount;
+            Trigger.ClientEvent(target, "starset", Main.Accounts[target].Coins);
 
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отправили {target.Name} {amount} redbucks", 3000);
-            Notify.Send(target, NotifyType.Success, NotifyPosition.BottomCenter, $"+{amount} redbucks", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отправили {target.Name} {amount} coins", 3000);
+            Notify.Send(target, NotifyType.Success, NotifyPosition.BottomCenter, $"+{amount} coins", 3000);
 
             GameLog.Admin(player.Name, $"givereds({amount})", target.Name);
         }

@@ -11,7 +11,7 @@ namespace iTeffa.Settings
         public string HWID { get; protected set; }
         public string IP { get; protected set; }
         public string SocialClub { get; protected set; }
-        public long RedBucks { get; set; }
+        public long Coins { get; set; }
         public int VipLvl { get; set; }
         public DateTime VipDate { get; set; } = DateTime.Now;
         public List<string> PromoCodes { get; set; }
