@@ -8,8 +8,8 @@ namespace iTeffa.Settings
 {
     public static class Connect
     {
-        private static Config config = new Config("MySQL");
-        private static nLog Log = new nLog("MySQL");
+        private static readonly Config config = new Config("MySQL");
+        private static readonly nLog Log = new nLog("MySQL");
         private static string Connection = null;
         public static bool Debug = false;
 
@@ -18,6 +18,7 @@ namespace iTeffa.Settings
             if (Connection is string) return;
             Connection = 
                 $"Host={config.TryGet<string>("Server", "127.0.0.1")};" +
+                $"Port={config.TryGet<string>("Port", 3306)};" +
                 $"User={config.TryGet<string>("User", "root")};" +
                 $"Password={config.TryGet<string>("Password", "usbw")};" + 
                 $"Database={config.TryGet<string>("DataBase", "iteffa")};" + 
