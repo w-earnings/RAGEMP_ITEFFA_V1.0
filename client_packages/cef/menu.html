@@ -46,7 +46,6 @@
     <link rel="stylesheet" href="css/clothes.css">
     <link rel="stylesheet" href="css/masks.css">
     <link rel="stylesheet" href="css/infobox.css">
-    <link rel="stylesheet" href="css/donate.css">
     <link rel="stylesheet" href="css/dialog.css">
     <link rel="stylesheet" href="fonts/icons.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -436,101 +435,8 @@
         <div class="header"><i class="cancel" @click="exit"></i><h1>{{header}}</h1></div>
         <div class="content" v-html="content"></div>
     </div>
-    <div class="donate" v-if="active">
-        <div class="balance"><p>Redbucks: {{balance}}</p><div class="starbucks"></div></div>
-        <div class="center">
-            <div class="btns" v-if="menu == 0">
-                <div class="btn" @click="open(1)">Изменить внешность</div>
-                <div class="btn" @click="open(2)">Изменить имя</div>
-            </div>
-            <div class="btns" v-if="menu == 0">
-                <div class="btn" @click="open(3)">Перевести Redbucks в игровую валюту</div>
-                <div class="btn" @click="open(4)">Купить VIP</div>
-            </div>
-            <div class="btns" v-if="menu == 0">
-                <div class="btn" @click="open(9)">Снять предупреждение</div>
-            </div>
-            <!--Смена внешности-->
-            <div class="btns" v-if="menu == 1">
-                <div class="info">Вы будете направлены в редактор персонажа.</div>
-            </div>
-            <div class="btns" v-if="menu == 1">
-                <div class="btn" @click="buy(0)">Изменить за <b>100 Redbucks</b></div>
-                <div class="btn" @click="open(0)">Отмена</div>
-            </div>
-            <!--Смена ника-->
-            <div class="btns" v-if="menu == 2">
-                <input @input="onInputName" v-model="fname" placeholder="Новое Имя" maxlength="30">
-                <input @input="onInputName" v-model="lname" placeholder="Новая Фамилия" maxlength="30">
-            </div>
-            <div class="btns" v-if="menu == 2">
-                <div class="btn" @click="buy(1)">Изменить за <b>25 Redbucks</b></div>
-                <div class="btn" @click="open(0)">Отмена</div>
-            </div>
-            <!--Перевод-->
-            <div class="btns" v-if="menu == 3">
-                <input @input="onInputTrans" v-model="totrans" placeholder="Кол-во для перевода" maxlength="6">
-                <input v-model="aftertrans" placeholder="Будет зачислено" readonly>
-            </div>
-            <div class="btns" v-if="menu == 3">
-                <div class="btn" @click="buy(2)">Конвертировать</b></div>
-                <div class="btn" @click="open(0)">Отмена</div>
-            </div>
-            <!--VIP-->
-            <div class="btns" v-if="menu == 4">
-                <div class="btn" @click="open(5)">Bronze VIP</div>
-                <div class="btn" @click="open(6)">Silver VIP</div>
-            </div>
-            <div class="btns" v-if="menu == 4">
-                <div class="btn" @click="open(7)">Gold VIP</div>
-                <div class="btn" @click="open(8)">Platinum VIP</div>
-            </div>
-            <div class="btns" v-if="menu == 4">
-                <div class="btn" @click="open(0)">Отмена</div>
-            </div>
-            <!--Bronze VIP-->
-            <div class="btns" v-if="menu == 5">
-                <div class="info">Увеличение зарплаты во фракциях и по безработице $200<br>Нет ограничений на help / report<br>Возможность выйти из фракции (/leave)<br>Удвоенное XP в час.</div>
-            </div>
-            <div class="btns" v-if="menu == 5">
-                <div class="btn" @click="buy(3)">Купить за <b>300 Redbucks</b></div>
-                <div class="btn" @click="back">Назад</div>
-            </div>
-            <!--Silver VIP-->
-            <div class="btns" v-if="menu == 6">
-                <div class="info">Увеличение зарплаты на начальных работах на 15%.<br>Увеличение зарплаты во фракциях и по безработице $400<br>Нет ограничений на help / report<br>Возможность выйти из фракции (/leave)<br>Удвоенное XP в час.<br>Ускоренное лечение в больнице (х2)</div>
-            </div>
-            <div class="btns" v-if="menu == 6">
-                <div class="btn" @click="buy(4)">Купить за <b>600 Redbucks</b></div>
-                <div class="btn" @click="back">Назад</div>
-            </div>
-            <!--Gold VIP-->
-            <div class="btns" v-if="menu == 7">
-                <div class="info">Увеличение зарплаты на начальных работах на 25%.<br>Увеличение зарплаты во фракциях и по безработице $550<br>Нет ограничений на help / report<br>Возможность выйти из фракции (/leave)<br>Удвоенное XP в час.<br>Ускоренное лечение в больнице (х2)</div>
-            </div>
-            <div class="btns" v-if="menu == 7">
-                <div class="btn" @click="buy(5)">Купить за <b>800 Redbucks</b></div>
-                <div class="btn" @click="back">Назад</div>
-            </div>
-            <!--Platinum VIP-->
-            <div class="btns" v-if="menu == 8">
-                <div class="info">Увеличение зарплаты на начальных работах на 35%.<br>Увеличение зарплаты во фракциях и по безработице $700<br>Нет ограничений на help / report<br>Возможность выйти из фракции (/leave)<br>Утроенное XP в час.<br>Ускоренное лечение в больнице (х3)</div>
-            </div>
-            <div class="btns" v-if="menu == 8">
-                <div class="btn" @click="buy(6)">Купить за <b>1000 Redbucks</b></div>
-                <div class="btn" @click="back">Назад</div>
-            </div>
-            <!--Warn-->
-            <div class="btns" v-if="menu == 9">
-                <div class="info">Снятие варна<br></div>
-            </div>
-            <div class="btns" v-if="menu == 9">
-                <div class="btn" @click="buy(7)">Купить за <b>250 Redbucks</b></div>
-                <div class="btn" @click="back">Назад</div>
-            </div>
-            <div class="msg">Выход из меню - F9</div>
-        </div>
-    </div>
+	
+	
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/dial.js"></script>
     <script src="js/stock.js"></script>
@@ -552,7 +458,6 @@
     <script src="js/clothes.js"></script>
     <script src="js/masks.js"></script>
     <script src="js/infobox.js"></script>
-    <script src="js/donate.js"></script>
     <script src="js/dialog.js"></script>
 </body>
 </html>

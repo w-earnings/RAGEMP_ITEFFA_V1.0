@@ -681,9 +681,6 @@ mp.events.add('matsU', (act) => { //unload
     }
 });
 // BODY SEARCH //
-/*mp.keys.bind(0x78, false, function () { // F9
-    mp.events.call('bsearchOpen', '["FirstName LastName",["Deser Eaagle"],["Water","Keys for Car"]]');
-});*/
 mp.events.add('bsearch', (act) => {
     global.menuClose();
     switch (act) {
@@ -989,13 +986,6 @@ mp.events.add('setBody', (id, data1, data2) => {
     global.menu.execute(`body.set('${id}','${data1}','${data2}')`)
 })
 // AUTO SHOP //
-/*mp.keys.bind(0x78, false, function () { // F9
-    setAuto('models', JSON.stringify(autoData.testModels));
-    setAuto('colors', JSON.stringify(autoData.testColors));
-    setAuto('prices', JSON.stringify(autoData.testPrices));
-    mp.events.call('openAuto');
-});*/
-
 let autoColors = ["Черный", "Белый", "Красный", "Оранжевый", "Желтый", "Зеленый", "Голубой", "Синий", "Фиолетовый"];
 let autoModels = null;
 
@@ -1193,9 +1183,6 @@ function setAuto(type, jsonstr) {
     global.menu.execute(`auto.${type}=${jsonstr}`);
 }
 // WEAPON SHOP //
-/*mp.keys.bind(0x78, false, function () { // F9
-    mp.events.call('openWShop', 0, '[[0,1,0,1,0,1,0]]');
-});*/
 let wshop = {
     lid: -1,
     tab: 0,
@@ -1231,9 +1218,6 @@ mp.events.add('openWShop', (id, json) => {
     wshop.lid = id;
 })
 // WEAPON CRAFT //
-/*mp.keys.bind(0x78, false, function () { // F9
-    mp.events.call('openWCraft', 0, '[[0,1,0,1,0,1,0]]');
-});*/
 let wcraft = {
     tab: 0,
     frac: 0,
@@ -1274,7 +1258,6 @@ var camMenuValues = { Angle: 0, Dist: 1, Height: 0 };
 mp.events.add('camMenu', (status) => {
     global.camMenu = status;
     if (global.camMenu) {
-        //camMenuValues = { Angle: 0, Dist: 1, Height: 0 };
         camMenuCEF.execute('show()');
     } else {
         camMenuCEF.execute('hide()');
@@ -1298,13 +1281,6 @@ mp.events.add('camCB', (act, val) => {
     bodyCam.pointAtCoord(bodyCamStart.x, bodyCamStart.y, bodyCamStart.z + camMenuValues.Height);
 })
 // Clothes Shop //
-/*mp.keys.bind(0x78, false, function () { // F9
-    setClothes('styles', JSON.stringify(["Style1","Style2","Style3"]));
-    setClothes('colors', JSON.stringify(["Color1", "Color2", "Color3"]));
-    setClothes('prices', JSON.stringify([9, 99, 999]));
-    mp.events.call('openClothes');
-});*/
-
 var clothesCamValues = [
     { Angle: 0, Dist: 0.7, Height: 0.6 },
     { Angle: 0, Dist: 1.4, Height: 0.2 },
@@ -1712,6 +1688,9 @@ function setMaskCEF(type, jsonstr) {
     if (type == 'colors') global.menu.execute(`masks.indexC=0`);
     else if (type == 'styles') global.menu.execute(`masks.indexS=0`);
 }
+
+
+
 // INFOBOX //
 /*mp.keys.bind(0x79, false, function () { // F10
     mp.events.call('ib-open', "Помощь", 0);
@@ -1725,34 +1704,8 @@ mp.events.add('ib-open', (head, id) => {
 
     menu.execute(`infobox.set('${head}',${id})`);
 })
-// DONATE //
-var reds = 0;
-var donateOpened = false;
-mp.keys.bind(0x78, false, function () { // F9
-    if (!global.loggedin) return;
 
-    if (global.menuCheck()) {
-        if (donateOpened) {
-            global.menuClose();
-            menu.execute(`donate.close()`);
-            donateOpened = false;
-        }
-	} else {
-        global.menuOpen();
-        donateOpened = true;
-        menu.execute(`donate.show(${reds})`);
-	}
-});
-mp.events.add('donbuy', (id, data) => {
-	global.menuClose();
-	menu.execute(`donate.close()`);
-    mp.events.callRemote("donate", id, data);
-});
-mp.events.add('redset', (reds_) => {
-    reds = reds_;
-    if (menu != null)
-        menu.execute(`donate.balance=${reds}`);
-});
+
 // Help Menu //
 var helpMenuState = false;
 mp.keys.bind(0x79, false, function () { // F10
