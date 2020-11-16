@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EUDspiU8SBtOa5epRvPgrLGoLpKIzHaOFgO9m5Xy88dSVnTRd6eK7keoscl/2GPUqVAsrNretPV0O/MSZsPsxA==",
+  "dgSpecHash": "GLiOF13zJGoL8JjJle9cWvdQzZ5rKmskQbgbvuoOmsANWYMfmbNn9TFTCEx9kbHAwInM2cMEOS1Gryeo+ORc0A==",
   "success": true,
-  "projectFilePath": "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
+  "projectFilePath": "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\proje\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\proje\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

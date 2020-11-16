@@ -1,4 +1,6 @@
 dotnet/server_exceptions.txt
 dotnet/server_logs.txt
+dotnet/resources/ragemp/bin
+dotnet/resources/ragemp/obj
 client_packages/game_resources/dlcpacks
 coords.txt

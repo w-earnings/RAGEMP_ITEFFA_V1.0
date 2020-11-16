@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj": {}
+    "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj": {}
   },
   "projects": {
-    "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj": {
+    "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
+        "projectUniqueName": "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
         "projectName": "ragemp",
-        "projectPath": "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
+        "projectPath": "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\ragemp.csproj",
         "packagesPath": "C:\\Users\\proje\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\00000001\\dotnet\\resources\\ragemp\\obj\\",
+        "outputPath": "c:\\Project\\00000001\\dotnet\\resources\\ragemp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\proje\\AppData\\Roaming\\NuGet\\NuGet.Config",
