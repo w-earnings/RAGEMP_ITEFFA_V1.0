@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using GTANetworkAPI;
 using MySql.Data.MySqlClient;
@@ -18,31 +17,31 @@ namespace iTeffa.Finance
     {
         public static Queue<KeyValuePair<string, string>> toChange = new Queue<KeyValuePair<string, string>>();
         public static Queue<string> newNames = new Queue<string>();
-        private static DateTime lastCheck = DateTime.Now;
-        private static nLog Log = new nLog("Donations");
+        // private static readonly DateTime lastCheck = DateTime.Now;
+        private static readonly nLog Log = new nLog("Donations");
         private static Timer scanTimer;
-
-        private static Config config = new Config("Donations");
-        
+        private static readonly Config config = new Config("Donations");
         private static string SYNCSTR;
         private static string CHNGSTR;
         private static string NEWNSTR;
-
         private static string Connection;
 
         public static void LoadDonations()
         {
             Connection =
-                $"Host={config.TryGet<string>("Host", "185.71.65.109")};" +
-                $"User={config.TryGet<string>("User", "donations")};" +
-                $"Password={config.TryGet<string>("Password", "Z6NfNpQyEcyFECB7")};" +
-                $"Database={config.TryGet<string>("Database", "payments")};" +
+                $"Host={config.TryGet<string>("Server", "127.0.0.1")};" +
+                $"Port={config.TryGet<string>("Port", 3306)};" +
+                $"User={config.TryGet<string>("User", "root")};" +
+                $"Password={config.TryGet<string>("Password", "usbw")};" +
+                $"Database={config.TryGet<string>("Database", "websites")};" +
                 $"{config.TryGet<string>("SSL", "SslMode=None;")}";
 
             SYNCSTR = string.Format("select * from completed where srv={0}", Main.oldconfig.ServerNumber);
             CHNGSTR = "update nicknames SET name='{0}' WHERE name='{1}' and srv={2}";
             NEWNSTR = "insert into nicknames(srv, name) VALUES ({0}, '{1}')";
         }
+
+
         #region Работа с таймером
         public static void Start()
         {
@@ -131,10 +130,7 @@ namespace iTeffa.Finance
                                     catch { }
                                 });
                             }
-                            //TODO: новый лог денег
-                            //GameLog.Money("donate", $"player({Main.PlayerUUIDs[name]})", +stars);
                             GameLog.Money("server", name, reds, "donateRed");
-
                             command.CommandText = $"delete from completed where id={id}";
                             command.ExecuteNonQuery();
                         }
@@ -156,15 +152,184 @@ namespace iTeffa.Finance
         #region Действия в донат-меню
         internal enum Type
         {
-            Character,
-            Nickname,
-            Convert,
-            BronzeVIP,
-            SilverVIP,
-            GoldVIP,
-            PlatinumVIP,
-            Warn,
-            Slot,
+            Character,     // 0
+            Nickname,      // 1
+            Convert,       // 2
+            BronzeVIP,     // 3
+            SilverVIP,     // 4
+            GoldVIP,       // 5
+            PlatinumVIP,   // 6
+            Warn,          // 7
+            Slot,          // 8
+            GiveBox,       // 9
+            WheelsRun,     //10
+            Money1,        //11
+            Money2,        //12
+            Money3,        //13
+            Money4,        //14
+            Box1,          //15
+            Box2,          //16
+            Box3,          //17
+            Box4,          //18
+            Lic1,          //19
+            Lic2,          //20
+        }
+
+        private static SortedList<int, string> CarNameS = new SortedList<int, string>
+        {
+            {1, "Neon" },
+            {2, "Sultan" },
+            {3, "nero" },
+            {4, "caracara2" },
+
+        };
+
+        private static SortedList<int, string> CarName = new SortedList<int, string>
+        {
+            {3, "g65" },
+            {4, "c63coupe" },
+            {5, "apriora" },
+            {6, "bmwe34" },
+
+        };
+
+        [RemoteEvent("wheelAddsrv")]
+        public void wheelAdd(Player client, int id, bool add)
+        {
+            if (!Main.Accounts.ContainsKey(client)) return;
+            switch (id)
+            {
+                case 0:
+                    Wallet.Change(client, 50000);
+                    Log.Write("Деньги пришли в размере 50 000", nLog.Type.Success);
+                    break;
+                case 1:
+                    Wallet.Change(client, 100000);
+                    Log.Write("Деньги пришли в размере 100 000", nLog.Type.Success);
+                    break;
+                case 2:
+                    Wallet.Change(client, 150000);
+                    Log.Write("Деньги пришли в размере 150 000", nLog.Type.Success);
+                    break;
+                case 3:
+                    if (add)
+                    {
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var house = Houses.HouseManager.GetHouse(client, false);
+                        if (house != null)
+                        {
+                            if (house.GarageID != 0)
+                            {
+                                var garage = Houses.GarageManager.Garages[house.GarageID];
+                                if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                {
+                                    garage.SpawnCar(vNumber);
+                                    Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"", 3000);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    if (add)
+                    {
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var house = Houses.HouseManager.GetHouse(client, false);
+                        if (house != null)
+                        {
+                            if (house.GarageID != 0)
+                            {
+                                var garage = Houses.GarageManager.Garages[house.GarageID];
+                                if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                {
+                                    garage.SpawnCar(vNumber);
+                                    Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"", 3000);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 5:
+                    if (add)
+                    {
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var house = Houses.HouseManager.GetHouse(client, false);
+                        if (house != null)
+                        {
+                            if (house.GarageID != 0)
+                            {
+                                var garage = Houses.GarageManager.Garages[house.GarageID];
+                                if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                {
+                                    garage.SpawnCar(vNumber);
+                                    Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"", 3000);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 6:
+                    if (add)
+                    {
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var house = Houses.HouseManager.GetHouse(client, false);
+                        if (house != null)
+                        {
+                            if (house.GarageID != 0)
+                            {
+                                var garage = Houses.GarageManager.Garages[house.GarageID];
+                                if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                {
+                                    garage.SpawnCar(vNumber);
+                                    Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"", 3000);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 7:
+                    Weapons.GiveWeapon(client, ItemType.Bat, "donatejrp");
+                    break;
+                case 8:
+                    Customization.AddClothes(client, ItemType.Mask, 159, 0);
+                    break;
+                case 9:
+                    Main.Players[client].EXP += 10;
+                    break;
+                case 10:
+                    Customization.AddClothes(client, ItemType.Top, 178, 0);
+                    Customization.AddClothes(client, ItemType.Leg, 77, 0);
+                    Customization.AddClothes(client, ItemType.Feet, 55, 0);
+                    break;
+                case 11:
+                    Wallet.Change(client, 200000);
+                    Log.Write("Деньги пришли в размере 200 000", nLog.Type.Success);
+                    break;
+                case 12:
+                    Wallet.Change(client, 250000);
+                    Log.Write("Деньги пришли в размере 250 000", nLog.Type.Success);
+                    break;
+                case 13:
+                    Wallet.Change(client, 300000);
+                    Log.Write("Деньги пришли в размере 300 000", nLog.Type.Success);
+                    break;
+                case 14:
+                    Wallet.Change(client, 350000);
+                    Log.Write("Деньги пришли в размере 350 000", nLog.Type.Success);
+                    break;
+                case 15:
+                    Wallet.Change(client, 400000);
+                    Log.Write("Деньги пришли в размере 400 000", nLog.Type.Success);
+                    break;
+                case 16:
+                    Wallet.Change(client, 450000);
+                    Log.Write("Деньги пришли в размере 450 000", nLog.Type.Success);
+                    break;
+                case 17:
+                    Wallet.Change(client, 500000);
+                    Log.Write("Деньги пришли в размере 500 000", nLog.Type.Success);
+                    break;
+            }
         }
 
         [RemoteEvent("donate")]
@@ -179,11 +344,58 @@ namespace iTeffa.Finance
 
                 switch (type)
                 {
+                    case Type.WheelsRun:
+                        {
+                            if (Main.Accounts[client].RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateChar");
+                            Trigger.ClientEvent(client, "WheelsRun");
+                            break;
+                        }
+
+                    // Кейсы в разработке - iTeffa.Com
+                    /* case Type.GiveBox:
+                        {
+                            int amount = 0;
+                            if (!Int32.TryParse(data, out amount))
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Возникла ошибка, попоробуйте еще раз", 3000);
+                                return;
+                            }
+                            amount = Math.Abs(amount);
+                            if (amount <= 0)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Введите количество, равное 1 или больше.", 3000);
+                                return;
+                            }
+                            if (Main.Accounts[client].RedBucks < amount * 100)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            var tryAdd = nInventory.TryAdd(client, new nItem(ItemType.GiveBox, 1));
+                            if (tryAdd == -1 || tryAdd > 0)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно места в инвентаре", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 100 * amount;
+                            GameLog.Money(acc.Login, "server", 100 * amount, "donateChar");
+                            nInventory.Add(client, new nItem(ItemType.GiveBox, amount, ""));
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили {amount} кейсов", 3000);
+                            GUI.Dashboard.sendItems(client);
+                            break;
+                        } */
+
                     case Type.Character:
                         {
                             if (acc.RedBucks < 100)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 100;
@@ -195,7 +407,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.RedBucks < 25)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
@@ -249,19 +461,21 @@ namespace iTeffa.Finance
                                 return;
                             }
                             amount = Math.Abs(amount);
-                            if(amount <= 0) {
+                            if (amount <= 0)
+                            {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Введите количество, равное 1 или больше.", 3000);
                                 return;
                             }
                             if (Main.Accounts[client].RedBucks < amount)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= amount;
                             GameLog.Money(acc.Login, "server", amount, "donateConvert");
                             amount = amount * 100;
-                            Finance.Wallet.Change(client, +amount);
+                            Wallet.Change(client, +amount);
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно перевели RF в {amount}", 3000);
                             GameLog.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
                             break;
                         }
@@ -274,7 +488,7 @@ namespace iTeffa.Finance
                             }
                             if (acc.RedBucks < 300)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 300;
@@ -293,7 +507,7 @@ namespace iTeffa.Finance
                             }
                             if (acc.RedBucks < 600)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 600;
@@ -312,7 +526,7 @@ namespace iTeffa.Finance
                             }
                             if (acc.RedBucks < 800)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 800;
@@ -331,7 +545,7 @@ namespace iTeffa.Finance
                             }
                             if (acc.RedBucks < 1000)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 1000;
@@ -350,7 +564,7 @@ namespace iTeffa.Finance
                             }
                             if (acc.RedBucks < 250)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 250;
@@ -364,12 +578,12 @@ namespace iTeffa.Finance
                             Log.Debug("Unlock slot");
                             if (acc.RedBucks < 1000)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Redbucks!", 3000);
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].RedBucks -= 1000;
                             GameLog.Money(acc.Login, "server", 1000, "donateSlot");
-                            
+
                             if (acc.VipLvl == 0)
                             {
                                 Main.Accounts[client].VipLvl = 3;
@@ -387,14 +601,186 @@ namespace iTeffa.Finance
                             Connect.Query($"update `accounts` set `redbucks`={Main.Accounts[client].RedBucks} where `login`='{Main.Accounts[client].Login}'");
                             return;
                         }
+                    case Type.Money1:
+                        {
+                            if (acc.RedBucks < 2500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 2500;
+                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Wallet.Change(client, 100000);
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $100 000", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Money2:
+                        {
+                            if (acc.RedBucks < 2500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 2500;
+                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Wallet.Change(client, 300000);
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $300 000", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Money3:
+                        {
+                            if (acc.RedBucks < 2500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 2500;
+                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Wallet.Change(client, 500000);
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $500 000", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Money4:
+                        {
+                            if (acc.RedBucks < 2500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            Main.Accounts[client].RedBucks -= 2500;
+                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Wallet.Change(client, 1000000);
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели $1 000 000", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Box1:
+                        {
+                            if (acc.RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+
+
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Wallet.Change(client, 150000000);
+                            Main.Players[client].Licenses[1] = true;
+                            Main.Players[client].EXP += 10;
+                            VehicleManager.Create(client.Name, CarNameS[1], new Color(0, 0, 0), new Color(0, 0, 0));
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Старт для начала набор", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Box2:
+                        {
+                            if (acc.RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+
+
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Wallet.Change(client, 150000000);
+                            Main.Players[client].Licenses[1] = true;
+                            Main.Players[client].EXP += 15;
+                            VehicleManager.Create(client.Name, CarNameS[2], new Color(0, 0, 0), new Color(0, 0, 0));
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Солидненько набор", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Box3:
+                        {
+                            if (acc.RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+
+
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Wallet.Change(client, 150000000);
+                            Main.Players[client].Licenses[1] = true;
+                            Main.Players[client].EXP += 20;
+                            VehicleManager.Create(client.Name, CarNameS[3], new Color(0, 0, 0), new Color(0, 0, 0));
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Солидненько набор", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Box4:
+                        {
+                            if (acc.RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+
+
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Wallet.Change(client, 150000000);
+                            Main.Players[client].Licenses[1] = true;
+                            Main.Players[client].EXP += 25;
+                            VehicleManager.Create(client.Name, CarNameS[4], new Color(0, 0, 0), new Color(0, 0, 0));
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Золотые запасы набор", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Lic1:
+                        {
+                            if (acc.RedBucks < 500)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            if (Main.Players[client].Licenses[2])
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть легковая лицензия", 3000);
+                                return;
+                            }
+
+                            Main.Accounts[client].RedBucks -= 500;
+                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Main.Players[client].Licenses[1] = true;
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели легковую лицензию", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
+                    case Type.Lic2:
+                        {
+                            if (acc.RedBucks < 600)
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно Coins!", 3000);
+                                return;
+                            }
+                            if (Main.Players[client].Licenses[2])
+                            {
+                                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть грузовая лицензия", 3000);
+                                return;
+                            }
+
+                            Main.Accounts[client].RedBucks -= 600;
+                            GameLog.Money(acc.Login, "server", 600, "donateBox1");
+                            Main.Players[client].Licenses[2] = true;
+                            Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели грузовую лицензию", 3000);
+                            Dashboard.sendStats(client);
+                            break;
+                        }
                 }
-                //Log.Write(Main.Players[client].Starbucks.ToString(), Logger.Type.Debug);
+
                 Connect.Query($"update `accounts` set `redbucks`={Main.Accounts[client].RedBucks} where `login`='{Main.Accounts[client].Login}'");
                 Trigger.ClientEvent(client, "redset", Main.Accounts[client].RedBucks);
             }
             catch (Exception e) { Log.Write("donate: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
+        #endregion Действия в донат-меню
 
         public static long SaleEvent(long input)
         {

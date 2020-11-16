@@ -1,0 +1,1550 @@
+.content {
+    display: flex;
+    flex-wrap: row nowrap;
+    justify-content: space-between;
+    overflow: hidden
+}
+
+.rouletteRoller__roller {
+	position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: #fffffff2;
+    background-repeat: no-repeat;
+    width: 0.15vh;
+    height: 17vh;
+}
+
+.main img {
+	width: 80px;
+    height: 80px;
+    margin-top: 2vh;
+    margin-left: 0vh;
+}
+
+#rol {
+	width: 100%;
+    height: 163px;
+    margin-top: -33px;
+}
+
+.content_elem1 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem1_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem1_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 45%;
+    background-position: center
+}
+
+.content_elem1_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px;
+	background-size: 8vh;
+    background-position-y: 1.5vh;
+    background-repeat: no-repeat;
+    background-image: url(../img/inventory/roullete/money1.png);
+}
+
+.content_elem2 {
+	background: linear-gradient(360deg, rgb(255 0 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem2_world {
+    border-bottom: 2px solid rgba(254,67,62,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem2_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem2_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px;
+	background-size: 8vh;
+    background-position-y: 1.5vh;
+    background-repeat: no-repeat;
+    background-image: url(../img/inventory/roullete/money1.png);
+}
+
+.content_elem3 {
+    background: linear-gradient(360deg, rgb(255 200 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem3_world {
+border-bottom: 2px solid rgb(255 188 0);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem3_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem3_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px;
+	background-size: 8vh;
+    background-position-y: 1.5vh;
+    background-repeat: no-repeat;
+    background-image: url(../../img/inventory/roullete/g65.png);
+}
+
+.content_elem4 {
+	background: linear-gradient(360deg, #4695ed40, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem4_world {
+	border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem4_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem4_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px;
+	background-size: 8vh;
+    background-position-y: 1.5vh;
+    background-repeat: no-repeat;
+    background-image: url(../../img/inventory/roullete/c63.png);
+}
+
+.content_elem5 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem5_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem5_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem5_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem6 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem6_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem6_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem6_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem7 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem7_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem7_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem7_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3; 
+	width: 150px;
+    height: 150px;
+}
+
+.content_elem8 {
+background: linear-gradient(360deg, #4695ed3b, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem8_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem8_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem8_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem9 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem9_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem9_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem9_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem10 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem10_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem10_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem10_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem11 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem11_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem11_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem11_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem12 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem12_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem12_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem12_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem13 {
+	background: linear-gradient(360deg, rgb(255 0 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem13_world {
+    border-bottom: 2px solid rgba(254,67,62,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem13_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem13_cover {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem14 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem14_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem14_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    ]background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem14_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem15 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem15_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem15_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem15_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem16 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem16_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem16_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem16_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem17 {
+background: linear-gradient(360deg, #4695ed2e, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem17_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem17_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem17_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem18 {
+background: linear-gradient(360deg, #4695ed2e, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem18_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem18_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem18_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem19 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem19_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem19_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 45%;
+    background-position: center
+}
+
+.content_elem19_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem20 {
+	background: linear-gradient(360deg, rgb(255 0 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem20_world {
+    border-bottom: 2px solid rgba(254,67,62,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem20_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem20_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem21 {
+    background: linear-gradient(360deg, rgb(255 200 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem21_world {
+border-bottom: 2px solid rgb(255 188 0);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem21_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem21_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem22 {
+	background: linear-gradient(360deg, #4695ed40, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem22_world {
+	border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem22_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem22_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem23 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+
+.content_elem23_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem23_win {
+    background: linear-gradient(360deg, rgb(0 255 20 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem23_world_win {
+    border-bottom: 2px solid rgb(0 171 0);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem23_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem23_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem24 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem24_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem24_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem24_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem25 {
+	background: linear-gradient(360deg, rgb(173 172 172 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem25_world {
+    border-bottom: 2px solid rgb(171 171 171);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem25_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem25_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3; 
+	width: 150px;
+    height: 150px;
+}
+
+.content_elem26 {
+background: linear-gradient(360deg, #4695ed3b, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem26_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem26_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem26_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem27 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem27_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem27_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem27_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem28 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem28_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.content_elem28_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem28_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem29 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem29_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem29_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem29_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem30 {
+	background: linear-gradient(360deg, rgb(148 148 148 / 19%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem30_world {
+	border-bottom: 2px solid #868686;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem30_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem30_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem31 {
+	background: linear-gradient(360deg, rgb(255 0 0 / 24%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem31_world {
+    border-bottom: 2px solid rgba(254,67,62,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem31_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem31_cover {
+    position: absolute;
+    top: 3vh;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}.content_elem113_cover {
+    position: absolute;
+    top: 3vh;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem32 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem32_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem32_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    ]background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem32_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem33 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem33_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem33_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem33_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem34 {
+background: linear-gradient(360deg, rgb(237 45 237 / 18%), rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem34_world {
+border-bottom: 2px solid rgba(237,45,237,1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem34_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem34_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem35 {
+background: linear-gradient(360deg, #4695ed2e, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem35_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem35_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem35_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_elem36 {
+background: linear-gradient(360deg, #4695ed2e, rgb(123 48 44 / 0%),rgb(255 99 90 / 0%));
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.content_elem36_world {
+border-bottom: 2px solid #4695ed;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content_elem36_color {
+    background-image: url(../../img/inventory/pink.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: 45%;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.content_elem36_cover {
+    position: absolute;
+    top: 19%;
+    left: 25%;
+    z-index: 3;
+    width: 100px;
+    height: 100px
+}
+
+.content_button {
+    position: absolute;
+    top: 204px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 370px;
+    border-radius: 20px;
+    text-align: left;
+    background-color: none;
+    height: 60px;
+    z-index: 0;
+    margin: 45px auto
+}
+
+.run {
+display: inline-block;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    user-select: none;
+    padding: .7em 1.5em;
+    margin-left: 84px;
+    border: 1px solid #502000;
+    border-radius: 5px;
+    outline: none;
+    background: rgba(255,99,90,1);
+    transition: .2s;
+}
+
+.run:hover {
+    cursor: pointer;
+    background: rgb(175 10 6);
+}
+
+.run:active {
+    background: rgb(175 10 6);
+    transform: translate(0, 4px)
+}
+
+.animate {
+    transition: transform 11s ease;
+    transform: translateX(-10133px)
+}
+
+.animate1 {
+    transition: transform 1.0E-2s ease;
+    transform: translateX(0px)
+}
+
+.modal-wrap {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0
+}
+
+.modal-wrap .prize{
+	width: 18%;
+	height: 35%;
+	position: absolute;
+	text-align: center;
+	z-index: auto;
+	background: #ffffff0f;
+	left: -1%;   
+	top: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+	display:none
+}
+.modal-wrap .bgshow1 {
+	position: fixed;
+    background: url(../../img/inventory/bgshow.png);
+    box-shadow: inset 0 0 678px 586px rgb(29 27 40 / 83%);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+	}
+.modal-wrap h1{
+    position: relative;
+    left: 0%;
+    font-size: 3vh;
+    letter-spacing: 0.03em;
+    text-align: center;
+    color: white;
+    top: -34%;
+    font-family: ProximaNova,sans-serif;
+    font-weight: 100;
+}
+.modal-wrap h3{
+	position: relative;
+    left: 0%;
+    font-size: 2vh;
+    letter-spacing: 0.03em;
+    text-align: center;
+    color: #ffffffcc;
+    top: -39%;
+    font-family: ProximaNova,sans-serif;
+    font-weight: 100;
+}
+
+.modal-wrap .imgRol{
+	width: 37%;
+    height: 37%;
+    margin-top: -30%;
+}
+
+
+
+.yes:hover {
+	cursor:pointer;
+	background: #ffffff;
+	color:black;
+	transition: all .33s;
+}
+
+.send:hover {
+	cursor:pointer;
+	background: #ffffff;
+	color:black;
+	transition: all .33s;
+}
+
+
+    .main {
+		max-width: 900px;
+		overflow: hidden;
+		width: 124%;
+		position: relative;
+		top: 14vh;
+    }
+
+
+
+.yes,
+.send {
+	position: relative;
+    margin-top: 300px;
+    margin-left: 60px;
+    width: 22vh;
+    justify-content: center;
+    height: 6vh;
+    align-items: center;
+    line-height: 6vh;
+    text-align: center;
+    background: #d6d6d630;
+    font-size: 1.7vh;
+    color: white;
+    transition: all .33s;
+    font-family: ProximaNova,sans-serif;
+    font-weight: 100;
+}
+
+.yes:hover,
+.send:hover {
+	cursor:pointer;
+	background: #ffffff;
+	color:black;
+	transition: all .33s;
+}

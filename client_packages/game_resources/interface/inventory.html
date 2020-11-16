@@ -1,0 +1,1487 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/inventory/inv.css">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/inventory/inventory.css">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/circle.css">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/inventory/donate_new.css">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/inventory/slot.css">
+  <link href="package://game_resources/interface/assets/fonts/NimbusSanL/stylesheet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="display: none">
+  <div id="inventory" class="board" v-if="active" @click.right.prevent="context" @click="hide">
+    <audio id="loading" autoplay="autoplay" volume="-10000">
+      <source src="package://game_resources/interface/assets/audio/inventory.mp3" type="audio/mp3">
+    </audio>
+    <script>
+    var audio = document.querySelector("audio");
+    audio.volume = 0.3;
+    </script>
+
+    <div id="inv" class="inv">
+      <div class="bgshow"></div>
+
+      <transition name="fade">
+        <div class="menuInv" v-if="page == 1">
+          <div class="btnlink">
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btnActive">Инвентарь</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(2)">Статистика</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(3)">Донат</div>
+          </div>
+
+          <div class="left-panel">
+            <div class="clothes"><img src="package://game_resources/interface/assets/icons/items/-1.png"></div>
+            <div class="clothes1"><img src="package://game_resources/interface/assets/icons/items/-3.png"></div>
+            <div class="clothes2"><img src="package://game_resources/interface/assets/icons/items/-4.png"></div>
+            <div class="clothes3"><img src="package://game_resources/interface/assets/icons/items/-5.png"></div>
+            <div class="clothes4"><img src="package://game_resources/interface/assets/icons/items/-6.png"></div>
+            <div class="clothes5"><img src="package://game_resources/interface/assets/icons/items/-7.png"></div>
+            <div class="clothes6"><img src="package://game_resources/interface/assets/icons/items/-8.png"></div>
+            <div class="clothes7"><img src="package://game_resources/interface/assets/icons/items/-9.png"></div>
+            <div class="clothes8"><img src="package://game_resources/interface/assets/icons/items/-11.png"></div>
+            <div class="clothes9"><img src="package://game_resources/interface/assets/icons/items/-12.png"></div>
+            <div class="clothes10"><img src="package://game_resources/interface/assets/icons/items/-13.png"></div>
+            <div class="clothes11"><img src="package://game_resources/interface/assets/icons/items/-14.png"></div>
+          </div>
+
+          <div class="right-panel">
+            <h6>Инвентарь</h6>
+            <div class="item-List">
+              <item v-for="(item, index) in items" :key="key" :id="item[0]" :index="index" :count="item[1]" :isactive="item[2]" :subdata="item[3]" type="inv" />
+            </div>
+
+            <div class="item-out" v-if="outside">
+              <h6>{{outHead}}</h6>
+              <item v-for="(item, index) in outitems" :key="key" :id="item[0]" :index="index" :count="item[1]" :isactive="item[2]" :subdata="item[3]" type="out" />
+            </div>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div class="menuStats" v-if="page == 2">
+          <div class="btnlink">
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(1)">Инвентарь</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btnActive">Статистика</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(3)">Донат</div>
+          </div>
+
+          <div class="menuStatics">
+            <transition name="fade">
+              <div class="globalstats" v-if="statis == 0">
+                <div class="left-block">
+                  <p onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="active" @click="statsid(0)">Осноная статистика</p>
+                  <p onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" @click="statsid(1)">Имущество</p>
+                </div>
+                <div class="right-block">
+                  <h1>Основная статистика</h1>
+                  <a>Тут Вы можете просмотреть Вашу статистику о персонаже.</a>
+                  <div class="blockStats"><span>{{zohan[0]}}</span><span class="right">{{stats[0]}} [{{stats[1]}} XP]</span></div>
+                  <div class="blockStats"><span>{{zohan[1]}}</span><span class="right">{{stats[4]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[2]}}</span><span class="right">{{stats[6]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[3]}}</span><span class="right">{{stats[2]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[4]}}</span><span class="right">{{stats[13]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[5]}}</span><span class="right">{{stats[12]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[6]}}</span><span class="right">{{stats[8]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[7]}}</span><span class="right">{{stats[9]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[8]}}</span><span class="right">{{stats[7]}}</span></div>
+                  <div class="blockStats"><span>{{zohan[9]}}</span><span class="right">{{stats[3]}}</span></div>
+                </div>
+                <div class="blockLic">
+                  <div class="row__slot">
+                    <div class="lic_circle">
+                      <div class="circle__inner">
+                        <img v-if="stats[5].includes('A')" src="package://game_resources/interface/assets/icons/inventory/motorcycle-of-big-size-black-silhouette.svg" class="motoIco">
+                        <img v-else src="package://game_resources/interface/assets/icons/inventory/motorcycle-of-big-size-black-silhouette.svg" class="motoIcoActive" alt="">
+
+                        <img v-if="stats[5].includes('B')" src="package://game_resources/interface/assets/icons/inventory/sedan-car-front.svg" class="carIco" alt="">
+                        <img v-else src="package://game_resources/interface/assets/icons/inventory/sedan-car-front.svg" class="carIcoActive" alt="">
+
+                        <img v-if="stats[5].includes('C')" src="package://game_resources/interface/assets/icons/inventory/frontal-truck.svg" class="truckIco" alt="">
+                        <img v-else src="package://game_resources/interface/assets/icons/inventory/frontal-truck.svg" class="truckIcoActive" alt="">
+
+                        <img v-if="stats[5].includes('LS')" src="package://game_resources/interface/assets/icons/inventory/plane.svg" class="planeIco" alt="">
+                        <img v-else src="package://game_resources/interface/assets/icons/inventory/plane.svg" class="planeIcoActive" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </transition>
+            <transition name="fade">
+              <div class="stats" v-if="statis == 1">
+                <div class="left-block">
+                  <p onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" @click="statsid(0)">Осноная статистика</p>
+                  <p onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="active" @click="statsid(1)">Имущество</p>
+                </div>
+                <div class="right-block">
+                  <h1>Имущество</h1>
+                  <a>Тут Вы можете просмотреть Ваше имущество на этом персонаже.</a>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div class="donate" v-if="page == 3">
+          <div class="btnlink">
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(1)">Инвентарь</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btn" @click="pages(2)">Статистика</div>
+            <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btnActive" @click="pages(3)">Донат</div>
+          </div>
+
+          <div class="menuGood" v-if="menu == 0">
+
+            <div class="btnlinks">
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(0)" style="cursor:pointer;border-bottom: 2px solid #f44336bd;transition: all .33s;color: white;">Лучшее</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(1)">Валюта</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(2)">Премиум</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(3)">Разное </div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(5)">Рулетка</div>
+            </div>
+
+            <div class="btn">
+              <h1>Старт для начала</h1>
+              <li>Автомобиль: <span>Neon</span></li>
+              <li>Лицензия: <span>Автомобильная</span></li>
+              <li>Валюта: <span>150 000 000 $</span></li>
+              <li>Опыт: <span>10</span></li>
+              <p class="pricesell">500 Coins</p>
+              <div class="btnbuy" @click="buy(15)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h1>Солидненько</h1>
+              <li>Автомобиль: <span>Sultan</span></li>
+              <li>Лицензия: <span>Автомобильная</span></li>
+              <li>Валюта: <span>150 000 000 $</span></li>
+              <li>Опыт: <span>15</span></li>
+              <p class="pricesell">1.000 Coins</p>
+              <div class="btnbuy" @click="buy(16)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h1>Самое то</h1>
+              <li>Автомобиль: <span>Nero</span></li>
+              <li>Лицензия: <span>Автомобильная</span></li>
+              <li>Валюта: <span>150 000 000 $</span></li>
+              <li>Опыт: <span>20</span></li>
+              <p class="pricesell">1.500 Coins</p>
+              <div class="btnbuy" @click="buy(17)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h1>Золотые запасы</h1>
+              <li>Автомобиль: <span>Caracara2</span></li>
+              <li>Лицензия: <span>Автомобильная</span></li>
+              <li>Валюта: <span>150 000 000 $</span></li>
+              <li>Опыт: <span>25</span></li>
+              <p class="pricesell">2.500 Coins</p>
+              <div class="btnbuy" @click="buy(18)">Приобрести</div>
+            </div>
+          </div>
+
+          <div class="menuMoney" v-if="menu == 1">
+            <div class="btnlinks">
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(0)">Лучшее</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(1)" style="cursor:pointer;border-bottom: 2px solid #f44336bd;transition: all .33s;color: white;">Валюта</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(2)">Премиум</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(3)">Разное </div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(5)">Рулетка</div>
+            </div>
+
+            <div class="btn">
+              <h2>Более чем вогодно</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>$100 000</h1>
+              <p class="pricesell">2.500 Coins</p>
+              <div class="btnbuy" @click="buy(11)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Более чем вогодно</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>$300 000</h1>
+              <p class="pricesell">2.500 Coins</p>
+              <div class="btnbuy" @click="buy(12)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Более чем вогодно</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>$500 000</h1>
+              <p class="pricesell">2.500 Coins</p>
+              <div class="btnbuy" @click="buy(13)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Более чем вогодно</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>$1 000 000</h1>
+              <p class="pricesell">2.500 Coins</p>
+              <div class="btnbuy" @click="buy(14)">Приобрести</div>
+            </div>
+          </div>
+          <div class="menuVip" v-if="menu == 2">
+            <div class="btnlinks">
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(0)">Лучшее</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(1)">Валюта</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(2)" style="cursor:pointer;border-bottom: 2px solid #f44336bd;transition: all .33s;color: white;">Премиум</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(3)">Разное </div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(5)">Рулетка</div>
+            </div>
+
+            <div class="btn">
+              <h2>Получай больше прибыли</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>Bronze</h1>
+              <p class="pricesell">300 Coins</p>
+              <div class="btnbuy" @click="buy(3)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Получай больше прибыли</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>Silver</h1>
+              <p class="pricesell">600 Coins</p>
+              <div class="btnbuy" @click="buy(4)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Получай больше прибыли</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>Gold</h1>
+              <p class="pricesell">800 Coins</p>
+              <div class="btnbuy" @click="buy(5)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>Получай больше прибыли</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>Platinum</h1>
+              <p class="pricesell">1.000 Coins</p>
+              <div class="btnbuy" @click="buy(6)">Приобрести</div>
+            </div>
+          </div>
+
+          <div class="menuOther" v-if="menu == 3">
+            <div class="btnlinks">
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(0)">Лучшее</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(1)">Валюта</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(2)">Премиум</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(3)" style="cursor:pointer;border-bottom: 2px solid #f44336bd;transition: all .33s;color: white;">Разное </div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(5)">Рулетка</div>
+            </div>
+
+            <div class="btn">
+              <h2>СНЯТЬ</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>WARN</h1>
+              <p class="pricesell">300 Coins</p>
+              <div class="btnbuy" @click="buy(2)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>СМЕНА</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>ВНЕШНОСТИ</h1>
+              <p class="pricesell">600 Coins</p>
+              <div class="btnbuy" @click="buy(0)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>ЛИЦЕНЗИЯ</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>АВТОМОБИЛЬ</h1>
+              <p class="pricesell">500 Coins</p>
+              <div class="btnbuy" @click="buy(21)">Приобрести</div>
+            </div>
+            <div class="btn">
+              <h2>ЛИЦЕНЗИЯ</h2>
+              <img src="package://game_resources/interface/assets/img/inventory/donate/money.png" class="imgmoney">
+              <h1>ГРУЗОВОЙ</h1>
+              <p class="pricesell">800 Coins</p>
+              <div class="btnbuy" @click="buy(20)">Приобрести</div>
+            </div>
+          </div>
+
+
+          <div class="menuRoller" v-if="menu == 5">
+            <div class="btnlinks">
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(0)">Лучшее</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(1)">Валюта</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(2)">Премиум</div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(3)">Разное </div>
+              <div onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" class="btns" @click="open(5)" style="cursor:pointer;border-bottom: 2px solid #f44336bd;transition: all .33s;color: white;">Рулетка</div>
+            </div>
+            <div class="btnbuy" onclick="new Audio('package://game_resources/interface/assets/audio/auto-ui.mp3').play(); return false;" @click="wheel(10)">Купить за 500 Coins</div>
+            <div class="main">
+              <div class="rulet"> </div>
+              <div class="baraban" style="width: 16000px;overflow: hidden;">
+
+                <div class='rouletteRoller__roller' style="text-align: center;">
+                </div>
+
+                <div class="content container" style="position: relative; height: 163px;">
+
+                  <div class="content_elem1">
+
+                    <div class="content_elem1_world">
+
+                      <div class="content_elem1_color">
+                      </div>
+
+                      <div class="content_elem1_cover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem2">
+
+                    <div class="content_elem2_world">
+
+                      <div class="content_elem2_color">
+                      </div>
+
+                      <div class="content_elem2_cover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem3">
+
+                    <div class="content_elem3_world">
+
+                      <div class="content_elem3_color">
+                      </div>
+
+                      <div class="content_elem3_cover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem4">
+
+                    <div class="content_elem4_world">
+
+                      <div class="content_elem4_color">
+                      </div>
+
+                      <div class="content_elem4_cover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem5">
+
+                    <div class="content_elem5_world">
+
+                      <div class="content_elem5_color">
+                      </div>
+
+                      <div class="content_elem5_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem6">
+
+                    <div class="content_elem6_world">
+
+                      <div class="content_elem6_color">
+                      </div>
+
+                      <div class="content_elem6_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/e34.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem7">
+
+                    <div class="content_elem7_world">
+
+                      <div class="content_elem7_color">
+                      </div>
+
+                      <div class="content_elem7_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem8">
+
+                    <div class="content_elem8_world">
+
+                      <div class="content_elem8_color">
+                      </div>
+
+                      <div class="content_elem8_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem9">
+
+                    <div class="content_elem9_world">
+
+                      <div class="content_elem9_color">
+                      </div>
+
+                      <div class="content_elem9_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/level.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem10">
+
+                    <div class="content_elem10_world">
+
+                      <div class="content_elem10_color">
+                      </div>
+
+                      <div class="content_elem10_cover "><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem11">
+
+                    <div class="content_elem11_world">
+
+                      <div class="content_elem11_color">
+                      </div>
+
+                      <div class="content_elem11_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem12">
+
+                    <div class="content_elem12_world">
+
+                      <div class="content_elem12_color">
+                      </div>
+
+                      <div class="content_elem12_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem14">
+
+                    <div class="content_elem14_world">
+
+                      <div class="content_elem14_color">
+                      </div>
+
+                      <div class="content_elem14_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem15">
+
+                    <div class="content_elem15_world">
+
+                      <div class="content_elem15_color">
+                      </div>
+
+                      <div class="content_elem15_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem16">
+
+                    <div class="content_elem16_world">
+
+                      <div class="content_elem16_color">
+                      </div>
+
+                      <div class="content_elem16_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem17">
+
+                    <div class="content_elem17_world">
+
+                      <div class="content_elem17_color">
+                      </div>
+
+                      <div class="content_elem17_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem18">
+
+                    <div class="content_elem18_world">
+
+                      <div class="content_elem18_color">
+                      </div>
+
+                      <div class="content_elem18_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem19">
+
+                    <div class="content_elem19_world">
+
+                      <div class="content_elem19_color">
+                      </div>
+
+                      <div class="content_elem19_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem20">
+
+                    <div class="content_elem20_world">
+
+                      <div class="content_elem20_color">
+                      </div>
+
+                      <div class="content_elem20_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem21">
+
+                    <div class="content_elem21_world">
+
+                      <div class="content_elem21_color">
+                      </div>
+
+                      <div class="content_elem21_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem22">
+
+                    <div class="content_elem22_world">
+
+                      <div class="content_elem22_color">
+                      </div>
+
+                      <div class="content_elem22_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/c63.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem23">
+
+                    <div class="content_elem23_world">
+
+                      <div class="content_elem23_color">
+                      </div>
+
+                      <div class="content_elem23_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem23">
+
+                    <div class="content_elem23_world">
+
+                      <div class="content_elem23_color">
+                      </div>
+
+                      <div class="content_elem23_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/e34.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem24">
+
+                    <div class="content_elem24_world">
+
+                      <div class="content_elem24_color">
+                      </div>
+
+                      <div class="content_elem24_cover" id="win"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png" id="win_picure">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem25">
+
+                    <div class="content_elem25_world">
+
+                      <div class="content_elem25_color">
+                      </div>
+
+                      <div class="content_elem25_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem26">
+
+                    <div class="content_elem26_world">
+
+                      <div class="content_elem26_color">
+                      </div>
+
+                      <div class="content_elem26_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/level.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem27">
+
+                    <div class="content_elem27_world">
+
+                      <div class="content_elem27_color">
+                      </div>
+
+                      <div class="content_elem27_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem28">
+
+                    <div class="content_elem28_world">
+
+                      <div class="content_elem28_color">
+                      </div>
+
+                      <div class="content_elem28_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem29">
+
+                    <div class="content_elem29_world">
+
+                      <div class="content_elem29_color">
+                      </div>
+
+                      <div class="content_elem29_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem30">
+
+                    <div class="content_elem30_world">
+
+                      <div class="content_elem30_color">
+                      </div>
+
+                      <div class="content_elem30_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem31">
+
+                    <div class="content_elem31_world">
+
+                      <div class="content_elem31_color">
+                      </div>
+
+                      <div class="content_elem31_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem32">
+
+                    <div class="content_elem32_world">
+
+                      <div class="content_elem32_color">
+                      </div>
+
+                      <div class="content_elem32_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem33">
+
+                    <div class="content_elem33_world">
+
+                      <div class="content_elem33_color">
+                      </div>
+
+                      <div class="content_elem33_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem34">
+
+                    <div class="content_elem34_world">
+
+                      <div class="content_elem34_color">
+                      </div>
+
+                      <div class="content_elem34_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem35">
+
+                    <div class="content_elem35_world">
+
+                      <div class="content_elem35_color">
+                      </div>
+
+                      <div class="content_elem35_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem36">
+
+                    <div class="content_elem36_world">
+
+                      <div class="content_elem36_color">
+                      </div>
+
+                      <div class="content_elem36_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem36">
+
+                    <div class="content_elem36_world">
+
+                      <div class="content_elem36_color">
+                      </div>
+
+                      <div class="content_elem36_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem1">
+
+                    <div class="content_elem1_world">
+
+                      <div class="content_elem1_color">
+                      </div>
+
+                      <div class="content_elem1_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem2">
+
+                    <div class="content_elem2_world">
+
+                      <div class="content_elem2_color">
+                      </div>
+
+                      <div class="content_elem2_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem3">
+
+                    <div class="content_elem3_world">
+
+                      <div class="content_elem3_color">
+                      </div>
+
+                      <div class="content_elem3_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem4">
+
+                    <div class="content_elem4_world">
+
+                      <div class="content_elem4_color">
+                      </div>
+
+                      <div class="content_elem4_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/c63.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem5">
+
+                    <div class="content_elem5_world">
+
+                      <div class="content_elem5_color">
+                      </div>
+
+                      <div class="content_elem5_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem6">
+
+                    <div class="content_elem6_world">
+
+                      <div class="content_elem6_color">
+                      </div>
+
+                      <div class="content_elem6_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/e34.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem7">
+
+                    <div class="content_elem7_world">
+
+                      <div class="content_elem7_color">
+                      </div>
+
+                      <div class="content_elem7_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem8">
+
+                    <div class="content_elem8_world">
+
+                      <div class="content_elem8_color">
+                      </div>
+
+                      <div class="content_elem8_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem9">
+
+                    <div class="content_elem9_world">
+
+                      <div class="content_elem9_color">
+                      </div>
+
+                      <div class="content_elem9_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/level.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem10">
+
+                    <div class="content_elem10_world">
+
+                      <div class="content_elem10_color">
+                      </div>
+
+                      <div class="content_elem10_cover "><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem11">
+
+                    <div class="content_elem11_world">
+
+                      <div class="content_elem11_color">
+                      </div>
+
+                      <div class="content_elem11_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem12">
+
+                    <div class="content_elem12_world">
+
+                      <div class="content_elem12_color">
+                      </div>
+
+                      <div class="content_elem12_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem13">
+
+                    <div class="content_elem13_world">
+
+                      <div class="content_elem13_color">
+                      </div>
+
+                      <div class="content_elem113_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem14">
+
+                    <div class="content_elem14_world">
+
+                      <div class="content_elem14_color">
+                      </div>
+
+                      <div class="content_elem14_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem15">
+
+                    <div class="content_elem15_world">
+
+                      <div class="content_elem15_color">
+                      </div>
+
+                      <div class="content_elem15_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/c63.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem16">
+
+                    <div class="content_elem16_world">
+
+                      <div class="content_elem16_color">
+                      </div>
+
+                      <div class="content_elem16_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem17">
+
+                    <div class="content_elem17_world">
+
+                      <div class="content_elem17_color">
+                      </div>
+
+                      <div class="content_elem17_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem18">
+
+                    <div class="content_elem18_world">
+
+                      <div class="content_elem18_color">
+                      </div>
+
+                      <div class="content_elem18_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem19">
+
+                    <div class="content_elem19_world">
+
+                      <div class="content_elem19_color">
+                      </div>
+
+                      <div class="content_elem19_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem20">
+
+                    <div class="content_elem20_world">
+
+                      <div class="content_elem20_color">
+                      </div>
+
+                      <div class="content_elem20_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem21">
+
+                    <div class="content_elem21_world">
+
+                      <div class="content_elem21_color">
+                      </div>
+
+                      <div class="content_elem21_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem22">
+
+                    <div class="content_elem22_world">
+
+                      <div class="content_elem22_color">
+                      </div>
+
+                      <div class="content_elem22_cover" id="wink1"><img src="package://game_resources/interface/assets/img/inventory/roullete/c63.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem23">
+
+                    <div class="content_elem23_world">
+
+                      <div class="content_elem23_color">
+                      </div>
+
+                      <div class="content_elem23_cover" id="wink2"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem23_win">
+
+                    <div class="content_elem23_world_win">
+
+                      <div class="content_elem23_color">
+                      </div>
+
+                      <div class="content_elem23_cover" id="wink"><img src="package://game_resources/interface/assets/img/inventory/roullete/e34.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem24">
+
+                    <div class="content_elem24_world">
+
+                      <div class="content_elem24_color">
+                      </div>
+
+                      <div class="content_elem24_cover" id="wink3"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem25">
+
+                    <div class="content_elem25_world">
+
+                      <div class="content_elem25_color">
+                      </div>
+
+                      <div class="content_elem25_cover" id="wink4"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem26">
+
+                    <div class="content_elem26_world">
+
+                      <div class="content_elem26_color">
+                      </div>
+
+                      <div class="content_elem26_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/level.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem27">
+
+                    <div class="content_elem27_world">
+
+                      <div class="content_elem27_color">
+                      </div>
+
+                      <div class="content_elem27_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem28">
+
+                    <div class="content_elem28_world">
+
+                      <div class="content_elem28_color">
+                      </div>
+
+                      <div class="content_elem28_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem29">
+
+                    <div class="content_elem29_world">
+
+                      <div class="content_elem29_color">
+                      </div>
+
+                      <div class="content_elem29_cover" id="wink11"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem30">
+
+                    <div class="content_elem30_world">
+
+                      <div class="content_elem30_color">
+                      </div>
+
+                      <div class="content_elem30_cover" id="wink22"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem31">
+
+                    <div class="content_elem31_world">
+
+                      <div class="content_elem31_color">
+                      </div>
+
+                      <div class="content_elem31_cover" id="winkk"><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem32">
+
+                    <div class="content_elem32_world">
+
+                      <div class="content_elem32_color">
+                      </div>
+
+                      <div class="content_elem32_cover" id="wink33"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem33">
+
+                    <div class="content_elem33_world">
+
+                      <div class="content_elem33_color">
+                      </div>
+
+                      <div class="content_elem33_cover" id="wink44"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem34">
+
+                    <div class="content_elem34_world">
+
+                      <div class="content_elem34_color">
+                      </div>
+
+                      <div class="content_elem34_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem35">
+
+                    <div class="content_elem35_world">
+
+                      <div class="content_elem35_color">
+                      </div>
+
+                      <div class="content_elem35_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem36">
+
+                    <div class="content_elem36_world">
+
+                      <div class="content_elem36_color">
+                      </div>
+
+                      <div class="content_elem36_cover" id="two"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem36">
+
+                    <div class="content_elem36_world">
+
+                      <div class="content_elem36_color">
+                      </div>
+
+                      <div class="content_elem36_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem1">
+
+                    <div class="content_elem1_world">
+
+                      <div class="content_elem1_color">
+                      </div>
+
+                      <div class="content_elem1_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem2">
+
+                    <div class="content_elem2_world">
+
+                      <div class="content_elem2_color">
+                      </div>
+
+                      <div class="content_elem2_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem3">
+
+                    <div class="content_elem3_world">
+
+                      <div class="content_elem3_color">
+                      </div>
+
+                      <div class="content_elem3_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem4">
+
+                    <div class="content_elem4_world">
+
+                      <div class="content_elem4_color">
+                      </div>
+
+                      <div class="content_elem4_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/c63.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem5">
+
+                    <div class="content_elem5_world">
+
+                      <div class="content_elem5_color">
+                      </div>
+
+                      <div class="content_elem5_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/priora.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem6">
+
+                    <div class="content_elem6_world">
+
+                      <div class="content_elem6_color">
+                      </div>
+
+                      <div class="content_elem6_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/e34.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem7">
+
+                    <div class="content_elem7_world">
+
+                      <div class="content_elem7_color">
+                      </div>
+
+                      <div class="content_elem7_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/bita.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem8">
+
+                    <div class="content_elem8_world">
+
+                      <div class="content_elem8_color">
+                      </div>
+
+                      <div class="content_elem8_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/mask.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem9">
+
+                    <div class="content_elem9_world">
+
+                      <div class="content_elem9_color">
+                      </div>
+
+                      <div class="content_elem9_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/level.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem10">
+
+                    <div class="content_elem10_world">
+
+                      <div class="content_elem10_color">
+                      </div>
+
+                      <div class="content_elem10_cover "><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem11">
+
+                    <div class="content_elem11_world">
+
+                      <div class="content_elem11_color">
+                      </div>
+
+                      <div class="content_elem11_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/g65.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem12">
+
+                    <div class="content_elem12_world">
+
+                      <div class="content_elem12_color">
+                      </div>
+
+                      <div class="content_elem12_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem13">
+
+                    <div class="content_elem13_world">
+
+                      <div class="content_elem13_color">
+                      </div>
+
+                      <div class="content_elem113_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem14">
+
+                    <div class="content_elem14_world">
+
+                      <div class="content_elem14_color">
+                      </div>
+
+                      <div class="content_elem14_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/kost.png">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content_elem15">
+
+                    <div class="content_elem15_world">
+
+                      <div class="content_elem15_color">
+                      </div>
+
+                      <div class="content_elem15_cover"><img src="package://game_resources/interface/assets/img/inventory/donate/plat.png">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="content_elem16">
+                    <div class="content_elem16_world">
+                      <div class="content_elem16_color">
+                      </div>
+                      <div class="content_elem16_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="content_elem17">
+                    <div class="content_elem17_world">
+                      <div class="content_elem17_color">
+                      </div>
+                      <div class="content_elem17_cover"><img src="package://game_resources/interface/assets/img/inventory/roullete/money1.png">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
+
+
+  <nav class="context_menu" v-if="active" :style="style">
+    <ul>
+      <li v-if="type" @click="btn(1)">{{men[0]}}</li>
+      <li v-if="type" @click="btn(2)">{{men[1]}}</li>
+      <li v-if="!type" @click="btn(3)">{{men[2]}}</li>
+      <li v-if="type" @click="btn(4)">{{men[3]}}</li>
+    </ul>
+  </nav>
+
+  <div class="circle" @mouseOut="out" v-show="active" style="opacity:0; height:810px; width:810px">
+    <div class="bg"></div>
+    <div id="8" class="center" @mouseOver="over" @click="btn">
+      <div id="8" class="text">{{description}}</div>
+    </div>
+    <ul>
+      <li id="0" @mouseOver="over">
+        <div id="0" class="contents" :class="icons[0]" @click="btn"></div>
+      </li>
+      <li id="1" @mouseOver="over">
+        <div id="1" class="contents" :class="icons[1]" @click="btn"></div>
+      </li>
+      <li id="2" @mouseOver="over">
+        <div id="2" class="contents" :class="icons[2]" @click="btn"></div>
+      </li>
+      <li id="3" @mouseOver="over">
+        <div id="3" class="contents" :class="icons[3]" @click="btn"></div>
+      </li>
+      <li id="4" @mouseOver="over">
+        <div id="4" class="contents" :class="icons[4]" @click="btn"></div>
+      </li>
+      <li id="5" @mouseOver="over">
+        <div id="5" class="contents" :class="icons[5]" @click="btn"></div>
+      </li>
+      <li id="6" @mouseOver="over">
+        <div id="6" class="contents" :class="icons[6]" @click="btn"></div>
+      </li>
+      <li id="7" @mouseOver="over">
+        <div id="7" class="contents" :class="icons[7]" @click="btn"></div>
+      </li>
+    </ul>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src='package://game_resources/interface/plugins/js/vue.js'></script>
+  <script src="package://game_resources/interface/plugins/js/move.min.js"></script>
+  <script src='package://game_resources/interface/assets/js/inventory.js'></script>
+  <script src='package://game_resources/interface/assets/js/roller.js'></script>
+  <script src='package://game_resources/interface/assets/js/circle.js'></script>
+  <script>
+  Vue.filter('formatThousands', (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  })
+  </script>
+  <script>
+  window.onload = function () {
+    document.getElementsByTagName('body')[0].style.display = "block";
+  }
+  </script>
+
+</body>
+
+</html>

@@ -1,147 +1,122 @@
 ﻿global.debounceEvent = (ms, triggerCouns, fn) => {
-    let g_swapDate = Date.now();
-    let g_triggersCount = 0;
+  let g_swapDate = Date.now();
+  let g_triggersCount = 0;
+  return (...args) => {
+    if (++g_triggersCount > triggerCouns) {
+      let currentDate = Date.now();
 
-    return (...args) => {
-        if (++g_triggersCount > triggerCouns) {
-            let currentDate = Date.now();
-
-            if ((currentDate - g_swapDate) > ms) {
-                g_swapDate = currentDate;
-                g_triggersCount = 0;
-            } else {
-                return true; // cancel event trigger
-            }
-        }
-
-        fn(...args);
-    };
+      if ((currentDate - g_swapDate) > ms) {
+        g_swapDate = currentDate;
+        g_triggersCount = 0;
+      } else {
+        return true;
+      }
+    }
+    fn(...args);
+  };
 };
 
-/* Events error handling */
 const eventsMap = new Map();
 const eventsAdd = Symbol('eventsAdd');
 const rendersTicks = new Map();
 let renderId = -1;
 let isRenderDebugActive = false;
 global.isGodModeActive = false;
-
 mp.events[eventsAdd] = mp.events.add;
 const __eventAdd__ = (eventName, eventFunction, name) => {
-    if (
-        eventName === 'render' &&
-        (
-            typeof name !== 'string' ||
-            !name.length
-        )
-    ) {
-        renderId++;
-        name = renderId;
-    }
-
-    const proxyEventFunction = new Proxy(eventFunction, {
-        apply: (target, thisArg, argumentsList) => {
-            try {
-                const start = Date.now();
-
-                target.apply(thisArg, argumentsList);
-
-                if (eventName === 'render') {
-                    rendersTicks.set(name, Date.now() - start);
-                }
-            } catch(e) {
-                mp.game.graphics.notify(`${eventName}:error:1`);
-            }
+  if (eventName === 'render' && (typeof name !== 'string' || !name.length))
+  {
+    renderId++;
+    name = renderId;
+  }
+  const proxyEventFunction = new Proxy(eventFunction, {
+    apply: (target, thisArg, argumentsList) => {
+      try {
+        const start = Date.now();
+        target.apply(thisArg, argumentsList);
+        if (eventName === 'render') {
+          rendersTicks.set(name, Date.now() - start);
         }
-    });
-
-    eventsMap.set(eventFunction, proxyEventFunction);
-
-    mp.events[eventsAdd](eventName, proxyEventFunction);
+      } catch (e) {
+        mp.game.graphics.notify(`${eventName}:error:1`);
+      }
+    }
+  });
+  eventsMap.set(eventFunction, proxyEventFunction);
+  mp.events[eventsAdd](eventName, proxyEventFunction);
 };
 
 mp.events.add = (eventNameOrObject, ...args) => {
-    if (typeof eventNameOrObject === 'object') {
-        mp.events[eventsAdd](eventNameOrObject);
-
-        return;
-    }
-
-    __eventAdd__(eventNameOrObject, ...args);
+  if (typeof eventNameOrObject === 'object') {
+    mp.events[eventsAdd](eventNameOrObject);
+    return;
+  }
+  __eventAdd__(eventNameOrObject, ...args);
 };
 
 mp.events.add('render', () => {
-    if (!isRenderDebugActive) {
-        return;
-    }
-
-    const rendersTicksValues = [...rendersTicks.entries()];
-
-    for (let i = 0; i < rendersTicksValues.length; i++) {
-        mp.game.graphics.drawText(`${rendersTicksValues[i][0]} - ${rendersTicksValues[i][1]}ms`,
-            [0.5, 0.1 + (i * 0.03)],
-            {
-                scale: [0.3, 0.3],
-                outline: true,
-                color: [255, 255, 255, 255],
-                font: 4
-            }
-        );
-    }
-
+  if (!isRenderDebugActive) {
+    return;
+  }
+  const rendersTicksValues = [...rendersTicks.entries()];
+  for (let i = 0; i < rendersTicksValues.length; i++) {
+    mp.game.graphics.drawText(`${rendersTicksValues[i][0]} - ${rendersTicksValues[i][1]}ms`,
+      [0.5, 0.1 + (i * 0.03)], {
+        scale: [0.3, 0.3],
+        outline: true,
+        color: [255, 255, 255, 255],
+        font: 4
+      }
+    );
+  }
 }, 'index-render');
 
 mp.events.add('debug.render', () => {
-    isRenderDebugActive = !isRenderDebugActive;
+  isRenderDebugActive = !isRenderDebugActive;
 });
 
 mp.events.add('admin.toggleGodMode', () => {
-    global.isGodModeActive = !global.isGodModeActive;
-
-    mp.players.local.setInvincible(global.isGodModeActive);
-
-    mp.events.call('notify', 4, 9, `GM - ${global.isGodModeActive ? 'включен' : 'выключен'}`, 3000);
+  global.isGodModeActive = !global.isGodModeActive;
+  mp.players.local.setInvincible(global.isGodModeActive);
+  mp.events.call('notify', 4, 9, `GM - ${global.isGodModeActive ? 'включен' : 'выключен'}`, 3000);
 });
 
 global.chatActive = false;
 global.loggedin = false;
 global.localplayer = mp.players.local;
-
 mp.gui.execute("window.location = 'package://cef/hud.html'");
+
 if (mp.storage.data.chatcfg == undefined) {
-    mp.storage.data.chatcfg = {
-		timestamp: 0,
-		chatsize: 0,
-		fontstep: 0,
-		alpha: 1
-	};
-    mp.storage.flush();
+  mp.storage.data.chatcfg = {
+    timestamp: 0,
+    chatsize: 0,
+    fontstep: 0,
+    alpha: 1
+  };
+  mp.storage.flush();
 }
 
-setTimeout(function () { 
-    mp.gui.execute(`newcfg(0,${mp.storage.data.chatcfg.timestamp}); newcfg(1,${mp.storage.data.chatcfg.chatsize}); newcfg(2,${mp.storage.data.chatcfg.fontstep}); newcfg(3,${mp.storage.data.chatcfg.alpha});`);
-	mp.events.call('showHUD', false); 
+setTimeout(function () {
+  mp.gui.execute(`newcfg(0,${mp.storage.data.chatcfg.timestamp}); newcfg(1,${mp.storage.data.chatcfg.chatsize}); newcfg(2,${mp.storage.data.chatcfg.fontstep}); newcfg(3,${mp.storage.data.chatcfg.alpha});`);
+  mp.events.call('showHUD', false);
 }, 1000);
 
 setInterval(function () {
-    var name = (localplayer.getVariable('REMOTE_ID') == undefined) ? `Не авторизован` : `Игрок №${localplayer.getVariable("REMOTE_ID")}`;
-	mp.discord.update('RedAge RP v2.0', name);
+  var name = (localplayer.getVariable('REMOTE_ID') == undefined) ? `Не авторизован` : `Игрок №${localplayer.getVariable("REMOTE_ID")}`;
+  mp.discord.update('iTeffa.com', name);
 }, 10000);
 
 var pedsaying = null;
 var pedtext = "";
 var pedtext2 = null;
 var pedtimer = false;
-
 var friends = {};
 var personalLabels = [];
-
 var pressedraw = false;
 var accessRoding = false;
 var pentloaded = false;
 var emsloaded = false;
 var showCords = false;
-
 const walkstyles = [null,"move_m@brave","move_m@confident","move_m@drunk@verydrunk","move_m@shadyped@a","move_m@sad@a","move_f@sexy@a","move_ped_crouched"];
 const moods = [null,"mood_aiming_1", "mood_angry_1", "mood_drunk_1", "mood_happy_1", "mood_injured_1", "mood_stressed_1"];
 mp.game.streaming.requestClipSet("move_m@brave");
@@ -152,7 +127,6 @@ mp.game.streaming.requestClipSet("move_m@sad@a");
 mp.game.streaming.requestClipSet("move_f@sexy@a");
 mp.game.streaming.requestClipSet("move_ped_crouched");
 var admingm = false;
-
 mp.game.object.doorControl(mp.game.joaat("prop_ld_bankdoors_02"), 232.6054, 214.1584, 106.4049, false, 0.0, 0.0, 0.0);
 mp.game.object.doorControl(mp.game.joaat("prop_ld_bankdoors_02"), 231.5075, 216.5148, 106.4049, false, 0.0, 0.0, 0.0);
 mp.game.audio.setAudioFlag("DisableFlightMusic", true);
@@ -170,65 +144,64 @@ global.Color = NativeUI.Color;
 global.ListItem = NativeUI.ListItem;
 
 function SetWalkStyle(entity, walkstyle) {
-	try {
-		if (walkstyle == null) entity.resetMovementClipset(0.0);
-		else entity.setMovementClipset(walkstyle, 0.0);
-	} catch (e) { }
+  try {
+    if (walkstyle == null) entity.resetMovementClipset(0.0);
+    else entity.setMovementClipset(walkstyle, 0.0);
+  } catch (e) {}
 }
 
 function SetMood(entity, mood) {
-	try {
-		if (mood == null) entity.clearFacialIdleAnimOverride();
-		else mp.game.invoke('0xFFC24B988B938B38', entity.handle, mood, 0);
-	} catch (e) { }
+  try {
+    if (mood == null) entity.clearFacialIdleAnimOverride();
+    else mp.game.invoke('0xFFC24B988B938B38', entity.handle, mood, 0);
+  } catch (e) {}
 }
 
 mp.events.add('chatconfig', function (a, b) {
-	if(a == 0) mp.storage.data.chatcfg.timestamp = b;
-    else if(a == 1) mp.storage.data.chatcfg.chatsize = b;
-	else if(a == 2) mp.storage.data.chatcfg.fontstep = b;
-	else mp.storage.data.chatcfg.alpha = b;
-	mp.storage.flush();
+  if (a == 0) mp.storage.data.chatcfg.timestamp = b;
+  else if (a == 1) mp.storage.data.chatcfg.chatsize = b;
+  else if (a == 2) mp.storage.data.chatcfg.fontstep = b;
+  else mp.storage.data.chatcfg.alpha = b;
+  mp.storage.flush();
 });
 
 mp.events.add('setFriendList', function (friendlist) {
-	friends = {};
-	friendlist.forEach(friend => {
-		friends[friend] = true;
-    });
+  friends = {};
+  friendlist.forEach(friend => {
+    friends[friend] = true;
+  });
 });
 
-//////////////
 mp.events.add('newFriend', function (friend) {
-    friends[friend] = true;
+  friends[friend] = true;
 });
 
 mp.events.add('setClientRotation', function (player, rots) {
-	if (player !== undefined && player != null && localplayer != player) player.setRotation(0, 0, rots, 2, true);
+  if (player !== undefined && player != null && localplayer != player) player.setRotation(0, 0, rots, 2, true);
 });
 
 mp.events.add('setWorldLights', function (toggle) {
-	try {
-		mp.game.graphics.resetLightsState();
-		for (let i = 0; i <= 16; i++) {
-			if(i != 6 && i != 7) mp.game.graphics.setLightsState(i, toggle);
-		}
-	} catch { }
+  try {
+    mp.game.graphics.resetLightsState();
+    for (let i = 0; i <= 16; i++) {
+      if (i != 6 && i != 7) mp.game.graphics.setLightsState(i, toggle);
+    }
+  } catch {}
 });
 
 mp.events.add('setDoorLocked', function (model, x, y, z, locked, angle) {
-    mp.game.object.doorControl(model, x, y, z, locked, 0, 0, angle);
+  mp.game.object.doorControl(model, x, y, z, locked, 0, 0, angle);
 });
 mp.events.add('changeChatState', function (state) {
-    chatActive = state;
+  chatActive = state;
 });
 
 mp.events.add('PressE', function (toggle) {
-    pressedraw = toggle;
+  pressedraw = toggle;
 });
 
 mp.events.add('allowRoding', function (toggle) {
-    accessRoding = toggle;
+  accessRoding = toggle;
 });
 
 mp.events.add('UpdateMoney', function (temp, amount) {
@@ -241,65 +214,51 @@ mp.events.add('UpdateBank', function (temp, amount) {
   mp.events.call('UpdateBankPhone', temp, amount);
 });
 
-// // // // // // //
 require('./game_resources/handlers/plugins/bind_keys.js');
-require('./menus.js');
+		require('./menus.js');
 require('./game_resources/handlers/control/cmd_online.js');
-
-
-
-require('./lscustoms.js');
-require('./client/player/afksystem.js');
-require('./character.js');
-require('./render.js');
-require('./main.js');
-require('./voice.js');
-
-require('./phone.js');
-require('./checkpoints.js');
-require('./board.js');
-//require('./inventory.js');
-require('./hud.js');
-require('./gamertag.js');
-require('./furniture.js');
-require('./admesp.js');
-require('./circle.js');
-require('./vehiclesync.js');
-require("./spmenu.js");
-require('./basicsync.js');
-require('./gangzones.js');
-require('./fly.js');
-require('./environment.js');
-require('./elections.js');
-require('./animals.js');
-require('./client/utils/utils.js');
-require('./scripts/autopilot.js');
-require('./scripts/crouch.js');
-//require('./scripts/location.js');
-require('./scripts/markers.js');
-require('./scripts/fingerPointer.js');
-//require('./scripts/Hunting.js'); НЕ РАБОТАЕТ
-require('./scripts/publicGarage/index.js');
-require('./scripts/SmoothThrottle/SmoothThrottle.js');
-require('./banks/atm.js');
-
-require('./configs/barber.js');
-require('./configs/natives.js');
+		require('./lscustoms.js');
+		require('./client/player/afksystem.js');
+		require('./character.js');
+		require('./render.js');
+		require('./main.js');
+		require('./voice.js');
+		require('./phone.js');
+		require('./checkpoints.js');
+require('./game_resources/handlers/inventory.js');
+		require('./hud.js');
+		require('./gamertag.js');
+		require('./furniture.js');
+		require('./admesp.js');
+		require('./circle.js');
+		require('./vehiclesync.js');
+		require("./spmenu.js");
+		require('./basicsync.js');
+		require('./gangzones.js');
+		require('./fly.js');
+		require('./environment.js');
+		require('./elections.js');
+		require('./animals.js');
+		require('./client/utils/utils.js');
+		require('./scripts/autopilot.js');
+		require('./scripts/crouch.js');
+		require('./scripts/markers.js');
+		require('./scripts/fingerPointer.js');
+		require('./scripts/publicGarage/index.js');
+		require('./scripts/SmoothThrottle/SmoothThrottle.js');
+		require('./banks/atm.js');
+		require('./configs/barber.js');
+		require('./configs/natives.js');
 require('./game_resources/handlers/configs/clothe.js');
 require('./game_resources/handlers/configs/tattoo.js');
 require('./game_resources/handlers/configs/tuning.js');
-
-require('./realtor.js');
-
+		require('./realtor.js');
 
 if (mp.storage.data.friends == undefined) {
-    mp.storage.data.friends = {};
-    mp.storage.flush();
+  mp.storage.data.friends = {};
+  mp.storage.flush();
 }
 
-// LOAD ALL DEFAULT IPL'S
-//mp.game.streaming.requestIpl("Coroner_Int_On");
-//mp.game.streaming.requestIpl('hei_vw_dlc_casino_door_replay');
 mp.game.streaming.requestIpl('vw_prop_vw_casino_door_r_02a');
 mp.game.streaming.requestIpl('vw_casino_garage');
 mp.game.streaming.requestIpl('vw_casino_carpark');
@@ -325,41 +284,35 @@ mp.game.streaming.requestIpl("hei_sm_16_interior_v_bahama_milo_");
 mp.game.streaming.requestIpl("hei_hw1_blimp_interior_v_comedy_milo_");
 mp.game.streaming.requestIpl("gr_case6_bunkerclosed");
 mp.game.streaming.requestIpl("vw_casino_main");
-//
-
-/*mp.events.add('emsload', () => {
-	if(emsloaded == false) {
-		emsloaded = true;
-		mp.game.streaming.requestIpl("Coroner_Int_On");
-	}
-});*/
 
 mp.events.add('pentload', () => {
-	if(pentloaded == false) {
-		pentloaded = true;
-		// Enable Penthouse interior // Thanks & Credits to root <3
-		let phIntID = mp.game.interior.getInteriorAtCoords(976.636, 70.295, 115.164);
-		let phPropList = [
-			"Set_Pent_Tint_Shell",
-			"Set_Pent_Pattern_01",
-			"Set_Pent_Spa_Bar_Open",
-			"Set_Pent_Media_Bar_Open",
-			"Set_Pent_Dealer",
-			"Set_Pent_Arcade_Modern",
-			"Set_Pent_Bar_Clutter",
-			"Set_Pent_Clutter_01",
-			"set_pent_bar_light_01",
-			"set_pent_bar_party_0"
-		];
-		for (const propName of phPropList) {
-			mp.game.interior.enableInteriorProp(phIntID, propName);
-			mp.game.invoke("0x8D8338B92AD18ED6", phIntID, propName, 1);
-		}
-		mp.game.interior.refreshInterior(phIntID);
-	}
+  if (pentloaded == false) {
+    pentloaded = true;
+    let phIntID = mp.game.interior.getInteriorAtCoords(976.636, 70.295, 115.164);
+    let phPropList = [
+      "Set_Pent_Tint_Shell",
+      "Set_Pent_Pattern_01",
+      "Set_Pent_Spa_Bar_Open",
+      "Set_Pent_Media_Bar_Open",
+      "Set_Pent_Dealer",
+      "Set_Pent_Arcade_Modern",
+      "Set_Pent_Bar_Clutter",
+      "Set_Pent_Clutter_01",
+      "set_pent_bar_light_01",
+      "set_pent_bar_party_0"
+    ];
+    for (const propName of phPropList) {
+      mp.game.interior.enableInteriorProp(phIntID, propName);
+      mp.game.invoke("0x8D8338B92AD18ED6", phIntID, propName, 1);
+    }
+    mp.game.interior.refreshInterior(phIntID);
+  }
 });
-
-// // // // // // //
+   /* 
+   --- --- --- --- --- --- --- --- ---
+   --- ---    iTeffa.com    -- --- ---
+   --- --- --- --- --- --- --- --- --- 
+   */
 const mSP = 30;
 var prevP = mp.players.local.position;
 var localWeapons = {};
@@ -400,8 +353,6 @@ mp.events.add('acpos', () => {
 // // // // // // //
 var spectating = false;
 var sptarget = null;
-
-//mp.game.invoke(getNative("REMOVE_ALL_PED_WEAPONS"), localplayer.handle, false);
 
 mp.keys.bind(Keys.VK_R, false, function () { // R key
 	try {
@@ -581,23 +532,17 @@ mp.events.add('playerWeaponShot', (targetPosition, targetEntity) => {
 });
 mp.events.add('render', () => {
     try {
-        mp.game.controls.disableControlAction(2, 45, true); // reload control
-        //localplayer.setCanSwitchWeapon(false);
-
-        //     weapon switch controls       //
-		mp.game.controls.disableControlAction(1, 243, true); // CCPanelDisable
-		
+        mp.game.controls.disableControlAction(2, 45, true);
+		mp.game.controls.disableControlAction(1, 243, true);
         mp.game.controls.disableControlAction(2, 12, true);
         mp.game.controls.disableControlAction(2, 13, true);
         mp.game.controls.disableControlAction(2, 14, true);
         mp.game.controls.disableControlAction(2, 15, true);
         mp.game.controls.disableControlAction(2, 16, true);
         mp.game.controls.disableControlAction(2, 17, true);
-
         mp.game.controls.disableControlAction(2, 37, true);
         mp.game.controls.disableControlAction(2, 99, true);
         mp.game.controls.disableControlAction(2, 100, true);
-
         mp.game.controls.disableControlAction(2, 157, true);
         mp.game.controls.disableControlAction(2, 158, true);
         mp.game.controls.disableControlAction(2, 159, true);
@@ -607,12 +552,11 @@ mp.events.add('render', () => {
         mp.game.controls.disableControlAction(2, 163, true);
         mp.game.controls.disableControlAction(2, 164, true);
         mp.game.controls.disableControlAction(2, 165, true);
-
         mp.game.controls.disableControlAction(2, 261, true);
         mp.game.controls.disableControlAction(2, 262, true);
-        //      weapon switch controls       //
 
-        if (currentWeapon() != -1569615261) { // heavy attack controls
+
+        if (currentWeapon() != -1569615261) {
             mp.game.controls.disableControlAction(2, 140, true);
             mp.game.controls.disableControlAction(2, 141, true);
             mp.game.controls.disableControlAction(2, 143, true);
@@ -642,10 +586,6 @@ mp.events.add("Player_SetWalkStyle", (player, index) => {
 		mp.gui.chat.push("SetWalkStyle Debug: " + e.toString());
 	}
 });
-
-/*mp.events.add("playerDeath", function (player, reason, killer) {
-    givenWeapon = -1569615261;
-});*/
 
 mp.events.add("removeAllWeapons", function () {
     givenWeapon = -1569615261;

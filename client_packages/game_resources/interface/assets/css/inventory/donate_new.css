@@ -1,0 +1,658 @@
+@media (max-width: 1300px) {
+  .donate {
+    zoom: 100%
+  }
+}
+
+@media (min-width: 1301px) and (max-width: 1400px) {
+  .donate {
+    zoom: 100%
+  }
+}
+
+@media (min-width: 1401px) and (max-width: 1650px) {
+  .donate {
+    zoom: 100%
+  }
+}
+
+@media (min-width: 1651px) and (max-width: 2560px) {
+  .donate {
+    zoom: 100%
+  }
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url(../../fonts/ProximaNova/ProximaNova-Regular.woff);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url(../../fonts/ProximaNova/ProximaNova-Semibold.woff);
+  font-weight: 500;
+  font-display: swap
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url(../../fonts/ProximaNova/ProximaNova-Light.woff);
+  font-weight: 100;
+  font-display: swap
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url(../../fonts/ProximaNova/ProximaNova-Bold.woff);
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url(../../fonts/ProximaNova/ProximaNova-Extrabld.woff);
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap
+}
+
+.donate .bgshow {
+  position: absolute;
+  background: url('../../img/inventory/bgshow.png');
+  box-shadow: inset 0 0 678px 586px rgb(29 27 40 / 60%);
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.donate .btnlinks {
+  position: fixed;
+  top: 17vh;
+  left: 12vh;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #ffffff0f;
+  padding-right: 4vh;
+}
+
+.donate .btnlinks .rf {
+  position: fixed;
+  right: 7%;
+  letter-spacing: 0.1em;
+  font-size: 2.6vh;
+  font-weight: 200;
+  line-height: 52px;
+  font-family: 'Raleway', sans-serif;
+  transition: all .33s;
+  color: #ffffff91;
+}
+
+.donate .btnlinks .rff {
+  background: #f44336c9;
+  padding: 6px;
+  font-size: 2.6vh;
+  border-radius: 4vh;
+}
+
+.donate .btnlinks .btns {
+  margin-left: 48px;
+  letter-spacing: 0.1em;
+  font-size: 1.5vh;
+  font-weight: 200;
+  line-height: 52px;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 100;
+  transition: all .33s;
+  margin-bottom: -2px;
+  color: #ffffff91;
+}
+
+.donate .btnlinks .btns:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #f44336bd;
+  transition: all .33s;
+  color: white;
+}
+
+.donate .logo {
+  position: absolute;
+  width: 4%;
+  top: 5%;
+  left: 1%;
+  transition: all .33s;
+  opacity: 0.7;
+}
+
+.donate .logo:hover {
+  transform: rotate(9deg);
+  transition: all .33s;
+  opacity: 0.3;
+  width: 4.5%;
+}
+
+.donate .menuGood {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 30vh;
+}
+
+.donate .menuGood .btn {
+  border: 1px solid #ffffff5e;
+  width: 35vh;
+  height: 33vh;
+  margin-left: 5vh;
+  font-size: 1.6vh;
+  margin-top: 7vh;
+}
+
+.donate .menuGood .btn:hover {
+  background: #ffffff17;
+  border: 1px solid #ffffff00;
+}
+
+.donate .menuGood h1 {
+  position: relative;
+  font-size: 2.7vh;
+  left: 10%;
+  letter-spacing: 0.03em;
+  color: white;
+  top: 13%;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 100;
+}
+
+.donate .menuGood li {
+  display: flow-root;
+  position: relative;
+  left: 10%;
+  top: 11%;
+  margin-bottom: 1.9vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuGood .pricesell {
+  position: relative;
+  bottom: -5vh;
+  left: 12%;
+  color: #4CAF50;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 500;
+}
+
+.donate .menuGood .btnbuy {
+  position: relative;
+  top: -3%;
+  left: 59%;
+  width: 18vh;
+  height: 6vh;
+  align-items: center;
+  line-height: 6vh;
+  text-align: center;
+  background: #d6d6d630;
+  font-size: 1.7vh;
+  color: white;
+  transition: all .83s;
+}
+
+.donate .menuGood .btnbuy:hover {
+  cursor: pointer;
+  background: #ffffff;
+  background-color: transparent;
+  background: #ffffff;
+  color: black;
+  transition: all .83s;
+}
+
+
+
+/* МЕНЮ С ДЕНЬГАМИ */
+.donate .menuMoney {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 30vh;
+}
+
+.donate .menuMoney .btn {
+  border: 1px solid #ffffff5e;
+  width: 35vh;
+  height: 33vh;
+  margin-left: 5vh;
+  margin-top: 7vh;
+  font-size: 1.6vh;
+}
+
+.donate .menuMoney .btn:hover {
+  background: #ffffff17;
+  border: 1px solid #ffffff00;
+}
+
+.donate .menuMoney h1 {
+  position: relative;
+  left: 0%;
+  font-size: 3vh;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: white;
+  top: -28%;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+  margin-bottom: 69px;
+}
+
+.donate .menuMoney h2 {
+  position: relative;
+  left: 10%;
+  font-size: 2vh;
+  letter-spacing: 0.03em;
+  color: white;
+  top: 0%;
+  margin-bottom: -5vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuMoney .imgmoney {
+  position: relative;
+  left: 28%;
+  margin-top: 20%;
+  margin-bottom: -29px;
+  width: 42%;
+}
+
+.donate .menuMoney li {
+  display: flow-root;
+  position: relative;
+  left: 10%;
+  top: 11%;
+  margin-bottom: 1.9vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuMoney .pricesell {
+  position: relative;
+  bottom: 4.5vh;
+  left: 12%;
+  color: #4CAF50;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 500;
+}
+
+.donate .menuMoney .btnbuy {
+  position: relative;
+  top: -31%;
+  left: 59%;
+  width: 18vh;
+  height: 6vh;
+  align-items: center;
+  line-height: 6vh;
+  text-align: center;
+  background: #d6d6d630;
+  font-size: 1.7vh;
+  color: white;
+  transition: all .83s;
+}
+
+.donate .menuMoney .btnbuy:hover {
+  cursor: pointer;
+  background: #ffffff;
+  background-color: transparent;
+  background: #ffffff;
+  color: black;
+  transition: all .83s;
+}
+
+/* МЕНЮ С ВИПКАМИ */
+.donate .menuVip {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 30vh;
+}
+
+.donate .menuVip .btn {
+  border: 1px solid #ffffff5e;
+  width: 35vh;
+  height: 33vh;
+  margin-left: 5vh;
+  margin-top: 7vh;
+  font-size: 1.6vh;
+}
+
+.donate .menuVip .btn:hover {
+  background: #ffffff17;
+  border: 1px solid #ffffff00;
+}
+
+.donate .menuVip h1 {
+  position: relative;
+  left: 0%;
+  font-size: 3vh;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: white;
+  top: -28%;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+  margin-bottom: 69px;
+}
+
+.donate .menuVip h2 {
+  position: relative;
+  left: 10%;
+  font-size: 2vh;
+  letter-spacing: 0.03em;
+  color: white;
+  top: 0%;
+  margin-bottom: -5vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuVip .imgmoney {
+  position: relative;
+  left: 28%;
+  margin-top: 20%;
+  margin-bottom: -29px;
+  width: 42%;
+}
+
+.donate .menuVip li {
+  display: flow-root;
+  position: relative;
+  left: 10%;
+  top: 11%;
+  margin-bottom: 1.9vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuVip .pricesell {
+  position: relative;
+  bottom: 4.5vh;
+  left: 12%;
+  color: #4CAF50;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 500;
+}
+
+.donate .menuVip .btnbuy {
+  position: relative;
+  top: -31%;
+  left: 59%;
+  width: 18vh;
+  height: 6vh;
+  align-items: center;
+  line-height: 6vh;
+  text-align: center;
+  background: #d6d6d630;
+  font-size: 1.7vh;
+  color: white;
+  transition: all .83s;
+}
+
+.donate .menuVip .btnbuy:hover {
+  cursor: pointer;
+  background: #ffffff;
+  background-color: transparent;
+  background: #ffffff;
+  color: black;
+  transition: all .83s;
+}
+
+
+/* МЕНЮ РАЗНОЕ */
+.donate .menuOther {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 30vh;
+}
+
+.donate .menuOther .btn {
+  border: 1px solid #ffffff5e;
+  width: 35vh;
+  height: 33vh;
+  margin-left: 5vh;
+  margin-top: 7vh;
+  font-size: 1.6vh;
+}
+
+.donate .menuOther .btn:hover {
+  background: #ffffff17;
+  border: 1px solid #ffffff00;
+}
+
+.donate .menuOther h1 {
+  position: relative;
+  left: 0%;
+  font-size: 3vh;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: white;
+  top: -28%;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+  margin-bottom: 69px;
+}
+
+.donate .menuOther h2 {
+  position: relative;
+  left: 10%;
+  font-size: 2vh;
+  letter-spacing: 0.03em;
+  color: white;
+  top: 0%;
+  margin-bottom: -5vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuOther .imgmoney {
+  position: relative;
+  left: 28%;
+  margin-top: 20%;
+  margin-bottom: -29px;
+  width: 42%;
+}
+
+.donate .menuOther li {
+  display: flow-root;
+  position: relative;
+  left: 10%;
+  top: 11%;
+  margin-bottom: 1.9vh;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+}
+
+.donate .menuOther .pricesell {
+  position: relative;
+  bottom: 4.5vh;
+  left: 12%;
+  color: #4CAF50;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 500;
+}
+
+.donate .menuOther .btnbuy {
+  position: relative;
+  top: -31%;
+  left: 59%;
+  width: 18vh;
+  height: 6vh;
+  align-items: center;
+  line-height: 6vh;
+  text-align: center;
+  background: #d6d6d630;
+  font-size: 1.7vh;
+  color: white;
+  transition: all .83s;
+}
+
+.donate .menuOther .btnbuy:hover {
+  cursor: pointer;
+  background: #ffffff;
+  background-color: transparent;
+  background: #ffffff;
+  color: black;
+  transition: all .83s;
+}
+
+
+.donate .menuOther .inputPer {
+  margin-top: 10vh;
+  margin-left: 3%;
+  width: 22vh;
+  height: 6vh;
+  background: #ffffff52;
+  border: 0;
+  font-size: 1.5vh;
+  color: white;
+  text-align: center;
+  font-family: ProximaNova, sans-serif;
+  transition: all .33s;
+}
+
+.donate .menuOther .inputPer:hover {
+  background: #ffffff8f;
+  color: black;
+  border: 1px solid #ffffff00;
+  transition: all .33s;
+}
+
+/* МЕНЮ РУЛЕТКА */
+
+.donate .menuRoller {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 30vh;
+}
+
+
+.donate .menuRoller .infoItems {
+  position: absolute;
+  color: white;
+  background: #6f6e75;
+  width: 9%;
+  text-align: center;
+  top: 3%;
+  margin-left: 3%;
+  font-size: 1.7vh;
+  z-index: 1;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+  padding: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .33s;
+}
+
+.donate .menuRoller .btn {
+  border-bottom: 1px solid #ffffff5e;
+  width: 29vh;
+  height: 32vh;
+  margin-left: 5vh;
+  font-size: 1.6vh;
+  transition: all .33s;
+  margin-bottom: 37px;
+}
+
+.donate .menuRoller .btn:hover {
+  border-bottom: 1px solid #F44336;
+  transition: all .33s;
+}
+
+.donate .menuRoller .btn:hover .infoItems {
+  position: absolute;
+  color: white;
+  background: #6f6e75;
+  width: 9%;
+  text-align: center;
+  top: 1%;
+  font-size: 1.7vh;
+  z-index: 1;
+  font-weight: 100;
+  font-family: ProximaNova, sans-serif;
+  padding: 5px;
+  transition: all .33s;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.donate .menuRoller .btnbuy {
+  position: absolute;
+  top: 36vh;
+  width: 28vh;
+  height: 6vh;
+  align-items: center;
+  line-height: 6vh;
+  text-align: center;
+  background-color: transparent;
+  background-image: linear-gradient(102deg, transparent 15px, #d6d6d630 16px, #d6d6d630 95%, transparent 95.3%, transparent);
+  font-size: 1.7vh;
+  color: white;
+  transition: all .83s;
+}
+
+.donate .menuRoller .btnbuy:hover {
+  cursor: pointer;
+  background: #ffffff;
+  background-color: transparent;
+  background-image: linear-gradient(102deg, transparent 15px, #ffffff 16px, #ffffff 95%, transparent 95.3%, transparent);
+  color: black;
+  transition: all .83s;
+}
+
+.donate .menuRoller h1 {
+  position: relative;
+  left: 0%;
+  font-size: 3vh;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: white;
+  top: -34%;
+  font-family: ProximaNova, sans-serif;
+  font-weight: 100;
+  margin-bottom: 24px;
+}
+
+.donate .menuRoller .imgmoney {
+  position: relative;
+  left: 11%;
+  margin-bottom: -29px;
+  justify-content: center;
+  margin: auto;
+  width: 78%;
+}
+
+.donate .menuRoller .saleblock {
+  position: relative;
+  width: 22%;
+  height: 10%;
+  text-align: center;
+  line-height: 2.5vh;
+  color: white;
+  background: #F44336;
+  right: -75%;
+  margin-bottom: -38px;
+  top: 4%;
+}

@@ -475,16 +475,6 @@
         return uuid;
     }
     
-    // CONCATENATED MODULE: ./items/UIMenuItem.ts
-    
-    
-    
-    
-    
-    
-    
-    
-    
     class UIMenuItem_UIMenuItem {
         constructor(text, description = "") {
             this.Id = UUIDV4();
@@ -674,14 +664,7 @@
     UIMenuItem_UIMenuItem.DefaultHighlightedBackColor = Color.White;
     UIMenuItem_UIMenuItem.DefaultForeColor = Color.WhiteSmoke;
     UIMenuItem_UIMenuItem.DefaultHighlightedForeColor = Color.Black;
-    
-    // CONCATENATED MODULE: ./items/UIMenuCheckboxItem.ts
-    
-    
-    
-    
-    
-    
+
     class UIMenuCheckboxItem_UIMenuCheckboxItem extends UIMenuItem_UIMenuItem {
         constructor(text, check = false, description = "") {
             super(text, description);
@@ -782,19 +765,7 @@
             return this.MeasureStringWidthNoConvert(str) * width;
         }
     }
-    
-    // CONCATENATED MODULE: ./items/UIMenuListItem.ts
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     class UIMenuListItem_UIMenuListItem extends UIMenuItem_UIMenuItem {
         constructor(text, description = "", collection = new ItemsCollection_ItemsCollection([]), startIndex = 0) {
             super(text, description);
@@ -915,13 +886,6 @@
             this._itemText.Draw();
         }
     }
-    
-    // CONCATENATED MODULE: ./items/UIMenuSliderItem.ts
-    
-    
-    
-    
-    
     
     class UIMenuSliderItem_UIMenuSliderItem extends UIMenuItem_UIMenuItem {
         get Index() {
