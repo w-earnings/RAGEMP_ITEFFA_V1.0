@@ -196,8 +196,8 @@ namespace iTeffa.Kernel.Character
                         if (Row["pos"].ToString().Contains("NaN"))
                         {
                             Log.Debug("Detected wrong coordinates!", nLog.Type.Warn);
-                            if (LVL <= 1) SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636); // На спавне новичков
-                            else SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636); //На спавне новичков у мэрии 
+                            if (LVL <= 1) SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
+                            else SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
                         }
                     }
                     player.Name = FirstName + "_" + LastName;
@@ -233,85 +233,82 @@ namespace iTeffa.Kernel.Character
             {
                 Customization.SaveCharacter(player);
 
-                NAPI.Task.Run(async () =>
+                Vector3 LPos = (player.IsInVehicle) ? player.Vehicle.Position + new Vector3(0, 0, 0.5) : player.Position;
+                string pos = JsonConvert.SerializeObject(LPos);
+                try
                 {
-                    Vector3 LPos = (player.IsInVehicle) ? player.Vehicle.Position + new Vector3(0, 0, 0.5) : player.Position;
-                    string pos = JsonConvert.SerializeObject(LPos);
-                    try
+                    if (InsideHouseID != -1)
                     {
-                        if (InsideHouseID != -1)
-                        {
-                            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == InsideHouseID);
-                            if (house != null)
-                                pos = JsonConvert.SerializeObject(house.Position + new Vector3(0, 0, 1.12));
-                        }
-                        if (InsideGarageID != -1)
-                        {
-                            Garage garage = GarageManager.Garages[InsideGarageID];
-                            pos = JsonConvert.SerializeObject(garage.Position + new Vector3(0, 0, 1.12));
-                        }
-                        if (ExteriorPos != new Vector3())
-                        {
-                            Vector3 position = ExteriorPos;
-                            pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
-                        }
-                        if (InsideHotelID != -1)
-                        {
-                            Vector3 position = Houses.Hotel.HotelEnters[InsideHotelID];
-                            pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
-                        }
-                        if (TuningShop != -1)
-                        {
-                            Vector3 position = BusinessManager.BizList[TuningShop].EnterPoint;
-                            pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
-                        }
+                        House house = HouseManager.Houses.FirstOrDefault(h => h.ID == InsideHouseID);
+                        if (house != null)
+                            pos = JsonConvert.SerializeObject(house.Position + new Vector3(0, 0, 1.12));
                     }
-                    catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadPos\":\n" + e.ToString()); }
-
-                    try
+                    if (InsideGarageID != -1)
                     {
-                        if (IsSpawned && !IsAlive)
-                        {
-                            pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[2]);
-                            Health = 20;
-                            Armor = 0;
-                        }
-                        else
-                        {
-                            Health = player.Health;
-                            Armor = player.Armor;
-                        }
+                        Garage garage = GarageManager.Garages[InsideGarageID];
+                        pos = JsonConvert.SerializeObject(garage.Position + new Vector3(0, 0, 1.12));
                     }
-                    catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadHP\":\n" + e.ToString()); }
-
-                    try
+                    if (ExteriorPos != new Vector3())
                     {
-                        var aItem = nInventory.Find(UUID, ItemType.BodyArmor);
-                        if (aItem != null && aItem.IsActive)
-                            aItem.Data = $"{Armor}";
+                        Vector3 position = ExteriorPos;
+                        pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
                     }
-                    catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadArmorItem\":\n" + e.ToString()); }
-
-                    try
+                    if (InsideHotelID != -1)
                     {
-                        var all_vehicles = VehicleManager.getAllPlayerVehicles(player.Name);
-                        foreach (var number in all_vehicles)
-                            VehicleManager.Save(number);
+                        Vector3 position = Houses.Hotel.HotelEnters[InsideHotelID];
+                        pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
                     }
-                    catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadVehicles\":\n" + e.ToString()); }
+                    if (TuningShop != -1)
+                    {
+                        Vector3 position = BusinessManager.BizList[TuningShop].EnterPoint;
+                        pos = JsonConvert.SerializeObject(position + new Vector3(0, 0, 1.12));
+                    }
+                }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadPos\":\n" + e.ToString()); }
 
-                    if (!IsSpawned)
-                        pos = JsonConvert.SerializeObject(SpawnPos);
+                try
+                {
+                    if (IsSpawned && !IsAlive)
+                    {
+                        pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[2]);
+                        Health = 20;
+                        Armor = 0;
+                    }
+                    else
+                    {
+                        Health = player.Health;
+                        Armor = player.Armor;
+                    }
+                }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadHP\":\n" + e.ToString()); }
 
-                    Main.PlayerSlotsInfo[UUID] = new Tuple<int, int, int, long>(LVL, EXP, FractionID, Money);
+                try
+                {
+                    var aItem = nInventory.Find(UUID, ItemType.BodyArmor);
+                    if (aItem != null && aItem.IsActive)
+                        aItem.Data = $"{Armor}";
+                }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadArmorItem\":\n" + e.ToString()); }
 
-                    await Connect.QueryAsync($"UPDATE `characters` SET `pos`='{pos}',`gender`={Gender},`health`={Health},`armor`={Armor},`lvl`={LVL},`exp`={EXP}," +
+                try
+                {
+                    var all_vehicles = VehicleManager.getAllPlayerVehicles(player.Name);
+                    foreach (var number in all_vehicles)
+                        VehicleManager.Save(number);
+                }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoadVehicles\":\n" + e.ToString()); }
+
+                if (!IsSpawned)
+                    pos = JsonConvert.SerializeObject(SpawnPos);
+
+                Main.PlayerSlotsInfo[UUID] = new Tuple<int, int, int, long>(LVL, EXP, FractionID, Money);
+
+                await Connect.QueryAsync($"UPDATE `characters` SET `pos`='{pos}',`gender`={Gender},`health`={Health},`armor`={Armor},`lvl`={LVL},`exp`={EXP}," +
                     $"`money`={Money},`bank`={Bank},`work`={WorkID},`fraction`={FractionID},`fractionlvl`={FractionLVL},`arrest`={ArrestTime}," +
                     $"`wanted`='{JsonConvert.SerializeObject(WantedLVL)}',`biz`='{JsonConvert.SerializeObject(BizIDs)}',`adminlvl`={AdminLVL}," +
                     $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Connect.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
                     $"`warns`={Warns},`hotel`={HotelID},`hotelleft`={HotelLeft},`lastveh`='{LastVeh}',`onduty`={OnDuty},`lasthour`={LastHourMin}," +
                     $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`PetName`='{PetName}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
-                });
 
                 Finance.Bank.Save(Bank);
                 await Log.DebugAsync($"Player [{FirstName}:{LastName}] was saved.");
