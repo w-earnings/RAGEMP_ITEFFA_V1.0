@@ -87,19 +87,20 @@ namespace iTeffa.Kernel
             "Автосалон #1",       // 2
             "Автосалон #2",       // 3
             "Автосалон #3",       // 4
-            "Автосалон #4",       // 5 
+            "Автосалон #4",       // 5
+            "Автосалон #5",       // 6
 
-            "Оружия",             // 6
-            "Магазин одежды",     // 7
-            "Бургерная",          // 8
-            "Тату-салон",         // 9
-            "Парикмахерская",     // 10
-            "Магазин масок",      // 11
-            "Тюнинг",             // 12
-            "Автомойка",          // 13
-            "Магазин животных",   // 14
-            "FishShop",           // 15
-            "SellShop",           // 16
+            "Оружия",             // 7
+            "Магазин одежды",     // 8
+            "Бургерная",          // 9
+            "Тату-салон",         // 10
+            "Парикмахерская",     // 11
+            "Магазин масок",      // 12
+            "Тюнинг",             // 13
+            "Автомойка",          // 14
+            "Магазин животных",   // 15
+            "FishShop",           // 16
+            "SellShop",           // 17
         };
         public static List<int> BlipByType = new List<int>()
         {
@@ -109,17 +110,18 @@ namespace iTeffa.Kernel
             523,                  // 3
             225,                  // 4
             522,                  // 5
-            110,                  // 6
-            73,                   // 7
-            106,                  // 8
-            75,                   // 9
-            71,                   // 10
-            362,                  // 11
-            72,                   // 12
-            569,                  // 13
-            251,                  // 14
-            371,                  // 15
-            628,                  // 16
+            522,                  // 6
+            110,                  // 7
+            73,                   // 8
+            106,                  // 9
+            75,                   // 10
+            71,                   // 11
+            362,                  // 12
+            72,                   // 13
+            569,                  // 14
+            251,                  // 15
+            371,                  // 16
+            628,                  // 17
         };
         public static List<int> BlipColorByType = new List<int>()
         {
@@ -129,17 +131,18 @@ namespace iTeffa.Kernel
             45,                   // 3
             45,                   // 4
             45,                   // 5
-            76,                   // 6
-            4,                    // 7
-            70,                   // 8
-            8,                    // 9
-            45,                   // 10
-            4,                    // 11
-            40,                   // 12
-            17,                   // 13
-            15,                   // 14
-            3,                    // 15
+            45,                   // 6
+            76,                   // 7
+            4,                    // 8
+            70,                   // 9
+            8,                    // 10
+            45,                   // 11
+            4,                    // 12
+            40,                   // 13
+            17,                   // 14
+            15,                   // 15
             3,                    // 16
+            3,                    // 17
         };
         private static List<string> FishProducts = new List<string>()
         {
@@ -198,9 +201,7 @@ namespace iTeffa.Kernel
             "CombatPistol",
             "Revolver",
             "HeavyPistol",
-
             "BullpupShotgun",
-
             "CombatPDW",
             "MachinePistol",
         };
@@ -1250,7 +1251,6 @@ namespace iTeffa.Kernel
         };
         #endregion Цена - Продукции
 
-
         public static List<Product> fillProductList(int type)
         {
             List<Product> products_list = new List<Product>();
@@ -1295,6 +1295,13 @@ namespace iTeffa.Kernel
                     }
                     break;
                 case 6:
+                    foreach (var name in CarsNames[4])
+                    {
+                        Product product = new Product(ProductsOrderPrice[name], 0, 0, name, false);
+                        products_list.Add(product);
+                    }
+                    break;
+                case 7:
                     foreach (var name in GunNames)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 0, 5, name, false);
@@ -1302,44 +1309,44 @@ namespace iTeffa.Kernel
                     }
                     products_list.Add(new Product(ProductsOrderPrice["Патроны"], 0, 5, "Патроны", false));
                     break;
-                case 7:
+                case 8:
                     products_list.Add(new Product(100, 200, 10, "Одежда", false));
                     break;
-                case 8:
+                case 9:
                     foreach (var name in BurgerProducts)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 10, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
-                case 9:
+                case 10:
                     products_list.Add(new Product(100, 100, 0, "Расходники", false));
                     products_list.Add(new Product(100, 0, 0, "Татуировки", false));
                     break;
-                case 10:
+                case 11:
                     products_list.Add(new Product(100, 100, 0, "Расходники", false));
                     products_list.Add(new Product(100, 0, 0, "Парики", false));
                     break;
-                case 11:
+                case 12:
                     products_list.Add(new Product(100, 50, 0, "Маски", false));
                     break;
-                case 12:
+                case 13:
                     products_list.Add(new Product(100, 1000, 0, "Запчасти", false));
                     break;
-                case 13:
+                case 14:
                     products_list.Add(new Product(200, 200, 0, "Средство для мытья", false));
                     break;
-                case 14:
+                case 15:
                     products_list.Add(new Product(500000, 20, 0, "Корм для животных", false));
                     break;
-                case 15:
+                case 16:
                     foreach (var name in FishProducts)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
-                case 16:
+                case 17:
                     foreach (var name in SellProducts)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
@@ -1443,6 +1450,7 @@ namespace iTeffa.Kernel
                 case 3:
                 case 4:
                 case 5:
+                case 6:
                     if (player.HasData("FOLLOWER"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Отпустите человека", 3000);
@@ -1451,11 +1459,11 @@ namespace iTeffa.Kernel
                     player.SetData("CARROOMID", biz.ID);
                     CarRoom.enterCarroom(player, biz.Products[0].Name);
                     return;
-                case 6:
+                case 7:
                     player.SetData("GUNSHOP", biz.ID);
                     OpenGunShopMenu(player);
                     return;
-                case 7:
+                case 8:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить рабочий день", 3000);
@@ -1466,10 +1474,10 @@ namespace iTeffa.Kernel
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     NAPI.Entity.SetEntityDimension(player, Dimensions.RequestPrivateDimension(player));
                     return;
-                case 8:
+                case 9:
                     OpenBizShopMenu(player);
                     return;
-                case 9:
+                case 10:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить рабочий день", 3000);
@@ -1486,7 +1494,7 @@ namespace iTeffa.Kernel
 
                     Trigger.ClientEvent(player, "openBody", false, biz.Products[1].Price);
                     return;
-                case 10:
+                case 11:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить рабочий день", 3000);
@@ -1499,7 +1507,7 @@ namespace iTeffa.Kernel
                     Customization.ClearClothes(player, Main.Players[player].Gender);
                     Trigger.ClientEvent(player, "openBody", true, biz.Products[1].Price);
                     return;
-                case 11:
+                case 12:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить рабочий день", 3000);
@@ -1510,7 +1518,7 @@ namespace iTeffa.Kernel
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     Customization.ApplyMaskFace(player);
                     return;
-                case 12:
+                case 13:
                     if (!player.IsInVehicle || !player.Vehicle.HasData("ACCESS") || player.Vehicle.GetData<string>("ACCESS") != "PERSONAL")
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в личной машине", 3000);
@@ -1542,7 +1550,7 @@ namespace iTeffa.Kernel
 
                     Trigger.ClientEvent(player, "tuningSeatsCheck");
                     return;
-                case 13:
+                case 14:
                     if (!player.IsInVehicle)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
@@ -1550,7 +1558,7 @@ namespace iTeffa.Kernel
                     }
                     Trigger.ClientEvent(player, "openDialog", "CARWASH_PAY", $"Вы хотите помыть машину за ${biz.Products[0].Price}$?");
                     return;
-                case 14:
+                case 15:
                     if (player.HasData("FOLLOWER"))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Отпустите человека", 3000);
@@ -1559,10 +1567,10 @@ namespace iTeffa.Kernel
                     player.SetData("PETSHOPID", biz.ID);
                     enterPetShop(player, biz.Products[0].Name);
                     return;
-                case 15:
+                case 16:
                     OpenBizShopMenu(player);
                     return;
-                case 16:
+                case 17:
                     RodManager.OpenBizSellShopMenu(player);
                     return;
             }
@@ -1671,7 +1679,6 @@ namespace iTeffa.Kernel
                 NAPI.Entity.SetEntityDimension(player, 0);
                 NAPI.Entity.SetEntityPosition(player, new Vector3(enterPoint.X, enterPoint.Y, enterPoint.Z + 1.5));
                 Main.Players[player].ExteriorPos = new Vector3();
-                //player.FreezePosition = false;
                 Dimensions.DismissPrivateDimension(player);
                 player.ResetData("PETSHOPID");
                 Trigger.ClientEvent(player, "destroyCamera");
@@ -2205,7 +2212,6 @@ namespace iTeffa.Kernel
                 var zone = Convert.ToInt32(arguments[0].ToString());
                 var tattooID = Convert.ToInt32(arguments[1].ToString());
                 var tattoo = BusinessTattoos[zone][tattooID];
-                //player.SendChatMessage("zone " + zone + " tattooID " + tattooID + " tattoo" + tattoo);
                 Log.Debug($"buyTattoo zone: {zone} | id: {tattooID}");
 
                 Business biz = BizList[player.GetData<int>("BODY_SHOP")];
@@ -2221,12 +2227,6 @@ namespace iTeffa.Kernel
 
                 var amount = Convert.ToInt32(price * 0.75 / 100);
                 if (amount <= 0) amount = 1;
-                //На время фикса
-                //if (!takeProd(biz.ID, amount, "Расходники", Convert.ToInt32(price)))
-                //{
-                //    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Этот тату-салон не может оказать данную услугу", 3000);
-                //    return;
-                //}
                 GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyTattoo");
                 Finance.Wallet.Change(player, -Convert.ToInt32(price));
 
@@ -2594,8 +2594,8 @@ namespace iTeffa.Kernel
             Business biz = BizList[BizID];
             var prodName = player.GetData<string>("SELECTPROD");
 
-            double minPrice = (biz.Type == 7 || biz.Type == 11 || biz.Type == 12 || prodName == "Татуировки" || prodName == "Парики" || prodName == "Патроны") ? 80 : (biz.Type == 1) ? 2 : ProductsOrderPrice[player.GetData<string>("SELECTPROD")] * 0.8;
-            double maxPrice = (biz.Type == 7 || biz.Type == 11 || biz.Type == 12 || prodName == "Татуировки" || prodName == "Парики" || prodName == "Патроны") ? 150 : (biz.Type == 1) ? 7 : ProductsOrderPrice[player.GetData<string>("SELECTPROD")] * 1.2;
+            double minPrice = (biz.Type == 8 || biz.Type == 12 || biz.Type == 13 || prodName == "Татуировки" || prodName == "Парики" || prodName == "Патроны") ? 80 : (biz.Type == 1) ? 2 : ProductsOrderPrice[player.GetData<string>("SELECTPROD")] * 0.8;
+            double maxPrice = (biz.Type == 8 || biz.Type == 12 || biz.Type == 13 || prodName == "Татуировки" || prodName == "Парики" || prodName == "Патроны") ? 150 : (biz.Type == 1) ? 7 : ProductsOrderPrice[player.GetData<string>("SELECTPROD")] * 1.2;
 
             if (price < minPrice || price > maxPrice)
             {
@@ -2608,7 +2608,7 @@ namespace iTeffa.Kernel
                 if (p.Name == prodName)
                 {
                     p.Price = price;
-                    string ch = (biz.Type == 7 || biz.Type == 11 || biz.Type == 12 || p.Name == "Татуировки" || p.Name == "Парики") ? "%" : "$";
+                    string ch = (biz.Type == 8 || biz.Type == 12 || biz.Type == 13 || p.Name == "Татуировки" || p.Name == "Парики") ? "%" : "$";
 
                     Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Теперь {p.Name} стоит {p.Price}{ch}", 3000);
                     if (p.Name == "Бензин") biz.UpdateLabel();
@@ -2641,7 +2641,7 @@ namespace iTeffa.Kernel
                         return;
                     }
 
-                    if (biz.Type >= 2 && biz.Type <= 5)
+                    if (biz.Type >= 3 && biz.Type <= 6)
                     {
                         if (amount > 3)
                         {
@@ -2650,7 +2650,7 @@ namespace iTeffa.Kernel
                             return;
                         }
                     }
-                    else if (biz.Type == 14)
+                    else if (biz.Type == 15)
                     {
                         if (amount < 1 || p.Lefts + amount > ProductsCapacity[p.Name])
                         {
@@ -2788,7 +2788,7 @@ namespace iTeffa.Kernel
             biz.UpdateLabel();
             BizList.Add(lastBizID, biz);
 
-            if (type == 6)
+            if (type == 7)
             {
                 Connect.Query($"INSERT INTO `weapons`(`id`,`lastserial`) VALUES({biz.ID},0)");
             }
@@ -2806,7 +2806,7 @@ namespace iTeffa.Kernel
             Connect.Query($"DELETE FROM businesses WHERE id={id}");
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы удалили бизнес", 3000);
             Business biz = BizList.FirstOrDefault(b => b.Value.ID == id).Value;
-            if (biz.Type == 6)
+            if (biz.Type == 7)
             {
                 Connect.Query($"DELETE FROM `weapons` WHERE id={id}");
             }
@@ -3148,7 +3148,7 @@ namespace iTeffa.Kernel
             foreach (var p in biz.Products)
                 if (p.Name == product)
                 {
-                    string ch = (biz.Type == 7 || biz.Type == 11 || biz.Type == 12 || product == "Татуировки" || product == "Парики" || product == "Патроны") ? "%" : "$";
+                    string ch = (biz.Type == 8 || biz.Type == 12 || biz.Type == 13 || product == "Татуировки" || product == "Парики" || product == "Патроны") ? "%" : "$";
                     menuItem = new Menu.Item("price", Menu.MenuItem.Card);
                     menuItem.Text = $"Текущая цена: {p.Price}{ch}";
                     menu.Add(menuItem);
@@ -3362,16 +3362,10 @@ namespace iTeffa.Kernel
             prices.Add(new List<int>());
             foreach (var ammo in AmmoPrices)
             {
-                //if(Convert.ToInt32(ammo / 100.0 * ammoPrice) != 0)
-                //prices[3].Add(Convert.ToInt32(ammo / 100.0 * ammoPrice));
-                //else
-                //    prices[3].Add(Convert.ToInt32(Math.Ceiling(ammo / 100.0 * ammoPrice)));
-                //player.SendChatMessage(ammo + " / 100 * " + ammoPrice + " = " + (ammo / 100.0 * ammoPrice) + " = " + Convert.ToInt32(ammo / 100.0 * ammoPrice));
                 prices[3].Add(Convert.ToInt32(ammo));
             }
 
             string json = JsonConvert.SerializeObject(prices);
-            //Log.Write(json, nLog.Type.Debug);
             Log.Debug(json);
             Trigger.ClientEvent(player, "openWShop", biz.ID, json);
         }
@@ -3381,11 +3375,9 @@ namespace iTeffa.Kernel
         {
             try
             {
-                //client.SendChatMessage("category " + text1 + "needMoney " + text2);
                 var category = Convert.ToInt32(text1.Replace("wbuyslider", null));
                 var needMoney = Convert.ToInt32(text2.Trim('$'));
                 var ammo = needMoney / AmmoPrices[category];
-                //client.SendChatMessage("category " + category + " needMoney " + needMoney + " ammo " + ammo);
                 var bizid = client.GetData<int>("GUNSHOP");
                 if (!Main.Players[client].Licenses[6])
                 {
@@ -3408,11 +3400,6 @@ namespace iTeffa.Kernel
 
                 Business biz = BizList[bizid];
                 var prod = biz.Products.FirstOrDefault(p => p.Name == "Патроны");
-                //var cost = 0;
-                //if (Convert.ToInt32(AmmoPrices[category] / 100.0 * prod.Price) != 0)
-                //    cost = Convert.ToInt32(AmmoPrices[category] / 100.0 * prod.Price);
-                //else
-                //    cost = Convert.ToInt32(Math.Ceiling(AmmoPrices[category] / 100.0 * prod.Price));
                 var totalPrice = ammo * AmmoPrices[category];
 
                 if (Main.Players[client].Money < totalPrice)
@@ -3630,7 +3617,7 @@ namespace iTeffa.Kernel
 
             float range;
             if (Type == 1) range = 10f;
-            else if (Type == 12) range = 5f;
+            else if (Type == 13) range = 5f;
             else range = 1f;
             shape = NAPI.ColShape.CreateCylinderColShape(EnterPoint, range, 3, 0);
 
