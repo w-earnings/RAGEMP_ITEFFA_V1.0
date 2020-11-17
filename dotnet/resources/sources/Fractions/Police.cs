@@ -123,7 +123,7 @@ namespace iTeffa.Fractions
                     if (player.HasData("CALLPOLICE_BLIP"))
                         NAPI.Entity.DeleteEntity(player.GetData<Entity>("CALLPOLICE_BLIP"));
 
-                    var Blip = NAPI.Blip.CreateBlip(0, player.Position, 1, 70, "Call from " + player.Name.Replace('_', ' ') + $" ({player.Value})", 0, 0, true, 0, 0);
+                    var Blip = NAPI.Blip.CreateBlip(0, player.Position, 0.75F, 70, "Call from " + player.Name.Replace('_', ' ') + $" ({player.Value})", 0, 0, true, 0, 0);
                     Blip.Transparency = 0;
                     foreach (var p in NAPI.Pools.GetAllPlayers())
                         {

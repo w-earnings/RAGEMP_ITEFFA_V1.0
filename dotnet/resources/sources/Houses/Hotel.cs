@@ -37,13 +37,13 @@ namespace iTeffa.Houses
                 var HotelID = 0;
                 foreach (var pos in HotelEnters)
                 {
-                    var blip = NAPI.Blip.CreateBlip(pos);
+                    var blip = NAPI.Blip.CreateBlip(pos, 0.75F);
                     blip.ShortRange = true;
                     blip.Sprite = 475;
                     blip.Color = 1;
                     blip.Name = "Отель";
 
-                    var colshape = NAPI.ColShape.CreateCylinderColShape(pos, 1.5f, 5f, 0);
+                    var colshape = NAPI.ColShape.CreateCylinderColShape(pos, 0.75F, 5f, 0);
                     colshape.SetData("ID", HotelID);
                     colshape.OnEntityEnterColShape += (s, e) =>
                     {

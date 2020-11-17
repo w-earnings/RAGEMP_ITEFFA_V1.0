@@ -135,7 +135,6 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "save")) return;
             Vector3 pos = NAPI.Entity.GetEntityPosition(player);
             pos.Z -= 1.12f;
-            //NAPI.Blip.CreateBlip(1, pos, 1, 69);
             Vector3 rot = NAPI.Entity.GetEntityRotation(player);
             if (NAPI.Player.IsPlayerInAnyVehicle(player))
             {

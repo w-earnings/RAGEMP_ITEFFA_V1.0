@@ -26,18 +26,10 @@ namespace iTeffa.Fractions
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[1] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[2] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 #endregion Интерьер Мерии №1
-
                 #region Интерьер Мерии №2
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E"), new Vector3(CityhallChecksCoords[3].X, CityhallChecksCoords[3].Y, CityhallChecksCoords[3].Z + 0.7), 5F, 0.4F, 0, new Color(255, 255, 255));
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E"), new Vector3(CityhallChecksCoords[4].X, CityhallChecksCoords[4].Y, CityhallChecksCoords[4].Z + 0.7), 5F, 0.4F, 0, new Color(255, 255, 255));
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E"), new Vector3(CityhallChecksCoords[5].X, CityhallChecksCoords[5].Y, CityhallChecksCoords[5].Z + 0.7), 5F, 0.4F, 0, new Color(255, 255, 255));
-
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[3] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-                NAPI.Marker.CreateMarker(1, CityhallChecksCoords[4] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-                NAPI.Marker.CreateMarker(1, CityhallChecksCoords[5] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 #endregion Интерьер Мерии №2
-
-
 
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(CityhallChecksCoords[0], 1f, 2, 0));
                 Cols[0].OnEntityEnterColShape += city_OnEntityEnterColShape;
@@ -66,14 +58,10 @@ namespace iTeffa.Fractions
 
         public static List<Vector3> CityhallChecksCoords = new List<Vector3>
         {
-            // Мерии 1
             new Vector3(),   // 0 - Оружейная
-            new Vector3(),      // 1 - Раздевалка
+            new Vector3(-572.94464, -201.82872, 41.58397),      // 1 - Раздевалка
             new Vector3(),      // 2 - Крафт оружия
-            // Мерии 2
-            new Vector3(-1301.0814, -557.11005, 29.446774),   // 3 - Оружейная
-            new Vector3(-1304.6462, -560.2332, 33.25491),      // 4 - Раздевалка
-            new Vector3(-1302.6848, -557.53143, 29.446796),      // 5 - Крафт оружия
+            new Vector3(-1304.6462, -560.2332, 33.25491),      // 3 - Раздевалка
         };
 
         private void city_OnEntityEnterColShape(ColShape shape, Player entity)

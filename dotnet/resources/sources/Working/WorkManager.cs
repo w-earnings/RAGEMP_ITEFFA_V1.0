@@ -44,29 +44,25 @@ namespace iTeffa.Working
                 NAPI.Marker.CreateMarker(1, Points[0] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
 
                 // blips
-                NAPI.Blip.CreateBlip(354, new Vector3(724.9625, 133.9959, 79.83643), 1.5f, 46, Main.StringToU16("Электростанция"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(408, new Vector3(105.4633, -1568.843, 28.60269), 1, 3, Main.StringToU16("Почта"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(198, new Vector3(903.3215, -191.7, 73.40494), 1, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(198, new Vector3(1956.65015, 3769.12817, 31.0833454), 1, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);//TODOTAXI
-                NAPI.Blip.CreateBlip(198, new Vector3(1791.82837, 4586.595, 36.2361145), 1, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(513, new Vector3(462.6476, -605.5295, 27.49518), 1, 46, Main.StringToU16("Автобусная станция"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(512, new Vector3(-1331.475, 53.58579, 53.53268), 1, 2, Main.StringToU16("Газонокосилка"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(477, new Vector3(588.2037, -3037.641, 6.303829), 1, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(477, new Vector3(338.9279, 3417.426, 35.38838), 1, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(477, new Vector3(-2212.77, 4249.193, 46.17959), 1, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(67, new Vector3(915.9069, -1265.255, 25.52912), 1, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(67, new Vector3(-1481.75537, -508.08847, 31.6868382), 1, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(67, new Vector3(-144.374817, 6354.90869, 30.3706112), 1, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(544, new Vector3(473.9508, -1275.597, 29.60513), 1, 40, Main.StringToU16("Автомеханики"), 255, 0, true, 0, 0);
-
-                NAPI.Blip.CreateBlip(225, new Vector3(-530.78833, 59.4290543, 52.57218), 1, 1, Main.StringToU16("Аренда машин"), 255, 0, true, 0, 0);
-                //NAPI.Blip.CreateBlip(495, new Vector3(-1108.662, -1690.129, 3.254202), 1, 84, Main.StringToU16("Rent-a-Cycle"), 255, 0, true, 0, 0);
-                // NAPI.Blip.CreateBlip(471, new Vector3(-1625.545, -1164.137, 0.2994334), 1, 38, Main.StringToU16("Rent-a-Boat"), 255, 0, true, 0, 0);
-
-                NAPI.Blip.CreateBlip(478, Truckers.getProduct[0], 1, 84, Main.StringToU16("Склад продуктов"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(478, Truckers.getProduct[1], 1, 36, Main.StringToU16("Склад бензина"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(478, Truckers.getProduct[2], 1, 15, Main.StringToU16("Автосклад"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(478, Truckers.getProduct[3], 1, 62, Main.StringToU16("Склад оружия"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(354, new Vector3(724.9625, 133.9959, 79.83643), 0.75F, 46, Main.StringToU16("Электростанция"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(408, new Vector3(105.4633, -1568.843, 28.60269), 0.75F, 3, Main.StringToU16("Почта"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(198, new Vector3(903.3215, -191.7, 73.40494), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(198, new Vector3(1956.65015, 3769.12817, 31.0833454), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);//TODOTAXI
+                NAPI.Blip.CreateBlip(198, new Vector3(1791.82837, 4586.595, 36.2361145), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(513, new Vector3(462.6476, -605.5295, 27.49518), 0.75F, 46, Main.StringToU16("Автобусная станция"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(512, new Vector3(-1331.475, 53.58579, 53.53268), 0.75F, 2, Main.StringToU16("Газонокосилка"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(477, new Vector3(588.2037, -3037.641, 6.303829), 0.75F, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(477, new Vector3(338.9279, 3417.426, 35.38838), 0.75F, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(477, new Vector3(-2212.77, 4249.193, 46.17959), 0.75F, 3, Main.StringToU16("Дальнобойщики"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(67, new Vector3(915.9069, -1265.255, 25.52912), 0.75F, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(67, new Vector3(-1481.75537, -508.08847, 31.6868382), 0.75F, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(67, new Vector3(-144.374817, 6354.90869, 30.3706112), 0.75F, 25, Main.StringToU16("Инкассаторы"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(544, new Vector3(473.9508, -1275.597, 29.60513), 0.75F, 40, Main.StringToU16("Автомеханики"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(225, new Vector3(-530.78833, 59.4290543, 52.57218), 0.75F, 1, Main.StringToU16("Аренда машин"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(478, Truckers.getProduct[0], 0.75F, 84, Main.StringToU16("Склад продуктов"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(478, Truckers.getProduct[1], 0.75F, 36, Main.StringToU16("Склад бензина"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(478, Truckers.getProduct[2], 0.75F, 15, Main.StringToU16("Автосклад"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(478, Truckers.getProduct[3], 0.75F, 62, Main.StringToU16("Склад оружия"), 255, 0, true, 0, 0);
 
                 // markers
                 NAPI.Marker.CreateMarker(1, new Vector3(105.4633, -1568.843, 28.60269) - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));

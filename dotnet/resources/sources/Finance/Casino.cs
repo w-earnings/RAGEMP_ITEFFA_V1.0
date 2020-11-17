@@ -60,7 +60,7 @@ namespace iTeffa.Finance
             colShape.Position = colPosition;
 
             Console.WriteLine(colShape.Position);
-            blip = NAPI.Blip.CreateBlip(blipID, blipPosition, 1, blipColor, blipName, 255, 0, true);
+            blip = NAPI.Blip.CreateBlip(blipID, blipPosition, 0.75F, blipColor, blipName, 255, 0, true);
             Console.WriteLine(blip.Position);
             NAPI.Marker.CreateMarker(21, colPosition, new Vector3(), new Vector3(), 0.8f, new Color(255, 255, 255, 60));
             NAPI.TextLabel.CreateTextLabel("~y~Нажмите E чтобы начать играть", colPosition + new Vector3(0, 0, 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));

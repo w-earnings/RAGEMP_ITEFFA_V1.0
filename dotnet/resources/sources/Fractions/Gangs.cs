@@ -49,7 +49,7 @@ namespace iTeffa.Fractions
                 {
                     NAPI.Marker.CreateMarker(1, pos - new Vector3(0, 0, 1.12), new Vector3(), new Vector3(), 4, new Color(255, 0, 0), false, 0);
                     NAPI.TextLabel.CreateTextLabel($"~g~Buy drugs ({PricePerDrug}$/g)", pos + new Vector3(0, 0, 0.7), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
-                    NAPI.Blip.CreateBlip(140, pos, 1f, 4, "Drugs", 255, 0, true, 0, 0);
+                    NAPI.Blip.CreateBlip(140, pos, 0.75F, 4, "Drugs", 255, 0, true, 0, 0);
 
                     var col = NAPI.ColShape.CreateCylinderColShape(pos - new Vector3(0, 0, 1.12), 4, 5, 0);
                     col.OnEntityEnterColShape += (s, e) =>

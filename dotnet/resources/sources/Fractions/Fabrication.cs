@@ -139,10 +139,10 @@ namespace iTeffa.Fractions
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("p_yoga_mat_03_s"), new Vector3(373.065887, -999.187195, -98.9689713), new Vector3(8.40430744e-07, 89.9999466, 179.998123), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("hei_heist_kit_bin_01"), new Vector3(373.325378, -999.457397, -99.9999771), new Vector3(0, 0, 47.6214714), 255, NAPI.GlobalDimension);
 
-                NAPI.Blip.CreateBlip(93, new Vector3(-1388.761, -586.3921, 29.09945), 1, 0, "Bahama Mamas West", 255, 0, true);
-                NAPI.Blip.CreateBlip(121, new Vector3(141.3792, -1281.576, 28.2172), 1, 0, "Vanila Unicorn", 255, 0, true);
-                NAPI.Blip.CreateBlip(136, new Vector3(-564.5512, 275.6993, 81.98249), 1, 0, "Tequi-la-la", 255, 0, true);
-                NAPI.Blip.CreateBlip(205, new Vector3(-430.1028, 261.2774, 81.88689), 1, 0, "Split Sides West Comedy Club", 255, 0, true);
+                NAPI.Blip.CreateBlip(93, new Vector3(-1388.761, -586.3921, 29.09945), 0.75F, 0, "Bahama Mamas West", 255, 0, true);
+                NAPI.Blip.CreateBlip(121, new Vector3(141.3792, -1281.576, 28.2172), 0.75F, 0, "Vanila Unicorn", 255, 0, true);
+                NAPI.Blip.CreateBlip(136, new Vector3(-564.5512, 275.6993, 81.98249), 0.75F, 0, "Tequi-la-la", 255, 0, true);
+                NAPI.Blip.CreateBlip(205, new Vector3(-430.1028, 261.2774, 81.88689), 0.75F, 0, "Split Sides West Comedy Club", 255, 0, true);
 
                 var result = Connect.QueryRead("SELECT * FROM alcoclubs");
                 if (result == null || result.Rows.Count == 0)

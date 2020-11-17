@@ -60,7 +60,7 @@ namespace iTeffa.Kernel
 
                 NAPI.Marker.CreateMarker(1, enterSchool - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Автошкола"), new Vector3(enterSchool.X, enterSchool.Y, enterSchool.Z + 1), 5f, 0.3f, 0, new Color(255, 255, 255));
-                var blip = NAPI.Blip.CreateBlip(enterSchool, 0);
+                var blip = NAPI.Blip.CreateBlip(enterSchool, 0.75F, 0); // ???
                 blip.ShortRange = true;
                 blip.Name = Main.StringToU16("Автошкола");
                 blip.Sprite = 545;
@@ -82,7 +82,6 @@ namespace iTeffa.Kernel
             {
                 if (player.HasData("SCHOOLVEH") && player.GetData<Vehicle>("SCHOOLVEH") == vehicle)
                 {
-                    //player.SetData("SCHOOL_TIMER", Main.StartT(60000, 99999999, (o) => timer_exitVehicle(player), "SCHOOL_TIMER"));
                     player.SetData("SCHOOL_TIMER", Timers.StartOnce(60000, () => timer_exitVehicle(player)));
 
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Если вы не сядете в машину в течение 60 секунд, то провалите экзамен", 3000);
@@ -105,7 +104,6 @@ namespace iTeffa.Kernel
                     Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
                     player.ResetData("IS_DRIVING");
                     player.ResetData("SCHOOLVEH");
-                    //Main.StopT(player.GetData<string>("SCHOOL_TIMER"), "timer_36");
                     Timers.Stop(player.GetData<string>("SCHOOL_TIMER"));
                     player.ResetData("SCHOOL_TIMER");
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Вы провалили экзмен", 3000);

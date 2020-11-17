@@ -83,7 +83,7 @@ namespace iTeffa.Fractions
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
                 NAPI.Marker.CreateMarker(1, new Vector3(3597.154, 3670.129, 29.75175), new Vector3(), new Vector3(), 4, new Color(255, 0, 0));
-                NAPI.Blip.CreateBlip(305, new Vector3(3588.917, 3661.756, 41.48687), 1, 3, "Склад аптечек", 255, 0, true);
+                NAPI.Blip.CreateBlip(305, new Vector3(3588.917, 3661.756, 41.48687), 0.75F, 3, "Склад аптечек", 255, 0, true);
                 #endregion
 
                 col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[7], 1, 2, 0); // roof
@@ -143,7 +143,7 @@ namespace iTeffa.Fractions
             if (player.HasData("CALLEMS_BLIP"))
                 NAPI.Task.Run(() => { try { NAPI.Entity.DeleteEntity(player.GetData<Blip>("CALLEMS_BLIP")); } catch { } });
 
-            var Blip = NAPI.Blip.CreateBlip(0, player.Position, 1, 70, $"Call from player ({player.Value})", 0, 0, true, 0, NAPI.GlobalDimension);
+            var Blip = NAPI.Blip.CreateBlip(0, player.Position, 0.75F, 70, $"Call from player ({player.Value})", 0, 0, true, 0, NAPI.GlobalDimension);
             NAPI.Blip.SetBlipTransparency(Blip, 0);
             foreach (var p in NAPI.Pools.GetAllPlayers())
             {

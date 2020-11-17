@@ -67,7 +67,7 @@ namespace iTeffa.Fractions
                     warPointColshape[i].SetData("ID", i);
                     warPointColshape[i].OnEntityEnterColShape += onPlayerEnterBizWar;
                     warPointColshape[i].OnEntityExitColShape += onPlayerExitBizWar;
-                    warBlips.Add(i, NAPI.Blip.CreateBlip(543, vec, 1, 40, Main.StringToU16("War for business"), 255, 0, true, 0, 0));
+                    warBlips.Add(i, NAPI.Blip.CreateBlip(543, vec, 0.75F, 40, Main.StringToU16("War for business"), 255, 0, true, 0, 0));
                     i++;
                 }
             }

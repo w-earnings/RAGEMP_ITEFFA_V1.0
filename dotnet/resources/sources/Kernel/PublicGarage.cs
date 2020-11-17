@@ -165,7 +165,7 @@ namespace iTeffa.Kernel
             {
                 if (position != new Vector3(116.7458, -1949.892, 19.748))
                 {
-                    NAPI.Blip.CreateBlip(50, position, 1, 4, "Общественная парковка", 255, 0, true);
+                    NAPI.Blip.CreateBlip(50, position, 0.75F, 4, "Общественная парковка", 255, 0, true);
                 }
 
                 NAPI.Marker.CreateMarker(1, position, new Vector3(), new Vector3(), 3, new Color(255, 255, 255, 220), false, 0);

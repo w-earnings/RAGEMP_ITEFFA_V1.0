@@ -343,7 +343,7 @@ namespace iTeffa.Kernel
                 ID = id;
                 AreaPoint = areapoint;
                 Radius = radius;
-                blip = NAPI.Blip.CreateBlip(68, AreaPoint, 1, 67, "Место для рыбалки", 255, 0, true);
+                blip = NAPI.Blip.CreateBlip(68, AreaPoint, 0.75F, 67, "Место для рыбалки", 255, 0, true);
                 shape = NAPI.ColShape.CreateCylinderColShape(AreaPoint, Radius, 3, 0);
                 shape.OnEntityEnterColShape += (s, entity) =>
                 {

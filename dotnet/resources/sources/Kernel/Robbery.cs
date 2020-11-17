@@ -210,7 +210,7 @@ namespace iTeffa.Kernel
                     flowShape.OnEntityEnterColShape += narkosale_onEntityEnterColShape;
                     flowShape.OnEntityExitColShape += narkosale_onEntityExitColShape;
 
-                    var flowBlip = NAPI.Blip.CreateBlip(440, moneyFlowPoints[b], 1, 58, Main.StringToU16("Черный рынок"));
+                    var flowBlip = NAPI.Blip.CreateBlip(440, moneyFlowPoints[b], 0.75F, 58, Main.StringToU16("Черный рынок"));
                     NAPI.Entity.SetEntityDimension(flowBlip, 0);
                     flowBlip.ShortRange = true;
 
@@ -386,7 +386,7 @@ namespace iTeffa.Kernel
 
                 if (DateTime.Now >= safe.BlipSet)
                 {
-                    safe.Blip = NAPI.Blip.CreateBlip(0, safe.Position, 1, 59, "Robbery", 0, 0, true, 0, 0);
+                    safe.Blip = NAPI.Blip.CreateBlip(0, safe.Position, 0.75F, 59, "Robbery", 0, 0, true, 0, 0);
                     safe.Blip.Transparency = 0;
                     foreach (var p in Main.Players.Keys.ToList())
                     {

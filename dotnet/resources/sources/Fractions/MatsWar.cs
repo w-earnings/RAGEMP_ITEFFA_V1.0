@@ -26,7 +26,7 @@ namespace iTeffa.Fractions
                 col.OnEntityEnterColShape += onEntityEnterColShape;
                 col.OnEntityExitColShape += onEntityExitColShape;
 
-                warblip = NAPI.Blip.CreateBlip(478, warPosition, 1, 40, Main.StringToU16("Война за материалы"), 255, 0, true, 0, 0);
+                warblip = NAPI.Blip.CreateBlip(478, warPosition, 0.75F, 40, Main.StringToU16("Война за материалы"), 255, 0, true, 0, 0);
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
