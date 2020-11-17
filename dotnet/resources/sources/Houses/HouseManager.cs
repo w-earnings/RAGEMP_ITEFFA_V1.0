@@ -1288,7 +1288,7 @@ namespace iTeffa.Houses
             menuItem.Text = vData.Model;
             menu.Add(menuItem);
 
-            var vClass = NAPI.Vehicle.GetVehicleClass(NAPI.Util.VehicleNameToModel(vData.Model));
+            var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
 
             menuItem = new Menu.Item("repair", Menu.MenuItem.Button);
             menuItem.Text = $"Восстановить {VehicleManager.VehicleRepairPrice[vClass]}$";
@@ -1398,7 +1398,7 @@ namespace iTeffa.Houses
                         return;
                     }
 
-                    var vClass = NAPI.Vehicle.GetVehicleClass(NAPI.Util.VehicleNameToModel(vData.Model));
+                    var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
                     if (!Finance.Wallet.Change(player, -VehicleManager.VehicleRepairPrice[vClass]))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас недостаточно средств", 3000);
