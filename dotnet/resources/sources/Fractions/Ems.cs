@@ -396,19 +396,21 @@ namespace iTeffa.Fractions
             var time = (call) ? 600000 : 180000;
             Trigger.ClientEvent(player, "DeathTimer", time);
             var timeMsg = (call) ? "10 минут Вас не вылечит медик или кто-нибудь другой" : "3 минут Вас никто не вылечит";
-            //player.SetData("DYING_TIMER", Main.StartT(time, time, (o) => { player.Health = 0; }, "DYING_TIMER"));
-            player.SetData("DYING_TIMER", Timers.StartOnce(time, () => DeathTimer(player, player.Name)));
-
+            player.SetData("DYING_TIMER", Timers.StartOnce(time, () => DeathTimer(player)));
             var deadAnimName = deadAnims[Main.rnd.Next(deadAnims.Count)];
             NAPI.Task.Run(() => { try { player.PlayAnimation("dead", deadAnimName, 39); } catch { } }, 500);
 
             Notify.Send(player, NotifyType.Alert, NotifyPosition.BottomCenter, $"Если в течение {timeMsg}, то Вы попадёте в больницу", 3000);
         }
 
-        public static void DeathTimer(Player player, string name)
+        public static void DeathTimer(Player player)
         {
-            if (player.Name != name) return; // хз почему, но иногда в таймеры передаются другие игроки
-            player.Health = 0;
+            NAPI.Task.Run(() => { 
+                try 
+                { 
+                    player.Health = 0; 
+                } catch { } 
+            });
         }
 
         public static void payMedkit(Player player)
