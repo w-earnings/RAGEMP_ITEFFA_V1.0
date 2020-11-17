@@ -214,9 +214,14 @@ mp.events.add('UpdateBank', function (temp, amount) {
   mp.events.call('UpdateBankPhone', temp, amount);
 });
 
+// Плагины скрипта
 require('./game_resources/handlers/plugins/bind_keys.js');
-		require('./menus.js');
+// Администратор	
+require('./game_resources/handlers/control/coordinates.js');
 require('./game_resources/handlers/control/cmd_online.js');
+
+
+		require('./menus.js');
 		require('./lscustoms.js');
 		require('./client/player/afksystem.js');
 		require('./character.js');
@@ -247,12 +252,15 @@ require('./game_resources/handlers/inventory.js');
 		require('./scripts/publicGarage/index.js');
 		require('./scripts/SmoothThrottle/SmoothThrottle.js');
 		require('./banks/atm.js');
+		require('./realtor.js');
+
+// Конфигурации
 		require('./configs/barber.js');
 		require('./configs/natives.js');
 require('./game_resources/handlers/configs/clothe.js');
 require('./game_resources/handlers/configs/tattoo.js');
 require('./game_resources/handlers/configs/tuning.js');
-		require('./realtor.js');
+
 
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};
