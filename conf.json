@@ -1,8 +1,8 @@
 {
 	"maxplayers" : 100,
-	"name" : "Isengard", 
-	"gamemode" : "freeroam", 
-	"stream-distance" : 500.0,
+	"name" : "iTeffa.com (redage_v2)", 
+	"gamemode" : "roleplay", 
+	"stream-distance" : 650.0,
 	"announce" : false,
 	"csharp" : "enabled",
 	"bind" : "0.0.0.0",

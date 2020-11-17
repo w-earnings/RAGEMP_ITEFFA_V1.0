@@ -50,29 +50,14 @@ namespace iTeffa.Kernel
         private static Dictionary<int, Report> Reports;
         private static nLog Log = new nLog("ReportSys");
         private static Config conf = new Config("ReportSys");
-
-        private static byte adminLvL = conf.TryGet<byte>("AdminLvL", 1);
+        private static int adminLvL = conf.TryGet<int>("AdminLvL", 1);
 
         public static void Init()
         {
             try
             {
                 Reports = new Dictionary<int, Report>();
-
-                string cmd = @"
-CREATE TABLE IF NOT EXISTS `questions` (
-  `ID` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `Author` varchar(40) NOT NULL,
-  `Question` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `Respondent` varchar(40) DEFAULT NULL,
-  `Response` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `Opened` DateTime NOT NULL,
-  `Closed` DateTime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-SELECT * FROM questions;";
-
+                string cmd = @"SELECT * FROM questions;";
                 DataTable result = Connect.QueryRead(cmd);
                 if (result is null) return;
                 foreach(DataRow row in result.Rows)

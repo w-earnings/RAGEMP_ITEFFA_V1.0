@@ -3031,7 +3031,7 @@ namespace iTeffa
         {
             try
             {
-                client.SendChatMessage($"Обновление !{{#00FFFF}}{Full}!{{#FFF}} запущенно !{{#f39c12}}{StartDate}");
+                client.SendChatMessage($"Сборка сервера: iTeffa !{{#00FFFF}}{Full}!{{#FFF}} успешно запущена !{{#f39c12}}{StartDate}");
             }
             catch { }
         }
@@ -3044,9 +3044,6 @@ namespace iTeffa
         }
         public static string StringToU16(string utf8String)
         {
-            /*byte[] bytes = Encoding.Default.GetBytes(utf8String);
-            byte[] uBytes = Encoding.Convert(Encoding.Default, Encoding.Unicode, bytes);
-            return Encoding.Unicode.GetString(uBytes);*/
             return utf8String;
         }
         public static string GetVoiceKey()

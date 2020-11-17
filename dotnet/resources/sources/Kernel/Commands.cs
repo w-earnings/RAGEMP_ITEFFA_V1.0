@@ -106,6 +106,19 @@ namespace iTeffa.Kernel
         #endregion Chat logic
 
         #region AdminCommands
+        [Command("fakeipl")]
+        public static void CMD_SwitchFakeIPL(Player client, string IPLName)
+        {
+            try
+            {
+                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                //FakeIPLs.SwitchFakeIpls(IPLName);
+                client.SendChatMessage("Has cambiado al FakeIPL: " + IPLName);
+            }
+            catch { }
+        }
+
+
 
         [Command("sh1")]
         public static void CMD_sheriffAccept(Player player, int id)

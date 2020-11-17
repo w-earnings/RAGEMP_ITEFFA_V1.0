@@ -15,7 +15,7 @@ namespace iTeffa.Fractions
         private static Config config = new Config("Elections");
 
         private class ElectionPoints
-        { // Точки колшэйпа, через которые производятся выборы
+        {
             public int ID { get; set; }
             public uint Election { get; set; }
             public Vector3 Position { get; set; }
@@ -29,7 +29,7 @@ namespace iTeffa.Fractions
         private class Elections
         {
             public int ID { get; set; }
-            public uint Election { get; set; } // Уникальный ID Выборов, у разных кандидатов одних выборов - одинаковый election
+            public uint Election { get; set; }
             public string Name { get; set; }
             public ushort Votes { get; set; }
         }
@@ -48,7 +48,6 @@ namespace iTeffa.Fractions
         public static void OnResourceStart()
         {
             minVoteLVL = config.TryGet<byte>("minVoteLVL", 5);
-            LoadElections();
         }
         
         public static void Interaction(ColShape colshape, Player player)

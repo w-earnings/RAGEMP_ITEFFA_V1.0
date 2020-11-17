@@ -145,20 +145,7 @@ namespace iTeffa.Fractions
                 AdvertNames = new List<string>();
                 Adverts = new Dictionary<int, Advert>();
 
-                string cmd = @"
-CREATE TABLE IF NOT EXISTS `advertised` (
-  `ID` int(12) unsigned NOT NULL AUTO_INCREMENT,
-  `Author` varchar(40) NOT NULL,
-  `AuthorSIM` int(11) NOT NULL,
-  `AD` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `Editor` varchar(40) DEFAULT NULL,
-  `EditedAD` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `Opened` DateTime NOT NULL,
-  `Closed` DateTime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-SELECT * FROM advertised;";
+                string cmd = @"SELECT * FROM advertised;";
 
                 DataTable result = Connect.QueryRead(cmd);
                 if (result is null) return;
