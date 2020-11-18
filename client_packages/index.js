@@ -667,6 +667,8 @@ require('./game_resources/handlers/inventory.js');
 		require('./scripts/SmoothThrottle/SmoothThrottle.js');
 		require('./banks/atm.js');
 require('./game_resources/handlers/realtor.js');
+require('./game_resources/handlers/DrivingSchool.js');
+
 // Конфигурации
 require('./game_resources/handlers/configs/barber.js');
 require('./game_resources/handlers/configs/natives.js');

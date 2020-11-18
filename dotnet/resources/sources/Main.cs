@@ -210,7 +210,8 @@ namespace iTeffa
                                 Working.Collector.CarInfos.Add(data);
                                 break;
                             case 8:
-                                Working.AutoMechanic.CarInfos.Add(data);
+                                // Working.AutoMechanic.CarInfos.Add(data);
+                                DrivingSchool.CarInfos.Add(data);
                                 break;
                         }
                     }
@@ -222,6 +223,7 @@ namespace iTeffa
                     Working.Truckers.truckerCarsSpawner();
                     Working.Collector.collectorCarsSpawner();
                     Working.AutoMechanic.mechanicCarsSpawner();
+                    DrivingSchool.SchoolCarsSpawner();
                 }
                 else Log.Write("DB `othervehicles` return null result", nLog.Type.Warn);
 
@@ -1936,7 +1938,7 @@ namespace iTeffa
                         return;
                        
                     case 505:
-                        // Clean Script
+                        DrivingSchool.OpenTestSchoolMenu(player);
                         return;
 
                     default: return;

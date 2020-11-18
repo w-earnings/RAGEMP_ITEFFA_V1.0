@@ -117,6 +117,7 @@ mp.game.streaming.requestAnimDict("missstrip_club_lean");
 mp.game.streaming.requestAnimDict("misstrevor2");
 mp.game.streaming.requestAnimDict("creatures@retriever@amb@world_dog_sitting@base");
 mp.game.streaming.requestAnimDict("creatures@deer@amb@world_deer_grazing@idle_a");
+mp.game.streaming.requestAnimDict("amb@prop_human_seat_chair@female@proper@base"); // DrivingSchoolAnim
 
 mp.events.add('entityStreamIn', function (entity) {
     try {
@@ -136,9 +137,7 @@ mp.events.add('entityStreamIn', function (entity) {
 			else if(entity.getModel() == 2910340283) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Westy
 			else if(entity.getModel() == 1125994524) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Poodle
 			else if(entity.getModel() == 940330470) entity.taskPlayAnim("amb@world_human_sunbathe@male@back@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Rashkovsky		
-			else if(entity.getModel() == 3613420592) entity.taskPlayAnim("anim@amb@nightclub@peds@", "rcmme_amanda1_stand_loop_cop", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Bony
-			else if(entity.getModel() == 3439295882) entity.taskPlayAnim("missheistdocks2aleadinoutlsdh_2a_int", "sitting_loop_wade", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Emma
-			else if(entity.getModel() == 1906124788) entity.taskPlayAnim("missstrip_club_lean", "player_lean_rail_loop", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Frank
+			else if (entity.getModel() == 1767447799) entity.taskPlayAnim("amb@prop_human_seat_chair@female@proper@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // DrivingSchoolPed
 			
 			else if(entity.getModel() == 1596003233) entity.taskPlayAnim("misstrevor2", "gang_chatting_idle02_a", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Muscle Prisoner
 			else if(entity.getModel() == 2506301981) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Gang Rottweiler

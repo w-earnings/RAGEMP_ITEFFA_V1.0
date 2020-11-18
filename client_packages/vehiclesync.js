@@ -277,6 +277,28 @@ mp.events.add({
   }
 });
 	
+	
+mp.events.add("playerEnterVehicle", (entity, seat) => {
+    try {
+        if (seat == 0) {
+            lastdirt = entity.getDirtLevel();
+            if (dirtt != null) clearInterval(dirtt);
+            dirtt = setInterval(function () {
+                dirtlevel(entity);
+            }, 20000);
+
+            if (entity.getVariable('BOOST') != undefined) {
+                var boost = entity.getVariable('BOOST');
+                entity.setEnginePowerMultiplier(boost);
+                entity.setEngineTorqueMultiplier(boost);
+            }
+        }
+        entity.setInvincible(false); // DrivingSchoolCar
+    } catch (e) { }
+});	
+	
+	
+/*
 mp.events.add("playerEnterVehicle", (entity, seat) => {
     try {
         if (seat == 0) {
@@ -294,6 +316,7 @@ mp.events.add("playerEnterVehicle", (entity, seat) => {
         }
     } catch (e) { }
 });
+*/
 
 mp.events.add("playerLeaveVehicle", (entity) => {
     try {
