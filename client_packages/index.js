@@ -255,12 +255,11 @@ require('./game_resources/handlers/inventory.js');
 		require('./realtor.js');
 
 // Конфигурации
-		require('./configs/barber.js');
-		require('./configs/natives.js');
+require('./game_resources/handlers/configs/barber.js');
+require('./game_resources/handlers/configs/natives.js');
 require('./game_resources/handlers/configs/clothe.js');
 require('./game_resources/handlers/configs/tattoo.js');
 require('./game_resources/handlers/configs/tuning.js');
-
 
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};
