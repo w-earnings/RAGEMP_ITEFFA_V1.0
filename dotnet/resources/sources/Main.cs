@@ -525,6 +525,15 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("kickclient: " + e.Message, nLog.Type.Error); }
         }
+
+        [RemoteEvent("teleportWaypoint")]
+        public void ClientEvent_tpWP(Player player, float x, float y, float z)
+        {
+            if (!Main.Players.ContainsKey(player)) return;
+            if (Players[player].AdminLVL < 1) return;
+            NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
+        }
+
         [RemoteEvent("deletearmor")]
         public void ClientEvent_DeleteArmor(Player player)
         {
@@ -540,13 +549,7 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("deletearmor: " + e.Message, nLog.Type.Error); }
         }
-        [RemoteEvent("teleportWaypoint")]
-        public static void ClientEvent_tpWP(Player player, float x, float y, float z)
-       {
-         if (!Main.Players.ContainsKey(player)) return;
-          if (Main.Players[player].AdminLVL < 1) return;
-           NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
-       }
+
         [RemoteEvent("syncWaypoint")]
         public void ClientEvent_SyncWP(Player player, float X, float Y) {
             try {
