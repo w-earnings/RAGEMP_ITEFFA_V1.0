@@ -11,6 +11,16 @@ mp.gui.cursor.visible = true;
 var lastButAuth = 0;
 var lastButSlots = 0;
 
+setTimeout(function () { 
+    if (mp.storage.data.account)
+    {
+        // mp.events.call('notify', 4, 9, "Пароль был сохранен: " + mp.storage.data.account.pass, 3000);
+        auth.execute(`document.getElementById("entry-login-id").value = "${mp.storage.data.account.username}";`);
+        auth.execute(`document.getElementById("entry-password-id").value = "${mp.storage.data.account.pass}";`);
+        auth.execute(`document.getElementById("entry-savemy").checked = true;`);
+    }
+}, 150);
+
 // events from cef
 mp.events.add('signin', function (authData) {
     if (new Date().getTime() - lastButAuth < 3000) {
@@ -23,7 +33,14 @@ mp.events.add('signin', function (authData) {
 
     var username = authData['entry-login'],
         pass = authData['entry-password'];
-    // check = authData['remember-me'];
+    check = authData['entry-savemy'];
+
+    if (check) {
+        mp.storage.data.account = {
+            username: username,
+            pass: pass
+        };
+    } else delete mp.storage.data.account;
 
     mp.events.callRemote('signin', username, pass)
 });
