@@ -2,7 +2,6 @@
 using iTeffa.Settings;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace iTeffa.Houses
 {
@@ -13,8 +12,8 @@ namespace iTeffa.Houses
         private static ColShape shape;
         private static Marker intmarker;
         private static Blip blip;
-        private static Vector3 PositionRealtor = new Vector3(-570.4495, -394.9133, 33.9366);
-        private static int[] PriceToInfo = { 0, 100, 200, 500, 1000, 1500, 2000};
+        private static Vector3 PositionRealtor = new Vector3(-1289.75, -574.48, 29.08);
+        private static int[] PriceToInfo = { 0, 100, 200, 500, 1000, 1500, 2000 };
 
         [ServerEvent(Event.ResourceStart)]
         public static void EnterShapeRealtor()
@@ -22,8 +21,8 @@ namespace iTeffa.Houses
             try
             {
                 #region #2AC Creating Marker & Colshape & Blip
-                blip = NAPI.Blip.CreateBlip(374, PositionRealtor, 0.75F, 2, "Агентство по недвижимости", shortRange: true, dimension: 0);
-                intmarker = NAPI.Marker.CreateMarker(1, PositionRealtor + new Vector3(0, 0, 0.1), new Vector3(), new Vector3(), 0.5f, new Color(255, 225, 64), false, 0);
+                NAPI.TextLabel.CreateTextLabel("~r~Realtor", new Vector3(-1290.61, -574.38, 31.77), 3.5f, 0.3f, 0, new Color(255, 225, 64), true, 0);
+                intmarker = NAPI.Marker.CreateMarker(27, PositionRealtor + new Vector3(0, 0, 0.1), new Vector3(), new Vector3(), 1.75f, new Color(0, 0, 0), false, 0);
                 shape = NAPI.ColShape.CreateCylinderColShape(PositionRealtor, 1, 2, 0);
                 shape.OnEntityEnterColShape += (s, ent) =>
                 {
@@ -101,7 +100,7 @@ namespace iTeffa.Houses
                             house.Price,
                             house.Position,
                             maxcars,
-							PriceToInfo[houseclass]
+                            PriceToInfo[houseclass]
                         };
                         HouseList.Add(data);
                     }
