@@ -291,7 +291,7 @@ namespace iTeffa.Kernel.Character
 
                 try
                 {
-                    var all_vehicles = VehicleManager.getAllPlayerVehicles(player.Name);
+                    var all_vehicles = VehicleManager.getAllPlayerVehicles($"{FirstName}_{LastName}");
                     foreach (var number in all_vehicles)
                         VehicleManager.Save(number);
                 }

@@ -2486,8 +2486,11 @@ namespace iTeffa
             foreach (Player p in Players.Keys.ToList())
             {
                 if (!Players.ContainsKey(p)) continue;
-                Accounts[p].Save(p).Wait();
-                Players[p].Save(p).Wait();
+                NAPI.Task.Run(() =>
+                {
+                    Accounts[p].Save(p).Wait();
+                    Players[p].Save(p).Wait();
+                });
             }
 
             BusinessManager.SavingBusiness();
