@@ -2309,7 +2309,7 @@ namespace iTeffa
             EventSys.Init();
             Fractions.ElectionsSystem.OnResourceStart();
 
-            List<string> zones = new List<string>()
+            List<string> zones = new List<string>() // Не удалять - надо разобраться для чего это вобше!!!
             {
                 "torso",
                 "head",
@@ -2878,7 +2878,7 @@ namespace iTeffa
         {
             try
             {
-                client.SendChatMessage($"Сборка сервера: iTeffa !{{#00FFFF}}{Full}!{{#FFF}} успешно запущена !{{#f39c12}}{StartDate}");
+                client.SendChatMessage($"Сборка сервера: !{{#00FFFF}}{Full}!{{#FFF}} успешно запущена !{{#f39c12}}{StartDate}");
             }
             catch { }
         }
