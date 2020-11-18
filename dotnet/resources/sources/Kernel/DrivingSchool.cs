@@ -11,43 +11,51 @@ namespace iTeffa.Kernel
     {
         // мотоциклы, легковые машины, грузовые, водный, вертолёты, самолёты
         private static List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 };
-        private static Vector3 enterSchool = new Vector3(-915.0237, -2038.613, 8.604773);
+        private static Vector3 enterSchool = new Vector3(228.572708, 373.805969, 104.994225);
         private static List<Vector3> startCourseCoord = new List<Vector3>()
         {
-            new Vector3(-893.7903, -2049.06, 8.886495),
+            new Vector3(213.8353, 389.4972, 106.6874),
         };
         private static List<Vector3> startCourseRot = new List<Vector3>()
         {
-            new Vector3(-0.08991995, -0.000970318, 51.23025),
-            new Vector3(-0.08991995, -0.000970318, 51.23025),
-            new Vector3(-0.08991995, -0.000970318, 51.23025),
+            new Vector3(-1.267439, -6.927364, 172.5575),
         };
         private static List<Vector3> drivingCoords = new List<Vector3>()
         {
-            new Vector3(-922.5455, -2078.952, 8.884938),     //as1
-            new Vector3(-943.9007, -2124.576, 8.903489),     //as2
-            new Vector3(-1009.972, -2098.968, 12.68621),     //as3
-            new Vector3(-1083.344, -1949.253, 12.72149),     //as4
-            new Vector3(-893.1658, -1755.668, 18.6328),     //as5
-            new Vector3(-802.588, -1660.319, 16.18098),     //as6
-            new Vector3(-707.9262, -1529.791, 12.5376),     //as7
-            new Vector3(-672.6287, -1470.063, 10.11085),     //as8
-            new Vector3(-645.9832, -1395.972, 10.24782),     //as9
-            new Vector3(-634.21, -1318.427, 10.24249),     //as10
-            new Vector3(-674.2361, -1243.223, 10.25624),     //as11
-            new Vector3(-787.47986, -1292.7037, 5.0881996),     //as12
-            new Vector3(-704.8362, -1247.507, 9.798345),     //as13
-            new Vector3(-656.5361, -1389.274, 10.16991),     //as14
-            new Vector3(-696.2311, -1483.91, 10.59189),     //as15
-            new Vector3(-761.0922, -1598.723, 14.0109),     //as16
-            new Vector3(-848.3638, -1702.412, 18.45708),     //as17
-            new Vector3(-997.0919, -1855.749, 17.40573),     //as18
-            new Vector3(-1095.221, -1963.519, 12.68603),     //as19
-            new Vector3(-1014.577, -2102.444, 12.75051),     //as20
-            new Vector3(-910.9487, -2071.962, 8.884502),     //as21
+            new Vector3(188.7008, 366.5621, 107.6869),
+            new Vector3(140.3896, 362.6936, 111.3745),
+            new Vector3(59.31527, 318.6287, 111.6048),
+            new Vector3(25.11215, 249.0263, 109.4103),
+            new Vector3(8.065119, 201.3615, 104.7364),
+            new Vector3(-34.12751, 86.93284, 75.26752),
+            new Vector3(-54.11743, 11.41459, 71.952),
+            new Vector3(-71.31182, -59.41452, 59.85419),
+            new Vector3(-94.23499, -131.5553, 57.34979),
+            new Vector3(-116.3168, -223.1266, 44.65726),
+            new Vector3(-160.103, -347.5135, 34.55911),
+            new Vector3(-208.4418, -388.8625, 31.55594),
+            new Vector3(-254.0737, -355.5688, 29.80524),
+            new Vector3(-266.2953, -266.59, 31.72675),
+            new Vector3(-269.8519, -201.0853, 38.45251),
+            new Vector3(-261.4669, -116.0676, 45.96093),
+            new Vector3(-246.2458, -74.34864, 49.06917),
+            new Vector3(-191.4826, -80.41444, 51.67457),
+            new Vector3(-129.636, -96.98338, 55.98493),
+            new Vector3(-51.06133, -122.5222, 57.77376),
+            new Vector3(13.30934, -141.3208, 55.99965),
+            new Vector3(77.85547, -163.4343, 54.99051),
+            new Vector3(106.8497, -85.77554, 62.53413),
+            new Vector3(137.0112, -5.062579, 67.47971),
+            new Vector3(163.5823, 67.71493, 81.28201),
+            new Vector3(193.233, 147.0089, 102.3583),
+            new Vector3(210.9522, 196.814, 105.4418),
+            new Vector3(237.1179, 270.5571, 105.3869),
+            new Vector3(252.6139, 341.5507, 105.4139),
+            new Vector3(219.1046, 357.64, 105.7917),
+            new Vector3(213.2493, 388.6108, 106.7043),
         };
 
-        private static nLog Log = new nLog("DrivingSc");
+        private static nLog Log = new nLog("Driving School");
 
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
@@ -57,14 +65,9 @@ namespace iTeffa.Kernel
                 var shape = NAPI.ColShape.CreateCylinderColShape(enterSchool, 1, 2, 0);
                 shape.OnEntityEnterColShape += onPlayerEnterSchool;
                 shape.OnEntityExitColShape += onPlayerExitSchool;
-
                 NAPI.Marker.CreateMarker(1, enterSchool - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Автошкола"), new Vector3(enterSchool.X, enterSchool.Y, enterSchool.Z + 1), 5f, 0.3f, 0, new Color(255, 255, 255));
-                var blip = NAPI.Blip.CreateBlip(enterSchool, 0.75F, 0); // ???
-                blip.ShortRange = true;
-                blip.Name = Main.StringToU16("Автошкола");
-                blip.Sprite = 545;
-                blip.Color = 29;
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Driving School"), new Vector3(enterSchool.X, enterSchool.Y, enterSchool.Z + 1), 5f, 0.3f, 0, new Color(255, 255, 255));
+                var blip = NAPI.Blip.CreateBlip(545, enterSchool, 0.75F, 29, Main.StringToU16("Driving School"), 255, 0, true, 0);
                 for (int i = 0; i < drivingCoords.Count; i++)
                 {
                     var colshape = NAPI.ColShape.CreateCylinderColShape(drivingCoords[i], 4, 5, 0);
