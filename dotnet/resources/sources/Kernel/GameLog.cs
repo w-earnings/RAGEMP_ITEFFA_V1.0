@@ -123,27 +123,7 @@ namespace iTeffa.Kernel
             if (thread == null) return;
             queue.Enqueue($"update {DB}.eventslog set `AdminClosed`='{AdmName}',`Members`={MembCount},`Winner`='{WinName},`Reward`={Reward},`Ended`='{Time}',`RewardLimit`={RewardLimit} WHERE `Winner`='Undefined' AND `MembersLimit`={MemLimit} AND `EventName`='{EvName}'");
         }
-        public static void CasinoPlacedBet(string name, int uuid, ushort red, ushort zero, ushort black)
-        {
-            if (thread == null) return;
-            queue.Enqueue(string.Format(
-                insert, "casinobetlog", "`time`,`name`,`uuid`,`red`,`zero`,`black`",
-                $"'{DateTime.Now.ToString("s")}','{name}',{uuid},'{red}','{zero}','{black}'"));
-        }
-        public static void CasinoEnd(string name, int uuid, byte casino, byte disctype)
-        {
-            if (thread == null) return;
-            queue.Enqueue(string.Format(
-                insert, "casinoendlog", "`time`,`name`,`uuid`,`state`,`type`",
-                $"'{DateTime.Now.ToString("s")}','{name}',{uuid},{casino},{disctype}"));
-        }
-        public static void CasinoWinLose(string name, int uuid, int wonbet)
-        {
-            if (thread == null) return;
-            queue.Enqueue(string.Format(
-                insert, "casinowinloselog", "`time`,`name`,`uuid`,`wonbet`",
-                $"'{DateTime.Now.ToString("s")}','{name}',{uuid},{wonbet}"));
-        }
+        
         #region Логика потока
         public static void Start()
         {

@@ -362,7 +362,6 @@ namespace iTeffa
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading managers\":\n" + e.ToString()); }
                     Log.Debug("STAGE 7 (HOUSES)");
 
-                    Finance.Casino.Disconnect(player, type);
 
                     Voice.PlayerQuit(player, reason);
                     Players[player].Save(player).Wait();
@@ -1868,7 +1867,7 @@ namespace iTeffa
                         Fractions.Manager.exitInterier(player, player.GetData<int>("FRACTIONCHECK"));
                         return;
                     case 70:
-                        Finance.Casino.Interact(player);
+                        // Clean Script
                         return;
                     case 80:
                     case 81:
@@ -2304,19 +2303,12 @@ namespace iTeffa
             }
             
             Timers.Init();
-            
             GameLog.Start();
-            
             ReportSys.Init();
-
             Fractions.LSNews.Init();
-
             EventSys.Init();
-
-            Finance.Casino.OnResourceStart();
             Fractions.ElectionsSystem.OnResourceStart();
 
-            // НЕ УДАЛЯТЬ!!!!
             List<string> zones = new List<string>()
             {
                 "torso",
