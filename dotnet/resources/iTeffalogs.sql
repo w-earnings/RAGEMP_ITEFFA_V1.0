@@ -63,51 +63,6 @@ CREATE TABLE IF NOT EXISTS `banlog` (
 /*!40000 ALTER TABLE `banlog` DISABLE KEYS */;
 /*!40000 ALTER TABLE `banlog` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffalogs.casinobetlog
-CREATE TABLE IF NOT EXISTS `casinobetlog` (
-  `time` datetime NOT NULL,
-  `name` text NOT NULL,
-  `uuid` text NOT NULL,
-  `red` text NOT NULL,
-  `zero` text NOT NULL,
-  `black` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Дамп данных таблицы iteffalogs.casinobetlog: ~0 rows (приблизительно)
-/*!40000 ALTER TABLE `casinobetlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `casinobetlog` ENABLE KEYS */;
-
--- Дамп структуры для таблица iteffalogs.casinoendlog
-CREATE TABLE IF NOT EXISTS `casinoendlog` (
-  `time` datetime NOT NULL,
-  `name` text NOT NULL,
-  `uuid` text NOT NULL,
-  `state` text NOT NULL,
-  `type` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Дамп данных таблицы iteffalogs.casinoendlog: ~0 rows (приблизительно)
-/*!40000 ALTER TABLE `casinoendlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `casinoendlog` ENABLE KEYS */;
-
--- Дамп структуры для таблица iteffalogs.casinowinloselog
-CREATE TABLE IF NOT EXISTS `casinowinloselog` (
-  `time` datetime NOT NULL,
-  `name` text NOT NULL,
-  `uuid` text NOT NULL,
-  `wonbet` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Дамп данных таблицы iteffalogs.casinowinloselog: ~0 rows (приблизительно)
-/*!40000 ALTER TABLE `casinowinloselog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `casinowinloselog` ENABLE KEYS */;
-
 -- Дамп структуры для таблица iteffalogs.connlog
 CREATE TABLE IF NOT EXISTS `connlog` (
   `uuid` text NOT NULL,
