@@ -2893,34 +2893,13 @@ namespace iTeffa
         {
             return utf8String;
         }
-        public static string GetVoiceKey()
-        {
-            try
-            {
-                string PrivateKey = "Q9ZXW-7REEJ-WUP96-VLQR8";
-                WebClient client = new WebClient();
 
-                string result = client.DownloadString("https://voip.gta5star.ru/request/" + PrivateKey);
-                if (string.IsNullOrEmpty(result))
-                {
-                    Log.Write("VOIP-Master server return NULL result.", nLog.Type.Warn);
-                    return null;
-                }
-                Log.Debug("Temp Key is " + result);
-                return result;
-            }
-            catch (Exception e)
-            {
-                Log.Write("EXCEPTION AT \"TEMPKEY\":\n" + e.ToString(), nLog.Type.Error);
-                return null;
-            }
-        }
         public static void ClientEventToAll(string eventName, params object[] args)
         {
-            List<Player> players = Main.Players.Keys.ToList();
+            List<Player> players = Players.Keys.ToList();
             foreach (Player p in players)
             {
-                if (!Main.Players.ContainsKey(p) || p == null) continue;
+                if (!Players.ContainsKey(p) || p == null) continue;
                 Trigger.ClientEvent(p, eventName, args);
             }
         }
