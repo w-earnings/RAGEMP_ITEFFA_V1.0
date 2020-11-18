@@ -4,7 +4,6 @@ using iTeffa.Interface;
 using GTANetworkAPI;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace iTeffa.Houses
 {
@@ -15,17 +14,11 @@ namespace iTeffa.Houses
         public static int HotelRent = 100;
         public static List<Vector3> HotelEnters = new List<Vector3>()
         {
-            new Vector3(435.7797, 215.2411, 102.0459),
             new Vector3(-1274.113, 315.5634, 64.39182),
-            new Vector3(-877.9172, -2178.256, 8.689036),
-            new Vector3(143.7725, -832.2746, 30.0483),
         };
         private static List<Vector3> CarsGet = new List<Vector3>()
         {
-            new Vector3(438.5355, 215.998, 102.048),
             new Vector3(-1276.953, 314.8228, 64.39178),
-            new Vector3(-880.3264, -2177.036, 8.689037),
-            new Vector3(142.5748, -829.4322, 30.05754),
         };
         private static Vector3 InteriorDoor = new Vector3(151.2052, -1008.007, -100.12);
 
@@ -37,12 +30,7 @@ namespace iTeffa.Houses
                 var HotelID = 0;
                 foreach (var pos in HotelEnters)
                 {
-                    var blip = NAPI.Blip.CreateBlip(pos, 0.75F);
-                    blip.ShortRange = true;
-                    blip.Sprite = 475;
-                    blip.Color = 1;
-                    blip.Name = "Отель";
-
+                    var blip = NAPI.Blip.CreateBlip (374, pos, 0.75F, 45, Main.StringToU16("Hotel"), 255, 0, true, 0);
                     var colshape = NAPI.ColShape.CreateCylinderColShape(pos, 0.75F, 5f, 0);
                     colshape.SetData("ID", HotelID);
                     colshape.OnEntityEnterColShape += (s, e) =>
