@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Threading;
 using iTeffa.Interface;
 using Newtonsoft.Json;
 using System.Linq;
@@ -16,8 +15,6 @@ namespace iTeffa.Kernel
     {
         private static nLog Log = new nLog("Vehicle");
         private static Random Rnd = new Random();
-        private Vehicle SpawnVeh = NAPI.Vehicle.CreateVehicle(VehicleHash.Dinghy, new Vector3(3370.183, 5186.575, 0.6195515), new Vector3(0.3827768, 2.631065, 261.6981), 1, 1);
-
         public static SortedDictionary<string, VehicleData> Vehicles = new SortedDictionary<string, VehicleData>();
         public static SortedDictionary<int, int> VehicleTank = new SortedDictionary<int, int>()
         {
@@ -102,7 +99,6 @@ namespace iTeffa.Kernel
         {
             try
             {
-                //fuelTimer = Main.StartT(30000, 30000, (o) => FuelControl(), "FUELCONTROL_TIMER");
                 Timers.StartTask("fuel", 30000, () => FuelControl());
 
                 Log.Write("Loading Vehicles...");
@@ -123,7 +119,6 @@ namespace iTeffa.Kernel
                     data.Fuel = Convert.ToInt32(Row["fuel"]);
                     data.Price = Convert.ToInt32(Row["price"]);
                     data.Components = JsonConvert.DeserializeObject<VehicleCustomization>(Row["components"].ToString());
-                    //if (Row["components"].ToString() == "null") data.Components = new VehicleCustomization();
                     data.Items = JsonConvert.DeserializeObject<List<nItem>>(Row["items"].ToString());
                     data.Position = Convert.ToString(Row["position"]);
                     data.Rotation = Convert.ToString(Row["rotation"]);
@@ -148,13 +143,7 @@ namespace iTeffa.Kernel
                     try
                     {
                         if (!veh.HasSharedData("PETROL")) continue;
-                        if (!Kernel.VehicleStreaming.GetEngineState(veh)) continue;
-
-                        /*if(!Int32.TryParse(veh.GetSharedData<int>("PETROL"), out int fuel))
-                        {
-                            Log.Write($"Bad fuel data detected from car [{veh.NumberPlate}]", nLog.Type.Warn);
-                            return;
-                        }*/
+                        if (!VehicleStreaming.GetEngineState(veh)) continue;
 
                         f = veh.GetSharedData<int>("PETROL");
                         int fuel = (int)f;
@@ -163,7 +152,7 @@ namespace iTeffa.Kernel
                         if (fuel - PetrolRate[veh.Class] <= 0)
                         {
                             fuel = 0;
-                            Kernel.VehicleStreaming.SetEngineState(veh, false);
+                            VehicleStreaming.SetEngineState(veh, false);
                         }
                         else fuel -= PetrolRate[veh.Class];
                         veh.SetSharedData("PETROL", fuel);
@@ -176,26 +165,11 @@ namespace iTeffa.Kernel
             });
         }
 
-        [ServerEvent(Event.PlayerEnterVehicleAttempt)]
-        public void onPlayerEnterVehicleAttemptHandler(Player player, Vehicle vehicle, sbyte seatid)
-        {
-            try
-            {
-                if (SpawnVeh == vehicle) player.StopAnimation();
-            }
-            catch { }
-        }
-
         [ServerEvent(Event.PlayerEnterVehicle)]
         public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
         {
             try
             {
-                if (SpawnVeh == vehicle)
-                {
-                    player.WarpOutOfVehicle();
-                    return;
-                }
                 if (!vehicle.HasData("OCCUPANTS"))
                 {
                     List<Player> occupantsList = new List<Player>();

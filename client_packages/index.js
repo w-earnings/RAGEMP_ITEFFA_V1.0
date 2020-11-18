@@ -233,7 +233,6 @@ global.loggedin = false;
 global.lastCheck = 0;
 global.chatLastCheck = 0;
 global.pocketEnabled = false;
-
 var Peds = [
 	// Мерия №2
 	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалтор
@@ -643,7 +642,6 @@ mp.events.add("playerRuleTriggered", (rule, counter) => {
     }
 });
 
-
 		require('./voice.js');
 		require('./phone.js');
 		require('./checkpoints.js');
@@ -660,7 +658,6 @@ require('./game_resources/handlers/inventory.js');
 		require('./fly.js');
 		require('./environment.js');
 		require('./elections.js');
-		require('./animals.js');
 		require('./client/utils/utils.js');
 		require('./scripts/autopilot.js');
 		require('./scripts/crouch.js');
@@ -669,8 +666,7 @@ require('./game_resources/handlers/inventory.js');
 		require('./scripts/publicGarage/index.js');
 		require('./scripts/SmoothThrottle/SmoothThrottle.js');
 		require('./banks/atm.js');
-		require('./realtor.js');
-
+require('./game_resources/handlers/realtor.js');
 // Конфигурации
 require('./game_resources/handlers/configs/barber.js');
 require('./game_resources/handlers/configs/natives.js');
