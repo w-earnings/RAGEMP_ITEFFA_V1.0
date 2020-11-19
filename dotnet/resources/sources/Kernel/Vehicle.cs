@@ -310,7 +310,7 @@ namespace iTeffa.Kernel
             VehicleStreaming.UpdateVehicleSyncData(vehicle, new VehicleStreaming.VehicleSyncData());
         }
 
-        public static string Create(string Holder, string Model, Color Color1, Color Color2, int Health = 1000, int Fuel = 100, int Price = 0)
+        public static string Create(string Holder, string Model, Color Color1, Color Color2, Color Color3, int Health = 1000, int Fuel = 100, int Price = 0)
         {
             VehicleData data = new VehicleData();
             data.Holder = Holder;
@@ -321,6 +321,7 @@ namespace iTeffa.Kernel
             data.Components = new VehicleCustomization();
             data.Components.PrimColor = Color1;
             data.Components.SecColor = Color2;
+            data.Components.NeonColor = Color3;
             data.Items = new List<nItem>();
             data.Dirt = 0.0F;
 
@@ -1068,11 +1069,10 @@ namespace iTeffa.Kernel
         {
             public Color PrimColor = new Color(0, 0, 0);
             public Color SecColor = new Color(0, 0, 0);
-            public Color NeonColor = new Color(0, 0, 0, 0);
+            public Color NeonColor = new Color(0, 0, 0, 0); // NeonTest
 
             public int PrimModColor = -1;
             public int SecModColor = -1;
-
             public int Muffler = -1;
             public int SideSkirt = -1;
             public int Hood = -1;
@@ -1083,7 +1083,6 @@ namespace iTeffa.Kernel
             public int Vinyls = -1;
             public int FrontBumper = -1;
             public int RearBumper = -1;
-
             public int Engine = -1;
             public int Turbo = -1;
             public int Horn = -1;
@@ -1092,14 +1091,10 @@ namespace iTeffa.Kernel
             public int Suspension = -1;
             public int Brakes = -1;
             public int Headlights = -1;
-            //public int HeadlightColor = 0;
             public int NumberPlate = 0;
-
             public int Wheels = -1;
             public int WheelsType = 0;
             public int WheelsColor = 0;
-
-
             public int Armor = -1;
         }
 

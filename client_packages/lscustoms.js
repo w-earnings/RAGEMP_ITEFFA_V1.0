@@ -55,6 +55,7 @@ mp.events.add('tpage', (id) => {
             if (lscPage == "numbers_menu") {
                 localplayer.vehicle.setNumberPlateTextIndex(lscSettedMod);
             }
+			// Неон автомобиля
             else if (lscPage == "paint_menu_three") {
                 localPlayer.vehicle.setNeonLightEnabled(0, false);
                 localPlayer.vehicle.setNeonLightEnabled(1, false);
@@ -97,6 +98,7 @@ mp.events.add('tpage', (id) => {
                     mp.events.call("hideColorp");
                     localplayer.vehicle.setCustomPrimaryColour(lscPrimary.r, lscPrimary.g, lscPrimary.b);
                     localplayer.vehicle.setCustomSecondaryColour(lscSecondary.r, lscSecondary.g, lscSecondary.b);
+					// Неон автомобиля
                     localplayer.vehicle.setNeonLightEnabled(0, true);
                     localplayer.vehicle.setNeonLightEnabled(1, true);
                     localplayer.vehicle.setNeonLightEnabled(2, true);
@@ -382,6 +384,7 @@ mp.events.add('tunColor', function (c) {
     }
     else if (lscPage == "paint_menu_three") {
         localplayer.vehicle.setNeonLightsColour(c.r, c.g, c.b);
+		// Неон автомобиля
         localplayer.vehicle.setNeonLightEnabled(0, true);
         localplayer.vehicle.setNeonLightEnabled(1, true);
         localplayer.vehicle.setNeonLightEnabled(2, true);

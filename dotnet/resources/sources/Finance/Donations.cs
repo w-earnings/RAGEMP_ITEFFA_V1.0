@@ -214,7 +214,7 @@ namespace iTeffa.Finance
                 case 3:
                     if (add)
                     {
-                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                         var house = Houses.HouseManager.GetHouse(client, false);
                         if (house != null)
                         {
@@ -233,7 +233,7 @@ namespace iTeffa.Finance
                 case 4:
                     if (add)
                     {
-                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                         var house = Houses.HouseManager.GetHouse(client, false);
                         if (house != null)
                         {
@@ -252,7 +252,7 @@ namespace iTeffa.Finance
                 case 5:
                     if (add)
                     {
-                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                         var house = Houses.HouseManager.GetHouse(client, false);
                         if (house != null)
                         {
@@ -271,7 +271,7 @@ namespace iTeffa.Finance
                 case 6:
                     if (add)
                     {
-                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0));
+                        var vNumber = VehicleManager.Create(client.Name, CarName[id], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                         var house = Houses.HouseManager.GetHouse(client, false);
                         if (house != null)
                         {
@@ -671,7 +671,7 @@ namespace iTeffa.Finance
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 10;
-                            VehicleManager.Create(client.Name, CarNameS[1], new Color(0, 0, 0), new Color(0, 0, 0));
+                            VehicleManager.Create(client.Name, CarNameS[1], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Старт для начала набор", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -690,7 +690,7 @@ namespace iTeffa.Finance
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 15;
-                            VehicleManager.Create(client.Name, CarNameS[2], new Color(0, 0, 0), new Color(0, 0, 0));
+                            VehicleManager.Create(client.Name, CarNameS[2], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Солидненько набор", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -709,7 +709,7 @@ namespace iTeffa.Finance
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 20;
-                            VehicleManager.Create(client.Name, CarNameS[3], new Color(0, 0, 0), new Color(0, 0, 0));
+                            VehicleManager.Create(client.Name, CarNameS[3], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Солидненько набор", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -728,7 +728,7 @@ namespace iTeffa.Finance
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 25;
-                            VehicleManager.Create(client.Name, CarNameS[4], new Color(0, 0, 0), new Color(0, 0, 0));
+                            VehicleManager.Create(client.Name, CarNameS[4], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
                             Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, "Вы успешно приобрели Золотые запасы набор", 3000);
                             Dashboard.sendStats(client);
                             break;

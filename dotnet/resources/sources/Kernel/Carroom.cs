@@ -175,7 +175,7 @@ namespace iTeffa.Kernel
 
             GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", prod.Price, $"buyCar({vName})");
 
-            vNumber = VehicleManager.Create(player.Name, vName, carColors[color], carColors[color]);
+            vNumber = VehicleManager.Create(player.Name, vName, carColors[color], carColors[color], carColors[color]);
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы купили {vName} с идентификатором {vNumber} ", 3000);
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Автомобиль доставлен в ваш гараж!", 5000);
