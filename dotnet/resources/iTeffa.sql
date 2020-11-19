@@ -1891,17 +1891,17 @@ CREATE TABLE IF NOT EXISTS `safes` (
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `holder` varchar(155) NOT NULL,
   `model` varchar(155) NOT NULL,
-  `health` int(155) NOT NULL,
-  `fuel` int(155) NOT NULL,
+  `health` int(11) NOT NULL,
+  `fuel` int(11) NOT NULL,
   `components` text NOT NULL,
   `items` text NOT NULL,
-  `position` varchar(255) DEFAULT '0',
-  `rotation` varchar(255) DEFAULT '0',
-  `keynum` int(155) NOT NULL DEFAULT '0',
-  `dirt` float NOT NULL DEFAULT '0',
-  `price` int(155) NOT NULL,
-  `idkey` int(155) NOT NULL AUTO_INCREMENT,
-  `number` varchar(155) NOT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `rotation` varchar(255) DEFAULT NULL,
+  `keynum` int(11) DEFAULT NULL,
+  `dirt` float DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `number` varchar(255) NOT NULL,
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
