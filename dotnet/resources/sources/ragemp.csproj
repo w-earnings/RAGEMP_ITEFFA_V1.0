@@ -12,6 +12,9 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	  <OutputPath>..\ragemp\</OutputPath>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <OutputPath>..\ragemp\</OutputPath>
+	</PropertyGroup>
 
   <ItemGroup>
 	<PackageReference Include="MySqlConnector" Version="1.1.0" />
