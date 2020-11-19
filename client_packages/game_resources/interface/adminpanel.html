@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <!-- 9IP -->
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/adminpanel.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/font.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/font-awesome.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <title>Admin Panel</title>
+</head>
+
+<body>
+  <div id="app" v-if="active">
+    <div class="container">
+      <header>
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <h1>Админ панель</h1>
+        <span>
+          <i @click="closepanel()" class="fa fa-times-circle-o" aria-hidden="true"></i>
+        </span>
+      </header>
+
+      <div class="main pageMembers">
+        <h2>Список игроков</h2>
+        <div class="items">
+          <table>
+            <tr class="item">
+              <th class="adminItem">🅰</th>
+              <th class="idItem">🆔</th>
+              <th class="nickItem">Никнейм</th>
+              <th class="cmdItem">Команды</th>
+              <th class="pingItem">📶</th>
+            </tr>
+            <tr class="item" v-for="item in items">
+              <td>
+                <i class="fa fa-toggle-on" aria-hidden="true" v-if="item[0] > 0" :title="item[0]"></i>
+                <i class="fa fa-toggle-off" aria-hidden="true" v-else></i>
+              </td>
+              <td>{{item[1]}}</td>
+              <td>{{item[2]}}</td>
+              <td>
+                <span>
+                  <i @click="comand(`tp ` + item[1])" title="Телепорт к игроку" class="fa fa-map-marker" aria-hidden="true"></i>
+                  <i @click="getPlayerInfo(item)" class="fa fa-address-book" title="Получить информацию" aria-hidden="true"></i>
+                  <i @click="comand(`skick ` + item[1])" title="Кикнуть игрока" class="fa fa-user-times" aria-hidden="true"></i>
+                  <i @click="selectPlayer(item)" title="Другие команды" class="fa fa-bars" aria-hidden="true"></i>
+                </span>
+              </td>
+              <td>{{item[3]}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <footer>
+        <div>
+          <h3>Онлайн: {{items.length}}</h3>
+        </div>
+      </footer>
+    </div>
+
+    <transition name="modal">
+	<!-- 9IPModal Window -->
+      <div class="modal-window" :class="page == 'info' ? `modal-window-width` : ``" v-if="activeModal">
+        <header>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <h2>{{item[2]}} [{{item[1]}}]</h2>
+        </header>
+        <div class="infolist" v-if="page == `info`">
+          <div>
+            <p>
+              <span v-if="player[0].Character.Gender == true">
+                <i class="fa fa-male" aria-hidden="true"></i> Мужской пол
+              </span>
+              <span v-else><i class="fa fa-female" aria-hidden="true"></i> Женский пол</span>
+            </p>
+            <p>
+              <i class="fa fa-address-card" aria-hidden="true"></i> Паспорт: {{player[0].Character.UUID}}
+            </p>
+            <p>
+              <i class="fa fa-university" aria-hidden="true"></i> Счет Банка:
+              <span :style="filterFontSize(player[0].Character.Bank.length)">
+                {{player[0].Character.Bank}}
+              </span>
+            </p>
+            <p>
+              <i class="fa fa-mobile" aria-hidden="true"></i> Симкарта:
+              <span :style="filterFontSize(player[0].Character.Sim.length)">
+                {{ player[0].Character.Sim == -1 ? "нет" : player[0].Character.Sim }}
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i> Уровень: {{player[0].Character.LVL}}
+            </p>
+            <p>
+              <i class="fa fa-caret-square-o-up" aria-hidden="true"></i> Опыт: {{player[0].Character.EXP}}
+            </p>
+            <p>
+              <i class="fa fa-heart" aria-hidden="true"></i> Жизнь: {{player[0].Character.Health}}
+            </p>
+            <p>
+              <i class="fa fa-shield" aria-hidden="true"></i> Броня: {{player[0].Character.Armor}}
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa fa-home" aria-hidden="true"></i> Дом:
+              {{ Object.values(player[0].Props)[0] == -1 ? "нет" : "#"+Object.values(player[0].Props)[0] }}
+            </p>
+            <p>
+              <i class="fa fa-briefcase" aria-hidden="true"></i> Бизнес:
+              {{ player[0].Character.BizIDs == "" ? "нет" : "#"+player[0].Character.BizIDs.toString() }}
+            </p>
+            <p>
+              <i class="fa fa-money" aria-hidden="true"></i> Наличка:
+              <span :style="filterFontSize(player[0].Character.Money.length)">
+                {{player[0].Character.Money}}
+              </span>
+            </p>
+            <p>
+              <i class="fa fa-credit-card-alt" aria-hidden="true"></i> На счету:
+              <span :style="filterFontSize(Object.values(player[0].Props)[1].length)">
+                {{Object.values(player[0].Props)[1]}}
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa fa-calendar" aria-hidden="true"></i> Дата:
+              <span :style="filterFontSize(player[0].Character.CreateDate.length)">
+                {{player[0].Character.CreateDate}}
+              </span>
+            </p>
+            <p>
+              <i class="fa fa-gavel" aria-hidden="true"></i> Варнов: {{player[0].Character.Warns}}
+            </p>
+            <p>
+              <i class="fa fa-users" aria-hidden="true"></i> Фракция: {{player[0].Character.FractionID}}
+            </p>
+            <p>
+              <i class="fa fa-star" aria-hidden="true"></i> Ранг: {{player[0].Character.FractionLVL}}
+            </p>
+          </div>
+          <div class="licences">
+            <p>
+              <i class="fa fa-id-card" aria-hidden="true"></i> Лицензии: {{player[0].Character.Licenses == null ? "нет" : "" }}
+            </p>
+            <p class="licences" v-if="player[0].Character.Licenses != null">
+              <i class="fa fa-motorcycle" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[0]"></i>
+              <i class="fa fa-car" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[1]"></i>
+              <i class="fa fa-truck" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[2]"></i>
+              <i class="fa fa-ship" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[3]"></i>
+              <i class="fa fa-plane" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[4]"></i>
+              <i class="fa fa-magic" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[5]"></i>
+              <i class="fa fa-heartbeat" aria-hidden="true" v-if="Object.values(player[0].Character.Licenses)[6]"></i></p>
+          </div>
+          <div>
+            <p>
+              Login: {{player[0].Account.Login}}
+            </p>
+            <p>
+              Email:
+              <span :style="filterFontSize(player[0].Account.Email.length - 5)">
+                {{player[0].Account.Email}}
+              </span>
+            </p>
+            <p>
+              IP: {{player[0].Account.IP}}
+            </p>
+            <p>
+              HWID: {{player[0].Account.HWID}}
+            </p>
+            <p>
+              SocialClub: {{player[0].Account.SocialClub}}
+            </p>
+            <p>
+              VIP: {{player[0].Account.VipLvl}}
+            </p>
+            <p>
+              V-Date:
+              <span :style="filterFontSize(player[0].Account.VipDate.length - 5)">
+                {{player[0].Account.VipDate}}
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="cmdlist" v-if="page == `cmds`">
+          <div v-for="(cmd, index) in cmdlist" v-if="getState(cmd.Command)">
+            <span>
+              <input v-model="text[index]" type="text" :placeholder="getArgs(cmd.Command)" :disabled="getArgs(cmd.Command) == `нет аргументов`">
+            </span>
+            <p>
+              <a class="btnModal btnGps" @click="text[index] == null ? comand(cmd.Command + ` ` + item[1]) : comand(cmd.Command + ` ` + item[1] + ` ` + text[index])">{{cmd.Command}}</a>
+            </p>
+          </div>
+        </div>
+        <footer>
+          <a class="btnModal btnCancel" @click="cancelmodal">Отмена</a>
+        </footer>
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div class="fade" v-if="activeModal"></div>
+    </transition>
+
+  </div>
+  <!-- 9IP -->
+  <script src="package://game_resources/interface/assets/js/commands.js"></script>
+  <script src="package://game_resources/interface/assets/js/adminpanel.js"></script>
+</body>
+
+</html>

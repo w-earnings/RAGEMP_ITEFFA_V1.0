@@ -28,11 +28,8 @@ namespace iTeffa.Kernel
         }
 
 
-
-
-
-        [RemoteEvent("openCmdOnline")]
-        public static void OpenCmdOnline(Player player)
+        [RemoteEvent("openAdminPanel")]
+        private static void OpenAdminPanel(Player player)
         {
             CharacterData acc = Main.Players[player];
             List<Group.GroupCommand> cmds = new List<Group.GroupCommand>();
@@ -54,14 +51,47 @@ namespace iTeffa.Kernel
                     string[] data = { Main.Players[p].AdminLVL.ToString(), p.Value.ToString(), p.Name.ToString(), p.Ping.ToString() };
                     players.Add(data);
                 }
-
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(cmds);
                 string json2 = Newtonsoft.Json.JsonConvert.SerializeObject(players);
-                Trigger.ClientEvent(player, "openCmdOnline", json, json2);
+                Trigger.ClientEvent(player, "openAdminPanel", json, json2);
             }
             cmds.Clear();
             players.Clear();
         }
+
+        [RemoteEvent("getPlayerInfoToAdminPanel")]
+        private static void LoadPlayerInfoToPanel(Player player, int id)
+        {
+            Player target = Main.GetPlayerByID(id);
+            if (target == null) return;
+            CharacterData ccr = Main.Players[target];
+            AccountData acc = Main.Accounts[target];
+            Houses.House house = Houses.HouseManager.GetHouse(target);
+            int houseID = -1;
+            if (house != null) houseID = house.ID;
+            List<object> data = new List<object>()
+            {
+                new Dictionary<string, object>()
+                {
+                    { "Character", ccr },
+                    { "Account", acc },
+                    { "Props", new List<object>()
+                        {
+                            houseID,
+                            Finance.Bank.Accounts[ccr.Bank].Balance,
+                        }
+                    }
+                }
+            };
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+            Trigger.ClientEvent(player, "loadPlayerInfo", json);
+        }
+
+
+
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+//9IP
 const cmds = {
   "setleader": {
       args: "фракция",
@@ -23,7 +24,7 @@ const cmds = {
 	  args: "кол-во",
 	  target: true
   },
-  "givecoins": {
+  "givereds": {
 	  args: "кол-во",
 	  target: true
   },
@@ -52,7 +53,11 @@ const cmds = {
 	  target: true
   },
   "warn": {
-	  args: "причина",
+	  args: "время причина",
+	  target: true
+  },
+  "ban": {
+	  args: "время причина",
 	  target: true
   },
   "unwarn": {

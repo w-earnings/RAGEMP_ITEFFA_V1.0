@@ -220,7 +220,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
 require('./game_resources/handlers/plugins/bind_keys.js');
 // Администратор	
 require('./game_resources/handlers/control/coordinates.js');
-require('./game_resources/handlers/control/cmd_online.js');
+require('./game_resources/handlers/control/adminpanel.js');
 
 
 		require('./menus.js');
