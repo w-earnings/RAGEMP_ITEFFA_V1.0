@@ -2844,48 +2844,21 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-        [Command("winter")]
-        public static void CMD_setWeather(Player player, byte weather)
-        {
-            if (!Group.CanUseCmd(player, "sw")) return;
-            NAPI.World.SetWeather("XMAS");
-            GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
-        }
-        [Command("rain")]
-        public static void CMD_setWeather1(Player player, byte weather)
-        {
-            if (!Group.CanUseCmd(player, "sw")) return;
-            NAPI.World.SetWeather("RAIN");
-            GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
-        }
-        [Command("smog")]
-        public static void CMD_setWeather2(Player player, byte weather)
-        {
-            if (!Group.CanUseCmd(player, "sw")) return;
-            NAPI.World.SetWeather("SMOG");
-            GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
-        }
-        [Command("clear")]
-        public static void CMD_setWeather3(Player player, byte weather)
-        {
-            if (!Group.CanUseCmd(player, "sw")) return;
-            NAPI.World.SetWeather("CLEAR");
-            GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
-        }
+       
 
-        [Command("xmasw", Description = "Clears the weather")]
-        public void Xmas_Weather(Player player)
-        {
-            NAPI.World.SetWeather(Weather.XMAS);
-        }
 
-        [Command("sw")]
-        public static void CMD_setWeatherID(Player player, int weather)
+
+        [Command("sw")] // Управления погодой...
+        public static void CMD_setWeatherID(Player player, byte weather)
         {
             if (!Group.CanUseCmd(player, "sw")) return;
             Main.changeWeather(weather);
             GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
         }
+
+
+
+
 
         [Command("st")]
         public static void CMD_setTime(Player player, int hours, int minutes, int seconds)
