@@ -468,7 +468,7 @@ namespace iTeffa.Fractions
                 var pveh = seller.Vehicle;
                 var tveh = player.Vehicle;
                 Vehicle veh = NAPI.Entity.GetEntityFromHandle<Vehicle>(pveh);
-                if (veh.GetData<string>("ACCESS") != "FRACTION" || veh.GetData<object>("TYPE") != "EMS" || !veh.HasData("CANMEDKITS"))
+                if (veh.GetData<string>("ACCESS") != "FRACTION" || veh.GetData<string>("TYPE") != "EMS" || !veh.HasData("CANMEDKITS"))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы сидите не в карете EMS", 3000);
                     return;

@@ -1164,8 +1164,7 @@ namespace iTeffa.Houses
                             Trigger.ClientEvent(player, "startEditing", f.Model);
                             MenuManager.Close(player);
                             return;
-                    }
-                    return;
+                    }  
                 case "listChangeleft":
                 case "listChangeright":
 

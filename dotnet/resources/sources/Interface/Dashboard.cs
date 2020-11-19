@@ -828,29 +828,30 @@ namespace iTeffa.Interface
                 Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), nLog.Type.Error);
             }
         }
-        public static async Task SendStatsAsync(Player player)
+        public static Task SendStatsAsync(Player player)
         {
             try
             {
-                if (!Main.Players.ContainsKey(player)) return;
+                if (!Main.Players.ContainsKey(player))
+                    return Task.CompletedTask;
                 Kernel.Character.Character acc = Main.Players[player];
 
                 string status =
-                    (acc.AdminLVL >= 1) ? "Администратор" :
-                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate.ToString("dd.MM.yyyy")}" :
+                    acc.AdminLVL >= 1 ? "Администратор" :
+                    Main.Accounts[player].VipLvl > 0 ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate.ToString("dd.MM.yyyy")}" :
                     $"{Group.GroupNames[Main.Accounts[player].VipLvl]}";
 
-                long bank = (acc.Bank != 0) ? Bank.Accounts[acc.Bank].Balance : 0;
+                long bank = acc.Bank != 0 ? Bank.Accounts[acc.Bank].Balance : 0;
 
                 string lic = "";
                 for (int i = 0; i < acc.Licenses.Count; i++)
                     if (acc.Licenses[i]) lic += $"{Main.LicWords[i]} / ";
                 if (lic == "") lic = "Отсутствуют";
 
-                string work = (acc.WorkID > 0) ? Working.WorkManager.JobStats[acc.WorkID - 1] : "Отсутствует";
-                string fraction = (acc.FractionID > 0) ? Fractions.Manager.FractionNames[acc.FractionID] : "Отсутствует";
+                string work = acc.WorkID > 0 ? Working.WorkManager.JobStats[acc.WorkID - 1] : "Отсутствует";
+                string fraction = acc.FractionID > 0 ? Fractions.Manager.FractionNames[acc.FractionID] : "Отсутствует";
 
-                string number = (acc.Sim == -1) ? "Нет сим-карты" : Main.Players[player].Sim.ToString();
+                string number = acc.Sim == -1 ? "Нет сим-карты" : Main.Players[player].Sim.ToString();
 
 
 
@@ -882,7 +883,10 @@ namespace iTeffa.Interface
             {
                 Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), nLog.Type.Error);
             }
+
+            return Task.CompletedTask;
         }
+
         public static void sendItems(Player player)
         {
             try
@@ -1004,7 +1008,7 @@ namespace iTeffa.Interface
             string json = JsonConvert.SerializeObject(idata);
             Trigger.ClientEvent(Player, "board", 6, json, index);
         }
-        public static async Task UpdateAsync(Player Player, nItem item, int index)
+        public static Task UpdateAsync(Player Player, nItem item, int index)
         {
             try
             {
@@ -1012,13 +1016,15 @@ namespace iTeffa.Interface
                     {
                         item.ID,
                         item.Count,
-                        (item.IsActive) ? 1 : 0,
-                        (nInventory.WeaponsItems.Contains(item.Type) || item.Type == ItemType.StunGun) ? "Serial: " + item.Data : (item.Type == ItemType.CarKey) ? $"{(string)item.Data.Split('_')[0]}" : ""
+                        item.IsActive ? 1 : 0,
+                        nInventory.WeaponsItems.Contains(item.Type) || item.Type == ItemType.StunGun ? "Serial: " + item.Data : item.Type == ItemType.CarKey ? $"{(string)item.Data.Split('_')[0]}" : ""
                     };
                 string json = JsonConvert.SerializeObject(idata);
                 NAPI.Task.Run(() => Trigger.ClientEvent(Player, "board", 6, json, index));
             }
             catch (Exception e) { Log.Write("UpdateAsync: " + e.Message); }
+
+            return Task.CompletedTask;
         }
     }
 }

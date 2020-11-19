@@ -25,10 +25,10 @@ namespace iTeffa.Interface
         }
         #region PhoneCallback
         [RemoteEvent("Phone")]
-        public async Task PhoneCallback(Player client, params object[] arguments)
+        public Task PhoneCallback(Player client, params object[] arguments)
         {
-            if (client == null || !Main.Players.ContainsKey(client)) return;
-
+            if (client == null || !Main.Players.ContainsKey(client))
+                return Task.CompletedTask;
             try
             {
                 string eventName = Convert.ToString(arguments[0]);
@@ -49,26 +49,27 @@ namespace iTeffa.Interface
                         }
                         break;
                     case "callback":
-                        if (menu == null) return;
+                        if (menu == null) return Task.CompletedTask;
                         string ItemID = Convert.ToString(arguments[1]);
                         string Event = Convert.ToString(arguments[2]);
                         //dynamic data = NAPI.Util.FromJson(arguments[3].ToString());
                         dynamic data = JsonConvert.DeserializeObject(arguments[3].ToString());
 
                         Menu.Item item = menu.Items.FirstOrDefault(i => i.ID == ItemID);
-                        if (item == null) return;
+                        if (item == null) return Task.CompletedTask;
                         //await Log.DebugAsync($"app:{menu.ID}; item:{item.ID};");
                         //await Log.DebugAsync($"json:{Convert.ToString(arguments[3])}");
                         menu.Callback.Invoke(client, menu, item, Event, data);
-                        return;
+                        return Task.CompletedTask;
                 }
-                return;
+                return Task.CompletedTask;
             }
             catch (Exception e)
             {
                 Menu menu = Menus[client];
                 Log.Write($"EXCEPTION AT /{menu.ID}/\"PHONE_CALLBACK\":\n" + e.ToString(), nLog.Type.Error);
             }
+            return Task.CompletedTask;
         }
         #endregion
         #region Menu Open
@@ -147,7 +148,7 @@ namespace iTeffa.Interface
                 Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), nLog.Type.Error);
             }
         }
-        public static async Task CloseAsync(Player client, bool hidePhone = true)
+        public static Task CloseAsync(Player client, bool hidePhone = true)
         {
             try
             {
@@ -156,7 +157,6 @@ namespace iTeffa.Interface
                     if (Menus.ContainsKey(client))
                         Menus.Remove(client);
                 }
-
                 if (hidePhone)
                 {
                     Trigger.ClientEvent(client, "phoneHide");
@@ -168,6 +168,7 @@ namespace iTeffa.Interface
             {
                 Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), nLog.Type.Error);
             }
+            return Task.CompletedTask;
         }
         #endregion
     }
@@ -291,7 +292,7 @@ namespace iTeffa.Interface
                 };
                 return data;
             }
-            public async Task<JArray> getJsonArrAsync()
+            public Task<JArray> getJsonArrAsync()
             {
                 JArray elements = new JArray(Elements);
                 JArray data = new JArray()
@@ -305,7 +306,7 @@ namespace iTeffa.Interface
                     Checked,
                     elements
                 };
-                return data;
+                return Task.FromResult(data);
             }
         }
         #region Enums

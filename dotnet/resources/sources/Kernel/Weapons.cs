@@ -580,32 +580,27 @@ namespace iTeffa.Kernel
             // make sure player has the weapon
             if (Array.IndexOf(player.Weapons, weapon) == -1) return;
 
-            string bone = "";
             Vector3 offset = new Vector3(0.0, 0.0, 0.0);
             Vector3 rotation = new Vector3(0.0, 0.0, 0.0);
 
             switch (WeaponData[weapon].Type)
             {
                 case WeaponAttachmentType.RightLeg:
-                    bone = "SKEL_R_Thigh";
                     offset = new Vector3(0.02, 0.06, 0.1);
                     rotation = new Vector3(-100.0, 0.0, 0.0);
                     break;
 
                 case WeaponAttachmentType.LeftLeg:
-                    bone = "SKEL_L_Thigh";
                     offset = new Vector3(0.08, 0.03, -0.1);
                     rotation = new Vector3(-80.77, 0.0, 0.0);
                     break;
 
                 case WeaponAttachmentType.RightBack:
-                    bone = "SKEL_Spine3";
                     offset = new Vector3(-0.1, -0.15, -0.13);
                     rotation = new Vector3(0.0, 0.0, 3.5);
                     break;
 
                 case WeaponAttachmentType.LeftBack:
-                    bone = "SKEL_Spine3";
                     offset = new Vector3(-0.1, -0.15, 0.11);
                     rotation = new Vector3(-180.0, 0.0, 0.0);
                     break;

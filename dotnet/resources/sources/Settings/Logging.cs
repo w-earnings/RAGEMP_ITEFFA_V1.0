@@ -62,7 +62,7 @@ namespace iTeffa.Settings
             }
         }
 
-        public async Task WriteAsync(string text, Type logType = Type.Info)
+        public Task WriteAsync(string text, Type logType = Type.Info)
         {
             try
             {
@@ -85,8 +85,8 @@ namespace iTeffa.Settings
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(" Succ");
                         break;
-                    default:
-                        return;
+
+                    default: return Task.CompletedTask;
                 }
                 Console.ResetColor();
                 Console.Write($" | {Reference} | {text}\n");
@@ -98,6 +98,7 @@ namespace iTeffa.Settings
                 Console.WriteLine("Logger Error:\n" + e.ToString());
                 Console.ResetColor();
             }
+            return Task.CompletedTask;
         }
 
         public void Debug(string text, Type logType = Type.Info)
@@ -142,11 +143,11 @@ namespace iTeffa.Settings
             }
         }
 
-        public async Task DebugAsync(string text, Type logType = Type.Info)
+        public Task DebugAsync(string text, Type logType = Type.Info)
         {
             try
             {
-                if (!CanDebug) return;
+                if (!CanDebug) return Task.CompletedTask;
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write($"{DateTime.Now.ToString("HH':'mm':'ss.fff")}");
@@ -169,8 +170,8 @@ namespace iTeffa.Settings
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(" Succ");
                         break;
-                    default:
-                        return;
+
+                    default: return Task.CompletedTask;
                 }
                 Console.ResetColor();
                 Console.Write($" | {Reference} | {text}\n");
@@ -182,7 +183,7 @@ namespace iTeffa.Settings
                 Console.WriteLine("Logger Error:\n" + e.ToString());
                 Console.ResetColor();
             }
+            return Task.CompletedTask;
         }
-
     }
 }

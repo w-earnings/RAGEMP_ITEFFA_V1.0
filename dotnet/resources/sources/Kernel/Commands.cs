@@ -1685,7 +1685,7 @@ namespace iTeffa.Kernel
                         {
                             if (v.HasData("ACCESS") && v.GetData<string>("ACCESS") == "ADMIN")
                             {
-                                if (v.GetData<object>("BY") == client.Name)
+                                if (v.GetData<string>("BY") == client.Name)
                                     v.Delete();
                             }
                         }
@@ -4442,7 +4442,7 @@ namespace iTeffa.Kernel
                             Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
                         return;
                     case "m":
-                        if ((Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9) || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
+                        if (Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9 || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
                         var vehicle = sender.Vehicle;
                         if (vehicle.GetData<string>("ACCESS") != "FRACTION") return;
                         if (vehicle.GetData<int>("FRACTION") != 7 && vehicle.GetData<int>("FRACTION") != 9) return;
@@ -4466,7 +4466,7 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-        public static async Task RPChatAsync(string cmd, Player sender, string message)
+        public static Task RPChatAsync(string cmd, Player sender, string message)
         {
             NAPI.Task.Run(() =>
             {
@@ -4484,7 +4484,7 @@ namespace iTeffa.Kernel
                             var args = message.Split('*');
                             var msg = args[0];
                             var action = args[1];
-                            var genderCh = (Main.Players[sender].Gender) ? "" : "а";
+                            var genderCh = Main.Players[sender].Gender ? "" : "а";
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
                                 Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#E066FF} - сказал" + genderCh + " {name}, " + action, names);
                             return;
@@ -4525,6 +4525,7 @@ namespace iTeffa.Kernel
                 }
                 catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
             });
+            return Task.CompletedTask;
         }
         #endregion RP Chat
         [Command("roll")]
