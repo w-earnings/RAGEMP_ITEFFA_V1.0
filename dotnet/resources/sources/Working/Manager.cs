@@ -13,7 +13,8 @@ namespace iTeffa.Working
         private static nLog Log = new nLog("WorkManager");
         public static Random rnd = new Random();
 
-        public static SortedList<int, Vector3> FractionSpawns = new SortedList<int, Vector3>()//Костылина
+        /*
+        public static SortedList<int, Vector3> FractionSpawns = new SortedList<int, Vector3>() //Костылина
         {
             {1, new Vector3(-219.8333, -1615.615, 35.74932)},    // The Families
             {2, new Vector3(93.79514, -1961.605, 21.62755)},     // The Ballas Gang
@@ -29,10 +30,13 @@ namespace iTeffa.Working
             {12, new Vector3(-1549.22, -86.07732, 55.20967)},    // Yakuza 
             {13, new Vector3(-1809.738, 444.3138, 129.3889)},    // Armenian Mafia 
             {14, new Vector3(-2355.625, 3254.189, 33.69071)},    // Army
-            {15, new Vector3(-1063.046, -249.463, 44.0211)},    // LSNews
-            {16, new Vector3(982.2743, -104.14917, 73.72877)},    // The Lost
+            {15, new Vector3(-1063.046, -249.463, 44.0211)},     // LSNews
+            {16, new Vector3(982.2743, -104.14917, 73.72877)},   // The Lost
             {17, new Vector3(2154.641, 2921.034, -63.02243)},    // Merryweather
         };
+        */
+
+
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
         {
