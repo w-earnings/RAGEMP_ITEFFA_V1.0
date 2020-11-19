@@ -97,7 +97,7 @@ namespace iTeffa.Kernel
 
             Log.Write("Force kicking players...", nLog.Type.Warn);
             foreach (Player player in NAPI.Pools.GetAllPlayers())
-                NAPI.Player.KickPlayer(player, reason);
+                NAPI.Task.Run(() => NAPI.Player.KickPlayer(player, reason));
             Log.Write("All players has kicked!", nLog.Type.Success);
 
             NAPI.Task.Run(() =>
