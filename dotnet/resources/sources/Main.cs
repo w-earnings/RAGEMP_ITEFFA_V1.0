@@ -210,13 +210,15 @@ namespace iTeffa
                                 Working.Collector.CarInfos.Add(data);
                                 break;
                             case 8:
-                                // Working.AutoMechanic.CarInfos.Add(data);
+                                Working.AutoMechanic.CarInfos.Add(data);
+                                break;
+                            case 100:
                                 DrivingSchool.CarInfos.Add(data);
                                 break;
                         }
                     }
 
-                    Rentcar.rentCarsSpawner();
+                    Kernel.Rentcar.rentCarsSpawner();
                     Working.Bus.busCarsSpawner();
                     Working.Lawnmower.mowerCarsSpawner();
                     Working.Taxi.taxiCarsSpawner();
@@ -440,7 +442,7 @@ namespace iTeffa
         [RemoteEvent("teleportWaypoint")]
         public void ClientEvent_tpWP(Player player, float x, float y, float z)
         {
-            if (!Main.Players.ContainsKey(player)) return;
+            if (!Players.ContainsKey(player)) return;
             if (Players[player].AdminLVL < 1) return;
             NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
         }
@@ -1725,9 +1727,6 @@ namespace iTeffa
                 intid = id;
                 switch (id)
                 {
-                    case 512:
-                        Realtor.OpenRealtorMenu(player);
-                        return;
                     case 1:
                         Fractions.Cityhall.beginWorkDay(player);
                         return;
@@ -1936,9 +1935,13 @@ namespace iTeffa
                             }, 3000);
                         }
                         return;
-                       
-                    case 505:
+
+                    case 511:
                         DrivingSchool.OpenTestSchoolMenu(player);
+                        return;
+
+                    case 512:
+                        Realtor.OpenRealtorMenu(player);
                         return;
 
                     default: return;
@@ -2367,7 +2370,8 @@ namespace iTeffa
         private static string Env_lastWeather = config.TryGet<string>("Weather", "CLEAR"); // XMAS - Зима
         public static bool SCCheck = config.TryGet<bool>("SocialClubCheck", false);
 
-        public static void changeWeather(int id) {
+        public static void changeWeather(byte id)
+        {
             try {
                 switch(id) {
                     case 0: Env_lastWeather = "EXTRASUNNY";
@@ -2388,17 +2392,18 @@ namespace iTeffa
                         break;
                     case 8: Env_lastWeather = "CLEARING";
                         break;
-                    case 9: Env_lastWeather = "SMOG";
+                    case 9: Env_lastWeather = "NEUTRAL";
                         break;
-                    case 10: Env_lastWeather = "XMAS";
+                    case 10: Env_lastWeather = "SNOW";
                         break;
-                    case 11: Env_lastWeather = "SNOWLIGHT";
+                    case 11: Env_lastWeather = "BLIZZARD";
                         break;
-                    case 12: Env_lastWeather = "BLIZZARD";
+                    case 12: Env_lastWeather = "SNOWLIGHT";
                         break;
                     default: Env_lastWeather = "EXTRASUNNY";
                         break;
                 }
+                NAPI.World.SetWeather(Env_lastWeather);
                 ClientEventToAll("Enviroment_Weather", Env_lastWeather);
             } catch {
             }
