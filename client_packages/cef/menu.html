@@ -45,7 +45,6 @@
     <link rel="stylesheet" href="css/weapons.css">
     <link rel="stylesheet" href="css/clothes.css">
     <link rel="stylesheet" href="css/masks.css">
-    <link rel="stylesheet" href="css/infobox.css">
     <link rel="stylesheet" href="css/dialog.css">
     <link rel="stylesheet" href="fonts/icons.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -431,12 +430,7 @@
             <div @click="exit" class="btn exit">Выйти</div>
         </div>
     </div>
-    <div class="infobox" v-if="active">
-        <div class="header"><i class="cancel" @click="exit"></i><h1>{{header}}</h1></div>
-        <div class="content" v-html="content"></div>
-    </div>
-	
-	
+
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/dial.js"></script>
     <script src="js/stock.js"></script>
@@ -457,7 +451,6 @@
     <script src="js/weapons.js"></script>
     <script src="js/clothes.js"></script>
     <script src="js/masks.js"></script>
-    <script src="js/infobox.js"></script>
     <script src="js/dialog.js"></script>
 </body>
 </html>

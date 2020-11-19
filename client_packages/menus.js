@@ -1689,41 +1689,6 @@ function setMaskCEF(type, jsonstr) {
     else if (type == 'styles') global.menu.execute(`masks.indexS=0`);
 }
 
-
-
-// INFOBOX //
-/*mp.keys.bind(0x79, false, function () { // F10
-    mp.events.call('ib-open', "Помощь", 0);
-});*/
-mp.events.add('ib-exit', () => {
-    global.menuClose();
-})
-mp.events.add('ib-open', (head, id) => {
-    if (global.menuCheck()) return;
-    global.menuOpen();
-
-    menu.execute(`infobox.set('${head}',${id})`);
-})
-
-
-// Help Menu //
-var helpMenuState = false;
-mp.keys.bind(0x79, false, function () { // F10
-	if(!helpMenuState && global.menuCheck()) return;
-    helpMenuState = !helpMenuState;
-	if(helpMenuState) global.menuOpen();
-	else global.menuClose();
-    global.helpmenu.execute(`hhelpshow(${helpMenuState})`);
-    mp.gui.cursor.visible = helpMenuState;
-});
-mp.events.add('helpOnline', () => {
-    //
-})
-mp.events.add('helpClose', () => {
-    helpMenuState = false;
-	global.menuClose();
-    mp.gui.cursor.visible = false;
-})
 // Color picker //
 global.colorp = mp.browsers.new('package://cef/color.html');
 mp.events.add('showColorp', () => {
