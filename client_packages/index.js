@@ -84,7 +84,7 @@ mp.events.add('admin.toggleGodMode', () => {
 global.chatActive = false;
 global.loggedin = false;
 global.localplayer = mp.players.local;
-mp.gui.execute("window.location = 'package://game_resources/handlers/interface/shellhud.html'");
+mp.gui.execute("window.location = 'package://game_resources/interface/shellhud.html'");
 
 if (mp.storage.data.chatcfg == undefined) {
   mp.storage.data.chatcfg = {
@@ -105,6 +105,8 @@ setInterval(function () {
   var name = (localplayer.getVariable('REMOTE_ID') == undefined) ? `Не авторизован` : `Игрок №${localplayer.getVariable("REMOTE_ID")}`;
   mp.discord.update('iTeffa.com', name);
 }, 10000);
+
+mp.game.gxt.set("PM_PAUSE_HDR", "iTeffa.com"); // Меню паузы
 
 var pedsaying = null;
 var pedtext = "";
@@ -127,8 +129,6 @@ mp.game.streaming.requestClipSet("move_m@sad@a");
 mp.game.streaming.requestClipSet("move_f@sexy@a");
 mp.game.streaming.requestClipSet("move_ped_crouched");
 var admingm = false;
-mp.game.object.doorControl(mp.game.joaat("prop_ld_bankdoors_02"), 232.6054, 214.1584, 106.4049, false, 0.0, 0.0, 0.0);
-mp.game.object.doorControl(mp.game.joaat("prop_ld_bankdoors_02"), 231.5075, 216.5148, 106.4049, false, 0.0, 0.0, 0.0);
 mp.game.audio.setAudioFlag("DisableFlightMusic", true);
 
 global.NativeUI = require("./nativeui.js");
@@ -218,20 +218,20 @@ mp.events.add('UpdateBank', function (temp, amount) {
 
 
 
-require('package://game_resources/handlers/plugins/bind_keys.js');
-require('package://game_resources/handlers/control/coordinates.js');
-require('package://game_resources/handlers/control/adminpanel.js');
+require('./game_resources/handlers/plugins/bind_keys.js');
+require('./game_resources/handlers/control/coordinates.js');
+require('./game_resources/handlers/control/adminpanel.js');
 		require('./menus.js');
 		require('./lscustoms.js');
 		require('./client/player/afksystem.js');
 		require('./character.js');
 		require('./render.js');
-require('package://game_resources/handlers/control/nucleus.js');
+require('./game_resources/handlers/nucleus.js');
 		require('./voice.js');
 		require('./phone.js');
 		require('./checkpoints.js');
-require('package://game_resources/handlers/inventory.js');
-require('package://game_resources/handlers/shellhud.js');
+require('./game_resources/handlers/inventory.js');
+require('./game_resources/handlers/shellhud.js');
 		require('./gamertag.js');
 		require('./furniture.js');
 		require('./admesp.js');
@@ -248,75 +248,20 @@ require('package://game_resources/handlers/shellhud.js');
 		require('./scripts/fingerPointer.js');
 		require('./scripts/publicGarage/index.js');
 		require('./banks/atm.js');
-require('package://game_resources/handlers/realtor.js');
-require('package://game_resources/handlers/DrivingSchool.js');
-require('package://game_resources/handlers/configs/barber.js');
-require('package://game_resources/handlers/configs/natives.js');
-require('package://game_resources/handlers/configs/clothe.js');
-require('package://game_resources/handlers/configs/tattoo.js');
-require('package://game_resources/handlers/configs/tuning.js');
-
-
+require('./game_resources/handlers/realtor.js');
+require('./game_resources/handlers/DrivingSchool.js');
+require('./game_resources/handlers/configs/barber.js');
+require('./game_resources/handlers/configs/natives.js');
+require('./game_resources/handlers/configs/clothe.js');
+require('./game_resources/handlers/configs/tattoo.js');
+require('./game_resources/handlers/configs/tuning.js');
 
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};
   mp.storage.flush();
 }
 
-mp.game.streaming.requestIpl('vw_prop_vw_casino_door_r_02a');
-mp.game.streaming.requestIpl('vw_casino_garage');
-mp.game.streaming.requestIpl('vw_casino_carpark');
-mp.game.streaming.requestIpl('vw_casino_penthouse');
-mp.game.streaming.requestIpl('vw_casino_door');
-mp.game.streaming.requestIpl('prop_casino_door_01');
-mp.game.streaming.requestIpl('hei_dlc_windows_casino');
-mp.game.streaming.requestIpl('hei_dlc_casino_aircon');
-mp.game.streaming.requestIpl('hei_dlc_casino_door');
-mp.game.streaming.requestIpl("bh1_47_joshhse_unburnt");
-mp.game.streaming.requestIpl("bh1_47_joshhse_unburnt_lod");
-mp.game.streaming.requestIpl("CanyonRvrShallow");
-mp.game.streaming.requestIpl("ch1_02_open");
-mp.game.streaming.requestIpl("Carwash_with_spinners");
-mp.game.streaming.requestIpl("sp1_10_real_interior");
-mp.game.streaming.requestIpl("sp1_10_real_interior_lod");
-mp.game.streaming.requestIpl("ferris_finale_Anim");
-mp.game.streaming.removeIpl("hei_bi_hw1_13_door");
-mp.game.streaming.requestIpl("fiblobby");
-mp.game.streaming.requestIpl("fiblobby_lod");
-mp.game.streaming.requestIpl("apa_ss1_11_interior_v_rockclub_milo_");
-mp.game.streaming.requestIpl("hei_sm_16_interior_v_bahama_milo_");
-mp.game.streaming.requestIpl("hei_hw1_blimp_interior_v_comedy_milo_");
-mp.game.streaming.requestIpl("gr_case6_bunkerclosed");
-mp.game.streaming.requestIpl("vw_casino_main");
 
-mp.events.add('pentload', () => {
-  if (pentloaded == false) {
-    pentloaded = true;
-    let phIntID = mp.game.interior.getInteriorAtCoords(976.636, 70.295, 115.164);
-    let phPropList = [
-      "Set_Pent_Tint_Shell",
-      "Set_Pent_Pattern_01",
-      "Set_Pent_Spa_Bar_Open",
-      "Set_Pent_Media_Bar_Open",
-      "Set_Pent_Dealer",
-      "Set_Pent_Arcade_Modern",
-      "Set_Pent_Bar_Clutter",
-      "Set_Pent_Clutter_01",
-      "set_pent_bar_light_01",
-      "set_pent_bar_party_0"
-    ];
-    for (const propName of phPropList) {
-      mp.game.interior.enableInteriorProp(phIntID, propName);
-      mp.game.invoke("0x8D8338B92AD18ED6", phIntID, propName, 1);
-    }
-    mp.game.interior.refreshInterior(phIntID);
-  }
-});
-   /* 
-   --- --- --- --- --- --- --- --- ---
-   --- ---    iTeffa.com    -- --- ---
-   --- --- --- --- --- --- --- --- --- 
-   */
 const mSP = 30;
 var prevP = mp.players.local.position;
 var localWeapons = {};
