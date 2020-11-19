@@ -104,7 +104,7 @@ mp.events.add('disabledmg', (toggle) => {
 });
 
 mp._events.add('playerWeaponShot', (targetPosition, targetEntity) => {
-    if(dmgdisabled == true) return true;
+  if(dmgdisabled == true) return true;
 });
 
 mp.game.streaming.requestAnimDict("creatures@cat@amb@world_cat_sleeping_ground@base");
@@ -120,30 +120,29 @@ mp.game.streaming.requestAnimDict("creatures@deer@amb@world_deer_grazing@idle_a"
 mp.game.streaming.requestAnimDict("amb@prop_human_seat_chair@female@proper@base"); // DrivingSchoolAnim
 
 mp.events.add('entityStreamIn', function (entity) {
-    try {
-        if (entity.type === 'player') {
-			SetWalkStyle(entity, walkstyles[entity.getVariable('playerws')]);
-			SetMood(entity, moods[entity.getVariable('playermood')]);
-			attachObject(entity);
-			if(dmgdisabled == true) entity.setRelationshipGroupHash(FriendlyHash);
-			else entity.setRelationshipGroupHash(NonFriendlyHash);
-			if (entity.getVariable('INVISIBLE') == true) entity.setAlpha(0);
-			else entity.setAlpha(255);
-		} else if(entity.type === 'ped') {
-			entity.taskLookAt(localplayer.handle, -1, 2048, 3);
-			if(entity.getModel() == 1462895032) entity.taskPlayAnim("creatures@cat@amb@world_cat_sleeping_ground@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Cat
-			else if(entity.getModel() == 1318032802) entity.taskPlayAnim("creatures@rottweiler@amb@sleep_in_kennel@", "sleep_in_kennel", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Husky
-			else if(entity.getModel() == 1832265812) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Pug
-			else if(entity.getModel() == 2910340283) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Westy
-			else if(entity.getModel() == 1125994524) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Poodle
-			else if(entity.getModel() == 940330470) entity.taskPlayAnim("amb@world_human_sunbathe@male@back@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Rashkovsky		
-			else if (entity.getModel() == 1767447799) entity.taskPlayAnim("amb@prop_human_seat_chair@female@proper@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // DrivingSchoolPed
-			
-			else if(entity.getModel() == 1596003233) entity.taskPlayAnim("misstrevor2", "gang_chatting_idle02_a", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Muscle Prisoner
-			else if(entity.getModel() == 2506301981) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Gang Rottweiler
-			else if(entity.getModel() == 882848737) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Retriever Police
-			else if(entity.getModel() == 1126154828) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Shephard
-			else if(entity.getModel() == 3630914197) entity.taskPlayAnim("creatures@deer@amb@world_deer_grazing@idle_a", "idle_b", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Retriever Police
-		}
-    } catch (e) { }
+  try {
+	if (entity.type === 'player') {
+	  SetWalkStyle(entity, walkstyles[entity.getVariable('playerws')]);
+	  SetMood(entity, moods[entity.getVariable('playermood')]);
+	  attachObject(entity);
+	  if(dmgdisabled == true) entity.setRelationshipGroupHash(FriendlyHash);
+	  else entity.setRelationshipGroupHash(NonFriendlyHash);
+	  if (entity.getVariable('INVISIBLE') == true) entity.setAlpha(0);
+	  else entity.setAlpha(255);
+	  } else if(entity.type === 'ped') {
+		entity.taskLookAt(localplayer.handle, -1, 2048, 3);
+		if(entity.getModel() == 1462895032) entity.taskPlayAnim("creatures@cat@amb@world_cat_sleeping_ground@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Cat
+		else if(entity.getModel() == 1318032802) entity.taskPlayAnim("creatures@rottweiler@amb@sleep_in_kennel@", "sleep_in_kennel", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Husky
+		else if(entity.getModel() == 1832265812) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Pug
+		else if(entity.getModel() == 2910340283) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Westy
+		else if(entity.getModel() == 1125994524) entity.taskPlayAnim("creatures@pug@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Poodle
+		else if(entity.getModel() == 940330470) entity.taskPlayAnim("amb@world_human_sunbathe@male@back@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Rashkovsky		
+		else if (entity.getModel() == 1767447799) entity.taskPlayAnim("amb@prop_human_seat_chair@female@proper@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // DrivingSchoolPed
+		else if(entity.getModel() == 1596003233) entity.taskPlayAnim("misstrevor2", "gang_chatting_idle02_a", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Muscle Prisoner
+		else if(entity.getModel() == 2506301981) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Gang Rottweiler
+		else if(entity.getModel() == 882848737) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Retriever Police
+		else if(entity.getModel() == 1126154828) entity.taskPlayAnim("creatures@retriever@amb@world_dog_sitting@base", "base", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Shephard
+		else if(entity.getModel() == 3630914197) entity.taskPlayAnim("creatures@deer@amb@world_deer_grazing@idle_a", "idle_b", 8.0, 1.0, -1, 1, 0.0, false, false, false); // Retriever Police
+	  }
+  } catch (e) { }
 });

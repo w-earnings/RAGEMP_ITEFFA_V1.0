@@ -9,9 +9,9 @@ namespace iTeffa.Kernel
     class DrivingSchool : Script
     {
         private static int minCarHe = 700;
-        private static List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 };
-        private static Vector3 enterSchool = new Vector3(229.6592, 378.3658, 104.9942); // 228.572708, 373.805969, 104.994225
-        private static List<Vector3> drivingCoords = new List<Vector3>()
+        private static List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 }; //Ценники
+        private static Vector3 enterSchool = new Vector3(229.6592, 378.3658, 104.9942); //Покупка прав
+        private static List<Vector3> drivingCoords = new List<Vector3>() // Координаты езда по городу
         {
             new Vector3(188.7008, 366.5621, 107.6869),
             new Vector3(140.3896, 362.6936, 111.3745),
@@ -56,10 +56,10 @@ namespace iTeffa.Kernel
                 shape.OnEntityExitColShape += onPlayerExitSchool;
 
                 NAPI.Marker.CreateMarker(1, enterSchool - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(255, 255, 255, 220));
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Купить лицензию"), new Vector3(enterSchool.X, enterSchool.Y, enterSchool.Z + 1), 5f, 0.3f, 0, new Color(255, 255, 255));
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Driving School"), new Vector3(enterSchool.X, enterSchool.Y, enterSchool.Z + 1), 5f, 0.3f, 0, new Color(255, 255, 255));
                 var blip = NAPI.Blip.CreateBlip(enterSchool, 0);
                 blip.ShortRange = true;
-                blip.Name = Main.StringToU16("Авто Школа");
+                blip.Name = Main.StringToU16("Driving School");
                 blip.Sprite = 545;
                 blip.Color = 4;
                 for (int i = 0; i < drivingCoords.Count; i++)
@@ -80,8 +80,7 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
-        #region Покупка прав
-        #region ColShape меню:
+
         private void onPlayerEnterSchool(ColShape shape, Player player)
         {
             try
@@ -96,8 +95,7 @@ namespace iTeffa.Kernel
             Trigger.ClientEvent(player, "JobsEinfo2");
             NAPI.Data.SetEntityData(player, "INTERACTIONCHECK", 0);
         }
-        #endregion
-        #region Меню Покупаем права:
+
         public static void OpenDriveSchoolMenu(Player player)
         {
             Trigger.ClientEvent(player, "JobsEinfo2");
@@ -109,21 +107,20 @@ namespace iTeffa.Kernel
                 LicPrices[4],
                 LicPrices[5]);
         }
-        #endregion
-        #region После покупки это:
+
         [RemoteEvent("selectSchool_ID")]
         public static void startDrivingCourse(Player player, int index)
         {
             if (player.HasData("IS_DRIVING") || player.GetData<bool>("ON_WORK"))
             {
                 Trigger.ClientEvent(player, "CloseDrivingSchool");
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сделать это сейчас", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это сейчас", 3000);
                 return;
             }
             if (Main.Players[player].Licenses[index])
             {
                 Trigger.ClientEvent(player, "CloseDrivingSchool");
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть эта лицензия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть эта лицензия", 3000);
                 return;
             }
             switch (index)
@@ -132,7 +129,7 @@ namespace iTeffa.Kernel
                     if (Main.Players[player].Money < LicPrices[0])
                     {
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[0] = true;
@@ -140,21 +137,21 @@ namespace iTeffa.Kernel
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно купили лицензию на мото транспорт", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию на мото транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 1:
                     if (Main.Players[player].Money < LicPrices[1])
                     {
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Finance.Wallet.Change(player, -LicPrices[1]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Подойдите к любому свободному столу в нашей авто школе и попробуйте сдать тест", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Подойдите к любому свободному столу в нашей авто школе и попробуйте сдать тест", 3000);
                     player.SetData("TestSchool", 1);
 
                     return;
@@ -162,7 +159,7 @@ namespace iTeffa.Kernel
                     if (Main.Players[player].Money < LicPrices[2])
                     {
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[2] = true;
@@ -170,14 +167,14 @@ namespace iTeffa.Kernel
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 3:
                     if (Main.Players[player].Money < LicPrices[3])
                     {
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[3] = true;
@@ -185,15 +182,15 @@ namespace iTeffa.Kernel
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[3];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 4:
                     if (Main.Players[player].Money < LicPrices[4])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"", 3000);
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[4] = true;
@@ -201,14 +198,14 @@ namespace iTeffa.Kernel
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[4];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 5:
                     if (Main.Players[player].Money < LicPrices[5])
                     {
                         Trigger.ClientEvent(player, "CloseDrivingSchool");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[5] = true;
@@ -216,18 +213,15 @@ namespace iTeffa.Kernel
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[5];
                     GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
                     Trigger.ClientEvent(player, "CloseDrivingSchool");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
             }
         }
-        #endregion
-        #endregion
-        #region Сдача теста
-        #region Координаты Столов
+
         private static List<Checkpoint> Checkpoints = new List<Checkpoint>()
         {
-            new Checkpoint(new Vector3(227.5337, 371.517, 104.9942), 140.0437), // Сдать тест 0
+            new Checkpoint(new Vector3(227.5337, 371.517, 104.9942), 140.0437),  // Сдать тест 0
             new Checkpoint(new Vector3(226.3162, 371.8558, 104.9942), 200.1652), // Собрать тест 1
             new Checkpoint(new Vector3(225.1053, 372.3355, 104.9942), 200.1652), // Собрать тест 2
             new Checkpoint(new Vector3(224.4268, 370.4944, 104.9942), 200.1652), // Собрать тест 3
@@ -246,8 +240,7 @@ namespace iTeffa.Kernel
                 Heading = rot;
             }
         }
-        #endregion
-        #region Cрабатывает - сдать тест
+
         private void onPlayerEnterSchoolTest(ColShape shape, Player player)
         {
             try
@@ -262,15 +255,14 @@ namespace iTeffa.Kernel
             Trigger.ClientEvent(player, "JobsEinfo2");
             NAPI.Data.SetEntityData(player, "INTERACTIONCHECK", 0);
         }
-        #endregion
-        #region Проверка что вы купили права
+
         public static void OpenTestSchoolMenu(Player player)
         {
             try
             {
                 if (player.HasData("IS_DRIVING") || player.GetData<bool>("ON_WORK"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сделать это сейчас", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это сейчас", 3000);
                     return;
                 }
                 if (!Main.Players[player].Licenses[1])
@@ -283,15 +275,14 @@ namespace iTeffa.Kernel
                     else
                     {
                         Trigger.ClientEvent(player, "JobsEinfo2");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Купите тест", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Купите тест", 3000);
                     }
                 }
-                else { Trigger.ClientEvent(player, "JobsEinfo2"); Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы уже сдавали тест", 3000); }
+                else { Trigger.ClientEvent(player, "JobsEinfo2"); Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже сдавали тест", 3000); }
             }
             catch (Exception e) { Log.Write("PlayerEnterCheckpointTest: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
-        #region  Проверка
+
         [RemoteEvent("SelectSchoolOK")]
         public static void SELECTDrivingSchoolTEST(Player player, int ok)
         {
@@ -300,14 +291,11 @@ namespace iTeffa.Kernel
                 player.SetData("IS_DRIVING", true);
                 player.SetData("LICENSE", 1);
                 player.SetData("CHECK", 0);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ступайте во двор займите свободный транспорт", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ступайте во двор займите свободный транспорт", 3000);
                 Trigger.ClientEvent(player, "CloseDrivingSchoolTEST");
             }
         }
-        #endregion
-        #endregion
-        #region Управления Транспортом
-        #region Спавн машины и респавн машины
+
         public static List<CarInfo> CarInfos = new List<CarInfo>();
         public static void SchoolCarsSpawner()
         {
@@ -363,14 +351,13 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("respawnCar: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
-        #region Садигся в машину сраатывает:
+
         [ServerEvent(Event.PlayerEnterVehicle)]
         public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
         {
             try
             {
-                if (NAPI.Data.GetEntityData(vehicle, "TYPE") != "RENTCAR" || player.VehicleSeat != -1) return;
+                if (NAPI.Data.GetEntityData(vehicle, "TYPE") != "RENTCAR" || player.VehicleSeat != 0) return; // ?
                 if (!Main.Players[player].Licenses[1])
                 {
                     if (player.HasData("IS_DRIVING") == true)
@@ -378,13 +365,13 @@ namespace iTeffa.Kernel
                         if (!NAPI.Data.GetEntityData(vehicle, "ON_WORK"))
                         {
                             if (NAPI.Data.GetEntityData(player, "WORK") == null) { rentCar(player); return; }
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У вас уже есть машина", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У вас уже есть машина", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                             return;
                         }
                         if (NAPI.Data.GetEntityData(player, "WORK") != vehicle)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В машине есть водитель", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине есть водитель", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                             return;
                         }
@@ -393,22 +380,21 @@ namespace iTeffa.Kernel
                     else
                     {
                         VehicleManager.WarpPlayerOutOfVehicle(player);
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вам нужно сдать тест.", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вам нужно сдать тест.", 3000);
                     }
                 }
                 else
                 {
                     VehicleManager.WarpPlayerOutOfVehicle(player);
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У вас есть лицензия на (На этот транспорт)", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У вас есть лицензия на (На этот транспорт)", 3000);
                 }
             }
             catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
-        #region Если всё верно то после срабатывает:
+
         public static void rentCar(Player player)
         {
-            if (!NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != -1 || player.Vehicle.GetData<string>("TYPE") != "RENTCAR") return;
+            if (!NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != 0 || player.Vehicle.GetData<string>("TYPE") != "RENTCAR") return; // ?
 
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
@@ -425,24 +411,33 @@ namespace iTeffa.Kernel
             float engineHealth = NAPI.Vehicle.GetVehicleEngineHealth(vehicle);
 
             Trigger.ClientEvent(player, "OpenStatsDrivingSchool", minCarHe, Convert.ToInt32(bodyHealth), Convert.ToInt32(engineHealth));
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Чтобы завести транспорт, нажмите B", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Максимальная скорость у машины состовляемт 60 КМ/Ч", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Максимальная скорость у машины состовляемт 60 КМ/Ч", 3000);
             Trigger.ClientEvent(player, "SetMaxSpeedSchool");
         }
-        #endregion
-        #region Дамаг по машине
+
+
         [ServerEvent(Event.VehicleDamage)]
         public void OnVehicleDamage(Vehicle vehicle, float bodyHealthLoss, float engineHealthLoss)
         {
-
             var player = NAPI.Data.GetEntityData(vehicle, "DRIVER");
-            if (NAPI.Data.GetEntityData(vehicle, "TYPE") == "RENTCAR" &&
-                NAPI.Data.GetEntityData(player, "ON_WORK") &&
-                NAPI.Data.GetEntityData(player, "WORK") == vehicle)
+            NAPI.Util.ConsoleOutput($"{vehicle.DisplayName} - {bodyHealthLoss} - {engineHealthLoss}");
+            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Урон по двигателю составил: {Convert.ToInt32(engineHealthLoss)} едениц!", 3000);
+        }
+
+
+
+        /*
+        [ServerEvent(Event.VehicleDamage)]
+        public void onVehicleDamage(Vehicle vehicle, float bodyHealthLoss, float engineHealthLoss)
+        {
+            var player = NAPI.Data.GetEntityData(vehicle, "DRIVER");
+            if (NAPI.Data.GetEntityData(vehicle, "TYPE") == "RENTCAR" && NAPI.Data.GetEntityData(player, "ON_WORK") && NAPI.Data.GetEntityData(player, "WORK") == vehicle)
             {
-                var vehHP = player.Vehicle.Health; // макс
+                var vehHP = player.Vehicle.Health;
                 float bodyHealth = NAPI.Vehicle.GetVehicleBodyHealth(vehicle);
                 float engineHealth = NAPI.Vehicle.GetVehicleEngineHealth(vehicle);
+                
                 if (bodyHealth < minCarHe || engineHealth < minCarHe)
                 {
                     player.ResetData("IS_DRIVING");
@@ -461,22 +456,29 @@ namespace iTeffa.Kernel
 
                     NAPI.Data.SetEntityData(player, "WORK", null);
                     Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы провалили экзамен", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы провалили экзамен", 3000);
                     return;
                 }
-                  if (Convert.ToInt32(bodyHealthLoss) != 0)
+           
+                if (Convert.ToInt32(bodyHealthLoss) != 0)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Урон по корпусу составил: {Convert.ToInt32(bodyHealthLoss)} едениц!", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Урон по корпусу составил: {Convert.ToInt32(bodyHealthLoss)} едениц!", 3000);
                 }
                 if (Convert.ToInt32(engineHealthLoss) != 0)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Урон по двигателю составил: {Convert.ToInt32(engineHealthLoss)} едениц!", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Урон по двигателю составил: {Convert.ToInt32(engineHealthLoss)} едениц!", 3000);
                 }
                 Trigger.ClientEvent(player, "OpenStatsDrivingSchool", minCarHe, Convert.ToInt32(bodyHealth), Convert.ToInt32(engineHealth));
             }
         }
-        #endregion
-        #region Выход из машины
+        
+        */
+
+
+
+
+
+
         [ServerEvent(Event.PlayerExitVehicle)]
         public void onPlayerExitVehicleHandler(Player player, Vehicle vehicle)
         {
@@ -486,7 +488,7 @@ namespace iTeffa.Kernel
                 NAPI.Data.GetEntityData(player, "ON_WORK") &&
                 NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Если вы не сядете в машину в течение 60 секунд, то провалите экзамен", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если вы не сядете в машину в течение 60 секунд, то провалите экзамен", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
@@ -518,7 +520,7 @@ namespace iTeffa.Kernel
                         player.ResetData("IS_DRIVING");
                         player.ResetData("SCHOOLVEH");
                         Trigger.ClientEvent(player, "CloseStatsDrivingSchool");
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Вы провалили экзмен", 3000);
+                        Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы провалили экзмен", 3000);
 
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
@@ -535,14 +537,12 @@ namespace iTeffa.Kernel
                 }
             });
         }
-        #endregion
-        #endregion
-        #region Удачно сели в машину идёт сдача города
+
         private void onPlayerEnterDrive(ColShape shape, Player player)
         {
             try
             {
-                if (!player.IsInVehicle || player.VehicleSeat != -1) return;
+                if (!player.IsInVehicle || player.VehicleSeat != 0) return; // ?
                 if (!player.Vehicle.HasData("ACCESS") || player.Vehicle.GetData<string>("ACCESS") != "SCHOOL") return;
                 if (!player.HasData("IS_DRIVING")) return;
                 if (shape.GetData<int>("NUMBER") != player.GetData<int>("CHECK")) return;
@@ -567,11 +567,11 @@ namespace iTeffa.Kernel
                     {
                         NAPI.Data.SetEntityData(player, "WORK", null);
                         Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы провалили экзамен", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы провалили экзамен", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[player.GetData<int>("LICENSE")] = true;
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно сдали экзамен", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно сдали экзамен", 3000);
                     NAPI.Data.SetEntityData(player, "WORK", null);
                     Dashboard.sendStats(player);
                     Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
@@ -589,9 +589,7 @@ namespace iTeffa.Kernel
                 Log.Write("ENTERDRIVE:\n" + e.ToString(), nLog.Type.Error);
             }
         }
-        #endregion
-        #region Игрок
-        #region onPlayerDisconnected Если игрок вышел из игры
+
         public static void onPlayerDisconnected(Player player, DisconnectionType type, string reaso)
         {
             try
@@ -605,8 +603,7 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
-        #region Event_PlayerDeath Если игрок умер
+
         public static void Event_PlayerDeath(Player player, Player entityKiller, uint weapon)
         {
             try
@@ -620,7 +617,7 @@ namespace iTeffa.Kernel
                     Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
                     player.ResetData("IS_DRIVING");
                     player.ResetData("SCHOOLVEH");
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Вы провалили экзмен", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы провалили экзмен", 3000);
                     Trigger.ClientEvent(player, "CloseStatsDrivingSchool");
 
                     NAPI.Data.SetEntityData(player, "ON_WORK", false);
@@ -635,7 +632,5 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
         }
-        #endregion
-        #endregion
     }
 }

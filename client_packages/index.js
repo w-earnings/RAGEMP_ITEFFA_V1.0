@@ -143,6 +143,8 @@ global.ItemsCollection = NativeUI.ItemsCollection;
 global.Color = NativeUI.Color;
 global.ListItem = NativeUI.ListItem;
 
+// mp.players.local.setMoney(50); Оставляю для теста
+
 function SetWalkStyle(entity, walkstyle) {
   try {
     if (walkstyle == null) entity.resetMovementClipset(0.0);
@@ -666,8 +668,6 @@ require('./game_resources/handlers/inventory.js');
 		require('./scripts/publicGarage/index.js');
 		require('./scripts/SmoothThrottle/SmoothThrottle.js');
 		require('./banks/atm.js');
-require('./game_resources/handlers/realtor.js');
-require('./game_resources/handlers/DrivingSchool.js');
 
 // Конфигурации
 require('./game_resources/handlers/configs/barber.js');
@@ -675,6 +675,9 @@ require('./game_resources/handlers/configs/natives.js');
 require('./game_resources/handlers/configs/clothe.js');
 require('./game_resources/handlers/configs/tattoo.js');
 require('./game_resources/handlers/configs/tuning.js');
+
+require('./game_resources/handlers/realtor.js');
+require('./game_resources/handlers/DrivingSchool.js');
 
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};

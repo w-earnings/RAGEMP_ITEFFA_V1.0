@@ -9,6 +9,7 @@ dotnet/resources/.vs
 dotnet/server_exceptions.txt
 dotnet/server_logs.txt
 client_packages/game_resources/dlcpacks
+launchSettings.json
 iTeffa.db
 coords.txt
 
