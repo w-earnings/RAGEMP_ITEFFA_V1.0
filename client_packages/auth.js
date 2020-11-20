@@ -221,7 +221,6 @@ mp.events.add('ready', function () {
     mp.game.player.setHealthRechargeMultiplier(0);
 
     global.menu = mp.browsers["new"]('package://cef/menu.html');
-    global.helpmenu = mp.browsers["new"]('package://cef/help.html');
 
     if (respawn != null) {
         respawn.destroy();
