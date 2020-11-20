@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+    <style>
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            font-family: "Ubuntu", sans-serif;
+            margin: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #555;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ddd;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="package://game_resources/interface/assets/css/JobsMenus.css">
+    <link rel="stylesheet" href="package://game_resources/interface/assets/css/fmenu.css">
+    <script src='package://game_resources/interface/plugins/js/vue.js'></script>
+</head>
+<body style="display:none">
+    <div class="JobsEinfo" v-if="active" style="margin-left: 38%; bottom: 100px; position: absolute; ">
+        <table style="color: white; font-weight: 900; font-size: 30px;">
+            <tr>
+                <td style="padding: 7px;">Нажмите</td>
+                <td style="color: white; background: rgb(86 86 86); padding: 4px 9px 4px 10px; border-radius: 6px;">E</td>
+                <td style="padding: 7px;">для взаимодействия</td>
+            </tr>
+        </table>
+    </div>
+    <div class="JobStatsInfo" v-if="active" style="font-weight: 900;box-shadow: 0 0px 20px rgb(0 0 0 / 43%);border-right: 5px solid #fbb80499;top: 100px;right: 40px;color: white;background: #00000082;width: 200px;position: absolute;">
+        <div style="font-size: 18px;text-align: center;padding: 8px 0px 10px 0px;background: black;">Статистика</div>
+        <div style="text-align: left;padding: 10px;">
+            <p style="margin:0px;">Заработано: {{money}}$</p>
+        </div>
+    </div>
+
+    <!-- Грузчик2 -->
+    <div class="Scourge" v-if="active">
+        <div class="header"><h1>{{header}}</h1><i class="cancel" @click="exit"></i></div>
+        <div class="content">
+            <div class="block">
+                <div class="left">
+                    <div class="imgblock"><img src="./images/joblist/loader.jpg" alt=""></div>
+                </div>
+                <div class="right">
+                    <p class="info">Грузчик — это профессия, в которой используется преимущественно только мускульная физическая сила человека для выполнения простых рабочих операций по перемещению грузов: погрузки, выгрузки, кантования, перекатывания и подъёма.</p>
+                    <p class="price">Зарплата: {{money}}$</p>
+                </div>
+            </div>
+            <div v-if="jobid == 10" style="margin-top: 8px;">
+                <div class="enterLoader" v-on:click="selectJob(-1)">Уволиться</div>
+            </div>
+            <div v-else style="margin-top: 8px;">
+                <div class="enterLoader" v-on:click="selectJob(10)">Устроиться</div>
+            </div>
+        </div>
+    </div>
+    <script src="package://game_resources/interface/plugins/js/jquery-3.2.1.min.js"></script>
+    <script src="package://game_resources/interface/plugins/js/dial.js"></script>
+    <script src="package://game_resources/interface/assets/js/JobsMenus.js"></script>
+</body>
+</html>
