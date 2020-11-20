@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900i&display=swap");
+.inGameHud {position: absolute;margin: 0 auto;font-family: Uni Neue;line-height: normal;width: 100%;height: 100%;}
+.iTeffa {user-select:none;-moz-user-select: none;-webkit-user-select:none;overflow:hidden;margin:0;}
+.iTeffa p {margin: 0;}
+.iTeffa #effect {position:absolute;left:0;top: 0;}
+.iTeffa #safezone {position:absolute; top:0;bottom:0;left:0;right: 0;}
+.iTeffa .beta {position: absolute; font-family: Uni Neue;font-size: 12px;color: #fff;top: 1.3%; left: 50%; margin-right: -50%; transform: translate(-50%, -1.3%)}
+.iTeffa .logobox {position: absolute; flex-direction:column; top: 15px; right:15px;}
+.iTeffa .logobox .copyright {font-size:0;vertical-align:top;display:inline-block;}
+.iTeffa .logobox .copyright p {font-family: "impact"; color: #fff; font-size: 21pt; text-transform: uppercase;}
+.iTeffa .logobox .copyright img,p {vertical-align:middle; display:inline-block;}
+.iTeffa .logobox .copyright img{width: 70px;height: 60px; margin:0 -7px 25px 0;}
+.iTeffa .logobox .player {font-size: 10pt; color: #fff; position: absolute; top: 12px; text-align-last: right; opacity: 0.85;text-align-last: right;right:15px;}
+.iTeffa .logobox .online {font-size: 10pt; color: #fff; position: absolute; top: 57px; text-align-last: right; opacity: 0.85;text-align-last: right;right:25px;}
+.iTeffa .inGameHud .help {position: absolute; top: 40%; right: 0px; transform: translate(-40%)}
+
+#chat {position: absolute;width: 100%;height: 100%;display: block;z-index: 0;color: white;color: rgb(255, 255, 255);line-height: 24px;font-weight: bold;font-family: Arial, sans-serif;font-size: 16px;letter-spacing: 0.4px;margin-left: 10px;user-select: none;}
+#chat ul#chat_messages {height: 160px;padding: 0 0.5vh 0 0.5vh;width: 40%;min-height: 2vh;font-size: 1.4vh;word-wrap: break-word;font-family: Arial, sans-serif;text-shadow: 0px 0px 2px black,0px 0px 2px black,0px 0px 2px black,0px 0px 2px black;overflow-y: scroll;}
+#chat ul#chat_messages > li {list-style-type: none;}
+#chat input#chat_msg {color: white;background: rgba(0,0,0,0.5);outline: none;border: none;border-radius: 15px;font-family: Arial, sans-serif;font-size: 15px;line-height: 20px;width: 25vw;padding: 5px 5px 5px 15px;}
+#chat_channels li {float: left;border: 1px solid black;list-style-type: none;padding: 5px 15px;margin: 5px 5px 0px 0px;text-transform: uppercase;font-size: 13px;text-shadow: none;}
+#chat_channels li#active {color: rgb(165,69,165);}
+
+@media (min-width: 1601px) and (max-width: 2560px) {
+    .iTeffa .inGameHud .adaptivhud {zoom: 100%}
+}
+
+@media (min-width: 1401px) and (max-width: 1600px) {
+    .iTeffa .inGameHud .adaptivhud {zoom: 84%}
+}
+
+@media (min-width: 1301px) and (max-width: 1400px) {
+    .iTeffa .inGameHud .adaptivhud {zoom: 84%}
+}
+
+@media (min-width: 1024px) and (max-width: 1300px)  {
+    .iTeffa .inGameHud .adaptivhud {zoom: 70%}
+}
+
+@media screen and (min-height: 1080px) {
+	#chat {font-size: 18px !important;}
+}

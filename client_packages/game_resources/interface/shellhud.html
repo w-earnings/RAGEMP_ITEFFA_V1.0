@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+	<title> iTeffa.com | Hud Window </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="package://game_resources/interface/assets/css/shellhud.css">
+	<link rel="stylesheet" href="package://game_resources/interface/assets/css/speedometer.css">
+	<style>
+	  ::-webkit-scrollbar {width: 0px;}
+	  ::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;}
+	  ::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
+	</style>
+  </head>
+  <body class="iTeffa">
+    <div id="safezone">
+	  <div id="chat" class="chat">
+        <ul id="chat_messages"></ul>
+      </div>
+	  <div class="inGameHud" v-if="show">
+	  <div class="beta">Frontend и backend разработка!</div>
+		<div class="logobox">
+		  <div class="player ">
+		    <i class="fas fa-clock"></i> {{time}}
+			<b>ID:</b><span class="id"> {{playerId}}</span>
+		  </div>
+		  <div class="copyright">
+		    <img src="package://game_resources/interface/assets/icons/shellhud/favicon.png" alt="iTeffa.com"><p>GTA5RAGE</p>
+		  </div>
+		  <div class="online"> Online: {{online}}</div>
+		</div>	
+		<div class="help">
+		  <img src="package://game_resources/interface/assets/icons/shellhud/f2_bind.png" alt="iTeffa.com">
+		<br />
+		  <img src="package://game_resources/interface/assets/icons/shellhud/n_bind.png" alt="iTeffa.com">
+		<br />
+		  <img src="package://game_resources/interface/assets/icons/shellhud/g_bind.png" alt="iTeffa.com">
+		<br />
+		  <img src="package://game_resources/interface/assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
+		</div>
+      </div>
+      <div id="notify"></div>
+      <div id="effect"></div>
+    </div>
+	<script src="package://game_resources/interface/plugins/js/jquery-3.2.1.min.js"></script>
+	<script src="package://game_resources/interface/assets/js/speedometer.js"></script>
+	<script src="package://game_resources/interface/plugins/js/vue.js"></script>
+	<script src="package://game_resources/interface/assets/js/shellhud.js"></script>
+
+	<script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
+	<script>
+      function hidehud(toggle) {if (toggle) {HUD.show = false;logotype.show = false;} else {HUD.show = true;logotype.show = true;}}
+	  function hidehelp(toggle) {if (toggle) {$('.help').hide();} else {$('.help').show();}}
+	</script>
+    <script>function updateSafeZoneSize(screenWidht, screenHeight, safeZoneSize) {var savezoneDiv = document.getElementById("safezone");safeZoneSize = (((1.0 - safeZoneSize) * 0.5) * 100.0);savezoneDiv.style.right = savezoneDiv.style.left = ((screenWidht / 100) * safeZoneSize) + "px";savezoneDiv.style.top = savezoneDiv.style.bottom = ((screenHeight / 100) * safeZoneSize) + "px";return true;}</script>
+  </body>
+</html>

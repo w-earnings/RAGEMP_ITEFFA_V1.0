@@ -212,6 +212,9 @@ namespace iTeffa
                             case 8:
                                 Working.AutoMechanic.CarInfos.Add(data);
                                 break;
+                            case 10:
+                                Working.Scourge.CarInfos.Add(data);
+                                break;
                             case 100:
                                 DrivingSchool.CarInfos.Add(data);
                                 break;
@@ -225,6 +228,7 @@ namespace iTeffa
                     Working.Truckers.truckerCarsSpawner();
                     Working.Collector.collectorCarsSpawner();
                     Working.AutoMechanic.mechanicCarsSpawner();
+                    Working.Scourge.scourgeCarsSpawner();
                     DrivingSchool.SchoolCarsSpawner();
                 }
                 else Log.Write("DB `othervehicles` return null result", nLog.Type.Warn);
@@ -339,6 +343,7 @@ namespace iTeffa
                         Working.Truckers.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Collector.Event_PlayerDisconnected(player, type, reason);
                         Working.AutoMechanic.onPlayerDissconnectedHandler(player, type, reason);
+                        Working.Scourge.Event_PlayerDisconnected(player, type, reason);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.jobs\":\n" + e.ToString()); }
                     Log.Debug("STAGE 5 (JOBS)");
@@ -416,7 +421,6 @@ namespace iTeffa
                 }
                 player.SetSharedData("playermood", 0);
                 player.SetSharedData("playerws", 0);
-                player.SendChatMessage($"!{{#ffb21d}} Добро пожаловать на сервер !{{#00FFFF}} Name-Server !{{#FFFFFF}} RolePlay");
                 player.Eval("let g_swapDate=Date.now();let g_triggersCount=0;mp._events.add('cefTrigger',(eventName)=>{if(++g_triggersCount>10){let currentDate=Date.now();if((currentDate-g_swapDate)>200){g_swapDate=currentDate;g_triggersCount=0}else{g_triggersCount=0;return!0}}})");
                 uint dimension = Dimensions.RequestPrivateDimension(player);
                 NAPI.Entity.SetEntityDimension(player, dimension);
@@ -1936,6 +1940,11 @@ namespace iTeffa
                         }
                         return;
 
+                    case 507:
+                        Working.Scourge.StartWorkDayScourge(player);
+                        return;
+
+
                     case 511:
                         DrivingSchool.OpenTestSchoolMenu(player);
                         return;
@@ -2195,6 +2204,9 @@ namespace iTeffa
                             return;
                         case "TICKET":
                             Fractions.FractionCommands.ticketConfirm(player, true);
+                            return;
+                        case "SCOURGE_RENT":
+                            VehicleManager.WarpPlayerOutOfVehicle(player);
                             return;
                     }
                 }
@@ -2885,7 +2897,7 @@ namespace iTeffa
         {
             try
             {
-                client.SendChatMessage($"Сборка сервера: !{{#00FFFF}}{Full}!{{#FFF}} успешно запущена !{{#f39c12}}{StartDate}");
+                client.SendChatMessage($"Сборка: !{{#00FFFF}}{Full}!{{#FFF}} запущена !{{#f39c12}}{StartDate}");
             }
             catch { }
         }
