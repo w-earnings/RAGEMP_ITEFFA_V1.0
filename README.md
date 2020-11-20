@@ -1,10 +1,5 @@
 # Project iTeffa Release
-
-<<<<<<< HEAD
 ![shellhud](https://iteffa.com/wp-content/uploads/2020/11/shellhud.jpeg/)
-=======
-![shellhud] https://iteffa.com/wp-content/uploads/2020/11/shellhud.jpeg
->>>>>>> 597cfca0766631a13fb54934e6f7a36a1eb45a89
 
 Скачать dlc.rpf : https://drive.google.com/drive/folders/1L0Pwl8xs6oomIKtgVwSEemF_FVguTeMv?usp=sharing
 
