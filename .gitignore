@@ -10,6 +10,7 @@ dotnet/server_exceptions.txt
 dotnet/server_logs.txt
 client_packages/game_resources/dlcpacks
 launchSettings.json
+.idea
 iTeffa.db
 coords.txt
 
