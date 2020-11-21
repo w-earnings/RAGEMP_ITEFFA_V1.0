@@ -37,8 +37,6 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(78, FractionSpawns[13], 0.75F, 40, Main.StringToU16("Армянская мафия"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(526, FractionSpawns[18], 0.75F, 47, Main.StringToU16("Sheriff"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
-                NAPI.Blip.CreateBlip(197, new Vector3(-1036.3226, -2732.918, 12.636636), 0.75F, 26, Main.StringToU16("Спавн новичков"), 255, 0, true, 0);
-
                 var result = Connect.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`fraction`,`fractionlvl` FROM `characters`");
                 if (result != null)
                 {

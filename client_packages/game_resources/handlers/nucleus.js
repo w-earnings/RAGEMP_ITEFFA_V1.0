@@ -5,8 +5,14 @@ global.lastCheck = 0;
 global.chatLastCheck = 0;
 global.pocketEnabled = false;
 var Peds = [
-	// Мерия №2
-	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалтор
+	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалторское агенство
+    {Hash:  1055701597, Pos: new mp.Vector3(-1030.60, -2744.5, 13.85), Angle: 21.000}, // Информация о сервере
+
+
+
+
+
+
 	// Перебрать
     { Hash: -39239064, Pos: new mp.Vector3(1395.184, 3613.144, 34.9892), Angle: 270.0 }, // Caleb Baker
     { Hash: -1176698112, Pos: new mp.Vector3(166.6278, 2229.249, 90.73845), Angle: 47.0 }, // Matthew Allen

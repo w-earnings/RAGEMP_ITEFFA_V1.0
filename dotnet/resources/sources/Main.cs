@@ -1953,6 +1953,10 @@ namespace iTeffa
                         Realtor.OpenRealtorMenu(player);
                         return;
 
+                    case 571:
+                        Plugins.InfoPed.Interact1(player);
+                        return;
+
                     default: return;
                 }
                 

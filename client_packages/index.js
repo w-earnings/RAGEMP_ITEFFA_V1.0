@@ -251,6 +251,7 @@ require('./game_resources/handlers/shellhud.js');
 require('./game_resources/handlers/realtor.js');
 require('./game_resources/handlers/working.js');
 require('./game_resources/handlers/driving.js');
+require('./game_resources/handlers/infoped.js');
 require('./game_resources/handlers/configs/barber.js');
 require('./game_resources/handlers/configs/natives.js');
 require('./game_resources/handlers/configs/clothe.js');
