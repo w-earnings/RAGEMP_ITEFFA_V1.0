@@ -651,7 +651,7 @@ namespace iTeffa.Houses
                         var vehicles = VehicleManager.getAllPlayerVehicles(house.Owner);
                         if (player.IsInVehicle && !vehicles.Contains(player.Vehicle.NumberPlate))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Du kannst mit diesem Auto nicht in die Garage fahren", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du kannst mit diesem Auto nicht in die Garage fahren", 3000);
                             return;
                         }
                         else if (player.IsInVehicle && vehicles.Contains(player.Vehicle.NumberPlate))
@@ -672,14 +672,14 @@ namespace iTeffa.Houses
                             if (vehicles.Count == 0) return;
                             if (garage.CheckCar(false, vehicles[0]))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Ihr Auto ist jetzt irgendwo im Staat, Sie können evakuieren", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ihr Auto ist jetzt irgendwo im Staat, Sie können evakuieren", 3000);
                                 return;
                             }
                             if (player.IsInVehicle) return;
 
                             if (VehicleManager.Vehicles[vehicles[0]].Health < 1)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Sie müssen das Auto wiederherstellen", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Sie müssen das Auto wiederherstellen", 3000);
                                 return;
                             }
                             garage.GetVehicleFromGarage(player, vehicles[0]);
@@ -714,7 +714,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "ban")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
                 return;
             }
 
@@ -731,7 +731,7 @@ namespace iTeffa.Houses
         {
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Du musst im Auto sitzen!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du musst im Auto sitzen!", 3000);
                 return;
             }
 
@@ -759,7 +759,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "allspawncar")) return;
             if (!player.HasData("GARAGEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Sie sollten auf dem Garagenmarker stehen", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie sollten auf dem Garagenmarker stehen", 3000);
                 return;
             }
             if (!GarageManager.Garages.ContainsKey(player.GetData<int>("GARAGEID"))) return;

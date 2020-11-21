@@ -245,7 +245,7 @@ namespace iTeffa.Houses
                 var roommate = NAPI.Player.GetPlayerFromName(r);
                 if (roommate != null)
                 {
-                    Notify.Send(roommate, NotifyType.Warning, NotifyPosition.BottomCenter, "Вы были выселены из дома", 3000);
+                    Notify.Send(roommate, NotifyType.Warning, NotifyPosition.TopCenter, "Вы были выселены из дома", 3000);
                     roommate.TriggerEvent("deleteCheckpoint", 333);
                     roommate.TriggerEvent("deleteGarageBlip");
                 }
@@ -564,7 +564,7 @@ namespace iTeffa.Houses
                                 else if (player.HasData("InvitedHouse_ID") && player.GetData<int>("InvitedHouse_ID") == house.ID)
                                     house.SendPlayer(player);
                                 else
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет доступа", 3000);
+                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет доступа", 3000);
                             }
                             else
                                 house.SendPlayer(player);
@@ -580,7 +580,7 @@ namespace iTeffa.Houses
 
                         if (player.HasData("IS_EDITING"))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить редактирование", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить редактирование", 3000);
                             MenuManager.Close(player);
                             return;
                         }
@@ -634,32 +634,32 @@ namespace iTeffa.Houses
 
                     if (!string.IsNullOrEmpty(house.Owner))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В этом доме уже имеется хозяин", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В этом доме уже имеется хозяин", 3000);
                         return;
                     }
 
                     if (house.Price > Main.Players[player].Money)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас не хватает средств для покупки дома", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает средств для покупки дома", 3000);
                         return;
                     }
 
                     if (Houses.Count(h => h.Owner == player.Name) >= 1)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете купить больше одного дома", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете купить больше одного дома", 3000);
                         return;
                     }
                     var vehicles = VehicleManager.getAllPlayerVehicles(player.Name).Count;
                     var maxcars = GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars;
                     if (vehicles > maxcars)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Дом, который Вы покупаете, имеет {maxcars} машиномест, продайте лишние машины", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Дом, который Вы покупаете, имеет {maxcars} машиномест, продайте лишние машины", 3000);
                         OpenCarsSellMenu(player);
                         return;
                     }
                     if (HouseTypeList[house.Type].PetPosition != null) house.PetName = Main.Players[player].PetName;
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.Center, $"НЕ ЗАБУДЬТЕ ВНЕСТИ НАЛОГИ ЗА ДОМ В БЛИЖАЙШЕМ БАНКОМАТЕ!", 8000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"НЕ ЗАБУДЬТЕ ВНЕСТИ НАЛОГИ ЗА ДОМ В БЛИЖАЙШЕМ БАНКОМАТЕ!", 8000);
                     CheckAndKick(player);
                     house.SetLock(true);
                     house.SetOwner(player);
@@ -678,7 +678,7 @@ namespace iTeffa.Houses
 
                     if (!string.IsNullOrEmpty(house.Owner))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В этом доме уже имеется хозяин", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В этом доме уже имеется хозяин", 3000);
                         return;
                     }
 
@@ -695,7 +695,7 @@ namespace iTeffa.Houses
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
@@ -742,7 +742,7 @@ namespace iTeffa.Houses
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
@@ -750,12 +750,12 @@ namespace iTeffa.Houses
             {
                 case "changestate":
                     house.SetLock(!house.Locked);
-                    if (house.Locked) Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы закрыли дом", 3000);
-                    else Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы открыли дом", 3000);
+                    if (house.Locked) Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли дом", 3000);
+                    else Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли дом", 3000);
                     return;
                 case "removeall":
                     house.RemoveAllPlayers(player);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы выгнали всех из дома", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгнали всех из дома", 3000);
                     return;
                 case "furniture":
                     MenuManager.Close(player);
@@ -800,13 +800,13 @@ namespace iTeffa.Houses
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 return;
             }
 
             if (Main.Players[player].InsideGarageID != -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны выйти из гаража", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны выйти из гаража", 3000);
                 return;
             }
             house.RemoveAllPlayers();
@@ -835,7 +835,7 @@ namespace iTeffa.Houses
             }
             Finance.Wallet.Change(player, price);
             GameLog.Money($"server", $"player({Main.Players[player].UUID})", Convert.ToInt32(house.Price * 0.6), $"houseSell({house.ID})");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы продали свой дом государству за {price}$", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали свой дом государству за {price}$", 3000);
         }
 
         public static void OpenCarsSellMenu(Player player)
@@ -877,7 +877,7 @@ namespace iTeffa.Houses
             var price = (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model)) ? Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5) : 0;
             Finance.Wallet.Change(player, price);
             GameLog.Money($"server", $"player({Main.Players[player].UUID})", price, $"carSell({vData.Model})");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы продали {vData.Model} ({item.ID}) за {price}$", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {vData.Model} ({item.ID}) за {price}$", 3000);
             VehicleManager.Remove(item.ID);
             MenuManager.Close(player);
         }
@@ -887,7 +887,7 @@ namespace iTeffa.Houses
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
@@ -923,20 +923,20 @@ namespace iTeffa.Houses
             }
             if (Main.Players[player].InsideHouseID == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (house.ID != Main.Players[player].InsideHouseID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
@@ -944,7 +944,7 @@ namespace iTeffa.Houses
             {
                 if (!FurnitureManager.HouseFurnitures.ContainsKey(house.ID) || FurnitureManager.HouseFurnitures[house.ID].Count() == 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет мебели", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет мебели", 3000);
                     MenuManager.Close(player);
                     return;
                 }
@@ -1026,33 +1026,33 @@ namespace iTeffa.Houses
             }
             if (Main.Players[player].InsideHouseID == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (house.ID != Main.Players[player].InsideHouseID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (FurnitureManager.HouseFurnitures[house.ID].Count() >= 50)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "В Вашей квартире уже слишком много мебели, продайте что-то", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "В Вашей квартире уже слишком много мебели, продайте что-то", 3000);
                 return;
             }
             if (item.ID == "buy1")
             {
                 if (Main.Players[player].Money < 15000)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
                 Finance.Wallet.Change(player, -15000);
@@ -1063,7 +1063,7 @@ namespace iTeffa.Houses
             {
                 if (Main.Players[player].Money < 15000)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
                 Finance.Wallet.Change(player, -15000);
@@ -1074,14 +1074,14 @@ namespace iTeffa.Houses
             {
                 if (Main.Players[player].Money < 15000)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
                 Finance.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Шкаф с предметами");
                 GameLog.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с предметами)");
             }
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Поздравляем с успешной покупкой мебели!", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Поздравляем с успешной покупкой мебели!", 3000);
             MenuManager.Close(player);
         }
 
@@ -1094,32 +1094,32 @@ namespace iTeffa.Houses
             }
             if (Main.Players[player].InsideHouseID == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (house.ID != Main.Players[player].InsideHouseID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться у себя дома для этого действия", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (Main.Players[player].InsideHouseID == -1 || Main.Players[player].InsideHouseID != house.ID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться дома", 3000);
                 MenuManager.Close(player);
                 return;
             }
             if (!FurnitureManager.HouseFurnitures.ContainsKey(house.ID) || FurnitureManager.HouseFurnitures[house.ID].Count() == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет мебели", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет мебели", 3000);
                 MenuManager.Close(player);
                 return;
             }
@@ -1129,11 +1129,11 @@ namespace iTeffa.Houses
             {
                 if (f.IsSet)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Уберите мебель перед продажей.", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Уберите мебель перед продажей.", 3000);
                     return;
                 }
                 GameLog.Money($"player({Main.Players[player].UUID})", "server", 7500, $"sellFurn({house.ID} | {f.Name})");
-                Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно продали {f.Name} за 7500$", 3000);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно продали {f.Name} за 7500$", 3000);
                 house.DestroyFurniture(f.ID);
                 FurnitureManager.HouseFurnitures[house.ID].Remove(id);
                 FurnitureManager.FurnituresItems[house.ID].Remove(id);
@@ -1155,7 +1155,7 @@ namespace iTeffa.Houses
                         case false:
                             if (player.HasData("IS_EDITING"))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны закончить редактирование", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить редактирование", 3000);
                                 MenuManager.Close(player);
                                 return;
                             }
@@ -1228,7 +1228,7 @@ namespace iTeffa.Houses
             var house = GetHouse(player);
             if (house.Roommates.Contains(mName)) house.Roommates.Remove(mName);
 
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы выселили {mName} из своего дома", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выселили {mName} из своего дома", 3000);
         }
 
         public static void OpenCarsMenu(Player player)
@@ -1393,14 +1393,14 @@ namespace iTeffa.Houses
                     vData = VehicleManager.Vehicles[menu.Items[0].Text];
                     if (vData.Health > 0)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Машина не нуждается в восстановлении", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Машина не нуждается в восстановлении", 3000);
                         return;
                     }
 
                     var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
                     if (!Finance.Wallet.Change(player, -VehicleManager.VehicleRepairPrice[vClass]))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас недостаточно средств", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно средств", 3000);
                         return;
                     }
                     vData.Items = new List<nItem>();
@@ -1408,7 +1408,7 @@ namespace iTeffa.Houses
                     vData.Health = 1000;
                     var garage = GarageManager.Garages[GetHouse(player).GarageID];
                     garage.SendVehicleIntoGarage(menu.Items[0].Text);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы восстановили {vData.Model} ({menu.Items[0].Text})", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы восстановили {vData.Model} ({menu.Items[0].Text})", 3000);
                     return;
                 case "evac":
                     if (!Main.Players.ContainsKey(player)) return;
@@ -1419,12 +1419,12 @@ namespace iTeffa.Houses
 
                     if (!check)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Эта машина стоит в гараже", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эта машина стоит в гараже", 3000);
                         return;
                     }
                     if (Main.Players[player].Money < 200)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно средств (не хватает {200 - Main.Players[player].Money}$)", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств (не хватает {200 - Main.Players[player].Money}$)", 3000);
                         return;
                     }
 
@@ -1436,7 +1436,7 @@ namespace iTeffa.Houses
 
                     Finance.Wallet.Change(player, -200);
                     GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ваша машина была отогнана в гараж", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ваша машина была отогнана в гараж", 3000);
                     return;
                 case "evac_pos":
                     if (!Main.Players.ContainsKey(player)) return;
@@ -1444,7 +1444,7 @@ namespace iTeffa.Houses
                     number = menu.Items[0].Text;
                     if (string.IsNullOrEmpty(VehicleManager.Vehicles[number].Position))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Машина не нуждается в эвакуации", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Машина не нуждается в эвакуации", 3000);
                         return;
                     }
 
@@ -1453,7 +1453,7 @@ namespace iTeffa.Houses
 
                     garage = GarageManager.Garages[GetHouse(player).GarageID];
                     garage.SendVehicleIntoGarage(number);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ваша машина была эвакуирована в гараж", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ваша машина была эвакуирована в гараж", 3000);
                     return;
                 case "gps":
                     if (!Main.Players.ContainsKey(player)) return;
@@ -1464,7 +1464,7 @@ namespace iTeffa.Houses
 
                     if (!check)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Эта машина стоит в гараже", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эта машина стоит в гараже", 3000);
                         return;
                     }
 
@@ -1472,7 +1472,7 @@ namespace iTeffa.Houses
                     if (veh == null) return;
 
                     Trigger.ClientEvent(player, "createWaypoint", veh.Position.X, veh.Position.Y);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "В GPS было отмечено расположение Вашей машины", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "В GPS было отмечено расположение Вашей машины", 3000);
                     return;
                 case "key":
                     if (!Main.Players.ContainsKey(player)) return;
@@ -1482,7 +1482,7 @@ namespace iTeffa.Houses
                     {
                         if (player.Position.DistanceTo(garage.Position) > 4)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться около гаража", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться около гаража", 3000);
                             return;
                         }
                     }
@@ -1490,7 +1490,7 @@ namespace iTeffa.Houses
                     {
                         if (Main.Players[player].InsideGarageID == -1)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в гараже", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в гараже", 3000);
                             return;
                         }
                     }
@@ -1498,12 +1498,12 @@ namespace iTeffa.Houses
                     var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.CarKey));
                     if (tryAdd == -1 || tryAdd > 0)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                         return;
                     }
 
                     nInventory.Add(player, new nItem(ItemType.CarKey, 1, $"{menu.Items[0].Text}_{VehicleManager.Vehicles[menu.Items[0].Text].KeyNum}"));
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы получили ключ от машины с номером {menu.Items[0].Text}", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили ключ от машины с номером {menu.Items[0].Text}", 3000);
                     return;
                 case "changekey":
                     if (!Main.Players.ContainsKey(player)) return;
@@ -1513,7 +1513,7 @@ namespace iTeffa.Houses
                     {
                         if (player.Position.DistanceTo(garage.Position) > 4)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться около гаража", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться около гаража", 3000);
                             return;
                         }
                     }
@@ -1521,19 +1521,19 @@ namespace iTeffa.Houses
                     {
                         if (Main.Players[player].InsideGarageID == -1)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в гараже", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в гараже", 3000);
                             return;
                         }
                     }
 
                     if (!Finance.Wallet.Change(player, -1000))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Смена замков стоит $1000", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Смена замков стоит $1000", 3000);
                         return;
                     }
 
                     VehicleManager.Vehicles[menu.Items[0].Text].KeyNum++;
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы сменили замки на машине {menu.Items[0].Text}. Теперь старые ключи не могут быть использованы", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сменили замки на машине {menu.Items[0].Text}. Теперь старые ключи не могут быть использованы", 3000);
                     return;
             }
         }
@@ -1545,26 +1545,26 @@ namespace iTeffa.Houses
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет личного дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет личного дома", 3000);
                 return;
             }
 
             if (house.Roommates.Count >= MaxRoommates[house.Type])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас в доме проживает максимальное кол-во игроков", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас в доме проживает максимальное кол-во игроков", 3000);
                 return;
             }
 
             if (GetHouse(guest) != null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок уже живет в доме", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок уже живет в доме", 3000);
                 return;
             }
 
             guest.SetData("ROOM_INVITER", player);
             guest.TriggerEvent("openDialog", "ROOM_INVITE", $"Игрок ({player.Value}) предложил Вам подселиться к нему");
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы предложили игроку ({guest.Value}) подселиться к Вам", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({guest.Value}) подселиться к Вам", 3000);
         }
 
         public static void acceptRoomInvite(Player player)
@@ -1575,13 +1575,13 @@ namespace iTeffa.Houses
             House house = GetHouse(owner, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет личного дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет личного дома", 3000);
                 return;
             }
 
             if (house.Roommates.Count >= MaxRoommates[house.Type])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В доме проживает максимальное кол-во игроков", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В доме проживает максимальное кол-во игроков", 3000);
                 return;
             }
 
@@ -1589,8 +1589,8 @@ namespace iTeffa.Houses
             Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[house.GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
             Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[house.GarageID].Position);
 
-            Notify.Send(owner, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({player.Value}) подселился к Вам", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы подселились к игроку ({owner.Value})", 3000);
+            Notify.Send(owner, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) подселился к Вам", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы подселились к игроку ({owner.Value})", 3000);
         }
 
         [Command("cleargarages")]
@@ -1621,7 +1621,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "save")) return;
             if (type < 0 || type >= HouseTypeList.Count)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Неправильный тип", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Неправильный тип", 3000);
                 return;
             }
 
@@ -1654,7 +1654,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться на маркере дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
             House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
@@ -1668,7 +1668,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться на маркере дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
             House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
@@ -1684,7 +1684,7 @@ namespace iTeffa.Houses
             if (!Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться на маркере дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
 
@@ -1701,12 +1701,12 @@ namespace iTeffa.Houses
             var guest = Main.GetPlayerByID(id);
             if (guest == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок не найден", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
                 return;
             }
             if (player.Position.DistanceTo(guest.Position) > 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы находитесь слишком далеко", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко", 3000);
                 return;
             }
             InvitePlayerToHouse(player, guest);
@@ -1717,12 +1717,12 @@ namespace iTeffa.Houses
             House house = GetHouse(player);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 return;
             }
             guest.SetData("InvitedHouse_ID", house.ID);
-            Notify.Send(guest, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({player.Value}) пригласил Вас в свой дом", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы пригласили игрока ({guest.Value}) в свой дом", 3000);
+            Notify.Send(guest, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) пригласил Вас в свой дом", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы пригласили игрока ({guest.Value}) в свой дом", 3000);
         }
 
         [Command("sellhouse")]
@@ -1731,7 +1731,7 @@ namespace iTeffa.Houses
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок не найден", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
                 return;
             }
             OfferHouseSell(player, target, price);
@@ -1741,35 +1741,35 @@ namespace iTeffa.Houses
         {
             if (player.Position.DistanceTo(target.Position) > 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы находитесь слишком далеко от покупателя", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко от покупателя", 3000);
                 return;
             }
             House house = GetHouse(player, true);
             if (house == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                 return;
             }
             if (GetHouse(target, true) != null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока уже есть дом", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока уже есть дом", 3000);
                 return;
             }
             if (price > 1000000000 || price < house.Price / 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Слишком большая/маленькая цена", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Слишком большая/маленькая цена", 3000);
                 return;
             }
             if (player.Position.DistanceTo(house.Position) > 30)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы находитесь слишком далеко от дома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко от дома", 3000);
                 return;
             }
 
             target.SetData("HOUSE_SELLER", player);
             target.SetData("HOUSE_PRICE", price);
             Trigger.ClientEvent(target, "openDialog", "HOUSE_SELL", $"Игрок ({player.Value}) предложил Вам купить свой дом за ${price}");
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы предложили игроку ({target.Value}) купить Ваш дом за {price}$", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш дом за {price}$", 3000);
         }
 
         public static void acceptHouseSell(Player player)
@@ -1779,7 +1779,7 @@ namespace iTeffa.Houses
 
             if (GetHouse(player, true) != null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть дом", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть дом", 3000);
                 return;
             }
 
@@ -1788,7 +1788,7 @@ namespace iTeffa.Houses
             if (house == null || house.Owner != seller.Name) return;
             if (!Finance.Wallet.Change(player, -price))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно средств", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
                 return;
             }
             CheckAndKick(player);
@@ -1800,8 +1800,8 @@ namespace iTeffa.Houses
             house.PetName = Main.Players[player].PetName;
             house.Save();
 
-            Notify.Send(seller, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({player.Value}) купил у Вас дом", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы купили дом у игрока ({seller.Value})", 3000);
+            Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) купил у Вас дом", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили дом у игрока ({seller.Value})", 3000);
         }
         #endregion
     }

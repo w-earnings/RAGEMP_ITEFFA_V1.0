@@ -57,7 +57,7 @@ namespace iTeffa.Kernel
                             }
                             else
                             {
-                                Notify.Send(c, NotifyType.Error, NotifyPosition.BottomCenter,
+                                Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
                                     $"У тебя есть дом. иди и припаркуйся в своем гараже!",
                                 3000);
                             }
@@ -65,9 +65,6 @@ namespace iTeffa.Kernel
                         else
                         {
                             Log.Write("Idk why but c.Vehicle.GetData('OWNER') == c  is False ");
-                            //Notify.Send(c, NotifyType.Error, NotifyPosition.BottomCenter,
-                            //    $"nur der Besitzer kann das Auto parken!",
-                            //3000);
                         }
                     }
 
@@ -85,7 +82,7 @@ namespace iTeffa.Kernel
             {
                 if (spawnedVehiclesNumber.Contains(vNumber))
                 {
-                    Notify.Send(c, NotifyType.Error, NotifyPosition.BottomCenter,
+                    Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
                         $"Машины нет в гараже!",
                     3000);
                     return;
@@ -95,39 +92,31 @@ namespace iTeffa.Kernel
                 var house = Houses.HouseManager.GetHouse(c, true);
                 if (house == null || house.GarageID == 0)
                 {
-                    // Check if player has a car
                     if (! VehicleManager.getAllPlayerVehicles(c.Name).Contains(vNumber))
                     {
                         Log.Write("Кто-то пытался создать не его транспортное средство!");
                         Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-GARAGE-EXPLOIT] {c.Name} ({c.Value})");
-                        Notify.Send(c, NotifyType.Warning, NotifyPosition.BottomCenter,
+                        Notify.Send(c, NotifyType.Warning, NotifyPosition.TopCenter,
                             $"Это не твоя машина!",
                         3000);
                         return;
                     }
-
-                    // Give new keys if he lost those
                     var access = VehicleManager.canAccessByNumber(c, vNumber);
                     if (! access)
                     {
-                        Notify.Send(c, NotifyType.Info, NotifyPosition.BottomCenter,
+                        Notify.Send(c, NotifyType.Info, NotifyPosition.TopCenter,
                             $"Кажется, вы потеряли ключи от машины. Возьми новую!",
                         3000);
                         nInventory.Add(c, new nItem(ItemType.CarKey, 1, $"{vNumber}_{VehicleManager.Vehicles[vNumber].KeyNum}"));
                     }
-
-                    // Spawn vehicle
                     VehicleManager.Spawn(vNumber, c.Position, 90, c);
                     spawnedVehiclesNumber.Add(vNumber);
                     Log.Write("Spawn vehicle" + vNumber);
                 }
                 else
                 {
-                    // If vehicle not in private garage
-                    // and not from private garage 
-                    // (DON't delete any statements, because vehicles from private garage is not handled with public garage)
                     var garage = Houses.GarageManager.Garages[house.GarageID];
-                    if (!garage.CheckCar(false, vNumber) && !garage.CheckCar(true, vNumber)) //  
+                    if (!garage.CheckCar(false, vNumber) && !garage.CheckCar(true, vNumber))
                     {
                         Vector3 spawnPosition = c.Position;
                         VehicleManager.Spawn(vNumber, c.Position, 90, c);
@@ -135,7 +124,7 @@ namespace iTeffa.Kernel
                     }
                     else
                     {
-                        Notify.Send(c, NotifyType.Error, NotifyPosition.BottomCenter,
+                        Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
                             $"Машины нет в открытом гараже!",
                         3000);
                         return;
@@ -174,7 +163,7 @@ namespace iTeffa.Kernel
                 {
                     try
                     {
-                        Notify.Send(entity, NotifyType.Info, NotifyPosition.BottomCenter,
+                        Notify.Send(entity, NotifyType.Info, NotifyPosition.TopCenter,
                             $"Нажмите Numpad 2, чтобы открыть меню!",
                         3000);
                     }

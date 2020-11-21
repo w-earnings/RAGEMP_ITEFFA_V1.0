@@ -301,7 +301,7 @@ namespace iTeffa.Fractions
                             if (Main.Players[player].FractionID == 14) maxstock = 250000;
                             if (stockContains + amount > maxstock)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад не может вместить такое кол-во материала", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад не может вместить такое кол-во материала", 3000);
                                 return;
                             }
                             playerHave = (nInventory.Find(Main.Players[player].UUID, ItemType.Material) == null) ? 0 : nInventory.Find(Main.Players[player].UUID, ItemType.Material).Count;
@@ -311,7 +311,7 @@ namespace iTeffa.Fractions
                             stockContains = data.Drugs;
                             if (stockContains + amount > 10000)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад не может вместить такое кол-во наркотиков", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад не может вместить такое кол-во наркотиков", 3000);
                                 return;
                             }
                             playerHave = (nInventory.Find(Main.Players[player].UUID, ItemType.Drugs) == null) ? 0 : nInventory.Find(Main.Players[player].UUID, ItemType.Drugs).Count;
@@ -331,7 +331,7 @@ namespace iTeffa.Fractions
 
                         if (playerHave < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет столько", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько", 3000);
                             return;
                         }
 
@@ -357,7 +357,7 @@ namespace iTeffa.Fractions
                             nInventory.Remove(player, ItemType.HealthKit, amount);
                         }
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, true);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"На складе осталось {stockContains + amount}, у Вас {playerHave - amount}", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"На складе осталось {stockContains + amount}, у Вас {playerHave - amount}", 3000);
                         data.UpdateLabel();
                         break;
                     case "take_stock":
@@ -373,7 +373,7 @@ namespace iTeffa.Fractions
                             playerHave = (nInventory.Find(Main.Players[player].UUID, ItemType.Material) == null) ? 0 : nInventory.Find(Main.Players[player].UUID, ItemType.Material).Count;
                             if (playerHave + amount > 300)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете вместить столько в свой инвентарь", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете вместить столько в свой инвентарь", 3000);
                                 return;
                             }
                         }
@@ -383,7 +383,7 @@ namespace iTeffa.Fractions
                             playerHave = (nInventory.Find(Main.Players[player].UUID, ItemType.Drugs) == null) ? 0 : nInventory.Find(Main.Players[player].UUID, ItemType.Drugs).Count;
                             if (playerHave + amount > 50)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете вместить столько в свой инвентарь", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете вместить столько в свой инвентарь", 3000);
                                 return;
                             }
                         }
@@ -402,7 +402,7 @@ namespace iTeffa.Fractions
 
                         if (stockContains < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"На складе столько нет", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе столько нет", 3000);
                             return;
                         }
 
@@ -411,7 +411,7 @@ namespace iTeffa.Fractions
                             var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Material, amount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
                             data.Materials -= amount;
@@ -422,7 +422,7 @@ namespace iTeffa.Fractions
                             var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Drugs, amount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
                             data.Drugs -= amount;
@@ -439,14 +439,14 @@ namespace iTeffa.Fractions
                             var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.HealthKit, amount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
                             data.Medkits -= amount;
                             nInventory.Add(player, new nItem(ItemType.HealthKit, amount));
                         }
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, false);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"На складе осталось {stockContains - amount}, у Вас {playerHave + amount}", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"На складе осталось {stockContains - amount}, у Вас {playerHave + amount}", 3000);
                         data.UpdateLabel();
                         break;
                 }
@@ -455,13 +455,13 @@ namespace iTeffa.Fractions
             {
                 if (!player.IsInVehicle)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
                     return;
                 }
                 var vehicle = player.Vehicle;
                 if (!vehicle.HasData("CANMATS") && !vehicle.HasData("CANDRUGS") && !vehicle.HasData("CANMEDKITS"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Машина не может ничего перевозить", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Машина не может ничего перевозить", 3000);
                     return;
                 }
                 int onfrac = player.GetData<int>("ONFRACSTOCK");
@@ -470,32 +470,32 @@ namespace iTeffa.Fractions
                     case "load_mats":
                         if (onfrac != 14 && Main.Players[player].FractionID != onfrac)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в {Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                             return;
                         }
                         if (onfrac != 14 && !Manager.canUseCommand(player, "takestock")) return;
                         if (fracStocks[onfrac].Materials < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"На складе нет такого кол-ва матов", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе нет такого кол-ва матов", 3000);
                             return;
                         }
                         var maxMats = (Fractions.Stocks.maxMats.ContainsKey(vehicle.DisplayName)) ? Fractions.Stocks.maxMats[vehicle.DisplayName] : 600;
                         if (VehicleInventory.GetCountOfType(vehicle, ItemType.Material) + amount > maxMats)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно загрузить такое кол-во матов", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
                             return;
                         }
                         var tryAdd = VehicleInventory.TryAdd(vehicle, new nItem(ItemType.Material, amount));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно загрузить такое кол-во матов", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
                             return;
                         }
                         var data = new nItem(ItemType.Material);
                         data.Count = amount;
                         VehicleInventory.Add(vehicle, data);
                         fracStocks[onfrac].Materials -= amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы загрузили материалы в машину", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, false);
                         return;
@@ -503,45 +503,45 @@ namespace iTeffa.Fractions
                         var count = VehicleInventory.GetCountOfType(vehicle, ItemType.Material);
                         if (count < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В машине нет такого кол-ва матов", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине нет такого кол-ва матов", 3000);
                             return;
                         }
                         var maxstock = 50000;
                         if (onfrac == 14) maxstock = 250000;
                         if (fracStocks[onfrac].Materials + amount > maxstock)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад не может вместить такое кол-во материала", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад не может вместить такое кол-во материала", 3000);
                             return;
                         }
                         VehicleInventory.Remove(vehicle, ItemType.Material, amount);
                         fracStocks[onfrac].Materials += amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы выгрузили материалы из машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили материалы из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, true);
                         return;
                     case "load_drugs":
                         if (Main.Players[player].FractionID != onfrac)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в ~y~{Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в ~y~{Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                             return;
                         }
                         if (!Manager.canUseCommand(player, "takestock")) return;
                         if (fracStocks[onfrac].Drugs < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"На складе нет такого кол-ва наркотиков", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе нет такого кол-ва наркотиков", 3000);
                             return;
                         }
                         tryAdd = VehicleInventory.TryAdd(vehicle, new nItem(ItemType.Drugs, amount));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно загрузить такое кол-во наркотиков", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во наркотиков", 3000);
                             return;
                         }
                         data = new nItem(ItemType.Drugs);
                         data.Count = amount;
                         VehicleInventory.Add(vehicle, data);
                         fracStocks[onfrac].Drugs -= amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы загрузили наркотики в машину", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили наркотики в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, false);
                         return;
@@ -549,74 +549,74 @@ namespace iTeffa.Fractions
                         count = VehicleInventory.GetCountOfType(vehicle, ItemType.Drugs);
                         if (count < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В машине нет такого кол-ва наркотиков", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине нет такого кол-ва наркотиков", 3000);
                             return;
                         }
                         if (fracStocks[onfrac].Drugs + amount > 10000)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад не может вместить такое кол-во наркотиков", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад не может вместить такое кол-во наркотиков", 3000);
                             return;
                         }
                         VehicleInventory.Remove(vehicle, ItemType.Drugs, amount);
                         fracStocks[onfrac].Drugs += amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы выгрузили наркотики из машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили наркотики из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, true);
                         return;
                     case "load_medkits":
                         if (Main.Players[player].FractionID != onfrac)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в {Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Fractions.Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                             return;
                         }
                         if (!player.GetData<bool>("ON_DUTY"))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны начать рабочий день", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
                             return;
                         }
                         if (fracStocks[onfrac].Medkits < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"На складе нет такого кол-ва аптечек", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе нет такого кол-ва аптечек", 3000);
                             return;
                         }
                         var maxMedkits = 100;
                         if (VehicleInventory.GetCountOfType(vehicle, ItemType.HealthKit) + amount > maxMedkits)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно загрузить такое кол-во аптечек", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во аптечек", 3000);
                             return;
                         }
                         tryAdd = VehicleInventory.TryAdd(vehicle, new nItem(ItemType.HealthKit, amount));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно загрузить такое кол-во аптечек", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во аптечек", 3000);
                             return;
                         }
                         VehicleInventory.Add(vehicle, new nItem(ItemType.HealthKit, amount));
                         fracStocks[onfrac].Medkits -= amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы загрузили аптечки в машину", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили аптечки в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, false);
                         return;
                     case "unload_medkits":
                         if (!player.GetData<bool>("ON_DUTY"))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны начать рабочий день", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
                             return;
                         }
                         count = VehicleInventory.GetCountOfType(vehicle, ItemType.HealthKit);
                         if (count < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В машине нет такого кол-ва аптечек", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине нет такого кол-ва аптечек", 3000);
                             return;
                         }
                         if (fracStocks[onfrac].Medkits + amount > 1000)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад не может вместить такое кол-во аптечек", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад не может вместить такое кол-во аптечек", 3000);
                             return;
                         }
                         VehicleInventory.Remove(vehicle, ItemType.HealthKit, amount);
                         fracStocks[onfrac].Medkits += amount;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы выгрузили аптечки из машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили аптечки из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
                         GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, true);
                         return;
@@ -631,24 +631,24 @@ namespace iTeffa.Fractions
                 case 32:
                     if (!player.IsInVehicle)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
                         return;
                     }
                     var vehicle = player.Vehicle;
                     if (!vehicle.HasData("CANMATS") && !vehicle.HasData("CANDRUGS") && !vehicle.HasData("CANMEDKITS"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Машина не может ничего перевозить", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Машина не может ничего перевозить", 3000);
                         return;
                     }
 
                     if (player.GetData<int>("ONFRACSTOCK") == 14 && (DateTime.Now.Hour < 13 && DateTime.Now.Hour > 1))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад намертво закрыт", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад намертво закрыт", 3000);
                         return;
                     }
                     else if (!fracStocks[(int)player.GetData<int>("ONFRACSTOCK")].IsOpen && player.GetData<int>("ONFRACSTOCK") != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад закрыт", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
 
@@ -657,12 +657,12 @@ namespace iTeffa.Fractions
                 case 33:
                     if (Main.Players[player].FractionID != player.GetData<int>("ONFRACSTOCK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                         return;
                     }
                     if (!fracStocks[Main.Players[player].FractionID].IsOpen)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Склад закрыт", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
                     OpenFracStockMenu(player);
@@ -719,23 +719,23 @@ namespace iTeffa.Fractions
             int amount = 0;
             if (!Int32.TryParse(data, out amount))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Введите корректные данные", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                 return;
             }
             if (amount < 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Введите корректные данные", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                 return;
             }
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
                 return;
             }
             var vehicle = player.Vehicle;
             if (!vehicle.HasData("CANMATS") && !vehicle.HasData("CANDRUGS") && !vehicle.HasData("CANMEDKITS"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Машина не может ничего перевозить", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Машина не может ничего перевозить", 3000);
                 return;
             }
             switch (eventName)
@@ -743,14 +743,12 @@ namespace iTeffa.Fractions
                 case "loadmats":
                     if (player.GetData<int>("ONFRACSTOCK") != 14 && Main.Players[player].FractionID != player.GetData<int>("ONFRACSTOCK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                         return;
                     }
-                    //Main.OpenInputMenu(player, "Введите кол-во материалов", "load_mats");
                     Fractions.Stocks.inputStocks(player, 1, "load_mats", amount);
                     return;
                 case "unloadmats":
-                    //Main.OpenInputMenu(player, "Введите кол-во материалов", "unload_mats");
                     Fractions.Stocks.inputStocks(player, 1, "unload_mats", amount);
                     return;
                 case "loaddrugs":
@@ -761,14 +759,12 @@ namespace iTeffa.Fractions
                     }
                     if (Main.Players[player].FractionID != player.GetData<int>("ONFRACSTOCK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                         return;
                     }
-                    //Main.OpenInputMenu(player, "Введите кол-во наркотиков", "load_drugs");
                     Fractions.Stocks.inputStocks(player, 1, "load_drugs", amount);
                     return;
                 case "unloaddrugs":
-                    //Main.OpenInputMenu(player, "Введите кол-во наркотиков", "unload_drugs");
                     Fractions.Stocks.inputStocks(player, 1, "unload_drugs", amount);
                     return;
                 case "loadmedkits":

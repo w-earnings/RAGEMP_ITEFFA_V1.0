@@ -80,7 +80,7 @@ namespace iTeffa.Kernel
                 if (!vehicle.HasData("ACCESS") || vehicle.GetData<string>("ACCESS") != "RENT" || seatid != 0) return;///seatid != -1
                 if (vehicle.GetData<Player>("DRIVER") != null && vehicle.GetData<Player>("DRIVER") != player)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Этот транспорт уже арендован", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этот транспорт уже арендован", 3000);
                     VehicleManager.WarpPlayerOutOfVehicle(player);
                     return;
                 }
@@ -90,12 +90,12 @@ namespace iTeffa.Kernel
                 {
                     if (player.HasData("RENTED_CAR"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У Вас уже оплачена аренда другого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже оплачена аренда другого транспорта", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
                     if(CarInfos[number].Model == VehicleHash.Cruiser && Main.Players[player].LVL >= 2) {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Эти велосипеды предназначены только для новичков", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эти велосипеды предназначены только для новичков", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -137,7 +137,7 @@ namespace iTeffa.Kernel
             {
                 if (!player.HasData("CARROOMID")) return;
                 if (!vehicle.HasData("ACCESS") || vehicle.GetData<string>("ACCESS") != "RENT" || vehicle.GetData<Player>("DRIVER") != player) return;
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Через 3 минуты аренда транспорта закончится, если вы снова не сядете в т/с", 3000);
+                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Через 3 минуты аренда транспорта закончится, если вы снова не сядете в т/с", 3000);
                 NAPI.Data.SetEntityData(player, "IN_RENT_CAR", false);
                 NAPI.Data.SetEntityData(player, "RENT_EXIT_TIMER_COUNT", 0);
                 //NAPI.Data.SetEntityData(player, "RENT_CAR_EXIT_TIMER", Main.StartT(1000, 1000, (o) => timer_playerExitRentVehicle(player, vehicle), "RENT_CAR_TIMER"));
@@ -162,7 +162,7 @@ namespace iTeffa.Kernel
                     }
                     if (NAPI.Data.GetEntityData(player, "RENT_EXIT_TIMER_COUNT") > 1800)
                     {
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Срок аренды автомобиля закончился", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Срок аренды автомобиля закончился", 3000);
                         RespawnCar(vehicle);
                         player.ResetData("RENTED_CAR");
                         //                        Main.StopT(NAPI.Data.GetEntityData(player, "RENT_CAR_EXIT_TIMER"), "timer_30");
@@ -218,7 +218,7 @@ namespace iTeffa.Kernel
             }
             if (Main.Players[player].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств на аренду", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств на аренду", 3000);
                 VehicleManager.WarpPlayerOutOfVehicle(player);
                 return;
             }

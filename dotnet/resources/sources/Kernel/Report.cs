@@ -149,7 +149,7 @@ namespace iTeffa.Kernel
             {
                 question = Main.BlockSymbols(question);
                 player.SetData("NEXT_REPORT", DateTime.Now.AddMinutes(2));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы отправили вопрос: {question}", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отправили вопрос: {question}", 3000);
                 player.SetData("IS_REPORT", true);
 
                 MySqlCommand cmd = new MySqlCommand();
@@ -200,12 +200,12 @@ namespace iTeffa.Kernel
                     Player target = NAPI.Player.GetPlayerFromName(Reports[repID].Author);
                     if (target is null)
                     {
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, "Игрок не найден!", 3000);
+                        Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрок не найден!", 3000);
                     }
                     else
                     {
                         target.SendChatMessage($"~r~Ответ от {player.Name} ({player.Value}): {response}");
-                        Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Ответ от {player.Name}: {response}", 5000);
+                        Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Ответ от {player.Name}: {response}", 5000);
                         foreach (var p in Main.Players.Keys.ToList())
                         {
                             if (Main.Players[p].AdminLVL >= adminLvL)

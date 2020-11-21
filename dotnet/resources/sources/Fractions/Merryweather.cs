@@ -83,12 +83,12 @@ namespace iTeffa.Fractions
                     if (player.IsInVehicle) return;
                     if (player.HasData("FOLLOWING"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вас кто-то тащит за собой", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
                         return;
                     }
                     if(Main.Players[player].FractionID != 17)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы не состоите в Merryweather", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не состоите в Merryweather", 3000);
                         return;
                     }
                     if(interact == 82) NAPI.Entity.SetEntityPosition(player, Coords[1] + new Vector3(0, 0, 1.12));

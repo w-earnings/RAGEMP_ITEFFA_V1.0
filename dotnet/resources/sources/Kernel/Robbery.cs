@@ -103,17 +103,17 @@ namespace iTeffa.Kernel
         {
             if (!player.HasData("HEIST_DRILL"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дрели для взлома", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дрели для взлома", 3000);
                 return;
             }
             if (isCracking)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Взлом уже начат", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Взлом уже начат", 3000);
                 return;
             }
             if (isOpen)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Дверь в хранилище уже открыта", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Дверь в хранилище уже открыта", 3000);
                 return;
             }
             nInventory.Remove(player, ItemType.BagWithDrill, 1);
@@ -123,7 +123,6 @@ namespace iTeffa.Kernel
             safeDrill = NAPI.Object.CreateObject(-443429795, new Vector3(253.9534, 225.2, 102.22), new Vector3(0, 0, -18), 255, 0);
             label = NAPI.TextLabel.CreateTextLabel("~r~8:00", new Vector3(253.9534, 225.2, 102.22), 4F, 0.3F, 0, new Color(255, 255, 255));
             secondsLeft = 480;
-            //timer = Main.StartT(1000, 1000, (o) => updateDoorCracking());
             timer = Timers.StartTask("DoorCracking", 1000, () => updateDoorCracking());
             canBeClosed = false;
             Manager.sendFractionMessage(6, "Кто-то пытается взломать дверь в хранилище мэрии.");
@@ -140,11 +139,9 @@ namespace iTeffa.Kernel
                 {
                     if (player == null) return;
                     Doormanager.SetDoorLocked(player.GetData<int>("DOOR"), false, 0);
-                    //player.FreezePosition = false;
                     Trigger.ClientEvent(player, "hideLoader");
-                    //Main.StopT(player.GetData("LOCK_TIMER"), "timer_20");
                     player.ResetData("LOCK_TIMER");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно взломали дверь", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно взломали дверь", 3000);
                 }
                 catch { }
             });
@@ -165,16 +162,11 @@ namespace iTeffa.Kernel
                     catch { }
                 });
                 isCracking = false;
-                /*bankTimer = Main.StartT(600000, 99999999, (o) => {
-                    canBeClosed = true;
-                    Main.StopT(bankTimer, "timer_21");
-                });*/
                 Timers.StartOnce("bankTimer", 600000, () =>
                 {
                     canBeClosed = true;
                 });
                 Doormanager.SetDoorLocked(2, true, 0.5f);
-                //Main.StopT(timer, "timer_22");
                 Timers.Stop(timer);
                 return;
             }
@@ -193,7 +185,7 @@ namespace iTeffa.Kernel
                 if ((player.HasData("HAND_MONEY") || player.HasData("HEIST_DRILL")) && player.VehicleSeat == -1 && vehicle.Class != 8)
                 {
                     VehicleManager.WarpPlayerOutOfVehicle(player);
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сесть в машину с сумками", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сесть в машину с сумками", 3000);
                 }
             }
             catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
@@ -278,10 +270,8 @@ namespace iTeffa.Kernel
 
                 if (!(bool)arguments[0])
                 {
-                    //NAPI.Player.PlaySoundFrontEnd(player, "Drill_Pin_Break", "DLC_HEIST_FLEECA_SOUNDSET");
-
                     Trigger.ClientEvent(player, "dial", "close");
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Неправильный пароль", 2000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Неправильный пароль", 2000);
                     nInventory.Remove(player, ItemType.Lockpick, 1);
                     safe.Occupier = null;
                 }
@@ -294,17 +284,15 @@ namespace iTeffa.Kernel
                         safe.SetDoorOpen(true);
                         safe.Occupier = null;
                         nInventory.Remove(player, ItemType.Lockpick, 1);
-
-                        //NAPI.Player.PlaySoundFrontEnd(player, "Drill_Pin_Break", "DLC_HEIST_FLEECA_SOUNDSET");
                         Trigger.ClientEvent(player, "dial", "close");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы успешно взломали сейф", 2000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно взломали сейф", 2000);
                     }
                     else
                     {
                         stage++;
                         player.SetData("CURRENT_STAGE", stage);
                         Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[stage], true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы подобрали {stage} из 3 паролей", 2000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы подобрали {stage} из 3 паролей", 2000);
                     }
                 }
             }
@@ -326,23 +314,23 @@ namespace iTeffa.Kernel
             {
                 if (!player.HasData("IS_MASK") || !player.GetData<bool>("IS_MASK"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Взлом возможен только в маске", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Взлом возможен только в маске", 3000);
                     return;
                 }
 
                 if (safe.Occupier != null && NAPI.Player.GetPlayerFromHandle(safe.Occupier) != null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Этот сейф уже взламывают", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Этот сейф уже взламывают", 3000);
                     return;
                 }
                 if (Fractions.Manager.FractionTypes[Main.Players[player].FractionID] != 1)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Доступно только для банд", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Доступно только для банд", 3000);
                     return;
                 }
                 if (DateTime.Now.Hour < 13 || DateTime.Now.Hour > 22)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Возможно открыть только с 13:00 до 23:00", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Возможно открыть только с 13:00 до 23:00", 3000);
                     return;
                 }
 
@@ -350,13 +338,13 @@ namespace iTeffa.Kernel
                 var count = (lockpick == null) ? 0 : lockpick.Count;
                 if (count == 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет отмычки", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет отмычки", 3000);
                     return;
                 }
                 if (DateTime.Now < NextRobbery && NowRobberyID != safe.ID)
                 {
                     DateTime g = new DateTime((NextRobbery - DateTime.Now).Ticks);
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Попробуйте через {g.Minute}:{g.Second}", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Попробуйте через {g.Minute}:{g.Second}", 3000);
                     return;
                 }
 
@@ -370,14 +358,13 @@ namespace iTeffa.Kernel
 
                 if (gangsters == 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"С Вами должен быть как минимум ещё один тру гангстер", 3000);
-                    //return;
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"С Вами должен быть как минимум ещё один тру гангстер", 3000);
                 }
 
                 safe.Occupier = player;
                 player.SetData("CURRENT_STAGE", 0);
                 Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[0]);
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"С минуты на минуту сюда прибудут копы", 3000);
+                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"С минуты на минуту сюда прибудут копы", 3000);
                 Manager.sendFractionMessage(7, $"Сейф по адресу {safe.Address} пытаются взломать");
                 Manager.sendFractionMessage(9, $"Сейф по адресу {safe.Address} пытаются взломать");
 
@@ -429,7 +416,7 @@ namespace iTeffa.Kernel
         {
             if (Main.Players[player].InsideHouseID != -1 || Main.Players[player].InsideGarageID != -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сделать это, находясь в доме/гараже", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это, находясь в доме/гараже", 3000);
                 return;
             }
 
@@ -459,7 +446,7 @@ namespace iTeffa.Kernel
         {
             if (Main.Players[player].InsideHouseID != -1 || Main.Players[player].InsideGarageID != -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сделать это, находясь в доме/гараже", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это, находясь в доме/гараже", 3000);
                 return;
             }
 
@@ -497,7 +484,7 @@ namespace iTeffa.Kernel
             player.ResetData("HAND_MONEY");
             Wallet.Change(player, (int)(all_money * 0.97));
             GameLog.Money($"server", $"player({Main.Players[player].UUID})", (int)(all_money * 0.97), $"moneyFlow");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отмыли {(int)(all_money * 0.97)}$. Мавроди забрал {(int)(all_money * 0.03)}$ за свои услуги", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы отмыли {(int)(all_money * 0.97)}$. Мавроди забрал {(int)(all_money * 0.03)}$ за свои услуги", 3000);
         }
 
         public static void SafeCracker_Disconnect(Player player, DisconnectionType type, string reason)
@@ -601,97 +588,97 @@ namespace iTeffa.Kernel
                     case 1:
                         if (player.HasData("HEIST_DRILL") || player.HasData("HAND_MONEY"))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть дрель или деньги в руках", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть дрель или деньги в руках", 3000);
                             return;
                         }
                         if (!Wallet.Change(player, -20000))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
                         GameLog.Money($"player({Main.Players[player].UUID})", $"server", 20000, $"buyMavr(drill)");
                         player.SetClothes(5, 41, 0);
                         nInventory.Add(player, new nItem(ItemType.BagWithDrill));
                         player.SetData("HEIST_DRILL", true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили сумку с дрелью для ограблений", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили сумку с дрелью для ограблений", 3000);
                         return;
                     case 2:
                         if (Main.Players[player].Money < 200)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
                         var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Lockpick));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
                         Wallet.Change(player, -200);
                         GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"buyMavr(lockpick)");
                         nInventory.Add(player, new nItem(ItemType.Lockpick, 1));
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили отмычку для замков", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили отмычку для замков", 3000);
                         return;
                     case 3:
                         if (Main.Players[player].Money < 1200)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
                         tryAdd = nInventory.TryAdd(player, new nItem(ItemType.ArmyLockpick));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
                         Wallet.Change(player, -1200);
                         GameLog.Money($"player({Main.Players[player].UUID})", $"server", 1200, $"buyMavr(armylockpick)");
                         nInventory.Add(player, new nItem(ItemType.ArmyLockpick, 1));
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили военную отмычку", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили военную отмычку", 3000);
                         return;
                     case 4:
                         if (Main.Players[player].Money < 600)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
                         tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Cuffs));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
                         Wallet.Change(player, -600);
                         GameLog.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(cuffs)");
                         nInventory.Add(player, new nItem(ItemType.Cuffs, 1));
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили стяжки для рук", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили стяжки для рук", 3000);
                         return;
                     case 5:
                         if (Main.Players[player].Money < 600)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
                         tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Pocket));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
                         Wallet.Change(player, -600);
                         GameLog.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(pocket)");
                         nInventory.Add(player, new nItem(ItemType.Pocket, 1));
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили мешок на голову", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили мешок на голову", 3000);
                         return;
                     case 6:
                         if (Main.Players[player].WantedLVL == null)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не находитесь в розыске", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не находитесь в розыске", 3000);
                             return;
                         }
                         if (Main.Players[player].Money < 800)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно средств", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
                             return;
                         }
                         Wallet.Change(player, -800);
@@ -738,12 +725,12 @@ namespace iTeffa.Kernel
                     {
                         if (isCracking)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно сделать это сейчас", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно сделать это сейчас", 3000);
                             return;
                         }
                         if (!canBeClosed)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно сделать это сейчас", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно сделать это сейчас", 3000);
                             return;
                         }
                         if (isOpen)
@@ -758,9 +745,9 @@ namespace iTeffa.Kernel
                         }
                         string msg = "Вы закрыли дверь";
                         if (isOpen) msg = "Вы открыли дверь";
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, msg, 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, msg, 3000);
                     }
-                    else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете сделать это", 3000);
+                    else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это", 3000);
                     return;
                 case "crack":
                     MenuManager.Close(player);
@@ -868,13 +855,13 @@ namespace iTeffa.Kernel
 
             if (player.HasData("HEIST_DRILL"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть сумка", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть сумка", 3000);
                 return;
             }
 
             if (SafeLoot == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В сейфе больше нет денег", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В сейфе больше нет денег", 3000);
                 return;
             }
 
@@ -885,7 +872,7 @@ namespace iTeffa.Kernel
                 var lefts = (item == null) ? 0 : Convert.ToInt32(item.Data.ToString());
                 if (lefts == SafeMain.MaxMoneyInBag)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Ваша сумка полностью забита деньгами", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ваша сумка полностью забита деньгами", 3000);
                     return;
                 }
                 if (money + lefts > SafeMain.MaxMoneyInBag)
@@ -893,14 +880,14 @@ namespace iTeffa.Kernel
                 lefts += money;
                 item.Data = $"{lefts}";
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Теперь в Вашей сумке {lefts}$", 3000);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Теперь в Вашей сумке {lefts}$", 3000);
             }
             else
             {
                 var item = new nItem(ItemType.BagWithMoney, 1, $"{money}");
                 nInventory.Items[Main.Players[player].UUID].Add(item);
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы взяли сумку с {money}$", 3000);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы взяли сумку с {money}$", 3000);
             }
             Dashboard.sendItems(player);
 

@@ -118,12 +118,12 @@ namespace iTeffa.Fractions
             if (!Main.Players.ContainsKey(player)) return;
             if (!player.IsInVehicle || !player.Vehicle.HasData("CANDRUGS"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы должны находиться в машине, которая может перевозить наркотики", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы должны находиться в машине, которая может перевозить наркотики", 3000);
                 return;
             }
             if (Fractions.Manager.FractionTypes[Main.Players[player].FractionID] != 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы не можете закупать наркотики", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете закупать наркотики", 3000);
                 return;
             }
             if (!Fractions.Manager.canUseCommand(player, "buydrugs")) return;
@@ -135,12 +135,12 @@ namespace iTeffa.Fractions
             if (!Main.Players.ContainsKey(player)) return;
             if (!player.IsInVehicle || !player.Vehicle.HasData("CANDRUGS"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы должны находиться в машине, которая может перевозить наркотики", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы должны находиться в машине, которая может перевозить наркотики", 3000);
                 return;
             }
             if (Fractions.Manager.FractionTypes[Main.Players[player].FractionID] != 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы не можете закупать наркотики", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете закупать наркотики", 3000);
                 return;
             }
             if (!Fractions.Manager.canUseCommand(player, "buydrugs")) return;
@@ -148,19 +148,19 @@ namespace iTeffa.Fractions
             var tryAdd = VehicleInventory.TryAdd(player.Vehicle, new nItem(ItemType.Drugs, amount));
             if (tryAdd == -1 || tryAdd > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в машине", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в машине", 3000);
                 return;
             }
             if (Fractions.Stocks.fracStocks[Main.Players[player].FractionID].Money < amount * PricePerDrug)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств на складе банды", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств на складе банды", 3000);
                 return;
             }
 
             VehicleInventory.Add(player.Vehicle, new nItem(ItemType.Drugs, amount));
             Fractions.Stocks.fracStocks[Main.Players[player].FractionID].Money -= amount * PricePerDrug;
 
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы закупили {amount}г наркотиков", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закупили {amount}г наркотиков", 3000);
         }
     }
 }

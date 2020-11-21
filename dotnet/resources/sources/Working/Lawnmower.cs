@@ -196,13 +196,11 @@ namespace iTeffa.Working
                 NAPI.Data.GetEntityData(player, "ON_WORK") &&
                 NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_4");
-                        Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
+                    Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
-                    //NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Main.StartT(1000, 1000, (o) => timer_playerExitWorkVehicle(player, vehicle), "LAWNM_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.StartTask(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
             } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, nLog.Type.Error); }
@@ -217,7 +215,6 @@ namespace iTeffa.Working
                     if (!player.HasData("WORK_CAR_EXIT_TIMER")) return;
                     if (NAPI.Data.GetEntityData(player, "IN_WORK_CAR"))
                     {
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_5");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         Log.Debug("Player exit work vehicle timer was stoped");
@@ -228,9 +225,8 @@ namespace iTeffa.Working
                         respawnCar(vehicle);
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы закончили рабочий день", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
                         Trigger.ClientEvent(player, "deleteCheckpoint", 4, 0);
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_6");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         Customization.ApplyCharacter(player);
@@ -264,7 +260,7 @@ namespace iTeffa.Working
                     {
                         if (NAPI.Data.GetEntityData(player, "WORK") != vehicle)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У газонокосилки есть газонокосильщик", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У газонокосилки есть газонокосильщик", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                         }
                         else NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
@@ -272,7 +268,7 @@ namespace iTeffa.Working
                 }
                 else
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете газонокосильщиком. Устроиться можно в мэрии", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете газонокосильщиком. Устроиться можно в мэрии", 3000);
                     VehicleManager.WarpPlayerOutOfVehicle(player);
                 }
             } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
@@ -283,7 +279,7 @@ namespace iTeffa.Working
             if (NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != 0 || player.Vehicle.GetData<string>("TYPE") != "MOWER")
             {
                 var way = 0;
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы начали работу газонокосильщика, следуйте по чекпоинтам", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы начали работу газонокосильщика, следуйте по чекпоинтам", 3000);
                 var vehicle = player.Vehicle;
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
                 Kernel.VehicleStreaming.SetEngineState(vehicle, true);
@@ -318,7 +314,7 @@ namespace iTeffa.Working
             }
             else
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в транспорте", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в транспорте", 3000);
             }
         }
 

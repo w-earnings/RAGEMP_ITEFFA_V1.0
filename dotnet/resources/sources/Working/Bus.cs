@@ -799,7 +799,6 @@ namespace iTeffa.Working
 
                     NAPI.Data.SetEntityData(player, "WORKCHECK", check);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
-                    //NAPI.Data.SetEntityData(player, "PAYMENT", NAPI.Data.GetEntityData(player, "PAYMENT") + payment);
                     Finance.Wallet.Change(player, payment);
                     GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
                 }
@@ -810,7 +809,7 @@ namespace iTeffa.Working
                     Trigger.ClientEvent(player, "deleteWorkBlip");
 
                     NAPI.Data.SetEntityData(player, "BUS_ONSTOP", true);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Остановка. Через 10 секунд Вы сможете продолжить маршрут", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Остановка. Через 10 секунд Вы сможете продолжить маршрут", 3000);
                     player.SetData("BUS_TIMER", Timers.StartOnce(10000, () => timer_busStop(player, way, check)));
 
                     foreach (var p in Main.GetPlayersInRadiusOfPosition(player.Position, 30))
@@ -827,9 +826,8 @@ namespace iTeffa.Working
                 try
                 {
                     NAPI.Data.SetEntityData(player, "BUS_ONSTOP", false);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Можете ехать дальше", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Можете ехать дальше", 3000);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
-                    //NAPI.Data.SetEntityData(player, "PAYMENT", NAPI.Data.GetEntityData(player, "PAYMENT") + payment);
                     Finance.Wallet.Change(player, payment);
                     GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
                     if (check + 1 != BusWays[way].Count) check++;
@@ -840,9 +838,7 @@ namespace iTeffa.Working
                     NAPI.ClientEvent.TriggerClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][check].Pos - new Vector3(0, 0, 1.12), 4, 0, color.Red, color.Green, color.Blue, direction);
                     NAPI.ClientEvent.TriggerClientEvent(player, "createWaypoint", BusWays[way][check].Pos.X, BusWays[way][check].Pos.Y);
                     NAPI.ClientEvent.TriggerClientEvent(player, "createWorkBlip", BusWays[way][check].Pos);
-
                     player.SetData("WORKCHECK", check);
-                    //Main.StopT(player.GetData<object>("BUS_TIMER"), "timer_23");
                     Timers.Stop(player.GetData<string>("BUS_TIMER"));
                     player.ResetData("BUS_TIMER");
 
@@ -867,13 +863,11 @@ namespace iTeffa.Working
                     NAPI.Data.GetEntityData(player, "ON_WORK") &&
                     NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_24");
-                        Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
+                    Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
-                    //NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Main.StartT(1000, 1000, (o) => timer_playerExitWorkVehicle(player, vehicle), "BUS_EXIT_CAR_TIMER"));
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.Start(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
             } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, nLog.Type.Error); }
@@ -888,7 +882,6 @@ namespace iTeffa.Working
                     if (!player.HasData("WORK_CAR_EXIT_TIMER")) return;
                     if (NAPI.Data.GetEntityData(player, "IN_WORK_CAR"))
                     {
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_25");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         return;
@@ -899,11 +892,9 @@ namespace iTeffa.Working
 
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы закончили рабочий день", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
                         Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
                         Trigger.ClientEvent(player, "deleteWorkBlip");
-
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "timer_26");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         player.SetData("PAYMENT", 0);
@@ -928,7 +919,7 @@ namespace iTeffa.Working
                 {
                     if (!Main.Players[player].Licenses[2])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет лицензии категории C", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории C", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -944,18 +935,18 @@ namespace iTeffa.Working
                                 }
                                 else
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас не хватает " + (BusRentCost - Main.Players[player].Money) + "$ на аренду автобуса", 3000);
+                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает " + (BusRentCost - Main.Players[player].Money) + "$ на аренду автобуса", 3000);
                                     VehicleManager.WarpPlayerOutOfVehicle(player);
                                 }
                             }
                             else
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас уже есть арендованный автобус", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть арендованный автобус", 3000);
                         }
                         else
                         {
                             if (NAPI.Data.GetEntityData(player, "WORK") != vehicle)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У автобуса уже есть водитель", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У автобуса уже есть водитель", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
                             }
                             else
@@ -964,7 +955,7 @@ namespace iTeffa.Working
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете водителем автобуса. Устроиться можно в мэрии", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете водителем автобуса. Устроиться можно в мэрии", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -975,20 +966,20 @@ namespace iTeffa.Working
                         var price = 30;
                         if (Main.Players[player].Money >= price)
                         {
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы заплатили за проезд {price}$", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы заплатили за проезд {price}$", 3000);
                             Finance.Wallet.Change(player, -price);
                             Fractions.Stocks.fracStocks[6].Money += price;
                             GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"busPay");
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас недостаточно средств для оплаты проезда", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно средств для оплаты проезда", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                         }
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В автобусе сейчас нет водителя", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В автобусе сейчас нет водителя", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -1039,26 +1030,21 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(player, "ON_WORK", true);
                 Finance.Wallet.Change(player, -BusRentCost);
                 GameLog.Money($"player({Main.Players[player].UUID})", $"server", BusRentCost, $"busRent");
-
                 Kernel.VehicleStreaming.SetEngineState(vehicle, true);
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
                 NAPI.Data.SetEntityData(vehicle, "ON_WORK", true);
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
-
                 NAPI.Data.SetEntityData(player, "WORKWAY", way);
                 NAPI.Data.SetEntityData(player, "WORKCHECK", 0);
                 Trigger.ClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][0].Pos - new Vector3(0, 0, 1.12), 4, 0, 255, 0, 0, BusWays[way][1].Pos - new Vector3(0, 0, 1.12));
                 Trigger.ClientEvent(player, "createWaypoint", BusWays[way][0].Pos.X, BusWays[way][0].Pos.Y);
                 Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][0].Pos);
-
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
-
-                //BasicSync.AttachLabelToObject("~y~" + BusWaysNames[way] + "\n~w~Проезд: ~g~15$", new Vector3(0, 0, 1.5), vehicle);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы арендовали автобус. Вас распределили на маршрут {BusWaysNames[way]}", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали автобус. Вас распределили на маршрут {BusWaysNames[way]}", 3000);
             }
             else
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в автобусе", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в автобусе", 3000);
             }
         }
 

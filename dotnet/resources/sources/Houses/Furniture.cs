@@ -107,7 +107,7 @@ namespace iTeffa.Houses
                 House house = HouseManager.GetHouse(player, true);
                 if (house == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет дома", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет дома", 3000);
                     return;
                 }
                 int id = player.GetData<int>("EDIT_ID");

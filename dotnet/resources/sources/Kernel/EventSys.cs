@@ -215,7 +215,7 @@ namespace iTeffa.Kernel
                         try
                         {
                             Connect.Query($"UPDATE `eventcfg` SET `RewardLimit`={newreward}");
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Вы установили лимит на " + newreward, 3000);
+                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы установили лимит на " + newreward, 3000);
                         }
                         catch (Exception e)
                         {

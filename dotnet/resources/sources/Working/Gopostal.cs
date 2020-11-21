@@ -89,14 +89,14 @@ namespace iTeffa.Working
                 {
                     if (NAPI.Player.IsPlayerInAnyVehicle(player))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Покиньте транспортное средство", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Покиньте транспортное средство", 3000);
                         return;
                     }
                     if (player.GetData<int>("PACKAGES") == 0) return;
                     else if (player.GetData<int>("PACKAGES") > 1)
                     {
                         player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"У Вас осталось {player.GetData<int>("PACKAGES")} посылок", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"У Вас осталось {player.GetData<int>("PACKAGES")} посылок", 3000);
 
                         var coef = Convert.ToInt32(player.Position.DistanceTo2D(player.GetData<Vector3>("W_LASTPOS")) / 100);
                         var payment = Convert.ToInt32(coef * checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
@@ -104,11 +104,10 @@ namespace iTeffa.Working
                         DateTime lastTime = player.GetData<DateTime>("W_LASTTIME");
                         if (DateTime.Now < lastTime.AddSeconds(coef * 2))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Хозяина нет дома, попробуйте позже", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Хозяина нет дома, попробуйте позже", 3000);
                             return;
                         }
 
-                        //player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
                         Finance.Wallet.Change(player, payment);
                         GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
@@ -138,11 +137,10 @@ namespace iTeffa.Working
                         DateTime lastTime = player.GetData<DateTime>("W_LASTTIME");
                         if (DateTime.Now < lastTime.AddSeconds(coef * 2))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Хозяина нет дома, попробуйте позже", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Хозяина нет дома, попробуйте позже", 3000);
                             return;
                         }
 
-                        //player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
                         Finance.Wallet.Change(player, payment);
                         GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
@@ -154,7 +152,7 @@ namespace iTeffa.Working
                         Trigger.ClientEvent(player, "deleteCheckpoint", 1, 0);
                         NAPI.Player.PlayPlayerAnimation(player, -1, "anim@heists@narcotics@trash", "drop_side");
                         player.SetData("PACKAGES", 0);
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"У Вас не осталось посылок, возьмите новые", 3000);
+                        Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"У Вас не осталось посылок, возьмите новые", 3000);
                     }
                 }
             }
@@ -191,12 +189,12 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].WorkID != 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете курьером", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете курьером", 3000);
                 return;
             }
             if (!player.GetData<bool>("ON_WORK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны начать рабочий день", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
                 return;
             }
             if (player.GetData<Player>("WORK") != null)
@@ -207,7 +205,7 @@ namespace iTeffa.Working
             }
             var veh = API.Shared.CreateVehicle(VehicleHash.Faggio, player.Position + new Vector3(0, 0, 1), player.Rotation.Z, 10, 10);
             player.SetData("WORK", veh);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы получили рабочий транспорт", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили рабочий транспорт", 3000);
             veh.SetData("ACCESS", "WORK");
             Kernel.VehicleStreaming.SetEngineState(veh, true);
         }

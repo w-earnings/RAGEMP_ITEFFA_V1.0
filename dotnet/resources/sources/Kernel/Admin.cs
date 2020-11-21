@@ -104,8 +104,8 @@ namespace iTeffa.Kernel
             Main.Accounts[target].Coins += amount;
             Trigger.ClientEvent(target, "starset", Main.Accounts[target].Coins);
 
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отправили {target.Name} {amount} coins", 3000);
-            Notify.Send(target, NotifyType.Success, NotifyPosition.BottomCenter, $"+{amount} coins", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы отправили {target.Name} {amount} coins", 3000);
+            Notify.Send(target, NotifyType.Success, NotifyPosition.TopCenter, $"+{amount} coins", 3000);
 
             GameLog.Admin(player.Name, $"givecoins({amount})", target.Name);
         }
@@ -197,13 +197,13 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "setadmin")) return;
             if (Main.Players[target].AdminLVL >= 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока уже есть админ. прав", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока уже есть админ. прав", 3000);
                 return;
             }
             Main.Players[target].AdminLVL = 1;
             //Main.AdminSlots.Add(target.GetData("RealSocialClub"), new Main.AdminSlotsData(target.Name, 1, true, false));
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы Выдали админ. права игроку {target.Name}", 3000);
-            Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} Выдал Вам админ. права", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы Выдали админ. права игроку {target.Name}", 3000);
+            Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} Выдал Вам админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"setAdmin", $"{target.Name}");
         }
         public static void delPlayerAdminGroup(Player player, Player target)
@@ -211,23 +211,23 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "deladmin")) return;
             if (player == target)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете забрать админ. права у себя", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете забрать админ. права у себя", 3000);
                 return;
             }
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете забрать права у этого администратора", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете забрать права у этого администратора", 3000);
                 return;
             }
             if (Main.Players[target].AdminLVL < 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет админ. прав", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет админ. прав", 3000);
                 return;
             }
             Main.Players[target].AdminLVL = 0;
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы забрали права у администратора {target.Name}", 3000);
-            Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} забрал у Вас админ. права", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы забрали права у администратора {target.Name}", 3000);
+            Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} забрал у Вас админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"delAdmin", $"{target.Name}");
         }
         public static void setPlayerAdminRank(Player player, Player target, int rank)
@@ -235,26 +235,26 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "setadminrank")) return;
             if (player == target)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете установить себе ранг", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете установить себе ранг", 3000);
                 return;
             }
             if (Main.Players[target].AdminLVL < 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Игрок не является администратором!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок не является администратором!", 3000);
                 return;
             }
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете изменить уровень прав у этого администратора", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете изменить уровень прав у этого администратора", 3000);
                 return;
             }
             if (rank < 1 || rank >= Main.Players[player].AdminLVL)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно выдать такой ранг", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно выдать такой ранг", 3000);
                 return;
             }
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выдали игроку {target.Name} {rank} уровень админ. прав", 3000);
-            Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} выдал Вам {rank} уровень админ. прав", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} {rank} уровень админ. прав", 3000);
+            Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} выдал Вам {rank} уровень админ. прав", 3000);
             Main.Players[target].AdminLVL = rank;
 
             GameLog.Admin($"{player.Name}", $"setAdminRank({rank})", $"{target.Name}");
@@ -264,10 +264,10 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "setviplvl")) return;
             if (rank > 4 || rank < 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Невозможно выдать такой уровень ВИП аккаунта", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно выдать такой уровень ВИП аккаунта", 3000);
                 return;
             }
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выдали игроку {target.Name} {Group.GroupNames[rank]}", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} {Group.GroupNames[rank]}", 3000);
             Main.Accounts[target].VipLvl = rank;
             Main.Accounts[target].VipDate = DateTime.Now.AddDays(30);
             Interface.Dashboard.sendStats(target);
@@ -292,8 +292,8 @@ namespace iTeffa.Kernel
                     Trigger.ClientEvent(target, "enableadvert", true);
                     Fractions.LSNews.onLSNPlayerLoad(target);
                 }
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы стали лидером фракции {Fractions.Manager.getName(fracid)}", 3000);
-                Notify.Send(sender, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы поставили {target.Name} на лидерство {Fractions.Manager.getName(fracid)}", 3000);
+                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Вы стали лидером фракции {Fractions.Manager.getName(fracid)}", 3000);
+                Notify.Send(sender, NotifyType.Info, NotifyPosition.TopCenter, $"Вы поставили {target.Name} на лидерство {Fractions.Manager.getName(fracid)}", 3000);
                 Fractions.Manager.Load(target, fracid, new_fraclvl);
                 Dashboard.sendStats(target);
                 GameLog.Admin($"{sender.Name}", $"setFracLeader({fracid})", $"{target.Name}");
@@ -307,7 +307,7 @@ namespace iTeffa.Kernel
             {
                 if (Main.Players[target].FractionLVL < Fractions.Configs.FractionRanks[Main.Players[target].FractionID].Count)
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок не является лидером", 3000);
+                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не является лидером", 3000);
                     return;
                 }
                 Fractions.Manager.UNLoad(target);
@@ -320,15 +320,15 @@ namespace iTeffa.Kernel
                 Main.Players[target].FractionID = 0;
                 Main.Players[target].FractionLVL = 0;
 
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{sender.Name.Replace('_', ' ')} снял Вас с поста лидера фракции", 3000);
-                Notify.Send(sender, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы сняли {target.Name.Replace('_', ' ')} с поста лидера фракции", 3000);
+                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{sender.Name.Replace('_', ' ')} снял Вас с поста лидера фракции", 3000);
+                Notify.Send(sender, NotifyType.Info, NotifyPosition.TopCenter, $"Вы сняли {target.Name.Replace('_', ' ')} с поста лидера фракции", 3000);
                 Dashboard.sendStats(target);
 
                 Customization.ApplyCharacter(target);
                 NAPI.Player.RemoveAllPlayerWeapons(target);
                 GameLog.Admin($"{sender.Name}", $"delFracLeader", $"{target.Name}");
             }
-            else Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет фракции", 3000);
+            else Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет фракции", 3000);
         }
         public static void delJob(Player sender, Player target)
         {
@@ -337,17 +337,17 @@ namespace iTeffa.Kernel
             {
                 if (NAPI.Data.GetEntityData(target, "ON_WORK") == true)
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок должен быть не в рабочей форме", 3000);
+                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок должен быть не в рабочей форме", 3000);
                     return;
                 }
                 Main.Players[target].WorkID = 0;
                 Dashboard.sendStats(target);
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{sender.Name.Replace('_', ' ')} снял трудоустройство с Вашего персонажа", 3000);
-                Notify.Send(sender, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы сняли {target.Name.Replace('_', ' ')} с трудоустройства", 3000);
+                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{sender.Name.Replace('_', ' ')} снял трудоустройство с Вашего персонажа", 3000);
+                Notify.Send(sender, NotifyType.Info, NotifyPosition.TopCenter, $"Вы сняли {target.Name.Replace('_', ' ')} с трудоустройства", 3000);
                 Dashboard.sendStats(target);
                 GameLog.Admin($"{sender.Name}", $"delJob", $"{target.Name}");
             }
-            else Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет работы", 3000);
+            else Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет работы", 3000);
         }
         public static void delFrac(Player sender, Player target)
         {
@@ -356,7 +356,7 @@ namespace iTeffa.Kernel
             {
                 if (Main.Players[target].FractionLVL >= Fractions.Configs.FractionRanks[Main.Players[target].FractionID].Count)
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок - лидер фракции", 3000);
+                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок - лидер фракции", 3000);
                     return;
                 }
                 Fractions.Manager.UNLoad(target);
@@ -369,15 +369,15 @@ namespace iTeffa.Kernel
                 Main.Players[target].FractionID = 0;
                 Main.Players[target].FractionLVL = 0;
 
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Администратор {sender.Name.Replace('_', ' ')} выгнал Вас из фракции", 3000);
-                Notify.Send(sender, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выгнали {target.Name.Replace('_', ' ')} из фракции", 3000);
+                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Администратор {sender.Name.Replace('_', ' ')} выгнал Вас из фракции", 3000);
+                Notify.Send(sender, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выгнали {target.Name.Replace('_', ' ')} из фракции", 3000);
                 Dashboard.sendStats(target);
 
                 Customization.ApplyCharacter(target);
                 NAPI.Player.RemoveAllPlayerWeapons(target);
                 GameLog.Admin($"{sender.Name}", $"delFrac", $"{target.Name}");
             }
-            else Notify.Send(sender, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет фракции", 3000);
+            else Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет фракции", 3000);
         }
 
         public static void teleportTargetToPlayerWithCar(Player player, Player target)
@@ -387,8 +387,8 @@ namespace iTeffa.Kernel
             NAPI.Entity.SetEntityRotation(target.Vehicle, player.Rotation);
             NAPI.Entity.SetEntityDimension(target.Vehicle, player.Dimension);
             NAPI.Entity.SetEntityDimension(target, player.Dimension);
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы телепортировали {target.Name} к себе", 3000);
-            Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Администратор {player.Name} телепортировал Вас к себе", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы телепортировали {target.Name} к себе", 3000);
+            Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Администратор {player.Name} телепортировал Вас к себе", 3000);
         }
         public static void adminLSnews(Player player, string message)
         {
@@ -410,13 +410,13 @@ namespace iTeffa.Kernel
                 if (NAPI.Player.GetPlayerFromName(target) != null)
                 {
                     mutePlayer(player, NAPI.Player.GetPlayerFromName(target), time, reason);
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, "Игрок был онлайн, поэтому offmute заменён на mute", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрок был онлайн, поэтому offmute заменён на mute", 3000);
                     return;
                 }
                 if (player.Name.Equals(target)) return;
                 if (time > 480)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете дать мут больше, чем на 480 минут", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете дать мут больше, чем на 480 минут", 3000);
                     return;
                 }
                 var split = target.Split('_');
@@ -434,7 +434,7 @@ namespace iTeffa.Kernel
             if (player == target) return;
             if (time > 480)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете дать мут больше, чем на 480 минут", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете дать мут больше, чем на 480 минут", 3000);
                 return;
             }
             Main.Players[target].Unmute = time * 60;
@@ -487,8 +487,8 @@ namespace iTeffa.Kernel
 
             Ban.Online(target, unbanTime, false, reason, player.Name);
 
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.Center, $"Вы заблокированы до {unbanTime.ToString()}", 30000);
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.Center, $"Причина: {reason}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы заблокированы до {unbanTime.ToString()}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Причина: {reason}", 30000);
 
             int AUUID = Main.Players[player].UUID;
             int TUUID = Main.Players[target].UUID;
@@ -523,8 +523,8 @@ namespace iTeffa.Kernel
 
             Ban.Online(target, unbanTime, true, reason, player.Name);
 
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.Center, $"Ты словил банхаммер до {unbanTime.ToString()}", 30000);
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.Center, $"Причина: {reason}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Ты словил банхаммер до {unbanTime.ToString()}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Причина: {reason}", 30000);
 
             int AUUID = Main.Players[player].UUID;
             int TUUID = Main.Players[target].UUID;
@@ -550,7 +550,7 @@ namespace iTeffa.Kernel
                     else
                     {
                         target.Kick();
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.Center, "Игрок находился в Online, но был кикнут.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Игрок находился в Online, но был кикнут.", 3000);
                     }
                 }
             }
@@ -574,7 +574,7 @@ namespace iTeffa.Kernel
             if (ban != null)
             {
                 string hard = (ban.isHard) ? "хард " : "";
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.Center, $"Игрок уже в {hard}бане", 3000);
+                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок уже в {hard}бане", 3000);
                 return;
             }
 
@@ -615,7 +615,7 @@ namespace iTeffa.Kernel
                     else
                     {
                         target.Kick();
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.Center, "Игрок находился в Online, но был кикнут.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Игрок находился в Online, но был кикнут.", 3000);
                     }
                 }
             }
@@ -639,7 +639,7 @@ namespace iTeffa.Kernel
             if (ban != null)
             {
                 string hard = (ban.isHard) ? "хард " : "";
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.Center, $"Игрок уже в {hard}бане", 3000);
+                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок уже в {hard}бане", 3000);
                 return;
             }
 
@@ -667,30 +667,30 @@ namespace iTeffa.Kernel
         {
             if (!Main.PlayerNames.ContainsValue(name))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Такого имени нет!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Такого имени нет!", 3000);
                 return;
             }
             if (!Ban.Pardon(name))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"{name} не находится в бане!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"{name} не находится в бане!", 3000);
                 return;
             }
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Игрок разблокирован!", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Игрок разблокирован!", 3000);
             GameLog.Admin($"{player.Name}", $"unban", $"{name}");
         }
         public static void unhardbanPlayer(Player player, string name)
         {
             if (!Main.PlayerNames.ContainsValue(name))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Такого имени нет!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Такого имени нет!", 3000);
                 return;
             }
             if (!Ban.PardonHard(name))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"{name} не находится в бане!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"{name} не находится в бане!", 3000);
                 return;
             }
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "С игрока снят хардбан!", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "С игрока снят хардбан!", 3000);
         }
         public static void kickPlayer(Player player, Player target, string reason, bool isSilence)
         {
@@ -762,7 +762,7 @@ namespace iTeffa.Kernel
         {
             if (!Group.CanUseCmd(player, "kill")) return;
             NAPI.Player.SetPlayerHealth(target, 0);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы убили игрока {target.Name}", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы убили игрока {target.Name}", 3000);
             GameLog.Admin($"{player.Name}", $"killPlayer", $"{target.Name}");
         }
         public static void healTarget(Player player, Player target, int hp)
@@ -786,7 +786,7 @@ namespace iTeffa.Kernel
             int targetHealth = target.Health;
             int targetArmor = target.Armor;
             NAPI.Entity.SetEntityPosition(target, target.Position + new Vector3(0, 0, 10));
-            NAPI.Task.Run(() => { try { Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"{target.Name} было {targetHealth} HP {targetArmor} Armor | Стало {target.Health} HP {target.Armor} Armor.", 3000); } catch { } }, 3000);
+            NAPI.Task.Run(() => { try { Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"{target.Name} было {targetHealth} HP {targetArmor} Armor | Стало {target.Health} HP {target.Armor} Armor.", 3000); } catch { } }, 3000);
             GameLog.Admin($"{player.Name}", $"checkGm", $"{target.Name}");
         }
         public static void checkMoney(Player player, Player target)
@@ -797,7 +797,7 @@ namespace iTeffa.Kernel
                 Finance.Bank.Data bankAcc = Finance.Bank.Accounts.FirstOrDefault(a => a.Value.Holder == target.Name).Value;
                 int bankMoney = 0;
                 if (bankAcc != null) bankMoney = (int)bankAcc.Balance;
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"У {target.Name} {Main.Players[target].Money}$ | Bank: {bankMoney}", 3000);
+                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"У {target.Name} {Main.Players[target].Money}$ | Bank: {bankMoney}", 3000);
                 GameLog.Admin($"{player.Name}", $"checkMoney", $"{target.Name}");
             }
             catch (Exception e) { Log.Write("CheckMoney: " + e.Message, nLog.Type.Error); }
@@ -819,22 +819,22 @@ namespace iTeffa.Kernel
                 NAPI.Entity.SetEntityDimension(target.Vehicle, player.Dimension);
                 GameLog.Admin($"{player.Name}", $"gethere", $"{target.Name}");
             }
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы телепортировали {target.Name} к себе", 3000);
-            Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"{player.Name} телепортировал Вас к себе", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы телепортировали {target.Name} к себе", 3000);
+            Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} телепортировал Вас к себе", 3000);
         }
 
         public static void freezeTarget(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "fz")) return;
             Trigger.ClientEvent(target, "freeze", true);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы заморозили игрока {target.Name}", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы заморозили игрока {target.Name}", 3000);
             GameLog.Admin($"{player.Name}", $"freeze", $"{target.Name}");
         }
         public static void unFreezeTarget(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "ufz")) return;
             Trigger.ClientEvent(target, "freeze", false);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы разморозили игрока {target.Name}", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы разморозили игрока {target.Name}", 3000);
             GameLog.Admin($"{player.Name}", $"unfreeze", $"{target.Name}");
         }
 
@@ -843,7 +843,7 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "guns")) return;
             if (serial.Length != 9)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Серийный номер состоит из 9 символов", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Серийный номер состоит из 9 символов", 3000);
                 return;
             }
             ItemType wType = (ItemType)Enum.Parse(typeof(ItemType), weapon);
@@ -851,16 +851,16 @@ namespace iTeffa.Kernel
                 wType == ItemType.Jewelry || wType == ItemType.Undershit || wType == ItemType.BodyArmor || wType == ItemType.Unknown || wType == ItemType.Top ||
                 wType == ItemType.Hat || wType == ItemType.Glasses || wType == ItemType.Accessories)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Предметы одежды выдавать запрещено", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Предметы одежды выдавать запрещено", 3000);
                 return;
             }
             if (nInventory.TryAdd(player, new nItem(wType)) == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У игрока недостаточно места в инвентаре", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У игрока недостаточно места в инвентаре", 3000);
                 return;
             }
             Weapons.GiveWeapon(target, wType, serial);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выдали игроку {target.Name} оружие ({weapon.ToString()})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} оружие ({weapon.ToString()})", 3000);
             GameLog.Admin($"{player.Name}", $"giveGun({weapon},{serial})", $"{target.Name}");
         }
         public static void giveTargetSkin(Player player, Player target, string pedModel)
@@ -873,11 +873,11 @@ namespace iTeffa.Kernel
                     target.ResetData("AdminSkin");
                     target.SetSkin((Main.Players[target].Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                     Customization.ApplyCharacter(target);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, "Вы восстановили игроку внешность", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, "Вы восстановили игроку внешность", 3000);
                 }
                 else
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Игроку не меняли внешность", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игроку не меняли внешность", 3000);
                     return;
                 }
             }
@@ -888,11 +888,11 @@ namespace iTeffa.Kernel
                 {
                     target.SetData("AdminSkin", true);
                     target.SetSkin(pedHash);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы сменили игроку {target.Name} внешность на ({pedModel})", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы сменили игроку {target.Name} внешность на ({pedModel})", 3000);
                 }
                 else
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Внешности с таким названием не было найдено", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Внешности с таким названием не было найдено", 3000);
                     return;
                 }
             }
@@ -902,7 +902,7 @@ namespace iTeffa.Kernel
             if (!Group.CanUseCmd(player, "giveclothes")) return;
             if (serial.Length < 6 || serial.Length > 12)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Серийный номер состоит из 6-12 символов", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Серийный номер состоит из 6-12 символов", 3000);
                 return;
             }
             ItemType wType = (ItemType)Enum.Parse(typeof(ItemType), weapon);
@@ -910,22 +910,22 @@ namespace iTeffa.Kernel
                 wType != ItemType.Jewelry && wType != ItemType.Undershit && wType != ItemType.BodyArmor && wType != ItemType.Unknown && wType != ItemType.Top &&
                 wType != ItemType.Hat && wType != ItemType.Glasses && wType != ItemType.Accessories)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Этой командой можно выдавать только предметы одежды", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этой командой можно выдавать только предметы одежды", 3000);
                 return;
             }
             if (nInventory.TryAdd(player, new nItem(wType)) == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока недостаточно места в инвентаре", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно места в инвентаре", 3000);
                 return;
             }
             Weapons.GiveWeapon(target, wType, serial);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы выдали игроку {target.Name} одежду ({weapon.ToString()})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} одежду ({weapon.ToString()})", 3000);
         }
         public static void takeTargetGun(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "oguns")) return;
             Weapons.RemoveAll(target, true);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы забрали у игрока {target.Name} всё оружие", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы забрали у игрока {target.Name} всё оружие", 3000);
             GameLog.Admin($"{player.Name}", $"takeGuns", $"{target.Name}");
         }
 
@@ -994,11 +994,8 @@ namespace iTeffa.Kernel
             Main.Players[target].ArrestTime = 0;
             Main.Players[target].DemorganTime = firstTime;
             Fractions.FractionCommands.unCuffPlayer(target);
-
             NAPI.Entity.SetEntityPosition(target, DemorganPosition + new Vector3(0, 0, 1.5));
-            //if (target.HasData("ARREST_TIMER")) Main.StopT(target.GetData("ARREST_TIMER"), "timer_34");
             if (target.HasData("ARREST_TIMER")) Timers.Stop(target.GetData<string>("ARREST_TIMER"));
-            //NAPI.Data.SetEntityData(target, "ARREST_TIMER", Main.StartT(1000, 1000, (o) => timer_demorgan(target), "DEMORGAN_TIMER"));
             NAPI.Data.SetEntityData(target, "ARREST_TIMER", Timers.StartTask(1000, () => timer_demorgan(target)));
             NAPI.Entity.SetEntityDimension(target, 1337);
             Weapons.RemoveAll(target, true);
@@ -1010,7 +1007,7 @@ namespace iTeffa.Kernel
             if (!Main.Players.ContainsKey(target)) return;
 
             Main.Players[target].DemorganTime = 0;
-            Notify.Send(admin, NotifyType.Warning, NotifyPosition.BottomCenter, $"Вы освободили {target.Name} из админ. тюрьмы", 3000);
+            Notify.Send(admin, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы освободили {target.Name} из админ. тюрьмы", 3000);
             GameLog.Admin($"{admin.Name}", $"undemorgan", $"{target.Name}");
         }
 
@@ -1045,7 +1042,7 @@ namespace iTeffa.Kernel
                     NAPI.Data.ResetEntityData(player, "MUTE_TIMER");
                     Main.Players[player].VoiceMuted = false;
                     player.SetSharedData("voice.muted", false);
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, "Mute был снят, не нарушайте больше!", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Mute был снят, не нарушайте больше!", 3000);
                     return;
                 }
                 Main.Players[player].Unmute--;
@@ -1124,7 +1121,7 @@ namespace iTeffa.Kernel
             {
                 Player loader = NAPI.Data.GetEntityData(vehicle, "loaderMats");
                 Trigger.ClientEvent(loader, "hideLoader");
-                Notify.Send(loader, NotifyType.Warning, NotifyPosition.BottomCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
+                Notify.Send(loader, NotifyType.Warning, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                 if (loader.HasData("loadMatsTimer"))
                 {
                     //Main.StopT(loader.GetData("loadMatsTimer"), "timer_35");
@@ -1230,7 +1227,7 @@ namespace iTeffa.Kernel
                 goto check;
             }
 
-            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно прав", 3000);
+            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно прав", 3000);
             return false;
         }
 

@@ -59,7 +59,7 @@ namespace iTeffa.Fractions
                 if (Main.Players[player].LVL < minVoteLVL)
                 {
                     player.SendChatMessage($"Ваш уровень должен быть не менее {minVoteLVL}LVL!");
-                    Notify.Send(player, NotifyType.Alert, NotifyPosition.BottomCenter, $"Ваш уровень должен быть не менее {minVoteLVL}LVL!", 3000);
+                    Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, $"Ваш уровень должен быть не менее {minVoteLVL}LVL!", 3000);
                     return;
                 }
                 for (int i = 0; i != ElectionPointsList.Count; i++)
@@ -106,7 +106,7 @@ namespace iTeffa.Fractions
         {
             if (!Main.Players.ContainsKey(player)) return;
             if (Main.Players[player].AdminLVL < 6) return;
-            Notify.Send(player, NotifyType.Alert, NotifyPosition.BottomCenter, "Перезагрузка данных...", 3000);
+            Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, "Перезагрузка данных...", 3000);
             for (int l = 0; l != ElectionPointsList.Count; l++)
             {
                 if (ElectionPointsList[l].Opened)
@@ -251,7 +251,7 @@ namespace iTeffa.Fractions
                                         GameLog.Votes(ElectionList[l].Election, Main.Accounts[player].Login, Name);
                                         player.SendChatMessage($"Вы сделали свой голос на выборах № {ElectionList[l].Election} в пользу {Name}");
 
-                                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter,
+                                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter,
                                             $"Вы сделали свой голос на выборах № {ElectionList[l].Election} в пользу {Name}", 3000);
                                         break;
                                     }
@@ -297,7 +297,7 @@ namespace iTeffa.Fractions
             if(ElectionList.Find(x => x.Election == ElectionID) != null)
             {
                 client.SendChatMessage("Такой Election уже существует!");
-                Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Такой Election уже существует!", 3000);
+                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Такой Election уже существует!", 3000);
                 return;
             }
 

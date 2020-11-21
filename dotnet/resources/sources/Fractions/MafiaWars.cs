@@ -80,7 +80,7 @@ namespace iTeffa.Fractions
             if (!Manager.canUseCommand(player, "takebiz")) return;
             if (player.GetData<int>("BIZ_ID") == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не находитесь ни на одном из бизнесов", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не находитесь ни на одном из бизнесов", 3000);
                 return;
             }
             Business biz = BusinessManager.BizList[player.GetData<int>("BIZ_ID")];
@@ -94,23 +94,23 @@ namespace iTeffa.Fractions
             if (!Manager.canUseCommand(player, "bizwar")) return;
             if (player.GetData<int>("BIZ_ID") == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не находитесь ни на одном из бизнесов", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не находитесь ни на одном из бизнесов", 3000);
                 return;
             }
             Business biz = BusinessManager.BizList[player.GetData<int>("BIZ_ID")];
             if (biz.Mafia == Main.Players[player].FractionID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете начать войну за свой бизнес", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете начать войну за свой бизнес", 3000);
                 return;
             }
             if (biz.Mafia == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Бизнес не принадлежит ни одной мафии", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Бизнес не принадлежит ни одной мафии", 3000);
                 return;
             }
             if (DateTime.Now.Hour < 13 || DateTime.Now.Hour > 23)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы можете начать войну с 13:00 до 23:00", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы можете начать войну с 13:00 до 23:00", 3000);
                 return;
             }
             if (DateTime.Now < nextCaptDate[Main.Players[player].FractionID])
@@ -118,7 +118,7 @@ namespace iTeffa.Fractions
                 DateTime g = new DateTime((nextCaptDate[Main.Players[player].FractionID] - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы сможете начать войну только через {min}:{sec}", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете начать войну только через {min}:{sec}", 3000);
                 return;
             }
             if (DateTime.Now < protectDate[biz.Mafia])
@@ -126,19 +126,19 @@ namespace iTeffa.Fractions
                 DateTime g = new DateTime((protectDate[biz.Mafia] - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы сможете начать войну с этой мафией только через {min}:{sec}", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете начать войну с этой мафией только через {min}:{sec}", 3000);
                 return;
             }
             if (Manager.countOfFractionMembers(biz.Mafia) < 4)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточный онлайн в мафии противника", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточный онлайн в мафии противника", 3000);
                 return;
             }
             if (smbTryCapture) return;
             smbTryCapture = true;
             if (warIsGoing || warStarting)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Война за территорию уже идёт", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Война за территорию уже идёт", 3000);
                 smbTryCapture = false;
                 return;
             }

@@ -46,11 +46,11 @@ namespace iTeffa.Working
 
                     if (!Finance.Wallet.Change(player, taxiRentCost))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                         return;
                     }
                     GameLog.Money($"player({Main.Players[player].UUID})", $"server", taxiRentCost, $"taxiRent");
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы арендовали такси. Чтобы предложить игроку оплатить проезд, напишите /tprice [ID] [Цена]", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали такси. Чтобы предложить игроку оплатить проезд, напишите /tprice [ID] [Цена]", 3000);
                     Kernel.VehicleStreaming.SetEngineState(vehicle, false);
                 }
             }
@@ -65,13 +65,13 @@ namespace iTeffa.Working
 
             if(!Finance.Wallet.Change(player, -price))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                 return;
             }
             Finance.Wallet.Change(seller, price);
             GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", taxiRentCost, $"taxiPay");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы оплатили проезд", 3000);
-            Notify.Send(seller, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок " + player.Name.Replace('_', ' ') + " оплатил проезд", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили проезд", 3000);
+            Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок " + player.Name.Replace('_', ' ') + " оплатил проезд", 3000);
         }
 
         private static void order_onEntityExit(ColShape shape, Player player)
@@ -86,8 +86,8 @@ namespace iTeffa.Working
                     driver.ResetData("PASSAGER");
                     player.ResetData("TAXI_DRIVER");
                     player.SetData("IS_CALL_TAXI", false);
-                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.BottomCenter, $"Пассажир отменил заказ", 3000);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы покинули место вызова такси", 3000);
+                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Пассажир отменил заказ", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы покинули место вызова такси", 3000);
                     try
                     {
                         NAPI.ColShape.DeleteColShape(orderCols[player]);
@@ -109,7 +109,7 @@ namespace iTeffa.Working
                 {
                     if (!Main.Players[player].Licenses[1])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас нет лицензии категории B", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории B", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -119,7 +119,7 @@ namespace iTeffa.Working
                         {
                             if (vehicle.GetData<Player>("DRIVER") != null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Это такси уже занят", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Это такси уже занят", 3000);
                                 return;
                             }
                             if (Main.Players[player].Money >= taxiRentCost)
@@ -128,16 +128,16 @@ namespace iTeffa.Working
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У Вас не хватает " + (taxiRentCost - Main.Players[player].Money) + "$ на аренду такси", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает " + (taxiRentCost - Main.Players[player].Money) + "$ на аренду такси", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
                             }
                         }
                         else if (NAPI.Data.GetEntityData(player, "WORK") == vehicle) NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
-                        else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы уже работаете", 3000);
+                        else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже работаете", 3000);
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете в такси. Устроиться можно в мэрии", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете в такси. Устроиться можно в мэрии", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -145,7 +145,7 @@ namespace iTeffa.Working
                 {
                     if (NAPI.Data.GetEntityData(vehicle, "DRIVER") != null)
                     {
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, "Если Вы хотите передать свой маршрут водителю, то поставьте метку на карте и нажмите Z.", 5000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, "Если Вы хотите передать свой маршрут водителю, то поставьте метку на карте и нажмите Z.", 5000);
                         var driver = NAPI.Data.GetEntityData(vehicle, "DRIVER");
                         if (driver.HasData("PASSAGER") && driver.GetData("PASSAGER") == player)
                         {
@@ -162,7 +162,7 @@ namespace iTeffa.Working
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В такси сейчас нет водителя", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В такси сейчас нет водителя", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -201,7 +201,7 @@ namespace iTeffa.Working
                 {
                     Player driver = player.GetData<Player>("TAXI_DRIVER");
                     driver.ResetData("PASSAGER");
-                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.BottomCenter, $"Пассажир отменил заказ", 3000);
+                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Пассажир отменил заказ", 3000);
                     try
                     {
                         NAPI.ColShape.DeleteColShape(orderCols[player]);
@@ -218,7 +218,7 @@ namespace iTeffa.Working
                         Player passager = player.GetData<Player>("PASSAGER");
                         passager.ResetData("TAXI_DRIVER");
                         passager.SetData("IS_CALL_TAXI", false);
-                        Notify.Send(passager, NotifyType.Warning, NotifyPosition.BottomCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
+                        Notify.Send(passager, NotifyType.Warning, NotifyPosition.TopCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
                         NAPI.Task.Run(() => {
                             try
                             {
@@ -242,13 +242,11 @@ namespace iTeffa.Working
                 Main.Players[player].WorkID == 3 &&
                 NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
+                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "WORK_CAR_EXIT_TIMER_taxi_1");
-                        Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
+                    Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
-                    //NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Main.StartT(1000, 1000, (o) => timer_playerExitWorkVehicle(player, vehicle), "TAXI_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.StartTask(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
             }
@@ -264,18 +262,16 @@ namespace iTeffa.Working
                     if (!player.HasData("WORK_CAR_EXIT_TIMER")) return;
                     if (NAPI.Data.GetEntityData(player, "IN_WORK_CAR"))
                     {
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "WORK_CAR_EXIT_TIMER_taxi_2");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         return;
                     }
                     if (NAPI.Data.GetEntityData(player, "CAR_EXIT_TIMER_COUNT") > 300)
                     {
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы закончили рабочий день", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
                         respawnCar(vehicle);
                         player.SetData<bool>("ON_WORK", false);
                         player.SetData<Vehicle>("WORK", null);
-                        //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "WORK_CAR_EXIT_TIMER_taxi_3");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         if (player.HasData("PASSAGER"))
@@ -283,7 +279,7 @@ namespace iTeffa.Working
                             Player passager = player.GetData<Player>("PASSAGER");
                             passager.ResetData("TAXI_DRIVER");
                             passager.SetData("IS_CALL_TAXI", false);
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.BottomCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
+                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
                             player.ResetData("PASSAGER");
                             try
                             {
@@ -313,12 +309,12 @@ namespace iTeffa.Working
                     {
                         if (price > 200 || price < 20)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не можете установить цену выше 200$ или ниже 20$", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете установить цену выше 200$ или ниже 20$", 3000);
                             return;
                         }
                         if (Main.Players[target].Money < price)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока недостаточно средств", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно средств", 3000);
                             return;
                         }
 
@@ -326,12 +322,12 @@ namespace iTeffa.Working
                         target.SetData("TAXI_SELLER", player);
                         target.SetData("TAXI_PAY", price);
 
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы предложили игроку ({target.Value}) оплатить поездку за {price}$", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) оплатить поездку за {price}$", 3000);
                     }
                 }
-                else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работает в данный момент", 3000);
+                else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работает в данный момент", 3000);
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете таксистом", 3000);
+            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете таксистом", 3000);
         }
 
         public static void acceptTaxi(Player player, Player target)
@@ -340,13 +336,13 @@ namespace iTeffa.Working
             {
                 if (player.HasData("PASSAGER"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы уже взяли заказ", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже взяли заказ", 3000);
                     return;
                 }
                 if (NAPI.Data.GetEntityData(target, "IS_CALL_TAXI") && !target.HasData("TAXI_DRIVER"))
                 {
-                    Notify.Send(target, NotifyType.Warning, NotifyPosition.BottomCenter, $"Таксист ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
+                    Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Таксист ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
                     Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
 
                     target.SetData("TAXI_DRIVER", player);
@@ -356,9 +352,9 @@ namespace iTeffa.Working
                     orderCols[target].SetData("PASSAGER", target);
                     orderCols[target].OnEntityExitColShape += order_onEntityExit;
                 }
-                else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок не вызывал такси или его уже приняли", 3000);
+                else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не вызывал такси или его уже приняли", 3000);
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не работаете таксистом в данный момент", 3000);
+            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете таксистом в данный момент", 3000);
         }
 
         public static void cancelTaxi(Player player)
@@ -369,8 +365,8 @@ namespace iTeffa.Working
                 passager.ResetData("TAXI_DRIVER");
                 passager.SetData("IS_CALL_TAXI", false);
                 player.ResetData("PASSAGER");
-                Notify.Send(passager, NotifyType.Warning, NotifyPosition.BottomCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы отменили выезд к клиенту", 3000);
+                Notify.Send(passager, NotifyType.Warning, NotifyPosition.TopCenter, $"Таксист покинул рабочее место, сделайте новый заказ", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили выезд к клиенту", 3000);
                 NAPI.Task.Run(() =>
                 {
                     try
@@ -386,13 +382,13 @@ namespace iTeffa.Working
             if (NAPI.Data.GetEntityData(player, "IS_CALL_TAXI"))
             {
                 NAPI.Data.SetEntityData(player, "IS_CALL_TAXI", false);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы отменили вызов такси", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили вызов такси", 3000);
                 if (player.HasData("TAXI_DRIVER"))
                 {
                     Player driver = player.GetData<Player>("TAXI_DRIVER");
                     driver.ResetData("PASSAGER");
                     player.ResetData("TAXI_DRIVER");
-                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.BottomCenter, $"Пассажир отменил заказ", 3000);
+                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Пассажир отменил заказ", 3000);
                     NAPI.Task.Run(() =>
                     {
                         try
@@ -404,7 +400,7 @@ namespace iTeffa.Working
                     });
                 }
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы не вызывали такси.", 3000);
+            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не вызывали такси.", 3000);
         }
 
         public static void callTaxi(Player player)
@@ -425,11 +421,11 @@ namespace iTeffa.Working
                 if (i > 0)
                 {
                     NAPI.Data.SetEntityData(player, "IS_CALL_TAXI", true);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ожидайте принятия вызова. В Вашем районе сейчас {i} таксистов. Для отмены вызова используйте /ctaxi", 3000);
+                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ожидайте принятия вызова. В Вашем районе сейчас {i} таксистов. Для отмены вызова используйте /ctaxi", 3000);
                 }
-                else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"В Вашем районе сейчас нет таксистов. Попробуйте в другой раз", 3000);
+                else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В Вашем районе сейчас нет таксистов. Попробуйте в другой раз", 3000);
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы уже Вызвали такси. Для отмены напишите /ctaxi", 3000);
+            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже Вызвали такси. Для отмены напишите /ctaxi", 3000);
         }
     }
 }

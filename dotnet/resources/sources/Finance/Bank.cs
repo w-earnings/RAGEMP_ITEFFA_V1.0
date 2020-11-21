@@ -119,16 +119,16 @@ namespace iTeffa.Finance
             switch (type)
             {
                 case BankNotifyType.InputError:
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Ошибка ввода", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка ввода", 3000);
                     return;
                 case BankNotifyType.PayError:
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Ошибка списания средств", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка списания средств", 3000);
                     return;
                 case BankNotifyType.PayIn:
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Поступление средств ({info}$)", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поступление средств ({info}$)", 3000);
                     return;
                 case BankNotifyType.PayOut:
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Списание средств ({info}$)", 3000);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Списание средств ({info}$)", 3000);
                     return;
             }
         }
@@ -417,7 +417,7 @@ namespace iTeffa.Finance
             var acc = Main.Players[player];
             if (acc.Bank == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Зарегистрируйте счет в ближайшем отделении банка", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Зарегистрируйте счет в ближайшем отделении банка", 3000);
                 return;
             }
             long balance = Bank.Accounts[acc.Bank].Balance;
@@ -444,7 +444,7 @@ namespace iTeffa.Finance
             else
             {
                 Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У вас нет бизнеса!", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет бизнеса!", 3000);
             }
         }
 
@@ -455,7 +455,7 @@ namespace iTeffa.Finance
             {
                 if (Admin.IsServerStoping)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Сервер сейчас не может принять это действие", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Сервер сейчас не может принять это действие", 3000);
                     return;
                 }
                 var acc = Main.Players[player];
@@ -490,17 +490,17 @@ namespace iTeffa.Finance
                         var maxMoney = Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7;
                         if (Bank.Accounts[house.BankID].Balance + Math.Abs(amount) > maxMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Невозможно перевести столько средств на счет дома.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Невозможно перевести столько средств на счет дома.", 3000);
                             return;
                         }
                         if (!Wallet.Change(player, -Math.Abs(amount)))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств.", 3000);
                             return;
                         }
                         Bank.Change(house.BankID, +Math.Abs(amount));
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"atmHouse");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Успешный перевод.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         Trigger.ClientEvent(player,
                                 "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
                         break;
@@ -512,23 +512,23 @@ namespace iTeffa.Finance
                         maxMoney = Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7;
                         if (Bank.Accounts[biz.BankID].Balance + Math.Abs(amount) > maxMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
                             return;
                         }
                         if (!Wallet.Change(player, -Math.Abs(amount)))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств.", 3000);
                             return;
                         }
                         Bank.Change(biz.BankID, +Math.Abs(amount));
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"atmBiz");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Успешный перевод.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
                         break;
                     case 4:
                         if (!Bank.Accounts.ContainsKey(amount) || amount <= 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Счет не найден!", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Счет не найден!", 3000);
                             Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
@@ -540,28 +540,28 @@ namespace iTeffa.Finance
                     case 44:
                         if (Main.Players[player].LVL < 1)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Перевод денег доступен после первого уровня", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Перевод денег доступен после первого уровня", 3000);
                             return;
                         }
                         if (player.HasData("NEXT_BANK_TRANSFER") && DateTime.Now < player.GetData<DateTime>("NEXT_BANK_TRANSFER"))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Следующая транзакция будет возможна в течение минуты", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Следующая транзакция будет возможна в течение минуты", 3000);
                             return;
                         }
                         int bank = NAPI.Data.GetEntityData(player, "ATM2ACC");
                         if (!Bank.Accounts.ContainsKey(bank) || bank <= 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Счет не найден!", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Счет не найден!", 3000);
                             Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         if(Bank.Accounts[bank].Type != 1 && Main.Players[player].AdminLVL == 0) {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Счет не найден!", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Счет не найден!", 3000);
                             Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         if(acc.Bank == bank) {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Операция отменена.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Операция отменена.", 3000);
                             Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
@@ -620,7 +620,7 @@ namespace iTeffa.Finance
                             case 2:
                                 if (Houses.HouseManager.GetHouse(player, true) == null)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У вас нет дома!", 3000);
+                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет дома!", 3000);
                                     return;
                                 }
                                 var house = Houses.HouseManager.GetHouse(player, true);
@@ -673,7 +673,7 @@ namespace iTeffa.Finance
             {
                 if (Admin.IsServerStoping)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Сервер сейчас не может принять это действие", 3000);
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Сервер сейчас не может принять это действие", 3000);
                     return;
                 }
                 int act = Convert.ToInt32(args[0]);
@@ -708,30 +708,30 @@ namespace iTeffa.Finance
                         var maxMoney = Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7;
                         if (Bank.Accounts[house.BankID].Balance + Math.Abs(amount) > maxMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Невозможно перевести столько средств на счет дома.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Невозможно перевести столько средств на счет дома.", 3000);
                             return;
                         }
                         if (!Wallet.Change(player, -Math.Abs(amount)))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств.", 3000);
                             return;
                         }
                         Bank.Change(house.BankID, Math.Abs(amount));
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"atmHouse");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Успешный перевод.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
                     case 3: //put biz tax
                         var check = NAPI.Data.GetEntityData(player, "bizcheck");
                         if (check == null) return;
                         if (acc.BizIDs.Count != check)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
                             return;
                         }
                         int bid = 0;
                         if (!Int32.TryParse(Convert.ToString(args[2]), out bid))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
                             return;
                         }
 
@@ -740,17 +740,17 @@ namespace iTeffa.Finance
                         maxMoney = Convert.ToInt32(biz.SellPrice / 100 * 0.01) * 24 * 7;
                         if (Bank.Accounts[biz.BankID].Balance + Math.Abs(amount) > maxMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
                             return;
                         }
                         if (!Wallet.Change(player, -Math.Abs(amount)))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств.", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств.", 3000);
                             return;
                         }
                         Bank.Change(biz.BankID, Math.Abs(amount));
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"atmBiz");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Успешный перевод.", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
                     case 4: //transfer to
                         int num = 0;

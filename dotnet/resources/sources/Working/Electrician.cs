@@ -121,7 +121,7 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].WorkID != 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Вы не работаете электриком. Устроиться можно в мэрии", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не работаете электриком. Устроиться можно в мэрии", 3000);
                 return;
             }
             if (player.GetData<bool>("ON_WORK"))
@@ -130,9 +130,7 @@ namespace iTeffa.Working
                 player.SetData("ON_WORK", false);
                 Trigger.ClientEvent(player, "deleteCheckpoint", 15);
                 Trigger.ClientEvent(player, "deleteWorkBlip");
-                
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы закончили рабочий день", 3000);
-                //player.SetData("PAYMENT", 0);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
                 return;
             }
             else
@@ -161,7 +159,7 @@ namespace iTeffa.Working
                 Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
 
                 player.SetData("ON_WORK", true);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, "Вы начали рабочий день", 3000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, "Вы начали рабочий день", 3000);
                 return;
             }
         }
@@ -184,11 +182,8 @@ namespace iTeffa.Working
             {
                 if (!Main.Players.ContainsKey(player)) return;
                 if (Main.Players[player].WorkID != 1 || !player.GetData<bool>("ON_WORK") || shape.GetData<int>("NUMBER") != player.GetData<int>("WORKCHECK")) return;
-
                 if (Checkpoints[(int)shape.GetData<int>("NUMBER")].Position.DistanceTo(player.Position) > 3) return;
-
                 var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
-                //player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
                 Finance.Wallet.Change(player, payment);
                 GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"electricianCheck");
 

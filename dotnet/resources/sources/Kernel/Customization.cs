@@ -2814,7 +2814,7 @@ namespace iTeffa.Kernel
                         Main.Accounts[player].VipLvl = 3;
                         Main.Accounts[player].VipDate = DateTime.Now.AddDays(3);
                         Interface.Dashboard.sendStats(player);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Добро пожаловать в штат! Вы получили первый уровень, Gold VIP на 3 дня и 5000$!", 6000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Добро пожаловать в штат! Вы получили первый уровень, Gold VIP на 3 дня и 5000$!", 6000);
                         NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
                     }
                 }
@@ -2829,22 +2829,5 @@ namespace iTeffa.Kernel
             catch (Exception e) { Log.Write("SaveCharacter: " + e.Message, nLog.Type.Error); }
         }
         #endregion
-
-        /*public static void changeName(string oldName, string newName)
-        {
-            lock (CustomPlayerData)
-            {
-                if (!CustomPlayerData.ContainsKey(oldName))
-                {
-                    Log.Write($"Can't find old name! [{oldName}]", nLog.Type.Warn);
-                    return;
-                }
-                PlayerCustomization pc = CustomPlayerData[oldName];
-                CustomPlayerData.Add(newName, pc);
-                CustomPlayerData.Remove(oldName);
-                // // //
-                MySQL.Query($"UPDATE `customization` SET `name`='{newName}' WHERE `name`='{oldName}'");
-            }
-        }*/
     }
 }

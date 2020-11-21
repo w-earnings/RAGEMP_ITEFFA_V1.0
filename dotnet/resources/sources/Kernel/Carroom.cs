@@ -119,7 +119,7 @@ namespace iTeffa.Kernel
                 VehicleStreaming.SetEngineState(veh, true);
                 player.SetIntoVehicle(veh, 0);
                 player.SetData("CARROOMTEST", veh);
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "CARROOMID - " + player.GetData<int>("CARROOMID"), 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "CARROOMID - " + player.GetData<int>("CARROOMID"), 3000);
             }
             catch (Exception e)
             {
@@ -161,13 +161,13 @@ namespace iTeffa.Kernel
 
             if (Main.Players[player].Money < prod.Price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
                 return vNumber;
             }
 
             if (!BusinessManager.takeProd(biz.ID, 1, vName, prod.Price))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Транспортного средства больше нет на складе", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Транспортного средства больше нет на складе", 3000);
                 return vNumber;
             }
 
@@ -177,8 +177,8 @@ namespace iTeffa.Kernel
 
             vNumber = VehicleManager.Create(player.Name, vName, carColors[color], carColors[color], carColors[color]);
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы купили {vName} с идентификатором {vNumber} ", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Автомобиль доставлен в ваш гараж!", 5000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили {vName} с идентификатором {vNumber} ", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Автомобиль доставлен в ваш гараж!", 5000);
 
             return vNumber;
         }
@@ -192,8 +192,6 @@ namespace iTeffa.Kernel
                 Business biz = BusinessManager.BizList[player.GetData<int>("CARROOMID")];
                 NAPI.Entity.SetEntityPosition(player, new Vector3(biz.EnterPoint.X, biz.EnterPoint.Y, biz.EnterPoint.Z + 1.5));
                 Trigger.ClientEvent(player, "freeze", false);
-                //player.FreezePosition = false;
-
                 Main.Players[player].ExteriorPos = new Vector3();
                 Trigger.ClientEvent(player, "destroyCamera");
                 NAPI.Entity.SetEntityDimension(player, 0);
@@ -202,7 +200,6 @@ namespace iTeffa.Kernel
                 var house = Houses.HouseManager.GetHouse(player, true);
                 if (house == null || house.GarageID == 0)
                 {
-                    // Player without garage
                     string vNumber = BuyVehicle(player, biz, vName, color);
                     if (vNumber != "none")
                     {
@@ -212,10 +209,9 @@ namespace iTeffa.Kernel
                 else
                 {
                     var garage = Houses.GarageManager.Garages[house.GarageID];
-                    // Проверка свободного места в гараже
                     if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Ваши гаражи полны", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ваши гаражи полны", 3000);
                         return;
                     }
                     string vNumber = BuyVehicle(player, biz, vName, color);
@@ -238,7 +234,6 @@ namespace iTeffa.Kernel
                 NAPI.Entity.SetEntityPosition(player, new Vector3(enterPoint.X, enterPoint.Y, enterPoint.Z + 1.5));
                 Main.Players[player].ExteriorPos = new Vector3();
                 Trigger.ClientEvent(player, "freeze", false);
-                //player.FreezePosition = false;
                 Dimensions.DismissPrivateDimension(player);
                 player.ResetData("CARROOMID");
                 NAPI.Entity.SetEntityDimension(player, 0);
