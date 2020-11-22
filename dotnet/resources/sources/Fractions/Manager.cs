@@ -30,8 +30,8 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(84, FractionSpawns[1], 0.75F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
                 /*
                  * 
-                 * 
                  */
+                NAPI.Blip.CreateBlip(84, FractionSpawns[4], 0.75F, 74, Main.StringToU16("Marabunta Grande"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(84, FractionSpawns[5], 0.75F, 49, Main.StringToU16("Blood Street"), 255, 0, true, 0, 0);
 
                 NAPI.Blip.CreateBlip(630, FractionSpawns[2], 0.75F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
@@ -162,8 +162,8 @@ namespace iTeffa.Fractions
 
             {2, new Vector3(93.79514, -1961.605, 21.62755)},     // The Ballas Gang
             {3, new Vector3(1403.206, -1483.664, 60.63504)},     // Los Santos Vagos
-            {4, new Vector3(891.9399, -2174.212, 33.16626)},     // Marabunta Grande
 
+            {4, new Vector3(1445.421, -1486.313, 66.49925)},     // Marabunta Grande
             {5, new Vector3(966.2534, -1833.792, 31.14424)},     // Blood Street
 
             {6, new Vector3(-572.94464, -201.82872, 42.58397)},      // Cityhall

@@ -20,7 +20,7 @@ namespace iTeffa.Fractions
             {1, new Vector3(-25.72462, -1397.463, 23.55845)},     // The Families
             { 2, new Vector3(79.17244, -1966.011, -28.41237)},
             { 3, new Vector3(1424.026, -1488.611, -104.3677)},
-            { 4, new Vector3(901.4553, -2166.65, 0.92118)},
+            {4, new Vector3(1435.88, -1490.218, 65.49928)},     // Marabunta Grande
             {5, new Vector3(973.9128, -1845.269, 25.28732)},     // Blood Street
             { 6, new Vector3()},
             { 7, new Vector3()},
@@ -41,7 +41,7 @@ namespace iTeffa.Fractions
             {1, new Vector3(-25.12974, -1411.033, 28.50709)},      // The Families
             { 2, new Vector3(85.16203, -1972.12, 18.78526)},
             { 3, new Vector3(1401.759, -1514.474, 56.26676)},
-            { 4, new Vector3(873.6498, -2197.615, 28.51937)},
+            {4, new Vector3(1435.542, -1479.373, 62.10447)},    // Marabunta Grande
             {5, new Vector3(975.5194, -1841.575, 30.14339)},     // Blood Street
             { 6, new Vector3(-580.291, -130.4515, 34.00952)},
             { 7, new Vector3(434.195, -1005.593, 26.21062)},

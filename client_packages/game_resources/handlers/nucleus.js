@@ -9,6 +9,9 @@ var Peds = [
     {Hash:  1055701597, Pos: new mp.Vector3(-1030.60, -2744.5, 13.85), Angle: 21.000}, // Информация о сервере
 
     {Hash: 1706635382, Pos: new mp.Vector3(-20.23, -1413.89, 29.31, 272.53), Angle: 272.53}, // The Families
+
+
+    {Hash: 653210662, Pos: new mp.Vector3(1435.11, -1491.59, 63.62), Angle: 165.81 }, // Marabunta Grande
     {Hash: 663522487, Pos: new mp.Vector3(965.93, -1828.77, 31.22 ), Angle: 355.79 }, // Blood Street
 
 
@@ -23,7 +26,6 @@ var Peds = [
     { Hash: 0x9D0087A8, Pos: new mp.Vector3(480.9385, -1302.576, 29.24353), Angle: 224.0 }, // jimmylishman
     { Hash: 588969535, Pos: new mp.Vector3(85.79006, -1957.156, 20.74745), Angle: 320.4474 }, // Carl_Ballard
     { Hash: -812470807, Pos: new mp.Vector3(485.6168, -1529.195, 29.28829), Angle: 56.19691 }, // Chiraq_Bloody
-    { Hash: 653210662, Pos: new mp.Vector3(1408.224, -1486.415, 60.65733), Angle: 192.2974 }, // Riki_Veronas
     
     { Hash: 645279998, Pos: new mp.Vector3(-113.9224, 985.793, 235.754), Angle: 110.9234 }, // Vladimir_Medvedev
     { Hash: -236444766, Pos: new mp.Vector3(-1811.368, 438.4105, 128.7074), Angle: 348.107 }, // Kaha_Panosyan
