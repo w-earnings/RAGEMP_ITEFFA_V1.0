@@ -12,7 +12,7 @@ namespace iTeffa.Fractions
 
         public static Dictionary<int, Vector3> EnterPoints = new Dictionary<int, Vector3>()
         {
-            { 1, new Vector3(-223.069, -1616.918, 33.74932) },
+            {1, new Vector3(-25.01989, -1398.197, 0.38819)},
             { 2, new Vector3(85.79318, -1958.851, 20.0017) },
             { 3, new Vector3(1408.579, -1486.897, 59.53736) },
             { 4, new Vector3(892.2407, -2172.888, 31.16626) },
@@ -20,7 +20,7 @@ namespace iTeffa.Fractions
         };
         public static Dictionary<int, Vector3> ExitPoints = new Dictionary<int, Vector3>()
         {
-            { 1, new Vector3(-201.7147, -1627.962, -38.664788) },
+            {1, new Vector3(-25.01989, -1398.197, 0.38819)},
             { 2, new Vector3(82.57095, -1958.607, -23.41236) },
             { 3, new Vector3(1420.487, -1497.264, -107.8639) },
             { 4, new Vector3(892.4592, -2168.068, 0.921189) },
@@ -39,7 +39,8 @@ namespace iTeffa.Fractions
         {
             try
             {
-                NAPI.TextLabel.CreateTextLabel("~g~Lamar Davis", new Vector3(-222.5464, -1617.449, 34.86932), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
+                NAPI.TextLabel.CreateTextLabel("~g~The Families", new Vector3(-20.22923, -1413.887, 30.69171), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
+
                 NAPI.TextLabel.CreateTextLabel("~g~Carl Ballard", new Vector3(85.79006, -1957.156, 20.74745), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.TextLabel.CreateTextLabel("~g~Chiraq Bloody", new Vector3(485.6168, -1529.195, 29.28829), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.TextLabel.CreateTextLabel("~g~Riki Veronas", new Vector3(1408.224, -1486.415, 60.65733), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);

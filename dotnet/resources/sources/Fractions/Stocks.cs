@@ -17,7 +17,7 @@ namespace iTeffa.Fractions
         public static Dictionary<int, FractionStock> fracStocks = new Dictionary<int, FractionStock>();
         private static Dictionary<int, Vector3> stockCoords = new Dictionary<int, Vector3>()
         {
-            { 1, new Vector3(-205.1935, -1615.512, -34.69367)},
+            {1, new Vector3(-25.72462, -1397.463, 23.55845)},     // The Families
             { 2, new Vector3(79.17244, -1966.011, -28.41237)},
             { 3, new Vector3(1424.026, -1488.611, -104.3677)},
             { 4, new Vector3(901.4553, -2166.65, 0.92118)},
@@ -38,7 +38,7 @@ namespace iTeffa.Fractions
         };
         private static Dictionary<int, Vector3> garageCoords = new Dictionary<int, Vector3>()
         {
-            { 1, new Vector3(-238.6097, -1596.93, 31.73427)},
+            {1, new Vector3(-25.12974, -1411.033, 28.50709)},      // The Families
             { 2, new Vector3(85.16203, -1972.12, 18.78526)},
             { 3, new Vector3(1401.759, -1514.474, 56.26676)},
             { 4, new Vector3(873.6498, -2197.615, 28.51937)},

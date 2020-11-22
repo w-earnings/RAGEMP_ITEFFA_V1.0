@@ -8,6 +8,7 @@ var Peds = [
 	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалторское агенство
     {Hash:  1055701597, Pos: new mp.Vector3(-1030.60, -2744.5, 13.85), Angle: 21.000}, // Информация о сервере
 
+    {Hash: 1706635382, Pos: new mp.Vector3(-20.23, -1413.89, 29.31, 272.53), Angle: 272.53}, // The Families
 
 
 
@@ -20,7 +21,6 @@ var Peds = [
     { Hash: -1398552374, Pos: new mp.Vector3(2192.614, 5596.246, 53.75177), Angle: 318.0 }, // Daniel Roberts
     { Hash: -459818001, Pos: new mp.Vector3(-215.4299, 6445.921, 31.30351), Angle: 262.0 }, // Michael Turner
     { Hash: 0x9D0087A8, Pos: new mp.Vector3(480.9385, -1302.576, 29.24353), Angle: 224.0 }, // jimmylishman
-    { Hash: 1706635382, Pos: new mp.Vector3(-222.5464, -1617.449, 34.86932), Angle: 309.2058 }, // Lamar_Davis
     { Hash: 588969535, Pos: new mp.Vector3(85.79006, -1957.156, 20.74745), Angle: 320.4474 }, // Carl_Ballard
     { Hash: -812470807, Pos: new mp.Vector3(485.6168, -1529.195, 29.28829), Angle: 56.19691 }, // Chiraq_Bloody
     { Hash: 653210662, Pos: new mp.Vector3(1408.224, -1486.415, 60.65733), Angle: 192.2974 }, // Riki_Veronas

@@ -26,7 +26,9 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(88, Fbi.EnterFBI, 0.75F, 58, Main.StringToU16("FIB"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(526, Police.policeCheckpoints[1], 0.75F, 38, Main.StringToU16("Полиция"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(630, FractionSpawns[1], 0.75F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
+
+                NAPI.Blip.CreateBlip(84, FractionSpawns[1], 0.75F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
+
                 NAPI.Blip.CreateBlip(630, FractionSpawns[2], 0.75F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(630, FractionSpawns[3], 0.75F, 28, Main.StringToU16("Los Santos Vagos"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(630, FractionSpawns[4], 0.75F, 74, Main.StringToU16("Marabunta Grande"), 255, 0, true, 0, 0);
@@ -151,7 +153,8 @@ namespace iTeffa.Fractions
         
         public static SortedList<int, Vector3> FractionSpawns = new SortedList<int, Vector3>()
         {
-            {1, new Vector3(-219.8333, -1615.615, 35.74932)},    // The Families
+            {1, new Vector3(-25.01989, -1398.197, 29.38819)},    // The Families
+
             {2, new Vector3(93.79514, -1961.605, 21.62755)},     // The Ballas Gang
             {3, new Vector3(1403.206, -1483.664, 60.63504)},     // Los Santos Vagos
             {4, new Vector3(891.9399, -2174.212, 33.16626)},     // Marabunta Grande
