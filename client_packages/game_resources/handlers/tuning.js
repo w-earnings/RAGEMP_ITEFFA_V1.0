@@ -1,4 +1,4 @@
-﻿var lsc = mp.browsers.new("package://cef/lscustoms/home.html");
+﻿var lsc = mp.browsers.new("package://game_resources/interface/tuning/main.html");
 var lscSpeed = 0;
 var lscBrakes = 0;
 var lscBoost = 0;
@@ -41,7 +41,7 @@ mp.events.add("tpage", (id) => {
         mp.events.callRemote("exitTuning");
         opened = false;
     } else {
-        lsc.execute(`window.location = 'package://cef/lscustoms/${id}.html'`);
+        lsc.execute(`window.location = ' package://game_resources/interface/tuning/${id}.html'`);
         lsc.execute(`set(${lscSpeed},${lscBrakes},${lscBoost},${lscСlutch})`);
 
         if (id == "home") {
