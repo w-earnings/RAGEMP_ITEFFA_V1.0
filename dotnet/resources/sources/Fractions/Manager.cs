@@ -28,11 +28,16 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
 
                 NAPI.Blip.CreateBlip(84, FractionSpawns[1], 0.75F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
+                /*
+                 * 
+                 * 
+                 */
+                NAPI.Blip.CreateBlip(84, FractionSpawns[5], 0.75F, 49, Main.StringToU16("Blood Street"), 255, 0, true, 0, 0);
 
                 NAPI.Blip.CreateBlip(630, FractionSpawns[2], 0.75F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(630, FractionSpawns[3], 0.75F, 28, Main.StringToU16("Los Santos Vagos"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(630, FractionSpawns[4], 0.75F, 74, Main.StringToU16("Marabunta Grande"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(630, FractionSpawns[5], 0.75F, 49, Main.StringToU16("Blood Street"), 255, 0, true, 0, 0);
+
                 NAPI.Blip.CreateBlip(78, FractionSpawns[10], 0.75F, 5, Main.StringToU16("La Cosa Nostra"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[11], 0.75F, 4, Main.StringToU16("Русская мафия"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[12], 0.75F, 76, Main.StringToU16("Якудза"), 255, 0, true, 0, 0);
@@ -158,7 +163,9 @@ namespace iTeffa.Fractions
             {2, new Vector3(93.79514, -1961.605, 21.62755)},     // The Ballas Gang
             {3, new Vector3(1403.206, -1483.664, 60.63504)},     // Los Santos Vagos
             {4, new Vector3(891.9399, -2174.212, 33.16626)},     // Marabunta Grande
-            {5, new Vector3(480.8304, -1527.922, 30.18241)},     // Blood Street
+
+            {5, new Vector3(966.2534, -1833.792, 31.14424)},     // Blood Street
+
             {6, new Vector3(-572.94464, -201.82872, 42.58397)},      // Cityhall
             {7, new Vector3(457.4271, -991.4473, 31.5696)},      // LSPD police
             {8, new Vector3(244.7622, -1374.57, 40.41434)},      // Emergency care
