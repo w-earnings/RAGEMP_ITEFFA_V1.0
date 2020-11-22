@@ -10,23 +10,6 @@ namespace iTeffa.Fractions
     {
         private static nLog Log = new nLog("Gangs");
 
-        public static Dictionary<int, Vector3> EnterPoints = new Dictionary<int, Vector3>()
-        {
-            {1, new Vector3(-25.01989, -1398.197, 0.38819)},       // The Families
-            {2, new Vector3(111.9266, -2005.851, 0.18042)},         // The Ballas Gang
-            { 3, new Vector3(1408.579, -1486.897, 59.53736) },
-            {4, new Vector3(1445.421, -1486.313, 0.49925)},        // Marabunta Grande
-            {5, new Vector3(966.2534, -1833.792, 0.14424)},        // Blood Street
-        };
-        public static Dictionary<int, Vector3> ExitPoints = new Dictionary<int, Vector3>()
-        {
-            {1, new Vector3(-25.01989, -1398.197, 0.38819)},        // The Families
-            {2, new Vector3(111.9266, -2005.851, 0.18042)},         // The Ballas Gang
-            { 3, new Vector3(1420.487, -1497.264, -107.8639) },
-            {4, new Vector3(1445.421, -1486.313, 0.49925)},         // Marabunta Grande
-            {5, new Vector3(966.2534, -1833.792, 0.14424)},         // Blood Street
-        };
-
         public static List<Vector3> DrugPoints = new List<Vector3>()
         {
             new Vector3(8.621573, 3701.914, 39.51624),
@@ -41,13 +24,9 @@ namespace iTeffa.Fractions
             {
                 NAPI.TextLabel.CreateTextLabel("~g~The Families", new Vector3(-20.22923, -1413.887, 30.69171), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.TextLabel.CreateTextLabel("~g~The Ballas", new Vector3(122.4267, -1997.826, 19.78442), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
-                /*
-                 */
+                NAPI.TextLabel.CreateTextLabel("~g~Los Santos Vagos", new Vector3(475.6741, -1892.156, 27.47474), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.TextLabel.CreateTextLabel("~g~Marabunta Grande", new Vector3(1435.111, -1491.589, 65.002), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.TextLabel.CreateTextLabel("~g~Blood Street", new Vector3(965.933, -1828.772, 32.59891), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
-
-                NAPI.TextLabel.CreateTextLabel("~g~Carl Ballard", new Vector3(85.79006, -1957.156, 20.74745), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
-                NAPI.TextLabel.CreateTextLabel("~g~Chiraq Bloody", new Vector3(485.6168, -1529.195, 29.28829), 5f, 0.3f, 0, new Color(255, 255, 255), true, 0);
 
                 foreach (var pos in DrugPoints)
                 {
@@ -74,45 +53,6 @@ namespace iTeffa.Fractions
                     };
                 }
 
-                foreach (var point in EnterPoints)
-                {
-                    NAPI.Marker.CreateMarker(1, point.Value - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, NAPI.GlobalDimension);
-
-                    var col = NAPI.ColShape.CreateCylinderColShape(point.Value, 1.2f, 2, NAPI.GlobalDimension);
-                    col.SetData("FRAC", point.Key);
-
-                    col.OnEntityEnterColShape += (s, e) =>
-                    {
-                        if (!Main.Players.ContainsKey(e)) return;
-                        e.SetData("FRACTIONCHECK", s.GetData<object>("FRAC"));
-                        e.SetData("INTERACTIONCHECK", 64);
-                    };
-                    col.OnEntityExitColShape += (s, e) =>
-                    {
-                        if (!Main.Players.ContainsKey(e)) return;
-                        e.SetData("INTERACTIONCHECK", -1);
-                    };
-                }
-
-                foreach (var point in ExitPoints)
-                {
-                    NAPI.Marker.CreateMarker(1, point.Value - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, NAPI.GlobalDimension);
-
-                    var col = NAPI.ColShape.CreateCylinderColShape(point.Value, 1.2f, 2, NAPI.GlobalDimension);
-                    col.SetData("FRAC", point.Key);
-
-                    col.OnEntityEnterColShape += (s, e) =>
-                    {
-                        if (!Main.Players.ContainsKey(e)) return;
-                        e.SetData("FRACTIONCHECK", s.GetData<object>("FRAC"));
-                        e.SetData("INTERACTIONCHECK", 65);
-                    };
-                    col.OnEntityExitColShape += (s, e) =>
-                    {
-                        if (!Main.Players.ContainsKey(e)) return;
-                        e.SetData("INTERACTIONCHECK", -1);
-                    };
-                }
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }

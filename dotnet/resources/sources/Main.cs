@@ -1865,12 +1865,7 @@ namespace iTeffa
                     case 57:
                         Fractions.AlcoFabrication.Event_InteractPressed(player, id);
                         return;
-                    case 64:
-                        Fractions.Manager.enterInterier(player, player.GetData<int>("FRACTIONCHECK"));
-                        return;
-                    case 65:
-                        Fractions.Manager.exitInterier(player, player.GetData<int>("FRACTIONCHECK"));
-                        return;
+
                     case 70:
                         // Clean Script
                         return;

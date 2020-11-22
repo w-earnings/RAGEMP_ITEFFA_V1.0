@@ -29,14 +29,9 @@ namespace iTeffa.Fractions
 
                 NAPI.Blip.CreateBlip(84, FractionSpawns[1], 0.75F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(84, FractionSpawns[2], 0.75F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
-                /*
-                 */
+                NAPI.Blip.CreateBlip(84, FractionSpawns[3], 0.75f, 28, Main.StringToU16("Los Santos Vagos"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(84, FractionSpawns[4], 0.75F, 74, Main.StringToU16("Marabunta Grande"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(84, FractionSpawns[5], 0.75F, 49, Main.StringToU16("Blood Street"), 255, 0, true, 0, 0);
-
-                NAPI.Blip.CreateBlip(630, FractionSpawns[2], 0.75F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(630, FractionSpawns[3], 0.75F, 28, Main.StringToU16("Los Santos Vagos"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(630, FractionSpawns[4], 0.75F, 74, Main.StringToU16("Marabunta Grande"), 255, 0, true, 0, 0);
 
                 NAPI.Blip.CreateBlip(78, FractionSpawns[10], 0.75F, 5, Main.StringToU16("La Cosa Nostra"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[11], 0.75F, 4, Main.StringToU16("Русская мафия"), 255, 0, true, 0, 0);
@@ -160,11 +155,7 @@ namespace iTeffa.Fractions
         {
             {1, new Vector3(-25.01989, -1398.197, 29.38819)},    // The Families
             {2, new Vector3(111.9266, -2005.851, 18.18042)},     // The Ballas Gang
-
-
-            {3, new Vector3(1403.206, -1483.664, 60.63504)},     // Los Santos Vagos
-
-            
+            {3, new Vector3(482.8006, -1877.859, 25.97736)},     // Los Santos Vagos
             {4, new Vector3(1445.421, -1486.313, 66.49925)},     // Marabunta Grande
             {5, new Vector3(966.2534, -1833.792, 31.14424)},     // Blood Street
 
@@ -1320,24 +1311,6 @@ namespace iTeffa.Fractions
             GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, ammoType.ToString(), 1, false);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {nInventory.ItemsNames[(int)ammoType]} x{ammo}", 3000);
             return;
-        }
-
-        public static void enterInterier(Player player, int fractionId)
-        {
-            var position = (fractionId <= 5) ? Gangs.ExitPoints[fractionId] : Mafia.ExitPoints[fractionId];
-            player.Position = position + new Vector3(0, 0, 1.12);
-            Main.PlayerEnterInterior(player, position + new Vector3(0, 0, 1.12));
-
-            Trigger.ClientEvent(player, "stopTime");
-        }
-
-        public static void exitInterier(Player player, int fractionId)
-        {
-            var position = (fractionId <= 5) ? Gangs.EnterPoints[fractionId] : Mafia.EnterPoints[fractionId];
-            player.Position = position + new Vector3(0, 0, 1.12);
-            Main.PlayerEnterInterior(player, position + new Vector3(0, 0, 1.12));
-
-            Trigger.ClientEvent(player, "resumeTime");
         }
 
         public class MemberData

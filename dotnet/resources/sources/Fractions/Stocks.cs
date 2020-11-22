@@ -18,10 +18,11 @@ namespace iTeffa.Fractions
         private static Dictionary<int, Vector3> stockCoords = new Dictionary<int, Vector3>()
         {
             {1, new Vector3(-25.72462, -1397.463, 23.55845)},     // The Families
-            {2, new Vector3(114.8752, -1995.554, 11.48072)},    // The Ballas Gang
-            { 3, new Vector3(1424.026, -1488.611, -104.3677)},
-            {4, new Vector3(1435.88, -1490.218, 65.49928)},     // Marabunta Grande
-            {5, new Vector3(973.9128, -1845.269, 25.28732)},     // Blood Street
+            {2, new Vector3(114.8752, -1995.554, 11.48072)},      // The Ballas Gang
+            {3, new Vector3(475.6863, -1899.641, 24.83773)},      // Los Santos Vagos
+            {4, new Vector3(1435.88, -1490.218, 65.49928)},       // Marabunta Grande
+            {5, new Vector3(973.9128, -1845.269, 25.28732)},      // Blood Street
+
             { 6, new Vector3()},
             { 7, new Vector3()},
             { 8, new Vector3()},
@@ -38,11 +39,12 @@ namespace iTeffa.Fractions
         };
         private static Dictionary<int, Vector3> garageCoords = new Dictionary<int, Vector3>()
         {
-            {1, new Vector3(-25.12974, -1411.033, 28.50709)},      // The Families
-            {2, new Vector3(115.0507, -1993.898, 17.18044)},        // The Ballas Gang
-            { 3, new Vector3(1401.759, -1514.474, 56.26676)},
-            {4, new Vector3(1435.542, -1479.373, 62.10447)},    // Marabunta Grande
+            {1, new Vector3(-25.12974, -1411.033, 28.50709)},    // The Families
+            {2, new Vector3(115.0507, -1993.898, 17.18044)},     // The Ballas Gang
+            {3, new Vector3(472.6555, -1882.347, 24.97735)},     // Los Santos Vagos
+            {4, new Vector3(1435.542, -1479.373, 62.10447)},     // Marabunta Grande
             {5, new Vector3(975.5194, -1841.575, 30.14339)},     // Blood Street
+
             { 6, new Vector3(-580.291, -130.4515, 34.00952)},
             { 7, new Vector3(434.195, -1005.593, 26.21062)},
             { 8, new Vector3(329.4695, -557.2731, 27.62379)},
