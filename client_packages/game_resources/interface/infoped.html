@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="package://game_resources/interface/assets/css/infoped.css">
+	<script src="package://game_resources/interface/plugins/js/vue.js"></script>
+</head>
+<body>
+		<div id="infoped" class="infoped" v-if="active">
+		<div class="bgshow"></div>
+		<div class="exit_btn" @click="exit">
+			<img src="package://game_resources/interface/assets/img/infoped/close.svg" alt="">
+		</div>
+        <div class="list_main" id="infoped_main" v-if="menu == 0">
+			<div class="blockSpawn top dataimages"  data-src="package://game_resources/interface/assets/img/infoped/lic_bg.png" data-size="cover" style="background: url(&quot;img/infoped/lic_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/lic_take_icon.png" alt="" class="icon">
+				<div class="title">Получение лицензии</div>
+			</div>
+			<div class="blockSpawn down dataimages" data-src="package://game_resources/interface/assets/img/infoped/factions_bg.png" data-size="cover" style="background: url(&quot;img/infoped/factions_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/lic_icon.png" alt="" class="icon">
+				<div class="title">Фракции</div>
+			</div>
+			<div class="blockSpawn top dataimages" data-src="package://game_resources/interface/assets/img/infoped/carier_bg.png" data-size="cover" style="background: url(&quot;img/infoped/carier_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/jobs_icon.png" alt="" class="icon">
+				<div class="title">Начальные работы</div>
+			</div>
+			<div class="blockSpawn down dataimages" data-src="package://game_resources/interface/assets/img/infoped/neft_bg.png" data-size="cover" style="background: url(&quot;img/infoped/neft_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/biz_icon.png" alt="" class="icon">
+				<div class="title">Виды бизнесов</div>
+			</div>
+			<div class="blockSpawn top dataimages" data-src="package://game_resources/interface/assets/img/infoped/stroika_bg.png" data-size="cover" style="background: url(&quot;img/infoped/stroika_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/jobs_icon.png" alt="" class="icon">
+				<div class="title">Компании</div>
+			</div>
+			<div class="blockSpawn down dataimages" data-src="package://game_resources/interface/assets/img/infoped/family_bg.png" data-size="cover" style="background: url(&quot;img/infoped/family_bg.png&quot;) center center / cover no-repeat;">
+				<div class="cover"></div>
+				<img src="package://game_resources/interface/assets/img/infoped/family_icon.png" alt="" class="icon">
+				<div class="title">Семьи</div>
+            </div>
+        </div>
+	</div>
+	<script src="package://game_resources/interface/plugins/js/jquery-3.2.1.min.js"></script>
+    <script src="package://game_resources/interface/assets/js/infoped.js"></script>
+</body>
+
+</html>
