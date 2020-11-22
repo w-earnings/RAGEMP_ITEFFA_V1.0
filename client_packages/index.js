@@ -222,7 +222,7 @@ require('./game_resources/handlers/plugins/bind_keys.js');
 require('./game_resources/handlers/control/coordinates.js');
 require('./game_resources/handlers/control/adminpanel.js');
 		require('./menus.js');
-		require('./lscustoms.js');
+require('./game_resources/handlers/tuning.js');
 		require('./client/player/afksystem.js');
 		require('./character.js');
 		require('./render.js');
