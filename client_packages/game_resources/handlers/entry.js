@@ -3,8 +3,8 @@ cam.pointAtCoord(-95, 19, 0);
 cam.setActive(true);
 mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
-var respawn = mp.browsers["new"]('package://cef/respawn.html');
-var auth = mp.browsers["new"]('package://cef/auth.html');
+var respawn = mp.browsers["new"]('package://game_resources/interface/respawn.html');
+var auth = mp.browsers["new"]('package://game_resources/interface/entry.html');
 auth.execute(`slots.server=${serverid};`);
 mp.gui.cursor.visible = true;
 
@@ -14,14 +14,12 @@ var lastButSlots = 0;
 setTimeout(function () { 
     if (mp.storage.data.account)
     {
-        // mp.events.call('notify', 4, 9, "Пароль был сохранен: " + mp.storage.data.account.pass, 3000);
         auth.execute(`document.getElementById("entry-login-id").value = "${mp.storage.data.account.username}";`);
         auth.execute(`document.getElementById("entry-password-id").value = "${mp.storage.data.account.pass}";`);
         auth.execute(`document.getElementById("entry-savemy").checked = true;`);
     }
 }, 150);
 
-// events from cef
 mp.events.add('signin', function (authData) {
     if (new Date().getTime() - lastButAuth < 3000) {
         mp.events.call('notify', 4, 9, "Слишком быстро", 3000);
@@ -181,7 +179,6 @@ mp.events.add('buyNewSlot', function (data) {
 	mp.events.callRemote('donate', 8, data);
 });
 
-// events from server
 mp.events.add('delCharSuccess', function (data) {
     auth.execute(`delchar(${data})`);
 });
@@ -220,7 +217,7 @@ mp.events.add('ready', function () {
     mp.events.call('hideTun');
     mp.game.player.setHealthRechargeMultiplier(0);
 
-    global.menu = mp.browsers["new"]('package://cef/menu.html');
+    global.menu = mp.browsers["new"]('package://game_resources/interface/menu.html');
 
     if (respawn != null) {
         respawn.destroy();
@@ -243,14 +240,14 @@ function checkName(str) {
 
 function checkName2(str) {
     let ascii = str.charCodeAt(0);
-    if (ascii < 65 || ascii > 90) return false; // Если первый символ не заглавный, сразу отказ
-    let bsymbs = 0; // Кол-во заглавных символов
+    if (ascii < 65 || ascii > 90) return false;
+    let bsymbs = 0;
     for (let i = 0; i != str.length; i++) {
         ascii = str.charCodeAt(i);
         if (ascii >= 65 && ascii <= 90) bsymbs++;
     }
-    if (bsymbs > 2) return false; // Если больше 2х заглавных символов, то отказ. (На сервере по правилам разрешено иметь Фамилию, например McCry, то есть с приставками).
-    return true; // string (имя или фамилия) соответствует
+    if (bsymbs > 2) return false;
+    return true;
 }
 
 mp.events.add('authNotify', (type, layout, msg, time) => {

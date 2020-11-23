@@ -16,28 +16,28 @@
 
 	@font-face {
 		font-family: ProximaNova;
-		src: url(../fonts/ProximaNova-Regular.woff);
+		src: url(../fonts/ProximaNova/ProximaNova-Regular.woff);
 		font-weight: 400;
 		font-style: normal;
 		font-display: swap
 	}
 	@font-face {
 		font-family: ProximaNova;
-		src: url(../fonts/ProximaNova-Semibold.woff);
+		src: url(../fonts/ProximaNova/ProximaNova-Semibold.woff);
 		font-weight: 500;
 		font-display: swap
 	}
 
 	@font-face {
 		font-family: ProximaNova;
-		src: url(../fonts/ProximaNova-Light.woff);
+		src: url(../fonts/ProximaNova/ProximaNova-Light.woff);
 		font-weight: 100;
 		font-display: swap
 	}
 
 	@font-face {
 		font-family: ProximaNova;
-		src: url(../fonts/ProximaNova-Bold.woff);
+		src: url(../fonts/ProximaNova/ProximaNova-Bold.woff);
 		font-weight: 900;
 		font-style: normal;
 		font-display: swap
@@ -45,7 +45,7 @@
 
 	@font-face {
 		font-family: ProximaNova;
-		src: url(../fonts/ProximaNova-Extrabld.woff);
+		src: url(../fonts/ProximaNova/ProximaNova-Extrabld.woff);
 		font-weight: 700;
 		font-style: normal;
 		font-display: swap
@@ -53,7 +53,6 @@
 	
 	#infoped .bgshow {
 	position: absolute;
-	background:url('../images/donate/bgshow.png');
 	box-shadow: inset 0 0 678px 586px rgb(29 27 40 / 60%);
 	background-size: 100% 100%;
     width: 100%;
