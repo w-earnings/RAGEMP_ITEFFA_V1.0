@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cam</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300&amp;subset=cyrillic-ext" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/cam.css">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/slider.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/fonts/FontAwesome/font-awesome.css">
+</head>
+
+<body>
+  <div class="control" style="display: none">
+    <p>Поворот</p>
+    <input id="rotate" type="range" value="0" step="1" min="0" max="360">
+    <output id="rotate">0</output>
+    <p>Высота</p>
+    <input id="height" type="range" value="0" step="0.1" min="-0.7" max="0.7">
+    <output id="height">0</output>
+    <p>Дальность</p>
+    <input id="depth" type="range" value="1" step="0.1" min="0.5" max="1.5">
+    <output id="depth">0</output>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="package://game_resources/interface/assets/js/rangeslider.min.js"></script>
+<script src="package://game_resources/interface/assets/js/cam.js"></script>
+
+</html>

@@ -1,4 +1,4 @@
-﻿global.atm = mp.browsers.new('package://cef/banks/atm.html');
+﻿global.atm = mp.browsers.new('package://game_resources/interface/atm.html');
 // ATM //
 var atmIndex = 0;
 mp.events.add('openatm', () => {

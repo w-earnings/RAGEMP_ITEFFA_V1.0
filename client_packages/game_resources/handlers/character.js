@@ -226,7 +226,7 @@ mp.events.add('CreatorCamera', () => {
 
     localplayer.taskPlayAnim("amb@world_human_guard_patrol@male@base", "base", 8.0, 1, -1, 1, 0.0, false, false, false);
 
-    if(editorBrowser == null) editorBrowser = mp.browsers.new('package://cef/character.html#content-1');
+    if(editorBrowser == null) editorBrowser = mp.browsers.new('package://game_resources/interface/character.html#content-1');
 
     global.menuOpen();
     mp.events.call('camMenu', true);
@@ -256,8 +256,8 @@ mp.events.add('DestroyCamera', () => {
     if (global.menu == null)
     {
         global.loggedin = true;
-        global.menu = mp.browsers["new"]('package://cef/menu.html');
-        global.helpmenu = mp.browsers["new"]('package://cef/help.html');
+        global.menu = mp.browsers["new"]('package://game_resources/interface/menu.html');
+        global.helpmenu = mp.browsers["new"]('package://game_resources/interface/help.html');
     }
 });
 

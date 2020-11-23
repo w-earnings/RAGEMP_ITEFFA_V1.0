@@ -1005,15 +1005,9 @@ let auto = {
     color: null,
     entity: null,
 }
-const cameraRotator = require("cef/js/vie.js");
-
-/*var vehCamPosition = new mp.Vector3(-42.3758, -1101.672, 26.42235);
-var vehCamRotation = new mp.Vector3(0, 0, 1.701622);
-var vehPosition = new mp.Vector3(-42.79771, -1095.676, 26.0117);
-var vehRotation = new mp.Vector3(0, 0, -136.246);*/
+const cameraRotator = require("./game_resources/handlers/plugins/vie.js");
 
 function createCam(x, y, z, rx, ry, rz, viewangle) {
-    // camera = mp.cameras.new("Cam", {x, y, z}, {x: rx, y: ry, z: rz}, viewangle);
     camera = mp.cameras.new("default");
     camera.setCoord(x, y, z);
     camera.setRot(rx, ry, rz, 2);
@@ -1044,7 +1038,6 @@ mp.events.add('auto', (act, value) => {
 mp.events.add('buyAuto', () => {
 	if(new Date().getTime() - global.lastCheck < 50) return; 
 	global.lastCheck = new Date().getTime();
-    //mp.gui.chat.push('auto buy');
 
     global.menuClose();
     global.menu.execute('auto.active=0');
@@ -1242,7 +1235,6 @@ mp.events.add('closeWCraft', () => {
     wcraft.top = 0;
 })
 mp.events.add('openWCraft', (frac, json) => {
-    //mp.gui.chat.push(`${frac}:${json}`);
     wcraft.data = JSON.parse(json);
     wcraft.data[4] = [];
     wcraft.frac = frac;
@@ -1252,7 +1244,7 @@ mp.events.add('openWCraft', (frac, json) => {
 })
 // CAM //
 global.camMenu = false;
-var camMenuCEF = mp.browsers.new('package://cef/cam.html');
+var camMenuCEF = mp.browsers.new('package://game_resources/interface/cam.html');
 var camMenuValues = { Angle: 0, Dist: 1, Height: 0 };
 
 mp.events.add('camMenu', (status) => {
@@ -1690,7 +1682,7 @@ function setMaskCEF(type, jsonstr) {
 }
 
 // Color picker //
-global.colorp = mp.browsers.new('package://cef/color.html');
+global.colorp = mp.browsers.new('package://game_resources/interface/color.html');
 mp.events.add('showColorp', () => {
     global.colorp.execute(`show(${true})`);
 })
@@ -1717,7 +1709,7 @@ mp.events.add('scolor', (c) => {
 })
 
 // Report menu
-var report = mp.browsers.new('package://cef/ticket.html');
+var report = mp.browsers.new('package://game_resources/interface/ticket.html');
 var reportactive = false;
 mp.events.add('addreport', (id_, author_, quest_) => {
     report.execute(`addReport(${id_},'${author_}','${quest_}', false, '')`);
@@ -1748,7 +1740,7 @@ var advertsactive = false;
 
 mp.events.add('enableadvert', (toggle) => {
 	try {
-		if(toggle) adverts = mp.browsers.new('package://cef/adverts.html');
+		if(toggle) adverts = mp.browsers.new('package://game_resources/interface/adverts.html');
 		advertsloaded = toggle;
 	} catch(e) {
 	}

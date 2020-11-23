@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Phone</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/grids-min.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/phone.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/css/os.css">
+  <link rel="stylesheet" href="package://game_resources/interface/assets/fonts/FontAwesome/font-awesome.css">
+  <style>
+  body {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    font-family: "Ubuntu", sans-serif;
+  }
+  </style>
+</head>
+
+<body onload="startTime()">
+  <div class="phone" style="opacity: 0">
+    <div class="forelock">
+      <div class="speaker"></div>
+      <div class="camera">
+        <div class="camera-dot"></div>
+      </div>
+    </div>
+    <div class="phone-screen">
+      <div class="bar">
+        <div class="time" id="txt"></div>
+        <div id="wifi"><img src="package://game_resources/interface/assets/icons/phone/wifi.png" width="16" height="16"></div>
+        <div id="battery"><img src="package://game_resources/interface/assets/icons/phone/battery.png" width="20" height="20"></div>
+      </div>
+      <div class="pure-g main"></div>
+      <div class="navigation">
+      </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="package://game_resources/interface/plugins/js/move.min.js"></script>
+<script src='package://game_resources/interface/assets/js/os.js'></script>
+
+</html>

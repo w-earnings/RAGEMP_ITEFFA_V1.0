@@ -40,28 +40,22 @@ U.init_console = function () {
 	});
 	$(document).on('click', '#console-debug-input button', function(event) {
 		var code = $('#console-debug-input textarea').val();
-		// console.log(code);
 		eval(code);
 	});
 };
 U.dbg_trigger = function () {};
 U.init_debug = function () {
-	if (location.pathname.indexOf('auth.html') != -1) {
+	if (location.pathname.indexOf('entry.html') != -1) {
 		setTimeout(function () {
 			toslots('[\
 				-1,\
 				-1,\
 				-2,0,"umbokc"\
 				]');
-			// toslots('[\
-			// 	["Asdd","Asdsd",10,0,"-",5001000,0],\
-			// 	["Pol","Lol",0,0,"-",500,0],\
-			// 	-2,0,"umbokc"\
-			// ]');
 		}, 500);
 	}
 
-	if( (location.pathname.indexOf('phone.html')  != -1) || (location.pathname.indexOf('android.html')  != -1)) {
+	if( (location.pathname.indexOf('phone.html')  != -1)) {
 		show();
 
 		var data = {
@@ -102,21 +96,7 @@ U.init_debug = function () {
 			} else {
 				console.log('Not found: ' + key);
 			}
-			// console.log(key);
 		}
-
-		// "housebuy"
-		// false
-		// false
-		// "[["header","Покупка дома",1,0,1,0,false,[null]],["buy","Купить дом",3,0,1,0,false,[null]],["interior","Посмотреть интерьер",3,0,1,0,false,[null]],["close","Закрыть",3,0,1,0,false,[null]]]"
-
-		// "mainmenu"
-		// false
-		// false
-		// '[["header","Меню",1,0,1,0,false,[null]],["gps","GPS",3,0,2,0,false,[null]],["contacts","Контакты",3,0,2,0,false,[null]],["services","Вызовы",3,0,2,0,false,[null]],["ad","Подать объявление",3,0,1,0,false,[null]],["close","Закрыть",3,0,1,0,false,[null]]]'
-
-		//"gps"
-		// '"
 	}
 };
 
@@ -184,7 +164,6 @@ window.console = {
 	log: function(message, param = '') {
 		if (Array.isArray(message)){
 			message = '[' + (message.toString()) + ']';
-			// message = '[' + ']';
 		}
 
 		originalConsole.log(param + ': ');
@@ -196,8 +175,4 @@ window.console = {
 
 $(function() {
 	document.addEventListener("keydown", U._KeyCheck);
-
-
-	// U.init_console();
-	// U.init_debug();
 });
