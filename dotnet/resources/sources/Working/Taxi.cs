@@ -151,7 +151,6 @@ namespace iTeffa.Working
                         {
                             driver.ResetData("PASSAGER");
                             player.SetData("IS_CALL_TAXI", false);
-                            player.ResetData("TAXI_DRIVER");
                             try
                             {
                                 NAPI.ColShape.DeleteColShape(orderCols[player]);
