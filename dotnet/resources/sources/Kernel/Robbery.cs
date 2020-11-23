@@ -312,7 +312,7 @@ namespace iTeffa.Kernel
             }
             else
             {
-                if (!player.HasData("IS_MASK") || !player.GetData<bool>("IS_MASK"))
+                if (!player.HasSharedData("IS_MASK") || !player.GetData<bool>("IS_MASK"))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Взлом возможен только в маске", 3000);
                     return;
@@ -341,11 +341,14 @@ namespace iTeffa.Kernel
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет отмычки", 3000);
                     return;
                 }
-                if (DateTime.Now < NextRobbery && NowRobberyID != safe.ID)
+                if (safe.Address != "Мэрия")
                 {
-                    DateTime g = new DateTime((NextRobbery - DateTime.Now).Ticks);
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Попробуйте через {g.Minute}:{g.Second}", 3000);
-                    return;
+                    if (DateTime.Now < NextRobbery && NowRobberyID != safe.ID)
+                    {
+                        DateTime g = new DateTime((NextRobbery - DateTime.Now).Ticks);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Попробуйте через {g.Minute}:{g.Second}", 3000);
+                        return;
+                    }
                 }
 
                 var nearestPlayers = Main.GetPlayersInRadiusOfPosition(player.Position, 7);
@@ -368,12 +371,15 @@ namespace iTeffa.Kernel
                 Manager.sendFractionMessage(7, $"Сейф по адресу {safe.Address} пытаются взломать");
                 Manager.sendFractionMessage(9, $"Сейф по адресу {safe.Address} пытаются взломать");
 
-                if (NowRobberyID != safe.ID) NextRobbery = DateTime.Now.AddMinutes(15);
-                NowRobberyID = safe.ID;
+                if (safe.Address != "Мэрия")
+                {
+                    if (NowRobberyID != safe.ID) NextRobbery = DateTime.Now.AddMinutes(15);
+                    NowRobberyID = safe.ID;
+                }
 
                 if (DateTime.Now >= safe.BlipSet)
                 {
-                    safe.Blip = NAPI.Blip.CreateBlip(0, safe.Position, 0.75F, 59, "Robbery", 0, 0, true, 0, 0);
+                    safe.Blip = NAPI.Blip.CreateBlip(0, safe.Position, 1, 59, "Ограбление", 0, 0, true, 0, 0);
                     safe.Blip.Transparency = 0;
                     foreach (var p in Main.Players.Keys.ToList())
                     {
@@ -393,7 +399,7 @@ namespace iTeffa.Kernel
                     }, 900000);
                 }
 
-                if (player.HasSharedData("IS_MASK") && !player.GetData<bool>("IS_MASK"))
+                if (player.HasSharedData("IS_MASK") && !player.GetSharedData<bool>("IS_MASK"))
                 {
                     var wantedLevel = new WantedLevel(4, "Полиция", DateTime.Now, "Ограбление сейфа");
                     Police.setPlayerWantedLevel(player, wantedLevel);
