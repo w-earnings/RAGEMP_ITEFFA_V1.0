@@ -1412,9 +1412,10 @@ namespace iTeffa.Kernel
                             if (item.IsActive)
                             {
                                 Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask = new ComponentItem(Customization.EmtptySlots[gender][1], 0);
-
                                 nInventory.Items[UUID][index].IsActive = false;
                                 Interface.Dashboard.Update(player, item, index);
+                                player.SendChatMessage("~r~Маска снята");
+                                player.SetSharedData("HideNick", false);
                             }
                             else
                             {
@@ -1422,6 +1423,8 @@ namespace iTeffa.Kernel
                                 var variation = Convert.ToInt32(itemData.Split('_')[0]);
                                 var texture = Convert.ToInt32(itemData.Split('_')[1]);
                                 Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask = new ComponentItem(variation, texture);
+                                player.SendChatMessage("~r~Маска одета");
+                                player.SetSharedData("HideNick", true);
 
                                 if (Customization.MaskTypes.ContainsKey(variation))
                                 {
