@@ -442,6 +442,25 @@ namespace iTeffa
             NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
         }
 
+        [RemoteEvent("reloadcef")]
+        public static void ClientEvent_ReloadCef(Player player)
+        {
+            try
+            {
+                Trigger.ClientEvent(player, "CUFFED", true);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Голосовой чат и интерфейс перезагружен.", 3000);
+                Dashboard.Close(player);
+                Trigger.ClientEvent(player, "CUFFED", false);
+                if (Players[player].FractionID == 7 || Players[player].FractionID == 9)
+                {
+                    Trigger.ClientEvent(player, "CUFFED", false);
+                }
+                player.StopAnimation();
+                return;
+            }
+            catch (Exception e) { Log.Write($"reloadcef: " + e.Message); }
+        }
+
         [RemoteEvent("deletearmor")]
         public void ClientEvent_DeleteArmor(Player player)
         {

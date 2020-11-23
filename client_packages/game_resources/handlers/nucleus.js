@@ -123,6 +123,10 @@ mp.events.add('setPocketEnabled', function (state) {
     }
 });
 
+mp.keys.bind(global.Keys.VK_F3, false, function () {
+    mp.events.callRemote('reloadcef');
+});
+
 mp.keys.bind(Keys.VK_Y, false, function () {
     if (!loggedin || chatActive || editing || new Date().getTime() - lastCheck < 1000 || global.menuOpened) return;
     mp.events.callRemote('acceptPressed');
