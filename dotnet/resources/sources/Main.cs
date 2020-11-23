@@ -215,13 +215,10 @@ namespace iTeffa
                             case 10:
                                 Working.Scourge.CarInfos.Add(data);
                                 break;
-                            case 100:
-                                DrivingSchool.CarInfos.Add(data);
-                                break;
                         }
                     }
 
-                    Kernel.Rentcar.rentCarsSpawner();
+                    Rentcar.rentCarsSpawner();
                     Working.Bus.busCarsSpawner();
                     Working.Lawnmower.mowerCarsSpawner();
                     Working.Taxi.taxiCarsSpawner();
@@ -229,7 +226,6 @@ namespace iTeffa
                     Working.Collector.collectorCarsSpawner();
                     Working.AutoMechanic.mechanicCarsSpawner();
                     Working.Scourge.scourgeCarsSpawner();
-                    DrivingSchool.SchoolCarsSpawner();
                 }
                 else Log.Write("DB `othervehicles` return null result", nLog.Type.Warn);
 
@@ -1937,11 +1933,6 @@ namespace iTeffa
 
                     case 507:
                         Working.Scourge.StartWorkDayScourge(player);
-                        return;
-
-
-                    case 511:
-                        DrivingSchool.OpenTestSchoolMenu(player);
                         return;
 
                     case 512:
