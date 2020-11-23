@@ -192,20 +192,22 @@ namespace iTeffa.Kernel
                 NAPI.Chat.SendChatMessageToPlayer(player, "Coords: " + NAPI.Entity.GetEntityPosition(player));
             }
         }
+
         public static void setPlayerAdminGroup(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "setadmin")) return;
             if (Main.Players[target].AdminLVL >= 1)
             {
+                target.SetSharedData("IS_ADMIN", true);
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока уже есть админ. прав", 3000);
                 return;
             }
             Main.Players[target].AdminLVL = 1;
-            //Main.AdminSlots.Add(target.GetData("RealSocialClub"), new Main.AdminSlotsData(target.Name, 1, true, false));
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы Выдали админ. права игроку {target.Name}", 3000);
             Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} Выдал Вам админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"setAdmin", $"{target.Name}");
         }
+
         public static void delPlayerAdminGroup(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "deladmin")) return;
@@ -216,6 +218,7 @@ namespace iTeffa.Kernel
             }
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
+                target.ResetSharedData("IS_ADMIN");
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете забрать права у этого администратора", 3000);
                 return;
             }
