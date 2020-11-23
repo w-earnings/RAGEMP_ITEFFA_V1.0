@@ -485,7 +485,7 @@ namespace iTeffa
                 if (player.Vehicle == null || !player.HasData("TAXI_DRIVER")) return;
                 Player driver = player.GetData<Player>("TAXI_DRIVER");
                 if (driver == player || driver == null) return;
-                Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Вы передали водителю данные о своём маршруте!", 3000);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы передали водителю данные о своём маршруте!", 3000);
                 Trigger.ClientEvent(driver, "syncWP", X, Y);
             }
             catch (Exception e)

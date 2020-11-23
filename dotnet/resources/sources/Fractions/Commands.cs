@@ -1017,7 +1017,7 @@ namespace iTeffa.Fractions
 
             if (!target.HasSharedData("IS_MASK") || !target.HasSharedData("IS_MASK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет маски", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет маски", 3000);
                 return;
             }
 
@@ -1028,8 +1028,8 @@ namespace iTeffa.Fractions
 
             Customization.SetMask(target, 0, 0); ;
 
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы сорвали маску с игрока ({target.Value})", 3000);
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.BottomCenter, $"Игрок ({player.Value}) сорвал с Вас маску", 3000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сорвали маску с игрока ({target.Value})", 3000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) сорвал с Вас маску", 3000);
             Commands.RPChat("me", player, " сорвал маску с {name}", target);
         }
         #endregion
@@ -1041,13 +1041,13 @@ namespace iTeffa.Fractions
 
             if (!target.GetData<bool>("CUFFED") && !target.HasData("HANDS_UP"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок должен быть связан или с поднятыми руками", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок должен быть связан или с поднятыми руками", 3000);
                 return;
             }
 
             if (!player.HasSharedData("IS_MASK") || !player.GetSharedData<bool>("IS_MASK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Ограбление возможно только в маске", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ограбление возможно только в маске", 3000);
                 return;
             }
 
