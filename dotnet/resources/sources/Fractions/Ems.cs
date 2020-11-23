@@ -287,8 +287,6 @@ namespace iTeffa.Fractions
 
                 Working.Collector.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Gopostal.Event_PlayerDeath(player, entityKiller, weapon);
-                Working.Scourge.Event_PlayerDeath(player, entityKiller, weapon);
-
 
                 VehicleManager.WarpPlayerOutOfVehicle(player);
                 Main.Players[player].IsAlive = false;
@@ -330,7 +328,6 @@ namespace iTeffa.Fractions
 
                             if (player.HasData("DYING_TIMER"))
                             {
-                                //Main.StopT(player.GetData<string>("DYING_TIMER"), "timer_9");
                                 Timers.Stop(player.GetData<string>("DYING_TIMER"));
                                 player.ResetData("DYING_TIMER");
                             }

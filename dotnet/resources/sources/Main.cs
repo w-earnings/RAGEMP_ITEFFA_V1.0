@@ -212,9 +212,6 @@ namespace iTeffa
                             case 8:
                                 Working.AutoMechanic.CarInfos.Add(data);
                                 break;
-                            case 10:
-                                Working.Scourge.CarInfos.Add(data);
-                                break;
                         }
                     }
 
@@ -225,7 +222,6 @@ namespace iTeffa
                     Working.Truckers.truckerCarsSpawner();
                     Working.Collector.collectorCarsSpawner();
                     Working.AutoMechanic.mechanicCarsSpawner();
-                    Working.Scourge.scourgeCarsSpawner();
                 }
                 else Log.Write("DB `othervehicles` return null result", nLog.Type.Warn);
 
@@ -339,7 +335,6 @@ namespace iTeffa
                         Working.Truckers.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Collector.Event_PlayerDisconnected(player, type, reason);
                         Working.AutoMechanic.onPlayerDissconnectedHandler(player, type, reason);
-                        Working.Scourge.Event_PlayerDisconnected(player, type, reason);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.jobs\":\n" + e.ToString()); }
                     Log.Debug("STAGE 5 (JOBS)");
@@ -1929,10 +1924,6 @@ namespace iTeffa
                                 }
                             }, 3000);
                         }
-                        return;
-
-                    case 507:
-                        Working.Scourge.StartWorkDayScourge(player);
                         return;
 
                     case 512:
