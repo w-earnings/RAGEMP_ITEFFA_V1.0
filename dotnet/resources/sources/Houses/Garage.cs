@@ -265,21 +265,20 @@ namespace iTeffa.Houses
             veh.SetData("OWNER", player);
             veh.SetData("ITEMS", vData.Items);
 
-            //VehicleManager.Vehicles[number].Position = JsonConvert.SerializeObject(Position + new Vector3(0, 0, 0.3));
-            //VehicleManager.Vehicles[number].Position = JsonConvert.SerializeObject(Rotation);
-            //Main.Players[player].LastVeh = number;
-
             NAPI.Vehicle.SetVehicleNumberPlate(veh, number);
 
             VehicleStreaming.SetEngineState(veh, false);
             VehicleStreaming.SetLockStatus(veh, true);
-
             VehicleManager.ApplyCustomization(veh);
         }
+
         public void GetVehicleFromGarage(Player player, string number)
         {
+            NAPI.Task.Run(() => {
+
             var vData = VehicleManager.Vehicles[number];
             var veh = NAPI.Vehicle.CreateVehicle((VehicleHash)NAPI.Util.GetHashKey(vData.Model), player.Position + new Vector3(0, 0, 0.3), Rotation, 0, 0, number);
+
             player.SetIntoVehicle(veh, 0);
             vehiclesOut.Add(number, veh);
             veh.SetSharedData("PETROL", vData.Fuel);
@@ -287,11 +286,6 @@ namespace iTeffa.Houses
             veh.SetData("OWNER", player);
             veh.SetData("ITEMS", vData.Items);
             veh.Position = Position;
-            
-
-            //VehicleManager.Vehicles[number].Position = JsonConvert.SerializeObject(Position + new Vector3(0, 0, 0.3));
-            //VehicleManager.Vehicles[number].Position = JsonConvert.SerializeObject(Rotation);
-            //Main.Players[player].LastVeh = number;
 
             NAPI.Vehicle.SetVehicleNumberPlate(veh, number);
 
@@ -322,6 +316,7 @@ namespace iTeffa.Houses
             }
 
             VehicleManager.ApplyCustomization(veh);
+            }, 100);
         }
         public void SendVehicleIntoGarage(string number)
         {
