@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="package://game_resources/interface/assets/css/garage.css" />
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://my.living-apps.de/static/font-awesome/5.9.0/css/all.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="menu">
+      <div class="menu-left">
+        <div class="menu-head">
+          <h2 class="text-heading-1 text-uppercase text-center">Транспорт<br></h2>
+        </div>
+        <div class="menu-body">
+          <p class="text-center text-heading-2">Выбери свой автомобиль</p>
+          <div class="menu-loading">
+            <p id="text-loading" class="text-center">Машины загружаются ...</p>
+          </div>
+          <div id="optionVehicle">
+            <div class="menu-loaded" id="menu-loaded">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-right">
+        <div class="menu-head">
+          <h2 class="text-heading-1 text-uppercase text-center">Информация<br></h2>
+        </div>
+        <div id="fahrzeugGUI">
+          <p class="text-center">Автомобиль: <span id="vehicleName"></span></p>
+          <p class="text-center">бак: <span id="vehicleFuel"></span></p>
+          <p hidden class="text-center">цвет: <span id="vehicleColor"></span></p>
+          <p hidden class="text-center">Страховой статус: <span id="vehicleInsurance"></span></p>
+          <p class="text-center">Здоровье: <span id="vehicleKm"></span></p>
+          <p hidden class="text-center">Расход топлива: <span id="vehicleConsumption"></span></p>
+          <p hidden class="text-center">Купил в <span id="vehicleBuyDate"></span></p>
+          <button type="button" id="ausparken" class="btn btn-primary btn-lg btn-block" style="margin: 0 auto; width: 120px;border-color: transparent ; background-color: #f54242;">Вне парковки</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="package://game_resources/interface/assets/js/ntc.js"></script>
+  <script type="text/javascript" src="package://game_resources/interface/assets/js/garage.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js'></script>
+</body>
+
+</html>

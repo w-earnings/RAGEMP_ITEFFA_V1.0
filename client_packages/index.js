@@ -131,7 +131,7 @@ mp.game.streaming.requestClipSet("move_ped_crouched");
 var admingm = false;
 mp.game.audio.setAudioFlag("DisableFlightMusic", true);
 
-global.NativeUI = require("./nativeui.js");
+global.NativeUI = require("./game_resources/handlers/plugins/native.js");
 global.Menu = NativeUI.Menu;
 global.UIMenuItem = NativeUI.UIMenuItem;
 global.UIMenuListItem = NativeUI.UIMenuListItem;
@@ -216,45 +216,43 @@ mp.events.add('UpdateBank', function (temp, amount) {
   mp.events.call('UpdateBankPhone', temp, amount);
 });
 
-
-
-require('./game_resources/handlers/plugins/bind_keys.js');
-require('./game_resources/handlers/control/coordinates.js');
-require('./game_resources/handlers/control/adminpanel.js');
-		require('./menus.js');
-require('./game_resources/handlers/tuning.js');
-		require('./client/player/afksystem.js');
-		require('./character.js');
-		require('./render.js');
-require('./game_resources/handlers/nucleus.js');
-		require('./voice.js');
-		require('./phone.js');
-		require('./checkpoints.js');
-require('./game_resources/handlers/inventory.js');
-require('./game_resources/handlers/shellhud.js');
-		require('./gamertag.js');
-		require('./furniture.js');
-		require('./admesp.js');
-		require('./circle.js');
-		require('./vehiclesync.js');
-		require("./spmenu.js");
-		require('./basicsync.js');
-		require('./gangzones.js');
-		require('./fly.js');
-		require('./environment.js');
-		require('./elections.js');
-		require('./client/utils/utils.js');
-		require('./scripts/autopilot.js');
-		require('./scripts/fingerPointer.js');
-		require('./scripts/publicGarage/index.js');
-		require('./banks/atm.js');
-require('./game_resources/handlers/realtor.js');
-require('./game_resources/handlers/infoped.js');
-require('./game_resources/handlers/configs/barber.js');
-require('./game_resources/handlers/configs/natives.js');
-require('./game_resources/handlers/configs/clothe.js');
-require('./game_resources/handlers/configs/tattoo.js');
-require('./game_resources/handlers/configs/tuning.js');
+    require('./game_resources/handlers/plugins/bind_keys.js');
+    require('./game_resources/handlers/control/coordinates.js');
+    require('./game_resources/handlers/control/adminpanel.js');
+    require('./game_resources/handlers/control/admesp.js');
+    require('./game_resources/handlers/menus.js');
+    require('./game_resources/handlers/tuning.js');
+    require('./game_resources/handlers/afksystem.js');
+    require('./game_resources/handlers/character.js');
+    require('./game_resources/handlers/render.js');
+    require('./game_resources/handlers/nucleus.js');
+    require('./game_resources/handlers/voice.js');
+    require('./game_resources/handlers/phone.js');
+    require('./game_resources/handlers/checkpoints.js');
+    require('./game_resources/handlers/inventory.js');
+    require('./game_resources/handlers/shellhud.js');
+    require('./game_resources/handlers/gamertag.js');
+    require('./game_resources/handlers/furniture.js');
+    require('./game_resources/handlers/circle.js');
+    require('./game_resources/handlers/vehiclesync.js');
+    require('./game_resources/handlers/spmenu.js');
+    require('./game_resources/handlers/basicsync.js');
+    require('./game_resources/handlers/gangzones.js');
+    require('./game_resources/handlers/control/fly.js');
+    require('./game_resources/handlers/environment.js');
+    require('./game_resources/handlers/elections.js');
+    require('./game_resources/handlers/plugins/utils.js');
+    require('./game_resources/handlers/autopilot.js');
+    require('./game_resources/handlers/finger.js');
+    require('./game_resources/handlers/garage.js');
+    require('./game_resources/handlers/atm.js');
+    require('./game_resources/handlers/realtor.js');
+    require('./game_resources/handlers/infoped.js');
+    require('./game_resources/handlers/configs/barber.js');
+    require('./game_resources/handlers/configs/natives.js');
+    require('./game_resources/handlers/configs/clothe.js');
+    require('./game_resources/handlers/configs/tattoo.js');
+    require('./game_resources/handlers/configs/tuning.js');
 
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};
@@ -293,7 +291,7 @@ global.acheat = {
 }
 
 mp.events.add('authready', () => {
-    require('./auth.js');
+    require('./game_resources/handlers/entry.js');
 })
 
 mp.events.add('acpos', () => {
