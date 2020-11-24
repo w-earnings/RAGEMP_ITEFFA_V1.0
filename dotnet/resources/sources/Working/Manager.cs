@@ -13,30 +13,6 @@ namespace iTeffa.Working
         private static nLog Log = new nLog("WorkManager");
         public static Random rnd = new Random();
 
-        /*
-        public static SortedList<int, Vector3> FractionSpawns = new SortedList<int, Vector3>() //Костылина
-        {
-            {1, new Vector3(-219.8333, -1615.615, 35.74932)},    // The Families
-            {2, new Vector3(93.79514, -1961.605, 21.62755)},     // The Ballas Gang
-            {3, new Vector3(1403.206, -1483.664, 60.63504)},     // Los Santos Vagos
-            {4, new Vector3(891.9399, -2174.212, 33.16626)},     // Marabunta Grande
-            {5, new Vector3(480.8304, -1527.922, 30.18241)},     // Blood Street
-            {6, new Vector3(262.9857, 223.3491, 102.5633)},      // Cityhall
-            {7, new Vector3(457.4271, -991.4473, 31.5696)},      // LSPD police
-            {8, new Vector3(244.7622, -1374.57, 40.41434)},      // Emergency care
-            {9, new Vector3(149.4746, -756.9065, 243.0319)},     // FBI 
-            {10, new Vector3(1387.338, 1155.952, 115.2144)},     // La Cosa Nostra 
-            {11, new Vector3(-115.1648, 983.5231, 236.6358)},    // Russian Mafia
-            {12, new Vector3(-1549.22, -86.07732, 55.20967)},    // Yakuza 
-            {13, new Vector3(-1809.738, 444.3138, 129.3889)},    // Armenian Mafia 
-            {14, new Vector3(-2355.625, 3254.189, 33.69071)},    // Army
-            {15, new Vector3(-1063.046, -249.463, 44.0211)},     // LSNews
-            {16, new Vector3(982.2743, -104.14917, 73.72877)},   // The Lost
-            {17, new Vector3(2154.641, 2921.034, -63.02243)},    // Merryweather
-        };
-        */
-
-
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
         {
@@ -45,13 +21,17 @@ namespace iTeffa.Working
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(Points[0], 1, 2, 0)); // job placement
                 Cols[0].OnEntityEnterColShape += JobMenu_onEntityEnterColShape; // job placement point handler
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Работа"), new Vector3(Points[0].X, Points[0].Y, Points[0].Z + 0.5), 10F, 0.3F, 0, new Color(255, 255, 255));
+                NAPI.TextLabel.CreateTextLabel("~w~Дайвер", new Vector3(1695.806, 43.05446, 162.9473), 30f, 0.3f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
                 NAPI.Marker.CreateMarker(1, Points[0] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
 
+                
+                
                 // blips
+                NAPI.Blip.CreateBlip(729, new Vector3(1695.163, 42.85501, 160.6473), 0.75f, 46, Main.StringToU16("Дайвер"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(354, new Vector3(724.9625, 133.9959, 79.83643), 0.75F, 46, Main.StringToU16("Электростанция"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(408, new Vector3(105.4633, -1568.843, 28.60269), 0.75F, 3, Main.StringToU16("Почта"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(198, new Vector3(903.3215, -191.7, 73.40494), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(198, new Vector3(1956.65015, 3769.12817, 31.0833454), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);//TODOTAXI
+                NAPI.Blip.CreateBlip(198, new Vector3(1956.65015, 3769.12817, 31.0833454), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(198, new Vector3(1791.82837, 4586.595, 36.2361145), 0.75F, 46, Main.StringToU16("Такси"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(513, new Vector3(462.6476, -605.5295, 27.49518), 0.75F, 46, Main.StringToU16("Автобусная станция"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(512, new Vector3(-1331.475, 53.58579, 53.53268), 0.75F, 2, Main.StringToU16("Газонокосилка"), 255, 0, true, 0, 0);
@@ -96,7 +76,7 @@ namespace iTeffa.Working
             "Дальнобойщик",
             "Инкассатор",
             "Автомеханик",
-            "Грузчиком",
+            "Водолазом",
         };
         public static SortedList<int, Vector3> Points = new SortedList<int, Vector3>
         {
@@ -109,6 +89,7 @@ namespace iTeffa.Working
             {6, new Vector3(588.2037, -3037.641, 6.303829) },  // Trucker job
             {7, new Vector3(915.9069, -1265.255, 25.52912) },  // Collector job
             {8, new Vector3(473.9508, -1275.597, 29.60513) },  // AutoMechanic job
+            {9, new Vector3(1695.163, 42.85501, 160.6473) },  // Водолаз
         };
         private static SortedList<int, string> JobList = new SortedList<int, string>
         {
@@ -120,6 +101,7 @@ namespace iTeffa.Working
             {6, "дальнобойщиком" },
             {7, "инкассатором" },
             {8, "автомехаником" },
+            {9, "Водолазом" },
         };
         private static SortedList<int, int> JobsMinLVL = new SortedList<int, int>()
         {
@@ -131,6 +113,7 @@ namespace iTeffa.Working
             { 6, 5 },
             { 7, 8 },
             { 8, 4 },
+            { 9, 3 },
         };
 
         public static void Layoff(Player player)
@@ -298,9 +281,9 @@ namespace iTeffa.Working
 
                             client.SetData("W_LASTPOS", client.Position);
                             client.SetData("W_LASTTIME", DateTime.Now);
-                            var next = Working.WorkManager.rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
+                            var next = rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
                             while (Houses.HouseManager.Houses[next].Position.DistanceTo2D(client.Position) < 200)
-                                next = Working.WorkManager.rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
+                                next = rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
 
                             client.SetData("NEXTHOUSE", Houses.HouseManager.Houses[next].ID);
                             Trigger.ClientEvent(client, "createCheckpoint", 1, 1, Houses.HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
@@ -315,7 +298,7 @@ namespace iTeffa.Working
                                 client.SetClothes(11, 38, 3);
                                 client.SetClothes(4, 17, 0);
                                 client.SetClothes(6, 1, 7);
-                                client.SetClothes(3, Kernel.Customization.CorrectTorso[gender][38], 0);
+                                client.SetClothes(3, Customization.CorrectTorso[gender][38], 0);
                             }
                             else
                             {
@@ -323,11 +306,11 @@ namespace iTeffa.Working
                                 client.SetClothes(11, 0, 6);
                                 client.SetClothes(4, 25, 2);
                                 client.SetClothes(6, 1, 2);
-                                client.SetClothes(3, Kernel.Customization.CorrectTorso[gender][0], 0);
+                                client.SetClothes(3, Customization.CorrectTorso[gender][0], 0);
                             }
 
-                            int x = Working.WorkManager.rnd.Next(0, Gopostal.GoPostalObjects.Count);
-                            BasicSync.AttachObjectToPlayer(client, Working.Gopostal.GoPostalObjects[x], 60309, new Vector3(0.03, 0, 0.02), new Vector3(0, 0, 50));
+                            int x = rnd.Next(0, Gopostal.GoPostalObjects.Count);
+                            BasicSync.AttachObjectToPlayer(client, Gopostal.GoPostalObjects[x], 60309, new Vector3(0.03, 0, 0.02), new Vector3(0, 0, 50));
                         }
                         else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже начали рабочий день", 3000);
                     }
@@ -356,7 +339,7 @@ namespace iTeffa.Working
 
                         client.SetData("W_LASTPOS", client.Position);
                         client.SetData("W_LASTTIME", DateTime.Now);
-                        var next = Working.WorkManager.rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
+                        var next = rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
                         while (Houses.HouseManager.Houses[next].Position.DistanceTo2D(client.Position) < 200)
                             next = Working.WorkManager.rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
                         client.SetData("NEXTHOUSE", Houses.HouseManager.Houses[next].ID);

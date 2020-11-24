@@ -17,6 +17,7 @@ using System.Threading;
 using System.Net.Mail;
 using iTeffa.Speaking;
 using iTeffa.Houses;
+using iTeffa.Plugins;
 
 namespace iTeffa
 {
@@ -335,6 +336,7 @@ namespace iTeffa
                         Working.Truckers.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Collector.Event_PlayerDisconnected(player, type, reason);
                         Working.AutoMechanic.onPlayerDissconnectedHandler(player, type, reason);
+                        Working.Diver.Event_PlayerDisconnected(player, type, reason);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.jobs\":\n" + e.ToString()); }
                     Log.Debug("STAGE 5 (JOBS)");
@@ -1879,10 +1881,6 @@ namespace iTeffa
                     case 57:
                         Fractions.AlcoFabrication.Event_InteractPressed(player, id);
                         return;
-
-                    case 70:
-                        // Clean Script
-                        return;
                     case 80:
                     case 81:
                         Fractions.LSNews.interactPressed(player, id);
@@ -1925,28 +1923,9 @@ namespace iTeffa
                             }
                         }
                         return;
-     
-                    case 502:
-                        // Clean Script
-                        return;
 
-                    case 503:
-                        // Clean Script
-                        return;
-                    case 504:
-                        if(Players[player].Achievements[5] && !Players[player].Achievements[6]) { // Если сейчас взята миссия Фрэнка
-                            Players[player].Achievements[6] = true;
-                            OnAntiAnim(player);
-                            player.PlayAnimation("amb@prop_human_movie_studio_light@base", "base", 39);
-                            NAPI.Task.Run(() => {
-                                if (player != null && Main.Players.ContainsKey(player))
-                                {
-                                    player.StopAnimation();
-                                    OffAntiAnim(player);
-                                    player.SendChatMessage("Ну вот, насос включен, можно бежать к Фрэнку!");
-                                }
-                            }, 3000);
-                        }
+                    case 510:
+                        Working.Diver.StartWorkDayDiver(player);
                         return;
 
                     case 512:
@@ -2307,7 +2286,7 @@ namespace iTeffa
                 {
                     ServerName = config.TryGet<string>("ServerName", "RP"),
                     ServerNumber = config.TryGet<string>("ServerNumber", "0"),
-                    VoIPEnabled = config.TryGet<bool>("VOIPEnabled", true),
+                    //VoIPEnabled = config.TryGet<bool>("VOIPEnabled", true),
                     RemoteControl = config.TryGet<bool>("RemoteControl", false),
                     DonateChecker = config.TryGet<bool>("DonateChecker", false),
                     DonateSaleEnable = config.TryGet<bool>("Donation_Sale", false),

@@ -284,9 +284,9 @@ namespace iTeffa.Fractions
                 Army.Event_PlayerDeath(player, entityKiller, weapon);
                 Police.Event_PlayerDeath(player, entityKiller, weapon);
                 Houses.HouseManager.Event_OnPlayerDeath(player, entityKiller, weapon);
-
                 Working.Collector.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Gopostal.Event_PlayerDeath(player, entityKiller, weapon);
+                Working.Diver.Event_PlayerDeath(player, entityKiller, weapon);
 
                 VehicleManager.WarpPlayerOutOfVehicle(player);
                 Main.Players[player].IsAlive = false;

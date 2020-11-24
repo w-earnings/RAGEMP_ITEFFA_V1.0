@@ -16,7 +16,7 @@ namespace iTeffa.Plugins
         {
             try
             {
-                /* -- iTeffa -- */
+                
             }
             catch (Exception e)
             {
@@ -27,7 +27,7 @@ namespace iTeffa.Plugins
     }
     #endregion
     #region Добавляем транспорт витрын
-    public class Vehicle : Script
+    public class Vehicles : Script
     {
         private static nLog Log = new nLog("Blips");
         public static void onResourceStart()

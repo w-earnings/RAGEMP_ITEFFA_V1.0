@@ -22,7 +22,7 @@
 }
 .joblist .box {
     width: 494px;
-    height: 678px;
+    height: 810px;
     background: rgba(0, 0, 0, 0.75);
     border-radius: 4px;
     position: absolute;
@@ -47,7 +47,7 @@
 .joblist .arrow {
     width: 22px;
     height: 22px;
-    background: url(../images/joblist/arrow.svg);
+    background: url(../img/working/arrow.svg);
     margin-top: 16px;
     margin-left: 10px;
     cursor: pointer;
@@ -77,17 +77,18 @@
     opacity: 0.3;
 }
 .joblist .electro {
-    background-image: url(../images/joblist/electro.svg);
+    background-image: url(../img/working/electro.svg);
 }
 .joblist .taxi {
-    background-image: url(../images/joblist/taxi.svg);
+    background-image: url(../img/working/taxi.svg);
 }
 .joblist .gazon {
-    background-image: url(../images/joblist/gazon.svg);
+    background-image: url(../img/working/gazon.svg);
 }
 .joblist .inkos {
-    background-image: url(../images/joblist/inca.svg);
+    background-image: url(../img/working/inca.svg);
 }
+
 .joblist .inkoslvl {
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
@@ -121,16 +122,16 @@
     display:block;
 }
 .joblist .pochta {
-    background-image: url(../images/joblist/pochta.svg);
+    background-image: url(../img/working/pochta.svg);
 }
 .joblist .bus {
-    background-image: url(../images/joblist/bus.svg);
+    background-image: url(../img/working/bus.svg);
 }
 .joblist .truck {
-    background-image: url(../images/joblist/truck.svg);
+    background-image: url(../img/working/truck.svg);
 }
 .joblist .mechanic {
-    background-image: url(../images/joblist/mechanic.svg);
+    background-image: url(../img/working/mechanic.svg);
 }
 .joblist .textboxwork {
     font-size: 15px;
