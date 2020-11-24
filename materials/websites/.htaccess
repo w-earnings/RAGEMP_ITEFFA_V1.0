@@ -1,0 +1,22 @@
+# Определяем кодеровку сайта
+AddDefaultCharset utf-8
+
+# Основная страница
+DirectoryIndex index.php
+
+# Настройки для сайта в рабочем режиме
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+php_flag log_errors on
+
+# Включаем отслеживание сим-ссылок
+Options +FollowSymLinks
+
+# Включаем url_rewriting
+RewriteEngine on
+
+# Ядро сайта
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?iteffa=$1 [L,QSA]
