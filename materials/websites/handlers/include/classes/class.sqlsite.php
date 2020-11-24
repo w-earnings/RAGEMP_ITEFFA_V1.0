@@ -2,7 +2,7 @@
 # -> Запрещяем прямой путь к файлу.
 if (!defined('SECURITY_ITEFFA')) die('!');
 
-class db 
+class sqlsite
 {
     private static $instance;
     public static function instance()
@@ -196,7 +196,7 @@ class db
 		    die();
 		}
 		
-        db::$instance = $mysqli;
+        sqlsite::$instance = $mysqli;
 
     }
 
@@ -273,4 +273,20 @@ class db
         return $str; 
     }
     
+}
+
+class sqlapps extends sqlsite
+{
+    public static function getClass()
+    {
+        return __CLASS__;
+    }
+}
+
+class sqllogs extends sqlsite
+{
+    public static function getClass()
+    {
+        return __CLASS__;
+    }
 }
