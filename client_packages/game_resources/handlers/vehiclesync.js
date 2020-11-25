@@ -560,7 +560,6 @@ mp.events.add("entityStreamIn", (entity) => {
         {
             let typeor = typeof entity.getVariable('VehicleSyncData');
             let actualData = entity.getVariable('VehicleSyncData');
-            mp.game.streaming.requestCollisionAtCoord(entity.position.x, entity.position.y, entity.position.z);
             entity.setLoadCollisionFlag(true);
             entity.trackVisibility();
             let x = 0;
