@@ -459,7 +459,6 @@ namespace iTeffa.Working
             new Vector3(95.82169, 6363.628, 30.37586), // mask-shop
             new Vector3(95.82169, 6363.628, 30.37586), // ls customs
             new Vector3(95.82169, 6363.628, 30.37586), // car wash
-            new Vector3(95.82169, 6363.628, 30.37586), // petshop
         };
 
         private static void callback_truckersorders(Player client, Menu menu, Menu.Item item, string eventName, dynamic data)

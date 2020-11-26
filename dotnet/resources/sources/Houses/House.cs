@@ -52,8 +52,6 @@ namespace iTeffa.Houses
         [JsonIgnore]
         public Blip blip;
         [JsonIgnore]
-        public string PetName;
-        [JsonIgnore]
         private TextLabel label;
         [JsonIgnore]
         private ColShape shape;
@@ -273,10 +271,7 @@ namespace iTeffa.Houses
             NAPI.Entity.SetEntityPosition(player, HouseManager.HouseTypeList[Type].Position + new Vector3(0, 0, 1.12));
             NAPI.Entity.SetEntityDimension(player, Convert.ToUInt32(Dimension));
             Main.Players[player].InsideHouseID = ID;
-            if (HouseManager.HouseTypeList[Type].PetPosition != null)
-            {
-                if (!PetName.Equals("null")) Trigger.ClientEvent(player, "petinhouse", PetName, HouseManager.HouseTypeList[Type].PetPosition.X, HouseManager.HouseTypeList[Type].PetPosition.Y, HouseManager.HouseTypeList[Type].PetPosition.Z, HouseManager.HouseTypeList[Type].PetRotation, Dimension);
-            }
+
             DestroyFurnitures();
             CreateAllFurnitures();
             if (!PlayersInside.Contains(player)) PlayersInside.Add(player);
@@ -657,7 +652,7 @@ namespace iTeffa.Houses
                         OpenCarsSellMenu(player);
                         return;
                     }
-                    if (HouseTypeList[house.Type].PetPosition != null) house.PetName = Main.Players[player].PetName;
+                    
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"НЕ ЗАБУДЬТЕ ВНЕСТИ НАЛОГИ ЗА ДОМ В БЛИЖАЙШЕМ БАНКОМАТЕ!", 8000);
                     CheckAndKick(player);
@@ -811,7 +806,6 @@ namespace iTeffa.Houses
             }
             house.RemoveAllPlayers();
             house.SetOwner(null);
-            house.PetName = "null";
             Trigger.ClientEvent(player, "deleteCheckpoint", 333);
             Trigger.ClientEvent(player, "deleteGarageBlip");
             int price = 0;
@@ -1797,7 +1791,7 @@ namespace iTeffa.Houses
             seller.TriggerEvent("deleteCheckpoint", 333);
             seller.TriggerEvent("deleteGarageBlip");
             house.SetOwner(player);
-            house.PetName = Main.Players[player].PetName;
+            
             house.Save();
 
             Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) купил у Вас дом", 3000);

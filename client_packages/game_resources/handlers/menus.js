@@ -1093,88 +1093,15 @@ mp.events.add('openAuto', (models, prices) => {
     global.menuOpen();
     global.menu.execute(`auto.active=true`);
 });
+
+
+
+
 //types: models, colors, prices
 function setAuto(type, jsonstr) {
     global.menu.execute(`auto.${type}=${jsonstr}`);
 }
-// PETSHOP
 
-let petModels = null;
-let petHashes = null;
-
-let pet = {
-    model: null,
-    entity: null,
-	dimension: 0,
-}
-
-function setPet(type, jsonstr) {
-    global.menu.execute(`petshop.${type}=${jsonstr}`);
-}
-mp.events.add('petshop', (act, value) => {
-    switch (act) {
-        case "model":
-            pet.model = petModels[value];
-			if(pet.entity != null) {
-				pet.entity.destroy();
-				pet.entity = mp.peds.new(petHashes[value], new mp.Vector3(-758.2859, 320.9569, 175.2784), 218.8, pet.dimension);
-			}
-            break;
-    }
-});
-mp.events.add('buyPet', () => {
-	if(new Date().getTime() - global.lastCheck < 50) return; 
-	global.lastCheck = new Date().getTime();
-
-    global.menuClose();
-    global.menu.execute('petshop.active=0');
-
-    mp.events.callRemote('petshopBuy', pet.model);
-
-    if (pet.entity == null) return;
-    pet.entity.destroy();
-    pet.entity = null;
-})
-mp.events.add('closePetshop', () => {
-	if(new Date().getTime() - global.lastCheck < 50) return; 
-	global.lastCheck = new Date().getTime();
-    global.menuClose();
-    global.menu.execute('petshop.active=0');
-
-    mp.events.callRemote('petshopCancel');
-
-    if (pet.entity == null) return;
-    pet.entity.destroy();
-    pet.entity = null;
-})
-mp.events.add('openPetshop', (models, hashes, prices, dim) => {
-    if (global.menuCheck()) return;
-	
-    petModels = JSON.parse(models);
-	petHashes = JSON.parse(hashes);
-
-    setPet('models', models);
-	setPet('hashes', hashes);
-    setPet('prices', prices);
-	
-	pet.entity = mp.peds.new(petHashes[0], new mp.Vector3(-758.2859, 320.9569, 175.2784), 218.8, dim);
-	pet.dimension = dim;
-	localplayer.setRotation(0, 0, 0, 2, true);
-    pet.model = petModels[0];
-
-    global.menuOpen();
-    global.menu.execute(`petshop.active=true`);
-	
-	cam = mp.cameras.new('default', new mp.Vector3(-755.5227, 320.0132, 177.302), new mp.Vector3(0, 0, 0), 50);
-    cam.pointAtCoord(-758.2859, 320.9569, 175.7484);
-    cam.setActive(true);
-    mp.game.cam.renderScriptCams(true, false, 0, true, false);
-})
-//
-//types: models, colors, prices
-function setAuto(type, jsonstr) {
-    global.menu.execute(`auto.${type}=${jsonstr}`);
-}
 // WEAPON SHOP //
 let wshop = {
     lid: -1,

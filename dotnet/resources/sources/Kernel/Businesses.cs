@@ -98,7 +98,6 @@ namespace iTeffa.Kernel
             "Магазин масок",      // 12
             "Тюнинг",             // 13
             "Автомойка",          // 14
-            "Магазин животных",   // 15
             "FishShop",           // 16
             "SellShop",           // 17
         };
@@ -119,7 +118,6 @@ namespace iTeffa.Kernel
             362,                  // 12
             72,                   // 13
             569,                  // 14
-            251,                  // 15
             371,                  // 16
             628,                  // 17
         };
@@ -140,7 +138,6 @@ namespace iTeffa.Kernel
             4,                    // 12
             40,                   // 13
             17,                   // 14
-            15,                   // 15
             3,                    // 16
             3,                    // 17
         };
@@ -164,28 +161,7 @@ namespace iTeffa.Kernel
             "Чёрный амур",
             "Щука",
         };
-        public static List<string> PetNames = new List<string>() {
-            "Husky",
-            "Poodle",
-            "Pug",
-            "Retriever",
-            "Rottweiler",
-            "Shepherd",
-            "Westy",
-            "Cat",
-            "Rabbit",
-        };
-        public static List<int> PetHashes = new List<int>() {
-            1318032802,
-            1125994524,
-            1832265812,
-            882848737,
-            -1788665315,
-            1126154828,
-            -1384627013,
-            1462895032,
-            -541762431,
-        };
+
         public static List<List<string>> CarsNames = new List<List<string>>()
         {
             new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
@@ -1181,7 +1157,6 @@ namespace iTeffa.Kernel
             { "Маски", 100}, // masks
             { "Запчасти", 10000}, // ls customs
             { "Средство для мытья", 200 }, // carwash
-            { "Корм для животных", 20 }, // petshop
             { "Pistol", 20}, // gun shop
             { "CombatPistol", 20},
             { "Revolver", 20},
@@ -1245,7 +1220,6 @@ namespace iTeffa.Kernel
             {"Маски",2000},
             {"Запчасти",400},
             {"Средство для мытья",200},
-            {"Корм для животных", 450000 }, // petshop
             {"Pistol",720},
             {"CombatPistol",900},
             {"Revolver",12800},
@@ -1369,16 +1343,13 @@ namespace iTeffa.Kernel
                     products_list.Add(new Product(200, 200, 0, "Средство для мытья", false));
                     break;
                 case 15:
-                    products_list.Add(new Product(500000, 20, 0, "Корм для животных", false));
-                    break;
-                case 16:
                     foreach (var name in FishProducts)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
-                case 17:
+                case 16:
                     foreach (var name in SellProducts)
                     {
                         Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
@@ -1591,39 +1562,14 @@ namespace iTeffa.Kernel
                     Trigger.ClientEvent(player, "openDialog", "CARWASH_PAY", $"Вы хотите помыть машину за ${biz.Products[0].Price}$?");
                     return;
                 case 15:
-                    if (player.HasData("FOLLOWER"))
-                    {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Отпустите человека", 3000);
-                        return;
-                    }
-                    player.SetData("PETSHOPID", biz.ID);
-                    enterPetShop(player, biz.Products[0].Name);
-                    return;
-                case 16:
                     OpenBizShopMenu(player);
                     return;
-                case 17:
+                case 16:
                     RodManager.OpenBizSellShopMenu(player);
                     return;
             }
         }
 
-        public static void enterPetShop(Player player, string prodname)
-        {
-            Main.Players[player].ExteriorPos = player.Position;
-            uint mydim = (uint)(player.Value + 500);
-            NAPI.Entity.SetEntityDimension(player, mydim);
-            NAPI.Entity.SetEntityPosition(player, new Vector3(-758.3929, 319.5044, 175.302));
-            player.PlayAnimation("amb@world_human_sunbathe@male@back@base", "base", 39);
-            player.SetData("INTERACTIONCHECK", 0);
-            var prices = new List<int>();
-            Business biz = BusinessManager.BizList[player.GetData<int>("PETSHOPID")];
-            for (byte i = 0; i != 9; i++)
-            {
-                prices.Add(biz.Products[0].Price);
-            }
-            Trigger.ClientEvent(player, "openPetshop", JsonConvert.SerializeObject(PetNames), JsonConvert.SerializeObject(PetHashes), JsonConvert.SerializeObject(prices), mydim);
-        }
         [RemoteEvent("fishshop")]
         public static void Event_FishShopCallback(Player client, int index)
         {
@@ -1655,67 +1601,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write($"SellShop: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
         }
-        [RemoteEvent("petshopBuy")]
-        public static void RemoteEvent_petshopBuy(Player player, string petName)
-        {
-            try
-            {
-                player.StopAnimation();
-                Business biz = BusinessManager.BizList[player.GetData<int>("PETSHOPID")];
-                NAPI.Entity.SetEntityPosition(player, new Vector3(biz.EnterPoint.X, biz.EnterPoint.Y, biz.EnterPoint.Z + 1.5));
-                NAPI.Entity.SetEntityDimension(player, 0);
-                Main.Players[player].ExteriorPos = new Vector3();
-                Trigger.ClientEvent(player, "destroyCamera");
-                Dimensions.DismissPrivateDimension(player);
-
-                Houses.House house = Houses.HouseManager.GetHouse(player, true);
-                if (house == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет личного дома", 3000);
-                    return;
-                }
-                if (Houses.HouseManager.HouseTypeList[house.Type].PetPosition == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ваше место проживания не подходит для жизни петомцев", 3000);
-                    return;
-                }
-                if (Main.Players[player].Money < biz.Products[0].Price)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
-                    return;
-                }
-                if (!BusinessManager.takeProd(biz.ID, 1, "Корм для животных", biz.Products[0].Price))
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "К сожалению, петомцев данного рода пока что нет в магазине", 3000);
-                    return;
-                }
-                Finance.Wallet.Change(player, -biz.Products[0].Price);
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price, $"buyPet({petName})");
-                house.PetName = petName;
-                Main.Players[player].PetName = petName;
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Теперь Вы являетесь счастливым хозяином {petName}!", 3000);
-            }
-            catch (Exception e) { Log.Write("PetshopBuy: " + e.Message, nLog.Type.Error); }
-        }
-
-        [RemoteEvent("petshopCancel")]
-        public static void RemoteEvent_petshopCancel(Player player)
-        {
-            try
-            {
-                if (!player.HasData("PETSHOPID")) return;
-                player.StopAnimation();
-                var enterPoint = BusinessManager.BizList[player.GetData<int>("PETSHOPID")].EnterPoint;
-                NAPI.Entity.SetEntityDimension(player, 0);
-                NAPI.Entity.SetEntityPosition(player, new Vector3(enterPoint.X, enterPoint.Y, enterPoint.Z + 1.5));
-                Main.Players[player].ExteriorPos = new Vector3();
-                Dimensions.DismissPrivateDimension(player);
-                player.ResetData("PETSHOPID");
-                Trigger.ClientEvent(player, "destroyCamera");
-            }
-            catch (Exception e) { Log.Write("petshopCancel: " + e.Message, nLog.Type.Error); }
-        }
-
         public static void Carwash_Pay(Player player)
         {
             try
@@ -1760,7 +1645,6 @@ namespace iTeffa.Kernel
                 return;
             }
         }
-
         [RemoteEvent("tuningSeatsCheck")]
         public static void RemoteEvent_tuningSeatsCheck(Player player)
         {
@@ -1835,7 +1719,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("ExitTuning: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("buyTuning")]
         public static void RemoteEvent_buyTuning(Player player, params object[] arguments)
         {
@@ -1980,7 +1863,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("buyTuning: " + e.Message, nLog.Type.Error); }
         }
-
         public static bool takeProd(int bizid, int amount, string prodname, int addMoney)
         {
             try
@@ -2017,7 +1899,6 @@ namespace iTeffa.Kernel
                 return false;
             }
         }
-
         public static int getPriceOfProd(int bizid, string prodname)
         {
             Business biz = BizList[bizid];
@@ -2032,7 +1913,6 @@ namespace iTeffa.Kernel
             }
             return price;
         }
-
         public static Vector3 getNearestBiz(Player player, int type)
         {
             Vector3 nearestBiz = new Vector3();
@@ -2046,7 +1926,6 @@ namespace iTeffa.Kernel
             }
             return nearestBiz;
         }
-
         private static List<int> clothesOutgo = new List<int>()
         {
             1, // Головные уборы
@@ -2055,7 +1934,6 @@ namespace iTeffa.Kernel
             2, // Треники abibas
             1, // Кеды нike
         };
-
         [RemoteEvent("cancelMasks")]
         public static void RemoteEvent_cancelMasks(Player player)
         {
@@ -2067,7 +1945,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("cancelMasks: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("buyMasks")]
         public static void RemoteEvent_buyMasks(Player player, int variation, int texture)
         {
@@ -2107,7 +1984,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("buyMasks: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("cancelClothes")]
         public static void RemoteEvent_cancelClothes(Player player)
         {
@@ -2120,7 +1996,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("cancelClothes: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("buyClothes")]
         public static void RemoteEvent_buyClothes(Player player, int type, int variation, int texture)
         {
@@ -2221,7 +2096,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("BuyClothes: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("cancelBody")]
         public static void RemoteEvent_cancelTattoo(Player player)
         {
@@ -2235,7 +2109,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("CancelBody: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("buyTattoo")]
         public static void RemoteEvent_buyTattoo(Player player, params object[] arguments)
         {
@@ -2287,7 +2160,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("BuyTattoo: " + e.Message, nLog.Type.Error); }
         }
-
         public static Dictionary<string, List<int>> BarberPrices = new Dictionary<string, List<int>>()
         {
             { "hair", new List<int>() {
@@ -2438,7 +2310,6 @@ namespace iTeffa.Kernel
                 180,
             }},
         };
-
         [RemoteEvent("buyBarber")]
         public static void RemoteEvent_buyBarber(Player player, string id, int style, int color)
         {
@@ -2513,7 +2384,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("BuyBarber: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("petrol")]
         public static void fillCar(Player player, int lvl)
         {
@@ -2619,7 +2489,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("Petrol: " + e.Message, nLog.Type.Error); }
         }
-
         public static void bizNewPrice(Player player, int price, int BizID)
         {
             if (!Main.Players[player].BizIDs.Contains(BizID)) return;
@@ -2649,7 +2518,6 @@ namespace iTeffa.Kernel
                 }
             }
         }
-
         public static void bizOrder(Player player, int amount, int BizID)
         {
             if (!Main.Players[player].BizIDs.Contains(BizID)) return;
@@ -2682,28 +2550,6 @@ namespace iTeffa.Kernel
                             return;
                         }
                     }
-                    else if (biz.Type == 15)
-                    {
-                        if (amount < 1 || p.Lefts + amount > ProductsCapacity[p.Name])
-                        {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Укажите значение от 1 до {ProductsCapacity[p.Name] - p.Lefts}", 3000);
-                            OpenBizProductsMenu(player);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (amount < 10 || p.Lefts + amount > ProductsCapacity[p.Name])
-                        {
-                            var text = "";
-                            if (ProductsCapacity[p.Name] - p.Lefts < 10) text = "У Вас достаточно товаров на складе";
-                            else text = $"Укажите от 10 до {ProductsCapacity[p.Name] - p.Lefts}";
-
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, text, 3000);
-                            OpenBizProductsMenu(player);
-                            return;
-                        }
-                    }
 
                     var price = (p.Name == "Патроны") ? 4 : ProductsOrderPrice[p.Name];
                     if (!Bank.Change(Main.Players[player].Bank, -amount * price))
@@ -2730,7 +2576,6 @@ namespace iTeffa.Kernel
                 }
             }
         }
-
         public static void buyBusinessCommand(Player player)
         {
             if (!player.HasData("BIZ_ID") || player.GetData<int>("BIZ_ID") == -1)
@@ -2786,7 +2631,6 @@ namespace iTeffa.Kernel
             Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[player].BizIDs)}' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
             Connect.Query($"UPDATE businesses SET owner='{biz.Owner}' WHERE id='{biz.ID}'");
         }
-
         public static void createBusinessUnloadpoint(Player player, int bizid)
         {
             if (!Group.CanUseCmd(player, "createunloadpoint")) return;
@@ -2795,13 +2639,6 @@ namespace iTeffa.Kernel
             Connect.Query($"UPDATE businesses SET unloadpoint='{JsonConvert.SerializeObject(pos)}' WHERE id={bizid}");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Успешно создана точка разгрузки для бизнеса ID: {bizid}", 3000);
         }
-
-
-
-
-
-
-
         public static void createBusinessCommand(Player player, int govPrice, int type)
         {
             if (!Group.CanUseCmd(player, "createbusiness")) return;
@@ -2826,10 +2663,6 @@ namespace iTeffa.Kernel
             }
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы создали бизнес {BusinessManager.BusinessTypeNames[type]}", 3000);
         }
-
-
-
-
         public static void deleteBusinessCommand(Player player, int id)
         {
             if (!Group.CanUseCmd(player, "deletebusiness")) return;
@@ -2860,13 +2693,6 @@ namespace iTeffa.Kernel
             biz.Destroy();
             BizList.Remove(biz.ID);
         }
-
-
-
-
-
-
-
         public static void sellBusinessCommand(Player player, Player target, int price)
         {
             if (!Main.Players.ContainsKey(player) || !Main.Players.ContainsKey(target)) return;
@@ -2909,7 +2735,6 @@ namespace iTeffa.Kernel
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш бизнес за {price}$", 3000);
         }
-
         public static void acceptBuyBusiness(Player player)
         {
             Player seller = player.GetData<Player>("SELLER");
@@ -2959,7 +2784,6 @@ namespace iTeffa.Kernel
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили у {seller.Name.Replace('_', ' ')} {BusinessTypeNames[biz.Type]} за {price}$", 3000);
             Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name.Replace('_', ' ')} купил у Вас {BusinessTypeNames[biz.Type]} за {price}$", 3000);
         }
-
         #region Menus
         #region manage biz
         public static void OpenBizListMenu(Player player)
@@ -3535,7 +3359,6 @@ namespace iTeffa.Kernel
             },
         };
         #endregion
-
         public static void changeOwner(string oldName, string newName)
         {
             List<int> toChange = new List<int>();
@@ -3556,7 +3379,6 @@ namespace iTeffa.Kernel
             }
         }
     }
-
     public class Order
     {
         public Order(string name, int amount, bool taked = false)
@@ -3573,7 +3395,6 @@ namespace iTeffa.Kernel
         [JsonIgnore]
         public int UID { get; set; }
     }
-
     public class Product
     {
         public Product(int price, int left, int autosell, string name, bool ordered)
@@ -3591,7 +3412,6 @@ namespace iTeffa.Kernel
         public string Name { get; set; }
         public bool Ordered { get; set; }
     }
-
     public class Business
     {
         public int ID { get; set; }
@@ -3719,7 +3539,6 @@ namespace iTeffa.Kernel
             Finance.Bank.Save(this.BankID);
         }
     }
-
     public class BusinessTattoo
     {
         public List<int> Slots { get; set; }

@@ -2,8 +2,8 @@
   "profiles": {
     "RAGEMP": {
       "commandName": "Executable",
-      "executablePath": "C:\\Project\\00000001\\ragemp-server.exe",
-      "workingDirectory": "C:\\Project\\00000001\\"
+      "executablePath": "C:\\Project\\ragemp-server.exe",
+      "workingDirectory": "C:\\Project\\"
     }
   }
 }

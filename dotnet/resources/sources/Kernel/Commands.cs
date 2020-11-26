@@ -2435,13 +2435,7 @@ namespace iTeffa.Kernel
             c.SendChatMessage("Rotation");
             c.SendChatMessage("Z: " + rot.Z);
         }
-        // ped sich selber geben
-        [Command("ped")]
-        public void HandlePad(Player c)
-        {
 
-            c.SetSkin(PedHash.Husky);
-        }
         [Command("restart")]
         public void HandleShutDown(Player cc, int second)
         {
@@ -2690,7 +2684,7 @@ namespace iTeffa.Kernel
                 }
 
                 // CLEAR MONEY, HOTEL, FRACTION, SIMCARD, PET
-                Connect.Query($"UPDATE `characters` SET `money`=0,`fraction`=0,`fractionlvl`=0,`hotel`=-1,`hotelleft`=0,`sim`=-1,`PetName`='null' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Connect.Query($"UPDATE `characters` SET `money`=0,`fraction`=0,`fractionlvl`=0,`hotel`=-1,`hotelleft`=0,`sim`=-1, WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 // CLEAR BANK MONEY
                 Bank.Data bankAcc = Bank.Accounts.FirstOrDefault(a => a.Value.Holder == target).Value;
                 if (bankAcc != null)

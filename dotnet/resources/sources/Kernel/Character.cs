@@ -66,8 +66,7 @@ namespace iTeffa.Kernel.Character
                         House house = HouseManager.GetHouse(player);
                         if (house != null)
                         {
-                            // House blips & checkpoints
-                            house.PetName = Main.Players[player].PetName;
+                            
 
                             Trigger.ClientEvent(player, "changeBlipColor", house.blip, 73);
 
@@ -188,7 +187,7 @@ namespace iTeffa.Kernel.Character
                             for (uint i = 0; i != 401; i++) Achievements.Add(false);
                         }
                         Sim = Convert.ToInt32(Row["sim"]);
-                        PetName = Convert.ToString(Row["PetName"]);
+                        
                         CreateDate = ((DateTime)Row["createdate"]);
 
                         SpawnPos = JsonConvert.DeserializeObject<Vector3>(Row["pos"].ToString());
@@ -307,7 +306,7 @@ namespace iTeffa.Kernel.Character
                     $"`wanted`='{JsonConvert.SerializeObject(WantedLVL)}',`biz`='{JsonConvert.SerializeObject(BizIDs)}',`adminlvl`={AdminLVL}," +
                     $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Connect.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
                     $"`warns`={Warns},`hotel`={HotelID},`hotelleft`={HotelLeft},`lastveh`='{LastVeh}',`onduty`={OnDuty},`lasthour`={LastHourMin}," +
-                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`PetName`='{PetName}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
+                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
 
                 Finance.Bank.Save(Bank);
                 await Log.DebugAsync($"Player [{FirstName}:{LastName}] was saved.");

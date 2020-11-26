@@ -40,7 +40,6 @@
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/fmenu.css">
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/mats.css">
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/auto.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/pet.css">
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/bsearch.css">
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/body.css">
   <link rel="stylesheet" href="package://game_resources/interface/assets/css/weapons.css">
@@ -445,21 +444,7 @@
       <div @click="btn(0,$event)" class="icon mask" v-bind:class="{ active: btns[0] }"></div>
     </div>
   </div>
-  <div class="petshop" v-if="active">
-    <h1>{{header}}</h1>
-    <div class="items">
-      <p>Выберите питомца:</p>
-      <div class="list">
-        <i @click="left(0)" class="left-arrow"></i>
-        <div>{{models[indexM]}}</div>
-        <i @click="right(0)" class="right-arrow"></i>
-      </div>
-    </div>
-    <div class="btns">
-      <div @click="buy" class="btn buy">Купить за ${{prices[indexM]}}</div>
-      <div @click="exit" class="btn exit">Выйти</div>
-    </div>
-  </div>
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="package://game_resources/interface/assets/js/dial.js"></script>
@@ -474,7 +459,6 @@
   <script src="package://game_resources/interface/assets/js/fmenu.js"></script>
   <script src="package://game_resources/interface/assets/js/mats.js"></script>
   <script src="package://game_resources/interface/assets/js/auto.js"></script>
-  <script src="package://game_resources/interface/assets/js/pet.js"></script>
   <script src="package://game_resources/interface/assets/js/bsearch.js"></script>
   <script src="package://game_resources/interface/assets/js/body.js"></script>
   <script src="package://game_resources/interface/assets/js/weapons.js"></script>

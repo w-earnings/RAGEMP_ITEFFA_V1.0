@@ -39,7 +39,6 @@ namespace iTeffa.Settings
         public int HotelID { get; set; } = -1;
         public int HotelLeft { get; set; } = 0;
         public int Sim { get; set; } = -1;
-        public string PetName { get; set; } = "null";
         public Dictionary<int, string> Contacts = new Dictionary<int, string>();
         public List<bool> Achievements = new List<bool>();
 

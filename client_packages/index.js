@@ -379,43 +379,6 @@ mp.events.add('serverTakeOffWeapon', (weaponHash) => {
     } catch (e) { }
 });
 
-var petathouse = null;
-mp.events.add('petinhouse', (petName, petX, petY, petZ, petC, Dimension) => {
-	if(petathouse != null) {
-		petathouse.destroy();
-		petathouse = null;
-	}
-	switch(petName) {
-		case "Husky":
-			petName = 1318032802;
-			break;
-		case "Poodle":
-			petName = 1125994524;
-			break;
-		case "Pug":
-			petName = 1832265812;
-			break;
-		case "Retriever":
-			petName = 882848737;
-			break;
-		case "Rottweiler":
-			petName = 2506301981;
-			break;
-		case "Shepherd":
-			petName = 1126154828;
-			break;
-		case "Westy":
-			petName = 2910340283;
-			break;
-		case "Cat":
-			petName = 1462895032;
-			break;
-		case "Rabbit":
-			petName = 3753204865;
-			break;
-	}
-	petathouse = mp.peds.new(petName, new mp.Vector3(petX, petY, petZ), petC, Dimension);
-});
 var checkTimer = setInterval(function () {
     var current = currentWeapon();
     if (localplayer.isInAnyVehicle(true)) {
