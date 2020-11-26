@@ -10,6 +10,10 @@ using iTeffa.Interface;
 using iTeffa.Settings;
 using MySqlConnector;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Kernel.Character
 {
     public class Character : CharacterData

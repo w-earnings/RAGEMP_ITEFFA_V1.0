@@ -8,6 +8,10 @@ using System.Data;
 using iTeffa.Interface;
 using iTeffa.Settings;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Kernel
 {
     class Admin : Script

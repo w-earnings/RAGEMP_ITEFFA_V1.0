@@ -1,5 +1,9 @@
 ﻿using GTANetworkAPI;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Settings
 {
     public class Utils

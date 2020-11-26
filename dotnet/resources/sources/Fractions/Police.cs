@@ -8,6 +8,10 @@ using iTeffa.Interface;
 using iTeffa.Kernel.Character;
 using Newtonsoft.Json;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Fractions
 {
     class Police : Script

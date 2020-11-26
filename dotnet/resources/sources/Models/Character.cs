@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace iTeffa.Settings
+namespace iTeffa.Models
 {
     public class CharacterData
     {

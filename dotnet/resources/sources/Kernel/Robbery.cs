@@ -11,6 +11,10 @@ using iTeffa.Interface;
 using iTeffa.Settings;
 using iTeffa.Kernel.Character;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Kernel
 {
     public class SafeMain : Script

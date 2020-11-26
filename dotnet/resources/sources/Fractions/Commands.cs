@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Threading;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Fractions
 {
     class FractionCommands : Script

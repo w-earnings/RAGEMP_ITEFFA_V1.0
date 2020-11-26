@@ -17,7 +17,11 @@ using System.Threading;
 using System.Net.Mail;
 using iTeffa.Speaking;
 using iTeffa.Houses;
+
 using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 
 namespace iTeffa
 {
