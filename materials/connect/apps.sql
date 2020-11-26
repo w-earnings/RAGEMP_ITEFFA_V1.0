@@ -50,9 +50,9 @@ CREATE TABLE IF NOT EXISTS `adminaccess` (
   `isadmin` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.adminaccess: ~6 rows (приблизительно)
+-- Дамп данных таблицы iteffa.adminaccess: ~9 rows (приблизительно)
 /*!40000 ALTER TABLE `adminaccess` DISABLE KEYS */;
 INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
 	(7, 'vehc', 1, 1),
@@ -62,7 +62,8 @@ INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
 	(7, 'tpc', 1, 5),
 	(7, 'save', 1, 6),
 	(7, 'delacar', 1, 7),
-	(7, 'delacars', 1, 8);
+	(7, 'delacars', 1, 8),
+	(7, 'createbusiness', 1, 9);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.advertised
@@ -156,7 +157,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `hotel` int(255) NOT NULL,
   `hotelleft` int(255) NOT NULL,
   `sim` int(255) NOT NULL,
-  `PetName` text DEFAULT NULL,
   `eat` int(255) NOT NULL,
   `water` int(255) NOT NULL,
   `demorgan` int(255) NOT NULL,
@@ -183,10 +183,10 @@ CREATE TABLE IF NOT EXISTS `characters` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.characters: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.characters: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `PetName`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`) VALUES
-	(333333, 8, 500200, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 'null', 0, 2, 0, 0, '2020-11-26 09:04:39', 0, 808474, 'null', 0, 2, 1, 69, 0, '[false,false,false,false,false,false,false,false]', '', 0, 62, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-11-26 09:04:39', '{"x":-2322.025,"y":3222.6956,"z":32.82767}', 0, 1);
+INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`) VALUES
+	(333333, 8, 534400, 'Jack', 'Brown', 0, 0, 0, '[18]', -1, 0, -1, 0, 2, 0, 0, '2020-11-26 09:04:39', 0, 808474, 'null', 1, 2, 1, 19, 0, '[false,false,false,false,false,false,false,false]', '', 0, 10, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-11-26 09:04:39', '{"x":461.63464,"y":-1574.4924,"z":32.792103}', 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.customization
@@ -575,7 +575,7 @@ INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`
 	(3, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(4, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(5, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(6, 0, 133000, 10000, 50, '1', '[]', 1, 200, 150),
+	(6, 0, 133013, 10000, 50, '1', '[]', 1, 200, 150),
 	(7, 0, 100000, 10000, 48, '1', '[]', 1, 200, 150),
 	(8, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(9, 0, 100000, 10000, 46, '1', '[]', 1, 200, 150),
@@ -603,7 +603,7 @@ CREATE TABLE IF NOT EXISTS `fractionvehicles` (
   `colorsec` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.fractionvehicles: ~95 rows (приблизительно)
+-- Дамп данных таблицы iteffa.fractionvehicles: ~15 rows (приблизительно)
 /*!40000 ALTER TABLE `fractionvehicles` DISABLE KEYS */;
 INSERT INTO `fractionvehicles` (`fraction`, `number`, `components`, `model`, `position`, `rotation`, `rank`, `colorprim`, `colorsec`) VALUES
 	(3, 'VAGOS', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'speedo4', '{"x":480.659058,"y":-1897.94,"z":26.3010216}', '{"x":-2.14845753,"y":-0.149998382,"z":294.1523}', 1, 89, 89),
@@ -641,7 +641,7 @@ INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 	('101', '{}', '{}'),
 	('102', '{}', '{}'),
 	('103', '{}', '{}'),
-	('104', '{}', '{}'),
+	('104', '{"0":{"Name":"Шкаф с одеждой","Model":"prop_rub_cabinet02","ID":0,"Position":{"x":153.572,"y":-1001.324,"z":-99.49},"Rotation":{"x":0.0,"y":0.0,"z":0.0},"IsSet":true}}', '{"0":[]}'),
 	('105', '{}', '{}'),
 	('106', '{}', '{}'),
 	('107', '{}', '{}'),
@@ -1114,7 +1114,7 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(101, '', '5', '{"x":-888.02435,"y":42.230972,"z":48.027042}', '8000000', 0, '102', '32364', '[]'),
 	(102, '', '5', '{"x":-930.3805,"y":19.117697,"z":47.387363}', '6000000', 0, '103', '178877', '[]'),
 	(103, '', '1', '{"x":466.9857,"y":-1590.2986,"z":31.694334}', '100000', 0, '104', '89496', '[]'),
-	(104, '', '1', '{"x":455.3242,"y":-1579.9308,"z":31.671972}', '100000', 0, '105', '585556', '[]'),
+	(104, '', '1', '{"x":455.3242,"y":-1579.9308,"z":31.671972}', '100000', 1, '105', '585556', '[]'),
 	(105, '', '1', '{"x":442.06866,"y":-1569.5182,"z":31.694647}', '100000', 0, '106', '701975', '[]'),
 	(106, '', '1', '{"x":430.32242,"y":-1559.2418,"z":31.672255}', '100000', 0, '107', '193935', '[]'),
 	(107, '', '1', '{"x":470.8753,"y":-1561.379,"z":31.672304}', '100000', 0, '108', '994557', '[]'),
@@ -1201,7 +1201,7 @@ CREATE TABLE IF NOT EXISTS `money` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.money: ~167 rows (приблизительно)
+-- Дамп данных таблицы iteffa.money: ~168 rows (приблизительно)
 /*!40000 ALTER TABLE `money` DISABLE KEYS */;
 INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('100225', '', '0', '2'),
@@ -1280,6 +1280,7 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('498670', '', '0', '2'),
 	('501809', '', '0', '2'),
 	('504010', '', '0', '2'),
+	('506657', '', '0', '3'),
 	('507881', '', '0', '2'),
 	('509009', '', '0', '2'),
 	('5177', '', '0', '2'),
@@ -1332,7 +1333,7 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('805788', '', '0', '2'),
 	('807166', '', '0', '2'),
 	('807695', '', '0', '2'),
-	('808474', 'Jack_Brown', '0', '1'),
+	('808474', '', '0', '2'),
 	('813694', '', '0', '2'),
 	('815300', '', '0', '2'),
 	('818431', '', '0', '2'),
@@ -1488,8 +1489,10 @@ CREATE TABLE IF NOT EXISTS `weapons` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.weapons: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.weapons: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `weapons` DISABLE KEYS */;
+INSERT INTO `weapons` (`id`, `lastserial`) VALUES
+	('8', '0');
 /*!40000 ALTER TABLE `weapons` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.whitelist
