@@ -61,10 +61,6 @@ namespace iTeffa.Settings
             }
         }
 
-        /// <summary>
-        /// Выполнить запрос без ответа
-        /// </summary>
-        /// <param name="command">Передаем заранее составленную команду</param>
         public static void Query(MySqlCommand command)
         {
             try
@@ -81,10 +77,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-        /// <summary>
-        /// Выполнить запрос без ответа
-        /// </summary>
-        /// <param name="command">Передаем команду в виде строки</param>
+
         public static void Query(string command)
         {
             using(MySqlCommand cmd = new MySqlCommand(command))
@@ -92,10 +85,7 @@ namespace iTeffa.Settings
                 Query(cmd);
             }
         }
-        /// <summary>
-        /// Выполнить запрос без ответа
-        /// </summary>
-        /// <param name="command">Передаем заранее составленную команду</param>
+
         public static async Task QueryAsync(MySqlCommand command)
         {
             try
@@ -112,10 +102,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-        /// <summary>
-        /// Выполнить запрос без ответа
-        /// </summary>
-        /// <param name="command">Передаем команду в виде строки</param>
+
         public static async Task QueryAsync(string command)
         {
             try
@@ -136,11 +123,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-        /// <summary>
-        /// Отправить запрос и считать ответ
-        /// </summary>
-        /// <param name="command">Передаем заранее составленную команду</param>
-        /// <returns>Ответ базы данных в формате таблицы</returns>
+
         public static DataTable QueryRead(MySqlCommand command)
         {
             if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
@@ -157,11 +140,7 @@ namespace iTeffa.Settings
                 return result;
             }
         }
-        /// <summary>
-        /// Отправить запрос и считать ответ
-        /// </summary>
-        /// <param name="command">Передаем команду в виде строки</param>
-        /// <returns>Ответ базы данных в формате таблицы</returns>
+
         public static DataTable QueryRead(string command)
         {
             using(MySqlCommand cmd = new MySqlCommand(command))
@@ -169,11 +148,7 @@ namespace iTeffa.Settings
                 return QueryRead(cmd);
             }
         }
-        /// <summary>
-        /// Асинхронная версия Read
-        /// </summary>
-        /// <param name="command">Передаем заранее составленную команду</param>
-        /// <returns>Ответ базы данных в формате таблицы</returns>
+
         public static async Task<DataTable> QueryReadAsync(MySqlCommand command)
         {
             if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
@@ -190,11 +165,7 @@ namespace iTeffa.Settings
                 return result;
             }
         }
-        /// <summary>
-        /// Асинхронная версия Read
-        /// </summary>
-        /// <param name="command">Передаем заранее составленную команду</param>
-        /// <returns>Ответ базы данных в формате таблицы</returns>
+
         public static async Task<DataTable> QueryReadAsync(string command)
         {
             using(MySqlCommand cmd = new MySqlCommand(command))

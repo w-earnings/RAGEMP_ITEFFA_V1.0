@@ -17,8 +17,6 @@ namespace iTeffa.Speaking
             this.Players = new List<Player>();
         }
 
-
-
         public void OnJoin(Player player)
         {
             if (Players.Contains(player))

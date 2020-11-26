@@ -1,5 +1,5 @@
-﻿using GTANetworkAPI;
-using System;
+﻿using System;
+using GTANetworkAPI;
 using System.Collections.Generic;
 
 namespace iTeffa.Models
@@ -52,21 +52,5 @@ namespace iTeffa.Models
         public int TuningShop = -1;
         public bool IsAlive = false;
         public bool IsSpawned = false;
-    }
-
-    public class WantedLevel
-    {
-        public int Level { get; set; }
-        public string WhoGive { get; set; }
-        public DateTime Date { get; set; }
-        public string Reason { get; set; }
-
-        public WantedLevel(int level, string whoGive, DateTime date, string reason)
-        {
-            Level = level;
-            WhoGive = whoGive;
-            Date = date;
-            Reason = reason;
-        }
     }
 }

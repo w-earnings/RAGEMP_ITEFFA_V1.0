@@ -9,6 +9,10 @@ using System.Security.Cryptography;
 using Newtonsoft.Json;
 using MySqlConnector;
 
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 namespace iTeffa.Kernel.nAccount
 {
     public class Account : AccountData

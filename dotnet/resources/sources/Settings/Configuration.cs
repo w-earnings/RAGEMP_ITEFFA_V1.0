@@ -39,11 +39,7 @@ namespace iTeffa.Settings
                 }
             }
         }
-        /// <summary>
-        /// Устанавливает значение в конфиг или создает новый
-        /// </summary>
-        /// <param name="param">Название параметра конфигурации</param>
-        /// <param name="value">Значение параметра</param>
+
         public object Set(string param, object value)
         {
             if (configs.ContainsKey(param))
@@ -78,24 +74,14 @@ namespace iTeffa.Settings
             }
             return value;
         }
-        /// <summary>
-        /// Получает значение параметра по названию. Вернет объект или Null.
-        /// </summary>
-        /// <param name="param">Название параметра конфигурации</param>
-        /// <returns>Возвращает объект для дальнейшей конвертации. Если параметр не найден, вернет null.</returns>
+
         public object Get(string param)
         {
             if (configs.ContainsKey(param))
                 return configs[param];
             return null;
         }
-        /// <summary>
-        /// Пытается получить значение по названию параметра. Если параметр не найден, создает новый.
-        /// </summary>
-        /// <typeparam name="T">Тип, который вернется</typeparam>
-        /// <param name="param">Название параметра конфигурации</param>
-        /// <param name="_default">Значение по умолчанию для данного типа</param>
-        /// <returns>Возвращает найденый объект с указанным типом (T)</returns>
+
         public T TryGet<T>(string param, object _default)
         {
             if (!configs.ContainsKey(param))
