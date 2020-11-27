@@ -41,10 +41,7 @@ namespace iTeffa.Models
         public int Sim { get; set; } = -1;
         public Dictionary<int, string> Contacts = new Dictionary<int, string>();
         public List<bool> Achievements = new List<bool>();
-
         public bool VoiceMuted = false;
-
-        // temperory data
         public int InsideHouseID = -1;
         public int InsideGarageID = -1;
         public Vector3 ExteriorPos = new Vector3();
