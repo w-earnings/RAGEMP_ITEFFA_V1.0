@@ -106,8 +106,6 @@ setInterval(function () {
   mp.discord.update('iTeffa.com', name);
 }, 10000);
 
-mp.game.gxt.set("PM_PAUSE_HDR", "iTeffa.com"); // Меню паузы
-
 var pedsaying = null;
 var pedtext = "";
 var pedtext2 = null;
@@ -121,6 +119,23 @@ var emsloaded = false;
 var showCords = false;
 const walkstyles = [null,"move_m@brave","move_m@confident","move_m@drunk@verydrunk","move_m@shadyped@a","move_m@sad@a","move_f@sexy@a","move_ped_crouched"];
 const moods = [null,"mood_aiming_1", "mood_angry_1", "mood_drunk_1", "mood_happy_1", "mood_injured_1", "mood_stressed_1"];
+
+mp.game.gxt.set("PM_PAUSE_HDR", "iTeffa.com"); // Меню паузы
+
+/* Недостающие части IPL карты */
+mp.game.streaming.requestIpl("ch1_02_open");               // Глитч открытого интерьера на пляже
+mp.game.streaming.requestIpl("sp1_10_real_interior");      // Открытый интерьер стадика
+mp.game.streaming.requestIpl("sp1_10_real_interior_lod");  // Открытый интерьер стадика
+mp.game.streaming.requestIpl("ferris_finale_Anim");        // Колесо обозрения на пляже
+mp.game.streaming.requestIpl("gr_case6_bunkerclosed");     // Закрытый бункер merryweather
+mp.game.streaming.requestIpl("Coroner_Int_On");            // Части интерьера больницы
+
+// Подгружаем недостающие части здания самого казино...
+mp.game.streaming.requestIpl("hei_dlc_windows_casino");    // Pеркальные окна на здании
+mp.game.streaming.requestIpl("hei_dlc_casino_door");       // Hамка двери
+mp.game.streaming.requestIpl("vw_dlc_casino_door");        // Cами двери
+mp.game.streaming.requestIpl("hei_dlc_casino_aircon");     // Кондиционер на крыше
+
 mp.game.streaming.requestClipSet("move_m@brave");
 mp.game.streaming.requestClipSet("move_m@confident");
 mp.game.streaming.requestClipSet("move_m@drunk@verydrunk");
