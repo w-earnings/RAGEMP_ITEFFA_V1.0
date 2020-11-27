@@ -1,7 +1,4 @@
 # Project iTeffa Release
-![shellhud](https://iteffa.com/wp-content/uploads/2020/11/shellhud.jpeg/)
-
-Скачать dlc.rpf : https://drive.google.com/drive/folders/1L0Pwl8xs6oomIKtgVwSEemF_FVguTeMv?usp=sharing
 
 Описание:
     Сборка сервера работает как на ОС Linux так и на Windows (имеются инструкции для установки)
