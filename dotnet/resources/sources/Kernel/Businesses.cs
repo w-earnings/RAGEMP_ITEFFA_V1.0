@@ -77,15 +77,15 @@ namespace iTeffa.Kernel
         public static Dictionary<int, int> Orders = new Dictionary<int, int>();
 
         #region Карта названия блипа
-        public static List<string> BusinessTypeNames = new List<string>() // 9
+        public static List<string> BusinessTypeNames = new List<string>()
         {
             "24/7",               // 0
             "Заправка",           // 1
-            "Автосалон #1",       // 2
-            "Автосалон #2",       // 3
-            "Автосалон #3",       // 4
-            "Автосалон #4",       // 5
-            "Автосалон #5",       // 6
+            "Автосалон",          // 2
+            "Автосалон",          // 3
+            "Автосалон",          // 4
+            "Автосалон",          // 5
+            "Автосалон",          // 6
             "Оружейная",          // 7
             "Магазин одежды",     // 8
             "Тату-салон",         // 9
