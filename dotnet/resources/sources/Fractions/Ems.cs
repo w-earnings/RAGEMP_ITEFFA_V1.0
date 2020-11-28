@@ -17,51 +17,36 @@ namespace iTeffa.Fractions
         {
             try
             {
-                NAPI.TextLabel.CreateTextLabel("~b~Bdesma Katsuni", new Vector3(251.4247, -1346.499, 25.5378), 5f, 0.3f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
-                NAPI.TextLabel.CreateTextLabel("~b~Steve Hobs", new Vector3(262.3232, -1359.772, 25.53779), 5f, 0.3f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
-                NAPI.TextLabel.CreateTextLabel("~b~Billy Moore", new Vector3(257.5671, -1344.612, 25.54937), 5f, 0.3f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
-
-                #region cols
-                // enter ems LS
+                #region Колшебы
                 var col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[0], 1, 2, 0);
-                col.SetData("INTERACT", 15);
-                col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
-                col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Нажмите Е"), new Vector3(emsCheckpoints[0].X, emsCheckpoints[0].Y, emsCheckpoints[0].Z + 1), 5F, 0.3F, 0, new Color(255, 255, 255));
-                NAPI.Marker.CreateMarker(21, emsCheckpoints[0] + new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 0.8f, new Color(255, 255, 255, 60));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[1], 1, 2, 0); // exit ems
-                col.SetData("INTERACT", 16);
-                col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
-                col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Нажмите Е"), new Vector3(emsCheckpoints[1].X, emsCheckpoints[1].Y, emsCheckpoints[1].Z + 1), 5F, 0.3F, 0, new Color(255, 255, 255));
-                NAPI.Marker.CreateMarker(21, emsCheckpoints[1] + new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 0.8f, new Color(255, 255, 255, 60));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[3], 1, 2, 0); // open hospital stock
+                #region Больничный запас
+                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[1], 1, 2, 0);
                 col.SetData("INTERACT", 17);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Открыть склад"), new Vector3(emsCheckpoints[3].X, emsCheckpoints[3].Y, emsCheckpoints[3].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[4], 1, 2, 0); // duty change
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Открыть склад"), new Vector3(emsCheckpoints[1].X, emsCheckpoints[1].Y, emsCheckpoints[1].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
+                #endregion
+                #region Изменение обязанности
+                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[2], 1, 2, 0); // duty change
                 col.SetData("INTERACT", 18);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Нажмите Е, чтобы переодеться"), new Vector3(emsCheckpoints[4].X, emsCheckpoints[4].Y, emsCheckpoints[4].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[5], 1, 2, 0); // start heal course
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Переодеться"), new Vector3(emsCheckpoints[2].X, emsCheckpoints[2].Y, emsCheckpoints[2].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
+                #endregion
+                #region Начать курс лечения
+                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[3], 1, 2, 0);
                 col.SetData("INTERACT", 19);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Нажмите Е, чтобы начать лечение"), new Vector3(emsCheckpoints[5].X, emsCheckpoints[5].Y, emsCheckpoints[5].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[6], 1, 2, 0); // tattoo delete
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Начать лечение"), new Vector3(emsCheckpoints[3].X, emsCheckpoints[3].Y, emsCheckpoints[3].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
+                #endregion
+                #region Татуировка удалить
+                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[4], 1, 2, 0); // tattoo delete
                 col.SetData("INTERACT", 51);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Удаление татуировок"), new Vector3(emsCheckpoints[6].X, emsCheckpoints[6].Y, emsCheckpoints[6].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
-                col = NAPI.ColShape.CreateCylinderColShape(new Vector3(261.7316, -1352.62, 23.4178), 53, 7, 0); // start heal course
+                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~Удаление татуировок"), new Vector3(emsCheckpoints[4].X, emsCheckpoints[4].Y, emsCheckpoints[4].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
+                #endregion
                 col.OnEntityEnterColShape += (s, e) =>
                 {
                     try
@@ -70,34 +55,19 @@ namespace iTeffa.Fractions
                     }
                     catch { }
                 };
-
-                #region Load Medkits
-                col = NAPI.ColShape.CreateCylinderColShape(new Vector3(3595.796, 3661.733, 32.75175), 4, 5, 0); // take meds
+                #region Загрузить аптечки
+                col = NAPI.ColShape.CreateCylinderColShape(new Vector3(3595.796, 3661.733, 32.75175), 4, 5, 0);
                 col.SetData("INTERACT", 58);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
                 NAPI.Marker.CreateMarker(1, new Vector3(3595.796, 3661.733, 29.75175), new Vector3(), new Vector3(), 4, new Color(255, 0, 0));
-
-                col = NAPI.ColShape.CreateCylinderColShape(new Vector3(3597.154, 3670.129, 32.75175), 1, 2, 0); // take meds
+                col = NAPI.ColShape.CreateCylinderColShape(new Vector3(3597.154, 3670.129, 32.75175), 1, 2, 0);
                 col.SetData("INTERACT", 58);
                 col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
                 col.OnEntityExitColShape += emsShape_onEntityExitColShape;
                 NAPI.Marker.CreateMarker(1, new Vector3(3597.154, 3670.129, 29.75175), new Vector3(), new Vector3(), 4, new Color(255, 0, 0));
                 NAPI.Blip.CreateBlip(305, new Vector3(3588.917, 3661.756, 41.48687), 0.75F, 3, "Склад аптечек", 255, 0, true);
                 #endregion
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[7], 1, 2, 0); // roof
-                col.SetData("INTERACT", 63);
-                col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
-                col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~В больницу"), new Vector3(emsCheckpoints[7].X, emsCheckpoints[7].Y, emsCheckpoints[7].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
-                col = NAPI.ColShape.CreateCylinderColShape(emsCheckpoints[8], 1, 2, 0); // to roof
-                col.SetData("INTERACT", 63);
-                col.OnEntityEnterColShape += emsShape_onEntityEnterColShape;
-                col.OnEntityExitColShape += emsShape_onEntityExitColShape;
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~b~На крышу"), new Vector3(emsCheckpoints[8].X, emsCheckpoints[8].Y, emsCheckpoints[8].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
-
                 #endregion
 
                 for (int i = 3; i < emsCheckpoints.Count; i++)
@@ -110,15 +80,11 @@ namespace iTeffa.Fractions
 
         public static List<Vector3> emsCheckpoints = new List<Vector3>()
         {
-            new Vector3(355.9243, -596.5783, 27.65636), // enter ems                0
-            new Vector3(275.446, -1361.11, 23.5378),    // exit ems                 1
-            new Vector3(279.5215, -1337.031, 23.5378),  // spawn after death        2
-            new Vector3(251.3914, -1346.518, 23.4178),  // open hospital stock      3
-            new Vector3(246.223, -1353.053, 23.5378),   // duty change              4
-            new Vector3(260.4829, -1358.456, 23.5378),  // start heal course        5
-            new Vector3(257.4013, -1344.476, 23.42937), // tattoo delete            6
-            new Vector3(339.0912, -583.9084, 73.04566), // roof                     7
-            new Vector3(247.0829, -1371.738, 23.41781), // to roof                  8
+            new Vector3(379.0306, -1417.317, 38.00000),      // Spawn после смерти
+            new Vector3(362.8500, -1384.031, 31.30916),      // Больничный запас
+            new Vector3(352.3164, -1432.939, 31.81623),      // Изменение обязанности
+            new Vector3(346.9115, -1413.393, 31.30915),      // Начать курс лечения
+            new Vector3(306.4182, -1407.456, 32.11600),      // Татуировка удалить
         };
 
         public static void callEms(Player player, bool death = false)
@@ -356,11 +322,11 @@ namespace iTeffa.Fractions
                             else if (Main.Players[player].ArrestTime != 0)
                                 spawnPos = Police.policeCheckpoints[4];
                             else if (Main.Players[player].FractionID == 14)
-                                spawnPos = Fractions.Manager.FractionSpawns[14] + new Vector3(0, 0, 1.12);
+                                spawnPos = Manager.FractionSpawns[14] + new Vector3(0, 0, 1.12);
                             else
                             {
                                 player.SetData("IN_HOSPITAL", true);
-                                spawnPos = emsCheckpoints[2];
+                                spawnPos = emsCheckpoints[0];
                             }
 
                             NAPI.Player.SpawnPlayer(player, spawnPos);
@@ -402,11 +368,12 @@ namespace iTeffa.Fractions
 
         public static void DeathTimer(Player player)
         {
-            NAPI.Task.Run(() => { 
-                try 
-                { 
-                    player.Health = 0; 
-                } catch { } 
+            NAPI.Task.Run(() => {
+                try
+                {
+                    player.Health = 0;
+                }
+                catch { }
             });
         }
 
@@ -439,7 +406,7 @@ namespace iTeffa.Fractions
             nInventory.Add(player, new nItem(ItemType.HealthKit));
             nInventory.Remove(seller, ItemType.HealthKit, 1);
 
-            Fractions.Stocks.fracStocks[6].Money += Convert.ToInt32(player.GetData<int>("PRICE") * 0.85);
+            Stocks.fracStocks[6].Money += Convert.ToInt32(player.GetData<int>("PRICE") * 0.85);
             Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
             Finance.Wallet.Change(seller, Convert.ToInt32(player.GetData<int>("PRICE") * 0.15));
 
@@ -453,7 +420,7 @@ namespace iTeffa.Fractions
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько денег", 3000);
                 return;
-            }   
+            }
             var seller = player.GetData<Player>("SELLER");
             if (player.Position.DistanceTo(seller.Position) > 2)
             {
@@ -506,33 +473,6 @@ namespace iTeffa.Fractions
         {
             switch (interact)
             {
-                case 15:
-                    if (player.IsInVehicle) return;
-                    if (player.HasData("FOLLOWING"))
-                    {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
-                        return;
-                    }
-                    player.SetData("IN_HOSPITAL", true);
-                    NAPI.Entity.SetEntityPosition(player, emsCheckpoints[1] + new Vector3(0, 0, 1.12));
-                    Main.PlayerEnterInterior(player, emsCheckpoints[1] + new Vector3(0, 0, 1.12));
-                    return;
-                case 16:
-                    if (player.HasData("FOLLOWING"))
-                    {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
-                        return;
-                    }
-                    if (NAPI.Player.GetPlayerHealth(player) < 100)
-                    {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить лечение", 3000);
-                        break;
-                    }
-
-                    player.SetData("IN_HOSPITAL", false);
-                    NAPI.Entity.SetEntityPosition(player, emsCheckpoints[0] + new Vector3(0, 0, 1.12));
-                    Main.PlayerEnterInterior(player, emsCheckpoints[0] + new Vector3(0, 0, 1.12));
-                    return;
                 case 17:
                     if (Main.Players[player].FractionID != 8)
                     {
@@ -619,36 +559,6 @@ namespace iTeffa.Fractions
 
                     VehicleInventory.Add(player.Vehicle, new nItem(ItemType.HealthKit, toAdd));
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заполнили машину аптечками", 3000);
-                    return;
-                case 63:
-                    if (Main.Players[player].FractionID != 8)
-                    {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник EMS", 3000);
-                        break;
-                    }
-                    if (player.IsInVehicle) return;
-                    if (player.Position.Z > 50)
-                    {
-                        if (player.HasData("FOLLOWING"))
-                        {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
-                            return;
-                        }
-                        player.SetData("IN_HOSPITAL", true);
-                        NAPI.Entity.SetEntityPosition(player, emsCheckpoints[8] + new Vector3(0, 0, 1.12));
-                        Main.PlayerEnterInterior(player, emsCheckpoints[8] + new Vector3(0, 0, 1.12));
-                    }
-                    else
-                    {
-                        if (player.HasData("FOLLOWING"))
-                        {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
-                            return;
-                        }
-                        player.SetData("IN_HOSPITAL", false);
-                        NAPI.Entity.SetEntityPosition(player, emsCheckpoints[7] + new Vector3(0, 0, 1.12));
-                        Main.PlayerEnterInterior(player, emsCheckpoints[7] + new Vector3(0, 0, 1.12));
-                    }
                     return;
             }
         }
@@ -840,7 +750,7 @@ namespace iTeffa.Fractions
                 return;
             }
             GameLog.Money($"player({Main.Players[client].UUID})", $"server", 600, $"tattooRemove");
-            Fractions.Stocks.fracStocks[6].Money += 600;
+            Stocks.fracStocks[6].Money += 600;
 
             foreach (var tattoo in Customization.CustomPlayerData[Main.Players[client].UUID].Tattoos[Convert.ToInt32(zone)])
             {

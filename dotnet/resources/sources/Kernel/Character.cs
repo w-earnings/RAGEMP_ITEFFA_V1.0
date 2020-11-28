@@ -272,7 +272,7 @@ namespace iTeffa.Kernel.Character
                 {
                     if (IsSpawned && !IsAlive)
                     {
-                        pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[2]);
+                        pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[0]);
                         Health = 20;
                         Armor = 0;
                     }

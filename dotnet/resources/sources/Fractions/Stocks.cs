@@ -25,7 +25,7 @@ namespace iTeffa.Fractions
 
             { 6, new Vector3()},
             { 7, new Vector3()},
-            { 8, new Vector3()},
+            { 8, new Vector3()}, 
             { 9, new Vector3()},
             { 10, new Vector3(1404.115, 1131.676, 83.217)},
             { 11, new Vector3(-120.4249, 976.35, 54.5895)},
@@ -44,10 +44,10 @@ namespace iTeffa.Fractions
             {3, new Vector3(472.6555, -1882.347, 24.97735)},     // Los Santos Vagos
             {4, new Vector3(1435.542, -1479.373, 62.10447)},     // Marabunta Grande
             {5, new Vector3(975.5194, -1841.575, 30.14339)},     // Blood Street
+            {6, new Vector3(-580.291, -130.4515, 34.00952)},     // Cityhall
+            {7, new Vector3(434.195, -1005.593, 26.21062)},      // Police Dept
+            {8, new Vector3(322.0637, -1479.8123, 28.813513)},   // Medical Center
 
-            { 6, new Vector3(-580.291, -130.4515, 34.00952)},
-            { 7, new Vector3(434.195, -1005.593, 26.21062)},
-            { 8, new Vector3(329.4695, -557.2731, 27.62379)},
             { 9, new Vector3(128.3342, -703.3604, 32.00156)},
             { 10, new Vector3(1413.687, 1118.036, 112.838)},
             { 11, new Vector3(-128.7453, 1006.892, 234.6121)},
