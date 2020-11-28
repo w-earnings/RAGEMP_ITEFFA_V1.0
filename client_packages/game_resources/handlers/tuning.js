@@ -1,4 +1,4 @@
-﻿var lsc = mp.browsers.new("package://game_resources/interface/tuning/main.html");
+﻿var lsc = mp.browsers.new("package://game_resources/interface/tuning/home.html");
 var lscSpeed = 0;
 var lscBrakes = 0;
 var lscBoost = 0;
