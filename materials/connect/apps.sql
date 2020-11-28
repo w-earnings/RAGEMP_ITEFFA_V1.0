@@ -34,12 +34,12 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `present` tinyint(1) NOT NULL DEFAULT 0,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы iteffa.accounts: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`socialclub`, `login`, `hwid`, `coins`, `ip`, `character1`, `character2`, `character3`, `email`, `password`, `viplvl`, `vipdate`, `promocodes`, `present`, `idkey`) VALUES
-	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '0', '194.28.4.19', '333333', '-1', '-2', 'w-earnings@hotmail.com', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-11-26 09:04:29', '["noref"]', 0, 1);
+	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '499500', '194.28.4.19', '333333', '-1', '-2', 'w-earnings@hotmail.com', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-11-26 09:04:29', '["noref"]', 0, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.adminaccess
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `adminaccess` (
   `isadmin` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.adminaccess: ~9 rows (приблизительно)
+-- Дамп данных таблицы iteffa.adminaccess: ~10 rows (приблизительно)
 /*!40000 ALTER TABLE `adminaccess` DISABLE KEYS */;
 INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
 	(7, 'vehc', 1, 1),
@@ -62,7 +62,8 @@ INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
 	(7, 'save', 1, 6),
 	(7, 'delacar', 1, 7),
 	(7, 'delacars', 1, 8),
-	(7, 'createbusiness', 1, 9);
+	(7, 'createbusiness', 1, 9),
+	(7, 'givecoins', 1, 10);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.advertised
@@ -212,9 +213,9 @@ INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enter
 	(68, 'Государство', '1000000', '12', '[{"Price":100,"Lefts":1000,"Autosell":0,"Name":"Запчасти","Ordered":false}]', '{"x":-212.0688,"y":-1323.9668,"z":29.764202}', '{"x":0.0,"y":0.0,"z":0.0}', '738152', '-1', '[]'),
 	(69, 'Государство', '1000000', '12', '[{"Price":100,"Lefts":1000,"Autosell":0,"Name":"Запчасти","Ordered":false}]', '{"x":-338.42566,"y":-136.95743,"z":37.846767}', '{"x":0.0,"y":0.0,"z":0.0}', '722040', '-1', '[]'),
 	(70, 'Государство', '1000000', '12', '[{"Price":100,"Lefts":1000,"Autosell":0,"Name":"Запчасти","Ordered":false}]', '{"x":-1154.646,"y":-2006.5746,"z":12.054245}', '{"x":0.0,"y":0.0,"z":0.0}', '689959', '-1', '[]'),
-	(71, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":false}]', '{"x":-1795.8801,"y":805.5701,"z":137.38937}', '{"x":0.0,"y":0.0,"z":0.0}', '388639', '-1', '[]'),
-	(72, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":false}]', '{"x":-728.68555,"y":-935.2557,"z":17.893677}', '{"x":0.0,"y":0.0,"z":0.0}', '176982', '-1', '[]'),
-	(73, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":false}]', '{"x":-1335.7427,"y":-2676.1006,"z":12.77391}', '{"x":0.0,"y":0.0,"z":0.0}', '128674', '-1', '[]'),
+	(71, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":-1795.8801,"y":805.5701,"z":137.38937}', '{"x":0.0,"y":0.0,"z":0.0}', '388639', '-1', '[{"Name":"Бензин","Amount":2000}]'),
+	(72, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":-728.68555,"y":-935.2557,"z":17.893677}', '{"x":0.0,"y":0.0,"z":0.0}', '176982', '-1', '[{"Name":"Бензин","Amount":2000}]'),
+	(73, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":0,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":-1335.7427,"y":-2676.1006,"z":12.77391}', '{"x":0.0,"y":0.0,"z":0.0}', '128674', '-1', '[{"Name":"Бензин","Amount":2000}]'),
 	(74, 'Государство', '1000000', '13', '[{"Price":200,"Lefts":200,"Autosell":0,"Name":"Средство для мытья","Ordered":false}]', '{"x":-699.7934,"y":-934.8837,"z":17.893864}', '{"x":0.0,"y":0.0,"z":0.0}', '360123', '-1', '[]'),
 	(75, 'Государство', '1000000', '13', '[{"Price":200,"Lefts":200,"Autosell":0,"Name":"Средство для мытья","Ordered":false}]', '{"x":30.187027,"y":-1391.8145,"z":28.241102}', '{"x":0.0,"y":0.0,"z":0.0}', '698861', '-1', '[]'),
 	(76, 'Государство', '1000000', '13', '[{"Price":200,"Lefts":200,"Autosell":0,"Name":"Средство для мытья","Ordered":false}]', '{"x":170.96251,"y":-1718.0438,"z":28.171608}', '{"x":0.0,"y":0.0,"z":0.0}', '344454', '-1', '[]');
@@ -258,12 +259,12 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `work` int(255) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.characters: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.characters: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`) VALUES
-	(333333, 8, 534600, 'Jack', 'Brown', 0, 0, 0, '[18]', -1, 0, -1, 0, 2, 0, 0, '2020-11-26 09:04:39', 0, 808474, 'null', 1, 4, 1, 70, 0, '[false,false,false,false,false,false,false,false]', '', 0, 17, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-11-26 09:04:39', '{"x":170.96243,"y":-1718.043,"z":29.29165}', 0, 1);
+	(333333, 8, 1035400, 'Jack', 'Brown', 0, 0, 0, '[18]', -1, 0, -1, 29, 26, 0, 0, '2020-11-26 09:04:39', 0, 808474, 'null', 2, 6, 1, 100, 0, '[false,false,false,false,false,false,false,false]', '', 0, 13, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-11-26 09:04:39', '{"x":442.60187,"y":-982.1951,"z":30.689594}', 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.customization
@@ -286,9 +287,9 @@ CREATE TABLE IF NOT EXISTS `customization` (
   `iscreated` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.customization: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.customization: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `customization` DISABLE KEYS */;
 INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearance`, `hair`, `clothes`, `accessory`, `tattoos`, `eyebrowc`, `beardc`, `eyec`, `blushc`, `lipstickc`, `chesthairc`, `iscreated`, `idkey`) VALUES
 	(333333, '0', '{"Father":0,"Mother":21,"Similarity":0.5,"SkinSimilarity":0.5}', '[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":0,"Opacity":100.0},{"Value":1,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":2,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":0},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":3},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":2}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '1', '0', '0', '0', 1, 1);
@@ -647,24 +648,24 @@ CREATE TABLE IF NOT EXISTS `fractions` (
 -- Дамп данных таблицы iteffa.fractions: ~18 rows (приблизительно)
 /*!40000 ALTER TABLE `fractions` DISABLE KEYS */;
 INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`, `weapons`, `isopen`, `fuellimit`, `fuelleft`) VALUES
-	(1, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
+	(1, 0, 101100, 10000, 50, '1', '[]', 1, 200, 150),
 	(2, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(3, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(4, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(5, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(6, 0, 133013, 10000, 50, '1', '[]', 1, 200, 150),
-	(7, 0, 100000, 10000, 48, '1', '[]', 1, 200, 150),
-	(8, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(9, 0, 100000, 10000, 46, '1', '[]', 1, 200, 150),
+	(6, 0, 133013, 10000, 50, '1', '[]', 1, 200, 200),
+	(7, 0, 100000, 10000, 48, '1', '[]', 1, 200, 200),
+	(8, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200),
+	(9, 0, 100000, 10000, 46, '1', '[]', 1, 200, 200),
 	(10, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(11, 0, 100000, 10000, 50, '1', '[]', 0, 200, 150),
 	(12, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(13, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(14, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
+	(14, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200),
 	(15, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(16, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(17, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(18, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150);
+	(18, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200);
 /*!40000 ALTER TABLE `fractions` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.fractionvehicles
@@ -886,8 +887,20 @@ CREATE TABLE IF NOT EXISTS `gangspoints` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.gangspoints: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.gangspoints: ~11 rows (приблизительно)
 /*!40000 ALTER TABLE `gangspoints` DISABLE KEYS */;
+INSERT INTO `gangspoints` (`id`, `gangid`) VALUES
+	(0, 1),
+	(1, 1),
+	(2, 1),
+	(3, 1),
+	(4, 1),
+	(5, 1),
+	(6, 1),
+	(7, 1),
+	(8, 1),
+	(9, 1),
+	(10, 1);
 /*!40000 ALTER TABLE `gangspoints` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.garages
@@ -1261,9 +1274,9 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `uuid` int(255) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.inventory: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.inventory: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
 INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
 	('[{"Data":"26_2_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_0_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_3_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 333333, 1);
@@ -1550,10 +1563,96 @@ CREATE TABLE IF NOT EXISTS `othervehicles` (
   `color2` int(155) NOT NULL,
   `price` int(155) NOT NULL,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.othervehicles: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.othervehicles: ~85 rows (приблизительно)
 /*!40000 ALTER TABLE `othervehicles` DISABLE KEYS */;
+INSERT INTO `othervehicles` (`idkey`, `type`, `number`, `model`, `position`, `rotation`, `color1`, `color2`, `price`) VALUES
+	(1, '3', 'TAX01', 'taxi', '{"x":911.3861,"y":-163.55806,"z":74.96563}', '{"x":-3.46154332,"y":4.644617,"z":195.023743}', 88, 88, 500),
+	(2, '3', 'TAX02', 'taxi', '{"x":913.7169,"y":-159.5372,"z":75.39953}', '{"x":-4.07420254,"y":2.10240841,"z":196.26149}', 88, 88, 500),
+	(3, '3', 'TAX03', 'taxi', '{"x":916.2251,"y":-157.17485,"z":75.80468}', '{"x":-7.834387,"y":1.4806875,"z":196.577515}', 88, 88, 500),
+	(4, '3', 'TAX04', 'taxi', '{"x":921.651733,"y":-160.387482,"z":75.51164}', '{"x":-1.807731,"y":0.2815428,"z":96.1889648}', 88, 88, 500),
+	(5, '3', 'TAX05', 'taxi', '{"x":921.2434,"y":-163.443008,"z":75.4470444}', '{"x":-1.10551918,"y":1.54204476,"z":105.041046}', 88, 88, 500),
+	(6, '3', 'TAX06', 'taxi', '{"x":918.9917,"y":-166.870987,"z":75.27535}', '{"x":-1.61262083,"y":3.15578127,"z":103.941467}', 88, 88, 500),
+	(7, '3', 'TAX07', 'taxi', '{"x":916.8375,"y":-170.462067,"z":75.0754242}', '{"x":-0.7690415,"y":3.81116271,"z":101.52002}', 88, 88, 500),
+	(8, '3', 'TAX08', 'taxi', '{"x":899.664856,"y":-180.587769,"z":74.45779}', '{"x":0.386937857,"y":2.62136817,"z":240.431763}', 88, 88, 500),
+	(9, '3', 'TAX09', 'taxi', '{"x":897.746765,"y":-183.774231,"z":74.3808}', '{"x":-0.06507608,"y":1.55410326,"z":236.438232}', 88, 88, 500),
+	(10, '3', 'TAX10', 'taxi', '{"x":903.434631,"y":-191.742233,"z":74.4063644}', '{"x":0.144270614,"y":0.238111287,"z":58.8624573}', 88, 88, 500),
+	(11, '3', 'TAX11', 'taxi', '{"x":905.126831,"y":-188.856949,"z":74.44771}', '{"x":-2.00640917,"y":2.044616,"z":57.85898}', 88, 88, 500),
+	(12, '3', 'TAX12', 'taxi', '{"x":906.7461,"y":-186.1975,"z":74.62696}', '{"x":-2.379927,"y":2.37464023,"z":59.6705322}', 88, 88, 500),
+	(13, '3', 'TAX13', 'taxi', '{"x":908.633667,"y":-183.2114,"z":74.773735}', '{"x":-0.7372633,"y":0.470454484,"z":59.882843}', 88, 88, 500),
+	(14, '3', 'TAX14', 'taxi', '{"x":1963.50647,"y":3766.12817,"z":32.8039}', '{"x":-0.07087844,"y":0.00353700877,"z":31.5192871}', 88, 88, 500),
+	(15, '3', 'TAX15', 'taxi', '{"x":1959.97546,"y":3763.8667,"z":32.80618}', '{"x":-0.0700146258,"y":-0.0018386381,"z":31.2350464}', 88, 88, 500),
+	(16, '3', 'TAX16', 'taxi', '{"x":1956.74158,"y":3761.87964,"z":32.80827}', '{"x":-0.06598202,"y":0.00266076229,"z":28.4536133}', 88, 88, 500),
+	(17, '3', 'TAX17', 'taxi', '{"x":1953.51257,"y":3760.24072,"z":32.81115}', '{"x":-0.0690131,"y":-0.0287938435,"z":30.7680359}', 88, 88, 500),
+	(18, '3', 'TAX18', 'taxi', '{"x":1950.10754,"y":3758.0835,"z":32.81276}', '{"x":-0.07293287,"y":0.00212032348,"z":32.52832}', 88, 88, 500),
+	(19, '3', 'TAX19', 'taxi', '{"x":1785.01135,"y":4584.633,"z":38.109333}', '{"x":-3.58048558,"y":-1.75228214,"z":184.736847}', 88, 88, 500),
+	(20, '3', 'TAX20', 'taxi', '{"x":1789.38525,"y":4585.11133,"z":37.9858055}', '{"x":-4.159824,"y":-3.02974725,"z":184.550125}', 88, 88, 500),
+	(21, '3', 'TAX21', 'taxi', '{"x":1793.58252,"y":4585.61133,"z":37.8272133}', '{"x":-5.068772,"y":-2.25832176,"z":185.113922}', 88, 88, 500),
+	(22, '3', 'TAX22', 'taxi', '{"x":1797.26843,"y":4585.92,"z":37.7508659}', '{"x":-7.855726,"y":-2.300118,"z":184.197479}', 88, 88, 500),
+	(23, '3', 'TAX23', 'taxi', '{"x":1801.24133,"y":4586.354,"z":37.63805}', '{"x":-9.881439,"y":-3.747482,"z":186.0474}', 88, 88, 500),
+	(24, '4', 'AB01', 'airbus', '{"x":458.1302,"y":-647.890259,"z":29.2122765}', '{"x":-2.92642117,"y":-0.268661857,"z":32.9152832}', 1, 0, 100),
+	(25, '4', 'AB02', 'airbus', '{"x":459.138824,"y":-641.739868,"z":29.42082}', '{"x":-1.08647406,"y":-0.0813936144,"z":33.54196}', 1, 0, 100),
+	(26, '4', 'AB03', 'bus', '{"x":395.608582,"y":-649.63446,"z":29.4963531}', '{"x":-1.33702288E-05,"y":0.0268052761,"z":90.41998}', 1, 0, 100),
+	(27, '4', 'AB04', 'bus', '{"x":395.650879,"y":-644.267456,"z":29.4961815}', '{"x":0.0005845498,"y":0.0398493148,"z":89.96979}', 1, 0, 100),
+	(28, '4', 'AB05', 'bus', '{"x":396.86972,"y":-638.8962,"z":29.49626}', '{"x":-0.000295910955,"y":0.0205426738,"z":89.72421}', 1, 0, 100),
+	(29, '4', 'AB06', 'bus', '{"x":396.795319,"y":-655.0951,"z":29.4963379}', '{"x":0.0007032835,"y":0.01722737,"z":91.00137}', 1, 0, 100),
+	(30, '4', 'AB07', 'coach', '{"x":433.2195,"y":-602.9907,"z":30.32997}', '{"x":0.05653116,"y":0.49139443,"z":85.1412354}', 1, 0, 100),
+	(31, '4', 'AB08', 'coach', '{"x":433.014557,"y":-608.2864,"z":30.3300915}', '{"x":0.06690341,"y":0.489657432,"z":83.73053}', 1, 0, 100),
+	(32, '4', 'AB09', 'coach', '{"x":432.493042,"y":-613.584961,"z":30.330162}', '{"x":0.0432988927,"y":0.491594017,"z":85.90564}', 1, 0, 100),
+	(33, '4', 'AB10', 'coach', '{"x":432.154877,"y":-618.9939,"z":30.3305}', '{"x":0.103662372,"y":0.501824558,"z":85.87848}', 1, 0, 100),
+	(34, '4', 'AB11', 'coach', '{"x":431.922882,"y":-624.347534,"z":30.3437252}', '{"x":0.562941134,"y":0.7388771,"z":86.88446}', 1, 0, 100),
+	(35, '5', 'GAZ01', 'mower', '{"x":-1357.805,"y":130.085617,"z":56.6742477}', '{"x":-0.1164269,"y":0.121615827,"z":273.015625}', 1, 1, 100),
+	(36, '5', 'GAZ02', 'mower', '{"x":-1357.82031,"y":133.727524,"z":56.68427}', '{"x":0.0208278354,"y":0.495804,"z":272.0495}', 1, 1, 100),
+	(37, '5', 'GAZ03', 'mower', '{"x":-1358.2594,"y":137.058578,"z":56.68343}', '{"x":-0.0554131232,"y":0.6302744,"z":274.563049}', 43, 0, 100),
+	(38, '5', 'GAZ04', 'mower', '{"x":-1358.6377,"y":140.48941,"z":56.68284}', '{"x":-0.0470667072,"y":0.6465371,"z":274.2261}', 43, 0, 100),
+	(39, '5', 'GAZ05', 'mower', '{"x":-1343.90955,"y":139.237,"z":56.6815262}', '{"x":0.129226774,"y":-0.559241235,"z":93.25952}', 39, 0, 100),
+	(40, '5', 'GAZ06', 'mower', '{"x":-1343.69617,"y":135.679123,"z":56.68146}', '{"x":-0.239567414,"y":-0.61730963,"z":95.0296}', 39, 0, 100),
+	(41, '5', 'GAZ07', 'mower', '{"x":-1343.25171,"y":131.737518,"z":56.67501}', '{"x":0.0551014133,"y":-0.265569955,"z":92.26462}', 131, 0, 100),
+	(42, '5', 'GAZ08', 'mower', '{"x":-1342.99817,"y":127.272041,"z":56.67593}', '{"x":0.006375648,"y":-0.184658453,"z":91.43756}', 131, 0, 100),
+	(43, '5', 'GAZ09', 'mower', '{"x":-1343.02673,"y":105.977791,"z":56.57476}', '{"x":-2.56347322,"y":0.6609318,"z":276.062775}', 131, 0, 100),
+	(44, '5', 'GAZ10', 'mower', '{"x":-1342.60522,"y":102.962105,"z":56.44743}', '{"x":-1.175489,"y":0.0113552846,"z":275.647644}', 43, 0, 100),
+	(45, '5', 'GAZ11', 'mower', '{"x":-1342.333,"y":99.87406,"z":56.3436661}', '{"x":-4.98571,"y":-0.125623688,"z":274.150665}', 99, 0, 100),
+	(46, '5', 'GAZ12', 'mower', '{"x":-1342.15637,"y":96.88628,"z":56.0971336}', '{"x":-5.06430674,"y":-0.174276888,"z":274.481445}', 100, 0, 100),
+	(47, '5', 'GAZ13', 'mower', '{"x":-1341.925,"y":93.77123,"z":55.8395348}', '{"x":-4.997401,"y":-0.208105281,"z":275.7525}', 9, 0, 100),
+	(48, '5', 'GAZ14', 'mower', '{"x":-1341.61719,"y":91.17782,"z":55.608448}', '{"x":-5.799922,"y":-0.371354759,"z":270.696075}', 1, 0, 100),
+	(49, '5', 'GAZ15', 'mower', '{"x":-1341.35291,"y":88.44381,"z":55.3458481}', '{"x":-5.77961874,"y":-0.154441267,"z":273.797424}', 120, 0, 100),
+	(50, '5', 'GAZ16', 'mower', '{"x":-1341.38965,"y":84.76546,"z":54.9961128}', '{"x":-5.76370573,"y":-0.173462853,"z":277.918152}', 126, 0, 100),
+	(51, '6', 'TR01', 'packer', '{"x":-2206.13184,"y":4248.96729,"z":48.69468}', '{"x":2.73388314,"y":2.56137514,"z":37.09619}', 1, 0, 500),
+	(52, '6', 'TR02', 'packer', '{"x":-2211.93,"y":4245.835,"z":48.55291}', '{"x":2.60302281,"y":2.86598849,"z":37.5311279}', 1, 0, 500),
+	(53, '6', 'TR03', 'packer', '{"x":-2215.522,"y":4240.326,"z":48.4876671}', '{"x":0.9943446,"y":4.043248,"z":37.9543152}', 1, 0, 500),
+	(54, '6', 'TR04', 'packer', '{"x":-2219.29175,"y":4235.101,"z":48.3120155}', '{"x":1.06524134,"y":4.22451162,"z":38.17737}', 1, 0, 500),
+	(55, '6', 'TR05', 'packer', '{"x":-2195.734,"y":4246.43945,"z":48.96384}', '{"x":2.0192647,"y":1.254198,"z":38.0774841}', 1, 0, 500),
+	(56, '6', 'TR06', 'packer', '{"x":-2192.78442,"y":4265.13867,"z":49.5903358}', '{"x":-1.57339871,"y":3.70714164,"z":149.557922}', 1, 0, 500),
+	(57, '6', 'TR07', 'packer', '{"x":-2197.82422,"y":4268.2417,"z":49.47546}', '{"x":-2.46920061,"y":2.673291,"z":149.293854}', 1, 0, 500),
+	(58, '6', 'TR08', 'packer', '{"x":326.021362,"y":3423.10742,"z":37.6104355}', '{"x":1.03810632,"y":-1.09995353,"z":258.761658}', 1, 0, 500),
+	(59, '6', 'TR09', 'packer', '{"x":324.423248,"y":3418.85449,"z":37.695816}', '{"x":0.753980935,"y":-0.847635031,"z":254.9464}', 1, 0, 500),
+	(60, '6', 'TR010', 'packer', '{"x":322.649963,"y":3414.52832,"z":37.76032}', '{"x":0.461085,"y":-0.658453465,"z":255.206757}', 1, 0, 500),
+	(61, '6', 'TR011', 'packer', '{"x":321.511963,"y":3409.901,"z":37.803627}', '{"x":0.309344351,"y":-0.5162935,"z":253.211273}', 1, 0, 500),
+	(62, '6', 'TR012', 'packer', '{"x":320.25827,"y":3405.43237,"z":37.83022}', '{"x":0.143255115,"y":-0.4009944,"z":256.454285}', 1, 0, 500),
+	(63, '6', 'TR013', 'packer', '{"x":588.418945,"y":-3038.01074,"z":7.152807}', '{"x":0.322407067,"y":-0.0004707617,"z":1.16134644}', 1, 0, 500),
+	(64, '6', 'TR014', 'packer', '{"x":581.6494,"y":-3038.165,"z":7.15282965}', '{"x":0.323999882,"y":-0.004437913,"z":0.504425049}', 1, 0, 500),
+	(65, '6', 'TR015', 'packer', '{"x":575.0388,"y":-3038.55664,"z":7.135493}', '{"x":0.317926764,"y":0.124539778,"z":0.3312683}', 1, 0, 500),
+	(66, '6', 'TR016', 'packer', '{"x":567.94696,"y":-3038.22168,"z":7.12171459}', '{"x":0.179344848,"y":-0.213046938,"z":359.750183}', 1, 0, 500),
+	(67, '6', 'TR017', 'packer', '{"x":555.0056,"y":-3038.51953,"z":7.15323}', '{"x":0.324585319,"y":-0.00728093926,"z":359.92453}', 1, 0, 500),
+	(68, '6', 'TR018', 'packer', '{"x":564.289,"y":-3022.64136,"z":7.10187149}', '{"x":0.0622235835,"y":-0.349722624,"z":304.4901}', 1, 0, 500),
+	(69, '6', 'TR019', 'packer', '{"x":554.804749,"y":-3022.6582,"z":7.107256}', '{"x":0.0159405954,"y":-0.368972123,"z":309.2117}', 1, 0, 500),
+	(70, '6', 'TR020', 'packer', '{"x":545.6922,"y":-3022.811,"z":7.12627363}', '{"x":0.519928157,"y":-0.192532,"z":313.91217}', 1, 0, 500),
+	(71, '6', 'TR021', 'packer', '{"x":537.735535,"y":-3022.67334,"z":7.10613728}', '{"x":0.136230066,"y":-0.0937201455,"z":313.275879}', 1, 0, 500),
+	(72, '6', 'TR022', 'packer', '{"x":528.355469,"y":-3022.392,"z":7.09767151}', '{"x":-0.07244792,"y":-0.1692598,"z":317.70874}', 1, 0, 500),
+	(73, '7', 'INK1', 'stockade', '{"x":-154.6466,"y":6356.716,"z":32.095932}', '{"x":-0.0993806943,"y":0.115407251,"z":226.290009}', 53, 53, 100),
+	(74, '7', 'INK2', 'stockade', '{"x":-152.175537,"y":6359.229,"z":32.0960846}', '{"x":-0.09100005,"y":0.103019521,"z":225.562912}', 53, 53, 100),
+	(75, '7', 'INK3', 'stockade', '{"x":-149.5354,"y":6361.984,"z":32.09763}', '{"x":-0.0554389171,"y":0.007835708,"z":225.554916}', 53, 53, 100),
+	(76, '7', 'INK4', 'stockade', '{"x":-132.068436,"y":6351.96045,"z":32.094223}', '{"x":-0.0125807263,"y":-0.06357884,"z":46.36151}', 53, 53, 100),
+	(77, '7', 'INK5', 'stockade', '{"x":-134.50705,"y":6349.58057,"z":32.09429}', '{"x":-0.00682968227,"y":-0.07029326,"z":46.77365}', 53, 53, 100),
+	(78, '7', 'INK6', 'stockade', '{"x":-137.581726,"y":6346.82568,"z":32.09428}', '{"x":-0.0155531242,"y":-0.0677130148,"z":45.6331177}', 53, 53, 100),
+	(79, '7', 'INK7', 'stockade', '{"x":873.935852,"y":-1255.32483,"z":27.0535221}', '{"x":0.863304555,"y":-1.30242574,"z":306.615448}', 53, 53, 100),
+	(80, '7', 'INK8', 'stockade', '{"x":871.4682,"y":-1252.06836,"z":27.0616627}', '{"x":0.7615197,"y":-1.27908981,"z":308.662842}', 53, 53, 100),
+	(81, '7', 'INK9', 'stockade', '{"x":868.662354,"y":-1248.66528,"z":27.0710926}', '{"x":0.8272464,"y":-1.20697463,"z":310.998169}', 53, 53, 100),
+	(82, '7', 'INK10', 'stockade', '{"x":865.404541,"y":-1245.5542,"z":27.0911121}', '{"x":0.9127306,"y":-1.2174468,"z":312.004883}', 53, 53, 100),
+	(83, '7', 'INK11', 'stockade', '{"x":861.795837,"y":-1243.03015,"z":27.0940666}', '{"x":1.000648,"y":-0.328953981,"z":310.796143}', 53, 53, 100),
+	(84, '7', 'INK12', 'stockade', '{"x":858.6557,"y":-1240.11475,"z":27.0396862}', '{"x":0.905405641,"y":0.566338,"z":310.897125}', 53, 53, 100),
+	(85, '7', 'INK13', 'stockade', '{"x":854.991943,"y":-1237.62878,"z":26.9910374}', '{"x":0.355626345,"y":0.376740217,"z":308.505585}', 53, 53, 100);
 /*!40000 ALTER TABLE `othervehicles` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.promocodes
@@ -1630,10 +1729,12 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   `number` varchar(255) NOT NULL,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.vehicles: ~0 rows (приблизительно)
+-- Дамп данных таблицы iteffa.vehicles: ~1 rows (приблизительно)
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
+INSERT INTO `vehicles` (`holder`, `model`, `health`, `fuel`, `components`, `items`, `position`, `rotation`, `keynum`, `dirt`, `price`, `idkey`, `number`) VALUES
+	('Jack_Brown', 'g65', 1000, 100, '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"Armor":-1}', '[]', '', '', 0, 0, 0, 1, 'I881B');
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.weapons
