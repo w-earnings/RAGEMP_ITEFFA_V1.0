@@ -3,13 +3,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using iTeffa.Settings;
-using System.Linq;
 
 namespace iTeffa.Kernel
 {
     class BasicSync : Script
     {
-        private static nLog Log = new nLog("BasicSync");
+        private static readonly nLog Log = new nLog("BasicSync");
 
         public static void AttachLabelToObject(string text, Vector3 posOffset, NetHandle obj)
         {
@@ -58,29 +57,16 @@ namespace iTeffa.Kernel
             player.ResetSharedData("attachedObject");
             Trigger.ClientEventInRange(player.Position, 550, "detachObject", player);
         }
-
+        /* Для теста: iTeffa.com
         private static string SerializeAttachments(List<uint> attachments)
         {
             return string.Join('|', attachments.Select(hash => hash.ToString("X")));
         }
-
+        */
         [ServerEvent(Event.PlayerConnected)]
         public void OnPlayerConnected(Player player)
         {
             player.SetData("ATTACHMENTS", new List<uint>());
-        }
-
-        // TODO: adding attachments by client
-        [RemoteEvent("staticAttachments.Add")]
-        public static void StaticAttachmentsAdd(Player player, uint hash)
-        {
-
-        }
-
-        [RemoteEvent("staticAttachments.Remove")]
-        public static void StaticAttachmentsRemove(Player player, uint hash)
-        {
-
         }
 
         [RemoteEvent("fingerPointer.start")]
@@ -88,17 +74,6 @@ namespace iTeffa.Kernel
         {
             try
             {
-                /*if (string.IsNullOrEmpty(playersIdsStr)) playersIdsStr = "[]";
-                List<Client> Players = new List<Client>();
-                int[] playersIds = JsonConvert.DeserializeObject<int[]>(playersIdsStr);;
-
-                Action<int> action = new Action<int>((int playerId) => {
-                    Client targetPlayer = Main.GetPlayerByID(playerId);
-                    if (targetPlayer != null) Players.Add(targetPlayer);
-                });
-
-                Array.ForEach(playersIds, action);*/
-
                 Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.start", player);
                 player.SetSharedData("fingerPointerActive", true);
             }
@@ -113,17 +88,6 @@ namespace iTeffa.Kernel
         {
             try
             {
-                /*if (string.IsNullOrEmpty(playersIdsStr)) playersIdsStr = "[]";
-                List<Client> Players = new List<Client>();
-                int[] playersIds = JsonConvert.DeserializeObject<int[]>(playersIdsStr);
-
-                Action<int> action = new Action<int>((int playerId) => {
-                    Client targetPlayer = Main.GetPlayerByID(playerId);
-                    if (targetPlayer != null) Players.Add(targetPlayer);
-                });
-
-                Array.ForEach(playersIds, action);*/
-
                 Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.stop", player);
                 player.SetSharedData("fingerPointerActive", false);
             }
@@ -143,7 +107,7 @@ namespace iTeffa.Kernel
                 int[] playersIds = JsonConvert.DeserializeObject<int[]>(playersIdsStr);
 
                 Action<int> action = new Action<int>((int playerId) => {
-                    Player targetPlayer = iTeffa.Main.GetPlayerByID(playerId);
+                    Player targetPlayer = Main.GetPlayerByID(playerId);
                     if (targetPlayer != null) Players.Add(targetPlayer);
                 });
 

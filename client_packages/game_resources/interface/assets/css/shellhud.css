@@ -22,6 +22,25 @@ body {font-family: ProximaNova,sans-serif; user-select: none;}
 .iTeffa .logobox .online {font-size: 10pt; color: #fff; position: absolute; top: 57px; text-align-last: right; opacity: 0.85;text-align-last: right;right:25px;}
 .iTeffa .inGameHud .help {position: absolute; top: 40%; right: 0px; transform: translate(-40%)}
 
+.iTeffa .inGameHud .speedometer .speed {position: absolute;bottom: 0vh;right: 3vh;width: 26.85185vh;height: unset;}
+.iTeffa .inGameHud .speedometer .speed path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
+.iTeffa .inGameHud .speedometer .speed path.bg {stroke: rgba(255, 255, 255, 0.2);}
+.iTeffa .inGameHud .speedometer .speed path.meter {stroke: #ff5a1b;} 
+.iTeffa .inGameHud .speedometer .fuel {position: absolute;bottom: 1.8vh;right: 32.59259vh;width: 7.40741vh;height: unset;}
+.iTeffa .inGameHud .speedometer .fuel path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
+.iTeffa .inGameHud .speedometer .fuel path.bg {stroke: rgba(255, 255, 255, 0.2);}
+.iTeffa .inGameHud .speedometer .fuel path.meter {stroke: #fff;}
+.iTeffa .inGameHud .speedometer .icon_fuel {width: 1.48148vh;position: absolute;bottom: 4vh;right: 35.46296vh;} 
+.iTeffa .inGameHud .speedometer .lamp_list {width: 13.88889vh;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: absolute;bottom: 2.5vh;right: 9.2vh;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
+.iTeffa .inGameHud .speedometer .lamp_list .engine {width: 2.22222vh;}
+.iTeffa .inGameHud .speedometer .lamp_list .lamp {width: 2.40741vh;}
+.iTeffa .inGameHud .speedometer .lamp_list .door {width: 1.75926vh;}
+.iTeffa .inGameHud .speedometer .lamp_list .sec {width: 1.75926vh;}
+.speed_count .bg {opacity: 0.19;}
+.speed_count {position: absolute;-webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; font-size: 5.92593vh; color: #ffffff; font-weight: 900; right: 10.5vh; bottom: 8vh;}
+.speed_count .count {display: -webkit-box; display: -ms-flexbox;display: flex;-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;}
+.speed_count .type {text-transform: uppercase;font-size: 1.2963vh;font-weight: 900;opacity: 0.19;}
+
 .noty_theme__fivestar.noty_bar {margin: 4px 0;overflow: hidden;position: relative;background-color: rgba(0, 0, 0, 0.6);box-shadow: rgba(0, 0, 0, 0.6) 0 0 10px 0;}
 .noty_theme__fivestar.noty_bar .noty_body {padding: 1.25em;font-size: 12pt;}
 .noty_theme__fivestar.noty_bar .noty_buttons {padding: 0 10px 0.5em 10px;}
@@ -40,7 +59,7 @@ body {font-family: ProximaNova,sans-serif; user-select: none;}
 .text i {float: left;font-size: 34pt;margin-right: 30px;}
 .noty_progressbar {display: none; }
 .noty_has_timeout.noty_has_progressbar .noty_progressbar {display: block;position: absolute;left: 0;bottom: 0;height: 3px;width: 100%;background-color: #646464;opacity: 0.2;filter: alpha(opacity=10); }
-.noty_bar {-webkit-backface-visibility: hidden;-webkit-transform: translate(0, 0) translateZ(0) scale(1, 1);-ms-transform: translate(0, 0) scale(1, 1);transform: translate(0, 0) scale(1, 1);-webkit-font-smoothing: subpixel-antialiased;overflow: hidden; }
+.noty_bar {-webkit-transform: translate(0, 0) translateZ(0) scale(1, 1);-ms-transform: translate(0, 0) scale(1, 1);transform: translate(0, 0) scale(1, 1);-webkit-font-smoothing: subpixel-antialiased;overflow: hidden; }
 .noty_effects_open {opacity: 0;-webkit-transform: translate(50%);-ms-transform: translate(50%);transform: translate(50%);-webkit-animation: noty_anim_in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);animation: noty_anim_in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);-webkit-animation-fill-mode: forwards;animation-fill-mode: forwards; }
 .noty_effects_close {-webkit-animation: noty_anim_out 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);animation: noty_anim_out 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);-webkit-animation-fill-mode: forwards;animation-fill-mode: forwards; }
 .noty_fix_effects_height {-webkit-animation: noty_anim_height 75ms ease-out;animation: noty_anim_height 75ms ease-out; }
@@ -84,6 +103,10 @@ body {font-family: ProximaNova,sans-serif; user-select: none;}
 @keyframes noty_anim_out {100% {-webkit-transform: translate(50%);transform: translate(50%);opacity: 0;}}
 @-webkit-keyframes noty_anim_height {100% {height: 0;}}
 @keyframes noty_anim_height {100% {height: 0;}}
+
+::-webkit-scrollbar {width: 0px;}
+::-webkit-scrollbar-track {box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;}
+::-webkit-scrollbar-thumb {border-radius: 10px; box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
 
 @media (min-width: 1601px) and (max-width: 2560px) {
     .iTeffa .inGameHud .adaptivhud {zoom: 100%}
