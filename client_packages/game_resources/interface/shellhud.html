@@ -5,13 +5,7 @@
 	<title> iTeffa.com | Hud Window </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="package://game_resources/interface/assets/css/shellhud.css">
-	<link rel="stylesheet" href="package://game_resources/interface/assets/css/speedometer.css">
 	<link rel="stylesheet" href="package://game_resources/interface/assets/fonts/FontAwesome/font-awesome.css">
-	<style>
-	  ::-webkit-scrollbar {width: 0px;}
-	  ::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;}
-	  ::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
-	</style>
   </head>
   <body class="iTeffa">
     <div id="safezone">
@@ -21,7 +15,7 @@
 	  <div class="inGameHud" v-if="show">
 	  <div class="beta">Frontend и backend разработка!</div>
 		<div class="logobox">
-		  <div class="player ">
+		  <div class="player">
 		    <i class="fas fa-clock"></i> {{time}}
 			<b>ID:</b><span class="id"> {{playerId}}</span>
 		  </div>
@@ -39,31 +33,41 @@
 		<br />
 		  <img src="package://game_resources/interface/assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
 		</div>
-		<div class="hud-speedometer" :style="{ opacity: inVeh ? 1 : 0 }">
-		  <svg id="test" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5vh" height="22.4vh" viewBox="-4 -10 275 214" preserveAspectRatio="xMaxYMin meet">
-		    <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M17.319,170.926 C-0.528,135.060 -1.246,92.839 15.164,56.462 "></path>
-		    <path id="hud-engine" fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M17.319,170.926 C-0.528,135.060 -1.246,92.839 15.164,56.462 " style="stroke-dasharray: 118.296, 118.296; stroke-dashoffset: 118.289;"></path>
-		    <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M224.989,204.006 C276.978,152.089 276.978,67.914 224.989,15.997"></path>
-		    <path id="hud-fuel" fill-rule="evenodd" stroke="#fa6f71" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M224.989,204.006 C276.978,152.089 276.978,67.914 224.989,15.997 " style="stroke-dasharray: 208.907, 208.907; stroke-dashoffset: 208.896;"></path>
-		    <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M60.340,185.660 C18.553,143.874 18.553,76.126 60.340,34.340 C102.126,-7.447 169.874,-7.447 211.660,34.340 C253.446,76.126 253.446,143.874 211.660,185.660 "></path>
-		    <path id="hud-speedometer" fill-rule="evenodd" stroke="rgb(255, 232, 19)" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M60.340,185.660 C18.553,143.874 18.553,76.126 60.340,34.340 C102.126,-7.447 169.874,-7.447 211.660,34.340 C253.446,76.126 253.446,143.874 211.660,185.660 " style="stroke-dasharray: 504.295, 504.295; stroke-dashoffset: 504.267;"></path>
-		  </svg> 
-		  <div class="hud-speed-text">
-		  <div>
-		  <span id="textspeed"></span>
+		<div class="speedometer" :style="{ opacity: inVeh ? 1 : 0 }">
+			<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="15 0 167 167" :data-value="speed" class="speed">
+			  <path class="bg"  d="M41 149.5a77 77 0 1 1 117.93 0"  fill="none"/>
+			  <path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350"/>
+			</svg>
+			<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="15 0 167 167" :data-value="fuel" data-maxvalue="100"  class="fuel">
+			  <path class="bg"  d="M41 149.5a77 77 0 1 1 117.93 0"  fill="none"/>
+			  <path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350"/>
+			</svg>
+			<div class="speed_count">
+			  <div class="count" v-if="speed < 10"><div class="bg">00</div>{{speed}}</div>
+			  <div class="count" v-else-if="speed < 100"><div class="bg">0</div>{{speed}}</div>
+			  <div class="count" v-else><div class="bg"></div>{{speed}}</div>
+			  <div class="type">км/ч</div>	
+			</div>
+			<img src="package://game_resources/interface/assets/icons/shellhud/speedometer/fuel.png" alt="" class="icon_fuel">
+			<div class="lamp_list">
+			  <img v-if="belt" src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
+			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
+			  <img v-if="doors" src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
+			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
+			  <img v-if="engine" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
+			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
+			  <img src="package://game_resources/interface/assets/icons/shellhud/speedometer/lamp_no.png" alt="" class="lamp">
+			</div>
 		  </div>
-		  <p>км/ч</p>
-		  </div>
-		  <div class="hud-engine-text" id="healproc"></div>
-		  <i class="hud-engine-ico"></i>
-		</div>
       </div>
       <div id="notify"></div>
       <div id="effect"></div>
     </div>
-	<script src="package://game_resources/interface/plugins/js/jquery-3.2.1.min.js"></script>
-	<script src="package://game_resources/interface/assets/js/speedometer.js"></script>
-	<script src="package://game_resources/interface/plugins/js/vue.js"></script>
+
+	<script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdn.iteffa.com/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
+	
 	<script src="package://game_resources/interface/assets/js/shellhud.js"></script>
 	<script src="package://game_resources/interface/assets/js/notify.js"></script>
 	<script src="package://game_resources/interface/assets/js/noty.min.js"></script>
