@@ -1,0 +1,15 @@
+[Unit]
+Description=RAGE-MP Dedicated server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+WorkingDirectory=/Каталог/ragemp-srv
+ExecStart=/Каталог/ragemp-srv/ragemp-server
+
+[Install]
+WantedBy=multi-user.target
