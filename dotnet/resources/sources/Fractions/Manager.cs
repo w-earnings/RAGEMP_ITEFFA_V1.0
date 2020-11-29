@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace iTeffa.Fractions
 {
     class Manager : Script
-    { 
+    {
         private static nLog Log = new nLog("Fractions");
         public static void onResourceStart()
         {
@@ -27,18 +27,23 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(526, FractionSpawns[7], 0.85F, 38, Main.StringToU16("Police Dept"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(61,  FractionSpawns[8], 0.75F, 49, Main.StringToU16("Medical Center"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(88,  FractionSpawns[9], 0.75F, 58, Main.StringToU16("FIB"), 255, 0, true, 0, 0);
-
+                NAPI.Blip.CreateBlip(640, FractionSpawns[14], 0.75F, 52, Main.StringToU16("Army"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(526, FractionSpawns[18], 0.75F, 47, Main.StringToU16("Sheriff"), 255, 0, true, 0, 0);
                 /* --- */
-                NAPI.Blip.CreateBlip(184, LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[10], 0.75F, 5, Main.StringToU16("La Cosa Nostra"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[11], 0.75F, 4, Main.StringToU16("Русская мафия"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[12], 0.75F, 76, Main.StringToU16("Якудза"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[13], 0.75F, 40, Main.StringToU16("Армянская мафия"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(640, FractionSpawns[14], 0.75F, 52, Main.StringToU16("Army"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(526, FractionSpawns[18], 0.75F, 47, Main.StringToU16("Sheriff"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
+
+                
+                NAPI.Blip.CreateBlip(184, LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
+
+                
+
                 NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
                 NAPI.Blip.CreateBlip(675, new Vector3(-1304.6462, -560.2332, 33.25491), 0.85F, 14, Main.StringToU16("CityHall"), 255, 0, true, 0);
+
                 var result = Connect.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`fraction`,`fractionlvl` FROM `characters`");
                 if (result != null)
                 {
@@ -149,8 +154,8 @@ namespace iTeffa.Fractions
         };
 
         public static Dictionary<Player, MemberData> Members = new Dictionary<Player, MemberData>();
-       
-        
+
+
         public static SortedList<int, Vector3> FractionSpawns = new SortedList<int, Vector3>()
         {
             {1, new Vector3(-25.01989, -1398.197, 29.38819)},    // The Families
@@ -167,9 +172,10 @@ namespace iTeffa.Fractions
             {11, new Vector3(-115.1648, 983.5231, 236.6358)},    // Russian Mafia
             {12, new Vector3(-1549.22, -86.07732, 55.20967)},    // Yakuza 
             {13, new Vector3(-1809.738, 444.3138, 129.3889)},    // Armenian Mafia 
+
             {14, new Vector3(-2355.625, 3254.189, 33.69071)},    // Army
-            {15, new Vector3(-1063.046, -249.463, 44.0211)},    // LSNews
-            {16, new Vector3(982.2743, -104.14917, 73.72877)},    // The Lost
+            {15, new Vector3(-1063.046, -249.463, 44.0211)},     // LSNews
+            {16, new Vector3(982.2743, -104.14917, 73.72877)},   // The Lost
             {17, new Vector3(2154.641, 2921.034, -63.02243)},    // Merryweather
             {18, new Vector3(-441.9835, 5987.603, 30.59653)},    // Sheriff
         };
