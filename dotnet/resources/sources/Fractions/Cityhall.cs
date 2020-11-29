@@ -25,17 +25,13 @@ namespace iTeffa.Fractions
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[0] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[1] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, CityhallChecksCoords[2] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-                #endregion Интерьер Мерии №1
-                #region Интерьер Мерии №2
-                NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E"), new Vector3(CityhallChecksCoords[3].X, CityhallChecksCoords[3].Y, CityhallChecksCoords[3].Z + 0.7), 5F, 0.4F, 0, new Color(255, 255, 255));
-                NAPI.Marker.CreateMarker(1, CityhallChecksCoords[3] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-                #endregion Интерьер Мерии №2
+                #endregion
 
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(CityhallChecksCoords[0], 1f, 2, 0));
                 Cols[0].OnEntityEnterColShape += city_OnEntityEnterColShape;
                 Cols[0].OnEntityExitColShape += city_OnEntityExitColShape;
                 Cols[0].SetData("INTERACT", 9);
-                
+
                 Cols.Add(1, NAPI.ColShape.CreateCylinderColShape(CityhallChecksCoords[1], 1f, 2, 0));
                 Cols[1].OnEntityEnterColShape += city_OnEntityEnterColShape;
                 Cols[1].OnEntityExitColShape += city_OnEntityExitColShape;
@@ -47,8 +43,8 @@ namespace iTeffa.Fractions
                 Cols[7].SetData("INTERACT", 62);
 
                 Cols.Add(6, NAPI.ColShape.CreateCylinderColShape(CityhallChecksCoords[3], 3, 2, 0));
-            } 
-            catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("EXCEPTION AT\"FRACTIONS_CITYHALL\":\n" + e.ToString(), nLog.Type.Error);
             }
@@ -61,7 +57,6 @@ namespace iTeffa.Fractions
             new Vector3(),   // 0 - Оружейная
             new Vector3(-572.94464, -201.82872, 41.58397),      // 1 - Раздевалка
             new Vector3(),      // 2 - Крафт оружия
-            new Vector3(-1304.6462, -560.2332, 33.25491),      // 3 - Раздевалка
         };
 
         private void city_OnEntityEnterColShape(ColShape shape, Player entity)

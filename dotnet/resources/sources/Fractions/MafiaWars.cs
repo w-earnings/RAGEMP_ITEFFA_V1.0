@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GTANetworkAPI;
 using iTeffa.Kernel;
 using iTeffa.Settings;
-using iTeffa.Interface;
 
 namespace iTeffa.Fractions
 {
@@ -21,28 +19,28 @@ namespace iTeffa.Fractions
         private static int bizID = -1;
         private static int whereWarIsGoing = -1;
         private static bool smbTryCapture = false;
-        private static Dictionary<int, string> pictureNotif = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> pictureNotif = new Dictionary<int, string>
         {
-            { 10, "CHAR_MARTIN" }, // la cosa nostra
-            { 11, "CHAR_JOSEF" }, // russian
-            { 12, "CHAR_HAO" }, // yakuza
-            { 13, "CHAR_SIMEON" }, // armenian
+            { 10, "CHAR_MARTIN" },   // la cosa nostra
+            { 11, "CHAR_JOSEF" },    // russian
+            { 12, "CHAR_HAO" },      // yakuza
+            { 13, "CHAR_SIMEON" },   // armenian
         };
-        private static Dictionary<int, DateTime> nextCaptDate = new Dictionary<int, DateTime>
-        {
-            { 10, DateTime.Now },
-            { 11, DateTime.Now },
-            { 12, DateTime.Now },
-            { 13, DateTime.Now },
-        };
-        private static Dictionary<int, DateTime> protectDate = new Dictionary<int, DateTime>
+        private static readonly Dictionary<int, DateTime> nextCaptDate = new Dictionary<int, DateTime>
         {
             { 10, DateTime.Now },
             { 11, DateTime.Now },
             { 12, DateTime.Now },
             { 13, DateTime.Now },
         };
-        private static List<Vector3> warPoints = new List<Vector3>()
+        private static readonly Dictionary<int, DateTime> protectDate = new Dictionary<int, DateTime>
+        {
+            { 10, DateTime.Now },
+            { 11, DateTime.Now },
+            { 12, DateTime.Now },
+            { 13, DateTime.Now },
+        };
+        private static readonly List<Vector3> warPoints = new List<Vector3>()
         {
             new Vector3(1714.411, -1646.583, 110.5078),
             new Vector3(1018.687, 2363.665, 49.2389),
@@ -50,10 +48,10 @@ namespace iTeffa.Fractions
             new Vector3(1666.619, -15.92353, 171.7745),
             new Vector3(-575.5857, 5332.536, 68.23749),
         };
-        private static Dictionary<int, Blip> warBlips = new Dictionary<int, Blip>();
-        private static List<ColShape> warPointColshape = new List<ColShape>();
+        private static readonly Dictionary<int, Blip> warBlips = new Dictionary<int, Blip>();
+        private static readonly List<ColShape> warPointColshape = new List<ColShape>();
 
-        private static nLog Log = new nLog("MafiaWars");
+        private static readonly nLog Log = new nLog("MafiaWars");
 
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
@@ -146,15 +144,14 @@ namespace iTeffa.Fractions
             warBlips[ter].Color = 49;
             Manager.sendFractionMessage(biz.Mafia, $"Ахтунг! У нас есть 20 минут на сборы! {Manager.getName(Main.Players[player].FractionID)} решили отхватить наш бизнес");
             Manager.sendFractionMessage(Main.Players[player].FractionID, "Стреляй! Отжимай! Примерно через 20 минут подлетят противники");
-            
+
             timerCount = 0;
             bizID = biz.ID;
-            
+
             attackersFracID = Main.Players[player].FractionID;
-            nextCaptDate[attackersFracID] = DateTime.Now.AddMinutes(60); // NEXT BIZWAR
+            nextCaptDate[attackersFracID] = DateTime.Now.AddMinutes(60);
             whereWarIsGoing = ter;
 
-            //toStartWarTimer = Main.StartT(1200000, 99999999, (o) => timerStart(), "MWARSTART_TIMER");
             toStartWarTimer = Timers.StartOnce(1200000, () => timerStart());
 
             warStarting = true;
@@ -184,9 +181,7 @@ namespace iTeffa.Fractions
                 }
             }
 
-            //warTimer = Main.StartT(1000, 1000, (o) => timerUpdate(), "MWUPDATE_TIMER");
             warTimer = Timers.Start(1000, () => timerUpdate());
-            //Main.StopT(toStartWarTimer, "toStartWarTimer");
             warStarting = false;
             warIsGoing = true;
 
@@ -236,7 +231,6 @@ namespace iTeffa.Fractions
         {
             try
             {
-                //Main.StopT(warTimer, "warTimer");
                 Timers.Stop(warTimer);
                 Main.ClientEventToAll("captureHud", false);
                 var biz = BusinessManager.BizList[bizID];

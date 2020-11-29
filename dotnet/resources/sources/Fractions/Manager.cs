@@ -25,8 +25,8 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(437, FractionSpawns[5], 0.85F, 49, Main.StringToU16("Blood Street"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(674, FractionSpawns[6], 0.85F, 14, Main.StringToU16("CityHall"), 255, 0, true, 0, 0); // DEVELOPER
                 NAPI.Blip.CreateBlip(526, FractionSpawns[7], 0.85F, 38, Main.StringToU16("Police Dept"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(61,  FractionSpawns[8], 0.75F, 49, Main.StringToU16("Medical Center"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(88,  FractionSpawns[9], 0.75F, 58, Main.StringToU16("FIB"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(61, FractionSpawns[8], 0.75F, 49, Main.StringToU16("Medical Center"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(88, FractionSpawns[9], 0.75F, 58, Main.StringToU16("FIB"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(640, FractionSpawns[14], 0.75F, 52, Main.StringToU16("Army"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(526, FractionSpawns[18], 0.75F, 47, Main.StringToU16("Sheriff"), 255, 0, true, 0, 0);
                 /* --- */
@@ -35,10 +35,10 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(78, FractionSpawns[12], 0.75F, 76, Main.StringToU16("Якудза"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[13], 0.75F, 40, Main.StringToU16("Армянская мафия"), 255, 0, true, 0, 0);
 
-                
+
                 NAPI.Blip.CreateBlip(184, LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
 
-                
+
 
                 NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);

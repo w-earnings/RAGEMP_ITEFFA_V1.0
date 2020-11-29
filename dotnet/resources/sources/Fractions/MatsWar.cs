@@ -42,8 +42,7 @@ namespace iTeffa.Fractions
             Manager.sendFractionMessage(11, "Через 10 минут в порт Los-Santos прибудет корабль с материалами.");
             Manager.sendFractionMessage(12, "Через 10 минут в порт Los-Santos прибудет корабль с материалами.");
             Manager.sendFractionMessage(13, "Через 10 минут в порт Los-Santos прибудет корабль с материалами.");
-            //startWarTimer = Main.StartT(600000, 99999999, (o) => startWar(), "STARTMATWAR_TIMER");
-            startWarTimer = Timers.StartOnce(600000, () => startWar()); //600000
+            startWarTimer = Timers.StartOnce(600000, () => startWar());
         }
 
         public static void startWar()
@@ -66,7 +65,6 @@ namespace iTeffa.Fractions
                     Manager.sendFractionMessage(12, "Корабль с материалами прибыл в порт Los-Santos.");
                     Manager.sendFractionMessage(13, "Корабль с материалами прибыл в порт Los-Santos.");
                     warblip.Color = 49;
-                    //Main.StopT(startWarTimer, "timer_11");
                 }
                 catch { }
             });
@@ -120,12 +118,12 @@ namespace iTeffa.Fractions
                 return;
             }
             var count = VehicleInventory.GetCountOfType(player.Vehicle, ItemType.Material);
-            if (count >= Fractions.Stocks.maxMats[player.Vehicle.DisplayName])
+            if (count >= Stocks.maxMats[player.Vehicle.DisplayName])
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
                 return;
             }
-            player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Fractions.Army.loadMaterialsTimer(player)));
+            player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Army.loadMaterialsTimer(player)));
             player.Vehicle.SetData("loaderMats", player);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
             Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);

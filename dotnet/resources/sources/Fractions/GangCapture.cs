@@ -168,7 +168,7 @@ namespace iTeffa.Fractions
             new Vector3(1168.8984, -1601.556, 28.17772),
             new Vector3(1268.8984, -1601.556, 28.17772),
             new Vector3(1368.8984, -1601.556, 28.17772),
-            
+
             new Vector3(1268.8984, -1501.556, 28.17772),
             new Vector3(1368.8984, -1501.556, 28.17772),
         };
@@ -182,10 +182,12 @@ namespace iTeffa.Fractions
                 if (result == null || result.Rows.Count == 0) return;
                 foreach (DataRow Row in result.Rows)
                 {
-                    var data = new GangPoint();
-                    data.ID = Convert.ToInt32(Row["id"]);
-                    data.GangOwner = Convert.ToInt32(Row["gangid"]);
-                    data.IsCapture = false;
+                    var data = new GangPoint
+                    {
+                        ID = Convert.ToInt32(Row["id"]),
+                        GangOwner = Convert.ToInt32(Row["gangid"]),
+                        IsCapture = false
+                    };
 
                     if (data.ID >= gangZones.Count) break;
                     gangPoints.Add(data.ID, data);
@@ -203,18 +205,6 @@ namespace iTeffa.Fractions
                 Log.Write("EXCEPTION AT\"FRACTIONS_CAPTURE\":\n" + e.ToString(), nLog.Type.Error);
             }
         }
-
-        /*[Command("test")]
-        public static void test(Player player, int index, int style, int color)
-        {
-            NAPI.Player.SetPlayerFaceFeature(player, index, style);
-            var headoverlay = new HeadOverlay();
-            headoverlay.Index = (byte)index;
-            headoverlay.Opacity = 1.0f;
-            headoverlay.Color = (byte)color;
-            headoverlay.SecondaryColor = 100;
-            NAPI.Player.SetPlayerHeadOverlay(player, index, headoverlay);
-        }*/
 
         public static void CMD_startCapture(Player player)
         {
@@ -270,14 +260,10 @@ namespace iTeffa.Fractions
             timerExitCountAt = 0;
             region.IsCapture = true;
             attackersFracID = Main.Players[player].FractionID;
-
-            //toStartCaptureTimer = Main.StartT(900000, 9999999, (o) => timerStartCapture(region), "CAPTURESTART_TIMER");
             toStartCaptureTimer = Timers.StartOnce(900000, () => timerStartCapture(region));
             Main.ClientEventToAll("setZoneFlash", region.ID, true, gangPointsColor[region.GangOwner]);
-
             captureStarting = true;
             smbTryCapture = false;
-
             Manager.sendFractionMessage(region.GangOwner, $"Ахтунг! Сбор в течении 15 минут! {Manager.getName(attackersFracID)} решили отхватить нашу территорию");
             Manager.sendFractionMessage(attackersFracID, "Стреляй! Отжимай! Примерно через 15 минут подлетят противники");
         }
@@ -305,9 +291,7 @@ namespace iTeffa.Fractions
 
             captureIsGoing = true;
             captureStarting = false;
-            //captureTimer = Main.StartT(1000, 1000, (o) => timerUpdate(region, region.ID), "CAPTUREUPDATE_TIMER");
             captureTimer = Timers.Start(1000, () => timerUpdate(region, region.ID));
-            //Main.StopT(toStartCaptureTimer, "toStartCaptureTimer_gangcapture");
 
             Manager.sendFractionMessage(region.GangOwner, $"Ахтунг! На нас напали! {Manager.getName(attackersFracID)} решили отхватить нашу территорию");
             Manager.sendFractionMessage(attackersFracID, "Стреляй! Отжимай! Вы начали войну за территорию");
@@ -377,7 +361,6 @@ namespace iTeffa.Fractions
 
         private static void endCapture(GangPoint region, int defenders, int attackers)
         {
-            //Main.StopT(captureTimer, "endCapture_gangcapture");
             Timers.Stop(captureTimer);
             NAPI.Task.Run(() => Main.ClientEventToAll("captureHud", false));
             protectDate[region.GangOwner] = DateTime.Now.AddMinutes(20);
@@ -427,7 +410,6 @@ namespace iTeffa.Fractions
                 if (!Main.Players.ContainsKey(player)) return;
                 if (Main.Players[player].FractionID >= 1 && Main.Players[player].FractionID <= 5)
                 {
-                    //Log.Write($"Gangsta {player.Name} entered gangPoint");
                     player.SetData("GANGPOINT", (int)shape.GetData<int>("ID"));
                     GangPoint region = gangPoints[(int)shape.GetData<int>("ID")];
                     if (region.IsCapture && captureIsGoing && (Main.Players[player].FractionID == attackersFracID || Main.Players[player].FractionID == region.GangOwner))
@@ -449,7 +431,6 @@ namespace iTeffa.Fractions
                 if (!Main.Players.ContainsKey(player)) return;
                 if (Main.Players[player].FractionID >= 1 && Main.Players[player].FractionID <= 5)
                 {
-                    //Log.Write($"Gangsta {player.Name} exited gangPoint");
                     if (shape.GetData<int>("ID") == player.GetData<int>("GANGPOINT"))
                         player.SetData("GANGPOINT", -1);
 

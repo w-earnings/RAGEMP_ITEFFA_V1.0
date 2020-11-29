@@ -604,27 +604,39 @@ namespace iTeffa.Fractions
         #region menus
         public static void OpenHospitalStockMenu(Player player)
         {
-            Menu menu = new Menu("hospitalstock", false, false);
-            menu.Callback = callback_hospitalstock;
+            Menu menu = new Menu("hospitalstock", false, false)
+            {
+                Callback = callback_hospitalstock
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = $"Склад ({Stocks.fracStocks[8].Medkits}шт)";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = $"Склад ({Stocks.fracStocks[8].Medkits}шт)"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("takemed", Menu.MenuItem.Button);
-            menuItem.Text = "Взять аптечку";
+            menuItem = new Menu.Item("takemed", Menu.MenuItem.Button)
+            {
+                Text = "Взять аптечку"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("putmed", Menu.MenuItem.Button);
-            menuItem.Text = "Положить аптечку";
+            menuItem = new Menu.Item("putmed", Menu.MenuItem.Button)
+            {
+                Text = "Положить аптечку"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("tazer", Menu.MenuItem.Button);
-            menuItem.Text = "Взять электрошокер";
+            menuItem = new Menu.Item("tazer", Menu.MenuItem.Button)
+            {
+                Text = "Взять электрошокер"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -681,50 +693,72 @@ namespace iTeffa.Fractions
                     return;
             }
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = $"Склад ({Stocks.fracStocks[8].Medkits}шт)";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = $"Склад ({Stocks.fracStocks[8].Medkits}шт)"
+            };
             menu.Change(client, 0, menuItem);
         }
 
         public static void OpenTattooDeleteMenu(Player player)
         {
-            Menu menu = new Menu("tattoodelete", false, false);
-            menu.Callback = callback_tattoodelete;
+            Menu menu = new Menu("tattoodelete", false, false)
+            {
+                Callback = callback_tattoodelete
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = $"Сведение татуировок";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = $"Сведение татуировок"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("header", Menu.MenuItem.Card);
-            menuItem.Text = $"Выберите зону, в которой хотите свести все татуировки. Стоимость сведения в одной зоне - 3000$";
+            menuItem = new Menu.Item("header", Menu.MenuItem.Card)
+            {
+                Text = $"Выберите зону, в которой хотите свести все татуировки. Стоимость сведения в одной зоне - 3000$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("Torso", Menu.MenuItem.Button);
-            menuItem.Text = "Торс";
+            menuItem = new Menu.Item("Torso", Menu.MenuItem.Button)
+            {
+                Text = "Торс"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("Head", Menu.MenuItem.Button);
-            menuItem.Text = "Голова";
+            menuItem = new Menu.Item("Head", Menu.MenuItem.Button)
+            {
+                Text = "Голова"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("LeftArm", Menu.MenuItem.Button);
-            menuItem.Text = "Левая рука";
+            menuItem = new Menu.Item("LeftArm", Menu.MenuItem.Button)
+            {
+                Text = "Левая рука"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("RightArm", Menu.MenuItem.Button);
-            menuItem.Text = "Правая рука";
+            menuItem = new Menu.Item("RightArm", Menu.MenuItem.Button)
+            {
+                Text = "Правая рука"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("LeftLeg", Menu.MenuItem.Button);
-            menuItem.Text = "Левая нога";
+            menuItem = new Menu.Item("LeftLeg", Menu.MenuItem.Button)
+            {
+                Text = "Левая нога"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("RightLeg", Menu.MenuItem.Button);
-            menuItem.Text = "Правая нога";
+            menuItem = new Menu.Item("RightLeg", Menu.MenuItem.Button)
+            {
+                Text = "Правая нога"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

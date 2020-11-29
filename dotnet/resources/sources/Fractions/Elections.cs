@@ -42,14 +42,14 @@ namespace iTeffa.Fractions
             public string VotedFor { get; set; }
         }
         private static List<Voter> Voters;
-        
+
         private static byte minVoteLVL;
-        
+
         public static void OnResourceStart()
         {
             minVoteLVL = config.TryGet<byte>("minVoteLVL", 5);
         }
-        
+
         public static void Interaction(ColShape colshape, Player player)
         {
             try
@@ -78,14 +78,14 @@ namespace iTeffa.Fractions
                                         if (ElectionList[l].Election == ElectionPointsList[i].Election)
                                         {
                                             Console.Write("Menu open");
-                                            Trigger.ClientEvent(player, "openelem", ElectionList[l].Name); // Первый итем добавляется вместе с созданием самой меню natifveui, иначе рандомно случается краш, не у всех и не всегда
+                                            Trigger.ClientEvent(player, "openelem", ElectionList[l].Name);
                                             second = l + 1;
                                             break;
                                         }
                                     }
                                     for (int l = second; l != ElectionList.Count; l++)
                                     {
-                                        if (ElectionList[l].Election == ElectionPointsList[i].Election) Trigger.ClientEvent(player, "addcandidate", ElectionList[l].Name); // Добавление всех остальных кандидатов к текущей менюшке
+                                        if (ElectionList[l].Election == ElectionPointsList[i].Election) Trigger.ClientEvent(player, "addcandidate", ElectionList[l].Name);
                                     }
                                 }
                                 else player.SendChatMessage("Вы уже голосовали с данного аккаунта в этих выборах.");
@@ -95,13 +95,14 @@ namespace iTeffa.Fractions
                         break;
                     }
                 }
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write(e.ToString(), nLog.Type.Error);
             }
         }
 
-        [Command("election_r")] // Перезагрузка с базы
+        [Command("election_r")]
         public void ElectionReload(Player player)
         {
             if (!Main.Players.ContainsKey(player)) return;
@@ -127,7 +128,7 @@ namespace iTeffa.Fractions
             try
             {
                 DataTable result = Connect.QueryRead("SELECT * FROM e_candidates");
-                if(result != null && result.Rows.Count != 0)
+                if (result != null && result.Rows.Count != 0)
                 {
                     foreach (DataRow row in result.Rows)
                     {
@@ -142,7 +143,7 @@ namespace iTeffa.Fractions
                 }
 
                 result = Connect.QueryRead("SELECT * FROM e_points");
-                if(result != null && result.Rows.Count != 0)
+                if (result != null && result.Rows.Count != 0)
                 {
                     foreach (DataRow row in result.Rows)
                     {
@@ -164,9 +165,9 @@ namespace iTeffa.Fractions
                 }
 
                 result = Connect.QueryRead("SELECT * FROM e_voters");
-                if(result != null && result.Rows.Count != 0)
+                if (result != null && result.Rows.Count != 0)
                 {
-                    foreach(DataRow row in result.Rows)
+                    foreach (DataRow row in result.Rows)
                     {
                         Voters.Add(new Voter
                         {
@@ -177,10 +178,12 @@ namespace iTeffa.Fractions
                     }
                 }
 
-                if(ElectionPointsList.Count != 0) {
+                if (ElectionPointsList.Count != 0)
+                {
                     for (int p = 0; p != ElectionPointsList.Count; p++)
                     {
-                        if(ElectionPointsList[p].Point != null) {
+                        if (ElectionPointsList[p].Point != null)
+                        {
                             ElectionPointsList[p].Point.OnEntityEnterColShape += (colshape, player) =>
                             {
                                 try
@@ -206,7 +209,7 @@ namespace iTeffa.Fractions
                 Log.Write(e.ToString(), nLog.Type.Error);
             }
         }
-        
+
         [RemoteEvent("choosedelec")]
         private void AddVote(Player player, string Name)
         {
@@ -216,31 +219,34 @@ namespace iTeffa.Fractions
                 for (int i = 0; i != ElectionPointsList.Count; i++)
                 {
                     if (player.Position.DistanceTo(ElectionPointsList[i].Position) <= 2)
-                    { // Лучше проверять на дистанцию, чтобы игроки могли голосовать только около точки.
+                    {
                         if (ElectionPointsList[i].Opened)
-                        { // Проверка на то, открыто ли еще голосование, чтобы не добавлять голоса после того, как выборы закончились, а игрок не успел выбрать.
+                        {
                             for (int l = 0; l != ElectionList.Count; l++)
                             {
                                 if (ElectionList[l].Election == ElectionPointsList[i].Election)
-                                { // Теперь ищем игроков с номером выборов, которые подходят нам
+                                {
                                     if (ElectionList[l].Name.Equals(Name))
-                                    { // Если имя то, которое мы выбрали, то добавляем ему голос.
+                                    {
                                         ElectionList[l].Votes++;
-
-                                        MySqlCommand cmd = new MySqlCommand();
-                                        cmd.CommandText = "UPDATE e_candidates SET Votes=@vot WHERE Name=@nam LIMIT 1";
+                                        MySqlCommand cmd = new MySqlCommand
+                                        {
+                                            CommandText = "UPDATE e_candidates SET Votes=@vot WHERE Name=@nam LIMIT 1"
+                                        };
                                         cmd.Parameters.AddWithValue("@vot", ElectionList[l].Votes);
                                         cmd.Parameters.AddWithValue("@nam", Name);
                                         Connect.Query(cmd);
 
-                                        cmd = new MySqlCommand();
-                                        cmd.CommandText = "INSERT INTO `e_voters` (`Election`, `Login`, `TimeVoted`,`VotedFor`) VALUES (@ele,@log,@voted,@name)";
+                                        cmd = new MySqlCommand
+                                        {
+                                            CommandText = "INSERT INTO `e_voters` (`Election`, `Login`, `TimeVoted`,`VotedFor`) VALUES (@ele,@log,@voted,@name)"
+                                        };
                                         cmd.Parameters.AddWithValue("@ele", ElectionList[l].Election);
                                         cmd.Parameters.AddWithValue("@log", Main.Accounts[player].Login);
                                         cmd.Parameters.AddWithValue("@voted", DateTime.Now.ToString("s"));
                                         cmd.Parameters.AddWithValue("@name", Name);
                                         Connect.Query(cmd);
-                                        
+
                                         Voters.Add(new Voter
                                         {
                                             Election = ElectionList[l].Election,
@@ -269,10 +275,10 @@ namespace iTeffa.Fractions
         }
 
         private static bool CheckPlayerVoted(string login, uint election)
-        { // Проверка на то, голосовал ли уже в этих выборах
+        {
             try
             {
-                foreach(Voter v in Voters)
+                foreach (Voter v in Voters)
                 {
                     if (v.Election == election)
                     {
@@ -285,7 +291,7 @@ namespace iTeffa.Fractions
             {
                 Log.Write(e.ToString(), nLog.Type.Error);
             }
-            return true; // Если таблица voted не доступна по какой-либо причине, то игрок получит 'Вы уже голосовали на этих выборах', дабы не было сбоев.
+            return true;
         }
 
         [Command("election_addpoint")]
@@ -294,7 +300,7 @@ namespace iTeffa.Fractions
             if (!Main.Players.ContainsKey(client)) return;
             if (Main.Players[client].AdminLVL < 8) return;
 
-            if(ElectionList.Find(x => x.Election == ElectionID) != null)
+            if (ElectionList.Find(x => x.Election == ElectionID) != null)
             {
                 client.SendChatMessage("Такой Election уже существует!");
                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Такой Election уже существует!", 3000);
@@ -313,7 +319,7 @@ namespace iTeffa.Fractions
             cmd.Parameters.AddWithValue("@dim", client.Dimension);
             cmd.Parameters.AddWithValue("@opn", isOpened);
             Connect.Query(cmd);
-            
+
             ElectionReload(client);
         }
     }

@@ -5,20 +5,14 @@ using System.Data;
 using System.Linq;
 using GTANetworkAPI;
 using iTeffa.Interface;
-using iTeffa.Kernel.Character;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using System.Threading;
-
-using iTeffa.Plugins;
 using iTeffa.Models;
-using iTeffa.Globals;
 
 namespace iTeffa.Fractions
 {
     class FractionCommands : Script
     {
-        private static nLog Log = new nLog("FractionCommangs");
+        private static readonly nLog Log = new nLog("FractionCommangs");
 
         [ServerEvent(Event.PlayerEnterVehicle)]
         public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
@@ -110,17 +104,17 @@ namespace iTeffa.Fractions
             }
             var target = Main.GetNearestPlayer(player, 2);
             if (target == null) return;
-            var cuffmesp = ""; // message for Player after cuff
-            var cuffmest = ""; // message for Target after cuff
-            var uncuffmesp = ""; // message for Player after uncuff
-            var uncuffmest = ""; // message for Target after uncuff
-            var cuffme = ""; // message /me after cuff
-            var uncuffme = ""; // message /me after uncuff
+            var cuffmesp = ""; 
+            var cuffmest = "";
+            var uncuffmesp = "";
+            var uncuffmest = ""; 
+            var cuffme = "";
+            var uncuffme = "";
 
             if (player.IsInVehicle) return;
             if (target.IsInVehicle) return;
 
-            if (Manager.FractionTypes[fracid] == 2) // for gov factions
+            if (Manager.FractionTypes[fracid] == 2) 
             {
                 if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                 {
@@ -186,30 +180,23 @@ namespace iTeffa.Fractions
             }
             if (!target.GetData<bool>("CUFFED"))
             {
-                // cuff target
                 if (NAPI.Data.HasEntityData(target, "HAND_MONEY")) SafeMain.dropMoneyBag(target);
                 if (NAPI.Data.HasEntityData(target, "HEIST_DRILL")) SafeMain.dropDrillBag(target);
-
                 NAPI.Data.SetEntityData(target, "CUFFED", true);
                 Speaking.Voice.PhoneHCommand(target);
-
                 Main.OnAntiAnim(player);
                 NAPI.Player.PlayPlayerAnimation(target, 49, "mp_arresting", "idle");
-                // -0.02 0.063 0 75 0 76
                 BasicSync.AttachObjectToPlayer(target, NAPI.Util.GetHashKey("p_cs_cuffs_02_s"), 6286, new Vector3(-0.02f, 0.063f, 0.0f), new Vector3(75.0f, 0.0f, 76.0f));
-
                 Trigger.ClientEvent(target, "CUFFED", true);
                 if (fracid == 6 || fracid == 7 || fracid == 9) target.SetData("CUFFED_BY_COP", true);
                 else target.SetData("CUFFED_BY_MAFIA", true);
-
-                Interface.Dashboard.Close(target);
+                Dashboard.Close(target);
                 Trigger.ClientEvent(target, "blockMove", true);
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, cuffmesp, 3000);
                 Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, cuffmest, 3000);
                 Commands.RPChat("me", player, cuffme, target);
                 return;
             }
-            // uncuff target
             unCuffPlayer(target);
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, uncuffmesp, 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, uncuffmest, 3000);
@@ -218,7 +205,7 @@ namespace iTeffa.Fractions
             Commands.RPChat("me", player, uncuffme, target);
             return;
         }
-        
+
         public static void onPlayerDeathHandler(Player player, Player entityKiller, uint weapon)
         {
             try
@@ -258,7 +245,8 @@ namespace iTeffa.Fractions
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if(Main.Players[player].FractionID == 15) {
+                if (Main.Players[player].FractionID == 15)
+                {
                     if (!Manager.canUseCommand(player, "delad")) return;
                     LSNews.AddAnswer(player, AdID, reason, true);
                 }
@@ -333,7 +321,8 @@ namespace iTeffa.Fractions
         {
             if (Manager.canUseCommand(sender, "setrank"))
             {
-                if(newrank <= 0) {
+                if (newrank <= 0)
+                {
                     Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, "Нельзя установить отрицательный или нулевой ранг", 3000);
                     return;
                 }
@@ -356,7 +345,7 @@ namespace iTeffa.Fractions
 
                 Main.Players[target].FractionLVL = newrank;
                 Manager.Load(target, Main.Players[target].FractionID, Main.Players[target].FractionLVL);
-                int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == target.Name);
+                int index = Manager.AllMembers.FindIndex(m => m.Name == target.Name);
                 if (index > -1)
                 {
                     Manager.AllMembers[index].FractionLVL = newrank;
@@ -402,7 +391,7 @@ namespace iTeffa.Fractions
                 target.SetData("INVITEFRACTION", Main.Players[sender].FractionID);
                 target.SetData("SENDERFRAC", sender);
                 Trigger.ClientEvent(target, "openDialog", "INVITED", $"{sender.Name} пригласил Вас в {Manager.FractionNames[Main.Players[sender].FractionID]}");
-                
+
                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы пригласили во фракцию {target.Name}", 3000);
                 Dashboard.sendStats(target);
             }
@@ -446,10 +435,10 @@ namespace iTeffa.Fractions
 
             Manager.UNLoad(target);
 
-            int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == target.Name);
+            int index = Manager.AllMembers.FindIndex(m => m.Name == target.Name);
             if (index > -1) Manager.AllMembers.RemoveAt(index);
 
-            if(Main.Players[target].FractionID == 15) Trigger.ClientEvent(target, "enableadvert", false);
+            if (Main.Players[target].FractionID == 15) Trigger.ClientEvent(target, "enableadvert", false);
 
             Main.Players[target].OnDuty = false;
             Main.Players[target].FractionID = 0;
@@ -466,7 +455,6 @@ namespace iTeffa.Fractions
             Dashboard.sendStats(target);
             return;
         }
-
         #endregion
 
         #region cops and cityhall commands
@@ -624,11 +612,12 @@ namespace iTeffa.Fractions
                     return;
                 }
                 Main.Players[player].ArrestTime--;
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("ARRESTTIMER: " + e.ToString(), nLog.Type.Error);
             }
-            
+
         }
 
         public static void freePlayer(Player player)
@@ -638,7 +627,7 @@ namespace iTeffa.Fractions
                 try
                 {
                     if (!player.HasData("ARREST_TIMER")) return;
-                    Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER")); // still not fixed
+                    Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
                     NAPI.Data.ResetEntityData(player, "ARREST_TIMER");
                     Police.setPlayerWantedLevel(player, null);
                     NAPI.Entity.SetEntityPosition(player, Police.policeCheckpoints[5]);
@@ -654,7 +643,6 @@ namespace iTeffa.Fractions
         {
             NAPI.Entity.SetEntityPosition(target, Police.policeCheckpoints[4]);
             Police.setPlayerWantedLevel(target, null);
-            //NAPI.Data.SetEntityData(target, "ARREST_TIMER", Main.StartT(1000, 1000, (o) => arrestTimer(target), "ARREST_TIMER"));
             NAPI.Entity.SetEntityPosition(target, Sheriff.sheriffCheckpoints[4]);
             Sheriff.setPlayerWantedLevel(target, null);
             NAPI.Data.SetEntityData(target, "ARREST_TIMER", Timers.Start(1000, () => arrestTimer(target)));
@@ -815,7 +803,6 @@ namespace iTeffa.Fractions
             else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете объявить в розыск самого себя", 3000);
         }
 
-        // Садит игрока в машину
         public static void playerInCar(Player player, Player target)
         {
             if (!Manager.canUseCommand(player, "incar")) return;
@@ -909,8 +896,8 @@ namespace iTeffa.Fractions
             }
             if (Main.Players[player].FractionID == 18)
             {
-                var message = "";
                 Police.is_warg = !Police.is_warg;
+                string message;
                 if (Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(7, message);
@@ -1112,7 +1099,7 @@ namespace iTeffa.Fractions
             }
         }
         #endregion
-        
+
         #region EMS commands
         public static void giveMedicalLic(Player player, Player target)
         {
@@ -1125,7 +1112,7 @@ namespace iTeffa.Fractions
             }
 
             Main.Players[target].Licenses[7] = true;
-            Interface.Dashboard.sendStats(target);
+            Dashboard.sendStats(target);
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} медицинскую карту", 3000);
             Notify.Send(target, NotifyType.Success, NotifyPosition.TopCenter, $"{player.Name} выдал Вам медицинскую карту", 3000);
@@ -1237,13 +1224,11 @@ namespace iTeffa.Fractions
                 }
                 else
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны быть в больнице или корете скорой помощи", 3000);;
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны быть в больнице или корете скорой помощи", 3000); ;
                     return;
                 }
             }
         }
-
         #endregion
-
     }
 }

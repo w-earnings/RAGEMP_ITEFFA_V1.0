@@ -66,12 +66,12 @@ namespace iTeffa.Fractions
         private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> ArmyCheckpoints = new List<Vector3>()
         {
-            new Vector3(-2345.839, 3268.359, 31.81075), // guns     0
-            new Vector3(-2357.993, 3255.133, 31.81073), // dressing room    1
-            new Vector3(-108.0619, -2414.873, 5.000001), // army docks mats     2
-            new Vector3(-2360.946, 3249.595, 31.81073), // army lift 1 floor     3
-            new Vector3(-2360.66, 3249.115, 91.90369), // army lift 9 floor     4
-            new Vector3(-2349.892, 3266.55, 31.69072), // army stock    5
+            new Vector3(-2345.839, 3268.359, 31.81075),
+            new Vector3(-2357.993, 3255.133, 31.81073),
+            new Vector3(-108.0619, -2414.873, 5.000001),
+            new Vector3(-2360.946, 3249.595, 31.81073),
+            new Vector3(-2360.66, 3249.115, 91.90369),
+            new Vector3(-2349.892, 3266.55, 31.69072),
         };
 
         [RemoteEvent("armygun")]
@@ -81,29 +81,29 @@ namespace iTeffa.Fractions
             {
                 switch (index)
                 {
-                    case 0: //pistol
-                        Fractions.Manager.giveGun(client, Weapons.Hash.Pistol, "pistol");
+                    case 0:
+                        Manager.giveGun(client, Weapons.Hash.Pistol, "pistol");
                         return;
-                    case 1: //carbine
-                        Fractions.Manager.giveGun(client, Weapons.Hash.CarbineRifle, "carbine");
+                    case 1:
+                        Manager.giveGun(client, Weapons.Hash.CarbineRifle, "carbine");
                         return;
-                    case 2: // combat
-                        Fractions.Manager.giveGun(client, Weapons.Hash.CombatMG, "CombatMG");
+                    case 2:
+                        Manager.giveGun(client, Weapons.Hash.CombatMG, "CombatMG");
                         return;
-                    case 3: //armor
+                    case 3:
                         if (!Manager.canGetWeapon(client, "armor")) return;
-                        if (Fractions.Stocks.fracStocks[14].Materials > Fractions.Manager.matsForArmor && nInventory.Find(Main.Players[client].UUID, ItemType.BodyArmor) == null)
+                        if (Stocks.fracStocks[14].Materials > Fractions.Manager.matsForArmor && nInventory.Find(Main.Players[client].UUID, ItemType.BodyArmor) == null)
                         {
                             nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
-                            Fractions.Stocks.fracStocks[14].Materials -= Fractions.Manager.matsForArmor;
-                            Fractions.Stocks.fracStocks[14].UpdateLabel();
+                            Stocks.fracStocks[14].Materials -= Fractions.Manager.matsForArmor;
+                            Stocks.fracStocks[14].UpdateLabel();
                             GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
                         }
                         return;
                     case 4:
                         if (!Manager.canGetWeapon(client, "Medkits")) return;
-                        if (Fractions.Stocks.fracStocks[14].Medkits == 0)
+                        if (Stocks.fracStocks[14].Medkits == 0)
                         {
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе нет аптечек", 3000);
                             return;
@@ -114,23 +114,23 @@ namespace iTeffa.Fractions
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть аптечка", 3000);
                             return;
                         }
-                        Fractions.Stocks.fracStocks[14].Medkits--;
-                        Fractions.Stocks.fracStocks[14].UpdateLabel();
+                        Stocks.fracStocks[14].Medkits--;
+                        Stocks.fracStocks[14].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
                         GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
                         return;
-                    case 5: //pistolammo
+                    case 5:
                         if (!Manager.canGetWeapon(client, "PistolAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.PistolAmmo, 12);
+                        Manager.giveAmmo(client, ItemType.PistolAmmo, 12);
                         return;
-                    case 6: //riflesammo
+                    case 6:
                         if (!Manager.canGetWeapon(client, "RiflesAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.RiflesAmmo, 30);
+                        Manager.giveAmmo(client, ItemType.RiflesAmmo, 30);
                         return;
-                    case 7: //smgammo
+                    case 7:
                         if (!Manager.canGetWeapon(client, "SMGAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.SMGAmmo, 100);
+                        Manager.giveAmmo(client, ItemType.SMGAmmo, 100);
                         return;
                 }
             }
@@ -183,14 +183,13 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже загружаете материалы в машину", 3000);
                         return;
                     }
-                    if (!Fractions.Stocks.maxMats.ContainsKey(player.Vehicle.DisplayName)) return;
+                    if (!Stocks.maxMats.ContainsKey(player.Vehicle.DisplayName)) return;
                     var count = VehicleInventory.GetCountOfType(player.Vehicle, ItemType.Material);
-                    if (count >= Fractions.Stocks.maxMats[player.Vehicle.DisplayName])
+                    if (count >= Stocks.maxMats[player.Vehicle.DisplayName])
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
                         return;
                     }
-                    //player.SetData("loadMatsTimer", Main.StartT(20000, 99999999, (o) => loadMaterialsTimer(player), "ALOADMATS_TIMER"));
                     player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => loadMaterialsTimer(player)));
                     player.Vehicle.SetData("loaderMats", player);
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
@@ -216,7 +215,7 @@ namespace iTeffa.Fractions
                         Main.PlayerEnterInterior(player, new Vector3(ArmyCheckpoints[4].X, ArmyCheckpoints[4].Y, ArmyCheckpoints[4].Z + 1));
                     }
                     return;
-                case 60: // open stock gun
+                case 60:
                     if (Main.Players[player].FractionID != 14)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
@@ -233,13 +232,12 @@ namespace iTeffa.Fractions
                         return;
                     }
                     player.SetData("ONFRACSTOCK", 14);
-                    Interface.Dashboard.OpenOut(player, Stocks.fracStocks[14].Weapons, "Склад оружия", 6);
+                    Dashboard.OpenOut(player, Stocks.fracStocks[14].Weapons, "Склад оружия", 6);
                     return;
             }
         }
 
         #region shapes
-
         private static void onEntityEnterColshape(ColShape shape, Player player)
         {
             try
@@ -265,7 +263,6 @@ namespace iTeffa.Fractions
             Trigger.ClientEvent(player, "interactHint", false);
             if (NAPI.Data.HasEntityData(player, "loadMatsTimer"))
             {
-                //Main.StopT(player.GetData<string>("loadMatsTimer"), "onEntityExitArmyMats");
                 Timers.Stop(player.GetData<string>("loadMatsTimer"));
                 player.ResetData("loadMatsTimer");
                 Trigger.ClientEvent(player, "hideLoader");
@@ -289,39 +286,36 @@ namespace iTeffa.Fractions
                     if (player.GetData<string>("whereLoad") == "WAR" && !Fractions.MatsWar.isWar)
                     {
                         player.SetData("INTERACTIONCHECK", 0);
-                        //Main.StopT(player.GetData<string>("loadMatsTimer"), "loadMaterialsTimer");
                         player.ResetData("loadMatsTimer");
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Корабль уже уехал", 3000);
                         return;
                     }
-                    if (itemCount >= Fractions.Stocks.maxMats[vehicle.DisplayName])
+                    if (itemCount >= Stocks.maxMats[vehicle.DisplayName])
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
-                        //Main.StopT(player.GetData<string>("loadMatsTimer"), "loadMaterialsTimer_1");
                         player.ResetData("loadMatsTimer");
                         return;
                     }
                     var data = new nItem(ItemType.Material);
                     if (player.GetData<string>("whereLoad") == "WAR")
                     {
-                        var count = Fractions.Stocks.maxMats[vehicle.DisplayName] - itemCount;
-                        if (count >= Fractions.MatsWar.matsLeft)
+                        var count = Stocks.maxMats[vehicle.DisplayName] - itemCount;
+                        if (count >= MatsWar.matsLeft)
                         {
-                            data.Count = itemCount + Fractions.MatsWar.matsLeft;
-                            Fractions.MatsWar.matsLeft = 0;
-                            Fractions.MatsWar.endWar();
+                            data.Count = itemCount + MatsWar.matsLeft;
+                            MatsWar.matsLeft = 0;
+                            MatsWar.endWar();
                         }
                         else
                         {
                             data.Count = count;
-                            Fractions.MatsWar.matsLeft -= count;
+                            MatsWar.matsLeft -= count;
                         }
                     }
                     else
-                        data.Count = Fractions.Stocks.maxMats[vehicle.DisplayName] - itemCount;
+                        data.Count = Stocks.maxMats[vehicle.DisplayName] - itemCount;
                     VehicleInventory.Add(vehicle, data);
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
-                    //Main.StopT(player.GetData<string>("loadMatsTimer"), "loadMaterialsTimer_2");
                     player.ResetData("loadMatsTimer");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
                 }
@@ -337,7 +331,6 @@ namespace iTeffa.Fractions
                 {
                     Trigger.ClientEvent(player, "hideLoader");
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как Вы умерли", 3000);
-                    //Main.StopT(player.GetData<string>("loadMatsTimer"), "Event_PlayerDeath_army");
                     Timers.Stop(player.GetData<string>("loadMatsTimer"));
                     var vehicle = player.GetData<Vehicle>("vehicleMats");
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
@@ -353,7 +346,6 @@ namespace iTeffa.Fractions
             {
                 if (player.HasData("loadMatsTimer"))
                 {
-                    //Main.StopT(player.GetData<string>("loadMatsTimer"), "army_onPlayerDisconnected");
                     Timers.Stop(player.GetData<string>("loadMatsTimer"));
                     var vehicle = player.GetData<Vehicle>("vehicleMats");
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
@@ -383,23 +375,33 @@ namespace iTeffa.Fractions
         #region menu
         public static void OpenArmyClothesMenu(Player player)
         {
-            Menu menu = new Menu("armyclothes", false, false);
-            menu.Callback = callback_armyclothes;
+            Menu menu = new Menu("armyclothes", false, false)
+            {
+                Callback = callback_armyclothes
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Одежда";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Одежда"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("change", Menu.MenuItem.Button);
-            menuItem.Text = "Переодеться";
+            menuItem = new Menu.Item("change", Menu.MenuItem.Button)
+            {
+                Text = "Переодеться"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("combat", Menu.MenuItem.Button);
-            menuItem.Text = "Боевая форма";
+            menuItem = new Menu.Item("combat", Menu.MenuItem.Button)
+            {
+                Text = "Боевая форма"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -441,43 +443,63 @@ namespace iTeffa.Fractions
 
         public static void OpenArmyCombatMenu(Player player)
         {
-            Menu menu = new Menu("armycombat", false, false);
-            menu.Callback = callback_armycombat;
+            Menu menu = new Menu("armycombat", false, false)
+            {
+                Callback = callback_armycombat
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Боевая форма";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Боевая форма"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam1", Menu.MenuItem.Button);
-            menuItem.Text = "Песочный камуфляж";
+            menuItem = new Menu.Item("cam1", Menu.MenuItem.Button)
+            {
+                Text = "Песочный камуфляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam2", Menu.MenuItem.Button);
-            menuItem.Text = "Городской камуфляж";
+            menuItem = new Menu.Item("cam2", Menu.MenuItem.Button)
+            {
+                Text = "Городской камуфляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam3", Menu.MenuItem.Button);
-            menuItem.Text = "Зеленый камуфляж";
+            menuItem = new Menu.Item("cam3", Menu.MenuItem.Button)
+            {
+                Text = "Зеленый камуфляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam4", Menu.MenuItem.Button);
-            menuItem.Text = "Черно-зеленый камфуляж";
+            menuItem = new Menu.Item("cam4", Menu.MenuItem.Button)
+            {
+                Text = "Черно-зеленый камфуляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam5", Menu.MenuItem.Button);
-            menuItem.Text = "Какой-то камфуляж";
+            menuItem = new Menu.Item("cam5", Menu.MenuItem.Button)
+            {
+                Text = "Какой-то камфуляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cam6", Menu.MenuItem.Button);
-            menuItem.Text = "И ещё один камфуляж";
+            menuItem = new Menu.Item("cam6", Menu.MenuItem.Button)
+            {
+                Text = "И ещё один камфуляж"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("takeoff", Menu.MenuItem.Button);
-            menuItem.Text = "Снять форму";
+            menuItem = new Menu.Item("takeoff", Menu.MenuItem.Button)
+            {
+                Text = "Снять форму"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

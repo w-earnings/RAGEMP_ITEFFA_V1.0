@@ -10,7 +10,7 @@ namespace iTeffa.Fractions
     {
         private static nLog Log = new nLog("Crime:CarDelivery");
 
-        private static List<VehicleHash> GangsVehiclesHashes = new List<VehicleHash>()
+        private static readonly List<VehicleHash> GangsVehiclesHashes = new List<VehicleHash>()
         {
             { VehicleHash.Emperor },
             { VehicleHash.Ingot },
@@ -28,7 +28,7 @@ namespace iTeffa.Fractions
             { VehicleHash.Schafter2 },
             { VehicleHash.Buffalo2 },
         };
-        private static List<Color> GangsVehiclesColors = new List<Color>()
+        private static readonly List<Color> GangsVehiclesColors = new List<Color>()
         {
             { new Color(0, 0, 0) },
             { new Color(0, 0, 0) },
@@ -47,20 +47,20 @@ namespace iTeffa.Fractions
             { new Color(0, 200, 0) },
         };
 
-        private static List<VehicleHash> MafiaVehiclesHashes = new List<VehicleHash>()
+        private static readonly List<VehicleHash> MafiaVehiclesHashes = new List<VehicleHash>()
         {
             { VehicleHash.Pounder },
             { VehicleHash.Boxville3 },
             { VehicleHash.Mule },
         };
-        private static List<Color> MafiaVehiclesColors = new List<Color>()
+        private static readonly List<Color> MafiaVehiclesColors = new List<Color>()
         {
             { new Color(0, 0, 0) },
             { new Color(0, 0, 0) },
             { new Color(0, 0, 0) },
         };
 
-        private static Dictionary<int, DateTime> NextDelivery = new Dictionary<int, DateTime>()
+        private static readonly Dictionary<int, DateTime> NextDelivery = new Dictionary<int, DateTime>()
         {
             { 1, DateTime.Now },
             { 2, DateTime.Now },
@@ -73,7 +73,7 @@ namespace iTeffa.Fractions
             { 13, DateTime.Now },
         };
 
-        private static Vector3 GangStartDelivery = new Vector3(480.9385, -1302.576, 28.12353);
+        private static readonly Vector3 GangStartDelivery = new Vector3(480.9385, -1302.576, 28.12353);
         private static List<Vector3> GangSpawnAutos = new List<Vector3>()
         {
             new Vector3(814.4807, -747.8201, 26.8163),
@@ -93,7 +93,7 @@ namespace iTeffa.Fractions
             new Vector3(987.3099, -1832.049, 31.16065),
             new Vector3(1265.665, -2563.195, 42.91005),
         };
-        private static List<Vector3> GangSpawnAutosRot = new List<Vector3>()
+        private static readonly List<Vector3> GangSpawnAutosRot = new List<Vector3>()
         {
             new Vector3(-0.1028762, -6.507742E-05, 185.9321),
             new Vector3(-0.03887018, 4.864606, 267.9159),
@@ -112,14 +112,14 @@ namespace iTeffa.Fractions
             new Vector3(-0.353688, -1.634855, 354.2626),
             new Vector3(1.573582, 3.525663, 284.0478),
         };
-        private static Dictionary<int, Vector3> MafiaStartDelivery = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> MafiaStartDelivery = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(1463.797, 1128.923, 114.3969) },
             { 11, new Vector3(-128.5574, 994.9902, 235.8243) },
             { 12, new Vector3(-1538.677, -76.76743, 54.22959) },
             { 13, new Vector3(-1795.539, 399.2474, 112.8691) },
         };
-        private static Dictionary<int, Vector3> MafiaStartDeliveryRot = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> MafiaStartDeliveryRot = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(1.19556, 0.2941337, 91.12183) },
             { 11, new Vector3(-0.02024388, 0.4382547, 198.8489) },
@@ -127,7 +127,7 @@ namespace iTeffa.Fractions
             { 13, new Vector3(-0.3686997, -0.2600957, 286.0435) },
         };
 
-        private static List<Vector3> GangEndDelivery = new List<Vector3>()
+        private static readonly List<Vector3> GangEndDelivery = new List<Vector3>()
         {
             new Vector3(-2165.107, 4285.171, 49.03421),
             new Vector3(142.6606, 6652.569, 31.59082),
@@ -140,7 +140,7 @@ namespace iTeffa.Fractions
             new Vector3(1041.522, 2650.708, 39.62605),
             new Vector3(260.4555, 2580.766, 45.11154),
         };
-        private static List<Vector3> MafiaEndDelivery = new List<Vector3>()
+        private static readonly List<Vector3> MafiaEndDelivery = new List<Vector3>()
         {
             new Vector3(-1834.286, 4692.507, 0.6031599),
             new Vector3(-2658.842, 2533.021, 1.898514),
@@ -155,7 +155,7 @@ namespace iTeffa.Fractions
             new Vector3(-1151.819, -1565.433, 3.273624),
             new Vector3(1378.693, -2077.05, 50.87856),
         };
-        private static Vector3 PoliceEndDelivery = new Vector3(479.2215, -1024.153, 26.91038);
+        private static readonly Vector3 PoliceEndDelivery = new Vector3(479.2215, -1024.153, 26.91038);
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()
@@ -344,7 +344,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e) { Log.Write("EnterVehicle: " + e.Message, nLog.Type.Error); }
         }
-        
+
         public static void Event_PlayerDisconnected(Player player)
         {
             if (player.HasData("DELIVERY_CAR"))
@@ -468,7 +468,7 @@ namespace iTeffa.Fractions
                         break;
                 }
 
-                
+
                 var vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, MafiaStartDelivery[i] + new Vector3(0, 0, 1), MafiaStartDeliveryRot[i], 0, 0);
                 vehicle.CustomPrimaryColor = new Color(0, 0, 0);
                 vehicle.CustomSecondaryColor = new Color(0, 0, 0);

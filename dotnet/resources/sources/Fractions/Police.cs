@@ -5,33 +5,27 @@ using GTANetworkAPI;
 using iTeffa.Kernel;
 using iTeffa.Settings;
 using iTeffa.Interface;
-using iTeffa.Kernel.Character;
 using Newtonsoft.Json;
-
-using iTeffa.Plugins;
 using iTeffa.Models;
-using iTeffa.Globals;
 
 namespace iTeffa.Fractions
 {
     class Police : Script
     {
         private static nLog Log = new nLog("Police");
-
-        
         private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> policeCheckpoints = new List<Vector3>()
         {
-            new Vector3(463.2361, -998.3675, 23.91487), // shape, where player can arrest suspect       0
-            new Vector3(452.4479, -980.1406, 29.68958), // guns     1
-            new Vector3(457.2408, -988.3513, 29.68959), // dressing room     2
-            new Vector3(452.2765, -993.3061, 29.68959), // special checkpoint     3
-            new Vector3(459.188, -997.7607, 23.91485), // prison room      4 
-            new Vector3(428.478, -979.8452, 30.71022), // place of release from prison     5
-            new Vector3(441.9336, -981.5965, 29.6896), // buy gun licence     6
-            new Vector3(439.8187, -981.6356, 29.5696), // surrender bags with drill and money     7
-            new Vector3(461.0604, -981.0191, 29.56959),  // open stock     8
-            new Vector3(452.1674, -1024.298, 27.40882),  // vehicle boost       9
+            new Vector3(463.2361, -998.3675, 23.91487),   // shape, where player can arrest suspect       0
+            new Vector3(452.4479, -980.1406, 29.68958),   // guns     1
+            new Vector3(457.2408, -988.3513, 29.68959),   // dressing room     2
+            new Vector3(452.2765, -993.3061, 29.68959),   // special checkpoint     3
+            new Vector3(459.188, -997.7607, 23.91485),    // prison room      4 
+            new Vector3(428.478, -979.8452, 30.71022),    // place of release from prison     5
+            new Vector3(441.9336, -981.5965, 29.6896),    // buy gun licence     6
+            new Vector3(439.8187, -981.6356, 29.5696),    // surrender bags with drill and money     7
+            new Vector3(461.0604, -981.0191, 29.56959),   // open stock     8
+            new Vector3(452.1674, -1024.298, 27.40882),   // vehicle boost       9
         };
 
         [ServerEvent(Event.ResourceStart)]
@@ -40,10 +34,6 @@ namespace iTeffa.Fractions
             try
             {
                 NAPI.World.DeleteWorldProp(NAPI.Util.GetHashKey("v_ilev_arm_secdoor"), new Vector3(453.0793, -983.1894, 30.83926), 30f);
-
-                NAPI.TextLabel.CreateTextLabel("~g~Alonzo Harris", new Vector3(452.2527, -993.119, 31.6896), 5f, 0.4f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
-                NAPI.TextLabel.CreateTextLabel("~g~Nancy Spungen", new Vector3(441.169, -978.3074, 31.6896), 5f, 0.4f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
-                NAPI.TextLabel.CreateTextLabel("~g~Bones Bulldog", new Vector3(454.121, -980.0575, 31.6896), 5f, 0.4f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
 
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(policeCheckpoints[0], 6, 3, 0));
                 Cols[0].OnEntityEnterColShape += arrestShape_onEntityEnterColShape;
@@ -91,7 +81,8 @@ namespace iTeffa.Fractions
                 NAPI.Marker.CreateMarker(1, policeCheckpoints[7] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, policeCheckpoints[8] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, policeCheckpoints[9] - new Vector3(0, 0, 3.7), new Vector3(), new Vector3(), 4, new Color(255, 0, 0, 220));
-            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -111,7 +102,8 @@ namespace iTeffa.Fractions
         {
             NAPI.Task.Run(() =>
             {
-                try {
+                try
+                {
                     if (Manager.countOfFractionMembers(7) == 0 && Manager.countOfFractionMembers(9) == 0)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Нет полицейских в Вашем районе. Попробуйте позже", 3000);
@@ -130,11 +122,11 @@ namespace iTeffa.Fractions
                     var Blip = NAPI.Blip.CreateBlip(0, player.Position, 0.75F, 70, "Call from " + player.Name.Replace('_', ' ') + $" ({player.Value})", 0, 0, true, 0, 0);
                     Blip.Transparency = 0;
                     foreach (var p in NAPI.Pools.GetAllPlayers())
-                        {
-                            if (!Main.Players.ContainsKey(p)) continue;
-                            if (Main.Players[p].FractionID != 7 && Main.Players[p].FractionID != 9) continue;
-                            p.TriggerEvent("changeBlipAlpha", Blip, 255);
-                        }
+                    {
+                        if (!Main.Players.ContainsKey(p)) continue;
+                        if (Main.Players[p].FractionID != 7 && Main.Players[p].FractionID != 9) continue;
+                        p.TriggerEvent("changeBlipAlpha", Blip, 255);
+                    }
                     player.SetData("CALLPOLICE_BLIP", Blip);
 
                     var colshape = NAPI.ColShape.CreateCylinderColShape(player.Position, 70, 4, 0);
@@ -175,7 +167,7 @@ namespace iTeffa.Fractions
             try
             {
                 if (!Manager.canUseCommand(player, "pd")) return;
-                if(target == null || !NAPI.Entity.DoesEntityExist(target)) return;
+                if (target == null || !NAPI.Entity.DoesEntityExist(target)) return;
                 if (!target.HasData("IS_CALLPOLICE"))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок не вызывал полицию или этот вызов уже кто-то принял", 3000);
@@ -212,10 +204,11 @@ namespace iTeffa.Fractions
                 Manager.sendFractionMessage(7, $"~b~{player.Name.Replace('_', ' ')} принял вызов от игрока ({target.Value})", true);
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов", 3000);
             }
-            catch {
+            catch
+            {
             }
         }
-            
+
         [RemoteEvent("clearWantedLvl")]
         public static void clearWantedLvl(Player sender, params object[] arguments)
         {
@@ -253,7 +246,8 @@ namespace iTeffa.Fractions
                 }
                 catch { }
                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сняли розыск с владельца паспорта {target}", 3000);
-            } catch (Exception e) { Log.Write("ClearWantedLvl: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("ClearWantedLvl: " + e.Message, nLog.Type.Error); }
         }
 
         [RemoteEvent("checkNumber")]
@@ -305,7 +299,7 @@ namespace iTeffa.Fractions
                     }
                     player = NAPI.Player.GetPlayerFromName(target);
                 }
-                
+
                 try
                 {
                     var acc = Main.Players[player];
@@ -329,15 +323,15 @@ namespace iTeffa.Fractions
                         var genderBool = Convert.ToBoolean(Row["gender"]);
                         var uuid = Convert.ToInt32(Row["uuid"].ToString());
                         var gender = (genderBool) ? "Мужской" : "Женский";
-                        var wanted = Newtonsoft.Json.JsonConvert.DeserializeObject<WantedLevel>(Row["wanted"].ToString());
+                        var wanted = JsonConvert.DeserializeObject<WantedLevel>(Row["wanted"].ToString());
                         var wantedLvl = (wanted == null) ? 0 : wanted.Level;
-                        var licenses = Newtonsoft.Json.JsonConvert.DeserializeObject<List<bool>>(Convert.ToString(Row["licenses"]));
+                        var licenses = JsonConvert.DeserializeObject<List<bool>>(Convert.ToString(Row["licenses"]));
                         var lic = "";
                         for (int i = 0; i < licenses.Count; i++)
                             if (licenses[i]) lic += $"{Main.LicWords[i]} / ";
                         if (lic == "") lic = "Отсутствуют";
 
-                        Trigger.ClientEvent(sender, "executePersonInfo", $"{firstName}", $"{lastName}", $"{uuid}",$"{gender}", $"{wantedLvl}", $"{lic}", "Лицензия на оружие", "Водительские права");
+                        Trigger.ClientEvent(sender, "executePersonInfo", $"{firstName}", $"{lastName}", $"{uuid}", $"{gender}", $"{wantedLvl}", $"{lic}", "Лицензия на оружие", "Водительские права");
                     }
                 }
             }
@@ -386,7 +380,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e) { Log.Write("openCopCarMenu: " + e.Message, nLog.Type.Error); }
         }
-        
+
         public static void Event_PlayerDeath(Player player, Player killer, uint reason)
         {
             try
@@ -439,7 +433,7 @@ namespace iTeffa.Fractions
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);;
+                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000); ;
                             Customization.ApplyCharacter(player);
                             if (player.HasData("HAND_MONEY")) player.SetClothes(5, 45, 0);
                             else if (player.HasData("HEIST_DRILL")) player.SetClothes(5, 41, 0);
@@ -535,7 +529,7 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
-                    if (!player.IsInVehicle || (player.Vehicle.Model != NAPI.Util.GetHashKey("police") && 
+                    if (!player.IsInVehicle || (player.Vehicle.Model != NAPI.Util.GetHashKey("police") &&
                         player.Vehicle.Model != NAPI.Util.GetHashKey("police2") && player.Vehicle.Model != NAPI.Util.GetHashKey("police3") && player.Vehicle.Model != NAPI.Util.GetHashKey("police4")))
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в рабочей машине", 3000);
@@ -597,7 +591,6 @@ namespace iTeffa.Fractions
             {
                 if (NAPI.Data.HasEntityData(player, "ARREST_TIMER"))
                 {
-                    //Main.StopT(NAPI.Data.GetEntityData(player, "ARREST_TIMER"), "onPlayerDisconnectedhandler_arrest");
                     Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
                 }
 
@@ -610,10 +603,9 @@ namespace iTeffa.Fractions
                 {
                     Player target = NAPI.Data.GetEntityData(player, "FOLLOWER");
                     NAPI.Data.ResetEntityData(target, "FOLLOWING");
-                    //target.FreezePosition = false;
                     Trigger.ClientEvent(target, "follow", false);
                 }
-                
+
                 if (player.HasData("CALLPOLICE_BLIP"))
                 {
                     NAPI.Entity.DeleteEntity(player.GetData<Blip>("CALLPOLICE_BLIP"));
@@ -650,24 +642,24 @@ namespace iTeffa.Fractions
             {
                 switch (index)
                 {
-                    case 0: //nightstick
-                        Fractions.Manager.giveGun(client, Weapons.Hash.Nightstick, "Nightstick");
+                    case 0:
+                        Manager.giveGun(client, Weapons.Hash.Nightstick, "Nightstick");
                         return;
-                    case 1: //pistol
-                        Fractions.Manager.giveGun(client, Weapons.Hash.Pistol, "Pistol");
+                    case 1:
+                        Manager.giveGun(client, Weapons.Hash.Pistol, "Pistol");
                         return;
-                    case 2: //smg
-                        Fractions.Manager.giveGun(client, Weapons.Hash.SMG, "SMG");
+                    case 2:
+                        Manager.giveGun(client, Weapons.Hash.SMG, "SMG");
                         return;
-                    case 3: //pumpshotgun
-                        Fractions.Manager.giveGun(client, Weapons.Hash.PumpShotgun, "PumpShotgun");
+                    case 3:
+                        Manager.giveGun(client, Weapons.Hash.PumpShotgun, "PumpShotgun");
                         return;
-                    case 4: //stungun
-                        Fractions.Manager.giveGun(client, Weapons.Hash.StunGun, "StunGun");
+                    case 4:
+                        Manager.giveGun(client, Weapons.Hash.StunGun, "StunGun");
                         return;
                     case 5:
                         if (!Manager.canGetWeapon(client, "armor")) return;
-                        if (Fractions.Stocks.fracStocks[7].Materials < Fractions.Manager.matsForArmor)
+                        if (Stocks.fracStocks[7].Materials < Manager.matsForArmor)
                         {
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе недостаточно материала", 3000);
                             return;
@@ -678,15 +670,15 @@ namespace iTeffa.Fractions
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть бронежилет", 3000);
                             return;
                         }
-                        Fractions.Stocks.fracStocks[7].Materials -= Fractions.Manager.matsForArmor;
-                        Fractions.Stocks.fracStocks[7].UpdateLabel();
+                        Stocks.fracStocks[7].Materials -= Manager.matsForArmor;
+                        Stocks.fracStocks[7].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
                         GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                         return;
-                    case 6: // medkit
+                    case 6:
                         if (!Manager.canGetWeapon(client, "Medkits")) return;
-                        if (Fractions.Stocks.fracStocks[7].Medkits == 0)
+                        if (Stocks.fracStocks[7].Medkits == 0)
                         {
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе нет аптечек", 3000);
                             return;
@@ -697,23 +689,23 @@ namespace iTeffa.Fractions
                             Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть аптечка", 3000);
                             return;
                         }
-                        Fractions.Stocks.fracStocks[7].Medkits--;
-                        Fractions.Stocks.fracStocks[7].UpdateLabel();
+                        Stocks.fracStocks[7].Medkits--;
+                        Stocks.fracStocks[7].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
                         GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
                         return;
-                    case 7: // pistol ammo
+                    case 7:
                         if (!Manager.canGetWeapon(client, "PistolAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.PistolAmmo, 12);
+                        Manager.giveAmmo(client, ItemType.PistolAmmo, 12);
                         return;
-                    case 8: // smg ammo
+                    case 8:
                         if (!Manager.canGetWeapon(client, "SMGAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.SMGAmmo, 30);
+                        Manager.giveAmmo(client, ItemType.SMGAmmo, 30);
                         return;
-                    case 9: // shotgun ammo
+                    case 9:
                         if (!Manager.canGetWeapon(client, "ShotgunsAmmo")) return;
-                        Fractions.Manager.giveAmmo(client, ItemType.ShotgunsAmmo, 6);
+                        Manager.giveAmmo(client, ItemType.ShotgunsAmmo, 6);
                         return;
                 }
             }
@@ -728,36 +720,52 @@ namespace iTeffa.Fractions
             Menu menu = new Menu("policeSpecial", false, false);
             menu.Callback += callback_policeSpecial;
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Оружейная";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Оружейная"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("changeclothes", Menu.MenuItem.Button);
-            menuItem.Text = "Переодеться";
+            menuItem = new Menu.Item("changeclothes", Menu.MenuItem.Button)
+            {
+                Text = "Переодеться"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("pistol50", Menu.MenuItem.Button);
-            menuItem.Text = "Desert Eagle";
+            menuItem = new Menu.Item("pistol50", Menu.MenuItem.Button)
+            {
+                Text = "Desert Eagle"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("carbineRifle", Menu.MenuItem.Button);
-            menuItem.Text = "Штурмовая винтовка";
+            menuItem = new Menu.Item("carbineRifle", Menu.MenuItem.Button)
+            {
+                Text = "Штурмовая винтовка"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("riflesammo", Menu.MenuItem.Button);
-            menuItem.Text = "Автоматный калибр x30";
+            menuItem = new Menu.Item("riflesammo", Menu.MenuItem.Button)
+            {
+                Text = "Автоматный калибр x30"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("heavyshotgun", Menu.MenuItem.Button);
-            menuItem.Text = "Тяжелый дробовик";
-            menu.Add(menuItem);
-            
-            menuItem = new Menu.Item("stungun", Menu.MenuItem.Button);
-            menuItem.Text = "Tazer";
+            menuItem = new Menu.Item("heavyshotgun", Menu.MenuItem.Button)
+            {
+                Text = "Тяжелый дробовик"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("stungun", Menu.MenuItem.Button)
+            {
+                Text = "Tazer"
+            };
+            menu.Add(menuItem);
+
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -775,7 +783,6 @@ namespace iTeffa.Fractions
                         if (gender)
                         {
                             Customization.SetHat(client, 39, 0);
-                            //client.SetClothes(1, 52, 0);
                             client.SetClothes(11, 53, 0);
                             client.SetClothes(4, 31, 0);
                             client.SetClothes(6, 25, 0);
@@ -785,7 +792,6 @@ namespace iTeffa.Fractions
                         else
                         {
                             Customization.SetHat(client, 38, 0);
-                            //client.SetClothes(1, 57, 0);
                             client.SetClothes(11, 46, 0);
                             client.SetClothes(4, 30, 0);
                             client.SetClothes(6, 25, 0);
@@ -797,24 +803,24 @@ namespace iTeffa.Fractions
                         NAPI.Data.SetEntityData(client, "IN_CP_MODE", true);
                         return;
                     }
-                    Fractions.Manager.setSkin(client, 7, Main.Players[client].FractionLVL);
+                    Manager.setSkin(client, 7, Main.Players[client].FractionLVL);
                     client.SetData("IN_CP_MODE", false);
                     return;
                 case "pistol50":
-                    Fractions.Manager.giveGun(client, Weapons.Hash.Pistol50, "pistol50");
+                    Manager.giveGun(client, Weapons.Hash.Pistol50, "pistol50");
                     return;
                 case "carbineRifle":
-                    Fractions.Manager.giveGun(client, Weapons.Hash.CarbineRifle, "carbineRifle");
+                    Manager.giveGun(client, Weapons.Hash.CarbineRifle, "carbineRifle");
                     return;
                 case "riflesammo":
                     if (!Manager.canGetWeapon(client, "RiflesAmmo")) return;
-                    Fractions.Manager.giveAmmo(client, ItemType.RiflesAmmo, 30);
+                    Manager.giveAmmo(client, ItemType.RiflesAmmo, 30);
                     return;
                 case "heavyshotgun":
-                    Fractions.Manager.giveGun(client, Weapons.Hash.HeavyShotgun, "heavyshotgun");
+                    Manager.giveGun(client, Weapons.Hash.HeavyShotgun, "heavyshotgun");
                     return;
                 case "stungun":
-                    Fractions.Manager.giveGun(client, Weapons.Hash.StunGun, "stungun");
+                    Manager.giveGun(client, Weapons.Hash.StunGun, "stungun");
                     return;
                 case "close":
                     MenuManager.Close(client);

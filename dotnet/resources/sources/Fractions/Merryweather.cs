@@ -12,10 +12,10 @@ namespace iTeffa.Fractions
         private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> Coords = new List<Vector3>
         {
-            new Vector3(1571.831, 2240.648, 78.40011), // Колшэйп входа в бункер
-            new Vector3(2154.641, 2921.034, -62.82243), // Колшэйп изнутри интерьера для телепорта наверх
-            new Vector3(2033.842, 2942.104, -62.82434), // Колшэйп входа на другой этаж
-            new Vector3(2155.425, 2921.066, -81.99551), // Колшэйп изнутри этажа, чтобы вернуться назад
+            new Vector3(1571.831, 2240.648, 78.40011),    // Колшэйп входа в бункер
+            new Vector3(2154.641, 2921.034, -62.82243),   // Колшэйп изнутри интерьера для телепорта наверх
+            new Vector3(2033.842, 2942.104, -62.82434),   // Колшэйп входа на другой этаж
+            new Vector3(2155.425, 2921.066, -81.99551),   // Колшэйп изнутри этажа, чтобы вернуться назад
         };
 
         [ServerEvent(Event.ResourceStart)]
@@ -23,7 +23,6 @@ namespace iTeffa.Fractions
         {
             try
             {
-
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(Coords[0], 1f, 2, 0));
                 Cols[0].OnEntityEnterColShape += mws_OnEntityEnterColShape;
                 Cols[0].OnEntityExitColShape += mws_OnEntityExitColShape;
@@ -43,12 +42,13 @@ namespace iTeffa.Fractions
                 Cols[3].OnEntityEnterColShape += mws_OnEntityEnterColShape;
                 Cols[3].OnEntityExitColShape += mws_OnEntityExitColShape;
                 Cols[3].SetData("INTERACT", 85);
-                
+
                 NAPI.Marker.CreateMarker(1, Coords[0] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, Coords[1] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, Coords[2] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, Coords[3] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("EXCEPTION AT\"FRACTIONS_MERRYWEATHER\":\n" + e.ToString(), nLog.Type.Error);
             }
@@ -86,15 +86,15 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
                         return;
                     }
-                    if(Main.Players[player].FractionID != 17)
+                    if (Main.Players[player].FractionID != 17)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не состоите в Merryweather", 3000);
                         return;
                     }
-                    if(interact == 82) NAPI.Entity.SetEntityPosition(player, Coords[1] + new Vector3(0, 0, 1.12));
-                    else if(interact == 83) NAPI.Entity.SetEntityPosition(player, Coords[0] + new Vector3(0, 0, 1.12));
-                    else if(interact == 84) NAPI.Entity.SetEntityPosition(player, Coords[3] + new Vector3(0, 0, 1.12));
-                    else if(interact == 85) NAPI.Entity.SetEntityPosition(player, Coords[2] + new Vector3(0, 0, 1.12));
+                    if (interact == 82) NAPI.Entity.SetEntityPosition(player, Coords[1] + new Vector3(0, 0, 1.12));
+                    else if (interact == 83) NAPI.Entity.SetEntityPosition(player, Coords[0] + new Vector3(0, 0, 1.12));
+                    else if (interact == 84) NAPI.Entity.SetEntityPosition(player, Coords[3] + new Vector3(0, 0, 1.12));
+                    else if (interact == 85) NAPI.Entity.SetEntityPosition(player, Coords[2] + new Vector3(0, 0, 1.12));
                     return;
             }
         }

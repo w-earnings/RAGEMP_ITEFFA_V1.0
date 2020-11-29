@@ -18,8 +18,6 @@ namespace iTeffa.Fractions
         {
             try
             {
-                NAPI.World.DeleteWorldProp(NAPI.Util.GetHashKey("v_ilev_arm_secdoor"), new Vector3(453.0793, -983.1894, 30.83926), 30f);
-
                 Cols.Add(0, NAPI.ColShape.CreateCylinderColShape(sheriffCheckpoints[0], 6, 3, 0));
                 Cols[0].OnEntityEnterColShape += arrestShape_onEntityEnterColShape;
                 Cols[0].OnEntityExitColShape += arrestShape_onEntityExitColShape;

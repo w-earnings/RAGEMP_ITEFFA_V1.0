@@ -12,7 +12,6 @@ namespace iTeffa.Fractions
     class LSNews : Script
     {
         private static nLog Log = new nLog("News");
-
         private class Advert
         {
             public int ID { get; set; }
@@ -21,7 +20,7 @@ namespace iTeffa.Fractions
             public string AD { get; set; }
             public string EditedAD { get; set; }
             public string BlockedBy { get; set; }
-            
+
             public DateTime OpenedDate { get; set; }
             public DateTime ClosedDate { get; set; }
 
@@ -43,7 +42,7 @@ namespace iTeffa.Fractions
                 {
                     if (!Main.Players.ContainsKey(someone)) return;
                     if (Main.Players[someone].FractionID != 15) return;
-                    
+
                     Trigger.ClientEvent(someone, "addadvert", ID, Author, AD);
                 }
             }
@@ -58,7 +57,6 @@ namespace iTeffa.Fractions
             new Vector3(-1072.655, -246.5676, 53.506), // Колшэйп на крыше LSN
             new Vector3(-1078.168, -254.4076, 43.521), // Колшэйп изнутри интерьера для телепорта наверх
         };
-
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStartHandler()
@@ -75,10 +73,11 @@ namespace iTeffa.Fractions
                 Cols[1].OnEntityEnterColShape += lsnews_OnEntityEnterColShape;
                 Cols[1].OnEntityExitColShape += lsnews_OnEntityExitColShape;
                 Cols[1].SetData("INTERACT", 81);
-                
+
                 NAPI.Marker.CreateMarker(1, LSNewsCoords[0] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, LSNewsCoords[1] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("EXCEPTION AT\"FRACTIONS_LSNEWS\":\n" + e.ToString(), nLog.Type.Error);
             }
@@ -113,7 +112,7 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
                         return;
                     }
-                    if(Main.Players[player].FractionID != 15)
+                    if (Main.Players[player].FractionID != 15)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не состоите в News", 3000);
                         return;
@@ -127,17 +126,17 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
                         return;
                     }
-                    if(Main.Players[player].FractionID != 15)
+                    if (Main.Players[player].FractionID != 15)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не состоите в News", 3000);
                         return;
                     }
                     NAPI.Entity.SetEntityPosition(player, LSNewsCoords[0] + new Vector3(0, 0, 1.12));
                     return;
-                
+
             }
         }
-        //=======
+
         public static void Init()
         {
             try
@@ -149,7 +148,7 @@ namespace iTeffa.Fractions
 
                 DataTable result = Connect.QueryRead(cmd);
                 if (result is null) return;
-                foreach(DataRow row in result.Rows)
+                foreach (DataRow row in result.Rows)
                 {
                     if (Convert.ToBoolean((sbyte)row[8]) != false) continue;
 
@@ -169,7 +168,8 @@ namespace iTeffa.Fractions
                     Adverts.Add((int)row[0], ad);
                 }
 
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("Init: " + e.ToString(), nLog.Type.Error);
             }
@@ -183,25 +183,26 @@ namespace iTeffa.Fractions
                     ad.Send(client);
                 }
 
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("onLSNPlayerLoad: " + e.ToString(), nLog.Type.Error);
             }
         }
-        
+
         #region Remote Events
-        //Админ взял репорт на себя
         [RemoteEvent("takeadvert")]
         public void AdvertTake(Player client, int id, bool retrn = false)
         {
-            try {
+            try
+            {
                 if (Main.Players[client].FractionID != 15) return;
                 if (!Adverts.ContainsKey(id))
                 {
                     Remove(id, client);
                     return;
                 }
-            
+
                 if (Adverts[id].Status)
                 {
                     Remove(id, client);
@@ -217,13 +218,15 @@ namespace iTeffa.Fractions
                     else Trigger.ClientEvent(target, "setadvert", id, client.Name);
                 }
             }
-            catch {
+            catch
+            {
             }
         }
         [RemoteEvent("sendadvert")]
         public void AdvertSend(Player player, int ID, string answer)
         {
-            try {
+            try
+            {
                 if (Main.Players[player].FractionID != 15) return;
                 if (!Adverts.ContainsKey(ID)) return;
                 if (!Adverts[ID].Status)
@@ -236,11 +239,12 @@ namespace iTeffa.Fractions
                     Remove(ID, player);
                 }
             }
-            catch {
+            catch
+            {
             }
         }
         #endregion
-        
+
         public static void AddAdvert(Player player, string question, int price)
         {
             try
@@ -257,7 +261,7 @@ namespace iTeffa.Fractions
                 cmd.Parameters.AddWithValue("@sim", Main.Players[player].Sim);
                 cmd.Parameters.AddWithValue("@ques", question);
                 cmd.Parameters.AddWithValue("@time", Connect.ConvertTime(DateTime.Now));
-                cmd.Parameters.AddWithValue("@ntime",Connect.ConvertTime(DateTime.MinValue));
+                cmd.Parameters.AddWithValue("@ntime", Connect.ConvertTime(DateTime.MinValue));
 
                 DataTable dt = Connect.QueryRead(cmd);
 
@@ -296,28 +300,35 @@ namespace iTeffa.Fractions
                 response = Main.BlockSymbols(response);
 
                 if (!Main.Players.ContainsKey(player)) return;
-                if(Main.Players[player].AdminLVL == 0) {
+                if (Main.Players[player].AdminLVL == 0)
+                {
                     if (Main.Players[player].FractionID != 15) return;
                 }
-                if (!Adverts.ContainsKey(repID)) {
-                    if(deleted) player.SendChatMessage("Объявления с подобным номером не было найдено.");
+                if (!Adverts.ContainsKey(repID))
+                {
+                    if (deleted) player.SendChatMessage("Объявления с подобным номером не было найдено.");
                     return;
                 }
                 DateTime now = DateTime.Now;
 
-                if(!deleted) {
+                if (!deleted)
+                {
                     try
                     {
                         int moneyad = Adverts[repID].AD.Length / 15 * 6;
-                        Finance.Bank.Change(Main.Players[player].Bank, (moneyad*60/100), false);
-                        Stocks.fracStocks[6].Money += moneyad*40/100;
-                        if(Adverts[repID].AuthorSIM >= 1) NAPI.Chat.SendChatMessageToAll("!{#00BCD4}" + $"Объявление от {Adverts[repID].Author.Replace('_', ' ')}: {response} | Тел: {Adverts[repID].AuthorSIM}");
+                        Finance.Bank.Change(Main.Players[player].Bank, (moneyad * 60 / 100), false);
+                        Stocks.fracStocks[6].Money += moneyad * 40 / 100;
+                        if (Adverts[repID].AuthorSIM >= 1) NAPI.Chat.SendChatMessageToAll("!{#00BCD4}" + $"Объявление от {Adverts[repID].Author.Replace('_', ' ')}: {response} | Тел: {Adverts[repID].AuthorSIM}");
                         else NAPI.Chat.SendChatMessageToAll("!{#00BCD4}" + $"Объявление от {Adverts[repID].Author.Replace('_', ' ')}: {response}");
                         NAPI.Chat.SendChatMessageToAll("!{#00BCD4}" + $"Редактор объявления: {player.Name.Replace('_', ' ')}.");
-                    } catch {
                     }
-                } else {
-                    if(Main.Players[player].AdminLVL != 0) GameLog.Admin($"{player.Name}", $"delAd", $"{Adverts[repID].Author}");
+                    catch
+                    {
+                    }
+                }
+                else
+                {
+                    if (Main.Players[player].AdminLVL != 0) GameLog.Admin($"{player.Name}", $"delAd", $"{Adverts[repID].Author}");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы удалили объявление игрока {Adverts[repID].Author}", 3000);
                     Player target = NAPI.Player.GetPlayerFromName(Adverts[repID].Author);
                     if (target != null) Notify.Send(target, NotifyType.Error, NotifyPosition.TopCenter, $"{player.Name} удалил Ваше объявление по причине: {response}.", 3000);
@@ -346,7 +357,7 @@ namespace iTeffa.Fractions
                 Log.Write(e.ToString(), nLog.Type.Error);
             }
         }
-        
+
         private static void Remove(int ID_, Player someone = null)
         {
             try

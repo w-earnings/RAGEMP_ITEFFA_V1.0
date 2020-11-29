@@ -1,36 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using GTANetworkAPI;
 using iTeffa.Kernel;
 using iTeffa.Settings;
-using iTeffa.Interface;
 using System.Data;
 
 namespace iTeffa.Fractions
 {
     class AlcoFabrication : Script
     {
-        /*
-            {10, "La Cosa Nostra" },
-            {11, "Russian Mafia" },
-            {12, "Yakuza" },
-            {13, "Armenian Mafia" },
-        */
-        private static nLog Log = new nLog("AlcoFabrication");
-        private static Dictionary<int, Vector3> EnterAlcoShop = new Dictionary<int, Vector3>()
+        private static readonly nLog Log = new nLog("AlcoFabrication");
+        private static readonly Dictionary<int, Vector3> EnterAlcoShop = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(-1388.761, -586.3921, 29.09945) },
             { 12, new Vector3(-564.5512, 275.6993, 81.98249) },
             { 13, new Vector3(-430.1028, 261.2774, 81.88689) },
         };
-        private static Dictionary<int, Vector3> ExitAlcoShop = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> ExitAlcoShop = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(-1387.458, -588.3003, 29.19951) },
             { 12, new Vector3(-564.487, 277.4747, 82.01633) },
             { 13, new Vector3(380.9767, -1001.358, -100.12004) },
         };
-        private static Dictionary<int, string> ClubsNames = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> ClubsNames = new Dictionary<int, string>()
         {
             { 10, "Bahama Mamas West" },
             { 11, "Vanila Unicorn" },
@@ -39,15 +31,15 @@ namespace iTeffa.Fractions
         };
 
         public static Dictionary<int, Stock> ClubsStocks = new Dictionary<int, Stock>();
-        private static int MaxMats = 4000;
-        private static Dictionary<int, Vector3> UnloadPoints = new Dictionary<int, Vector3>()
+        private static readonly int MaxMats = 4000;
+        private static readonly Dictionary<int, Vector3> UnloadPoints = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(-1404.037, -633.443, 27.55337) },
             { 11, new Vector3(141.3792, -1281.576, 28.2172) },
             { 12, new Vector3(-564.1531, 302.2027, 82.038) },
             { 13, new Vector3(-452.4567, 290.8813, 82.113) },
         };
-        private static Dictionary<int, Vector3> BuyPoints = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> BuyPoints = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(-1394.523, -602.7082, 29.19955) },
             { 11, new Vector3(126.4378, -1282.892, 28.15849) },
@@ -55,9 +47,9 @@ namespace iTeffa.Fractions
             { 13, new Vector3(374.3211, -997.8187, -100.1199) },
         };
 
-        private static List<int> DrinksPrices = new List<int>() { 75, 115, 150};
-        private static List<int> DrinksMats = new List<int>() { 5, 7, 10 };
-        private static Dictionary<int, List<ItemType>> DrinksInClubs = new Dictionary<int, List<ItemType>>()
+        private static readonly List<int> DrinksPrices = new List<int>() { 75, 115, 150 };
+        private static readonly List<int> DrinksMats = new List<int>() { 5, 7, 10 };
+        private static readonly Dictionary<int, List<ItemType>> DrinksInClubs = new Dictionary<int, List<ItemType>>()
         {
             { 10, new List<ItemType>(){ItemType.LcnDrink1, ItemType.LcnDrink2, ItemType.LcnDrink3} },
             { 11, new List<ItemType>(){ItemType.RusDrink1, ItemType.RusDrink2, ItemType.RusDrink3} },
@@ -101,8 +93,7 @@ namespace iTeffa.Fractions
         {
             try
             {
-                NAPI.World.DeleteWorldProp(NAPI.Util.GetHashKey("prop_strip_door_01"), new Vector3(127.9552, -1298.503, 29.41962), 30f); //X:127,9552 Y:-1298,503 Z:29,41962
-
+                NAPI.World.DeleteWorldProp(NAPI.Util.GetHashKey("prop_strip_door_01"), new Vector3(127.9552, -1298.503, 29.41962), 30f);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("v_ilev_ph_gendoor006"), new Vector3(-1386.99683, -586.663208, 30.4694996), new Vector3(0, 0, 33.9277153), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("v_ilev_ph_gendoor006"), new Vector3(-1389.17236, -588.086914, 30.4694996), new Vector3(0, -0, -147.719879), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("apa_mp_h_stn_chairarm_03"), new Vector3(-1397.15088, -598.213379, 29.3224068), new Vector3(0, 0, -18.1152821), 255, NAPI.GlobalDimension);
@@ -120,7 +111,6 @@ namespace iTeffa.Fractions
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("apa_mp_h_stn_chairarm_03"), new Vector3(-1396.07861, -609.95874, 29.3224068), new Vector3(0, 0, -55.5132561), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("apa_mp_h_stn_chairarm_03"), new Vector3(-1397.49976, -608.927734, 29.3224068), new Vector3(0, 0, -20.513237), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("apa_mp_h_stn_chairarm_03"), new Vector3(-1396.10718, -615.662598, 29.3224068), new Vector3(0, -0, -127.513763), 255, NAPI.GlobalDimension);
-
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("prop_huge_display_01"), new Vector3(371.9039, -990.349854, -98.0589447), new Vector3(0, 0, -89.7690125), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("prop_huge_display_01"), new Vector3(376.57428, -990.049927, -96.4589691), new Vector3(0, -0, -179.769073), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("prop_huge_display_01"), new Vector3(372.103912, -1004.65002, -98.0589447), new Vector3(0, 0, -89.7690048), 255, NAPI.GlobalDimension);
@@ -138,7 +128,6 @@ namespace iTeffa.Fractions
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("lr_prop_clubstool_01"), new Vector3(375.815247, -990.539917, -99.7284622), new Vector3(0, 0, -4.8109498), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("p_yoga_mat_03_s"), new Vector3(373.065887, -999.187195, -98.9689713), new Vector3(8.40430744e-07, 89.9999466, 179.998123), 255, NAPI.GlobalDimension);
                 NAPI.Object.CreateObject(NAPI.Util.GetHashKey("hei_heist_kit_bin_01"), new Vector3(373.325378, -999.457397, -99.9999771), new Vector3(0, 0, 47.6214714), 255, NAPI.GlobalDimension);
-
                 NAPI.Blip.CreateBlip(93, new Vector3(-1388.761, -586.3921, 29.09945), 0.75F, 0, "Bahama Mamas West", 255, 0, true);
                 NAPI.Blip.CreateBlip(121, new Vector3(141.3792, -1281.576, 28.2172), 0.75F, 0, "Vanila Unicorn", 255, 0, true);
                 NAPI.Blip.CreateBlip(136, new Vector3(-564.5512, 275.6993, 81.98249), 0.75F, 0, "Tequi-la-la", 255, 0, true);
@@ -331,9 +320,7 @@ namespace iTeffa.Fractions
             {
                 Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 Trigger.ClientEvent(player, "setResistStage", 0);
-
                 player.ResetData("RESIST_BAN");
-                //Main.StopT(player.GetData<string>("RESIST_TIMER"), "timer_27");
                 Timers.Stop(player.GetData<string>("RESIST_TIMER"));
             }
             else
@@ -352,7 +339,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e) { Log.Write("SaveAlco: " + e.Message, nLog.Type.Error); }
         }
-       
+
         #region Buy Menu
         public static void OpenBuyAlcoholMenu(Player player)
         {
@@ -380,7 +367,7 @@ namespace iTeffa.Fractions
 
                 switch (action)
                 {
-                    case 0: // buy
+                    case 0:
                         if (alcoCounts[index] <= 0)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
@@ -417,7 +404,7 @@ namespace iTeffa.Fractions
                         OpenBuyAlcoholMenu(player);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {nInventory.ItemsNames[(int)invItem]}", 3000);
                         return;
-                    case 1: // take
+                    case 1:
                         if (alcoCounts[index] <= 0)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
@@ -447,7 +434,7 @@ namespace iTeffa.Fractions
                         OpenBuyAlcoholMenu(player);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы взяли {nInventory.ItemsNames[(int)invItem]}. На складе {alcoCounts[index] - 1}шт", 3000);
                         return;
-                    case 2: // craft
+                    case 2:
                         if (alcoCounts[index] >= 80)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе максимум {nInventory.ItemsNames[(int)invItem]}", 3000);
@@ -477,7 +464,7 @@ namespace iTeffa.Fractions
                         OpenBuyAlcoholMenu(player);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы скрафтили {nInventory.ItemsNames[(int)invItem]}. На складе {alcoCounts[index] + 1}шт", 3000);
                         return;
-                    case 3: // setprice
+                    case 3:
                         Trigger.ClientEvent(player, "openInput", "Установить цену", "Введите цену для алкоголя в процентах", 3, "club_setprice");
                         return;
                 }
@@ -506,7 +493,6 @@ namespace iTeffa.Fractions
             public int Alco2 { get; set; }
             public int Alco3 { get; set; }
             public float PriceModifier { get; set; }
-
             public TextLabel Label { get; set; }
 
             public Stock(int mats, int a1, int a2, int a3, float price, Vector3 pos)

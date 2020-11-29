@@ -81,15 +81,17 @@ namespace iTeffa.Fractions
                 }
                 foreach (DataRow Row in result.Rows)
                 {
-                    var data = new FractionStock();
-                    data.Drugs = Convert.ToInt32(Row["drugs"]);
-                    data.Money = Convert.ToInt32(Row["money"]);
-                    data.Materials = Convert.ToInt32(Row["mats"]);
-                    data.Medkits = Convert.ToInt32(Row["medkits"]);
-                    data.Weapons = JsonConvert.DeserializeObject<List<nItem>>(Row["weapons"].ToString());
-                    data.IsOpen = Convert.ToBoolean(Row["isopen"]);
-                    data.FuelLimit = Convert.ToInt32(Row["fuellimit"]);
-                    data.FuelLeft = Convert.ToInt32(Row["fuelleft"]);
+                    var data = new FractionStock
+                    {
+                        Drugs = Convert.ToInt32(Row["drugs"]),
+                        Money = Convert.ToInt32(Row["money"]),
+                        Materials = Convert.ToInt32(Row["mats"]),
+                        Medkits = Convert.ToInt32(Row["medkits"]),
+                        Weapons = JsonConvert.DeserializeObject<List<nItem>>(Row["weapons"].ToString()),
+                        IsOpen = Convert.ToBoolean(Row["isopen"]),
+                        FuelLimit = Convert.ToInt32(Row["fuellimit"]),
+                        FuelLeft = Convert.ToInt32(Row["fuelleft"])
+                    };
                     var id = Convert.ToInt32(Row["id"]);
                     Weapons.FractionsLastSerial[id] = Convert.ToInt32(Row["lastserial"]);
 
@@ -285,7 +287,6 @@ namespace iTeffa.Fractions
         }
         public static void inputStocks(Player player, int where, string action, int amount)
         {
-            // where (0 - stock, 1 - garage)
             if (where == 0)
             {
                 switch (action)
@@ -481,7 +482,7 @@ namespace iTeffa.Fractions
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе нет такого кол-ва матов", 3000);
                             return;
                         }
-                        var maxMats = (Fractions.Stocks.maxMats.ContainsKey(vehicle.DisplayName)) ? Fractions.Stocks.maxMats[vehicle.DisplayName] : 600;
+                        var maxMats = (Stocks.maxMats.ContainsKey(vehicle.DisplayName)) ? Fractions.Stocks.maxMats[vehicle.DisplayName] : 600;
                         if (VehicleInventory.GetCountOfType(vehicle, ItemType.Material) + amount > maxMats)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
@@ -672,17 +673,6 @@ namespace iTeffa.Fractions
             }
         }
 
-        [ServerEvent(Event.PlayerExitVehicle)]
-        public static void onPlayerExitVehicle(Player player, Vehicle vehicle)
-        {
-            try
-            {
-                /*var menu = MenuController.MenuManager.getMenu(player);
-                if (menu != null && menu.Id == "fracGarage") MenuConstructor.CloseAll(player);*/
-            }
-            catch (Exception e) { Log.Write("PlayerExit: " + e.Message, nLog.Type.Error); }
-        }
-
         public static void saveStocksDic()
         {
             foreach (var key in fracStocks.Keys)
@@ -704,7 +694,7 @@ namespace iTeffa.Fractions
 
                 if (!Manager.canUseCommand(player, "openweaponstock")) return;
 
-                Interface.Dashboard.OpenOut(player, fracStocks[(int)player.GetData<int>("ONFRACSTOCK")].Weapons, "Склад оружия", 6);
+                Dashboard.OpenOut(player, fracStocks[(int)player.GetData<int>("ONFRACSTOCK")].Weapons, "Склад оружия", 6);
             }
             catch (Exception e) { Log.Write("Openweaponstock: " + e.Message, nLog.Type.Error); }
         }
@@ -718,8 +708,7 @@ namespace iTeffa.Fractions
         }
         public static void fracgarage(Player player, string eventName, string data)
         {
-            int amount = 0;
-            if (!Int32.TryParse(data, out amount))
+            if (!int.TryParse(data, out int amount))
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                 return;
@@ -748,10 +737,10 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                         return;
                     }
-                    Fractions.Stocks.inputStocks(player, 1, "load_mats", amount);
+                    inputStocks(player, 1, "load_mats", amount);
                     return;
                 case "unloadmats":
-                    Fractions.Stocks.inputStocks(player, 1, "unload_mats", amount);
+                    inputStocks(player, 1, "unload_mats", amount);
                     return;
                 case "loaddrugs":
                     if (!vehicle.HasData("CANDRUGS"))
@@ -764,16 +753,16 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не состоите в {Manager.getName(player.GetData<int>("ONFRACSTOCK"))}", 3000);
                         return;
                     }
-                    Fractions.Stocks.inputStocks(player, 1, "load_drugs", amount);
+                    inputStocks(player, 1, "load_drugs", amount);
                     return;
                 case "unloaddrugs":
-                    Fractions.Stocks.inputStocks(player, 1, "unload_drugs", amount);
+                    inputStocks(player, 1, "unload_drugs", amount);
                     return;
                 case "loadmedkits":
-                    Fractions.Stocks.inputStocks(player, 1, "load_medkits", amount);
+                    inputStocks(player, 1, "load_medkits", amount);
                     return;
                 case "unloadmedkits":
-                    Fractions.Stocks.inputStocks(player, 1, "unload_medkits", amount);
+                    inputStocks(player, 1, "unload_medkits", amount);
                     return;
             }
         }
@@ -788,7 +777,7 @@ namespace iTeffa.Fractions
                 fracStocks[Main.Players[player].FractionID].Materials,
                 fracStocks[Main.Players[player].FractionID].Weapons.Count,
             };
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(counter);
+            string json = JsonConvert.SerializeObject(counter);
             Log.Debug(json);
             Trigger.ClientEvent(player, "openStock", json);
         }
@@ -838,27 +827,39 @@ namespace iTeffa.Fractions
                 else itemcount += invitem.Count + " шт";
                 menuname = "Аптечки";
             }
-            Menu menu = new Menu("stockselect", false, false);
-            menu.Callback = callback_stockselect;
+            Menu menu = new Menu("stockselect", false, false)
+            {
+                Callback = callback_stockselect
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = menuname;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = menuname
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("uhave", Menu.MenuItem.Card);
-            menuItem.Text = $"У Вас есть {itemcount}";
+            menuItem = new Menu.Item("uhave", Menu.MenuItem.Card)
+            {
+                Text = $"У Вас есть {itemcount}"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("put", Menu.MenuItem.Button);
-            menuItem.Text = "Положить";
+            menuItem = new Menu.Item("put", Menu.MenuItem.Button)
+            {
+                Text = "Положить"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("take", Menu.MenuItem.Button);
-            menuItem.Text = "Взять";
+            menuItem = new Menu.Item("take", Menu.MenuItem.Button)
+            {
+                Text = "Взять"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

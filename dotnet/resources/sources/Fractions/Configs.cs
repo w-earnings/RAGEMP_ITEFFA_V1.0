@@ -175,7 +175,7 @@ namespace iTeffa.Fractions
 
             Manager.onResourceStart();
         }
-        
+
         public static void SpawnFractionCars(int fraction)
         {
             foreach (var vehicle in FractionVehicles[fraction])
@@ -199,7 +199,7 @@ namespace iTeffa.Fractions
                 NAPI.Vehicle.SetVehicleNumberPlate(veh, vehicle.Key);
                 Kernel.VehicleStreaming.SetEngineState(veh, false);
                 VehicleManager.FracApplyCustomization(veh, fraction);
-                if(model == VehicleHash.Submersible || model == VehicleHash.Thruster) veh.SetSharedData("PETROL", 0);
+                if (model == VehicleHash.Submersible || model == VehicleHash.Thruster) veh.SetSharedData("PETROL", 0);
             }
         }
         public static void RespawnFractionCar(Vehicle vehicle)
