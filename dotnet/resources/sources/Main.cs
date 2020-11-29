@@ -17,21 +17,14 @@ using System.Threading;
 using System.Net.Mail;
 using iTeffa.Speaking;
 using iTeffa.Houses;
-
-using iTeffa.Plugins;
 using iTeffa.Models;
 using iTeffa.Globals;
-
 
 namespace iTeffa
 {
     public class Main : Script
     { 
-        public static string Codename { get; } = "iTeffa";
-        public static string Version { get; } = "1.0.0";
-        public static string Build { get; } = "Beta";
-
-        public static string Full { get; } = $"{Codename} {Version} {Build}";
+        public static string Full = $"{Constants.GM_VERSION}";
         public static DateTime StartDate { get; } = DateTime.Now;
         public static DateTime CompileDate { get; } = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 
