@@ -158,8 +158,6 @@ global.ItemsCollection = NativeUI.ItemsCollection;
 global.Color = NativeUI.Color;
 global.ListItem = NativeUI.ListItem;
 
-// mp.players.local.setMoney(50); Оставляю для теста
-
 function SetWalkStyle(entity, walkstyle) {
   try {
     if (walkstyle == null) entity.resetMovementClipset(0.0);

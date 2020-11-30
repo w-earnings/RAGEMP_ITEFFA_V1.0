@@ -5,26 +5,25 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using GTANetworkAPI;
+using iTeffa.Kernel;
+using iTeffa.Settings;
+using iTeffa.Kernel.nAccount;
+using iTeffa.Kernel.Character;
+using iTeffa.Interface;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
-using System.Net.Mail;
-using iTeffa.Kernel;
-using iTeffa.Settings;
-using iTeffa.Interface;
-using iTeffa.Speaking;
-using iTeffa.Houses;
 using iTeffa.Models;
 using iTeffa.Globals;
-using iTeffa.Kernel.nAccount;
-using iTeffa.Kernel.Character;
+using System.Net.Mail;
+using iTeffa.Speaking;
+using iTeffa.Houses;
 
 namespace iTeffa
 {
     public class Main : Script
-    { 
-        public static string Full = $"{Constants.GM_VERSION}";
+    {
         public static DateTime StartDate { get; } = DateTime.Now;
         public static DateTime CompileDate { get; } = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 
@@ -231,7 +230,7 @@ namespace iTeffa
                     Finance.Donations.Start();
 
                 // Assembly information //
-                Log.Write(Full + " started at " + StartDate.ToString("s"), nLog.Type.Success);
+                Log.Write(Constants.GM_VERSION + " started at " + StartDate.ToString("s"), nLog.Type.Success);
                 Log.Write($"Assembly compiled {CompileDate.ToString("s")}", nLog.Type.Success);
 
                 Console.Title = "RageMP - " + oldconfig.ServerName;
@@ -261,7 +260,8 @@ namespace iTeffa
                 vehicle.SetData("ITEMS", new List<nItem>());
                 vehicle.SetData("SPAWNPOS", vehicle.Position);
                 vehicle.SetData("SPAWNROT", vehicle.Rotation);
-            } catch (Exception e) { Log.Write("EntityCreated: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("EntityCreated: " + e.Message, nLog.Type.Error); }
         }
 
         #region Player
@@ -278,7 +278,7 @@ namespace iTeffa
 
                 if (Accounts.ContainsKey(player))
                 {
-                    if(LoggedIn.ContainsKey(Accounts[player].Login)) LoggedIn.Remove(Accounts[player].Login);
+                    if (LoggedIn.ContainsKey(Accounts[player].Login)) LoggedIn.Remove(Accounts[player].Login);
                 }
                 if (Players.ContainsKey(player))
                 {
@@ -388,7 +388,8 @@ namespace iTeffa
                 foreach (string key in NAPI.Data.GetAllEntityData(player)) player.ResetData(key);
                 Log.Write(player.Name + " disconnected from server. (" + reason + ")");
 
-            } catch (Exception e) { Log.Write($"PlayerDisconnected (value: {player.Value}): " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write($"PlayerDisconnected (value: {player.Value}): " + e.Message, nLog.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerConnected)]
@@ -505,31 +506,36 @@ namespace iTeffa
                 Players[player].IsAlive = true;
 
                 if (!VehicleManager.Vehicles.ContainsKey(Players[player].LastVeh)) Players[player].LastVeh = "";
-                if(Players[player].Unmute > 0) {
-                    if(!player.HasData("MUTE_TIMER")) {
+                if (Players[player].Unmute > 0)
+                {
+                    if (!player.HasData("MUTE_TIMER"))
+                    {
                         player.SetData("MUTE_TIMER", Timers.StartTask(1000, () => Admin.timer_mute(player)));
                         player.SetSharedData("voice.muted", true);
                         Trigger.ClientEvent(player, "voice.mute");
-                    } else Log.Write($"ClientSpawn MuteTime (MUTE) worked avoid", nLog.Type.Warn);
+                    }
+                    else Log.Write($"ClientSpawn MuteTime (MUTE) worked avoid", nLog.Type.Warn);
                 }
                 if (Players[player].ArrestTime != 0)
                 {
-                    if(!player.HasData("ARREST_TIMER"))
+                    if (!player.HasData("ARREST_TIMER"))
                     {
                         player.SetData("ARREST_TIMER", Timers.StartTask(1000, () => Fractions.FractionCommands.arrestTimer(player)));
                         NAPI.Entity.SetEntityPosition(player, Fractions.Police.policeCheckpoints[4]);
                         NAPI.Entity.SetEntityPosition(player, Fractions.Sheriff.sheriffCheckpoints[4]);
-                    } else Log.Write($"ClientSpawn ArrestTime (KPZ) worked avoid", nLog.Type.Warn);
+                    }
+                    else Log.Write($"ClientSpawn ArrestTime (KPZ) worked avoid", nLog.Type.Warn);
                 }
                 else if (Players[player].DemorganTime != 0)
                 {
-                    if(!player.HasData("ARREST_TIMER"))
+                    if (!player.HasData("ARREST_TIMER"))
                     {
                         player.SetData("ARREST_TIMER", Timers.StartTask(1000, () => Admin.timer_demorgan(player)));
                         Weapons.RemoveAll(player, true);
                         NAPI.Entity.SetEntityPosition(player, Admin.DemorganPosition + new Vector3(0, 0, 1.5));
                         NAPI.Entity.SetEntityDimension(player, 1337);
-                    } else Log.Write($"ClientSpawn ArrestTime (DEMORGAN) worked avoid", nLog.Type.Warn);
+                    }
+                    else Log.Write($"ClientSpawn ArrestTime (DEMORGAN) worked avoid", nLog.Type.Warn);
                 }
                 else
                 {
@@ -537,7 +543,7 @@ namespace iTeffa
                     {
                         case 0:
                             NAPI.Entity.SetEntityPosition(player, Players[player].SpawnPos);
-                            
+
                             Customization.ApplyCharacter(player);
                             if (Players[player].FractionID > 0) Fractions.Manager.Load(player, Players[player].FractionID, Players[player].FractionLVL);
 
@@ -590,7 +596,7 @@ namespace iTeffa
                             {
                                 NAPI.Entity.SetEntityPosition(player, Players[player].SpawnPos);
                             }
-                            
+
                             Customization.ApplyCharacter(player);
                             if (Players[player].FractionID > 0) Fractions.Manager.Load(player, Players[player].FractionID, Players[player].FractionLVL);
 
@@ -615,17 +621,19 @@ namespace iTeffa
                 player.SetData("spmode", false);
                 player.SetSharedData("InDeath", false);
 
-            } catch (Exception e) { Log.Write($"ClientEvent_Spawn/{where}: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write($"ClientEvent_Spawn/{where}: " + e.Message, nLog.Type.Error); }
         }
 
-        
+
         [RemoteEvent("setStock")]
         public void ClientEvent_setStock(Player player, string stock)
         {
             try
             {
                 player.SetData("selectedStock", stock);
-            } catch (Exception e) { Log.Write("setStock: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("setStock: " + e.Message, nLog.Type.Error); }
         }
         [RemoteEvent("inputCallback")]
         public void ClientEvent_inputCallback(Player player, params object[] arguments)
@@ -1218,7 +1226,8 @@ namespace iTeffa
                     case "weaptransfer":
                         {
                             int ammo = 0;
-                            if (!Int32.TryParse(text, out ammo)) {
+                            if (!Int32.TryParse(text, out ammo))
+                            {
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
@@ -1421,7 +1430,8 @@ namespace iTeffa
                         BasicSync.AttachObjectToPlayer(player, phoneHash, 6286, new Vector3(0.11, 0.03, -0.01), new Vector3(85, -15, 120));
                     }
                 }
-            } catch (Exception e) { Log.Write("openPlayerMenu: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("openPlayerMenu: " + e.Message, nLog.Type.Error); }
         }
 
         [RemoteEvent("closePlayerMenu")]
@@ -1461,12 +1471,12 @@ namespace iTeffa
                 if (!Accounts.ContainsKey(player)) return;
 
                 Ban ban = Ban.Get2(Accounts[player].Characters[slot - 1]);
-                if(ban != null)
+                if (ban != null)
                 {
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Ты не пройдёшь!", 4000);
                     return;
                 }
-                
+
                 Character character = new Character();
                 await character.Load(player, Accounts[player].Characters[slot - 1]);
                 return;
@@ -1512,7 +1522,7 @@ namespace iTeffa
             {
                 if (state == 0)
                 { // Отправка кода
-                    if (Emails.ContainsKey(loginorcode))  loginorcode = Emails[loginorcode];
+                    if (Emails.ContainsKey(loginorcode)) loginorcode = Emails[loginorcode];
                     else loginorcode = loginorcode.ToLower();
                     DataTable result = Connect.QueryRead($"SELECT email, socialclub FROM `accounts` WHERE `login`='{loginorcode}'");
                     if (result == null || result.Rows.Count == 0)
@@ -1691,7 +1701,8 @@ namespace iTeffa
             {
                 VehicleManager.onClientEvent(player, "engineCarPressed", arguments);
                 return;
-            } catch (Exception e) { Log.Write("engineCarPressed: " + e.Message, nLog.Type.Error); }
+            }
+            catch (Exception e) { Log.Write("engineCarPressed: " + e.Message, nLog.Type.Error); }
         }
 
         [RemoteEvent("lockCarPressed")]
@@ -1747,6 +1758,11 @@ namespace iTeffa
                     case 1:
                         Fractions.Cityhall.beginWorkDay(player);
                         return;
+
+                    case 506:
+                        Finance.Branch.OpenBRANCH(player);
+                        return;
+
                     #region cityhall enterdoor
                     case 3:
                     case 4:
@@ -1889,12 +1905,16 @@ namespace iTeffa
                         Fractions.Merryweather.interactPressed(player, id);
                         return;
                     case 500:
-                        if(!Players[player].Achievements[0]) {
+                        if (!Players[player].Achievements[0])
+                        {
                             Players[player].Achievements[0] = true;
                             Trigger.ClientEvent(player, "ChatPyBed", 0, 0);
-                        } else if(!Players[player].Achievements[1]) Trigger.ClientEvent(player, "ChatPyBed", 1, 0);
-                        else if(Players[player].Achievements[2]) {
-                            if(!Players[player].Achievements[3]) {
+                        }
+                        else if (!Players[player].Achievements[1]) Trigger.ClientEvent(player, "ChatPyBed", 1, 0);
+                        else if (Players[player].Achievements[2])
+                        {
+                            if (!Players[player].Achievements[3])
+                            {
                                 Players[player].Achievements[3] = true;
                                 Finance.Wallet.Change(player, 500);
                                 Trigger.ClientEvent(player, "ChatPyBed", 9, 0);
@@ -1902,19 +1922,26 @@ namespace iTeffa
                         }
                         return;
                     case 501:
-                        if(Players[player].Achievements[0]) {
-                            if(!Players[player].Achievements[1]) {
+                        if (Players[player].Achievements[0])
+                        {
+                            if (!Players[player].Achievements[1])
+                            {
                                 player.SetData("CollectThings", 0);
                                 Players[player].Achievements[1] = true;
-                                if(Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 2, 0);
+                                if (Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 2, 0);
                                 else Trigger.ClientEvent(player, "ChatPyBed", 3, 0);
-                            } else if(!Players[player].Achievements[2]) {
-                                if(player.HasData("CollectThings") && player.GetData<int>("CollectThings") >= 4) {
+                            }
+                            else if (!Players[player].Achievements[2])
+                            {
+                                if (player.HasData("CollectThings") && player.GetData<int>("CollectThings") >= 4)
+                                {
                                     Players[player].Achievements[2] = true;
                                     Finance.Wallet.Change(player, 500);
                                     Trigger.ClientEvent(player, "ChatPyBed", 7, 0);
-                                } else { 
-                                    if(Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 4, 0);
+                                }
+                                else
+                                {
+                                    if (Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 4, 0);
                                     else Trigger.ClientEvent(player, "ChatPyBed", 5);
                                 }
                             }
@@ -1935,7 +1962,7 @@ namespace iTeffa
 
                     default: return;
                 }
-                
+
                 #endregion
             }
             catch (Exception e) { Log.Write($"interactionPressed/{intid}/: " + e.Message, nLog.Type.Error); }
@@ -1993,7 +2020,7 @@ namespace iTeffa
             {
                 if (yes)
                 {
-                    
+
                     switch (callback)
                     {
                         case "CARWASH_PAY":
@@ -2105,7 +2132,8 @@ namespace iTeffa
 
                                 Fractions.Manager.Load(player, Players[player].FractionID, Players[player].FractionLVL);
                                 if (Fractions.Manager.FractionTypes[fracid] == 1) Fractions.GangsCapture.LoadBlips(player);
-                                if(fracid == 15) {
+                                if (fracid == 15)
+                                {
                                     Trigger.ClientEvent(player, "enableadvert", true);
                                     Fractions.LSNews.onLSNPlayerLoad(player); // Загрузка всех объявлений в F7
                                 }
@@ -2134,13 +2162,16 @@ namespace iTeffa
                             Houses.HouseManager.acceptHouseSellToGov(player);
                             return;
                         case "CAR_SELL_TOGOV":
-                            if(player.HasData("CARSELLGOV")) {
+                            if (player.HasData("CARSELLGOV"))
+                            {
                                 string vnumber = player.GetData<string>("CARSELLGOV");
                                 player.ResetData("CARSELLGOV");
                                 VehicleManager.VehicleData vData = VehicleManager.Vehicles[vnumber];
                                 int price = 0;
-                                if(BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model)) {
-                                    switch(Accounts[player].VipLvl) {
+                                if (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model))
+                                {
+                                    switch (Accounts[player].VipLvl)
+                                    {
                                         case 0: // None
                                             price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
                                             break;
@@ -2270,7 +2301,7 @@ namespace iTeffa
                 FemaleHash = female;
             }
         }
-        
+
         public Main()
         {
             Thread.CurrentThread.Name = "Main";
@@ -2293,12 +2324,12 @@ namespace iTeffa
                 };
                 Finance.Donations.LoadDonations();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 Environment.Exit(0);
             }
-            
+
             Timers.Init();
             GameLog.Start();
             ReportSys.Init();
@@ -2364,40 +2395,58 @@ namespace iTeffa
 
         public static void changeWeather(byte id)
         {
-            try {
-                switch(id) {
-                    case 0: Env_lastWeather = "EXTRASUNNY";
+            try
+            {
+                switch (id)
+                {
+                    case 0:
+                        Env_lastWeather = "EXTRASUNNY";
                         break;
-                    case 1: Env_lastWeather = "CLEAR";
+                    case 1:
+                        Env_lastWeather = "CLEAR";
                         break;
-                    case 2: Env_lastWeather = "CLOUDS";
+                    case 2:
+                        Env_lastWeather = "CLOUDS";
                         break;
-                    case 3: Env_lastWeather = "SMOG";
+                    case 3:
+                        Env_lastWeather = "SMOG";
                         break;
-                    case 4: Env_lastWeather = "FOGGY";
+                    case 4:
+                        Env_lastWeather = "FOGGY";
                         break;
-                    case 5: Env_lastWeather = "OVERCAST";
+                    case 5:
+                        Env_lastWeather = "OVERCAST";
                         break;
-                    case 6: Env_lastWeather = "RAIN";
+                    case 6:
+                        Env_lastWeather = "RAIN";
                         break;
-                    case 7: Env_lastWeather = "THUNDER";
+                    case 7:
+                        Env_lastWeather = "THUNDER";
                         break;
-                    case 8: Env_lastWeather = "CLEARING";
+                    case 8:
+                        Env_lastWeather = "CLEARING";
                         break;
-                    case 9: Env_lastWeather = "NEUTRAL";
+                    case 9:
+                        Env_lastWeather = "NEUTRAL";
                         break;
-                    case 10: Env_lastWeather = "SNOW";
+                    case 10:
+                        Env_lastWeather = "SNOW";
                         break;
-                    case 11: Env_lastWeather = "BLIZZARD";
+                    case 11:
+                        Env_lastWeather = "BLIZZARD";
                         break;
-                    case 12: Env_lastWeather = "SNOWLIGHT";
+                    case 12:
+                        Env_lastWeather = "SNOWLIGHT";
                         break;
-                    default: Env_lastWeather = "EXTRASUNNY";
+                    default:
+                        Env_lastWeather = "EXTRASUNNY";
                         break;
                 }
                 NAPI.World.SetWeather(Env_lastWeather);
                 ClientEventToAll("Enviroment_Weather", Env_lastWeather);
-            } catch {
+            }
+            catch
+            {
             }
         }
         private static void enviromentChangeTrigger()
@@ -2423,11 +2472,14 @@ namespace iTeffa
                 if (DateTime.Now >= NextWeatherChange)
                 {
                     int rndWeather = rnd.Next(0, 101);
-                    if (rndWeather < 75) {
+                    if (rndWeather < 75)
+                    {
                         if (rndWeather < 60) newWeather = "EXTRASUNNY";
                         else newWeather = "CLEAR";
                         NextWeatherChange = DateTime.Now.AddMinutes(120);
-                    } else {
+                    }
+                    else
+                    {
                         if (rndWeather < 90) newWeather = "RAIN";
                         else newWeather = "FOGGY";
                         NextWeatherChange = DateTime.Now.AddMinutes(rnd.Next(15, 70));
@@ -2451,15 +2503,20 @@ namespace iTeffa
                 if (!oldconfig.SCLog)
                 {
                     DateTime now = DateTime.Now;
-                    if(now.Hour == 4) {
-                        if(now.Minute == 5) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, в 04:20 произойдёт автоматический рестарт сервера.");
-                        else if(now.Minute == 10) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, напоминаем, что в 04:20 произойдёт автоматический рестарт сервера.");
-                        else if(now.Minute == 15) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, напоминаем, что в 04:20 произойдёт автоматический рестарт сервера.");
-                        else if(now.Minute == 20) {
+                    if (now.Hour == 4)
+                    {
+                        if (now.Minute == 5) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, в 04:20 произойдёт автоматический рестарт сервера.");
+                        else if (now.Minute == 10) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, напоминаем, что в 04:20 произойдёт автоматический рестарт сервера.");
+                        else if (now.Minute == 15) NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, напоминаем, что в 04:20 произойдёт автоматический рестарт сервера.");
+                        else if (now.Minute == 20)
+                        {
                             NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, сейчас произойдёт автоматическая перезагрузка сервера, сервер будет доступен вновь примерно в течении 2-5 минут.");
                             Admin.stopServer("Автоматическая перезагрузка");
-                        } else if(now.Minute == 21) {
-                            if(!Admin.IsServerStoping) {
+                        }
+                        else if (now.Minute == 21)
+                        {
+                            if (!Admin.IsServerStoping)
+                            {
                                 NAPI.Chat.SendChatMessageToAll("!{#DF5353}[AUTO RESTART] Дорогие игроки, сейчас произойдёт автоматическая перезагрузка сервера, сервер будет доступен вновь примерно в течении 2-5 минут.");
                                 Admin.stopServer("Автоматическая перезагрузка");
                             }
@@ -2665,7 +2722,7 @@ namespace iTeffa
                                 }
                                 GameLog.Money($"server", $"player({PlayerUUIDs[biz.Owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"bizTax");
                             }
-                            
+
                             Finance.Bank.Accounts[biz.BankID].Balance = 0;
                             biz.Owner = "Государство";
                             biz.UpdateLabel();
@@ -2796,7 +2853,8 @@ namespace iTeffa
                 player.SetData("SMSNUM", num);
                 OpenContactData(player, num.ToString(), Players[player].Contacts[num]);
 
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Write("EXCEPTION AT SMS:\n" + e.ToString(), nLog.Type.Error);
             }
@@ -2877,7 +2935,7 @@ namespace iTeffa
         {
             try
             {
-                client.SendChatMessage($"Сборка: !{{#00FFFF}}{Full}!{{#FFF}} запущена !{{#f39c12}}{StartDate}");
+                client.SendChatMessage($"Сборка: !{{#00FFFF}}{Constants.GM_VERSION}!{{#FFF}} запущена !{{#f39c12}}{StartDate}");
             }
             catch { }
         }
@@ -3298,6 +3356,7 @@ namespace iTeffa
                 "Армянская мафия",
             }},
             { "Ближайшие места", new List<string>(){
+                "Ближайший банк",
                 "Ближайший банкомат",
                 "Ближайшая заправка",
                 "Ближайший 24/7",
@@ -3389,8 +3448,12 @@ namespace iTeffa
                 case "Армянская мафия":
                     Trigger.ClientEvent(player, "createWaypoint", Points[item.ID].X, Points[item.ID].Y);
                     return;
+                case "Ближайший банк":
+                    Vector3 waypoint = Finance.Branch.GetNearestBRANCH(player);
+                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    return;
                 case "Ближайший банкомат":
-                    Vector3 waypoint = Finance.ATM.GetNearestATM(player);
+                    waypoint = Finance.ATM.GetNearestATM(player);
                     Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайшая заправка":
@@ -3678,7 +3741,8 @@ namespace iTeffa
     {
         public static void ClientEvent(Player client, string eventName, params object[] args)
         {
-            if (Thread.CurrentThread.Name == "Main") {
+            if (Thread.CurrentThread.Name == "Main")
+            {
                 NAPI.ClientEvent.TriggerClientEvent(client, eventName, args);
                 return;
             }
@@ -3767,6 +3831,6 @@ namespace iTeffa
             }
         }
 
-        
+
     }
 }

@@ -34,6 +34,7 @@ var itemsData = {
     19: "Ключи от машины",
     40: "Подарок",
     41: "Связка ключей",
+
     20: `"На корке лимона"`,
     21: `"На бруснике"`,
     22: `"Русский стандарт"`,
@@ -46,6 +47,7 @@ var itemsData = {
     29: `"Дживан"`,
     30: `"Арарат"`,
     31: `"Noyan Tapan"`,
+
     100: "Pistol",
     101: "Combat Pistol",
     102: "Pistol .50",
@@ -61,6 +63,7 @@ var itemsData = {
     112: "Pistol Mk2",
     113: "SNSPistol Mk2",
     114: "Revolver Mk2",
+
     115: "Micro SMG",
     116: "Machine Pistol",
     117: "SMG",
@@ -72,6 +75,7 @@ var itemsData = {
     123: "Mini SMG",
     124: "SMG Mk2",
     125: "Combat MG Mk2",
+
     126: "Assault Rifle",
     127: "Carbine Rifle",
     128: "Advanced Rifle",
@@ -82,11 +86,13 @@ var itemsData = {
     133: "Carbine Rifle Mk2",
     134: "Special Carbine Mk2",
     135: "Bullpup Rifle Mk2",
+
     136: "Sniper Rifle",
     137: "Heavy Sniper",
     138: "Marksman Rifle",
     139: "Heavy Sniper Mk2",
     140: "Marksman Rifle Mk2",
+
     141: "Pump Shotgun",
     142: "SawnOff Shotgun",
     143: "Bullpup Shotgun",
@@ -96,6 +102,7 @@ var itemsData = {
     147: "Double Barrel Shotgun",
     148: "Sweeper Shotgun",
     149: "Pump Shotgun Mk2",
+
     180: "Нож",
     181: "Дубинка",
     182: "Молоток",
@@ -112,12 +119,15 @@ var itemsData = {
     193: "Кий",
     194: "Ключ",
     195: "Боевой топор",
+
     200: "Пистолетный калибр",
     201: "Малый калибр",
     202: "Автоматный калибр",
     203: "Снайперский калибр",
     204: "Дробь",
-    205: "Удочка",
+	
+	// Fishing
+	205: "Удочка",
 	206: "Улучшенная удочка",
 	207: "Удочка MK2",
     208: "Наживка",
@@ -131,14 +141,18 @@ var itemsData = {
 	216: "Угорь",
 	217: "Чёрный амур",
 	218: "Щука",
-    219: "Кирка",
-    220: "Медь",
-	221: "Железо",
-	222: "Золото",
-	223: "Латунь",
-	224: "Алмаз",
-	225: "Мусор",
-	226: "Уголь",
+	
+	// AlcoShop
+	219: "Martini Asti",
+	220: "Sambuca",
+	221: "Водка с лимоном",
+	222: "Водка на бруснике",
+	223: "Русский стандарт",
+	224: "Коньяк Дживан",
+	225: "Коньяк Арарат",
+	226: "Пиво разливное",
+	227: "Пиво бутылочное",
+	228: "Кальян",
 }
 
 var itemsInfo = {
@@ -185,7 +199,6 @@ var itemsInfo = {
 	28:	"iTeffa.com | Нет описания...",
 	29:	"iTeffa.com | Нет описания...",
 }
-
 Vue.component('item', {
 	template: '<div :class="test"><div class="item" v-bind:title="name" v-bind:weight="(weight*count).toFixed(2)" :fastslot="fast_slot" v-bind:class="{active: isactive}" @click.right.prevent="select"> \
     <img :src="src"><span>{{count}}</span><p class="sub">{{subdata}}</p><p class="names">{{name}}<br><a>{{info}}</a><b>{{count}} шт.</b></p></div></div>',
