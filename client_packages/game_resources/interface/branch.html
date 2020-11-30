@@ -1,0 +1,457 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BRANCH PROJECT ITEFFA</title>
+  <link rel="stylesheet" href="./assets/css/branch.css">
+</head>
+
+<body>
+  <div class="branch" v-if="active">
+    <div class="bgshow"></div>
+    <transition name="fade">
+      <div class="contents" v-if="page == 0">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+        </div>
+        <div class="info">
+          <div class="name-branch-welcome">
+            <h1>iTeffa <b>Bank<b></h1>
+          </div>
+          <h1 style="text-align:center"><b style="font-weight: 500;color:#b3f336">{{holder}}</b> Добро пожаловать в наш банк<br>Мы очень благодарны тем что Вы пользуетесь нашим банком <br><b style="font-weight: 500; color:#b3f336">{{holder}}</b> если Вы нашли недочёт или-же неисправность в системе<br>Напишите нам /report, и мы устраним данную проблему в ближайшее время.</h1>
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 1">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btnActive" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenter" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+          <div class="btncenter" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+        </div>
+        <div class="info">
+          <h1>Выберите операцию которую хотите использовать</h1>
+        </div>
+        <div>
+          <div v-if="type == 2">
+            <div class="input-branch">
+              <a>Укажите свою сумму</a>
+              <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+              <div @click="next" id="next" class="next">
+                <p id="next">Далее</p>
+              </div>
+              <p class="subdata">{{subdata}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 2">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btnActive" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenterActive" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+          <div class="btncenter" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+        </div>
+        <div>
+          <div v-if="type == 2">
+            <div class="input-branch">
+              <a>Укажите свою сумму</a>
+              <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+              <div @click="next" id="next" class="next">
+                <p id="next">Далее</p>
+              </div>
+              <p class="subdata">{{subdata}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 3">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btnActive" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenter" v-on:click="pages(2)" @click="btn" id="0">Пополнить счёт</div>
+          <div class="btncenterActive" v-on:click="pages(3)" @click="btn" id="1">Снять со счёта</div>
+        </div>
+        <div>
+          <div v-if="type == 2">
+            <div class="input-branch">
+              <a>Укажите свою сумму</a>
+              <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+              <div @click="next" id="next" class="next">
+                <p id="next">Далее</p>
+              </div>
+              <p class="subdata">{{subdata}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 4">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btnActive" @click="pages(4)"><img src="ico/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenter" v-on:click="pages(5)" @click="btn" id="4">Перевести на другой счёт</div>
+        </div>
+        <div class="info">
+          <h1>Выберите операцию которую хотите использовать</h1>
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 5">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btnActive" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenterActive" v-on:click="pages(5)" @click="btn" id="4">Перевести на другой счёт</div>
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 6">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btnActive" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenter" v-on:click="pages(7)" @click="btn" id="2">Оплатить налог</div>
+        </div>
+        <div class="info">
+          <h1>Выберите операцию которую хотите использовать</h1>
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+        <div v-if="type == 3">
+          <div v-for="(b, i) in subdata">
+            <div @click="btn" :id="i" class="block8">
+              <p :id="i" class="lex1">{{b}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 7">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btnActive" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btn" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenterActive" v-on:click="pages(7)" @click="btn" id="2">Оплатить налог</div>
+        </div>
+        <div class="info">
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+        <div v-if="type == 3">
+          <div v-for="(b, i) in subdata">
+            <div @click="btn" :id="i" class="block8">
+              <p :id="i" class="lex1">{{b}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 8">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btnActive" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenter" v-on:click="pages(9)" @click="btn" id="3">Оплатить налог</div>
+        </div>
+        <div class="info">
+          <h1>Выберите операцию которую хотите использовать</h1>
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+        <div v-if="type == 3">
+          <div v-for="(b, i) in subdata">
+            <div @click="btn" :id="i" class="block8">
+              <p :id="i" class="lex1">{{b}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="contents" v-if="page == 9">
+        <div class="bg-branch"></div>
+        <div class="border-right-bg"></div>
+        <div class="name-branch">
+          <h1>iTeffa <b>Bank<b></h1>
+        </div>
+        <div class="info-branch">
+          <a class="one">{{number}} <br><b>Номер счёта </b></a>
+          <a class="balance">${{balance | formatThousands1}} <br><b>Деньги на счёте </b></a>
+        </div>
+        <div class="btnlink">
+          <div class="btn" v-on:click="pages(0)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/home.png" class="ico">Главная</div>
+          <div class="btn" v-on:click="pages(1)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/yp.png" class="ico">Управление счётом</div>
+          <div class="btn" @click="pages(4)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/transfer.png" class="ico">Перевести на счёт</div>
+          <div class="border"></div>
+          <div class="btn" @click="pages(6)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за дом</div>
+          <div class="btnActive" @click="pages(8)"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/taxes.png" class="ico">Оплатить налог за бизнес</div>
+          <div @click="exit" class="btnexit"><img src="https://cdn.iteffa.com/project/ragemp/icons/branch/exit.png" class="ico">Выйти</div>
+        </div>
+        <div class="blockGreen"></div>
+        <div class="blockWhite"></div>
+        <div class="center-block">
+          <div class="btncenterActive" v-on:click="pages(9)" @click="btn" id="3">Оплатить налог</div>
+        </div>
+        <div class="info">
+        </div>
+        <div v-if="type == 2">
+          <div class="input-branch">
+            <a>Укажите свою сумму</a>
+            <input :placeholder="plholder" v-model="value" type="text" maxlength="12">
+            <div @click="next" id="next" class="next">
+              <p id="next">Далее</p>
+            </div>
+            <p class="subdata">{{subdata}}</p>
+          </div>
+        </div>
+        <div v-if="type == 3">
+          <div v-for="(b, i) in subdata">
+            <div @click="btn" :id="i" class="blocks">
+              <p :id="i" class="texxt">{{b}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
+  <script>
+  Vue.filter('formatThousands', (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  })
+  </script>
+  <script>
+  Vue.filter('formatThousands1', (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  })
+  </script>
+  <script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
+  <script src="package://game_resources/interface/assets/js/branch.js"></script>
+</body>
+
+</html>

@@ -260,6 +260,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
     require('./game_resources/handlers/autopilot.js');
     require('./game_resources/handlers/finger.js');
     require('./game_resources/handlers/garage.js');
+    require('./game_resources/handlers/branch.js');
     require('./game_resources/handlers/atm.js');
     require('./game_resources/handlers/realtor.js');
     require('./game_resources/handlers/infoped.js');

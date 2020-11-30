@@ -8,12 +8,23 @@ var Peds = [
 	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалторское агенство
     {Hash:  1055701597, Pos: new mp.Vector3(-1030.60, -2744.5, 13.85), Angle: 21.000}, // Информация о сервере
     {Hash: -356333586, Pos: new mp.Vector3(1695.806, 43.05446, 161.7473), Angle: 99.60 }, // Работа: Дайвер
-    
+    // Банды
     {Hash: 1706635382, Pos: new mp.Vector3(-20.23, -1413.89, 29.31, 272.53), Angle: 272.53}, // The Families
     {Hash: 588969535, Pos: new mp.Vector3(122.29, -1997.97, 18.40), Angle: 284.86 }, // The Ballas
     {Hash: -812470807, Pos: new mp.Vector3(475.67, -1892.16, 26.09), Angle: 302.48}, // Los Santos Vagos
     {Hash: 653210662, Pos: new mp.Vector3(1435.11, -1491.59, 63.62), Angle: 165.81 }, // Marabunta Grande
     {Hash: 663522487, Pos: new mp.Vector3(965.93, -1828.77, 31.22 ), Angle: 355.79 }, // Blood Street
+    // Банки
+    { Hash: 826475330, Pos: new mp.Vector3(148.1068, -1041.578, 29.44), Angle: 337.6359 },
+    { Hash: -1280051738, Pos: new mp.Vector3(149.4417, -1042.151, 29.44), Angle: 337.6359 },
+    { Hash: 826475330, Pos: new mp.Vector3(-1211.969, -331.9472, 37.86), Angle: 23.93865 },
+    { Hash: -1280051738, Pos: new mp.Vector3(-1213.293, -332.6205, 37.86), Angle: 23.93865 },
+    { Hash: 826475330, Pos: new mp.Vector3(312.3441, -279.9223, 54.24), Angle: 338.3335 },
+    { Hash: -1280051738, Pos: new mp.Vector3(313.7816, -280.4292, 54.24), Angle: 338.3335 },
+    { Hash: 826475330, Pos: new mp.Vector3(1176.533, 2708.258, 38.10), Angle: 178.4438 },
+    { Hash: -1280051738, Pos: new mp.Vector3(1175.001, 2708.257, 38.10), Angle: 178.4438 },
+    { Hash: 826475330, Pos: new mp.Vector3(-110.1725, 6468.931, 31.70), Angle: 128.8161 },
+    { Hash: -1280051738, Pos: new mp.Vector3(-112.3225, 6471.084, 31.70), Angle: 128.8161 },
 
 	// Перебрать
     { Hash: -39239064, Pos: new mp.Vector3(1395.184, 3613.144, 34.9892), Angle: 270.0 }, // Caleb Baker
@@ -35,8 +46,6 @@ var Peds = [
     { Hash: 988062523, Pos: new mp.Vector3(253.9357, 228.9332, 101.6832), Angle: 250.3564 }, // Anthony_Young
     { Hash: 2120901815, Pos: new mp.Vector3(262.7953, 220.5285, 101.6832), Angle: 337.26 }, // Lorens_Hope
     { Hash: 826475330, Pos: new mp.Vector3(247.6933, 219.5379, 106.2869), Angle: 65.78249 }, // Heady_Hunter
-
-
     { Hash: -907676309, Pos: new mp.Vector3(724.8585, 134.1029, 80.95643), Angle: 245.0083 }, // Ronny_Bolls
 	{ Hash: 940330470, Pos: new mp.Vector3(458.7059, -995.118, 25.35196), Angle: 176.8092 }, // Rashkovsky
     { Hash: 1596003233, Pos: new mp.Vector3(459.7471, -1000.333, 24.91329), Angle: 177.2829 }, // Muscle Prisoner
