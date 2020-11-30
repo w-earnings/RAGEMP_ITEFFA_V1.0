@@ -34,40 +34,55 @@
 		  <img src="package://game_resources/interface/assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
 		</div>
 		<div class="speedometer" :style="{ opacity: inVeh ? 1 : 0 }">
-			<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="15 0 167 167" :data-value="speed" class="speed">
-			  <path class="bg"  d="M41 149.5a77 77 0 1 1 117.93 0"  fill="none"/>
-			  <path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350"/>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="speed" class="speed">
+				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
 			</svg>
-			<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="15 0 167 167" :data-value="fuel" data-maxvalue="100"  class="fuel">
-			  <path class="bg"  d="M41 149.5a77 77 0 1 1 117.93 0"  fill="none"/>
-			  <path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350"/>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="fuel" data-maxvalue="100" class="fuel">
+				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="hp" data-maxvalue="100" class="hp" style="display: none;">
+				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
 			</svg>
 			<div class="speed_count">
-			  <div class="count" v-if="speed < 10"><div class="bg">00</div>{{speed}}</div>
-			  <div class="count" v-else-if="speed < 100"><div class="bg">0</div>{{speed}}</div>
-			  <div class="count" v-else><div class="bg"></div>{{speed}}</div>
-			  <div class="type">км/ч</div>	
+				<div class="count" v-if="speed < 10"><div class="bg">00</div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
+				<div class="count" v-else-if="speed < 100"><div class="bg">0</div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
+				<div class="count" v-else><div class="bg"></div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
+				<div class="type">км/ч</div>
 			</div>
 			<img src="package://game_resources/interface/assets/icons/shellhud/speedometer/fuel.png" alt="" class="icon_fuel">
-			<div class="lamp_list">
-			  <img v-if="belt" src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
-			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
-			  <img v-if="doors" src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
-			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
-			  <img v-if="engine" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
-			  <img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
-			  <img src="package://game_resources/interface/assets/icons/shellhud/speedometer/lamp_no.png" alt="" class="lamp">
+			<div class="eng_check" style="display: none;">
+				<div class="engon" v-if="engine">
+					<img v-if="hp > 30" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
+					<img v-if="hp < 31" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
+				</div>
+				<div class="engon" v-else>
+					<img v-if="hp > 30" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
+					<img v-if="hp < 31" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
+				</div>
 			</div>
-		  </div>
+			<div class="lamp_list">
+				<img v-if="belt" src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
+				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
+				<img v-if="doors" src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
+				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
+				<img v-if="engine" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
+				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
+				<img src="package://game_resources/interface/assets/icons/shellhud/speedometer/lamp_no.png" alt="" class="lamp">
+			</div>
+			<span style="display: none;">{{gear}}</span>
+			<br>
+			<span style="display: none;">{{rpm}}</span>
+		</div>
       </div>
       <div id="notify"></div>
       <div id="effect"></div>
     </div>
-
 	<script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.iteffa.com/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
-	
+	<script src="https://cdn.iteffa.com/vue/v2.5.13/vue.js"></script>
+	<script src="package://game_resources/interface/assets/js/chat.js"></script>
 	<script src="package://game_resources/interface/assets/js/shellhud.js"></script>
 	<script src="package://game_resources/interface/assets/js/notify.js"></script>
 	<script src="package://game_resources/interface/assets/js/noty.min.js"></script>

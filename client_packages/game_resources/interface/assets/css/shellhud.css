@@ -1,11 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900i&display=swap");
-@font-face {font-family: ProximaNova; src: url(../fonts/ProximaNova/ProximaNova-Regular.woff); font-weight: 400; font-style: normal; font-display: swap}
-@font-face {font-family: ProximaNova; src: url(../fonts/ProximaNova/ProximaNova-Semibold.woff); font-weight: 500; font-display: swap}
-@font-face {font-family: ProximaNova; src: url(../fonts/ProximaNova/ProximaNova-Light.woff); font-weight: 100; font-display: swap}
-@font-face {font-family: ProximaNova; src: url(../fonts/ProximaNova/ProximaNova-Bold.woff); font-weight: 900; font-style: normal; font-display: swap}
-@font-face {font-family: ProximaNova; src: url(../fonts/ProximaNova/ProximaNova-Extrabld.woff); font-weight: 700; font-style: normal; font-display: swap}
 
-body {font-family: ProximaNova,sans-serif; user-select: none;}
+body {user-select: none;}
+* {margin: 0; padding: 0; -webkit-box-sizing: border-box; box-sizing: border-box;}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;}
 
 .inGameHud {position: absolute;margin: 0 auto;font-family: Uni Neue;line-height: normal;width: 100%;height: 100%;}
 .iTeffa {user-select:none;-moz-user-select: none;-webkit-user-select:none;overflow:hidden;margin:0;}
@@ -22,24 +19,25 @@ body {font-family: ProximaNova,sans-serif; user-select: none;}
 .iTeffa .logobox .online {font-size: 10pt; color: #fff; position: absolute; top: 57px; text-align-last: right; opacity: 0.85;text-align-last: right;right:25px;}
 .iTeffa .inGameHud .help {position: absolute; top: 40%; right: 0px; transform: translate(-40%)}
 
-.iTeffa .inGameHud .speedometer .speed {position: absolute;bottom: 0vh;right: 3vh;width: 26.85185vh;height: unset;}
-.iTeffa .inGameHud .speedometer .speed path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
-.iTeffa .inGameHud .speedometer .speed path.bg {stroke: rgba(255, 255, 255, 0.2);}
-.iTeffa .inGameHud .speedometer .speed path.meter {stroke: #ff5a1b;} 
-.iTeffa .inGameHud .speedometer .fuel {position: absolute;bottom: 1.8vh;right: 32.59259vh;width: 7.40741vh;height: unset;}
-.iTeffa .inGameHud .speedometer .fuel path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
-.iTeffa .inGameHud .speedometer .fuel path.bg {stroke: rgba(255, 255, 255, 0.2);}
-.iTeffa .inGameHud .speedometer .fuel path.meter {stroke: #fff;}
-.iTeffa .inGameHud .speedometer .icon_fuel {width: 1.48148vh;position: absolute;bottom: 4vh;right: 35.46296vh;} 
-.iTeffa .inGameHud .speedometer .lamp_list {width: 13.88889vh;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: absolute;bottom: 2.5vh;right: 9.2vh;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
-.iTeffa .inGameHud .speedometer .lamp_list .engine {width: 2.22222vh;}
-.iTeffa .inGameHud .speedometer .lamp_list .lamp {width: 2.40741vh;}
-.iTeffa .inGameHud .speedometer .lamp_list .door {width: 1.75926vh;}
-.iTeffa .inGameHud .speedometer .lamp_list .sec {width: 1.75926vh;}
-.speed_count .bg {opacity: 0.19;}
-.speed_count {position: absolute;-webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; font-size: 5.92593vh; color: #ffffff; font-weight: 900; right: 10.5vh; bottom: 8vh;}
-.speed_count .count {display: -webkit-box; display: -ms-flexbox;display: flex;-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;}
-.speed_count .type {text-transform: uppercase;font-size: 1.2963vh;font-weight: 900;opacity: 0.19;}
+.speedometer {position: absolute;bottom: 10px;right: 20px;}
+.speedometer .speed {position: absolute;bottom: 0vh;right: 3vh;width: 26.85185vh;height: unset;}
+.speedometer .speed path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
+.speedometer .speed path.bg {stroke: rgba(255, 255, 255, 0.2);}
+.speedometer .speed path.meter {stroke: #ff5a1b;} 
+.speedometer .fuel {position: absolute;bottom: 1.8vh;right: 32.59259vh;width: 7.40741vh;height: unset;}
+.speedometer .fuel path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
+.speedometer .fuel path.bg {stroke: rgba(255, 255, 255, 0.2);}
+.speedometer .fuel path.meter {stroke: #fff;}
+.speedometer .icon_fuel {width: 1.48148vh;position: absolute;bottom: 4vh;right: 35.46296vh;} 
+.speedometer .lamp_list {width: 13.88889vh;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: absolute;bottom: 2.5vh;right: 9.2vh;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
+.speedometer .lamp_list .engine {width: 2.22222vh;}
+.speedometer .lamp_list .lamp {width: 2.40741vh;}
+.speedometer .lamp_list .door {width: 1.75926vh;}
+.speedometer .lamp_list .sec {width: 1.75926vh;}
+.speedometer .speed_count .bg {opacity: 0.19;}
+.speedometer .speed_count {position: absolute;-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: center;-ms-flex-align: center;align-items: center;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;flex-direction: column;font-size: 5.92593vh;color: #ffffff;font-weight: 900;right: 10.5vh;bottom: 8vh;}
+.speedometer .speed_count .count {display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; width: 11vh;}
+.speedometer .speed_count .type {text-transform: uppercase;font-size: 1.2963vh;font-weight: 900;opacity: 0.19;}
 
 .noty_theme__fivestar.noty_bar {margin: 4px 0;overflow: hidden;position: relative;background-color: rgba(0, 0, 0, 0.6);box-shadow: rgba(0, 0, 0, 0.6) 0 0 10px 0;}
 .noty_theme__fivestar.noty_bar .noty_body {padding: 1.25em;font-size: 12pt;}
@@ -92,7 +90,7 @@ body {font-family: ProximaNova,sans-serif; user-select: none;}
 #chat_channels li {float: left;border: 1px solid black;list-style-type: none;padding: 5px 15px;margin: 5px 5px 0px 0px;text-transform: uppercase;font-size: 13px;text-shadow: none;}
 #chat_channels li#active {color: rgb(165,69,165);}
 
-@-webkit-keyframes noty_modal_in {100% {opacity: .3; } }
+@-webkit-keyframes noty_modal_in {100% {opacity: .3;}}
 @keyframes noty_modal_in {100% {opacity: .3;}}
 @-webkit-keyframes noty_modal_out {100% {opacity: 0;}}
 @keyframes noty_modal_out {100% {opacity: 0;}}
