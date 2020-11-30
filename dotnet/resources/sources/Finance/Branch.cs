@@ -341,7 +341,7 @@ namespace iTeffa.Finance
                 Log.Debug($"{player.Name} : {data1}");
                 switch (act)
                 {
-                    case 0: 
+                    case 0:
                         if (Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, amount);

@@ -142,7 +142,7 @@ namespace iTeffa.Finance
                     connection.Close();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Write("Exception At Tick_Donations:\n" + e.ToString(), nLog.Type.Error);
             }
