@@ -7,14 +7,13 @@ using Newtonsoft.Json;
 using System.Linq;
 using iTeffa.Settings;
 using MySqlConnector;
-using iTeffa.Fractions;
 
 namespace iTeffa.Kernel
 {
     class VehicleManager : Script
     {
-        private static nLog Log = new nLog("Vehicle");
-        private static Random Rnd = new Random();
+        private static readonly nLog Log = new nLog("Vehicle");
+        private static readonly Random Rnd = new Random();
         public static SortedDictionary<string, VehicleData> Vehicles = new SortedDictionary<string, VehicleData>();
         public static SortedDictionary<int, int> VehicleTank = new SortedDictionary<int, int>()
         {
@@ -273,7 +272,6 @@ namespace iTeffa.Kernel
                 }
 
                 if (NAPI.Data.HasEntityData(player, "WORK_CAR_EXIT_TIMER"))
-                    //Main.StopT(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"), "WORK_CAR_EXIT_TIMER_vehicle");
                     Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
             }
             catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
@@ -357,7 +355,6 @@ namespace iTeffa.Kernel
             }
 
             VehicleData data = Vehicles[Number];
-            // VehicleHash model = (VehicleHash)NAPI.Util.GetHashKey(data.Model);
             VehicleHash model = (VehicleHash)NAPI.Util.GetHashKey(data.Model);
             Vehicle veh = NAPI.Vehicle.CreateVehicle(model, Pos, Rot, 0, 0);
 
@@ -528,9 +525,9 @@ namespace iTeffa.Kernel
             {
                 if (veh != null)
                 {
-                    if (!Configs.FractionVehicles[fraction].ContainsKey(veh.NumberPlate)) return;
+                    if (!Fractions.Configs.FractionVehicles[fraction].ContainsKey(veh.NumberPlate)) return;
 
-                    VehicleCustomization data = Configs.FractionVehicles[fraction][veh.NumberPlate].Item7;
+                    VehicleCustomization data = Fractions.Configs.FractionVehicles[fraction][veh.NumberPlate].Item7;
 
                     if (data.NeonColor.Alpha != 0)
                     {
@@ -649,14 +646,14 @@ namespace iTeffa.Kernel
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                         return;
                     }
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                     }
                     else
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, true);
+                        VehicleStreaming.SetLockStatus(vehicle, true);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
                     }
                     break;
@@ -666,14 +663,14 @@ namespace iTeffa.Kernel
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                         return;
                     }
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                     }
                     else
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, true);
+                        VehicleStreaming.SetLockStatus(vehicle, true);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
                     }
                     break;
@@ -683,14 +680,14 @@ namespace iTeffa.Kernel
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                         return;
                     }
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                     }
                     else
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, true);
+                        VehicleStreaming.SetLockStatus(vehicle, true);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
                     }
                     break;
@@ -703,9 +700,9 @@ namespace iTeffa.Kernel
                         return;
                     }
 
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                         return;
                     }
@@ -724,15 +721,15 @@ namespace iTeffa.Kernel
                         return;
                     }
 
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                         return;
                     }
                     else
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, true);
+                        VehicleStreaming.SetLockStatus(vehicle, true);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
                         return;
                     }
@@ -743,15 +740,15 @@ namespace iTeffa.Kernel
                         return;
                     }
 
-                    if (Kernel.VehicleStreaming.GetLockState(vehicle))
+                    if (VehicleStreaming.GetLockState(vehicle))
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, false);
+                        VehicleStreaming.SetLockStatus(vehicle, false);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
                         return;
                     }
                     else
                     {
-                        Kernel.VehicleStreaming.SetLockStatus(vehicle, true);
+                        VehicleStreaming.SetLockStatus(vehicle, true);
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
                         return;
                     }
@@ -822,22 +819,20 @@ namespace iTeffa.Kernel
                                 Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                                 return;
                             }
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
                         case "beltCarPressed":
                             if (!NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
-
                             bool beltstate = Convert.ToBoolean(args[0]);
-
                             if (!beltstate) Commands.RPChat("me", sender, "пристегнул(а) ремень безопасности");
                             else Commands.RPChat("me", sender, "отслегнул(а) ремень безопасности");
 
@@ -848,14 +843,14 @@ namespace iTeffa.Kernel
                                 Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                                 return;
                             }
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
@@ -865,14 +860,14 @@ namespace iTeffa.Kernel
                                 Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                                 return;
                             }
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
@@ -882,14 +877,14 @@ namespace iTeffa.Kernel
                                 Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                                 return;
                             }
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
@@ -902,14 +897,14 @@ namespace iTeffa.Kernel
                                 return;
                             }
 
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
@@ -925,14 +920,14 @@ namespace iTeffa.Kernel
                         case "QUEST":
                         case "MAFIADELIVERY":
                         case "GANGDELIVERY":
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
@@ -942,19 +937,19 @@ namespace iTeffa.Kernel
                                 Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
                                 return;
                             }
-                            if (Kernel.VehicleStreaming.GetEngineState(vehicle))
+                            if (VehicleStreaming.GetEngineState(vehicle))
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                                VehicleStreaming.SetEngineState(vehicle, false);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
                             }
                             else
                             {
-                                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                                VehicleStreaming.SetEngineState(vehicle, true);
                                 Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                             }
                             break;
                     }
-                    if (Kernel.VehicleStreaming.GetEngineState(vehicle)) Commands.RPChat("me", sender, "завел(а) транспортное средство");
+                    if (VehicleStreaming.GetEngineState(vehicle)) Commands.RPChat("me", sender, "завел(а) транспортное средство");
                     else Commands.RPChat("me", sender, "заглушил(а) транспортное средство");
                     return;
                 #endregion Engine button
@@ -975,7 +970,6 @@ namespace iTeffa.Kernel
                     break;
             }
         }
-        // ////////////////////////// //
 
         [ServerEvent(Event.VehicleDeath)]
         public void Event_vehicleDeath(Vehicle vehicle)
@@ -1113,7 +1107,7 @@ namespace iTeffa.Kernel
                 {
                     if (Vehicles.ContainsKey(num)) Vehicles[num].Holder = newName;
                 }
-                // // //
+
                 Connect.Query($"UPDATE `vehicles` SET `holder`='{newName}' WHERE `holder`='{oldName}'");
             }
         }
@@ -1169,7 +1163,7 @@ namespace iTeffa.Kernel
             foreach (Player p in Main.Players.Keys.ToList())
             {
                 if (p == null || !Main.Players.ContainsKey(p)) continue;
-                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Interface.Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
+                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
             }
         }
 
@@ -1240,7 +1234,7 @@ namespace iTeffa.Kernel
             foreach (Player p in Main.Players.Keys.ToList())
             {
                 if (p == null || !Main.Players.ContainsKey(p)) continue;
-                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Interface.Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
+                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
             }
         }
 
@@ -1280,7 +1274,7 @@ namespace iTeffa.Kernel
             foreach (Player p in Main.Players.Keys.ToList())
             {
                 if (p == null || !Main.Players.ContainsKey(p)) continue;
-                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Interface.Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
+                if (p.HasData("OPENOUT_TYPE") && p.GetData<int>("OPENOUT_TYPE") == 2 && p.HasData("SELECTEDVEH") && p.GetData<Vehicle>("SELECTEDVEH") == vehicle) Dashboard.OpenOut(p, vehicle.GetData<List<nItem>>("ITEMS"), "Багажник", 2);
             }
         }
     }
