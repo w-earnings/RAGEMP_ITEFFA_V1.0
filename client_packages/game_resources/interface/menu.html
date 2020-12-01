@@ -1,228 +1,230 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Menus</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  body {
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    font-family: "Ubuntu", sans-serif;
-    margin: 0;
-  }
+  <head>
+    <meta charset="UTF-8">
+    <title>Menus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      font-family: "Ubuntu", sans-serif;
+      margin: 0;
+    }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: #555;
-  }
+    ::-webkit-scrollbar-track {
+      background: #555;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: #ddd;
-  }
-  </style>
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/dial.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/stock.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/pc.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/docs.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/input.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/joblist.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/menu.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/lift.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/petrol.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/fmenu.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/mats.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/auto.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/bsearch.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/body.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/weapons.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/clothes.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/masks.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/css/dialog.css">
-  <link rel="stylesheet" href="package://game_resources/interface/assets/fonts/FontAwesome/font-awesome.css">
-</head>
+    ::-webkit-scrollbar-thumb {
+      background: #ddd;
+    }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/dial.css">
+    <link rel="stylesheet" href="./assets/css/stock.css">
+    <link rel="stylesheet" href="./assets/css/pc.css">
+    <link rel="stylesheet" href="./assets/css/docs.css">
+    <link rel="stylesheet" href="./assets/css/input.css">
+    <link rel="stylesheet" href="./assets/css/joblist.css">
+    <link rel="stylesheet" href="./assets/css/menu.css">
+    <link rel="stylesheet" href="./assets/css/lift.css">
+    <link rel="stylesheet" href="./assets/css/petrol.css">
+    <link rel="stylesheet" href="./assets/css/fmenu.css">
+    <link rel="stylesheet" href="./assets/css/mats.css">
+    <link rel="stylesheet" href="./assets/css/auto.css">
+    <link rel="stylesheet" href="./assets/css/bsearch.css">
+    <link rel="stylesheet" href="./assets/css/body.css">
+    <link rel="stylesheet" href="./assets/css/weapons.css">
+    <link rel="stylesheet" href="./assets/css/clothes.css">
+    <link rel="stylesheet" href="./assets/css/masks.css">
+    <link rel="stylesheet" href="./assets/css/dialog.css">
+    <link rel="stylesheet" href="./assets/fonts/icons/style.css">
+    <link rel="stylesheet" href="./assets/fonts/FontAwesome/font-awesome.css">
+  </head>
 
-<body style="display:none">
-  <div class="dial">
-    <div class="img base"></div>
-    <div class="img num"></div>
-    <div class="img center"></div>
-  </div>
-  <div class="stock weapons">
-    <div class="center">
-      <div class="title">
-        <span id="L" class="left-arrow"></span>
-        <label>Label</label>
-        <span id="R" class="right-arrow"></span>
-      </div>
-      <div id="take" class="btn">Взять</div>
-      <div id="put" class="btn">Положить</div>
-      <div class="count">В наличии: <span>1337</span></div>
-      <div id="exit" class="exit">Выход</div>
+  <body style="display:none">
+    <div class="dial">
+      <div class="img base"></div>
+      <div class="img num"></div>
+      <div class="img center"></div>
     </div>
-  </div>
-  <div class="pc">
-    <div class="screen">
-      <div class="left">
-        <menu>
-          <li id="1">Очистить розыск</li>
-          <li id="2">Пробить номера</li>
-          <li id="3">Пробить по базе</li>
-          <li id="4">Список розыскиваемых</li>
-          <li id="5">Выход</li>
-        </menu>
-      </div>
-      <div class="right">
-        <h1></h1>
-        <div class="elements"></div>
-      </div>
-      <div class="bottom"></div>
-    </div>
-  </div>
-  <div class="license" v-if="active">
-    <div id="exit" @click="hide"></div>
-    <p id="firstname">{{firstname}}</p>
-    <p id="lastname">{{lastname}}</p>
-    <p id="date">{{date}}</p>
-    <p id="gender">{{gender}}</p>
-    <p id="lics">{{lics}}</p>
-  </div>
-  <div class="passport" v-if="active">
-    <p id="number">{{number}}</p>
-    <p id="firstname">{{firstname}}</p>
-    <p id="lastname">{{lastname}}</p>
-    <p id="date">{{date}}</p>
-    <p id="gender">{{gender}}</p>
-    <p id="member">{{member}}</p>
-    <p id="work">{{work}}</p>
-    <div id="exit" @click="hide"></div>
-  </div>
-  <div class="dialog" v-if="active">
-    <div class="field_ques">
-      <div class="question">
-        <p>{{title}}</p>
+    <div class="stock weapons">
+      <div class="center">
+        <div class="title">
+          <span id="L" class="left-arrow"></span>
+          <label>Label</label>
+          <span id="R" class="right-arrow"></span>
+        </div>
+        <div id="take" class="btn">Взять</div>
+        <div id="put" class="btn">Положить</div>
+        <div class="count">В наличии: <span>1337</span></div>
+        <div id="exit" class="exit">Выход</div>
       </div>
     </div>
-    <div class="buttons">
-      <button class="yes" @click="yes">
-        <p>Да</p>
-      </button>
-      <button class="no" @click="no">
-        <p>Нет</p>
-      </button>
-    </div>
-  </div>
-  <div class="input" v-if="active">
-    <p>{{title}}</p>
-    <div>
-      <input :placeholder="plholder" :maxlength="len" v-model="input">
-      <button @click="send">Подтвердить</button>
-    </div>
-  </div>
-  <div class="menu">
-    <h1>Label</h1>
-    <div class="elements"></div>
-    <div class="buttons">
-      <div id="btn1" class="btn exit" style="display:none">Выйти</div>
-      <div id="btn2" class="btn resign" style="display:none">Уволиться</div>
-      <div id="btn3" class="btn exit big" style="display:none">Выйти</div>
-    </div>
-  </div>
-  <div class="lift" v-if="active">
-    <h1>{{ floors[floor] }}</h1>
-    <div id="btn-down" @click="down"></div>
-    <div id="btn-up" @click="up"></div>
-    <div id="btn-stop" @click="stop"></div>
-    <div id="btn-start" @click="start"></div>
-  </div>
-  <div class="petrol" v-if="active">
-    <input placeholder="000" maxlength="3" v-model.number="input" onkeyup="this.value = this.value.replace (/[^0-9+]/, '')">
-    <div class="btns">
-      <div class="btn gov" @click="gov"></div>
-      <div class="btn full" @click="full"></div>
-      <div class="btn yes" @click="yes"></div>
-      <div class="btn no" @click="no"></div>
-    </div>
-  </div>
-  <div class="fmenu" v-if="active">
-    <div class="right" v-show="submenu">
-      <div class="info" v-if="menu == 1">
-        <p class="online">ОНЛАЙН <span>{{oncounter}}</span></p>
-        <p class="offline">ОФФЛАЙН <span>{{ofcounter}}</span></p>
-        <p class="all">Все <span>{{counter}}</span></p>
+    <div class="pc">
+      <div class="screen">
+        <div class="left">
+          <menu>
+            <li id="1">Очистить розыск</li>
+            <li id="2">Пробить номера</li>
+            <li id="3">Пробить по базе</li>
+            <li id="4">Список розыскиваемых</li>
+            <li id="5">Выход</li>
+          </menu>
+        </div>
+        <div class="right">
+          <h1></h1>
+          <div class="elements"></div>
+        </div>
+        <div class="bottom"></div>
       </div>
-      <hr v-if="menu == 1">
-      <table v-if="menu == 1">
-        <tr>
-          <th>ID</th>
-          <th>Имя</th>
-          <th>Уровень</th>
-          <th>Ранг</th>
-        </tr>
-        <tr v-for="member in members">
-          <th>{{member[1]}}</th>
-          <th v-bind:class="[ member[0] ? 'online' : 'offline' ]">{{member[2]}}</th>
-          <th>{{member[3]}}</th>
-          <th>{{member[4]}}</th>
-        </tr>
-      </table>
-      <h1 v-if="menu > 1">{{header[menu]}}</h1>
-      <input placeholder="Имя_Фамилия" v-model="input" v-if="menu > 1">
-      <input placeholder="Новый ранг" v-model="rank" v-if="menu > 3">
-      <div @click="submit" class="btn-submit" v-if="menu > 1">{{btntext[menu]}}</div>
     </div>
-    <div class="left">
-      <h1>Управление организацией</h1>
+    <div class="license" v-if="active">
+      <div id="exit" @click="hide"></div>
+      <p id="firstname">{{firstname}}</p>
+      <p id="lastname">{{lastname}}</p>
+      <p id="date">{{date}}</p>
+      <p id="gender">{{gender}}</p>
+      <p id="lics">{{lics}}</p>
+    </div>
+    <div class="passport" v-if="active">
+      <p id="number">{{number}}</p>
+      <p id="firstname">{{firstname}}</p>
+      <p id="lastname">{{lastname}}</p>
+      <p id="date">{{date}}</p>
+      <p id="gender">{{gender}}</p>
+      <p id="member">{{member}}</p>
+      <p id="work">{{work}}</p>
+      <div id="exit" @click="hide"><i class="fas fa-times"></i></div>
+    </div>
+    <div class="dialog" v-if="active">
+      <div class="field_ques">
+        <div class="question">
+          <p>{{title}}</p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="yes" @click="yes">
+          <p>Да</p>
+        </button>
+        <button class="no" @click="no">
+          <p>Нет</p>
+        </button>
+      </div>
+    </div>
+    <div class="input" v-if="active">
+      <p>{{title}}</p>
+      <div>
+        <input :placeholder="plholder" :maxlength="len" v-model="input">
+        <button @click="send">Подтвердить</button>
+      </div>
+    </div>
+    <div class="menu">
+      <h1>Label</h1>
+      <div class="elements"></div>
+      <div class="buttons">
+        <div id="btn1" class="btn exit" style="display:none">Выйти</div>
+        <div id="btn2" class="btn resign" style="display:none">Уволиться</div>
+        <div id="btn3" class="btn exit big" style="display:none">Выйти</div>
+      </div>
+    </div>
+    <div class="lift" v-if="active">
+      <h1>{{ floors[floor] }}</h1>
+      <div id="btn-down" @click="down"></div>
+      <div id="btn-up" @click="up"></div>
+      <div id="btn-stop" @click="stop"></div>
+      <div id="btn-start" @click="start"></div>
+    </div>
+    <div class="petrol" v-if="active">
+      <input placeholder="000" maxlength="3" v-model.number="input" onkeyup="this.value = this.value.replace (/[^0-9+]/, '')">
       <div class="btns">
-        <div @click="btn(1,$event)" class="btn" v-bind:class="{active: btnactive[1]}">Члены организации</div>
-        <div @click="btn(2,$event)" class="btn" v-bind:class="{active: btnactive[2]}">Принять в организацию</div>
-        <div @click="btn(3,$event)" class="btn" v-bind:class="{active: btnactive[3]}">Выгнать из организации</div>
-        <div @click="btn(4,$event)" class="btn" v-bind:class="{active: btnactive[4]}">Изменить ранг</div>
-        <div @click="btn(0,$event)" class="btn">Выйти</div>
+        <div class="btn gov" @click="gov"></div>
+        <div class="btn full" @click="full"></div>
+        <div class="btn yes" @click="yes"></div>
+        <div class="btn no" @click="no"></div>
       </div>
     </div>
-  </div>
-  <div class="joblist" v-if="active">
-    <div class="adaptive">
-      <div class="boxtop">
-        <div class="box">
-          <div class="header">
-            <div v-on:click="closeJobMenu()" class="arrow"></div>
-            <p class="txtheader">Устроиться на работу</p>
-          </div>
-          <div class="workbox">
-            <div v-for="job in list" class="workboxes" v-bind:class="job.class">
-              <div class="inkoslvl">
-                <p class="textlvl">LVL</p>
-                <p class="textlvl2">{{job.level}}</p>
-              </div>
-              <div class="worktoptxt ">
-                <p class="textboxwork"></p> {{job.name}}
-                <div class="jobstatus" v-if="job.level <= level">
-                  <img class="workimg" src="images/joblist/padlock-unlock.svg" alt="">
-                  <p class="worktextopen">Открыто</p>
+    <div class="fmenu" v-if="active">
+      <div class="right" v-show="submenu">
+        <div class="info" v-if="menu == 1">
+          <p class="online">ОНЛАЙН <span>{{oncounter}}</span></p>
+          <p class="offline">ОФФЛАЙН <span>{{ofcounter}}</span></p>
+          <p class="all">Все <span>{{counter}}</span></p>
+        </div>
+        <hr v-if="menu == 1">
+        <table v-if="menu == 1">
+          <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Уровень</th>
+            <th>Ранг</th>
+          </tr>
+          <tr v-for="member in members">
+            <th>{{member[1]}}</th>
+            <th v-bind:class="[ member[0] ? 'online' : 'offline' ]">{{member[2]}}</th>
+            <th>{{member[3]}}</th>
+            <th>{{member[4]}}</th>
+          </tr>
+        </table>
+        <h1 v-if="menu > 1">{{header[menu]}}</h1>
+        <input placeholder="Имя_Фамилия" v-model="input" v-if="menu > 1">
+        <input placeholder="Новый ранг" v-model="rank" v-if="menu > 3">
+        <div @click="submit" class="btn-submit" v-if="menu > 1">{{btntext[menu]}}</div>
+      </div>
+      <div class="left">
+        <h1>Управление организацией</h1>
+        <div class="btns">
+          <div @click="btn(1,$event)" class="btn" v-bind:class="{active: btnactive[1]}">Члены организации</div>
+          <div @click="btn(2,$event)" class="btn" v-bind:class="{active: btnactive[2]}">Принять в организацию</div>
+          <div @click="btn(3,$event)" class="btn" v-bind:class="{active: btnactive[3]}">Выгнать из организации</div>
+          <div @click="btn(4,$event)" class="btn" v-bind:class="{active: btnactive[4]}">Изменить ранг</div>
+          <div @click="btn(0,$event)" class="btn">Выйти</div>
+        </div>
+      </div>
+    </div>
+    <div class="joblist" v-if="active">
+      <div class="adaptive">
+        <div class="boxtop">
+          <div class="box">
+            <div class="header">
+              <div v-on:click="closeJobMenu()" class="arrow"></div>
+              <p class="txtheader">Устроиться на работу</p>
+            </div>
+            <div class="workbox">
+              <div v-for="job in list" class="workboxes" v-bind:class="job.class">
+                <div class="inkoslvl">
+                  <p class="textlvl">LVL</p>
+                  <p class="textlvl2">{{job.level}}</p>
                 </div>
-                <div class="jobstatus" v-else>
-                  <img class="workimg" src="images/joblist/lock.svg" alt="">
-                  <p class="worktextopen">Закрыто</p>
-                </div>
-              </div>
-              <div v-if="job.level <= level">
-                <div v-if="job.jobid == jobid">
-                  <div class="buttongetsettledred" v-on:click="selectJob(-1)">
-                    <p сlass="buttontxtgetsettled">Уволиться</p>
+                <div class="worktoptxt ">
+                  <p class="textboxwork"></p> {{job.name}}
+                  <div class="jobstatus" v-if="job.level <= level">
+                    <img class="workimg" src="images/joblist/padlock-unlock.svg" alt="">
+                    <p class="worktextopen">Открыто</p>
+                  </div>
+                  <div class="jobstatus" v-else>
+                    <img class="workimg" src="images/joblist/lock.svg" alt="">
+                    <p class="worktextopen">Закрыто</p>
                   </div>
                 </div>
-                <div v-else>
-                  <div class="buttongetsettled" v-on:click="selectJob(job.jobid)">
-                    <p сlass="buttontxtgetsettled">Устроиться</p>
+                <div v-if="job.level <= level">
+                  <div v-if="job.jobid == jobid">
+                    <div class="buttongetsettledred" v-on:click="selectJob(-1)">
+                      <p сlass="buttontxtgetsettled">Уволиться</p>
+                    </div>
+                  </div>
+                  <div v-else>
+                    <div class="buttongetsettled" v-on:click="selectJob(job.jobid)">
+                      <p сlass="buttontxtgetsettled">Устроиться</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -231,241 +233,236 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="mats" v-if="active">
-    <div v-if="isMed">
+    <div class="mats" v-if="active">
+      <div v-if="isMed">
+        <div class="btns">
+          <div @click="load(4)" class="btn-succ">ЗАГРУЗИТЬ</div>
+          <div @click="unload(4)" class="btn-cancel">ВЫГРУЗИТЬ</div>
+        </div>
+        <div class="img hkit"></div>
+      </div>
+      <div v-else>
+        <div v-if="isArmy">
+          <div class="btns">
+            <div @click="load(1)" class="btn-succ">ЗАГРУЗИТЬ</div>
+            <div @click="unload(1)" class="btn-cancel">ВЫГРУЗИТЬ</div>
+          </div>
+          <div class="img army"></div>
+        </div>
+        <div v-if="!isArmy">
+          <div class="btns">
+            <div @click="load(2)" class="btn-succ">ЗАГРУЗИТЬ</div>
+            <div @click="unload(2)" class="btn-cancel">ВЫГРУЗИТЬ</div>
+          </div>
+          <div class="img gang"></div>
+        </div>
+        <div v-if="!isArmy">
+          <div class="btns">
+            <div @click="load(3)" class="btn-succ">ЗАГРУЗИТЬ</div>
+            <div @click="unload(3)" class="btn-cancel">ВЫГРУЗИТЬ</div>
+          </div>
+          <div class="img weed"></div>
+        </div>
+      </div>
+    </div>
+    <div class="auto" v-if="active">
+      <div class="grad"></div>
+      <h1>Автосалон</h1>
+      <img src="https://imgur.com/l6r0dia.png">
+      <div class="items">
+        <p>
+          <font color="white">Цвет автомобиля</font>
+        </p>
+        <div class="list" style="width: 194px;"> <i @click="left(1)" class="fas fa-chevron-left"></i>
+          <div style="width: 110px;text-align: center;">{{colors[indexC]}}</div>
+          <i @click="right(1)" class="fas fa-chevron-right"></i>
+        </div>
+        <p>
+          <font color="white">Автомобиль</font>
+        </p>
+        <div class="list1">
+          <ul>
+            <li v-for="(value, index) in models" :key="index">
+              <div v-on:click="auto(index)">{{models[index]}}</div>
+            </li>
+          </ul>
+        </div>
+        <div id="log"></div>
+      </div>
       <div class="btns">
-        <div @click="load(4)" class="btn-succ">ЗАГРУЗИТЬ</div>
-        <div @click="unload(4)" class="btn-cancel">ВЫГРУЗИТЬ</div>
-      </div>
-      <div class="img hkit"></div>
-    </div>
-    <div v-else>
-      <div v-if="isArmy">
-        <div class="btns">
-          <div @click="load(1)" class="btn-succ">ЗАГРУЗИТЬ</div>
-          <div @click="unload(1)" class="btn-cancel">ВЫГРУЗИТЬ</div>
+        <div class="pr">
+          <font color="white">Цена: <span>{{prices[indexM]}}$</span></font>
         </div>
-        <div class="img army"></div>
-      </div>
-      <div v-if="!isArmy">
-        <div class="btns">
-          <div @click="load(2)" class="btn-succ">ЗАГРУЗИТЬ</div>
-          <div @click="unload(2)" class="btn-cancel">ВЫГРУЗИТЬ</div>
-        </div>
-        <div class="img gang"></div>
-      </div>
-      <div v-if="!isArmy">
-        <div class="btns">
-          <div @click="load(3)" class="btn-succ">ЗАГРУЗИТЬ</div>
-          <div @click="unload(3)" class="btn-cancel">ВЫГРУЗИТЬ</div>
-        </div>
-        <div class="img weed"></div>
+        <div @click="buy" class="btn buy">Купить</div>
+        <div @click="testdrive" class="btn testdrive">Тест-драйв</div>
+        <div @click="exit" class="btn exit">Выйти</div>
       </div>
     </div>
-  </div>
-  <div class="auto" v-if="active">
-    <div class="grad"></div>
-    <h1>Автосалон</h1>
-    <img src="https://imgur.com/l6r0dia.png">
-    <div class="items">
-      <p>
-        <font color="white">Цвет автомобиля</font>
-      </p>
-      <div class="list" style="width: 194px;"> <i @click="left(1)" class="fas fa-chevron-left"></i>
-        <div style="width: 110px;text-align: center;">{{colors[indexC]}}</div>
-        <i @click="right(1)" class="fas fa-chevron-right"></i>
-      </div>
-      <p>
-        <font color="white">Автомобиль</font>
-      </p>
-      <div class="list1">
+    <div class="bsearch" v-if="active">
+      <div @click="btn(0)" class="btn-close"></div>
+      <div class="list">
+        <p>Имя Фамилия: {{ name }}</p>
+        <p>Оружие:</p>
         <ul>
-          <li v-for="(value, index) in models" :key="index">
-            <div v-on:click="auto(index)">{{models[index]}}</div>
-          </li>
+          <li v-for="w in weapons">{{ w }}</li>
+        </ul>
+        <p>Предметы инвентаря:</p>
+        <ul>
+          <li v-for="i in items">{{ i }}</li>
         </ul>
       </div>
-      <div id="log"></div>
-    </div>
-    <div class="btns">
-      <div class="pr">
-        <font color="white">Цена: <span>{{prices[indexM]}}$</span></font>
+      <div class="btns">
+        <div @click="btn(1)" class="btn">Лицензии</div>
+        <div @click="btn(2)" class="btn">Паспорт</div>
       </div>
-      <div @click="buy" class="btn buy">Купить</div>
-      <div @click="testdrive" class="btn testdrive">Тест-драйв</div>
-      <div @click="exit" class="btn exit">Выйти</div>
     </div>
-  </div>
-  <div class="bsearch" v-if="active">
-    <div @click="btn(0)" class="btn-close"></div>
-    <div class="list">
-      <p>Имя Фамилия: {{ name }}</p>
-      <p>Оружие:</p>
-      <ul>
-        <li v-for="w in weapons">{{ w }}</li>
-      </ul>
-      <p>Предметы инвентаря:</p>
-      <ul>
-        <li v-for="i in items">{{ i }}</li>
-      </ul>
+    <div class="body" v-bind:class="{tattoo: !isBarber, barber: isBarber}" v-if="active">
+      <div @click="close" class="exit">X</div>
+      <div class="items" v-if="isBarber">
+        <!--Barber Shop-->
+        <bodylist id="hair" name="Прическа" color="true"></bodylist>
+        <bodylist id="beard" name="Борода" color="true"></bodylist>
+        <bodylist id="eyebrows" name="Брови" color="true"></bodylist>
+        <bodylist id="chesthair" name="Грудь" color="true"></bodylist>
+        <bodylist id="lenses" name="Линзы"></bodylist>
+        <bodylist id="lipstick" name="Помада" color="true"></bodylist>
+        <bodylist id="blush" name="Румянец" color="true"></bodylist>
+        <bodylist id="makeup" name="Тени"></bodylist>
+      </div>
+      <div class="items" v-if="!isBarber">
+        <!--Tattoo Shop-->
+        <bodylist id="torso" name="Торс"></bodylist>
+        <bodylist id="head" name="Голова"></bodylist>
+        <bodylist id="leftarm" name="Левая рука"></bodylist>
+        <bodylist id="rightarm" name="Правая рука"></bodylist>
+        <bodylist id="leftleg" name="Левая нога"></bodylist>
+        <bodylist id="rightleg" name="Правая нога"></bodylist>
+      </div>
     </div>
-    <div class="btns">
-      <div @click="btn(1)" class="btn">Лицензии</div>
-      <div @click="btn(2)" class="btn">Паспорт</div>
-    </div>
-  </div>
-  <div class="body" v-bind:class="{ tattoo: !isBarber, barber: isBarber }" v-if="active">
-    <div @click="close" class="exit"></div>
-    <div class="items" v-if="isBarber">
-      <!--Barber Shop-->
-      <bodylist id="hair" name="Прическа" color="true"></bodylist>
-      <bodylist id="beard" name="Борода" color="true"></bodylist>
-      <bodylist id="eyebrows" name="Брови" color="true"></bodylist>
-      <bodylist id="chesthair" name="Грудь" color="true"></bodylist>
-      <bodylist id="lenses" name="Линзы"></bodylist>
-      <bodylist id="lipstick" name="Помада" color="true"></bodylist>
-      <bodylist id="blush" name="Румянец" color="true"></bodylist>
-      <bodylist id="makeup" name="Тени"></bodylist>
-    </div>
-    <div class="items" v-if="!isBarber">
-      <!--Tattoo Shop-->
-      <bodylist id="torso" name="Торс"></bodylist>
-      <bodylist id="head" name="Голова"></bodylist>
-      <bodylist id="leftarm" name="Левая рука"></bodylist>
-      <bodylist id="rightarm" name="Правая рука"></bodylist>
-      <bodylist id="leftleg" name="Левая нога"></bodylist>
-      <bodylist id="rightleg" name="Правая нога"></bodylist>
-    </div>
-  </div>
-  <div class="weapons_buy" v-if="active">
-    <div class="left">
-      <div @click="btn(0,$event)" class="btn pistol" v-bind:class="{ active: btns[0] }"></div>
-      <div @click="btn(1,$event)" class="btn shot" v-bind:class="{ active: btns[1] }"></div>
-      <div @click="btn(2,$event)" class="btn smg" v-bind:class="{ active: btns[2] }"></div>
-      <div @click="btn(3,$event)" class="btn ammo" v-bind:class="{ active: btns[3] }"></div>
-    </div>
-    <div class="right">
-      <div class="head"></div>
-      <div class="elements">
-        <div class="block" v-for="(item, index) in items">
-          <label>{{item[0]}}</label>
-          <div @click="buy(index)" class="btn">Купить</div>
-          <span>${{item[1]}}</span>
+    <div class="weapons_buy" v-if="active">
+      <div class="left">
+        <div @click="btn(0,$event)" class="btn pistol" v-bind:class="{ active: btns[0] }"></div>
+        <div @click="btn(1,$event)" class="btn shot" v-bind:class="{ active: btns[1] }"></div>
+        <div @click="btn(2,$event)" class="btn smg" v-bind:class="{ active: btns[2] }"></div>
+        <div @click="btn(3,$event)" class="btn ammo" v-bind:class="{ active: btns[3] }"></div>
+      </div>
+      <div class="right">
+        <div class="head"></div>
+        <div class="elements">
+          <div class="block" v-for="(item, index) in items">
+            <label>{{item[0]}}</label>
+            <div @click="buy(index)" class="btn">Купить</div>
+            <span>${{item[1]}}</span>
+          </div>
+          <div class="slider" v-for="(item, index) in sliders">
+            <label>{{item[0]}}</label>
+            <input :id="index" @input="range" type="range" :value="item[1]" step="1" :min="item[1]" :max="item[2]">
+            <output @click="rangebuy" :id="'wbuyslider' + index">{{item[4]}}$</output>
+          </div>
         </div>
-        <div class="slider" v-for="(item, index) in sliders">
-          <label>{{item[0]}}</label>
-          <input :id="index" @input="range" type="range" :value="item[1]" step="1" :min="item[1]" :max="item[2]">
-          <output @click="rangebuy" :id="'wbuyslider' + index">{{item[4]}}$</output>
+        <div class="buttons">
+          <div @click="exit" class="exit">Выход</div>
         </div>
       </div>
-      <div class="buttons">
-        <div @click="exit" class="exit">Выход</div>
+    </div>
+    <div class="weapons_craft" v-if="active">
+      <div class="left">
+        <div @click="btn(0,$event)" class="btn pistol" v-bind:class="{ active: btns[0] }"></div>
+        <div @click="btn(1,$event)" class="btn shot" v-bind:class="{ active: btns[1] }"></div>
+        <div @click="btn(2,$event)" class="btn smg" v-bind:class="{ active: btns[2] }"></div>
+        <div @click="btn(3,$event)" class="btn rifles" v-bind:class="{ active: btns[3] }"></div>
+        <div @click="btn(4,$event)" class="btn ammo" v-bind:class="{ active: btns[4] }"></div>
       </div>
-    </div>
-  </div>
-  <div class="weapons_craft" v-if="active">
-    <div class="left">
-      <div @click="btn(0,$event)" class="btn pistol" v-bind:class="{ active: btns[0] }"></div>
-      <div @click="btn(1,$event)" class="btn shot" v-bind:class="{ active: btns[1] }"></div>
-      <div @click="btn(2,$event)" class="btn smg" v-bind:class="{ active: btns[2] }"></div>
-      <div @click="btn(3,$event)" class="btn rifles" v-bind:class="{ active: btns[3] }"></div>
-      <div @click="btn(4,$event)" class="btn ammo" v-bind:class="{ active: btns[4] }"></div>
-    </div>
-    <div class="right">
-      <div class="head"></div>
-      <div class="elements">
-        <div class="block" v-for="(item, index) in items">
-          <label>{{item[0]}}</label>
-          <div @click="buy(index)" class="btn">Создать</div>
-          <span>{{item[1]}}M</span>
+      <div class="right">
+        <div class="head"></div>
+        <div class="elements">
+          <div class="block" v-for="(item, index) in items">
+            <label>{{item[0]}}</label>
+            <div @click="buy(index)" class="btn">Создать</div>
+            <span>{{item[1]}}M</span>
+          </div>
+          <div class="slider" v-for="(item, index) in sliders">
+            <label>{{item[0]}}</label>
+            <input :id="index" @input="range" type="range" :value="item[1]" step="1" :min="item[1]" :max="item[2]">
+            <output @click="rangebuy" :id="'wcraftslider' + index">{{item[4]}}M</output>
+          </div>
         </div>
-        <div class="slider" v-for="(item, index) in sliders">
-          <label>{{item[0]}}</label>
-          <input :id="index" @input="range" type="range" :value="item[1]" step="1" :min="item[1]" :max="item[2]">
-          <output @click="rangebuy" :id="'wcraftslider' + index">{{item[4]}}M</output>
+        <div class="buttons">
+          <div @click="exit" class="exit">Выход</div>
         </div>
       </div>
-      <div class="buttons">
-        <div @click="exit" class="exit">Выход</div>
+    </div>
+    <div class="clothes" v-if="active">
+      <div class="right">
+        <h1><i class="name1 far fa-smile"></i> Уникальность</h1>
+        <div class="block">
+          <p>Будьте уникальны, выбирайте цвет и рисунок на свой вкус.</p>
+          <div class="list1">Выберите стиль:<span><i @click="left(0)" class="fas fa-chevron-left"></i>
+              <div>{{styles[indexS]}}</div><i @click="right(0)" class="fas fa-chevron-right"></i>
+            </span></div>
+          <div class="list">Выберите цвет:<span><i @click="left(1)" class="fas fa-chevron-left"></i>
+              <div>{{colors[indexC]}}</div><i @click="right(1)" class="fas fa-chevron-right"></i>
+            </span></div>
+          <p class="price">Цена: <span>${{prices[indexS]}}</span></p>
+          <div @click="buy" class="btn buy">Купить</div>
+        </div>
+      </div>
+      <div class="left">
+        <div class="bg">
+          <h1 class="bg1"> Магазин Одежды</h1>
+        </div>
+        <div @click="exit" class="btn exit"><i class="fas fa-times"></i>Выйти</div>
+        <div @click="btn(0,$event)" class="icon hat" v-bind:class="{ active: btns[0] }"><img src="./assets/img/menu/hat.png"> Шляпа</div>
+        <div @click="btn(1,$event)" class="icon jacket" v-bind:class="{ active: btns[1] }"><img src="./assets/img/menu/jacket.png">Верхняя одежда</div>
+        <div @click="btn(2,$event)" class="icon shirt" v-bind:class="{ active: btns[2] }"><img src="./assets/img/menu/shirt.png">Нижняя одежда</div>
+        <div @click="btn(3,$event)" class="icon pants" v-bind:class="{ active: btns[3] }"><img src="./assets/img/menu/pants.png">Штаны</div>
+        <div @click="btn(4,$event)" class="icon shoe" v-bind:class="{ active: btns[4] }"><img src="./assets/img/menu/shoe.png">Обувь</div>
+        <div @click="btn(5,$event)" class="icon gloves" v-bind:class="{ active: btns[5] }"><img src="./assets/img/menu/gloves.png">Перчатки</div>
+        <div @click="btn(6,$event)" class="icon watches" v-bind:class="{ active: btns[6] }"><img src="./assets/img/menu/watches.png">Часы</div>
+        <div @click="btn(7,$event)" class="icon glasses" v-bind:class="{ active: btns[7] }"><img src="./assets/img/menu/glasses.png">Очки</div>
+        <div @click="btn(8,$event)" class="icon jewerly" v-bind:class="{ active: btns[8] }"><img src="./assets/img/menu/jewerly.png">Украшения</div>
       </div>
     </div>
-  </div>
-  <div class="clothes" v-if="active">
-    <div class="right">
-      <h1><i class="name1 far fa-smile"></i> Уникальность</h1>
-      <div class="block">
-        <p>Будьте уникальны, выбирайте цвет и рисунок на свой вкус.</p>
-        <div class="list1">Выберите стиль:<span><i @click="left(0)" class="fas fa-chevron-left"></i>
-            <div>{{styles[indexS]}}</div><i @click="right(0)" class="fas fa-chevron-right"></i>
-          </span></div>
-        <div class="list">Выберите цвет:<span><i @click="left(1)" class="fas fa-chevron-left"></i>
-            <div>{{colors[indexC]}}</div><i @click="right(1)" class="fas fa-chevron-right"></i>
-          </span></div>
-        <p class="price">Цена: <span>${{prices[indexS]}}</span></p>
-        <div @click="buy" class="btn buy">Купить</div>
+    <div class="masks" v-if="active">
+      <div class="right">
+        <h1><i class="fas fa-theater-masks"></i> Маски</h1>
+        <div class="block">
+          <p>Будьте уникальны, выбирайте цвет и рисунок на свой вкус.</p>
+          <div class="list1">Выберите стиль:<span><i @click="left(0)" class="fas fa-chevron-left"></i>
+              <div>{{styles[indexS]}}</div><i @click="right(0)" class="fas fa-chevron-right"></i>
+            </span></div>
+          <div class="list">Выберите цвет:<span><i @click="left(1)" class="fas fa-chevron-left"></i>
+              <div>{{colors[indexC]}}</div><i @click="right(1)" class="fas fa-chevron-right"></i>
+            </span></div>
+          <p class="price">Цена: <span>${{prices[indexS]}}</span></p>
+          <div @click="buy" class="btn buy">Купить</div>
+          <div @click="exit" class="btn exit"><i class="fas fa-times"></i></div>
+        </div>
+      </div>
+      <div class="left">
+        <div @click="btn(0,$event)" class="icon mask" v-bind:class="{ active: btns[0] }"></div>
       </div>
     </div>
-    <div class="left">
-      <div class="bg">
-        <h1 class="bg1"> Магазин Одежды</h1>
-      </div>
-      <div @click="exit" class="btn exit"><i class="exit fas fa-long-arrow-alt-left"></i>Выйти</div>
-      <div @click="btn(0,$event)" class="icon hat" v-bind:class="{ active: btns[0] }"><img src="package://game_resources/interface/assets/img/menu/hat.png"> Шляпа</div>
-      <div @click="btn(1,$event)" class="icon jacket" v-bind:class="{ active: btns[1] }"><img src="package://game_resources/interface/assets/img/menu/jacket.png">Верхняя одежда</div>
-      <div @click="btn(2,$event)" class="icon shirt" v-bind:class="{ active: btns[2] }"><img src="package://game_resources/interface/assets/img/menu/shirt.png">Нижняя одежда</div>
-      <div @click="btn(3,$event)" class="icon pants" v-bind:class="{ active: btns[3] }"><img src="package://game_resources/interface/assets/img/menu/pants.png">Штаны</div>
-      <div @click="btn(4,$event)" class="icon shoe" v-bind:class="{ active: btns[4] }"><img src="package://game_resources/interface/assets/img/menu/shoe.png">Обувь</div>
-      <div @click="btn(5,$event)" class="icon gloves" v-bind:class="{ active: btns[5] }"><img src="package://game_resources/interface/assets/img/menu/gloves.png">Перчатки</div>
-      <div @click="btn(6,$event)" class="icon watches" v-bind:class="{ active: btns[6] }"><img src="package://game_resources/interface/assets/img/menu/watches.png">Часы</div>
-      <div @click="btn(7,$event)" class="icon glasses" v-bind:class="{ active: btns[7] }"><img src="package://game_resources/interface/assets/img/menu/glasses.png">Очки</div>
-      <div @click="btn(8,$event)" class="icon jewerly" v-bind:class="{ active: btns[8] }"><img src="package://game_resources/interface/assets/img/menu/jewerly.png">Украшения</div>
-    </div>
-  </div>
-  <div class="masks" v-if="active">
-    <div class="right">
-      <h1><i class="fas fa-theater-masks"></i> Маски</h1>
-      <div class="block">
-        <p>Будьте уникальны, выбирайте цвет и рисунок на свой вкус.</p>
-        <div class="list1">Выберите стиль:<span><i @click="left(0)" class="fas fa-chevron-left"></i>
-            <div>{{styles[indexS]}}</div><i @click="right(0)" class="fas fa-chevron-right"></i>
-          </span></div>
-        <div class="list">Выберите цвет:<span><i @click="left(1)" class="fas fa-chevron-left"></i>
-            <div>{{colors[indexC]}}</div><i @click="right(1)" class="fas fa-chevron-right"></i>
-          </span></div>
-        <p class="price">Цена: <span>${{prices[indexS]}}</span></p>
-        <div @click="buy" class="btn buy">Купить</div>
-        <div @click="exit" class="btn exit"><i class="fas fa-times"></i></div>
-      </div>
-    </div>
-    <div class="left">
-      <div @click="btn(0,$event)" class="icon mask" v-bind:class="{ active: btns[0] }"></div>
-    </div>
-  </div>
-
-	<script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.iteffa.com/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
-
-  <script src="package://game_resources/interface/assets/js/dial.js"></script>
-  <script src="package://game_resources/interface/assets/js/stock.js"></script>
-  <script src="package://game_resources/interface/assets/js/pc.js"></script>
-  <script src="package://game_resources/interface/assets/js/docs.js"></script>
-  <script src="package://game_resources/interface/assets/js/input.js"></script>
-  <script src="package://game_resources/interface/assets/js/joblist.js"></script>
-  <script src="package://game_resources/interface/assets/js/menu.js"></script>
-  <script src="package://game_resources/interface/assets/js/lift.js"></script>
-  <script src="package://game_resources/interface/assets/js/petrol.js"></script>
-  <script src="package://game_resources/interface/assets/js/fmenu.js"></script>
-  <script src="package://game_resources/interface/assets/js/mats.js"></script>
-  <script src="package://game_resources/interface/assets/js/auto.js"></script>
-  <script src="package://game_resources/interface/assets/js/bsearch.js"></script>
-  <script src="package://game_resources/interface/assets/js/body.js"></script>
-  <script src="package://game_resources/interface/assets/js/weapons.js"></script>
-  <script src="package://game_resources/interface/assets/js/clothes.js"></script>
-  <script src="package://game_resources/interface/assets/js/masks.js"></script>
-  <script src="package://game_resources/interface/assets/js/dialog.js"></script>
-</body>
+    <script src="./plugins/jquery-3.2.1.min.js"></script>
+    <script src="./plugins/vue.js"></script>
+    <script src="./assets/js/dial.js"></script>
+    <script src="./assets/js/stock.js"></script>
+    <script src="./assets/js/pc.js"></script>
+    <script src="./assets/js/docs.js"></script>
+    <script src="./assets/js/input.js"></script>
+    <script src="./assets/js/joblist.js"></script>
+    <script src="./assets/js/menu.js"></script>
+    <script src="./assets/js/lift.js"></script>
+    <script src="./assets/js/petrol.js"></script>
+    <script src="./assets/js/fmenu.js"></script>
+    <script src="./assets/js/mats.js"></script>
+    <script src="./assets/js/auto.js"></script>
+    <script src="./assets/js/bsearch.js"></script>
+    <script src="./assets/js/body.js"></script>
+    <script src="./assets/js/weapons.js"></script>
+    <script src="./assets/js/clothes.js"></script>
+    <script src="./assets/js/masks.js"></script>
+    <script src="./assets/js/dialog.js"></script>
+  </body>
 
 </html>
