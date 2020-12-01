@@ -105,8 +105,6 @@ namespace iTeffa.Kernel
 
         #region AdminCommands
 
-
-
         #region D2U Lastbonus
         [Command("getbonus")]
         public static void GetLastBonus(Player player, int id)
@@ -3120,6 +3118,33 @@ namespace iTeffa.Kernel
                 if (!Group.CanUseCmd(player, "setvehdirt")) return;
                 NAPI.World.RemoveIpl(ipl);
                 player.SendChatMessage("Вы выгрузили IPL: " + ipl);
+            }
+            catch
+            {
+            }
+        }
+
+        [Command("loadprop")]
+        public static void CMD_LoadProp(Player player, double x, double y, double z, string prop)
+        {
+            try
+            {
+                if (!Group.CanUseCmd(player, "setvehdirt")) return;
+                Trigger.ClientEvent(player, "loadProp", x, y, z, prop);
+                player.SendChatMessage("Вы подгрузили Interior Prop: " + prop);
+            }
+            catch
+            {
+            }
+        }
+        [Command("unloadprop")]
+        public static void CMD_UnLoadProp(Player player, double x, double y, double z, string prop)
+        {
+            try
+            {
+                if (!Group.CanUseCmd(player, "setvehdirt")) return;
+                Trigger.ClientEvent(player, "UnloadProp", x, y, z, prop);
+                player.SendChatMessage("Вы выгрузили Interior Prop: " + prop);
             }
             catch
             {

@@ -136,6 +136,18 @@ mp.game.streaming.requestIpl("hei_dlc_casino_door");       // Hамка двер
 mp.game.streaming.requestIpl("vw_dlc_casino_door");        // Cами двери
 mp.game.streaming.requestIpl("hei_dlc_casino_aircon");     // Кондиционер на крыше
 
+mp.events.add('loadProp', (x, y, z, prop) => {
+  var interior = mp.game.interior.getInteriorAtCoords(x, y, z);
+  mp.game.interior.enableInteriorProp(interior, prop);
+  mp.game.interior.refreshInterior(interior);
+});
+
+mp.events.add('UnloadProp', (x, y, z, prop) => {
+  var interior = mp.game.interior.getInteriorAtCoords(x, y, z);
+  mp.game.interior.disableInteriorProp(interior, prop);
+  mp.game.interior.refreshInterior(interior);
+});
+
 mp.game.streaming.requestClipSet("move_m@brave");
 mp.game.streaming.requestClipSet("move_m@confident");
 mp.game.streaming.requestClipSet("move_m@drunk@verydrunk");
