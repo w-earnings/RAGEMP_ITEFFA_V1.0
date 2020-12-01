@@ -31,7 +31,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appe
 .speedometer .icon_fuel {width: 1.48148vh;position: absolute;bottom: 4vh;right: 35.46296vh;} 
 .speedometer .lamp_list {width: 13.88889vh;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: absolute;bottom: 2.5vh;right: 9.2vh;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
 .speedometer .lamp_list .engine {width: 2.22222vh;}
-.speedometer .lamp_list .lamp {width: 2.40741vh;}
 .speedometer .lamp_list .door {width: 1.75926vh;}
 .speedometer .lamp_list .sec {width: 1.75926vh;}
 .speedometer .speed_count .bg {opacity: 0.19;}

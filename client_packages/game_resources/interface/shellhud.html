@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
 	<title> iTeffa.com | Hud Window </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="package://game_resources/interface/assets/css/shellhud.css">
-	<link rel="stylesheet" href="package://game_resources/interface/assets/fonts/FontAwesome/font-awesome.css">
+	<link rel="stylesheet" href="./assets/css/shellhud.css">
   </head>
   <body class="iTeffa">
     <div id="safezone">
@@ -20,18 +19,18 @@
 			<b>ID:</b><span class="id"> {{playerId}}</span>
 		  </div>
 		  <div class="copyright">
-		    <img src="package://game_resources/interface/assets/icons/shellhud/favicon.png" alt="iTeffa.com"><p>GTA5RAGE</p>
+		    <img src="./assets/icons/shellhud/favicon.png" alt="iTeffa.com"><p>GTA5RAGE</p>
 		  </div>
 		  <div class="online"> Online: {{online}}</div>
 		</div>	
 		<div class="help">
-		  <img src="package://game_resources/interface/assets/icons/shellhud/f2_bind.png" alt="iTeffa.com">
+		  <img src="./assets/icons/shellhud/f2_bind.png" alt="iTeffa.com">
 		<br />
-		  <img src="package://game_resources/interface/assets/icons/shellhud/n_bind.png" alt="iTeffa.com">
+		  <img src="./assets/icons/shellhud/n_bind.png" alt="iTeffa.com">
 		<br />
-		  <img src="package://game_resources/interface/assets/icons/shellhud/g_bind.png" alt="iTeffa.com">
+		  <img src="./assets/icons/shellhud/g_bind.png" alt="iTeffa.com">
 		<br />
-		  <img src="package://game_resources/interface/assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
+		  <img src="./assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
 		</div>
 		<div class="speedometer" :style="{ opacity: inVeh ? 1 : 0 }">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="speed" class="speed">
@@ -52,25 +51,24 @@
 				<div class="count" v-else><div class="bg"></div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
 				<div class="type">км/ч</div>
 			</div>
-			<img src="package://game_resources/interface/assets/icons/shellhud/speedometer/fuel.png" alt="" class="icon_fuel">
+			<img src="./assets/icons/shellhud/speedometer/fuel.png" alt="" class="icon_fuel">
 			<div class="eng_check" style="display: none;">
 				<div class="engon" v-if="engine">
-					<img v-if="hp > 30" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
-					<img v-if="hp < 31" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
+					<img v-if="hp > 30" src="./assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
+					<img v-if="hp < 31" src="./assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
 				</div>
 				<div class="engon" v-else>
-					<img v-if="hp > 30" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
-					<img v-if="hp < 31" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
+					<img v-if="hp > 30" src="./assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
+					<img v-if="hp < 31" src="./assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
 				</div>
 			</div>
 			<div class="lamp_list">
-				<img v-if="belt" src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
-				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
-				<img v-if="doors" src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
-				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
-				<img v-if="engine" src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
-				<img v-else src="package://game_resources/interface/assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
-				<img src="package://game_resources/interface/assets/icons/shellhud/speedometer/lamp_no.png" alt="" class="lamp">
+				<img v-if="belt" src="./assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
+				<img v-else src="./assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
+				<img v-if="doors" src="./assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
+				<img v-else src="./assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
+				<img v-if="engine" src="./assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
+				<img v-else src="./assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
 			</div>
 			<span style="display: none;">{{gear}}</span>
 			<br>
@@ -80,12 +78,12 @@
       <div id="notify"></div>
       <div id="effect"></div>
     </div>
-	<script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.iteffa.com/vue/v2.5.13/vue.js"></script>
-	<script src="package://game_resources/interface/assets/js/chat.js"></script>
-	<script src="package://game_resources/interface/assets/js/shellhud.js"></script>
-	<script src="package://game_resources/interface/assets/js/notify.js"></script>
-	<script src="package://game_resources/interface/assets/js/noty.min.js"></script>
+    <script src="./plugins/jquery-3.2.1.min.js"></script>
+    <script src="./plugins/vue.js"></script>
+	<script src="./assets/js/chat.js"></script>
+	<script src="./assets/js/shellhud.js"></script>
+	<script src="./assets/js/notify.js"></script>
+	<script src="./assets/js/noty.min.js"></script>
 	<script>
       function hidehud(toggle) {if (toggle) {HUD.show = false;logotype.show = false;} else {HUD.show = true;logotype.show = true;}}
 	  function hidehelp(toggle) {if (toggle) {$('.help').hide();} else {$('.help').show();}}
