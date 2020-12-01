@@ -36,6 +36,8 @@ namespace iTeffa.Models
         public string LastVeh { get; set; } = null;
         public bool OnDuty { get; set; } = false;
         public int LastHourMin { get; set; } = 0;
+        public int LastBonus { get; set; } = 0;
+        public bool IsBonused { get; set; } = false;
         public int HotelID { get; set; } = -1;
         public int HotelLeft { get; set; } = 0;
         public int Sim { get; set; } = -1;

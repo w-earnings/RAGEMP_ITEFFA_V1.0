@@ -104,6 +104,66 @@ namespace iTeffa.Kernel
         #endregion Chat logic
 
         #region AdminCommands
+
+
+
+        #region D2U Lastbonus
+        [Command("getbonus")]
+        public static void GetLastBonus(Player player, int id)
+        {
+            if (!Group.CanUseCmd(player, "getbonus")) return;
+
+            var target = Main.GetPlayerByID(id);
+            if (target == null)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок с таким ID не найден", 3000);
+                return;
+            }
+            DateTime date = new DateTime((new DateTime().AddMinutes(Main.Players[target].LastBonus)).Ticks);
+            var hour = date.Hour;
+            var min = date.Minute;
+            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус игрока({id}): {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
+        }
+        #endregion
+
+        #region D2U Lastbonus
+        [Command("lastbonus")]
+        public static void LastBonus(Player player)
+        {
+            if (!Group.CanUseCmd(player, "lastbonus")) return;
+            DateTime date = new DateTime((new DateTime().AddMinutes(Main.oldconfig.LastBonusMin)).Ticks);
+            var hour = date.Hour;
+            var min = date.Minute;
+            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус составляет: {hour} часов и {min} минут", 2500);
+        }
+        #endregion
+
+        #region D2U Lastbonus
+        [Command("setbonus")]
+        public static void SetLastBonus(Player player, int id, int count)
+        {
+            if (!Group.CanUseCmd(player, "setbonus")) return;
+
+            var target = Main.GetPlayerByID(id);
+            if (target == null)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок с таким ID не найден", 3000);
+                return;
+            }
+            count = Convert.ToInt32(Math.Abs(count));
+            if (count > Main.oldconfig.LastBonusMin)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Введенное число превышает значение максимума. Максимум: {Main.oldconfig.LastBonusMin}", 3000);
+                return;
+            }
+            Main.Players[target].LastBonus = count;
+            DateTime date = new DateTime((new DateTime().AddMinutes(Main.Players[target].LastBonus)).Ticks);
+            var hour = date.Hour;
+            var min = date.Minute;
+            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус для игрока({id}) установлен на {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
+        }
+        #endregion
+
         [Command("createrod")]
         public static void CMD_createRod(Player player, float radius)
         {

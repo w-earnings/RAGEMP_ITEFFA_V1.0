@@ -2,6 +2,8 @@ var HUD = new Vue({
   el: ".inGameHud",
   data: {
     show: false,
+    bonusblock: true,
+		lastbonus: null,
     ammo: 0,
     money: 0,
     bank: 0,
@@ -30,6 +32,9 @@ var HUD = new Vue({
       this.time = time;
       this.date = date;
     },
+    showbonus(){
+			this.bonusblock = !this.bonusblock;
+		},
     updateSpeed(currentspeed, maxspeed = 240) {
       this.speed = currentspeed;
 

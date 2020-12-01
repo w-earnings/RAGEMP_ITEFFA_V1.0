@@ -139,6 +139,10 @@ mp.events.add('UpdateBank', function (temp, amount) {
   mp.gui.execute(`HUD.bank="${money}"`);
 });
 
+mp.events.add('updlastbonus', function (bonus) {
+  mp.gui.execute(`HUD.lastbonus="${bonus}"`);
+});
+
 mp.events.add('setWanted', function (lvl) {
   mp.game.gameplay.setFakeWantedLevel(lvl);
 });

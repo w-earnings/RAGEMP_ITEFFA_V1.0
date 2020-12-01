@@ -856,6 +856,23 @@ namespace iTeffa.Kernel
             ItemType.ArmDrink2,
             ItemType.ArmDrink3,
         };
+
+        #region D2U ItemType.Present
+        public static readonly List<Tuple<int, int>> PresentsTypes = new List<Tuple<int, int>>()
+        {
+            new Tuple<int, int>(0, 5),
+            new Tuple<int, int>(1, 4),
+            new Tuple<int, int>(2, 3),
+            new Tuple<int, int>(5, 0),
+            new Tuple<int, int>(4, 1),
+            new Tuple<int, int>(3, 2),
+        };
+        public static readonly List<int> TypesCounts = new List<int>()
+        {
+            10, 25, 50, 1000, 5000, 10000
+        };
+        #endregion
+
         // UUID, Items by index
         public static Dictionary<int, List<nItem>> Items = new Dictionary<int, List<nItem>>();
         private static nLog Log = new nLog("nInventory");
@@ -1986,6 +2003,10 @@ namespace iTeffa.Kernel
                             return;
                         }
                         break;
+
+
+
+
                     case ItemType.Lockpick:
                         if (player.GetData<int>("INTERACTIONCHECK") != 3)
                         {
@@ -2020,6 +2041,47 @@ namespace iTeffa.Kernel
                             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"У Вас получилось завести машину", 3000);
                         }
                         break;
+
+                    case ItemType.Present:
+                        player.Health = (player.Health + 10 > 100) ? 100 : player.Health + 10;
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы открыли подарок, в нём были:", 3000);
+
+                        Tuple<int, int> types = nInventory.PresentsTypes[Convert.ToInt32(item.Data)];
+                        if (types.Item1 <= 2)
+                        {
+                            Main.Players[player].EXP += nInventory.TypesCounts[types.Item1];
+                            if (Main.Players[player].EXP >= 3 + Main.Players[player].LVL * 3)
+                            {
+                                Main.Players[player].EXP = Main.Players[player].EXP - (3 + Main.Players[player].LVL * 3);
+                                Main.Players[player].LVL += 1;
+                            }
+
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
+
+                            Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item2]);
+
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
+                        }
+                        else
+                        {
+                            Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item1]);
+
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
+
+                            Main.Players[player].EXP += nInventory.TypesCounts[types.Item2];
+                            if (Main.Players[player].EXP >= 3 + Main.Players[player].LVL * 3)
+                            {
+                                Main.Players[player].EXP = Main.Players[player].EXP - (3 + Main.Players[player].LVL * 3);
+                                Main.Players[player].LVL += 1;
+                            }
+
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
+                        }
+
+                        Commands.RPChat("me", player, $"открыл(а) подарок {types.Item1} + {types.Item2}");
+                        break;
+
+
                 }
                 nInventory.Remove(player, item.Type, 1);
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы использовали {nInventory.ItemsNames[item.ID]}", 3000);

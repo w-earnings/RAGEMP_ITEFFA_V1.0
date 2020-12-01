@@ -2529,6 +2529,33 @@ namespace iTeffa
                     {
                         if (!Players.ContainsKey(p)) continue;
                         Players[p].LastHourMin++;
+
+                        #region D2U Bonussystem
+                        if (!Players[p].IsBonused)
+                        {
+                            if (Players[p].LastBonus < oldconfig.LastBonusMin) //todo bonus
+                            {
+                                Players[p].LastBonus++;
+                            }
+                            else
+                            {
+                                Random rnd = new Random();
+                                int type = rnd.Next(0, nInventory.PresentsTypes.Count);
+                                nInventory.Add(p, new nItem(ItemType.Present, 1, type));
+                                Notify.Send(p, NotifyType.Info, NotifyPosition.BottomCenter, "Вы получили 20 донат валюты и подарок, за 2 часа онлайна сегодня", 3000);
+                                Players[p].LastBonus = 0;
+                                Players[p].IsBonused = true;
+                                Accounts[p].Coins += 20;
+                                Trigger.ClientEvent(p, "updlastbonus", $"следующий бонус можно получить только завтра");
+                                return;
+                            }
+                            DateTime date = new DateTime((new DateTime().AddMinutes(oldconfig.LastBonusMin - Players[p].LastBonus)).Ticks);
+                            var hour = date.Hour;
+                            var min = date.Minute;
+                            Trigger.ClientEvent(p, "updlastbonus", $"{hour}ч. {min}м.");
+                        }
+                        #endregion
+
                     }
                     catch (Exception e) { Log.Write($"PlayedMinutesTrigger: " + e.Message, nLog.Type.Error); }
                 }
@@ -3734,6 +3761,7 @@ namespace iTeffa
         public bool DonateChecker { get; set; } = false;
         public bool DonateSaleEnable { get; set; } = false;
         public int PaydayMultiplier { get; set; } = 1;
+        public int LastBonusMin { get; set; } = 120;
         public int ExpMultiplier { get; set; } = 1;
         public bool SCLog { get; set; } = false;
     }

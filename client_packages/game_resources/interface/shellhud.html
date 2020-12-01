@@ -5,6 +5,7 @@
 	<title> iTeffa.com | Hud Window </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./assets/css/shellhud.css">
+
   </head>
   <body class="iTeffa">
     <div id="safezone">
@@ -13,6 +14,22 @@
       </div>
 	  <div class="inGameHud" v-if="show">
 	  <div class="beta">Frontend и backend разработка!</div>
+
+	  <div class="bonus">
+		<div class="bonus-bar" v-if="!bonusblock">
+			<i @click="showbonus()" class="fa fa-gift" aria-hidden="true"></i>
+		</div>
+		<div class="bonus-block" v-else>
+			<header>
+				<span>Вы получите бонус через:</span>
+				<i @click="showbonus()" aria-hidden="true" class="fa fa-times"></i>
+			</header>
+			<div class="main">
+				<p>{{lastbonus}}</p>
+			</div>
+		</div>
+	</div>
+
 		<div class="logobox">
 		  <div class="player">
 		    <i class="fas fa-clock"></i> {{time}}
@@ -84,6 +101,7 @@
 	<script src="./assets/js/shellhud.js"></script>
 	<script src="./assets/js/notify.js"></script>
 	<script src="./assets/js/noty.min.js"></script>
+	<script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
 	<script>
       function hidehud(toggle) {if (toggle) {HUD.show = false;logotype.show = false;} else {HUD.show = true;logotype.show = true;}}
 	  function hidehelp(toggle) {if (toggle) {$('.help').hide();} else {$('.help').show();}}

@@ -19,6 +19,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appe
 .iTeffa .logobox .online {font-size: 10pt; color: #fff; position: absolute; top: 57px; text-align-last: right; opacity: 0.85;text-align-last: right;right:25px;}
 .iTeffa .inGameHud .help {position: absolute; top: 40%; right: 0px; transform: translate(-40%)}
 
+.bonus {position: absolute;top: 200px;right: 5px;z-index: 999;}
+.bonus-bar {background: #18191D;border-radius: 5px;padding: 2px 5px;color: gray;font-size: 1.5em;}
+.bonus-block {display: flex;flex-wrap: wrap;width: 300px;height: auto;background-color: #18191D; color:#fff;}
+.bonus-block header {flex: 40%;width: 100%;background-color: #1D2027;padding: 7px 15px;display: flex;align-items: center;justify-content: space-between;}
+.bonus-block header .fa-times {color: #ab2b2b;}
+.bonus-block .main {flex: 60%;width: 100%;padding: 10px;background-color: transparent;}
+.bonus-block .main p {padding: 10px 30px;text-align: center;background-color: #131316;box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 1);}
+
 .speedometer {position: absolute;bottom: 10px;right: 20px;}
 .speedometer .speed {position: absolute;bottom: 0vh;right: 3vh;width: 26.85185vh;height: unset;}
 .speedometer .speed path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
