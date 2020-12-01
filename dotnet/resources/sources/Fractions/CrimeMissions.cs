@@ -215,7 +215,7 @@ namespace iTeffa.Fractions
                         if (!Main.Players.ContainsKey(e) || (Main.Players[e].FractionID != 7 && Main.Players[e].FractionID != 9) || !e.IsInVehicle || !e.Vehicle.HasData("ACCESS")
                             || (e.Vehicle.GetData<string>("ACCESS") != "GANGDELIVERY" && e.Vehicle.GetData<string>("ACCESS") != "MAFIADELIVERY")) return;
 
-                        NAPI.Data.ResetEntityData(e.Vehicle.GetData<Vehicle>("WHOS_VEH"), "DELIVERY_CAR");
+                        NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                         e.Vehicle.Delete();
                         Finance.Wallet.Change(e, 250);
                         GameLog.Money($"server", $"player({Main.Players[e].UUID})", 250, $"arrestCar");
@@ -245,7 +245,7 @@ namespace iTeffa.Fractions
                                 return;
                             }
 
-                            NAPI.Data.ResetEntityData(e.Vehicle.GetData<Vehicle>("WHOS_VEH"), "DELIVERY_CAR");
+                            NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                             e.Vehicle.Delete();
                             Stocks.fracStocks[Main.Players[e].FractionID].Money += 500;
                             GameLog.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
@@ -278,7 +278,7 @@ namespace iTeffa.Fractions
                                 return;
                             }
 
-                            NAPI.Data.ResetEntityData(e.Vehicle.GetData<Vehicle>("WHOS_VEH"), "DELIVERY_CAR");
+                            NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                             e.Vehicle.Delete();
                             Stocks.fracStocks[Main.Players[e].FractionID].Money += 500;
                             GameLog.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
