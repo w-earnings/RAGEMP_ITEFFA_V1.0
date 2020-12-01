@@ -135,11 +135,6 @@ namespace iTeffa.Working
         }
         public static void JobJoin(Player player, int job)
         {
-            if (Main.Players[player].FractionID != 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете устроиться на работу, потому что состоите в организации", 3000);
-                return;
-            }
             if (Main.Players[player].WorkID != 0)
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Для начала увольтесь с предыдущей работы.", 3000);
