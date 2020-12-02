@@ -11,6 +11,7 @@ using iTeffa.Finance;
 using System.Text.RegularExpressions;
 using MySqlConnector;
 using iTeffa.Speaking;
+using iTeffa.Houses;
 
 namespace iTeffa.Kernel
 {
@@ -98,6 +99,66 @@ namespace iTeffa.Kernel
             catch (Exception e) { Log.Write("ChatMessage: " + e.Message, nLog.Type.Error); }
         }
 
+        [Command("setgarage")]
+        public static void CMD_SetGarage(Player player, int ID)
+        {
+            if (!Group.CanUseCmd(player, "ban")) return;
+            if (!player.HasData("HOUSEID"))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
+                return;
+            }
+
+            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
+            if (house == null) return;
+
+            if (!GarageManager.Garages.ContainsKey(ID)) return;
+            house.GarageID = ID;
+            house.Save();
+        }
+        [Command("creategarage")]
+        public static void CMD_CreateGarage(Player player, int type)
+        {
+            if (!player.IsInVehicle)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du musst im Auto sitzen!", 3000);
+                return;
+            }
+
+            if (!Group.CanUseCmd(player, "allspawncar")) return;
+            if (!GarageManager.GarageTypes.ContainsKey(type)) return;
+            int id = 0;
+            do
+            {
+                id++;
+
+            } while (GarageManager.Garages.ContainsKey(id));
+
+            Garage garage = new Garage(id, type, player.Vehicle.Position, player.Vehicle.Rotation)
+            {
+                Dimension = GarageManager.DimensionID
+            };
+            garage.Create();
+            if (type != -1) garage.CreateInterior();
+
+            GarageManager.Garages.Add(garage.ID, garage);
+            NAPI.Chat.SendChatMessageToPlayer(player, garage.ID.ToString());
+        }
+        [Command("removegarage")]
+        public static void CMD_RemoveGarage(Player player)
+        {
+            if (!Group.CanUseCmd(player, "allspawncar")) return;
+            if (!player.HasData("GARAGEID"))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie sollten auf dem Garagenmarker stehen", 3000);
+                return;
+            }
+            if (!GarageManager.Garages.ContainsKey(player.GetData<int>("GARAGEID"))) return;
+            Garage garage = GarageManager.Garages[player.GetData<int>("GARAGEID")];
+            garage.Destroy();
+            GarageManager.Garages.Remove(player.GetData<int>("GARAGEID"));
+            Connect.Query($"DELETE FROM `garages` WHERE `id`='{garage.ID}'");
+        }
         [Command("getbonus")]
         public static void GetLastBonus(Player player, int id)
         {
