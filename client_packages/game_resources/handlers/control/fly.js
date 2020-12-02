@@ -30,11 +30,13 @@ function pointingAt(distance) {
     return result;
 }
 
+
 mp.events.add("AGM", (toggle) => {
 	admingm = toggle;
 	localplayer.setInvincible(toggle);
-	mp.game.graphics.notify(toggle ? '~g~Бессмертие включено' : '~r~Бессмертие выключено');
+	mp.game.graphics.notify(toggle ? 'GM: ~g~Enabled' : 'GM: ~r~Disabled');
 });
+
 
 mp.keys.bind(Keys.VK_F7, false, function () {
     if (!loggedin || localplayer.getVariable('IS_ADMIN') !== true) return;

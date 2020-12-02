@@ -19,8 +19,6 @@ namespace iTeffa.Kernel
         private static nLog Log = new nLog("Commands");
         private static Random rnd = new Random();
 
-        #region Chat logic
-
         public static void SendToAdmins(ushort minLVL, string message)
         {
             foreach (var p in Main.Players.Keys.ToList())
@@ -32,7 +30,6 @@ namespace iTeffa.Kernel
                 }
             }
         }
-
         private static string RainbowExploit(Player sender, string message)
         {
             if (message.Contains("!{"))
@@ -49,7 +46,6 @@ namespace iTeffa.Kernel
             }
             return message;
         }
-
         [ServerEvent(Event.ChatMessage)]
         public void API_onChatMessage(Player sender, string message)
         {
@@ -101,11 +97,7 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("ChatMessage: " + e.Message, nLog.Type.Error); }
         }
-        #endregion Chat logic
 
-        #region AdminCommands
-
-        #region D2U Lastbonus
         [Command("getbonus")]
         public static void GetLastBonus(Player player, int id)
         {
@@ -122,9 +114,6 @@ namespace iTeffa.Kernel
             var min = date.Minute;
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус игрока({id}): {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
         }
-        #endregion
-
-        #region D2U Lastbonus
         [Command("lastbonus")]
         public static void LastBonus(Player player)
         {
@@ -134,9 +123,6 @@ namespace iTeffa.Kernel
             var min = date.Minute;
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус составляет: {hour} часов и {min} минут", 2500);
         }
-        #endregion
-
-        #region D2U Lastbonus
         [Command("setbonus")]
         public static void SetLastBonus(Player player, int id, int count)
         {
@@ -160,8 +146,6 @@ namespace iTeffa.Kernel
             var min = date.Minute;
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус для игрока({id}) установлен на {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
         }
-        #endregion
-
         [Command("createrod")]
         public static void CMD_createRod(Player player, float radius)
         {
@@ -171,8 +155,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
-
         [Command("sh1")]
         public static void CMD_sheriffAccept(Player player, int id)
         {
@@ -187,7 +169,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("givelic")]
         public static void CMD_giveLicense(Player player, int id, int lic)
         {
@@ -254,7 +235,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("bankfix")]
         public static void CMD_bankfix(Player client, int bank)
         {
@@ -270,7 +250,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("gethwid")]
         public static void CMD_gethwid(Player client, int ID)
         {
@@ -287,7 +266,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("getsocialclub")]
         public static void CMD_getsc(Player client, int ID)
         {
@@ -304,7 +282,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("loggedinfix")]
         public static void CMD_loggedinfix(Player player, string login)
         {
@@ -330,7 +307,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("vconfigload")]
         public static void CMD_loadConfigVehicles(Player player, int type, int number)
         {
@@ -487,22 +463,13 @@ namespace iTeffa.Kernel
             {
                 if (!Group.CanUseCmd(player, "promosync")) return;
                 promocode = promocode.ToLower();
-
                 Main.PromoCodes.Add(promocode, new Tuple<int, int, int>(1, 0, uuid));
-
-                MySqlCommand queryCommand = new MySqlCommand(@"
-                    INSERT INTO `promocodes` (`name`, `type`, `count`, `owner`)
-                    VALUES
-                    (@NAME, @TYPE, @COUNT, @OWNER)
-                ");
-
+                MySqlCommand queryCommand = new MySqlCommand(@"INSERT INTO `promocodes` (`name`, `type`, `count`, `owner`) VALUES (@NAME, @TYPE, @COUNT, @OWNER)");
                 queryCommand.Parameters.AddWithValue("@NAME", promocode);
                 queryCommand.Parameters.AddWithValue("@TYPE", 1);
                 queryCommand.Parameters.AddWithValue("@COUNT", 0);
                 queryCommand.Parameters.AddWithValue("@OWNER", uuid);
-
                 Connect.Query(queryCommand);
-
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"success", 3000);
             }
             catch { }
@@ -615,9 +582,6 @@ namespace iTeffa.Kernel
             }
 
         }
-
-
-        #region Донат команды
         [Command("givecoins")]
         public static void CMD_givecoins(Player player, int id, int amount)
         {
@@ -633,7 +597,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("takecoins")]
         public static void CMD_offredbaks(Player client, string name, long amount)
         {
@@ -652,9 +615,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-        #endregion Донат команды
-
-
         [Command("checkprop")]
         public static void CMD_checkProperety(Player player, int id)
         {
@@ -1888,29 +1848,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-        //[Command("veh")]
-        //public static void CMD_createVehicle(Player player, string name, int a, int b)
-        //{
-        //    try
-        //    {
-        //        if (player == null || !Main.Players.ContainsKey(player)) return;
-        //        if (!Group.CanUseCmd(player, "vehc")) return;
-        //        VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(name);
-        //        if (vh == 0) throw null;
-        //        var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-        //        veh.Dimension = player.Dimension;
-        //        veh.NumberPlate = "ADMIN";
-        //        veh.PrimaryColor = a;
-        //        veh.SecondaryColor = b;
-        //        veh.SetData("ACCESS", "ADMIN");
-        //        veh.SetData("BY", player.Name);
-        //        VehicleStreaming.SetEngineState(veh, true);
-        //        GameLog.Admin($"{player.Name}", $"vehCreate({name})", $"");
-        //    }
-        //    catch { }
-        //}
-        // player.SocialClubName;
-        //СВОЯ КОМАНДА
         [Command("newrentveh")]
         public static void newrentveh(Player player, string model, string number, int price, int c1, int c2)
         {
@@ -2107,7 +2044,7 @@ namespace iTeffa.Kernel
             Main.payDayTrigger();
         }
         [Command("giveitem")]
-        public static void CMD_giveItem(Player player, int id, int itemType, int amount, string data)   //        public static void CMD_giveItem(Client player, int id, int itemType, int amount, string data)
+        public static void CMD_giveItem(Player player, int id, int itemType, int amount, string data)
         {
             try
             {
@@ -2493,7 +2430,6 @@ namespace iTeffa.Kernel
             c.SendChatMessage("Rotation");
             c.SendChatMessage("Z: " + rot.Z);
         }
-
         [Command("restart")]
         public void HandleShutDown(Player cc, int second)
         {
@@ -2502,15 +2438,8 @@ namespace iTeffa.Kernel
                 cc.SendNotification("Минимум 5 секунд и максимум 9 минут!");
                 return;
             }
-
-            foreach (Player c in NAPI.Pools.GetAllPlayers())
-            {
-                // saveDatabase()
-            }
-
-
-            NAPI.Chat.SendChatMessageToAll("[~r~SERVER~w~]: Перезагрузка сервера через " + second + " Секунды. [ИСПРАВЛЕНИЕ ОШИБКИ] Пожалуйста, выйдите из системы заранее, чтобы ваши вещи были сохранены!");
-
+            foreach (Player c in NAPI.Pools.GetAllPlayers()) { }
+            NAPI.Chat.SendChatMessageToAll("[~r~SERVER~w~]: Перезагрузка сервера через " + second + " Секунды. Пожалуйста, выйдите из системы заранее, чтобы ваши вещи были сохранены!");
             Task.Run(() =>
             {
                 Task.Delay(1000 * second * 1).Wait();
@@ -2518,18 +2447,14 @@ namespace iTeffa.Kernel
                 Environment.Exit(0);
             });
         }
-        // dimension  command
         [Command("dim")]
         public void HandleTp(Player c, uint d)
         {
-
             c.Dimension = d;
         }
-        // teleport zu den Kondinarten x y Z
         [Command("mtp2")]
         public void HandleTp(Player c, double x, double y, double z)
         {
-
             c.Position = new Vector3(x, y, z);
         }
         [Command("veh")]
@@ -2776,7 +2701,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-
         [Command("findbyveh")]
         public static void CMD_FindByVeh(Player player, string number)
         {
@@ -2790,7 +2714,6 @@ namespace iTeffa.Kernel
             if (VehicleManager.Vehicles.ContainsKey(number)) Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Номер машины: {number} | Модель: {VehicleManager.Vehicles[number].Model} | Владелец: {VehicleManager.Vehicles[number].Holder}", 6000);
             else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Не найдено машины с таким номерным знаком.", 3000);
         }
-
         [Command("vehcustom")]
         public static void CMD_ApplyCustom(Player client, int cat = -1, int id = -1)
         {
@@ -2897,10 +2820,6 @@ namespace iTeffa.Kernel
             }
             catch { }
         }
-       
-
-
-
         [Command("sw")] // Управления погодой...
         public static void CMD_setWeatherID(Player player, byte weather)
         {
@@ -2908,11 +2827,6 @@ namespace iTeffa.Kernel
             Main.changeWeather(weather);
             GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
         }
-
-
-
-
-
         [Command("st")]
         public static void CMD_setTime(Player player, int hours, int minutes, int seconds)
         {
@@ -2997,9 +2911,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
-
-        #region Бизнес команды
         [Command("createbusiness")]
         public static void CMD_createBiz(Player player, int govPrice, int type)
         {
@@ -3025,7 +2936,6 @@ namespace iTeffa.Kernel
             }
 
         }
-        #endregion Бизнес команды
         [Command("position")]
         public static void position(Player player)
         {
@@ -3036,13 +2946,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
-
-
-
-
-
-
         [Command("createunloadpoint")]
         public static void CMD_createUnloadPoint(Player player, int bizid)
         {
@@ -3052,7 +2955,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("createsafe", GreedyArg = true)]
         public static void CMD_createSafe(Player player, int id, float distance, int min, int max, string address)
         {
@@ -3123,7 +3025,6 @@ namespace iTeffa.Kernel
             {
             }
         }
-
         [Command("loadprop")]
         public static void CMD_LoadProp(Player player, double x, double y, double z, string prop)
         {
@@ -3150,7 +3051,6 @@ namespace iTeffa.Kernel
             {
             }
         }
-
         [Command("starteffect")]
         public static void CMD_StartEffect(Player player, string effect, int dur = 0, bool loop = false)
         {
@@ -3191,7 +3091,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("offjail", GreedyArg = true)]
         public static void CMD_offlineJailTarget(Player player, string target, int time, string reason)
         {
@@ -3357,7 +3256,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("mute", GreedyArg = true)]
         public static void CMD_muteTarget(Player player, int id, int time, string reason)
         {
@@ -3489,18 +3387,13 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
-
-
-
-
-        [Command("agm")]
+        [Command("agm")] // Вкл, Выкл Бессмертие
         public static void CMD_enableGodmode(Player player)
         {
             try
             {
                 if (!Group.CanUseCmd(player, "agm")) return;
-                if (!player.HasSharedData("AGM") || player.GetSharedData<bool>("AGM"))
+                if (!player.HasSharedData("AGM"))
                 {
                     Trigger.ClientEvent(player, "AGM", true);
                     player.SetSharedData("AGM", true);
@@ -3508,16 +3401,11 @@ namespace iTeffa.Kernel
                 else
                 {
                     Trigger.ClientEvent(player, "AGM", false);
-                    player.SetSharedData("AGM", false);
+                    player.ResetSharedData("AGM");
                 }
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
-
-
-
-
         [Command("warn", GreedyArg = true)]
         public static void CMD_warnTarget(Player player, int id, string reason)
         {
@@ -3607,9 +3495,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-        #endregion
-
-        #region VipCommands
         [Command("leave")]
         public static void CMD_leaveFraction(Player player)
         {
@@ -3636,8 +3521,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-        #endregion
-
         [Command("testnotify", GreedyArg = true)]
         public static void CMD_testnotify(Player player, int id, int sum, string reason)
         {
@@ -3647,7 +3530,6 @@ namespace iTeffa.Kernel
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Уведомление Info", 3000);
             Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Уведомление Info", 3000);
         }
-
         [Command("ticket", GreedyArg = true)]
         public static void CMD_govTicket(Player player, int id, int sum, string reason)
         {
@@ -3669,7 +3551,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("respawn")]
         public static void CMD_respawnFracCars(Player player)
         {
@@ -3679,7 +3560,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("givemedlic")]
         public static void CMD_givemedlic(Player player, int id)
         {
@@ -3700,7 +3580,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("sellbiz")]
         public static void CMD_sellBiz(Player player, int id, int price)
         {
@@ -3715,7 +3594,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("password")]
         public static void CMD_ResetPassword(Player player, string new_password)
         {
@@ -3723,7 +3601,6 @@ namespace iTeffa.Kernel
             Main.Accounts[player].changePassword(new_password);
             Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, "Вы сменили пароль! Перезайдите с новым.", 3000);
         }
-
         [Command("time")]
         public static void CMD_checkPrisonTime(Player player)
         {
@@ -3736,7 +3613,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("ptime")]
         public static void CMD_pcheckPrisonTime(Player player, int id)
         {
@@ -3756,7 +3632,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("sellcars")]
         public static void CMD_sellCars(Player player)
         {
@@ -3766,7 +3641,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("dep", GreedyArg = true)]
         public static void CMD_govFracChat(Player player, string msg)
         {
@@ -3776,7 +3650,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("gov", GreedyArg = true)]
         public static void CMD_gov(Player player, string msg)
         {
@@ -3791,7 +3664,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("call", GreedyArg = true)]
         public static void CMD_gov(Player player, int number, string msg)
         {
@@ -3804,13 +3676,11 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("q")]
         public static void CMD_disconnect(Player player)
         {
             Trigger.ClientEvent(player, "quitcmd");
         }
-
         [Command("report", GreedyArg = true)]
         public static void CMD_report(Player player, string message)
         {
@@ -3876,7 +3746,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("takegunlic")]
         public static void CMD_takegunlic(Player player, int id)
         {
@@ -3891,7 +3760,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("givegunlic")]
         public static void CMD_givegunlic(Player player, int id, int price)
         {
@@ -3906,7 +3774,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("pd")]
         public static void CMD_policeAccept(Player player, int id)
         {
@@ -3921,7 +3788,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("eject")]
         public static void CMD_ejectTarget(Player player, int id)
         {
@@ -3946,7 +3812,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("ems")]
         public static void CMD_emsAccept(Player player, int id)
         {
@@ -3961,7 +3826,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("pocket")]
         public static void CMD_pocketTarget(Player player, int id)
         {
@@ -3993,7 +3857,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("setrank")]
         public static void CMD_setRank(Player player, int id, int newrank)
         {
@@ -4008,7 +3871,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("invite")]
         public static void CMD_inviteFrac(Player player, int id)
         {
@@ -4023,7 +3885,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("uninvite")]
         public static void CMD_uninviteFrac(Player player, int id)
         {
@@ -4038,7 +3899,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("f", GreedyArg = true)]
         public static void CMD_fracChat(Player player, string msg)
         {
@@ -4048,7 +3908,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("arrest")]
         public static void CMD_arrest(Player player, int id)
         {
@@ -4063,7 +3922,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("rfp")]
         public static void CMD_rfp(Player player, int id)
         {
@@ -4078,7 +3936,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("follow")]
         public static void CMD_follow(Player player, int id)
         {
@@ -4093,7 +3950,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("unfollow")]
         public static void CMD_unfollow(Player player)
         {
@@ -4103,7 +3959,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("su", GreedyArg = true)]
         public static void CMD_suByPassport(Player player, int pass, int stars, string reason)
         {
@@ -4113,7 +3968,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("c")]
         public static void CMD_getCoords(Player player)
         {
@@ -4125,7 +3979,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("incar")]
         public static void CMD_inCar(Player player, int id)
         {
@@ -4140,7 +3993,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("pull")]
         public static void CMD_pullOut(Player player, int id)
         {
@@ -4155,7 +4007,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("warg")]
         public static void CMD_warg(Player player)
         {
@@ -4165,7 +4016,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("medkit")]
         public static void CMD_medkit(Player player, int id, int price)
         {
@@ -4180,7 +4030,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("accept")]
         public static void CMD_accept(Player player, int id)
         {
@@ -4195,7 +4044,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("heal")]
         public static void CMD_heal(Player player, int id, int price)
         {
@@ -4210,7 +4058,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("capture")]
         public static void CMD_capture(Player player)
         {
@@ -4220,7 +4067,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("repair")]
         public static void CMD_mechanicRepair(Player player, int id, int price)
         {
@@ -4235,7 +4081,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("sellfuel")]
         public static void CMD_mechanicSellFuel(Player player, int id, int fuel, int pricePerLitr)
         {
@@ -4250,7 +4095,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("buyfuel")]
         public static void CMD_mechanicBuyFuel(Player player, int fuel)
         {
@@ -4260,7 +4104,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("ma")]
         public static void CMD_acceptMechanic(Player player, int id)
         {
@@ -4275,7 +4118,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("cmechanic")]
         public static void CMD_cancelMechanic(Player player)
         {
@@ -4285,7 +4127,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("tprice")]
         public static void CMD_tprice(Player player, int id, int price)
         {
@@ -4300,7 +4141,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("ta")]
         public static void CMD_taxiAccept(Player player, int id)
         {
@@ -4315,7 +4155,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("ctaxi")]
         public static void CMD_cancelTaxi(Player player)
         {
@@ -4325,7 +4164,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("taxi")]
         public static void CMD_callTaxi(Player player)
         {
@@ -4335,7 +4173,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("orders")]
         public static void CMD_orders(Player player)
         {
@@ -4345,7 +4182,6 @@ namespace iTeffa.Kernel
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
-
         [Command("me", GreedyArg = true)]
         public static async Task CMD_chatMe(Player player, string msg)
         {
@@ -4357,7 +4193,6 @@ namespace iTeffa.Kernel
             msg = RainbowExploit(player, msg);
             await RPChatAsync("me", player, msg);
         }
-
         [Command("do", GreedyArg = true)]
         public static async Task CMD_chatDo(Player player, string msg)
         {
@@ -4369,7 +4204,6 @@ namespace iTeffa.Kernel
             msg = RainbowExploit(player, msg);
             await RPChatAsync("do", player, msg);
         }
-
         [Command("todo", GreedyArg = true)]
         public static async Task CMD_chatToDo(Player player, string msg)
         {
@@ -4380,7 +4214,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("todo", player, msg);
         }
-
         [Command("s", GreedyArg = true)]
         public static async Task CMD_chatS(Player player, string msg)
         {
@@ -4391,7 +4224,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("s", player, msg);
         }
-
         [Command("b", GreedyArg = true)]
         public static async Task CMD_chatB(Player player, string msg)
         {
@@ -4402,7 +4234,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("b", player, msg);
         }
-
         [Command("vh", GreedyArg = true)]
         public static async Task CMD_chatVh(Player player, string msg)
         {
@@ -4413,7 +4244,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("vh", player, msg);
         }
-
         [Command("m", GreedyArg = true)]
         public static async Task CMD_chatM(Player player, string msg)
         {
@@ -4424,7 +4254,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("m", player, msg);
         }
-
         [Command("t", GreedyArg = true)]
         public static async Task CMD_chatT(Player player, string msg)
         {
@@ -4435,7 +4264,6 @@ namespace iTeffa.Kernel
             }
             await RPChatAsync("t", player, msg);
         }
-
         [Command("try", GreedyArg = true)]
         public static void CMD_chatTry(Player player, string msg)
         {
@@ -4446,16 +4274,13 @@ namespace iTeffa.Kernel
             }
             Try(player, msg);
         }
-
         #region Try command handler
         private static void Try(Player sender, string message)
         {
             try
             {
-                //Random
                 int result = rnd.Next(5);
                 Log.Debug("Random result: " + result.ToString());
-                //
                 switch (result)
                 {
                     case 3:
@@ -4471,7 +4296,6 @@ namespace iTeffa.Kernel
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
         #endregion Try command handler
-
         #region RP Chat
         public static void RPChat(string cmd, Player sender, string message, Player target = null)
         {
@@ -4672,7 +4496,6 @@ namespace iTeffa.Kernel
 
             return 0;
         }
-
         public static void rejectDiceGame(Player playerTwo)
         {
             Player originPlayer = playerTwo.GetData<Player>("DICE_PLAYER");
