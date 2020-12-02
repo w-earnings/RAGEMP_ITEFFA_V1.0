@@ -17,10 +17,8 @@ namespace iTeffa.Houses
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }
         public bool IsSet { get; set; }
-
         [JsonIgnore]
         public GTANetworkAPI.Object obj { get; private set; }
-
         public HouseFurniture(int id, string name, string model)
         {
             Name = name;
@@ -28,7 +26,6 @@ namespace iTeffa.Houses
             ID = id;
             IsSet = false;
         }
-
         public GTANetworkAPI.Object Create(uint Dimension)
         {
             obj = NAPI.Object.CreateObject(NAPI.Util.GetHashKey(Model), Position, Rotation, 255, Dimension);
@@ -36,10 +33,9 @@ namespace iTeffa.Houses
             return obj;
         }
     }
-
     class FurnitureManager : Script
     {
-        private static nLog Log = new nLog("HouseFurniture");
+        private static readonly nLog Log = new nLog("HouseFurniture");
         public static Dictionary<int, Dictionary<int, HouseFurniture>> HouseFurnitures = new Dictionary<int, Dictionary<int, HouseFurniture>>();
         public static Dictionary<int, Dictionary<int, List<nItem>>> FurnituresItems = new Dictionary<int, Dictionary<int, List<nItem>>>();
         public FurnitureManager()
@@ -85,7 +81,6 @@ namespace iTeffa.Houses
                 Connect.Query($"INSERT INTO `furniture`(`uuid`,`furniture`,`data`) VALUES ({id},'{JsonConvert.SerializeObject(new Dictionary<int, HouseFurniture>())}','{JsonConvert.SerializeObject(new Dictionary<int, List<nItem>>())}')");
             }
         }
-
         public static void newFurniture(int id, string name)
         {
             if (!HouseFurnitures.ContainsKey(id)) Create(id);
@@ -97,7 +92,6 @@ namespace iTeffa.Houses
             FurnituresItems[id].Add(furn.ID, data);
             HouseFurnitures[id].Add(i, furn);
         }
-
         [RemoteEvent("acceptEdit")]
         public void ClientEvent_acceptEdit(Player player, float X, float Y, float Z, float XX, float YY, float ZZ)
         {
@@ -114,7 +108,6 @@ namespace iTeffa.Houses
                 HouseFurnitures[house.ID][id].IsSet = true;
                 Vector3 pos = new Vector3(X, Y, Z);
                 Vector3 rot = new Vector3(XX, YY, ZZ);
-
                 HouseFurnitures[house.ID][id].Position = pos;
                 HouseFurnitures[house.ID][id].Rotation = rot;
                 house.DestroyFurnitures();
@@ -124,7 +117,6 @@ namespace iTeffa.Houses
             }
             catch (Exception e) { Log.Write("acceptEdit: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("cancelEdit")]
         public void ClientEvent_cancelEdit(Player player, params object[] arguments)
         {
@@ -135,7 +127,6 @@ namespace iTeffa.Houses
             }
             catch (Exception e) { Log.Write("cancelEdit: " + e.Message, nLog.Type.Error); }
         }
-
         #region Safes Inventory
         public static Dictionary<string, int> SafesType = new Dictionary<string, int>()
         {
@@ -143,7 +134,6 @@ namespace iTeffa.Houses
             { "Шкаф с одеждой", 4 },
             { "Оружейный сейф", 8 },
         };
-
         public static void Add(int houseID, int furnID, nItem item)
         {
             HouseFurniture furniture = HouseFurnitures[houseID][furnID];
@@ -169,7 +159,6 @@ namespace iTeffa.Houses
                         count -= temp;
                     }
                 }
-
                 while (count > 0)
                 {
                     if (count >= nInventory.ItemsStacks[item.Type])
@@ -184,7 +173,6 @@ namespace iTeffa.Houses
                     }
                 }
             }
-
             FurnituresItems[houseID][furnID] = items;
             foreach (var p in NAPI.Pools.GetAllPlayers())
             {
@@ -193,7 +181,6 @@ namespace iTeffa.Houses
                     Interface.Dashboard.OpenOut(p, items, furniture.Name, type);
             }
         }
-
         public static int TryAdd(int houseID, int furnID, nItem item)
         {
             HouseFurniture furniture = HouseFurnitures[houseID][furnID];
@@ -216,7 +203,6 @@ namespace iTeffa.Houses
             }
             return tail;
         }
-
         public static int GetCountOfType(int houseID, int furnID, ItemType type)
         {
             HouseFurniture furniture = HouseFurnitures[houseID][furnID];
@@ -228,16 +214,13 @@ namespace iTeffa.Houses
                 if (i >= items.Count) break;
                 if (items[i].Type == type) count += items[i].Count;
             }
-
             return count;
         }
-
         public static void Remove(int houseID, int furnID, ItemType type, int amount)
         {
             HouseFurniture furniture = HouseFurnitures[houseID][furnID];
             var safeType = SafesType[furniture.Name];
             var items = FurnituresItems[houseID][furnID];
-
             for (int i = items.Count - 1; i >= 0; i--)
             {
                 if (i >= items.Count) continue;
@@ -250,7 +233,6 @@ namespace iTeffa.Houses
                 else
                 {
                     items[i].Count -= amount;
-                    amount = 0;
                     break;
                 }
             }
@@ -262,13 +244,11 @@ namespace iTeffa.Houses
                     Interface.Dashboard.OpenOut(p, items, furniture.Name, safeType);
             }
         }
-
         public static void Remove(int houseID, int furnID, nItem item)
         {
             HouseFurniture furniture = HouseFurnitures[houseID][furnID];
             var safeType = SafesType[furniture.Name];
             var items = FurnituresItems[houseID][furnID];
-
             if (nInventory.ClothesItems.Contains(item.Type) || nInventory.WeaponsItems.Contains(item.Type) || item.Type == ItemType.CarKey)
             {
                 items.Remove(item);
