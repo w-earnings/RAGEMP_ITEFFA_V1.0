@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Хост:                         62.109.3.40
--- Версия сервера:               10.3.25-MariaDB-0+deb10u1 - Debian 10
--- Операционная система:         debian-linux-gnu
+-- Хост:                         127.0.0.1
+-- Версия сервера:               5.6.13 - MySQL Community Server (GPL)
+-- Операционная система:         Win32
 -- HeidiSQL Версия:              11.0.0.5919
 -- --------------------------------------------------------
 
@@ -31,15 +31,15 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `viplvl` varchar(155) NOT NULL,
   `vipdate` datetime NOT NULL,
   `promocodes` varchar(155) NOT NULL,
-  `present` tinyint(1) NOT NULL DEFAULT 0,
+  `present` tinyint(1) NOT NULL DEFAULT '0',
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.accounts: ~1 rows (приблизительно)
+-- Дамп данных таблицы iteffa.accounts: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`socialclub`, `login`, `hwid`, `coins`, `ip`, `character1`, `character2`, `character3`, `email`, `password`, `viplvl`, `vipdate`, `promocodes`, `present`, `idkey`) VALUES
-	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '499500', '194.28.4.19', '333333', '-1', '-2', 'w-earnings@hotmail.com', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-11-26 09:04:29', '["noref"]', 0, 1);
+	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '0', '127.0.0.1', '333333', '-1', '-2', 'iTeffa', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-12-03 01:03:57', '["noref"]', 0, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.adminaccess
@@ -49,21 +49,12 @@ CREATE TABLE IF NOT EXISTS `adminaccess` (
   `isadmin` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.adminaccess: ~10 rows (приблизительно)
+-- Дамп данных таблицы iteffa.adminaccess: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `adminaccess` DISABLE KEYS */;
 INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
-	(7, 'vehc', 1, 1),
-	(7, 'kill', 1, 2),
-	(7, 'hp', 1, 3),
-	(7, 'newjobveh', 1, 4),
-	(7, 'tpc', 1, 5),
-	(7, 'save', 1, 6),
-	(7, 'delacar', 1, 7),
-	(7, 'delacars', 1, 8),
-	(7, 'createbusiness', 1, 9),
-	(7, 'givecoins', 1, 10);
+	(7, 'stop', 1, 1);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.advertised
@@ -76,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `advertised` (
   `EditedAD` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
+  `Status` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -242,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `unwarn` datetime NOT NULL,
   `unmute` int(255) NOT NULL,
   `bank` int(255) NOT NULL,
-  `wanted` text DEFAULT NULL,
+  `wanted` text,
   `lvl` int(255) NOT NULL,
   `exp` int(255) NOT NULL,
   `gender` tinyint(1) NOT NULL,
@@ -258,13 +249,15 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `pos` text NOT NULL,
   `work` int(255) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `lastbonus` int(11) DEFAULT '0',
+  `isbonused` int(11) DEFAULT '0',
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.characters: ~1 rows (приблизительно)
+-- Дамп данных таблицы iteffa.characters: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`) VALUES
-	(333333, 8, 1035400, 'Jack', 'Brown', 0, 0, 0, '[18]', -1, 0, -1, 15, 2, 0, 0, '2020-11-26 09:04:39', 0, 808474, 'null', 2, 6, 1, 100, 0, '[false,false,false,false,false,false,false,false]', '', 0, 44, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-11-26 09:04:39', '{"x":414.3321,"y":-976.36414,"z":33.698555}', 0, 1);
+INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
+	(333333, 8, 500000, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 100, 98, 0, 0, '2020-12-03 01:04:04', 0, 392642, 'null', 0, 0, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 4, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-03 01:04:04', '{"x":379.0306,"y":-1417.317,"z":38.0}', 0, 1, 4, 0);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.customization
@@ -287,12 +280,12 @@ CREATE TABLE IF NOT EXISTS `customization` (
   `iscreated` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.customization: ~1 rows (приблизительно)
+-- Дамп данных таблицы iteffa.customization: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `customization` DISABLE KEYS */;
 INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearance`, `hair`, `clothes`, `accessory`, `tattoos`, `eyebrowc`, `beardc`, `eyec`, `blushc`, `lipstickc`, `chesthairc`, `iscreated`, `idkey`) VALUES
-	(333333, '0', '{"Father":0,"Mother":21,"Similarity":0.5,"SkinSimilarity":0.5}', '[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":0,"Opacity":100.0},{"Value":1,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":2,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":0},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":3},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":2}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '1', '0', '0', '0', 1, 1);
+	(333333, '0', '{"Father":0,"Mother":21,"Similarity":0.5,"SkinSimilarity":0.5}', '[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":0,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":0,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":0},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":1},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":0}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '0', '0', '0', '0', 1, 1);
 /*!40000 ALTER TABLE `customization` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.eventcfg
@@ -648,12 +641,12 @@ CREATE TABLE IF NOT EXISTS `fractions` (
 -- Дамп данных таблицы iteffa.fractions: ~18 rows (приблизительно)
 /*!40000 ALTER TABLE `fractions` DISABLE KEYS */;
 INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`, `weapons`, `isopen`, `fuellimit`, `fuelleft`) VALUES
-	(1, 0, 102200, 10000, 50, '1', '[]', 1, 200, 150),
+	(1, 0, 142900, 10000, 50, '1', '[]', 1, 200, 150),
 	(2, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(3, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(4, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(5, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(6, 0, 133013, 10000, 50, '1', '[]', 1, 200, 200),
+	(6, 0, 133429, 10000, 50, '1', '[]', 1, 200, 200),
 	(7, 0, 100000, 10000, 48, '1', '[]', 1, 200, 200),
 	(8, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200),
 	(9, 0, 100000, 10000, 46, '1', '[]', 1, 200, 200),
@@ -681,7 +674,7 @@ CREATE TABLE IF NOT EXISTS `fractionvehicles` (
   `colorsec` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.fractionvehicles: ~15 rows (приблизительно)
+-- Дамп данных таблицы iteffa.fractionvehicles: ~55 rows (приблизительно)
 /*!40000 ALTER TABLE `fractionvehicles` DISABLE KEYS */;
 INSERT INTO `fractionvehicles` (`fraction`, `number`, `components`, `model`, `position`, `rotation`, `rank`, `colorprim`, `colorsec`) VALUES
 	(3, 'VAGOS', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'speedo4', '{"x":480.659058,"y":-1897.94,"z":26.3010216}', '{"x":-2.14845753,"y":-0.149998382,"z":294.1523}', 1, 89, 89),
@@ -749,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `furniture` (
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.furniture: ~166 rows (приблизительно)
+-- Дамп данных таблицы iteffa.furniture: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `furniture` DISABLE KEYS */;
 INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 	('0', '{}', '{}'),
@@ -759,7 +752,7 @@ INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 	('101', '{}', '{}'),
 	('102', '{}', '{}'),
 	('103', '{}', '{}'),
-	('104', '{"0":{"Name":"Шкаф с одеждой","Model":"prop_rub_cabinet02","ID":0,"Position":{"x":153.572,"y":-1001.324,"z":-99.49},"Rotation":{"x":0.0,"y":0.0,"z":0.0},"IsSet":true}}', '{"0":[]}'),
+	('104', '{}', '{}'),
 	('105', '{}', '{}'),
 	('106', '{}', '{}'),
 	('107', '{}', '{}'),
@@ -927,20 +920,8 @@ CREATE TABLE IF NOT EXISTS `gangspoints` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.gangspoints: ~11 rows (приблизительно)
+-- Дамп данных таблицы iteffa.gangspoints: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `gangspoints` DISABLE KEYS */;
-INSERT INTO `gangspoints` (`id`, `gangid`) VALUES
-	(0, 1),
-	(1, 1),
-	(2, 1),
-	(3, 1),
-	(4, 1),
-	(5, 1),
-	(6, 1),
-	(7, 1),
-	(8, 1),
-	(9, 1),
-	(10, 1);
 /*!40000 ALTER TABLE `gangspoints` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.garages
@@ -1193,12 +1174,12 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(50, '', '3', '{"x":-1777.0897,"y":-701.6341,"z":9.397876}', '600000', 0, '51', '108789', '[]'),
 	(51, '', '3', '{"x":-1764.2529,"y":-707.8289,"z":9.494181}', '600000', 0, '52', '518891', '[]'),
 	(52, '', '3', '{"x":-1754.5018,"y":-708.77625,"z":9.281206}', '600000', 0, '53', '922097', '[]'),
-	(53, '', '5', '{"x":-1898.8071,"y":132.6003,"z":80.864624}', '2800000', 0, '54', '766592', '[]'),
+	(53, '', '5', '{"x":-1898.8071,"y":132.6003,"z":80.864624}', '2800000', 1, '54', '766592', '[]'),
 	(54, '', '5', '{"x":-1931.7458,"y":162.7743,"z":83.53272}', '2800000', 0, '55', '985492', '[]'),
 	(55, '', '5', '{"x":-1960.8195,"y":212.09187,"z":85.68907}', '3000000', 0, '56', '771824', '[]'),
 	(56, '', '5', '{"x":-1970.3928,"y":246.13947,"z":86.69214}', '2800000', 0, '57', '686757', '[]'),
 	(57, '', '5', '{"x":-1995.3086,"y":300.5059,"z":90.84466}', '3200000', 0, '58', '214586', '[]'),
-	(58, '', '5', '{"x":-2008.8673,"y":367.55692,"z":93.694305}', '3200000', 0, '59', '5177', '[]'),
+	(58, 'Jack_Brown', '5', '{"x":-2008.8673,"y":367.55692,"z":93.694305}', '3200000', 1, '59', '5177', '[]'),
 	(59, '', '5', '{"x":-2010.9653,"y":445.1746,"z":101.8959}', '3200000', 0, '60', '196598', '[]'),
 	(60, '', '5', '{"x":-2014.618,"y":499.78394,"z":106.05179}', '2800000', 0, '61', '79683', '[]'),
 	(61, '', '5', '{"x":-1996.034,"y":591.0544,"z":116.98196}', '3000000', 0, '62', '23777', '[]'),
@@ -1314,12 +1295,12 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `uuid` int(255) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.inventory: ~1 rows (приблизительно)
+-- Дамп данных таблицы iteffa.inventory: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
 INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
-	('[{"Data":"26_2_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_0_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_3_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 333333, 1);
+	('[{"Data":"26_0_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_0_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_1_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 333333, 1);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.money
@@ -1331,80 +1312,80 @@ CREATE TABLE IF NOT EXISTS `money` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.money: ~245 rows (приблизительно)
+-- Дамп данных таблицы iteffa.money: ~244 rows (приблизительно)
 /*!40000 ALTER TABLE `money` DISABLE KEYS */;
 INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
-	('100225', '', '0', '2'),
-	('100598', '', '0', '2'),
-	('101244', '', '0', '2'),
-	('103598', '', '0', '2'),
-	('108071', '', '0', '2'),
-	('108789', '', '0', '2'),
-	('108931', '', '0', '2'),
-	('120379', '', '0', '2'),
-	('122578', '', '0', '2'),
-	('125091', '', '0', '2'),
+	('100225', '', '1000', '2'),
+	('100598', '', '1000', '2'),
+	('101244', '', '1000', '2'),
+	('103598', '', '1000', '2'),
+	('108071', '', '1000', '2'),
+	('108789', '', '1000', '2'),
+	('108931', '', '1000', '2'),
+	('120379', '', '1000', '2'),
+	('122578', '', '1000', '2'),
+	('125091', '', '1000', '2'),
 	('128674', '', '1000', '3'),
-	('137532', '', '0', '2'),
-	('145503', '', '0', '2'),
-	('148329', '', '0', '2'),
+	('137532', '', '1000', '2'),
+	('145503', '', '1000', '2'),
+	('148329', '', '1000', '2'),
 	('152681', '', '1000', '3'),
 	('153477', '', '1000', '3'),
 	('1556', '', '1000', '3'),
 	('158412', '', '1000', '3'),
-	('160604', '', '0', '2'),
+	('160604', '', '1000', '2'),
 	('164572', '', '1000', '3'),
-	('164952', '', '0', '2'),
-	('172614', '', '0', '2'),
+	('164952', '', '1000', '2'),
+	('172614', '', '1000', '2'),
 	('176568', '', '1000', '3'),
 	('176982', '', '1000', '3'),
-	('178877', '', '0', '2'),
-	('179917', '', '0', '2'),
+	('178877', '', '1000', '2'),
+	('179917', '', '1000', '2'),
 	('187693', '', '1000', '3'),
-	('188331', '', '0', '2'),
-	('191856', '', '0', '2'),
-	('193935', '', '0', '2'),
-	('196598', '', '0', '2'),
+	('188331', '', '1000', '2'),
+	('191856', '', '1000', '2'),
+	('193935', '', '1000', '2'),
+	('196598', '', '1000', '2'),
 	('200439', '', '1000', '3'),
-	('203893', '', '0', '2'),
-	('205999', '', '0', '2'),
-	('214586', '', '0', '2'),
-	('219274', '', '0', '2'),
-	('219734', '', '0', '2'),
-	('220234', '', '0', '2'),
+	('203893', '', '1000', '2'),
+	('205999', '', '1000', '2'),
+	('214586', '', '1000', '2'),
+	('219274', '', '1000', '2'),
+	('219734', '', '1000', '2'),
+	('220234', '', '1000', '2'),
 	('231812', '', '1000', '3'),
-	('23548', '', '0', '2'),
-	('23777', '', '0', '2'),
+	('23548', '', '1000', '2'),
+	('23777', '', '1000', '2'),
 	('240509', '', '1000', '3'),
-	('249869', '', '0', '2'),
-	('251104', '', '0', '2'),
-	('252127', '', '0', '2'),
-	('253473', '', '0', '2'),
-	('255964', '', '0', '2'),
-	('262053', '', '0', '2'),
-	('262356', '', '0', '2'),
-	('265480', '', '0', '2'),
-	('275323', '', '0', '2'),
-	('278178', '', '0', '2'),
-	('278437', '', '0', '2'),
+	('249869', '', '1000', '2'),
+	('251104', '', '1000', '2'),
+	('252127', '', '1000', '2'),
+	('253473', '', '1000', '2'),
+	('255964', '', '1000', '2'),
+	('262053', '', '1000', '2'),
+	('262356', '', '1000', '2'),
+	('265480', '', '1000', '2'),
+	('275323', '', '1000', '2'),
+	('278178', '', '1000', '2'),
+	('278437', '', '1000', '2'),
 	('282673', '', '1000', '3'),
 	('285192', '', '1000', '3'),
-	('29219', '', '0', '2'),
+	('29219', '', '1000', '2'),
 	('2968', '', '1000', '3'),
-	('298135', '', '0', '2'),
-	('305327', '', '0', '2'),
-	('308856', '', '0', '2'),
+	('298135', '', '1000', '2'),
+	('305327', '', '1000', '2'),
+	('308856', '', '1000', '2'),
 	('312755', '', '1000', '3'),
-	('315839', '', '0', '2'),
-	('321412', '', '0', '2'),
-	('32364', '', '0', '2'),
+	('315839', '', '1000', '2'),
+	('321412', '', '1000', '2'),
+	('32364', '', '1000', '2'),
 	('332012', '', '1000', '3'),
 	('334084', '', '1000', '3'),
-	('33648', '', '0', '2'),
-	('338975', '', '0', '2'),
+	('33648', '', '1000', '2'),
+	('338975', '', '1000', '2'),
 	('340159', '', '1000', '3'),
 	('344454', '', '1000', '3'),
-	('35151', '', '0', '2'),
+	('35151', '', '1000', '2'),
 	('352562', '', '1000', '3'),
 	('360123', '', '1000', '3'),
 	('360485', '', '1000', '3'),
@@ -1413,172 +1394,173 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('376413', '', '1000', '3'),
 	('388639', '', '1000', '3'),
 	('389391', '', '1000', '3'),
+	('392642', 'Jack_Brown', '0', '1'),
 	('392828', '', '1000', '3'),
-	('400434', '', '0', '2'),
-	('415545', '', '0', '2'),
-	('416017', '', '0', '2'),
-	('419620', '', '0', '2'),
-	('421264', '', '0', '2'),
-	('421848', '', '0', '2'),
+	('400434', '', '1000', '2'),
+	('415545', '', '1000', '2'),
+	('416017', '', '1000', '2'),
+	('419620', '', '1000', '2'),
+	('421264', '', '1000', '2'),
+	('421848', '', '1000', '2'),
 	('429085', '', '1000', '3'),
 	('431857', '', '1000', '3'),
-	('433620', '', '0', '2'),
-	('437400', '', '0', '2'),
-	('439869', '', '0', '2'),
-	('446516', '', '0', '2'),
-	('448503', '', '0', '2'),
+	('433620', '', '1000', '2'),
+	('437400', '', '1000', '2'),
+	('439869', '', '1000', '2'),
+	('446516', '', '1000', '2'),
+	('448503', '', '1000', '2'),
 	('449771', '', '1000', '3'),
-	('452394', '', '0', '2'),
-	('452867', '', '0', '2'),
-	('454538', '', '0', '2'),
+	('452394', '', '1000', '2'),
+	('452867', '', '1000', '2'),
+	('454538', '', '1000', '2'),
 	('455437', '', '1000', '3'),
-	('45619', '', '0', '2'),
+	('45619', '', '1000', '2'),
 	('462259', '', '1000', '3'),
 	('468451', '', '1000', '3'),
-	('470493', '', '0', '2'),
-	('476625', '', '0', '2'),
-	('478270', '', '0', '2'),
-	('482111', '', '0', '2'),
-	('483757', '', '0', '2'),
+	('470493', '', '1000', '2'),
+	('476625', '', '1000', '2'),
+	('478270', '', '1000', '2'),
+	('482111', '', '1000', '2'),
+	('483757', '', '1000', '2'),
 	('489322', '', '1000', '3'),
-	('489851', '', '0', '2'),
-	('494621', '', '0', '2'),
-	('498670', '', '0', '2'),
-	('501809', '', '0', '2'),
-	('504010', '', '0', '2'),
-	('506657', '', '0', '3'),
-	('507881', '', '0', '2'),
-	('509009', '', '0', '2'),
-	('5177', '', '0', '2'),
-	('518891', '', '0', '2'),
-	('522090', '', '0', '2'),
-	('523356', '', '0', '2'),
-	('528021', '', '0', '2'),
-	('528989', '', '0', '2'),
+	('489851', '', '1000', '2'),
+	('494621', '', '1000', '2'),
+	('498670', '', '1000', '2'),
+	('501809', '', '1000', '2'),
+	('504010', '', '1000', '2'),
+	('506657', '', '1000', '3'),
+	('507881', '', '1000', '2'),
+	('509009', '', '1000', '2'),
+	('5177', '', '1000', '2'),
+	('518891', '', '1000', '2'),
+	('522090', '', '1000', '2'),
+	('523356', '', '1000', '2'),
+	('528021', '', '1000', '2'),
+	('528989', '', '1000', '2'),
 	('532522', '', '1000', '3'),
 	('536220', '', '1000', '3'),
 	('544357', '', '1000', '3'),
 	('548520', '', '1000', '3'),
-	('559582', '', '0', '2'),
-	('567348', '', '0', '2'),
-	('569475', '', '0', '2'),
-	('578334', '', '0', '2'),
-	('579124', '', '0', '2'),
+	('559582', '', '1000', '2'),
+	('567348', '', '1000', '2'),
+	('569475', '', '1000', '2'),
+	('578334', '', '1000', '2'),
+	('579124', '', '1000', '2'),
 	('580520', '', '1000', '3'),
 	('581373', '', '1000', '3'),
-	('581478', '', '0', '2'),
+	('581478', '', '1000', '2'),
 	('581563', '', '1000', '3'),
-	('582002', '', '0', '2'),
+	('582002', '', '1000', '2'),
 	('584531', '', '1000', '3'),
-	('585556', '', '0', '2'),
+	('585556', '', '1000', '2'),
 	('586475', '', '1000', '3'),
-	('599778', '', '0', '2'),
+	('599778', '', '1000', '2'),
 	('600631', '', '1000', '3'),
-	('604326', '', '0', '2'),
+	('604326', '', '1000', '2'),
 	('616553', '', '1000', '3'),
 	('618117', '', '1000', '3'),
-	('627101', '', '0', '2'),
-	('630232', '', '0', '2'),
+	('627101', '', '1000', '2'),
+	('630232', '', '1000', '2'),
 	('642128', '', '1000', '3'),
-	('642978', '', '0', '2'),
-	('644697', '', '0', '2'),
+	('642978', '', '1000', '2'),
+	('644697', '', '1000', '2'),
 	('656573', '', '1000', '3'),
-	('659573', '', '0', '2'),
-	('665727', '', '0', '2'),
-	('677514', '', '0', '2'),
-	('684062', '', '0', '2'),
-	('684616', '', '0', '2'),
-	('685701', '', '0', '2'),
-	('686757', '', '0', '2'),
+	('659573', '', '1000', '2'),
+	('665727', '', '1000', '2'),
+	('677514', '', '1000', '2'),
+	('684062', '', '1000', '2'),
+	('684616', '', '1000', '2'),
+	('685701', '', '1000', '2'),
+	('686757', '', '1000', '2'),
 	('687230', '', '1000', '3'),
 	('689959', '', '1000', '3'),
 	('695987', '', '1000', '3'),
 	('698861', '', '1000', '3'),
-	('699442', '', '0', '2'),
-	('699665', '', '0', '2'),
-	('701975', '', '0', '2'),
-	('703297', '', '0', '2'),
+	('699442', '', '1000', '2'),
+	('699665', '', '1000', '2'),
+	('701975', '', '1000', '2'),
+	('703297', '', '1000', '2'),
 	('705991', '', '1000', '3'),
-	('706559', '', '0', '2'),
-	('71188', '', '0', '2'),
+	('706559', '', '1000', '2'),
+	('71188', '', '1000', '2'),
 	('7130', '', '1000', '3'),
-	('720362', '', '0', '2'),
+	('720362', '', '1000', '2'),
 	('722040', '', '1000', '3'),
 	('733845', '', '1000', '3'),
-	('734175', '', '0', '2'),
+	('734175', '', '1000', '2'),
 	('738152', '', '1000', '3'),
-	('739461', '', '0', '2'),
+	('739461', '', '1000', '2'),
 	('740992', '', '1000', '3'),
-	('751866', '', '0', '2'),
+	('751866', '', '1000', '2'),
 	('756120', '', '1000', '3'),
-	('757142', '', '0', '2'),
-	('760547', '', '0', '2'),
-	('761280', '', '0', '2'),
-	('761494', '', '0', '2'),
-	('766592', '', '0', '2'),
-	('771824', '', '0', '2'),
-	('779125', '', '0', '2'),
-	('79683', '', '0', '2'),
+	('757142', '', '1000', '2'),
+	('760547', '', '1000', '2'),
+	('761280', '', '1000', '2'),
+	('761494', '', '1000', '2'),
+	('766592', '', '1000', '2'),
+	('771824', '', '1000', '2'),
+	('779125', '', '1000', '2'),
+	('79683', '', '1000', '2'),
 	('798066', '', '1000', '3'),
-	('800754', '', '0', '2'),
-	('801533', '', '0', '2'),
-	('805788', '', '0', '2'),
-	('807166', '', '0', '2'),
-	('807695', '', '0', '2'),
-	('808474', '', '0', '2'),
-	('813694', '', '0', '2'),
-	('815300', '', '0', '2'),
-	('818431', '', '0', '2'),
-	('818562', '', '0', '2'),
+	('800754', '', '1000', '2'),
+	('801533', '', '1000', '2'),
+	('805788', '', '1000', '2'),
+	('807166', '', '1000', '2'),
+	('807695', '', '1000', '2'),
+	('808474', '', '1000', '2'),
+	('813694', '', '1000', '2'),
+	('815300', '', '1000', '2'),
+	('818431', '', '1000', '2'),
+	('818562', '', '1000', '2'),
 	('818596', '', '1000', '3'),
 	('819110', '', '1000', '3'),
-	('819848', '', '0', '2'),
-	('824847', '', '0', '2'),
-	('839950', '', '0', '2'),
-	('840883', '', '0', '2'),
-	('842769', '', '0', '2'),
+	('819848', '', '1000', '2'),
+	('824847', '', '1000', '2'),
+	('839950', '', '1000', '2'),
+	('840883', '', '1000', '2'),
+	('842769', '', '1000', '2'),
 	('843370', '', '1000', '3'),
-	('84806', '', '0', '2'),
+	('84806', '', '1000', '2'),
 	('848373', '', '1000', '3'),
-	('853087', '', '0', '2'),
-	('869755', '', '0', '2'),
+	('853087', '', '1000', '2'),
+	('869755', '', '1000', '2'),
 	('870802', '', '1000', '3'),
-	('87088', '', '0', '2'),
+	('87088', '', '1000', '2'),
 	('87251', '', '1000', '3'),
-	('885637', '', '0', '2'),
-	('885746', '', '0', '2'),
-	('887995', '', '0', '2'),
-	('89491', '', '0', '2'),
-	('89496', '', '0', '2'),
+	('885637', '', '1000', '2'),
+	('885746', '', '1000', '2'),
+	('887995', '', '1000', '2'),
+	('89491', '', '1000', '2'),
+	('89496', '', '1000', '2'),
 	('898416', '', '1000', '3'),
-	('903553', '', '0', '2'),
+	('903553', '', '1000', '2'),
 	('910783', '', '1000', '3'),
 	('911580', '', '1000', '3'),
-	('920976', '', '0', '2'),
-	('922097', '', '0', '2'),
-	('923802', '', '0', '2'),
-	('925738', '', '0', '2'),
+	('920976', '', '1000', '2'),
+	('922097', '', '1000', '2'),
+	('923802', '', '1000', '2'),
+	('925738', '', '1000', '2'),
 	('929736', '', '1000', '3'),
 	('931549', '', '1000', '3'),
-	('931764', '', '0', '2'),
+	('931764', '', '1000', '2'),
 	('932996', '', '1000', '3'),
-	('933635', '', '0', '2'),
-	('941807', '', '0', '2'),
-	('942993', '', '0', '2'),
-	('943938', '', '0', '2'),
-	('945644', '', '0', '2'),
-	('950439', '', '0', '2'),
+	('933635', '', '1000', '2'),
+	('941807', '', '1000', '2'),
+	('942993', '', '1000', '2'),
+	('943938', '', '1000', '2'),
+	('945644', '', '1000', '2'),
+	('950439', '', '1000', '2'),
 	('956499', '', '1000', '3'),
 	('958055', '', '1000', '3'),
-	('960803', '', '0', '2'),
-	('963680', '', '0', '2'),
-	('969406', '', '0', '2'),
+	('960803', '', '1000', '2'),
+	('963680', '', '1000', '2'),
+	('969406', '', '1000', '2'),
 	('976418', '', '1000', '3'),
-	('980300', '', '0', '2'),
-	('985492', '', '0', '2'),
-	('987845', '', '0', '2'),
-	('988433', '', '0', '2'),
-	('994557', '', '0', '2');
+	('980300', '', '1000', '2'),
+	('985492', '', '1000', '2'),
+	('987845', '', '1000', '2'),
+	('988433', '', '1000', '2'),
+	('994557', '', '1000', '2');
 /*!40000 ALTER TABLE `money` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.nicknames
@@ -1714,11 +1696,11 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `ID` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `Author` text NOT NULL,
   `Question` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `Respondent` text DEFAULT NULL,
-  `Response` text CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Respondent` text,
+  `Response` text CHARACTER SET utf8 COLLATE utf8_bin,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
+  `Status` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1769,12 +1751,10 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   `number` varchar(255) NOT NULL,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.vehicles: ~1 rows (приблизительно)
+-- Дамп данных таблицы iteffa.vehicles: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
-INSERT INTO `vehicles` (`holder`, `model`, `health`, `fuel`, `components`, `items`, `position`, `rotation`, `keynum`, `dirt`, `price`, `idkey`, `number`) VALUES
-	('Jack_Brown', 'g65', 1000, 100, '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"Armor":-1}', '[]', '', '', 0, 0, 0, 1, 'I881B');
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
 -- Дамп структуры для таблица iteffa.weapons

@@ -8,185 +8,6 @@ using System.Linq;
 
 namespace iTeffa.Kernel
 {
-
-    public enum TattooZones
-    {
-        Torso = 0,
-        Head = 1,
-        LeftArm = 2,
-        RightArm = 3,
-        LeftLeg = 4,
-        RightLeg = 5,
-    }
-    public class Tattoo
-    {
-        public string Dictionary { get; set; }
-        public string Hash { get; set; }
-        public List<int> Slots { get; set; }
-
-        public Tattoo(string dictionary, string hash, List<int> slots)
-        {
-            Dictionary = dictionary;
-            Hash = hash;
-            Slots = slots;
-        }
-    }
-    public class ComponentItem
-    {
-        public int Variation;
-        public int Texture;
-
-        public ComponentItem(int variation, int texture)
-        {
-            Variation = variation;
-            Texture = texture;
-        }
-    }
-    public class AccessoryData
-    {
-        public ComponentItem Hat { get; set; }
-        public ComponentItem Glasses { get; set; }
-        public ComponentItem Ear { get; set; }
-        public ComponentItem Watches { get; set; }
-        public ComponentItem Bracelets { get; set; }
-
-        public AccessoryData()
-        {
-            Hat = new ComponentItem(-1, 0);
-            Glasses = new ComponentItem(-1, 0);
-            Ear = new ComponentItem(-1, 0);
-            Watches = new ComponentItem(-1, 0);
-            Bracelets = new ComponentItem(-1, 0);
-        }
-    }
-    public class ParentData
-    {
-        public int Father;
-        public int Mother;
-        public float Similarity;
-        public float SkinSimilarity;
-
-        public ParentData(int father, int mother, float similarity, float skinsimilarity)
-        {
-            Father = father;
-            Mother = mother;
-            Similarity = similarity;
-            SkinSimilarity = skinsimilarity;
-        }
-    }
-    public class AppearanceItem
-    {
-        public int Value;
-        public float Opacity;
-
-        public AppearanceItem(int value, float opacity)
-        {
-            Value = value;
-            Opacity = opacity;
-        }
-    }
-    public class HairData
-    {
-        public int Hair;
-        public int Color;
-        public int HighlightColor;
-
-        public HairData(int hair, int color, int highlightcolor)
-        {
-            Hair = hair;
-            Color = color;
-            HighlightColor = highlightcolor;
-        }
-    }
-    public class PlayerCustomization
-    {
-        // Player
-        public int Gender;
-
-        // Parents
-        public ParentData Parents;
-
-        // Features
-        public float[] Features = new float[20];
-
-        // Appearance
-        public AppearanceItem[] Appearance = new AppearanceItem[10];
-
-        // Hair & Colors
-        public HairData Hair;
-
-        public ClothesData Clothes = new ClothesData();
-
-        public AccessoryData Accessory = new AccessoryData();
-
-        public Dictionary<int, List<Tattoo>> Tattoos = new Dictionary<int, List<Tattoo>>()
-        {
-            { 0, new List<Tattoo>() },
-            { 1, new List<Tattoo>() },
-            { 2, new List<Tattoo>() },
-            { 3, new List<Tattoo>() },
-            { 4, new List<Tattoo>() },
-            { 5, new List<Tattoo>() },
-        };
-
-
-        public int EyebrowColor;
-        public int BeardColor;
-        public int EyeColor;
-        public int BlushColor;
-        public int LipstickColor;
-        public int ChestHairColor;
-
-        public bool IsCreated = false;
-
-        public PlayerCustomization()
-        {
-            Gender = 0;
-            Parents = new ParentData(0, 0, 1.0f, 1.0f);
-            for (int i = 0; i < Features.Length; i++) Features[i] = 0f;
-            for (int i = 0; i < Appearance.Length; i++) Appearance[i] = new AppearanceItem(255, 1.0f);
-            Hair = new HairData(0, 0, 0);
-        }
-    }
-    class Underwear
-    {
-        public Underwear(int top, int price, List<int> colors)
-        {
-            Top = top;
-            Price = price;
-            Colors = colors;
-        }
-        public Underwear(int top, int price, Dictionary<int, int> undershirtIDs, List<int> colors)
-        {
-            Top = top;
-            UndershirtIDs = undershirtIDs;
-            Price = price;
-            Colors = colors;
-        }
-
-        public int Top { get; }
-        public int Price { get; }
-        public Dictionary<int, int> UndershirtIDs { get; } = new Dictionary<int, int>(); // key - тип undershirt'а, value - id-шник
-        public List<int> Colors { get; }
-    }
-    class Clothes
-    {
-        public Clothes(int variation, List<int> colors, int price, int type = -1, int bodyArmor = -1)
-        {
-            Variation = variation;
-            Colors = colors;
-            Price = price;
-            Type = type;
-            BodyArmor = bodyArmor;
-        }
-
-        public int Variation { get; }
-        public List<int> Colors { get; }
-        public int Price { get; }
-        public int Type { get; }
-        public int BodyArmor { get; }
-    }
- 
     class Customization : Script
     {
         public Customization()
@@ -201,7 +22,6 @@ namespace iTeffa.Kernel
             {
                 var uuid = Convert.ToInt32(Row["uuid"]);
                 CustomPlayerData.Add(uuid, new PlayerCustomization());
-
                 CustomPlayerData[uuid].Gender = Convert.ToInt32(Row["gender"]);
                 CustomPlayerData[uuid].Parents = JsonConvert.DeserializeObject<ParentData>(Row["parents"].ToString());
                 CustomPlayerData[uuid].Features = JsonConvert.DeserializeObject<float[]>(Row["features"].ToString());
@@ -217,10 +37,7 @@ namespace iTeffa.Kernel
                 CustomPlayerData[uuid].LipstickColor = Convert.ToInt32(Row["lipstickc"]);
                 CustomPlayerData[uuid].ChestHairColor = Convert.ToInt32(Row["chesthairc"]);
                 CustomPlayerData[uuid].IsCreated = Convert.ToBoolean(Row["iscreated"]);
-
                 CustomPlayerData[uuid].Clothes.Bag.Variation = 0;
-
-                //CustomPlayerData.Add(Row["name"].ToString(), JsonConvert.DeserializeObject<PlayerCustomization>(Row["data"].ToString()));
             }
         }
 

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace iTeffa.Settings
 {
     public static class Timers
     {
-        public static Dictionary<string, nTimer> timers = new Dictionary<string, nTimer>();
+        public static Dictionary<string, NTimer> timers = new Dictionary<string, NTimer>();
         public static nLog Log = new nLog("nTimer", false);
         private static Config config = new Config("Timers");
         private static Thread thread;
@@ -29,8 +28,8 @@ namespace iTeffa.Settings
             {
                 lock (Timers.timers)
                 {
-                    List<nTimer> timers_ = new List<nTimer>(Timers.timers.Values);
-                    foreach (nTimer t in timers_)
+                    List<NTimer> timers_ = new List<NTimer>(Timers.timers.Values);
+                    foreach (NTimer t in timers_)
                     {
                         if (t.isFinished) Timers.timers.Remove(t.ID);
                     }
@@ -45,9 +44,9 @@ namespace iTeffa.Settings
                 {
                     if (timers.Count < 1) continue;
 
-                    List<nTimer> timers_ = new List<nTimer>(timers.Values);
+                    List<NTimer> timers_ = new List<NTimer>(timers.Values);
 
-                    foreach (nTimer timer in timers_)
+                    foreach (NTimer timer in timers_)
                     {
                         timer.Elapsed();
                     }
@@ -66,7 +65,7 @@ namespace iTeffa.Settings
         /// </summary>
         /// <param name="id">Уникальный идентификатор таймера</param>
         /// <returns>Объект таймера</returns>
-        public static nTimer Get(string id)
+        public static NTimer Get(string id)
         {
             if (timers.ContainsKey(id))
                 return timers[id];
@@ -84,7 +83,7 @@ namespace iTeffa.Settings
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new nTimer(action, id, interval));
+                timers.Add(id, new NTimer(action, id, interval));
                 return id;
             }
             catch (Exception e)
@@ -110,7 +109,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new nTimer(action, id, interval));
+                timers.Add(id, new NTimer(action, id, interval));
                 return id;
             }
             catch (Exception e)
@@ -130,7 +129,7 @@ namespace iTeffa.Settings
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new nTimer(action, id, interval, true));
+                timers.Add(id, new NTimer(action, id, interval, true));
                 return id;
             }
             catch (Exception e)
@@ -156,7 +155,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new nTimer(action, id, interval, true));
+                timers.Add(id, new NTimer(action, id, interval, true));
                 return id;
             }
             catch (Exception e)
@@ -176,7 +175,7 @@ namespace iTeffa.Settings
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new nTimer(action, id, interval, false, true));
+                timers.Add(id, new NTimer(action, id, interval, false, true));
                 return id;
             }
             catch (Exception e)
@@ -202,7 +201,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new nTimer(action, id, interval, false, true));
+                timers.Add(id, new NTimer(action, id, interval, false, true));
                 return id;
             }
             catch (Exception e)
@@ -222,7 +221,7 @@ namespace iTeffa.Settings
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new nTimer(action, id, interval, true, true));
+                timers.Add(id, new NTimer(action, id, interval, true, true));
                 return id;
             }
             catch (Exception e)
@@ -248,7 +247,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new nTimer(action, id, interval, true, true));
+                timers.Add(id, new NTimer(action, id, interval, true, true));
                 return id;
             }
             catch (Exception e)
@@ -271,7 +270,7 @@ namespace iTeffa.Settings
         public static void Stats()
         {
             string timers_ = "";
-            foreach (nTimer t in timers.Values)
+            foreach (NTimer t in timers.Values)
             {
                 string state = (t.isFinished) ? "stopped" : "active";
                 timers_ += $"{t.ID}:{state} ";
@@ -283,57 +282,5 @@ namespace iTeffa.Settings
                 $"\nTimers = {timers_}" +
                 $"\n");
         }
-    }
-    public class nTimer
-    {
-        public string ID { get; }
-        public int MS { get; set; }
-        public DateTime Next { get; private set; }
-
-        public Action action { get; set; }
-
-        public bool isOnce { get; set; }
-        public bool isTask { get; set; }
-        public bool isFinished { get; set; }
-
-        public nTimer(Action action_, string id_, int ms_, bool isonce_ = false, bool istask_ = false)
-        {
-            action = action_;
-
-            ID = id_;
-            MS = ms_;
-            Next = DateTime.Now.AddMilliseconds(MS);
-
-            isOnce = isonce_;
-            isTask = istask_;
-            isFinished = false;
-        }
-
-        public void Elapsed()
-        {
-            try
-            {
-                if (isFinished) return;
-
-                if (Next <= DateTime.Now)
-                {
-                    if (isOnce) isFinished = true;
-                    Next = DateTime.Now.AddMilliseconds(MS);
-
-                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Invoke");
-
-                    if (isTask) Task.Run(() => action.Invoke());
-                    else action.Invoke();
-
-                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", nLog.Type.Success);
-                }
-
-            }
-            catch (Exception e)
-            {
-                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e.ToString()}", nLog.Type.Error);
-            }
-        }
-
     }
 }
