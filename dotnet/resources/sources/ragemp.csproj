@@ -5,6 +5,8 @@
 		<Copyright>ITEFFA.COM (RAGEMP 1.1)</Copyright>
 		<Platforms>AnyCPU;x64</Platforms>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <OutputPath>..\ragemp\</OutputPath>

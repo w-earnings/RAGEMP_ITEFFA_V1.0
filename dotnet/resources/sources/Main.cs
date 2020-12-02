@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net;
 using GTANetworkAPI;
 using iTeffa.Kernel;
 using iTeffa.Settings;
@@ -16,7 +15,6 @@ using System.Reflection;
 using System.Threading;
 using iTeffa.Models;
 using iTeffa.Globals;
-using System.Net.Mail;
 using iTeffa.Speaking;
 using iTeffa.Houses;
 
@@ -26,33 +24,26 @@ namespace iTeffa
     {
         public static DateTime StartDate { get; } = DateTime.Now;
         public static DateTime CompileDate { get; } = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
-
-        public static oldConfig oldconfig;
-        private static Config config = new Config("Main");
-        private static byte servernum = config.TryGet<byte>("ServerNumber", "1");
-
-        private static int Slots = NAPI.Server.GetMaxPlayers();
+        public static OldConfig oldconfig;
+        private static readonly Config config = new Config("Main");
+        private static readonly byte servernum = config.TryGet<byte>("ServerNumber", "1");
+        private static readonly int Slots = NAPI.Server.GetMaxPlayers();
         public static Dictionary<string, Tuple<int, int, int>> PromoCodes = new Dictionary<string, Tuple<int, int, int>>();
-
-        // Characters
-        public static List<int> UUIDs = new List<int>(); // characters UUIDs
-        public static Dictionary<int, string> PlayerNames = new Dictionary<int, string>(); // character uuid - character name
-        public static Dictionary<string, int> PlayerBankAccs = new Dictionary<string, int>(); // character name - character bank
-        public static Dictionary<string, int> PlayerUUIDs = new Dictionary<string, int>(); // character name - character uuid
-        public static Dictionary<int, Tuple<int, int, int, long>> PlayerSlotsInfo = new Dictionary<int, Tuple<int, int, int, long>>(); // character uuid - lvl,exp,fraction,money
-
+        public static List<int> UUIDs = new List<int>();
+        public static Dictionary<int, string> PlayerNames = new Dictionary<int, string>();
+        public static Dictionary<string, int> PlayerBankAccs = new Dictionary<string, int>();
+        public static Dictionary<string, int> PlayerUUIDs = new Dictionary<string, int>();
+        public static Dictionary<int, Tuple<int, int, int, long>> PlayerSlotsInfo = new Dictionary<int, Tuple<int, int, int, long>>();
         public static Dictionary<string, Player> LoggedIn = new Dictionary<string, Player>();
-        public static Dictionary<Player, Character> Players = new Dictionary<Player, Character>(); // character in
-
+        public static Dictionary<Player, Character> Players = new Dictionary<Player, Character>();
         public static Dictionary<int, int> SimCards = new Dictionary<int, int>();
         public static Dictionary<int, Player> MaskIds = new Dictionary<int, Player>();
-        // Accounts
-        public static List<string> Usernames = new List<string>(); // usernames
-        public static List<string> SocialClubs = new List<string>(); // socialclubnames
-        public static Dictionary<string, string> Emails = new Dictionary<string, string>(); // emails
-        public static List<string> HWIDs = new List<string>(); // emails
-        public static Dictionary<Player, Account> Accounts = new Dictionary<Player, Account>(); // client's accounts
-        public static Dictionary<Player, Tuple<int, string, string, string>> RestorePass = new Dictionary<Player, Tuple<int, string, string, string>>(); // int code, string Login, string SocialClub, string Email
+        public static List<string> Usernames = new List<string>();
+        public static List<string> SocialClubs = new List<string>();
+        public static Dictionary<string, string> Emails = new Dictionary<string, string>();
+        public static List<string> HWIDs = new List<string>();
+        public static Dictionary<Player, Account> Accounts = new Dictionary<Player, Account>();
+        public static Dictionary<Player, Tuple<int, string, string, string>> RestorePass = new Dictionary<Player, Tuple<int, string, string, string>>();
         public static char[] stringBlock = { '\'', '@', '[', ']', ':', '"', '[', ']', '{', '}', '|', '`', '%', '\\' };
 
         public static string BlockSymbols(string check)
@@ -64,9 +55,7 @@ namespace iTeffa
             }
             return check;
         }
-
         public static Random rnd = new Random();
-
         public static List<string> LicWords = new List<string>()
         {
             "A",
@@ -78,8 +67,7 @@ namespace iTeffa
             "G",
             "MED"
         };
-
-        private static nLog Log = new nLog("GM");
+        private static readonly nLog Log = new nLog("GM");
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
         {
@@ -136,7 +124,6 @@ namespace iTeffa
                         try
                         {
                             string login = Convert.ToString(Row["login"]);
-
                             Usernames.Add(login.ToLower());
                             if (SocialClubs.Contains(Convert.ToString(Row["socialclub"]))) Log.Write("ResourceStart: sc contains " + Convert.ToString(Row["socialclub"]), nLog.Type.Error);
                             else SocialClubs.Add(Convert.ToString(Row["socialclub"]));
@@ -224,12 +211,11 @@ namespace iTeffa
 
                 Fractions.Configs.LoadFractionConfigs();
 
-                NAPI.World.SetWeather(config.TryGet<string>("Weather", "CLEAR")); // XMAS - Зима
+                NAPI.World.SetWeather(config.TryGet<string>("Weather", "CLEAR"));
 
                 if (oldconfig.DonateChecker)
                     Finance.Donations.Start();
 
-                // Assembly information //
                 Log.Write(Constants.GM_VERSION + " started at " + StartDate.ToString("s"), nLog.Type.Success);
                 Log.Write($"Assembly compiled {CompileDate.ToString("s")}", nLog.Type.Success);
 
@@ -237,7 +223,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
-
         [ServerEvent(Event.EntityCreated)]
         public void Event_entityCreated(Entity entity)
         {
@@ -263,7 +248,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("EntityCreated: " + e.Message, nLog.Type.Error); }
         }
-
         #region Player
         [ServerEvent(Event.PlayerDisconnected)]
         public void Event_OnPlayerDisconnected(Player player, DisconnectionType type, string reason)
@@ -305,7 +289,7 @@ namespace iTeffa
                     Log.Debug("STAGE 2 (CUFFED)");
                     try
                     {
-                        Houses.House house = Houses.HouseManager.GetHouse(player);
+                        House house = HouseManager.GetHouse(player);
                         if (house != null)
                         {
                             string vehNumber = house.GaragePlayerExit(player);
@@ -391,7 +375,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"PlayerDisconnected (value: {player.Value}): " + e.Message, nLog.Type.Error); }
         }
-
         [ServerEvent(Event.PlayerConnected)]
         public void Event_OnPlayerConnected(Player player)
         {
@@ -422,7 +405,6 @@ namespace iTeffa
             catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_OnPlayerConnected\":\n" + e.ToString(), nLog.Type.Error); }
         }
         #endregion Player
-
         #region ClientEvents
         [RemoteEvent("kickclient")]
         public void ClientEvent_Kick(Player player)
@@ -433,7 +415,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("kickclient: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("teleportWaypoint")]
         public void ClientEvent_tpWP(Player player, float x, float y, float z)
         {
@@ -441,7 +422,6 @@ namespace iTeffa
             if (Players[player].AdminLVL < 1) return;
             NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
         }
-
         [RemoteEvent("reloadcef")]
         public static void ClientEvent_ReloadCef(Player player)
         {
@@ -460,7 +440,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"reloadcef: " + e.Message); }
         }
-
         [RemoteEvent("deletearmor")]
         public void ClientEvent_DeleteArmor(Player player)
         {
@@ -468,7 +447,7 @@ namespace iTeffa
             {
                 if (player.Armor == 0)
                 {
-                    nItem aItem = nInventory.Find(Main.Players[player].UUID, ItemType.BodyArmor);
+                    nItem aItem = nInventory.Find(Players[player].UUID, ItemType.BodyArmor);
                     if (aItem == null || aItem.IsActive == false) return;
                     nInventory.Remove(player, ItemType.BodyArmor, 1);
                     player.ResetSharedData("HASARMOR");
@@ -476,7 +455,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("deletearmor: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("syncWaypoint")]
         public void Event_SyncWP(Player player, float X, float Y)
         {
@@ -493,7 +471,6 @@ namespace iTeffa
                 Log.Write("WP: " + e.Message);
             }
         }
-
         [RemoteEvent("spawn")]
         public void ClientEvent_Spawn(Player player, int id)
         {
@@ -547,7 +524,7 @@ namespace iTeffa
                             Customization.ApplyCharacter(player);
                             if (Players[player].FractionID > 0) Fractions.Manager.Load(player, Players[player].FractionID, Players[player].FractionLVL);
 
-                            House house = Houses.HouseManager.GetHouse(player);
+                            House house = HouseManager.GetHouse(player);
                             if (house != null)
                             {
                                 Garage garage = GarageManager.Garages[house.GarageID];
@@ -571,7 +548,7 @@ namespace iTeffa
                             house = HouseManager.GetHouse(player);
                             if (house != null)
                             {
-                                Houses.Garage garage = Houses.GarageManager.Garages[house.GarageID];
+                                Garage garage = GarageManager.Garages[house.GarageID];
                                 if (!string.IsNullOrEmpty(Players[player].LastVeh) && !string.IsNullOrEmpty(VehicleManager.Vehicles[Players[player].LastVeh].Position))
                                 {
                                     VehicleManager.Vehicles[Players[player].LastVeh].Position = null;
@@ -582,7 +559,7 @@ namespace iTeffa
                             }
                             break;
                         case 2:
-                            house = Houses.HouseManager.GetHouse(player);
+                            house = HouseManager.GetHouse(player);
                             if (house != null)
                             {
                                 NAPI.Entity.SetEntityPosition(player, house.Position + new Vector3(0, 0, 1.5));
@@ -624,8 +601,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"ClientEvent_Spawn/{where}: " + e.Message, nLog.Type.Error); }
         }
-
-
         [RemoteEvent("setStock")]
         public void ClientEvent_setStock(Player player, string stock)
         {
@@ -653,7 +628,7 @@ namespace iTeffa
                     case "fuelcontrol_army":
                     case "fuelcontrol_news":
                         int limit = 0;
-                        if (!Int32.TryParse(text, out limit) || limit <= 0)
+                        if (!int.TryParse(text, out limit) || limit <= 0)
                         {
                             Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                             return;
@@ -719,24 +694,24 @@ namespace iTeffa
                         return;
                     case "player_offerhousesell":
                         int price = 0;
-                        if (!Int32.TryParse(text, out price) || price <= 0)
+                        if (!int.TryParse(text, out price) || price <= 0)
                         {
                             Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
 
                         Player target = player.GetData<Player>("SELECTEDPLAYER");
-                        if (!Main.Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 2)
+                        if (!Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 2)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко от Вас", 3000);
                             return;
                         }
 
-                        Houses.HouseManager.OfferHouseSell(player, target, price);
+                        HouseManager.OfferHouseSell(player, target, price);
                         return;
                     case "buy_drugs":
                         int amount = 0;
-                        if (!Int32.TryParse(text, out amount))
+                        if (!int.TryParse(text, out amount))
                         {
                             Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                             return;
@@ -769,7 +744,7 @@ namespace iTeffa
                         }
                         Finance.Bank.Change(Players[player].Bank, amount);
                         Fractions.Stocks.fracStocks[6].Money -= amount;
-                        GameLog.Money($"frac(6)", $"bank({Main.Players[player].Bank})", amount, "treasureTake");
+                        GameLog.Money($"frac(6)", $"bank({Players[player].Bank})", amount, "treasureTake");
                         return;
                     case "mayor_put":
                         if (!Fractions.Manager.isLeader(player, 6)) return;
@@ -788,7 +763,7 @@ namespace iTeffa
                             return;
                         }
                         Fractions.Stocks.fracStocks[6].Money += amount;
-                        GameLog.Money($"bank({Main.Players[player].Bank})", $"frac(6)", amount, "treasurePut");
+                        GameLog.Money($"bank({Players[player].Bank})", $"frac(6)", amount, "treasurePut");
                         return;
                     case "call_police":
                         if (text.Length == 0)
@@ -827,7 +802,7 @@ namespace iTeffa
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
                             return;
                         }
-                        if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Main.Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
+                        if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
                         Fractions.FractionCommands.sellMedKitToTarget(player, player.GetData<Player>("SELECTEDPLAYER"), Convert.ToInt32(text));
                         return;
                     case "player_heal":
@@ -840,7 +815,7 @@ namespace iTeffa
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
                             return;
                         }
-                        if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Main.Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
+                        if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
                         Fractions.FractionCommands.healTarget(player, player.GetData<Player>("SELECTEDPLAYER"), Convert.ToInt32(text));
                         return;
                     case "put_stock":
@@ -869,7 +844,7 @@ namespace iTeffa
                     case "sellcar":
                         if (!player.HasData("SELLCARFOR")) return;
                         target = player.GetData<Player>("SELLCARFOR");
-                        if (!Main.Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 3)
+                        if (!Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 3)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
                             return;
@@ -890,7 +865,7 @@ namespace iTeffa
                             return;
                         }
 
-                        if (Main.Players[target].Money < price)
+                        if (Players[target].Money < price)
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно средств", 3000);
                             return;
@@ -921,12 +896,12 @@ namespace iTeffa
                         {
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
-                            Character acc = Main.Players[player];
+                            Character acc = Players[player];
                             List<nItem> items = nInventory.Items[acc.UUID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
                             if (item.Type != type) return;
-                            if (Int32.TryParse(text, out int dropAmount))
+                            if (int.TryParse(text, out int dropAmount))
                             {
                                 if (dropAmount <= 0) return;
                                 if (item.Count < dropAmount)
@@ -948,14 +923,14 @@ namespace iTeffa
                         {
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
-                            Character acc = Main.Players[player];
+                            Character acc = Players[player];
                             List<nItem> items = nInventory.Items[acc.UUID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
                             if (item.Type != type) return;
 
                             int transferAmount;
-                            if (Int32.TryParse(text, out transferAmount))
+                            if (int.TryParse(text, out transferAmount))
                             {
                                 if (transferAmount <= 0) return;
                                 if (item.Count < transferAmount)
@@ -996,7 +971,7 @@ namespace iTeffa
 
                                 VehicleInventory.Add(veh, new nItem(item.Type, transferAmount, item.Data));
                                 nInventory.Remove(player, item.Type, transferAmount);
-                                GameLog.Items($"player({Main.Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                                GameLog.Items($"player({Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                             }
                             else
                             {
@@ -1009,7 +984,7 @@ namespace iTeffa
                         {
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
-                            Character acc = Main.Players[player];
+                            Character acc = Players[player];
                             List<nItem> items = nInventory.Items[acc.UUID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
@@ -1023,11 +998,11 @@ namespace iTeffa
                                 return;
                             }
 
-                            if (Main.Players[player].InsideHouseID == -1) return;
-                            int houseID = Main.Players[player].InsideHouseID;
+                            if (Players[player].InsideHouseID == -1) return;
+                            int houseID = Players[player].InsideHouseID;
                             int furnID = player.GetData<int>("OpennedSafe");
 
-                            int tryAdd = Houses.FurnitureManager.TryAdd(houseID, furnID, item);
+                            int tryAdd = FurnitureManager.TryAdd(houseID, furnID, item);
                             if (tryAdd == -1 || tryAdd > 0)
                             {
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в сейфе", 3000);
@@ -1035,14 +1010,14 @@ namespace iTeffa
                             }
 
                             nInventory.Remove(player, item.Type, transferAmount);
-                            Houses.FurnitureManager.Add(houseID, furnID, new nItem(item.Type, transferAmount));
+                            FurnitureManager.Add(houseID, furnID, new nItem(item.Type, transferAmount));
                         }
                         return;
                     case "item_transfer_tofracstock":
                         {
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
-                            Character acc = Main.Players[player];
+                            Character acc = Players[player];
                             List<nItem> items = nInventory.Items[acc.UUID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
@@ -1069,7 +1044,7 @@ namespace iTeffa
 
                             nInventory.Remove(player, item.Type, transferAmount);
                             Fractions.Stocks.Add(onFraction, new nItem(item.Type, transferAmount));
-                            GameLog.Items($"player({Main.Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            GameLog.Items($"player({Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                             GameLog.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, false);
                         }
                         return;
@@ -1086,7 +1061,7 @@ namespace iTeffa
 
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
-                            Character acc = Main.Players[player];
+                            Character acc = Players[player];
                             List<nItem> items = nInventory.Items[acc.UUID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
@@ -1097,7 +1072,7 @@ namespace iTeffa
                             if (item.Count < transferAmount)
                             {
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
-                                Interface.Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
+                                Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                                 return;
                             }
 
@@ -1106,15 +1081,15 @@ namespace iTeffa
                             if (tryAdd == -1 || tryAdd > 0)
                             {
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно места", 3000);
-                                Interface.Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
+                                Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                                 return;
                             }
 
                             nInventory.Add(changeTarget, new nItem(item.Type, transferAmount));
                             nInventory.Remove(player, item.Type, transferAmount);
-                            GameLog.Items($"player({Main.Players[player].UUID})", $"player({Main.Players[changeTarget].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            GameLog.Items($"player({Players[player].UUID})", $"player({Players[changeTarget].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
 
-                            Interface.Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
+                            Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                         }
                         return;
                     case "item_transfer_fromveh":
@@ -1129,8 +1104,7 @@ namespace iTeffa
                             if (item.Type != type) return;
 
                             int count = VehicleInventory.GetCountOfType(veh, item.Type);
-                            int transferAmount;
-                            if (Int32.TryParse(text, out transferAmount))
+                            if (int.TryParse(text, out int transferAmount))
                             {
                                 if (transferAmount <= 0) return;
                                 if (count < transferAmount)
@@ -1147,7 +1121,7 @@ namespace iTeffa
                                 }
                                 VehicleInventory.Remove(veh, item.Type, transferAmount);
                                 nInventory.Add(player, new nItem(item.Type, transferAmount, item.Data));
-                                GameLog.Items($"vehicle({veh.NumberPlate})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                                GameLog.Items($"vehicle({veh.NumberPlate})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                             }
                             else
                             {
@@ -1161,17 +1135,17 @@ namespace iTeffa
                             int index = player.GetData<int>("ITEMINDEX");
                             ItemType type = player.GetData<ItemType>("ITEMTYPE");
 
-                            if (Main.Players[player].InsideHouseID == -1) return;
-                            int houseID = Main.Players[player].InsideHouseID;
+                            if (Players[player].InsideHouseID == -1) return;
+                            int houseID = Players[player].InsideHouseID;
                             int furnID = player.GetData<int>("OpennedSafe");
-                            Houses.HouseFurniture furniture = Houses.FurnitureManager.HouseFurnitures[houseID][furnID];
+                            HouseFurniture furniture = FurnitureManager.HouseFurnitures[houseID][furnID];
 
-                            List<nItem> items = Houses.FurnitureManager.FurnituresItems[houseID][furnID];
+                            List<nItem> items = FurnitureManager.FurnituresItems[houseID][furnID];
                             if (items.Count <= index) return;
                             nItem item = items[index];
                             if (item.Type != type) return;
 
-                            int count = Houses.FurnitureManager.GetCountOfType(houseID, furnID, item.Type);
+                            int count = FurnitureManager.GetCountOfType(houseID, furnID, item.Type);
                             int transferAmount = Convert.ToInt32(text);
                             if (transferAmount <= 0) return;
                             if (count < transferAmount)
@@ -1186,7 +1160,7 @@ namespace iTeffa
                                 return;
                             }
                             nInventory.Add(player, new nItem(item.Type, transferAmount));
-                            Houses.FurnitureManager.Remove(houseID, furnID, item.Type, transferAmount);
+                            FurnitureManager.Remove(houseID, furnID, item.Type, transferAmount);
                         }
                         return;
                     case "item_transfer_fromfracstock":
@@ -1220,13 +1194,12 @@ namespace iTeffa
                             nInventory.Add(player, new nItem(item.Type, transferAmount));
                             Fractions.Stocks.Remove(onFraction, new nItem(item.Type, transferAmount));
                             GameLog.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, true);
-                            GameLog.Items($"fracstock({onFraction})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            GameLog.Items($"fracstock({onFraction})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                         }
                         return;
                     case "weaptransfer":
                         {
-                            int ammo = 0;
-                            if (!Int32.TryParse(text, out ammo))
+                            if (!int.TryParse(text, out int ammo))
                             {
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
@@ -1238,7 +1211,7 @@ namespace iTeffa
                     case "extend_hotel_rent":
                         {
                             int hours = 0;
-                            if (!Int32.TryParse(text, out hours))
+                            if (!int.TryParse(text, out hours))
                             {
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
@@ -1248,7 +1221,7 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
-                            Houses.Hotel.ExtendHotelRent(player, hours);
+                            Hotel.ExtendHotelRent(player, hours);
                         }
                         return;
                     case "smsadd":
@@ -1258,8 +1231,7 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
-                            int num;
-                            if (Int32.TryParse(text, out num))
+                            if (int.TryParse(text, out int num))
                             {
                                 if (Players[player].Contacts.Count >= Group.GroupMaxContacts[Accounts[player].VipLvl])
                                 {
@@ -1298,7 +1270,7 @@ namespace iTeffa
                                     return;
                                 }
                                 Player t = GetPlayerByUUID(SimCards[num]);
-                                Speaking.Voice.PhoneCallCommand(player, t);
+                                Voice.PhoneCallCommand(player, t);
                             }
                             else
                             {
@@ -1331,9 +1303,9 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Недостаточно средств на банковском счете", 3000);
                                 return;
                             }
-                            //Fractions.Stocks.fracStocks[6].Money += 10;
-                            GameLog.Money($"bank({Main.Players[player].Bank})", $"frac(6)", 10, "sms");
-                            int senderNum = Main.Players[player].Sim;
+
+                            GameLog.Money($"bank({Players[player].Bank})", $"frac(6)", 10, "sms");
+                            int senderNum = Players[player].Sim;
                             string senderName = (Players[t].Contacts.ContainsKey(senderNum)) ? Players[t].Contacts[senderNum] : senderNum.ToString();
                             string msg = $"Сообщение от {senderName}: {text}";
                             t.SendChatMessage("~o~" + msg);
@@ -1389,7 +1361,7 @@ namespace iTeffa
                             }
 
                             int adPrice = text.Length / 15 * 6;
-                            if (!Finance.Bank.Change(Main.Players[player].Bank, -adPrice, false))
+                            if (!Finance.Bank.Change(Players[player].Bank, -adPrice, false))
                             {
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас не хватает денежных средств в банке", 3000);
                                 return;
@@ -1414,7 +1386,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"inputCallback/{callback}/: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
         }
-
         [RemoteEvent("openPlayerMenu")]
         public async Task ClientEvent_openPlayerMenu(Player player, params object[] arguments)
         {
@@ -1433,7 +1404,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("openPlayerMenu: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("closePlayerMenu")]
         public void ClientEvent_closePlayerMenu(Player player, params object[] arguments)
         {
@@ -1521,7 +1491,7 @@ namespace iTeffa
             try
             {
                 if (state == 0)
-                { // Отправка кода
+                {
                     if (Emails.ContainsKey(loginorcode)) loginorcode = Emails[loginorcode];
                     else loginorcode = loginorcode.ToLower();
                     DataTable result = Connect.QueryRead($"SELECT email, socialclub FROM `accounts` WHERE `login`='{loginorcode}'");
@@ -1538,36 +1508,36 @@ namespace iTeffa
                         Log.Debug($"SocialClub не соответствует SocialClub при регистрации", nLog.Type.Warn);
                         return;
                     }
-                    int mycode = Main.rnd.Next(1000, 10000);
-                    if (Main.RestorePass.ContainsKey(client)) Main.RestorePass.Remove(client);
-                    Main.RestorePass.Add(client, new Tuple<int, string, string, string>(mycode, loginorcode, client.GetData<string>("RealSocialClub"), email));
+                    int mycode = rnd.Next(1000, 10000);
+                    if (RestorePass.ContainsKey(client)) RestorePass.Remove(client);
+                    RestorePass.Add(client, new Tuple<int, string, string, string>(mycode, loginorcode, client.GetData<string>("RealSocialClub"), email));
                     await Task.Run(() => {
-                        PasswordRestore.SendEmail(0, email, mycode); // Отправляем сообщение на емейл с кодом для смены пароля
+                        PasswordRestore.SendEmail(0, email, mycode);
                     });
                 }
                 else
-                { // Ввод кода и проверка
-                    if (Main.RestorePass.ContainsKey(client))
+                {
+                    if (RestorePass.ContainsKey(client))
                     {
-                        if (client.GetData<string>("RealSocialClub") == Main.RestorePass[client].Item3)
+                        if (client.GetData<string>("RealSocialClub") == RestorePass[client].Item3)
                         {
-                            if (Convert.ToInt32(loginorcode) == Main.RestorePass[client].Item1)
+                            if (Convert.ToInt32(loginorcode) == RestorePass[client].Item1)
                             {
                                 Log.Debug($"{client.GetData<string>("RealSocialClub")} удачно восстановил пароль!", nLog.Type.Info);
-                                int newpas = Main.rnd.Next(1000000, 9999999);
+                                int newpas = rnd.Next(1000000, 9999999);
                                 await Task.Run(() => {
-                                    PasswordRestore.SendEmail(1, Main.RestorePass[client].Item4, newpas); // Отправляем сообщение на емейл с новым паролем
+                                    PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
                                 });
                                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
-                                Connect.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{Main.RestorePass[client].Item2}' AND `socialclub`='{Main.RestorePass[client].Item3}'");
-                                SignInOnTimer(client, RestorePass[client].Item2, newpas.ToString());  // Отправляем в логин по этим данным
+                                Connect.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{RestorePass[client].Item2}' AND `socialclub`='{RestorePass[client].Item3}'");
+                                SignInOnTimer(client, RestorePass[client].Item2, newpas.ToString());
 
-                                Main.RestorePass.Remove(client); // Удаляем из списка тех, кто восстанавливает пароль
-                            } // тут можно else { // и считать сколько раз он ввёл неправильные данные
+                                RestorePass.Remove(client);
+                            }
                         }
-                        else client.Kick(); // Если SocialClub не совпадает, то кикаем от сбоев.
+                        else client.Kick();
                     }
-                    else client.Kick(); // Если его не было найдено в списке, то кикаем от сбоев.
+                    else client.Kick();
                 }
             }
             catch (Exception ex)
@@ -1590,7 +1560,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
         }
-
         public async void SignInOnTimer(Player player, string login, string pass)
         {
             try
@@ -1634,8 +1603,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
         }
-
-
         [RemoteEvent("signup")]
         public void ClientEvent_signup(Player player, params object[] arguments)
         {
@@ -1648,7 +1615,6 @@ namespace iTeffa
                         int cheatCode = player.GetData<int>("CheatTrigger");
                         if (cheatCode > 1)
                         {
-                            //Log.Write($"CheatKick: {((Cheat)cheatCode).ToString()} on {player.Name} ", nLog.Type.Warn);
                             Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Непредвиденная ошибка! Попробуйте перезайти.", 10000);
                             player.Kick();
                             return;
@@ -1693,7 +1659,6 @@ namespace iTeffa
             });
         }
         #endregion Account
-
         [RemoteEvent("engineCarPressed")]
         public void ClientEvent_engineCarPressed(Player player, params object[] arguments)
         {
@@ -1704,7 +1669,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("engineCarPressed: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("lockCarPressed")]
         public void ClientEvent_lockCarPressed(Player player, params object[] arguments)
         {
@@ -1715,7 +1679,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("lockCarPressed: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("OpenSafe")]
         public void ClientEvent_OpenSafe(Player player, params object[] arguments)
         {
@@ -1726,7 +1689,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("OpenSafe: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("InteractSafe")]
         public void ClientEvent_InteractSafe(Player player, params object[] arguments)
         {
@@ -1737,7 +1699,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("InteractSafe: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("interactionPressed")]
         public void ClientEvent_interactionPressed(Player player, params object[] arguments)
         {
@@ -1864,11 +1825,11 @@ namespace iTeffa
                         return;
                     case 6:
                     case 7:
-                        Houses.HouseManager.interactPressed(player, id);
+                        HouseManager.interactPressed(player, id);
                         return;
                     case 40:
                     case 41:
-                        Houses.GarageManager.interactionPressed(player, id);
+                        GarageManager.interactionPressed(player, id);
                         return;
                     case 43:
                         SafeMain.interactSafe(player);
@@ -1882,7 +1843,7 @@ namespace iTeffa
                     case 48:
                     case 49:
                     case 50:
-                        Houses.Hotel.Event_InteractPressed(player, id);
+                        Hotel.Event_InteractPressed(player, id);
                         return;
                     case 52:
                     case 53:
@@ -1967,26 +1928,23 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"interactionPressed/{intid}/: " + e.Message, nLog.Type.Error); }
         }
-
-
-
         [RemoteEvent("acceptPressed")]
         public void RemoteEvent_acceptPressed(Player player)
         {
             string req = "";
             try
             {
-                if (!Main.Players.ContainsKey(player) || !player.GetData<bool>("IS_REQUESTED")) return;
+                if (!Players.ContainsKey(player) || !player.GetData<bool>("IS_REQUESTED")) return;
 
                 string request = player.GetData<string>("REQUEST");
                 req = request;
                 switch (request)
                 {
                     case "acceptPass":
-                        Interface.Docs.AcceptPasport(player);
+                        Docs.AcceptPasport(player);
                         break;
                     case "acceptLics":
-                        Interface.Docs.AcceptLicenses(player);
+                        Docs.AcceptLicenses(player);
                         break;
                     case "OFFER_ITEMS":
                         Selecting.playerOfferChangeItems(player);
@@ -2000,19 +1958,17 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"acceptPressed/{req}/: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("cancelPressed")]
         public void RemoteEvent_cancelPressed(Player player)
         {
             try
             {
-                if (!Main.Players.ContainsKey(player) || !player.GetData<bool>("IS_REQUESTED")) return;
+                if (!Players.ContainsKey(player) || !player.GetData<bool>("IS_REQUESTED")) return;
                 player.SetData("IS_REQUESTED", false);
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Отмена", 3000);
             }
             catch (Exception e) { Log.Write("cancelPressed: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("dialogCallback")]
         public void RemoteEvent_DialogCallback(Player player, string callback, bool yes)
         {
@@ -2052,7 +2008,7 @@ namespace iTeffa
                             return;
                         case "BUY_CAR":
                             {
-                                Houses.House house = Houses.HouseManager.GetHouse(player, true);
+                                House house = HouseManager.GetHouse(player, true);
                                 if (house == null)
                                 {
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет личного дома", 3000);
@@ -2063,8 +2019,8 @@ namespace iTeffa
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет гаража", 3000);
                                     break;
                                 }
-                                Houses.Garage garage = Houses.GarageManager.Garages[house.GarageID];
-                                if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                Garage garage = GarageManager.Garages[house.GarageID];
+                                if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= GarageManager.GarageTypes[garage.Type].MaxCars)
                                 {
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас максимальное кол-во машин", 3000);
                                     break;
@@ -2077,7 +2033,7 @@ namespace iTeffa
                                     Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
                                     return;
                                 }
-                                if (!Main.Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
+                                if (!Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
                                 {
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
                                     break;
@@ -2113,7 +2069,7 @@ namespace iTeffa
                                 Finance.Wallet.Change(seller, price);
                                 GameLog.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
 
-                                Houses.Garage sellerGarage = Houses.GarageManager.Garages[Houses.HouseManager.GetHouse(seller).GarageID];
+                                Garage sellerGarage = GarageManager.Garages[HouseManager.GetHouse(seller).GarageID];
                                 sellerGarage.DeleteCar(number);
 
                                 garage.SpawnCar(number);
@@ -2156,10 +2112,10 @@ namespace iTeffa
                             Working.AutoMechanic.mechanicPayFuel(player);
                             return;
                         case "HOUSE_SELL":
-                            Houses.HouseManager.acceptHouseSell(player);
+                            HouseManager.acceptHouseSell(player);
                             return;
                         case "HOUSE_SELL_TOGOV":
-                            Houses.HouseManager.acceptHouseSellToGov(player);
+                            HouseManager.acceptHouseSellToGov(player);
                             return;
                         case "CAR_SELL_TOGOV":
                             if (player.HasData("CARSELLGOV"))
@@ -2170,30 +2126,23 @@ namespace iTeffa
                                 int price = 0;
                                 if (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model))
                                 {
-                                    switch (Accounts[player].VipLvl)
+                                    price = Accounts[player].VipLvl switch
                                     {
-                                        case 0: // None
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                                            break;
-                                        case 1: // Bronze
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6);
-                                            break;
-                                        case 2: // Silver
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7);
-                                            break;
-                                        case 3: // Gold
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8);
-                                            break;
-                                        case 4: // Platinum
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9);
-                                            break;
-                                        default:
-                                            price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                                            break;
-                                    }
+                                        // None
+                                        0 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                                        // Bronze
+                                        1 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6),
+                                        // Silver
+                                        2 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7),
+                                        // Gold
+                                        3 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8),
+                                        // Platinum
+                                        4 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9),
+                                        _ => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                                    };
                                 }
                                 Finance.Wallet.Change(player, price);
-                                GameLog.Money($"server", $"player({Main.Players[player].UUID})", price, $"carSell({vData.Model})");
+                                GameLog.Money($"server", $"player({Players[player].UUID})", price, $"carSell({vData.Model})");
                                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {vData.Model} ({vnumber}) за {price}$", 3000);
                                 VehicleManager.Remove(vnumber, player);
                             }
@@ -2205,7 +2154,7 @@ namespace iTeffa
                             BusinessManager.acceptBuyBusiness(player);
                             return;
                         case "ROOM_INVITE":
-                            Houses.HouseManager.acceptRoomInvite(player);
+                            HouseManager.acceptRoomInvite(player);
                             return;
                         case "RENT_CAR":
                             Rentcar.RentCar(player);
@@ -2260,7 +2209,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write($"dialogCallback ({callback} yes: {yes}): " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("playerPressCuffBut")]
         public void ClientEvent_playerPressCuffBut(Player player, params object[] arguments)
         {
@@ -2271,7 +2219,6 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("playerPressCuffBut: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("cuffUpdate")]
         public void ClientEvent_cuffUpdate(Player player, params object[] arguments)
         {
@@ -2283,7 +2230,6 @@ namespace iTeffa
             catch (Exception e) { Log.Write("cuffUpdate: " + e.Message, nLog.Type.Error); }
         }
         #endregion
-
         public class TestTattoo
         {
             public List<int> Slots { get; set; }
@@ -2301,7 +2247,6 @@ namespace iTeffa
                 FemaleHash = female;
             }
         }
-
         public Main()
         {
             Thread.CurrentThread.Name = "Main";
@@ -2310,11 +2255,10 @@ namespace iTeffa
 
             try
             {
-                oldconfig = new oldConfig
+                oldconfig = new OldConfig
                 {
                     ServerName = config.TryGet<string>("ServerName", "RP"),
                     ServerNumber = config.TryGet<string>("ServerNumber", "0"),
-                    //VoIPEnabled = config.TryGet<bool>("VOIPEnabled", true),
                     RemoteControl = config.TryGet<bool>("RemoteControl", false),
                     DonateChecker = config.TryGet<bool>("DonateChecker", false),
                     DonateSaleEnable = config.TryGet<bool>("Donation_Sale", false),
@@ -2347,7 +2291,6 @@ namespace iTeffa
                 "rightleg",
             };
         }
-
         private static void saveDatabase()
         {
             Log.Write("Saving Database...");
@@ -2366,9 +2309,9 @@ namespace iTeffa
             Log.Debug("Business Saved");
             Fractions.GangsCapture.SavingRegions();
             Log.Debug("GangCapture Saved");
-            Houses.HouseManager.SavingHouses();
+            HouseManager.SavingHouses();
             Log.Debug("Houses Saved");
-            Houses.FurnitureManager.Save();
+            FurnitureManager.Save();
             Log.Debug("Furniture Saved");
             nInventory.SaveAll();
             Log.Debug("Inventory saved Saved");
@@ -2386,62 +2329,32 @@ namespace iTeffa
             Log.Debug("Bank Saved");
             Log.Write("Database was saved");
         }
-
         private static DateTime NextWeatherChange = DateTime.Now.AddMinutes(rnd.Next(30, 70));
         private static List<int> Env_lastDate = new List<int>() { DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year };
         private static List<int> Env_lastTime = new List<int>() { DateTime.Now.Hour, DateTime.Now.Minute };
         private static string Env_lastWeather = config.TryGet<string>("Weather", "CLEAR"); // XMAS - Зима
         public static bool SCCheck = config.TryGet<bool>("SocialClubCheck", false);
-
         public static void changeWeather(byte id)
         {
             try
             {
-                switch (id)
+                Env_lastWeather = id switch
                 {
-                    case 0:
-                        Env_lastWeather = "EXTRASUNNY";
-                        break;
-                    case 1:
-                        Env_lastWeather = "CLEAR";
-                        break;
-                    case 2:
-                        Env_lastWeather = "CLOUDS";
-                        break;
-                    case 3:
-                        Env_lastWeather = "SMOG";
-                        break;
-                    case 4:
-                        Env_lastWeather = "FOGGY";
-                        break;
-                    case 5:
-                        Env_lastWeather = "OVERCAST";
-                        break;
-                    case 6:
-                        Env_lastWeather = "RAIN";
-                        break;
-                    case 7:
-                        Env_lastWeather = "THUNDER";
-                        break;
-                    case 8:
-                        Env_lastWeather = "CLEARING";
-                        break;
-                    case 9:
-                        Env_lastWeather = "NEUTRAL";
-                        break;
-                    case 10:
-                        Env_lastWeather = "SNOW";
-                        break;
-                    case 11:
-                        Env_lastWeather = "BLIZZARD";
-                        break;
-                    case 12:
-                        Env_lastWeather = "SNOWLIGHT";
-                        break;
-                    default:
-                        Env_lastWeather = "EXTRASUNNY";
-                        break;
-                }
+                    0 => "EXTRASUNNY",
+                    1 => "CLEAR",
+                    2 => "CLOUDS",
+                    3 => "SMOG",
+                    4 => "FOGGY",
+                    5 => "OVERCAST",
+                    6 => "RAIN",
+                    7 => "THUNDER",
+                    8 => "CLEARING",
+                    9 => "NEUTRAL",
+                    10 => "SNOW",
+                    11 => "BLIZZARD",
+                    12 => "SNOWLIGHT",
+                    _ => "EXTRASUNNY",
+                };
                 NAPI.World.SetWeather(Env_lastWeather);
                 ClientEventToAll("Enviroment_Weather", Env_lastWeather);
             }
@@ -2484,8 +2397,6 @@ namespace iTeffa
                         else newWeather = "FOGGY";
                         NextWeatherChange = DateTime.Now.AddMinutes(rnd.Next(15, 70));
                     }
-
-                    //newWeather = config.TryGet<string>("Weather", "CLEAR");
                 }
 
                 if (newWeather != Env_lastWeather)
@@ -2563,9 +2474,7 @@ namespace iTeffa
             catch (Exception e) { Log.Write($"playerMinutesTrigger: {e.ToString()}"); }
         }
         private static Random rndf = new Random();
-
         public static int pluscost = rndf.Next(10, 20);
-
         public static void payDayTrigger()
         {
             NAPI.Task.Run(() =>
@@ -2589,7 +2498,7 @@ namespace iTeffa
                                 Players[player].HotelLeft--;
                                 if (Players[player].HotelLeft <= 0)
                                 {
-                                    Houses.Hotel.MoveOutPlayer(player);
+                                    Hotel.MoveOutPlayer(player);
                                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Вас выселили из отеля за неуплату", 3000);
                                 }
                             }
@@ -2672,7 +2581,7 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, "С вас снят VIP статус", 3000);
                             }
 
-                            Interface.Dashboard.sendStats(player);
+                            Dashboard.sendStats(player);
                         }
                         catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_Player_{player.Name}\":\n" + e.ToString(), nLog.Type.Error); }
                     }
@@ -2724,11 +2633,11 @@ namespace iTeffa
                             {
                                 Player player = NAPI.Player.GetPlayerFromName(owner);
 
-                                if (player != null && Main.Players.ContainsKey(player))
+                                if (player != null && Players.ContainsKey(player))
                                 {
                                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Государство отобрало у Вас бизнес за неуплату налогов", 3000);
                                     Finance.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
-                                    Main.Players[player].BizIDs.Remove(biz.ID);
+                                    Players[player].BizIDs.Remove(biz.ID);
                                 }
                                 else
                                 {
@@ -2756,7 +2665,7 @@ namespace iTeffa
                         }
                         catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger_Business\":\n" + e.ToString(), nLog.Type.Error); }
                     }
-                    foreach (Houses.House h in Houses.HouseManager.Houses)
+                    foreach (House h in HouseManager.Houses)
                     {
                         try
                         {
@@ -2808,23 +2717,27 @@ namespace iTeffa
                 catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger\":\n" + e.ToString(), nLog.Type.Error); }
             });
         }
-
-
         #region SMS
         public static void OpenContacts(Player client)
         {
             if (!Players.ContainsKey(client)) return;
             Character acc = Players[client];
 
-            Menu menu = new Menu("contacts", false, true);
-            menu.Callback = callback_sms;
+            Menu menu = new Menu("contacts", false, true)
+            {
+                Callback = callback_sms
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Контакты";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Контакты"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("call", Menu.MenuItem.Button);
-            menuItem.Text = "Позвонить";
+            menuItem = new Menu.Item("call", Menu.MenuItem.Button)
+            {
+                Text = "Позвонить"
+            };
             menu.Add(menuItem);
 
             if (acc.Contacts != null)
@@ -2837,12 +2750,16 @@ namespace iTeffa
                 }
             }
 
-            menuItem = new Menu.Item("add", Menu.MenuItem.Button);
-            menuItem.Text = "Добавить номер";
+            menuItem = new Menu.Item("add", Menu.MenuItem.Button)
+            {
+                Text = "Добавить номер"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(client);
@@ -2888,35 +2805,51 @@ namespace iTeffa
         }
         public static void OpenContactData(Player client, string Number, string Name)
         {
-            Menu menu = new Menu("smsdata", false, true);
-            menu.Callback = callback_smsdata;
+            Menu menu = new Menu("smsdata", false, true)
+            {
+                Callback = callback_smsdata
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = Number;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = Number
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("name", Menu.MenuItem.Card);
-            menuItem.Text = Name;
+            menuItem = new Menu.Item("name", Menu.MenuItem.Card)
+            {
+                Text = Name
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("send", Menu.MenuItem.Button);
-            menuItem.Text = "Написать";
+            menuItem = new Menu.Item("send", Menu.MenuItem.Button)
+            {
+                Text = "Написать"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("call", Menu.MenuItem.Button);
-            menuItem.Text = "Позвонить";
+            menuItem = new Menu.Item("call", Menu.MenuItem.Button)
+            {
+                Text = "Позвонить"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("rename", Menu.MenuItem.Button);
-            menuItem.Text = "Переименовать";
+            menuItem = new Menu.Item("rename", Menu.MenuItem.Button)
+            {
+                Text = "Переименовать"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("remove", Menu.MenuItem.Button);
-            menuItem.Text = "Удалить";
+            menuItem = new Menu.Item("remove", Menu.MenuItem.Button)
+            {
+                Text = "Удалить"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(client);
@@ -2937,7 +2870,7 @@ namespace iTeffa
                         return;
                     }
                     Player target = GetPlayerByUUID(SimCards[num]);
-                    Speaking.Voice.PhoneCallCommand(player, target);
+                    Voice.PhoneCallCommand(player, target);
                     break;
                 case "rename":
                     Trigger.ClientEvent(player, "openInput", "Переименование", $"Введите новое имя для {num}", 18, "smsname");
@@ -2955,7 +2888,6 @@ namespace iTeffa
             }
         }
         #endregion SMS
-
         #region SPECIAL
         [Command("build")]
         public static void CMD_BUILD(Player client)
@@ -2977,7 +2909,6 @@ namespace iTeffa
         {
             return utf8String;
         }
-
         public static void ClientEventToAll(string eventName, params object[] args)
         {
             List<Player> players = Players.Keys.ToList();
@@ -3015,9 +2946,9 @@ namespace iTeffa
         }
         public static Player GetPlayerByID(int id)
         {
-            foreach (Player player in Main.Players.Keys.ToList())
+            foreach (Player player in Players.Keys.ToList())
             {
-                if (!Main.Players.ContainsKey(player)) continue;
+                if (!Players.ContainsKey(player)) continue;
                 if (player.Value == id) return player;
             }
             return null;
@@ -3056,31 +2987,38 @@ namespace iTeffa
 
             if (player.HasData("PhoneVoip"))
             {
-                Speaking.VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
                 if (playerPhoneMeta.CallingState != "callMe" && playerPhoneMeta.Target != null)
                 {
                     player.PlayAnimation("anim@cellphone@in_car@ds", "cellphone_call_listen_base", 49);
-                    Kernel.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.11, 0.03, -0.01), new Vector3(85, -15, 120));
+                    BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.11, 0.03, -0.01), new Vector3(85, -15, 120));
                 }
             }
         }
-
         #region InputMenu
         public static void OpenInputMenu(Player player, string title, string func)
         {
-            Menu menu = new Menu("inputmenu", false, false);
-            menu.Callback = callback_inputmenu;
+            Menu menu = new Menu("inputmenu", false, false)
+            {
+                Callback = callback_inputmenu
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = title;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = title
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("inp", Menu.MenuItem.Input);
-            menuItem.Text = "*******";
+            menuItem = new Menu.Item("inp", Menu.MenuItem.Input)
+            {
+                Text = "*******"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item(func, Menu.MenuItem.Button);
-            menuItem.Text = "ОК";
+            menuItem = new Menu.Item(func, Menu.MenuItem.Button)
+            {
+                Text = "ОК"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3152,118 +3090,151 @@ namespace iTeffa
             }
         }
         #endregion
-
         #region MainMenu
         public static async Task OpenPlayerMenu(Player player)
         {
-            Menu menu = new Menu("mainmenu", false, false);
-            menu.Callback = callback_mainmenu;
+            Menu menu = new Menu("mainmenu", false, false)
+            {
+                Callback = callback_mainmenu
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Меню";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Меню"
+            };
             menu.Add(menuItem);
 
             if (oldconfig.VoIPEnabled)
             {
-                Speaking.VoicePhoneMetaData vpmd = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                VoicePhoneMetaData vpmd = player.GetData<VoicePhoneMetaData>("PhoneVoip");
                 if (vpmd.Target != null)
                 {
                     if (vpmd.CallingState == "callMe")
                     {
-                        menuItem = new Menu.Item("acceptcall", Menu.MenuItem.Button);
-                        menuItem.Scale = 1;
-                        menuItem.Color = Menu.MenuColor.Green;
-                        menuItem.Text = "Принять вызов";
+                        menuItem = new Menu.Item("acceptcall", Menu.MenuItem.Button)
+                        {
+                            Scale = 1,
+                            Color = Menu.MenuColor.Green,
+                            Text = "Принять вызов"
+                        };
                         menu.Add(menuItem);
                     }
 
                     string text = (vpmd.CallingState == "callMe") ? "Отклонить вызов" : (vpmd.CallingState == "callTo") ? "Отменить вызов" : "Завершить вызов";
-                    menuItem = new Menu.Item("endcall", Menu.MenuItem.Button);
-                    menuItem.Scale = 1;
-                    menuItem.Text = text;
+                    menuItem = new Menu.Item("endcall", Menu.MenuItem.Button)
+                    {
+                        Scale = 1,
+                        Text = text
+                    };
                     menu.Add(menuItem);
                 }
             }
 
-            menuItem = new Menu.Item("gps", Menu.MenuItem.gpsBtn);
-            menuItem.Column = 2;
-            menuItem.Text = "";
-            menu.Add(menuItem);
-
-            menuItem = new Menu.Item("contacts", Menu.MenuItem.contactBtn);
-            menuItem.Column = 2;
-            menuItem.Text = "";
-            menu.Add(menuItem);
-
-            menuItem = new Menu.Item("services", Menu.MenuItem.servicesBtn);
-            menuItem.Column = 2;
-            menuItem.Text = "";
-            menu.Add(menuItem);
-
-            if (Main.Players[player].BizIDs.Count > 0)
+            menuItem = new Menu.Item("gps", Menu.MenuItem.gpsBtn)
             {
-                menuItem = new Menu.Item("biz", Menu.MenuItem.businessBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                Column = 2,
+                Text = ""
+            };
+            menu.Add(menuItem);
+
+            menuItem = new Menu.Item("contacts", Menu.MenuItem.contactBtn)
+            {
+                Column = 2,
+                Text = ""
+            };
+            menu.Add(menuItem);
+
+            menuItem = new Menu.Item("services", Menu.MenuItem.servicesBtn)
+            {
+                Column = 2,
+                Text = ""
+            };
+            menu.Add(menuItem);
+
+            if (Players[player].BizIDs.Count > 0)
+            {
+                menuItem = new Menu.Item("biz", Menu.MenuItem.businessBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
 
-            if (Main.Players[player].FractionID > 0)
+            if (Players[player].FractionID > 0)
             {
-                menuItem = new Menu.Item("frac", Menu.MenuItem.grupBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                menuItem = new Menu.Item("frac", Menu.MenuItem.grupBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
 
             if (Fractions.Manager.isLeader(player, 6))
             {
-                menuItem = new Menu.Item("citymanage", Menu.MenuItem.businessBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                menuItem = new Menu.Item("citymanage", Menu.MenuItem.businessBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
 
-            if (Main.Players[player].HotelID != -1)
+            if (Players[player].HotelID != -1)
             {
-                menuItem = new Menu.Item("hotel", Menu.MenuItem.hotelBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                menuItem = new Menu.Item("hotel", Menu.MenuItem.hotelBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
 
-            if (Main.Players[player].LVL < 1)
+            if (Players[player].LVL < 1)
             {
-                menuItem = new Menu.Item("promo", Menu.MenuItem.promoBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                menuItem = new Menu.Item("promo", Menu.MenuItem.promoBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
 
-            if (Houses.HouseManager.GetHouse(player, true) != null)
+            if (HouseManager.GetHouse(player, true) != null)
             {
-                menuItem = new Menu.Item("house", Menu.MenuItem.homeBtn);
-                menuItem.Column = 2;
-                menuItem.Text = "";
+                menuItem = new Menu.Item("house", Menu.MenuItem.homeBtn)
+                {
+                    Column = 2,
+                    Text = ""
+                };
                 menu.Add(menuItem);
             }
-            else if (Houses.HouseManager.GetHouse(player) != null && Houses.HouseManager.GetHouse(player, true) == null)
+            else if (HouseManager.GetHouse(player) != null && HouseManager.GetHouse(player, true) == null)
             {
-                menuItem = new Menu.Item("openhouse", Menu.MenuItem.Button);
-                menuItem.Text = "Открыть/Закрыть Дом";
+                menuItem = new Menu.Item("openhouse", Menu.MenuItem.Button)
+                {
+                    Text = "Открыть/Закрыть Дом"
+                };
                 menu.Add(menuItem);
 
-                menuItem = new Menu.Item("leavehouse", Menu.MenuItem.Button);
-                menuItem.Text = "Выселиться из дома";
+                menuItem = new Menu.Item("leavehouse", Menu.MenuItem.Button)
+                {
+                    Text = "Выселиться из дома"
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("ad", Menu.MenuItem.ilanBtn);
-            menuItem.Text = "";
+            menuItem = new Menu.Item("ad", Menu.MenuItem.ilanBtn)
+            {
+                Text = ""
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.closeBtn);
-            menuItem.Text = "";
+            menuItem = new Menu.Item("close", Menu.MenuItem.closeBtn)
+            {
+                Text = ""
+            };
             menu.Add(menuItem);
 
             await menu.OpenAsync(player);
@@ -3280,7 +3251,7 @@ namespace iTeffa
                     BusinessManager.OpenBizListMenu(player);
                     return;
                 case "house":
-                    Houses.HouseManager.OpenHouseManageMenu(player);
+                    HouseManager.OpenHouseManageMenu(player);
                     return;
                 case "frac":
                     Fractions.Manager.OpenFractionMenu(player);
@@ -3292,10 +3263,10 @@ namespace iTeffa
                     OpenMayorMenu(player);
                     return;
                 case "hotel":
-                    Houses.Hotel.OpenHotelManageMenu(player);
+                    Hotel.OpenHotelManageMenu(player);
                     return;
                 case "contacts":
-                    if (Main.Players[player].Sim == -1)
+                    if (Players[player].Sim == -1)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет сим-карты", 3000);
                         return;
@@ -3307,7 +3278,7 @@ namespace iTeffa
                     return;
                 case "openhouse":
                     {
-                        Houses.House house = Houses.HouseManager.GetHouse(player);
+                        House house = HouseManager.GetHouse(player);
                         house.SetLock(!house.Locked);
                         if (house.Locked) Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли дом", 3000);
                         else Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли дом", 3000);
@@ -3315,7 +3286,7 @@ namespace iTeffa
                     }
                 case "leavehouse":
                     {
-                        Houses.House house = Houses.HouseManager.GetHouse(player);
+                        House house = HouseManager.GetHouse(player);
                         if (house == null)
                         {
                             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы не живете в доме", 3000);
@@ -3331,18 +3302,14 @@ namespace iTeffa
                     Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
                     return;
                 case "acceptcall":
-                    Speaking.Voice.PhoneCallAcceptCommand(player);
+                    Voice.PhoneCallAcceptCommand(player);
                     return;
                 case "endcall":
-                    Speaking.Voice.PhoneHCommand(player);
+                    Voice.PhoneHCommand(player);
                     return;
             }
         }
-        private static List<string> MoneyPromos = new List<string>()
-        {
-
-        };
-
+        private static readonly List<string> MoneyPromos = new List<string>() { };
         private static Dictionary<string, List<string>> Category = new Dictionary<string, List<string>>()
         {
             { "Категории", new List<string>(){
@@ -3395,7 +3362,6 @@ namespace iTeffa
         {
             { "Мэрия", new Vector3(-535.6117,-220.598,0) },
             { "LSPD", new Vector3(424.4417,-980.3409,0) },
-            //{ "Госпиталь", new Vector3(240.7599, -1379.576, 32.74176) },
             { "Госпиталь", new Vector3(-449.2525, -340.0438, 34.50174) },
             { "ФБР", new Vector3(-1581.552, -557.9453, 33.83302) },
             { "Электростанция", new Vector3(724.9625, 133.9959, 79.83643) },
@@ -3419,22 +3385,30 @@ namespace iTeffa
         };
         public static void OpenGPSMenu(Player player, string cat)
         {
-            Menu menu = new Menu("gps", false, false);
-            menu.Callback = callback_gps;
+            Menu menu = new Menu("gps", false, false)
+            {
+                Callback = callback_gps
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = cat;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = cat
+            };
             menu.Add(menuItem);
 
             foreach (string next in Category[cat])
             {
-                menuItem = new Menu.Item(next, Menu.MenuItem.Button);
-                menuItem.Text = next;
+                menuItem = new Menu.Item(next, Menu.MenuItem.Button)
+                {
+                    Text = next
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3501,38 +3475,52 @@ namespace iTeffa
                     return;
             }
         }
-
         public static void OpenServicesMenu(Player player)
         {
-            Menu menu = new Menu("services", false, false);
-            menu.Callback = callback_services;
+            Menu menu = new Menu("services", false, false)
+            {
+                Callback = callback_services
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Вызовы";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Вызовы"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("taxi", Menu.MenuItem.Button);
-            menuItem.Text = "Вызвать такси";
+            menuItem = new Menu.Item("taxi", Menu.MenuItem.Button)
+            {
+                Text = "Вызвать такси"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("repair", Menu.MenuItem.Button);
+            Menu.Item item = new Menu.Item("repair", Menu.MenuItem.Button);
+            menuItem = item;
             menuItem.Text = "Вызвать механика";
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("police", Menu.MenuItem.Button);
-            menuItem.Text = "Вызвать полицию";
+            menuItem = new Menu.Item("police", Menu.MenuItem.Button)
+            {
+                Text = "Вызвать полицию"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("sheriff", Menu.MenuItem.Button);
-            menuItem.Text = "Вызвать Шерифа";
+            menuItem = new Menu.Item("sheriff", Menu.MenuItem.Button)
+            {
+                Text = "Вызвать Шерифа"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("ems", Menu.MenuItem.Button);
-            menuItem.Text = "Вызвать EMS";
+            menuItem = new Menu.Item("ems", Menu.MenuItem.Button)
+            {
+                Text = "Вызвать EMS"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3566,42 +3554,59 @@ namespace iTeffa
                     return;
             }
         }
-
         public static void OpenMayorMenu(Player player)
         {
-            Menu menu = new Menu("citymanage", false, false);
-            menu.Callback = callback_mayormenu;
+            Menu menu = new Menu("citymanage", false, false)
+            {
+                Callback = callback_mayormenu
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Казна";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Казна"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info", Menu.MenuItem.Card);
-            menuItem.Text = $"Деньги: {Fractions.Stocks.fracStocks[6].Money}$";
+            menuItem = new Menu.Item("info", Menu.MenuItem.Card)
+            {
+                Text = $"Деньги: {Fractions.Stocks.fracStocks[6].Money}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info2", Menu.MenuItem.Card);
-            menuItem.Text = $"Собрано за последний час: {Fractions.Cityhall.lastHourTax}$";
+            menuItem = new Menu.Item("info2", Menu.MenuItem.Card)
+            {
+                Text = $"Собрано за последний час: {Fractions.Cityhall.lastHourTax}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("take", Menu.MenuItem.Button);
-            menuItem.Text = "Получить деньги";
+            menuItem = new Menu.Item("take", Menu.MenuItem.Button)
+            {
+                Text = "Получить деньги"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("put", Menu.MenuItem.Button);
-            menuItem.Text = "Положить деньги";
+            menuItem = new Menu.Item("put", Menu.MenuItem.Button)
+            {
+                Text = "Положить деньги"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("header2", Menu.MenuItem.Header);
-            menuItem.Text = "Управление";
+            menuItem = new Menu.Item("header2", Menu.MenuItem.Header)
+            {
+                Text = "Управление"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("fuelcontrol", Menu.MenuItem.Button);
-            menuItem.Text = "Гос.заправка";
+            menuItem = new Menu.Item("fuelcontrol", Menu.MenuItem.Button)
+            {
+                Text = "Гос.заправка"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3628,71 +3633,105 @@ namespace iTeffa
         }
         public static void OpenFuelcontrolMenu(Player player)
         {
-            Menu menu = new Menu("fuelcontrol", false, false);
-            menu.Callback = callback_fuelcontrol;
+            Menu menu = new Menu("fuelcontrol", false, false)
+            {
+                Callback = callback_fuelcontrol
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Гос.заправка";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Гос.заправка"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_city", Menu.MenuItem.Card);
-            menuItem.Text = $"Мэрия. Осталось сегодня: {Fractions.Stocks.fracStocks[6].FuelLeft}/{Fractions.Stocks.fracStocks[6].FuelLimit}$";
+            menuItem = new Menu.Item("info_city", Menu.MenuItem.Card)
+            {
+                Text = $"Мэрия. Осталось сегодня: {Fractions.Stocks.fracStocks[6].FuelLeft}/{Fractions.Stocks.fracStocks[6].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_city", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_city", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_police", Menu.MenuItem.Card);
-            menuItem.Text = $"Полиция. Осталось сегодня: {Fractions.Stocks.fracStocks[7].FuelLeft}/{Fractions.Stocks.fracStocks[7].FuelLimit}$";
+            menuItem = new Menu.Item("info_police", Menu.MenuItem.Card)
+            {
+                Text = $"Полиция. Осталось сегодня: {Fractions.Stocks.fracStocks[7].FuelLeft}/{Fractions.Stocks.fracStocks[7].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_police", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_police", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_ems", Menu.MenuItem.Card);
-            menuItem.Text = $"EMS. Осталось сегодня: {Fractions.Stocks.fracStocks[8].FuelLeft}/{Fractions.Stocks.fracStocks[8].FuelLimit}$";
+            menuItem = new Menu.Item("info_ems", Menu.MenuItem.Card)
+            {
+                Text = $"EMS. Осталось сегодня: {Fractions.Stocks.fracStocks[8].FuelLeft}/{Fractions.Stocks.fracStocks[8].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_ems", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_ems", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_fib", Menu.MenuItem.Card);
-            menuItem.Text = $"FIB. Осталось сегодня: {Fractions.Stocks.fracStocks[9].FuelLeft}/{Fractions.Stocks.fracStocks[9].FuelLimit}$";
+            menuItem = new Menu.Item("info_fib", Menu.MenuItem.Card)
+            {
+                Text = $"FIB. Осталось сегодня: {Fractions.Stocks.fracStocks[9].FuelLeft}/{Fractions.Stocks.fracStocks[9].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_fib", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_fib", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_army", Menu.MenuItem.Card);
-            menuItem.Text = $"Армия. Осталось сегодня: {Fractions.Stocks.fracStocks[14].FuelLeft}/{Fractions.Stocks.fracStocks[14].FuelLimit}$";
+            menuItem = new Menu.Item("info_army", Menu.MenuItem.Card)
+            {
+                Text = $"Армия. Осталось сегодня: {Fractions.Stocks.fracStocks[14].FuelLeft}/{Fractions.Stocks.fracStocks[14].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_army", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_army", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_news", Menu.MenuItem.Card);
-            menuItem.Text = $"News. Осталось сегодня: {Fractions.Stocks.fracStocks[15].FuelLeft}/{Fractions.Stocks.fracStocks[15].FuelLimit}$";
+            menuItem = new Menu.Item("info_news", Menu.MenuItem.Card)
+            {
+                Text = $"News. Осталось сегодня: {Fractions.Stocks.fracStocks[15].FuelLeft}/{Fractions.Stocks.fracStocks[15].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("set_news", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("set_news", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info_sheriff", Menu.MenuItem.Card);
-            menuItem.Text = $"Полиция. Осталось сегодня: {Fractions.Stocks.fracStocks[18].FuelLeft}/{Fractions.Stocks.fracStocks[18].FuelLimit}$";
+            menuItem = new Menu.Item("info_sheriff", Menu.MenuItem.Card)
+            {
+                Text = $"Полиция. Осталось сегодня: {Fractions.Stocks.fracStocks[18].FuelLeft}/{Fractions.Stocks.fracStocks[18].FuelLimit}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("setsheriff", Menu.MenuItem.Button);
-            menuItem.Text = "Установить лимит";
+            menuItem = new Menu.Item("setsheriff", Menu.MenuItem.Button)
+            {
+                Text = "Установить лимит"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3730,135 +3769,5 @@ namespace iTeffa
         }
         #endregion
         #endregion
-    }
-    public class CarInfo
-    {
-        public string Number { get; }
-        public VehicleHash Model { get; }
-        public Vector3 Position { get; }
-        public Vector3 Rotation { get; }
-        public int Color1 { get; }
-        public int Color2 { get; }
-        public int Price { get; }
-
-        public CarInfo(string number, VehicleHash model, Vector3 position, Vector3 rotation, int color1, int color2, int price)
-        {
-            Number = number;
-            Model = model;
-            Position = position;
-            Rotation = rotation;
-            Color1 = color1;
-            Color2 = color2;
-            Price = price;
-        }
-    }
-    public class oldConfig
-    {
-        public string ServerName { get; set; } = "RP1";
-        public string ServerNumber { get; set; } = "1";
-        public bool VoIPEnabled { get; set; } = false;
-        public bool RemoteControl { get; set; } = false;
-        public bool DonateChecker { get; set; } = false;
-        public bool DonateSaleEnable { get; set; } = false;
-        public int PaydayMultiplier { get; set; } = 1;
-        public int LastBonusMin { get; set; } = 120;
-        public int ExpMultiplier { get; set; } = 1;
-        public bool SCLog { get; set; } = false;
-    }
-    public class Trigger : Script
-    {
-        public static void ClientEvent(Player client, string eventName, params object[] args)
-        {
-            if (Thread.CurrentThread.Name == "Main")
-            {
-                NAPI.ClientEvent.TriggerClientEvent(client, eventName, args);
-                return;
-            }
-            NAPI.Task.Run(() =>
-            {
-                if (client == null) return;
-                NAPI.ClientEvent.TriggerClientEvent(client, eventName, args);
-            });
-        }
-        public static void ClientEventInRange(Vector3 pos, float range, string eventName, params object[] args)
-        {
-            if (Thread.CurrentThread.Name == "Main")
-            {
-                NAPI.ClientEvent.TriggerClientEventInRange(pos, range, eventName, args);
-                return;
-            }
-            NAPI.Task.Run(() =>
-            {
-                NAPI.ClientEvent.TriggerClientEventInRange(pos, range, eventName, args);
-            });
-        }
-        public static void ClientEventInDimension(uint dim, string eventName, params object[] args)
-        {
-            if (Thread.CurrentThread.Name == "Main")
-            {
-                NAPI.ClientEvent.TriggerClientEventInDimension(dim, eventName, args);
-                return;
-            }
-            NAPI.Task.Run(() =>
-            {
-                NAPI.ClientEvent.TriggerClientEventInDimension(dim, eventName, args);
-            });
-        }
-        public static void ClientEventToPlayers(Player[] players, string eventName, params object[] args)
-        {
-            if (Thread.CurrentThread.Name == "Main")
-            {
-                NAPI.ClientEvent.TriggerClientEventToPlayers(players, eventName, args);
-                return;
-            }
-            NAPI.Task.Run(() =>
-            {
-                NAPI.ClientEvent.TriggerClientEventToPlayers(players, eventName, args);
-            });
-        }
-    }
-
-    public static class PasswordRestore
-    {
-
-        private static nLog Log = new nLog("PassRestore");
-        private static Config config = new Config("PassRestore");
-
-        private static string mailFrom = config.TryGet<string>("From", "noreply@iteffa.com");
-        private static string mailTitle1 = config.TryGet<string>("Title1", "Password Restore");
-        private static string mailTitle2 = config.TryGet<string>("Title2", "New Password");
-        private static string mailBody1 = config.TryGet<string>("Body1", "<p>Код для восстановления пароля: {0}</p>");
-        private static string mailBody2 = config.TryGet<string>("Body2", "<p>Вы успешно восстановили пароль, Ваш новый пароль: {0}</p>");
-
-        private static string Server = config.TryGet<string>("SMTP", "smtp.iteffa.com");
-        private static string Password = config.TryGet<string>("Pass", "Password");
-        private static int Port = config.TryGet<int>("Port", 587);
-
-        public static void SendEmail(byte type, string email, int textcode)
-        {
-            try
-            {
-                MailMessage msg;
-                if (type == 0) msg = new MailMessage(mailFrom, email, mailTitle1, string.Format(mailBody1, textcode));
-                else msg = new MailMessage(mailFrom, email, mailTitle2, string.Format(mailBody2, textcode));
-                msg.IsBodyHtml = true;
-                SmtpClient smtpClient = new SmtpClient(Server, Port)
-                {
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(mailFrom, Password),
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network
-                };
-                smtpClient.Send(msg);
-                if (type == 0) Log.Debug($"Сообщение с кодом для восстановления пароля успешно отправлено на {email}!", nLog.Type.Success);
-                else Log.Debug($"Сообщение с новым паролем успешно отправлено на {email}!", nLog.Type.Success);
-            }
-            catch (Exception ex)
-            {
-                Log.Write("EXCEPTION AT \"SendEmail\":\n" + ex.ToString(), nLog.Type.Error);
-            }
-        }
-
-
     }
 }
