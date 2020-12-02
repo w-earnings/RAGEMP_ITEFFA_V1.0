@@ -11,11 +11,10 @@ namespace iTeffa.Finance
 {
     class Bank : Script
     {
-        private static nLog Log = new nLog("BankSystem");
-        private static Random Rnd = new Random();
+        private static readonly nLog Log = new nLog("BankSystem");
+        private static readonly Random Rnd = new Random();
         public static Dictionary<int, Data> Accounts = new Dictionary<int, Data>();
         public static ICollection<int> BankAccKeys = Accounts.Keys;
-
         public enum BankNotifyType
         {
             PaySuccess,
@@ -35,15 +34,16 @@ namespace iTeffa.Finance
             }
             foreach (DataRow Row in result.Rows)
             {
-                Data data = new Data();
-                data.ID = Convert.ToInt32(Row["id"]);
-                data.Type = Convert.ToInt32(Row["type"]);
-                data.Holder = Row["holder"].ToString();
-                data.Balance = Convert.ToInt64(Row["balance"]);
+                Data data = new Data
+                {
+                    ID = Convert.ToInt32(Row["id"]),
+                    Type = Convert.ToInt32(Row["type"]),
+                    Holder = Row["holder"].ToString(),
+                    Balance = Convert.ToInt64(Row["balance"])
+                };
                 Accounts.Add(Convert.ToInt32(Row["id"]), data);
             }
         }
-
         #region Changing account balance
         public static bool Change(int accountID, long amount, bool notify = true)
         {
@@ -88,14 +88,14 @@ namespace iTeffa.Finance
             {
                 if (firstAcc.Type == 1)
                     BankNotify(NAPI.Player.GetPlayerFromName(firstAcc.Holder), BankNotifyType.InputError, "Такого счета не существует!");
-                Log.Write($"Transfer with error. Account does not exist! [{firstAccID.ToString()}->{lastAccID.ToString()}:{amount.ToString()}]", nLog.Type.Warn);
+                Log.Write($"Transfer with error. Account does not exist! [{firstAccID}->{lastAccID}:{amount}]", nLog.Type.Warn);
                 return false;
             }
             if (!Change(firstAccID, -amount))
             {
                 if (firstAcc.Type == 1)
                     BankNotify(NAPI.Player.GetPlayerFromName(firstAcc.Holder), BankNotifyType.PayError, "Недостаточно средств!");
-                Log.Write($"Transfer with error. Insufficient funds! [{firstAccID.ToString()}->{lastAccID.ToString()}:{amount.ToString()}]", nLog.Type.Warn);
+                Log.Write($"Transfer with error. Insufficient funds! [{firstAccID}->{lastAccID}:{amount}]", nLog.Type.Warn);
                 return false;
             }
             Change(lastAccID, amount);
@@ -111,7 +111,6 @@ namespace iTeffa.Finance
             Connect.Query($"UPDATE `money` SET `balance`={acc.Balance}, `holder`='{acc.Holder}' WHERE id={AccID}");
         }
         #endregion Save Acc
-
         public static void BankNotify(Player player, BankNotifyType type, string info)
         {
             switch (type)
@@ -130,15 +129,16 @@ namespace iTeffa.Finance
                     return;
             }
         }
-
         public static int Create(string holder, int type = 1, long balance = 0)
         {
             int id = GenerateUUID();
-            Data data = new Data();
-            data.ID = id;
-            data.Type = type;
-            data.Holder = holder;
-            data.Balance = balance;
+            Data data = new Data
+            {
+                ID = id,
+                Type = type,
+                Holder = holder,
+                Balance = balance
+            };
             Accounts.Add(id, data);
             Connect.Query($"INSERT INTO `money`(`id`, `type`, `holder`, `balance`) VALUES ({id},{type},'{holder}',{balance})");
             Log.Write("Created new Bank Account! ID:" + id.ToString(), nLog.Type.Success);
@@ -148,8 +148,10 @@ namespace iTeffa.Finance
         {
             if (!Accounts.ContainsKey(id)) return;
             Accounts.Remove(id);
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "DELETE FROM `money` WHERE holder=@pn";
+            MySqlCommand cmd = new MySqlCommand
+            {
+                CommandText = "DELETE FROM `money` WHERE holder=@pn"
+            };
             cmd.Parameters.AddWithValue("@pn", holder);
             Connect.Query(cmd);
             Log.Write("Bank account deleted! ID:" + id, nLog.Type.Warn);
@@ -168,17 +170,14 @@ namespace iTeffa.Finance
         {
             return Accounts.ContainsKey(id);
         }
-
         public static Data Get(string holder)
         {
             return Accounts.FirstOrDefault(A => A.Value.Holder == holder).Value;
         }
-
         public static Data Get(int id)
         {
             return Accounts.FirstOrDefault(A => A.Value.ID == id).Value;
         }
-
         public static void Update(Player client)
         {
             NAPI.Task.Run(() =>
@@ -186,10 +185,9 @@ namespace iTeffa.Finance
                 Trigger.ClientEvent(client, "UpdateBank", Get(client.Name).Balance);
             });
         }
-
         private static int GenerateUUID()
         {
-            var result = 0;
+            int result;
             while (true)
             {
                 result = Rnd.Next(000001, 999999);
@@ -197,7 +195,6 @@ namespace iTeffa.Finance
             }
             return result;
         }
-
         public static void changeHolder(string oldName, string newName)
         {
             List<int> toChange = new List<int>();
@@ -216,7 +213,6 @@ namespace iTeffa.Finance
                 }
             }
         }
-
         internal class Data
         {
             public int ID { get; set; }

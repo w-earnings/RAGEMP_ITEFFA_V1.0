@@ -12,7 +12,6 @@ namespace iTeffa.Finance
     {
         private static nLog Log = new nLog("Bank - ATMs");
         public static Dictionary<int, ColShape> ATMCols = new Dictionary<int, ColShape>();
-
         #region Координаты банкоматов
         public static List<Vector3> ATMs = new List<Vector3>
         {
@@ -144,7 +143,6 @@ namespace iTeffa.Finance
             #endregion Без категории 
         };
         #endregion Координаты банкоматов
-
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
         {
@@ -174,7 +172,6 @@ namespace iTeffa.Finance
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
-
         public static Vector3 GetNearestATM(Player player)
         {
             Vector3 nearesetATM = ATMs[0];
@@ -186,7 +183,6 @@ namespace iTeffa.Finance
             }
             return nearesetATM;
         }
-
         public static void OpenATM(Player player)
         {
             var acc = Main.Players[player];
@@ -200,7 +196,6 @@ namespace iTeffa.Finance
             Trigger.ClientEvent(player, "openatm");
             return;
         }
-
         public static void AtmBizGen(Player player)
         {
             var acc = Main.Players[player];
@@ -222,7 +217,6 @@ namespace iTeffa.Finance
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет бизнеса!", 3000);
             }
         }
-
         [RemoteEvent("atmVal")]
         public static void ClientEvent_ATMVAL(Player player, params object[] args)
         {
@@ -236,8 +230,7 @@ namespace iTeffa.Finance
                 var acc = Main.Players[player];
                 int type = NAPI.Data.GetEntityData(player, "ATMTYPE");
                 string data = Convert.ToString(args[0]);
-                int amount;
-                if (!Int32.TryParse(data, out amount))
+                if (!int.TryParse(data, out int amount))
                     return;
                 switch (type)
                 {
@@ -276,8 +269,7 @@ namespace iTeffa.Finance
                         Bank.Change(house.BankID, +Math.Abs(amount));
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"atmHouse");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
-                        Trigger.ClientEvent(player,
-                                "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
+                        Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
                         break;
                     case 3:
                         int bid = NAPI.Data.GetEntityData(player, "ATMBIZ");
@@ -365,7 +357,6 @@ namespace iTeffa.Finance
                 }
             }
         }
-
         [RemoteEvent("atmCB")]
         public static void ClientEvent_ATMCB(Player player, params object[] args)
         {
@@ -415,7 +406,8 @@ namespace iTeffa.Finance
                                     "atmOpen", "[2,0,'Счет зачисления']");
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
-
+                            default:
+                                break;
                         }
                         break;
                     case 2:
@@ -442,7 +434,6 @@ namespace iTeffa.Finance
             }
             catch (Exception e) { Log.Write("atmCB: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("atm")]
         public static void ClientEvent_ATM(Player player, params object[] args)
         {
@@ -456,13 +447,12 @@ namespace iTeffa.Finance
                 int act = Convert.ToInt32(args[0]);
                 string data1 = Convert.ToString(args[1]);
                 var acc = Main.Players[player];
-                int amount;
-                if (!Int32.TryParse(data1, out amount))
+                if (!int.TryParse(data1, out int amount))
                     return;
                 Log.Debug($"{player.Name} : {data1}");
                 switch (act)
                 {
-                    case 0: //put money
+                    case 0:
                         if (Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, amount);
@@ -470,7 +460,7 @@ namespace iTeffa.Finance
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
-                    case 1: //take money
+                    case 1:
                         if (Bank.Change(acc.Bank, -Math.Abs(amount)))
                         {
                             Wallet.Change(player, amount);
@@ -478,7 +468,7 @@ namespace iTeffa.Finance
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
-                    case 2: //put house tax
+                    case 2:
                         var house = Houses.HouseManager.GetHouse(player, true);
                         if (house == null) return;
 
@@ -497,7 +487,7 @@ namespace iTeffa.Finance
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"atmHouse");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
-                    case 3: //put biz tax
+                    case 3:
                         var check = NAPI.Data.GetEntityData(player, "bizcheck");
                         if (check == null) return;
                         if (acc.BizIDs.Count != check)
@@ -506,14 +496,12 @@ namespace iTeffa.Finance
                             return;
                         }
                         int bid = 0;
-                        if (!Int32.TryParse(Convert.ToString(args[2]), out bid))
+                        if (!int.TryParse(Convert.ToString(args[2]), out bid))
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
                             return;
                         }
-
                         Business biz = BusinessManager.BizList[acc.BizIDs[bid]];
-
                         maxMoney = Convert.ToInt32(biz.SellPrice / 100 * 0.01) * 24 * 7;
                         if (Bank.Accounts[biz.BankID].Balance + Math.Abs(amount) > maxMoney)
                         {
@@ -529,9 +517,9 @@ namespace iTeffa.Finance
                         GameLog.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"atmBiz");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
-                    case 4: //transfer to
+                    case 4:
                         int num = 0;
-                        if (!Int32.TryParse(Convert.ToString(args[2]), out num))
+                        if (!int.TryParse(Convert.ToString(args[2]), out num))
                             return;
                         Bank.Transfer(acc.Bank, num, +Math.Abs(amount));
                         break;

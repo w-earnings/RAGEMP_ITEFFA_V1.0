@@ -6,8 +6,6 @@ namespace iTeffa.Finance
 {
     class Wallet : Script
     {
-        private static nLog Log = new nLog("Wallet");
-
         public static bool Change(Player player, int Amount)
         {
             if (!Main.Players.ContainsKey(player)) return false;

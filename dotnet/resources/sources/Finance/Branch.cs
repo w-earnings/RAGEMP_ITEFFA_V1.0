@@ -10,18 +10,16 @@ namespace iTeffa.Finance
 {
     class Branch : Script
     {
-        private static nLog Log = new nLog("BRANCHs");
+        private static readonly nLog Log = new nLog("Bank branches");
         public static Dictionary<int, ColShape> BRANCHCols = new Dictionary<int, ColShape>();
-
-        #region BRANCHs List
+        #region Branches List
         public static List<Vector3> BRANCHs = new List<Vector3>
         {
             new Vector3(313.6169, -278.5236, 54.17078),
             new Vector3(149.3, -1040.227, 29.37408),
             new Vector3(-1213.453, -330.7448, 37.78702),
         };
-        #endregion BRANCHs List
-
+        #endregion
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStart()
         {
@@ -53,7 +51,6 @@ namespace iTeffa.Finance
             }
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
-
         public static Vector3 GetNearestBRANCH(Player player)
         {
             Vector3 nearesetBRANCH = BRANCHs[0];
@@ -65,7 +62,6 @@ namespace iTeffa.Finance
             }
             return nearesetBRANCH;
         }
-
         public static void OpenBRANCH(Player player)
         {
             var acc = Main.Players[player];
@@ -79,7 +75,6 @@ namespace iTeffa.Finance
             Trigger.ClientEvent(player, "openbranch");
             return;
         }
-
         public static void BranchBizGen(Player player)
         {
             var acc = Main.Players[player];
@@ -101,7 +96,6 @@ namespace iTeffa.Finance
                 Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "У вас нет бизнеса!", 3000);
             }
         }
-
         [RemoteEvent("branchVal")]
         public static void ClientEvent_BRANCHVAL(Player player, params object[] args)
         {
@@ -115,9 +109,7 @@ namespace iTeffa.Finance
                 var acc = Main.Players[player];
                 int type = NAPI.Data.GetEntityData(player, "BRANCHTYPE");
                 string data = Convert.ToString(args[0]);
-                int amount;
-                if (!Int32.TryParse(data, out amount))
-                    return;
+                if (!int.TryParse(data, out int amount)) return;
                 switch (type)
                 {
                     case 0:
@@ -244,7 +236,6 @@ namespace iTeffa.Finance
                 }
             }
         }
-
         [RemoteEvent("branchCB")]
         public static void ClientEvent_BRANCHCB(Player player, params object[] args)
         {
@@ -321,7 +312,6 @@ namespace iTeffa.Finance
             }
             catch (Exception e) { Log.Write("branchCB: " + e.Message, nLog.Type.Error); }
         }
-
         [RemoteEvent("branch")]
         public static void ClientEvent_BRANCH(Player player, params object[] args)
         {
@@ -335,9 +325,7 @@ namespace iTeffa.Finance
                 int act = Convert.ToInt32(args[0]);
                 string data1 = Convert.ToString(args[1]);
                 var acc = Main.Players[player];
-                int amount;
-                if (!Int32.TryParse(data1, out amount))
-                    return;
+                if (!int.TryParse(data1, out int amount)) return;
                 Log.Debug($"{player.Name} : {data1}");
                 switch (act)
                 {
@@ -385,7 +373,7 @@ namespace iTeffa.Finance
                             return;
                         }
                         int bid = 0;
-                        if (!Int32.TryParse(Convert.ToString(args[2]), out bid))
+                        if (!int.TryParse(Convert.ToString(args[2]), out bid))
                         {
                             Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Возникла ошибка! Попробуйте еще раз.", 3000);
                             return;
@@ -410,7 +398,7 @@ namespace iTeffa.Finance
                         break;
                     case 4:
                         int num = 0;
-                        if (!Int32.TryParse(Convert.ToString(args[2]), out num))
+                        if (!int.TryParse(Convert.ToString(args[2]), out num))
                             return;
                         Bank.Transfer(acc.Bank, num, +Math.Abs(amount));
                         break;

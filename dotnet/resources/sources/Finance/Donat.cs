@@ -25,23 +25,13 @@ namespace iTeffa.Finance
         private static string CHNGSTR;
         private static string NEWNSTR;
         private static string Connection;
-
         public static void LoadDonations()
         {
-            Connection =
-                $"Host={config.TryGet<string>("Server", "127.0.0.1")};" +
-                $"Port={config.TryGet<string>("Port", 3306)};" +
-                $"User={config.TryGet<string>("User", "root")};" +
-                $"Password={config.TryGet<string>("Password", "usbw")};" +
-                $"Database={config.TryGet<string>("Database", "websites")};" +
-                $"{config.TryGet<string>("SSL", "SslMode=None;")}";
-
+            Connection = $"Host={config.TryGet<string>("Server", "127.0.0.1")};" + $"Port={config.TryGet<string>("Port", 3306)};" + $"User={config.TryGet<string>("User", "root")};" + $"Password={config.TryGet<string>("Password", "usbw")};" + $"Database={config.TryGet<string>("Database", "websites")};" + $"{config.TryGet<string>("SSL", "SslMode=None;")}";
             SYNCSTR = string.Format("select * from completed where srv={0}", Main.oldconfig.ServerNumber);
             CHNGSTR = "update nicknames SET name='{0}' WHERE name='{1}' and srv={2}";
             NEWNSTR = "insert into nicknames(srv, name) VALUES ({0}, '{1}')";
         }
-
-
         #region Работа с таймером
         public static void Start()
         {
@@ -53,94 +43,82 @@ namespace iTeffa.Finance
             scanTimer.Change(Timeout.Infinite, 0);
         }
         #endregion
-
         #region Проверка никнеймов и донатов
         private static void Tick(object state)
         {
             try
             {
                 Log.Debug("Donate time");
-
-                using (MySqlConnection connection = new MySqlConnection(Connection))
+                using MySqlConnection connection = new MySqlConnection(Connection);
+                connection.Open();
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                while (toChange.Count > 0)
                 {
-                    connection.Open();
-
-                    MySqlCommand command = new MySqlCommand();
-                    command.Connection = connection;
-
-                    while (toChange.Count > 0)
-                    {
-                        KeyValuePair<string, string> kvp = toChange.Dequeue();
-                        command.CommandText = string.Format(CHNGSTR, kvp.Value, kvp.Key, Main.oldconfig.ServerNumber);
-                        command.ExecuteNonQuery();
-                    }
-
-                    while (newNames.Count > 0)
-                    {
-                        string nickname = newNames.Dequeue();
-                        command.CommandText = string.Format(NEWNSTR, Main.oldconfig.ServerNumber, nickname);
-                        command.ExecuteNonQuery();
-                    }
-
-                    command.CommandText = SYNCSTR;
-                    MySqlDataReader reader = command.ExecuteReader();
-
-                    DataTable result = new DataTable();
-                    result.Load(reader);
-                    reader.Close();
-
-                    foreach (DataRow Row in result.Rows)
-                    {
-                        int id = Convert.ToInt32(Row["id"]);
-                        string name = Convert.ToString(Row["account"]).ToLower();
-                        long reds = Convert.ToInt64(Row["amount"]);
-
-                        try
-                        {
-                            if (Main.oldconfig.DonateSaleEnable)
-                            {
-                                reds = SaleEvent(reds);
-                            }
-
-                            if (!Main.Usernames.Contains(name))
-                            {
-                                Log.Write($"Can't find registred name for {name}!", nLog.Type.Warn);
-                                continue;
-                            }
-
-                            var client = Main.Accounts.FirstOrDefault(a => a.Value.Login == name).Key;
-                            if (client == null || client.IsNull || !Main.Accounts.ContainsKey(client))
-                            {
-                                Connect.Query($"update `accounts` set `coins`=`coins`+{reds} where `login`='{name}'");
-                            }
-                            else
-                            {
-                                lock (Main.Players)
-                                {
-                                    Main.Accounts[client].Coins += reds;
-                                }
-                                NAPI.Task.Run(() =>
-                                {
-                                    try
-                                    {
-                                        if (!Main.Accounts.ContainsKey(client)) return;
-                                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вам пришли {reds} Coins", 3000);
-                                        Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
-                                    }
-                                    catch { }
-                                });
-                            }
-                            GameLog.Money("server", name, reds, "donateRed");
-                            command.CommandText = $"delete from completed where id={id}";
-                            command.ExecuteNonQuery();
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Write($"Exception At Tick_Donations on {name}:\n" + e.ToString(), nLog.Type.Error);
-                        }
-                    }
-                    connection.Close();
+                    KeyValuePair<string, string> kvp = toChange.Dequeue();
+                    command.CommandText = string.Format(CHNGSTR, kvp.Value, kvp.Key, Main.oldconfig.ServerNumber);
+                    command.ExecuteNonQuery();
                 }
+                while (newNames.Count > 0)
+                {
+                    string nickname = newNames.Dequeue();
+                    command.CommandText = string.Format(NEWNSTR, Main.oldconfig.ServerNumber, nickname);
+                    command.ExecuteNonQuery();
+                }
+                command.CommandText = SYNCSTR;
+                MySqlDataReader reader = command.ExecuteReader();
+
+                DataTable result = new DataTable();
+                result.Load(reader);
+                reader.Close();
+                foreach (DataRow Row in result.Rows)
+                {
+                    int id = Convert.ToInt32(Row["id"]);
+                    string name = Convert.ToString(Row["account"]).ToLower();
+                    long reds = Convert.ToInt64(Row["amount"]);
+                    try
+                    {
+                        if (Main.oldconfig.DonateSaleEnable)
+                        {
+                            reds = SaleEvent(reds);
+                        }
+                        if (!Main.Usernames.Contains(name))
+                        {
+                            Log.Write($"Can't find registred name for {name}!", nLog.Type.Warn);
+                            continue;
+                        }
+                        var client = Main.Accounts.FirstOrDefault(a => a.Value.Login == name).Key;
+                        if (client == null || client.IsNull || !Main.Accounts.ContainsKey(client))
+                        {
+                            Connect.Query($"update `accounts` set `coins`=`coins`+{reds} where `login`='{name}'");
+                        }
+                        else
+                        {
+                            lock (Main.Players)
+                            {
+                                Main.Accounts[client].Coins += reds;
+                            }
+                            NAPI.Task.Run(() =>
+                            {
+                                try
+                                {
+                                    if (!Main.Accounts.ContainsKey(client)) return;
+                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вам пришли {reds} Coins", 3000);
+                                    Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
+                                }
+                                catch { }
+                            });
+                        }
+                        GameLog.Money("server", name, reds, "donateRed");
+                        command.CommandText = $"delete from completed where id={id}";
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Write($"Exception At Tick_Donations on {name}:\n" + e.ToString(), nLog.Type.Error);
+                    }
+                }
+                connection.Close();
             }
             catch (Exception e)
             {
@@ -148,7 +126,6 @@ namespace iTeffa.Finance
             }
         }
         #endregion
-
         #region Действия в донат-меню
         internal enum Type
         {
@@ -174,25 +151,20 @@ namespace iTeffa.Finance
             Lic1,          //19
             Lic2,          //20
         }
-
-        private static SortedList<int, string> CarNameS = new SortedList<int, string>
+        private static readonly SortedList<int, string> CarNameS = new SortedList<int, string>
         {
             {1, "Neon" },
             {2, "Sultan" },
             {3, "nero" },
             {4, "caracara2" },
-
         };
-
-        private static SortedList<int, string> CarName = new SortedList<int, string>
+        private static readonly SortedList<int, string> CarName = new SortedList<int, string>
         {
             {3, "g65" },
             {4, "c63coupe" },
             {5, "apriora" },
             {6, "bmwe34" },
-
         };
-
         [RemoteEvent("wheelAddsrv")]
         public void wheelAdd(Player client, int id, bool add)
         {
@@ -331,7 +303,6 @@ namespace iTeffa.Finance
                     break;
             }
         }
-
         [RemoteEvent("donate")]
         public void MakeDonate(Player client, int id, string data)
         {
@@ -356,41 +327,6 @@ namespace iTeffa.Finance
                             Trigger.ClientEvent(client, "WheelsRun");
                             break;
                         }
-
-                    // Кейсы в разработке - iTeffa.Com
-                    /* case Type.GiveBox:
-                        {
-                            int amount = 0;
-                            if (!Int32.TryParse(data, out amount))
-                            {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка, попоробуйте еще раз", 3000);
-                                return;
-                            }
-                            amount = Math.Abs(amount);
-                            if (amount <= 0)
-                            {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Введите количество, равное 1 или больше.", 3000);
-                                return;
-                            }
-                            if (Main.Accounts[client].Coins < amount * 100)
-                            {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
-                                return;
-                            }
-                            var tryAdd = nInventory.TryAdd(client, new nItem(ItemType.GiveBox, 1));
-                            if (tryAdd == -1 || tryAdd > 0)
-                            {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно места в инвентаре", 3000);
-                                return;
-                            }
-                            Main.Accounts[client].Coins -= 100 * amount;
-                            GameLog.Money(acc.Login, "server", 100 * amount, "donateChar");
-                            nInventory.Add(client, new nItem(ItemType.GiveBox, amount, ""));
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {amount} кейсов", 3000);
-                            GUI.Dashboard.sendItems(client);
-                            break;
-                        } */
-
                     case Type.Character:
                         {
                             if (acc.Coins < 100)
@@ -454,8 +390,7 @@ namespace iTeffa.Finance
                         }
                     case Type.Convert:
                         {
-                            int amount = 0;
-                            if (!Int32.TryParse(data, out amount))
+                            if (!int.TryParse(data, out int amount))
                             {
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка, попоробуйте еще раз", 3000);
                                 return;
@@ -473,7 +408,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= amount;
                             GameLog.Money(acc.Login, "server", amount, "donateConvert");
-                            amount = amount * 100;
+                            amount *= 100;
                             Wallet.Change(client, +amount);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно перевели RF в {amount}", 3000);
                             GameLog.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
@@ -683,8 +618,6 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-
-
                             Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
@@ -702,8 +635,6 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-
-
                             Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
@@ -721,8 +652,6 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
-
-
                             Main.Accounts[client].Coins -= 500;
                             GameLog.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
@@ -765,7 +694,6 @@ namespace iTeffa.Finance
                                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть грузовая лицензия", 3000);
                                 return;
                             }
-
                             Main.Accounts[client].Coins -= 600;
                             GameLog.Money(acc.Login, "server", 600, "donateBox1");
                             Main.Players[client].Licenses[2] = true;
@@ -774,14 +702,12 @@ namespace iTeffa.Finance
                             break;
                         }
                 }
-
                 Connect.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                 Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
             }
             catch (Exception e) { Log.Write("donate: " + e.Message, nLog.Type.Error); }
         }
         #endregion Действия в донат-меню
-
         public static long SaleEvent(long input)
         {
             if (input < 1000) return input;
@@ -790,10 +716,8 @@ namespace iTeffa.Finance
             if (input < 10000) return input + (input / 100 * 30);
             if (input < 14000) return input + (input / 100 * 35);
             if (input >= 14000) return input + (input / 100 * 50);
-            // else, but never used
             return input;
         }
-
         public static void Rename(string Old, string New)
         {
             toChange.Enqueue(
