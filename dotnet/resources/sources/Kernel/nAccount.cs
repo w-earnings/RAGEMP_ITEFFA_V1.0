@@ -305,22 +305,4 @@ namespace iTeffa.Kernel.nAccount
             return hex;
         }
     }
-
-    public enum LoginEvent
-    {
-        Already,
-        Authorized,
-        Refused,
-        SclubError,
-        Error
-    }
-    public enum RegisterEvent
-    {
-        Registered,
-        SocialReg,
-        UserReg,
-        EmailReg,
-        DataError,
-        Error
-    }
 }

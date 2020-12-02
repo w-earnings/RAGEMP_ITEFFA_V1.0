@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace iTeffa.Kernel
 {
-    #region Tattoo
+
     public enum TattooZones
     {
         Torso = 0,
@@ -18,7 +18,6 @@ namespace iTeffa.Kernel
         LeftLeg = 4,
         RightLeg = 5,
     }
-
     public class Tattoo
     {
         public string Dictionary { get; set; }
@@ -32,10 +31,6 @@ namespace iTeffa.Kernel
             Slots = slots;
         }
     }
-    #endregion
-
-    #region ComponentItem
-
     public class ComponentItem
     {
         public int Variation;
@@ -47,42 +42,6 @@ namespace iTeffa.Kernel
             Texture = texture;
         }
     }
-
-    #endregion
-
-    #region ClothesData
-    public class ClothesData
-    {
-        public ComponentItem Mask { get; set; }
-        public ComponentItem Gloves { get; set; }
-        public ComponentItem Torso { get; set; }
-        public ComponentItem Leg { get; set; }
-        public ComponentItem Bag { get; set; }
-        public ComponentItem Feet { get; set; }
-        public ComponentItem Accessory { get; set; }
-        public ComponentItem Undershit { get; set; }
-        public ComponentItem Bodyarmor { get; set; }
-        public ComponentItem Decals { get; set; }
-        public ComponentItem Top { get; set; }
-
-        public ClothesData()
-        {
-            Mask = new ComponentItem(0, 0);
-            Gloves = new ComponentItem(0, 0);
-            Torso = new ComponentItem(15, 0);
-            Leg = new ComponentItem(21, 0);
-            Bag = new ComponentItem(0, 0);
-            Feet = new ComponentItem(34, 0);
-            Accessory = new ComponentItem(0, 0);
-            Undershit = new ComponentItem(15, 0);
-            Bodyarmor = new ComponentItem(0, 0);
-            Decals = new ComponentItem(0, 0);
-            Top = new ComponentItem(15, 0);
-        }
-    }
-    #endregion
-
-    #region AccessoryData
     public class AccessoryData
     {
         public ComponentItem Hat { get; set; }
@@ -100,9 +59,6 @@ namespace iTeffa.Kernel
             Bracelets = new ComponentItem(-1, 0);
         }
     }
-    #endregion
-
-    #region ParentData
     public class ParentData
     {
         public int Father;
@@ -118,9 +74,6 @@ namespace iTeffa.Kernel
             SkinSimilarity = skinsimilarity;
         }
     }
-    #endregion
-
-    #region AppearanceItem
     public class AppearanceItem
     {
         public int Value;
@@ -132,9 +85,6 @@ namespace iTeffa.Kernel
             Opacity = opacity;
         }
     }
-    #endregion
-
-    #region HairData
     public class HairData
     {
         public int Hair;
@@ -148,9 +98,6 @@ namespace iTeffa.Kernel
             HighlightColor = highlightcolor;
         }
     }
-    #endregion
-
-    #region PlayerCustomization Class
     public class PlayerCustomization
     {
         // Player
@@ -201,9 +148,6 @@ namespace iTeffa.Kernel
             Hair = new HairData(0, 0, 0);
         }
     }
-    #endregion
-
-    #region Underwear Class
     class Underwear
     {
         public Underwear(int top, int price, List<int> colors)
@@ -225,9 +169,6 @@ namespace iTeffa.Kernel
         public Dictionary<int, int> UndershirtIDs { get; } = new Dictionary<int, int>(); // key - тип undershirt'а, value - id-шник
         public List<int> Colors { get; }
     }
-    #endregion
-
-    #region Clothes Class
     class Clothes
     {
         public Clothes(int variation, List<int> colors, int price, int type = -1, int bodyArmor = -1)
@@ -245,8 +186,7 @@ namespace iTeffa.Kernel
         public int Type { get; }
         public int BodyArmor { get; }
     }
-    #endregion
-
+ 
     class Customization : Script
     {
         public Customization()
