@@ -4,6 +4,11 @@ using System.Data;
 using System.Linq;
 using GTANetworkAPI;
 using iTeffa.Settings;
+using iTeffa.Infodata;
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
+
 
 namespace iTeffa.Kernel
 {

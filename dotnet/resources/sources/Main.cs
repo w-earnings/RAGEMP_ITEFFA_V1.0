@@ -45,7 +45,6 @@ namespace iTeffa
         public static Dictionary<Player, Account> Accounts = new Dictionary<Player, Account>();
         public static Dictionary<Player, Tuple<int, string, string, string>> RestorePass = new Dictionary<Player, Tuple<int, string, string, string>>();
         public static char[] stringBlock = { '\'', '@', '[', ']', ':', '"', '[', ']', '{', '}', '|', '`', '%', '\\' };
-
         public static string BlockSymbols(string check)
         {
             for (int i = check.IndexOfAny(stringBlock); i >= 0;)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iTeffa.Kernel
+namespace iTeffa.Infodata
 {
     public class BanData
     {

@@ -1,4 +1,6 @@
-﻿namespace iTeffa.Kernel
+﻿using iTeffa.Kernel;
+
+namespace iTeffa.Infodata
 {
     public class AccessoryData
     {

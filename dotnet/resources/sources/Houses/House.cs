@@ -10,9 +10,9 @@ namespace iTeffa.Houses
 {
     class House
     {
-        public int ID { get; }
-        public string Owner { get; private set; }
-        public int Type { get; private set; }
+        public int ID {get;}
+        public string Owner { get; private set;}
+        public int Type { get; private set;}
         public Vector3 Position {get;}
         public int Price { get; set; }
         public bool Locked { get; private set; }

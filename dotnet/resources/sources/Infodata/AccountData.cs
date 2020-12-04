@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace iTeffa.Models
+namespace iTeffa.Infodata
 {
     public class AccountData
     {

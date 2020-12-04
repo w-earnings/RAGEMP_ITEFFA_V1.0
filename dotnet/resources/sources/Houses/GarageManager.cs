@@ -126,8 +126,10 @@ namespace iTeffa.Houses
                     var position = JsonConvert.DeserializeObject<Vector3>(Row["position"].ToString());
                     var rotation = JsonConvert.DeserializeObject<Vector3>(Row["rotation"].ToString());
 
-                    var garage = new Garage(id, type, position, rotation);
-                    garage.Dimension = DimensionID;
+                    var garage = new Garage(id, type, position, rotation)
+                    {
+                        Dimension = DimensionID
+                    };
                     if (garage.Type != -1) garage.CreateInterior();
 
                     Garages.Add(id, garage);

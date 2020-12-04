@@ -6,11 +6,11 @@ using System.Text;
 using System.Linq;
 using System.Data;
 using iTeffa.Interface;
-using iTeffa.Settings;
-
+using iTeffa.Infodata;
 using iTeffa.Plugins;
 using iTeffa.Models;
 using iTeffa.Globals;
+using iTeffa.Settings;
 
 namespace iTeffa.Kernel
 {

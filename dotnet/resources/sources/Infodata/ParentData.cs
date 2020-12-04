@@ -1,4 +1,4 @@
-﻿namespace iTeffa.Kernel
+﻿namespace iTeffa.Infodata
 {
     public class ParentData
     {

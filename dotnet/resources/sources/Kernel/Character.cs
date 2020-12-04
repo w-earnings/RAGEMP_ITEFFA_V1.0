@@ -9,9 +9,9 @@ using iTeffa.Houses;
 using iTeffa.Interface;
 using iTeffa.Settings;
 using MySqlConnector;
-
 using iTeffa.Plugins;
 using iTeffa.Models;
+using iTeffa.Infodata;
 using iTeffa.Globals;
 
 namespace iTeffa.Kernel.Character

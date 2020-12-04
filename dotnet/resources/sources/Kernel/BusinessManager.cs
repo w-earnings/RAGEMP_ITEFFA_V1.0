@@ -7,6 +7,10 @@ using System.Linq;
 using iTeffa.Interface;
 using iTeffa.Finance;
 using iTeffa.Settings;
+using iTeffa.Infodata;
+using iTeffa.Plugins;
+using iTeffa.Models;
+using iTeffa.Globals;
 
 namespace iTeffa.Kernel
 {
