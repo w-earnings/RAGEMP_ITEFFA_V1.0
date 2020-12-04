@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Interface;
 

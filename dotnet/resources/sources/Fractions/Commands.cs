@@ -1,4 +1,4 @@
-﻿using iTeffa.Kernel;
+﻿using iTeffa.Globals;
 using iTeffa.Settings;
 using System;
 using System.Data;

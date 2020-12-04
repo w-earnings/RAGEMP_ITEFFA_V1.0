@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GTANetworkAPI;
 using Newtonsoft.Json;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using System.Data;
 using System.Linq;

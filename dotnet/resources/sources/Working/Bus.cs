@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using iTeffa.Interface;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 
 namespace iTeffa.Working
@@ -710,7 +710,7 @@ namespace iTeffa.Working
             for (int a = 0; a < CarInfos.Count; a++)
             {
                 var veh = NAPI.Vehicle.CreateVehicle(CarInfos[a].Model, CarInfos[a].Position, CarInfos[a].Rotation.Z, CarInfos[a].Color1, CarInfos[a].Color2, CarInfos[a].Number);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
                 NAPI.Data.SetEntityData(veh, "ACCESS", "WORK");
                 NAPI.Data.SetEntityData(veh, "WORK", 4);
                 NAPI.Data.SetEntityData(veh, "TYPE", "BUS");
@@ -745,8 +745,8 @@ namespace iTeffa.Working
                 NAPI.Entity.SetEntityPosition(veh, CarInfos[i].Position);
                 NAPI.Entity.SetEntityRotation(veh, CarInfos[i].Rotation);
                 VehicleManager.RepairCar(veh);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
                 NAPI.Data.SetEntityData(veh, "WORK", 4);
                 NAPI.Data.SetEntityData(veh, "TYPE", "BUS");
                 NAPI.Data.SetEntityData(veh, "NUMBER", i);
@@ -1030,7 +1030,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(player, "ON_WORK", true);
                 Finance.Wallet.Change(player, -BusRentCost);
                 GameLog.Money($"player({Main.Players[player].UUID})", $"server", BusRentCost, $"busRent");
-                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                Globals.VehicleStreaming.SetEngineState(vehicle, true);
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
                 NAPI.Data.SetEntityData(vehicle, "ON_WORK", true);
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);

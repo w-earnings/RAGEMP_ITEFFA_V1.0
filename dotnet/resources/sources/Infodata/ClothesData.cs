@@ -1,4 +1,4 @@
-﻿using iTeffa.Kernel;
+﻿using iTeffa.Globals;
 
 namespace iTeffa.Infodata
 {

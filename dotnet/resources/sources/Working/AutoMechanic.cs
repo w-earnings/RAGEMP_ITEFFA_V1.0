@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using iTeffa.Interface;
 using System;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 
 namespace iTeffa.Working
@@ -23,8 +23,8 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 NAPI.Data.SetEntitySharedData(veh, "FUELTANK", 0);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
             }
         }
         private static nLog Log = new nLog("Mechanic");
@@ -81,7 +81,7 @@ namespace iTeffa.Working
             GameLog.Money($"player({Main.Players[player].UUID})", $"server", mechanicRentCost, $"mechanicRent");
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
-            Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+            Globals.VehicleStreaming.SetEngineState(vehicle, false);
             NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
             NAPI.Data.SetEntityData(player, "ON_WORK", true);
             NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
@@ -203,8 +203,8 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "ON_WORK", false);
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 NAPI.Data.SetEntitySharedData(veh, "FUELTANK", 0);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
             catch (Exception e) { Log.Write("RespawnCar: " + e.Message, nLog.Type.Error); }

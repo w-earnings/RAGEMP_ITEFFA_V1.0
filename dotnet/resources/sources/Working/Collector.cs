@@ -1,4 +1,4 @@
-﻿using iTeffa.Kernel;
+﻿using iTeffa.Globals;
 using iTeffa.Settings;
 using GTANetworkAPI;
 using System;
@@ -53,8 +53,8 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "ON_WORK", false);
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
             }
         }
 
@@ -72,8 +72,8 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "NUMBER", i);
                 NAPI.Data.SetEntityData(veh, "ON_WORK", false);
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
             catch (Exception e) { Log.Write("respawnCar: " + e.Message, nLog.Type.Error); }
@@ -259,7 +259,7 @@ namespace iTeffa.Working
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
             player.SetData("ON_WORK", true);
-            Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+            Globals.VehicleStreaming.SetEngineState(vehicle, false);
             NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
             NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
             player.SetData("COLLECTOR_BAGS", 15);

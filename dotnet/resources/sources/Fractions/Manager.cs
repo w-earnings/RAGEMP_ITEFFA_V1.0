@@ -2,10 +2,10 @@
 using System.Data;
 using System;
 using GTANetworkAPI;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Interface;
-using iTeffa.Kernel.Character;
+using iTeffa.Globals.Character;
 using System.Linq;
 using Newtonsoft.Json;
 

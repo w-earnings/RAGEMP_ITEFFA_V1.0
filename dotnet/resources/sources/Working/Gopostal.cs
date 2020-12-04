@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using iTeffa.Interface;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Houses;
 
@@ -207,7 +207,7 @@ namespace iTeffa.Working
             player.SetData("WORK", veh);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили рабочий транспорт", 3000);
             veh.SetData("ACCESS", "WORK");
-            Kernel.VehicleStreaming.SetEngineState(veh, true);
+            Globals.VehicleStreaming.SetEngineState(veh, true);
         }
     }
 }

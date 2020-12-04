@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using iTeffa.Interface;
 using System;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 
 namespace iTeffa.Working
@@ -47,7 +47,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "ON_WORK", false);
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
             }
         }
 
@@ -156,8 +156,8 @@ namespace iTeffa.Working
                 NAPI.Entity.SetEntityPosition(veh, CarInfos[i].Position);
                 NAPI.Entity.SetEntityRotation(veh, CarInfos[i].Rotation);
                 VehicleManager.RepairCar(veh);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
                 NAPI.Data.SetEntityData(veh, "ACCESS", "WORK");
                 NAPI.Data.SetEntityData(veh, "WORK", 5);
                 NAPI.Data.SetEntityData(veh, "TYPE", "MOWER");
@@ -282,7 +282,7 @@ namespace iTeffa.Working
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы начали работу газонокосильщика, следуйте по чекпоинтам", 3000);
                 var vehicle = player.Vehicle;
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
-                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                Globals.VehicleStreaming.SetEngineState(vehicle, true);
                 NAPI.Data.SetEntityData(player, "ON_WORK", true);
                 NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
                 NAPI.Data.SetEntityData(vehicle, "ON_WORK", true);
@@ -291,14 +291,14 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
 
                 var gender = Main.Players[player].Gender;
-                Kernel.Customization.ClearClothes(player, gender);
+                Globals.Customization.ClearClothes(player, gender);
                 if (gender)
                 {
                     Customization.SetHat(player, 94, 9);
                     player.SetClothes(11, 82, 4);
                     player.SetClothes(4, 27, 10);
                     player.SetClothes(6, 1, 11);
-                    player.SetClothes(11, Kernel.Customization.CorrectTorso[gender][82], 0);
+                    player.SetClothes(11, Globals.Customization.CorrectTorso[gender][82], 0);
                 }
                 else
                 {
@@ -306,7 +306,7 @@ namespace iTeffa.Working
                     player.SetClothes(11, 14, 9);
                     player.SetClothes(4, 16, 2);
                     player.SetClothes(6, 1, 3);
-                    player.SetClothes(11, Kernel.Customization.CorrectTorso[gender][14], 0);
+                    player.SetClothes(11, Globals.Customization.CorrectTorso[gender][14], 0);
                 }
 
                 Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[way][0] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, MowerWays[way][1] - new Vector3(0, 0, 1.12));

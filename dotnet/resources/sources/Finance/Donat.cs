@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading;
 using GTANetworkAPI;
 using MySqlConnector;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Interface;
-using iTeffa.Kernel.nAccount;
-using iTeffa.Kernel.Character;
+using iTeffa.Globals.nAccount;
+using iTeffa.Globals.Character;
 
 namespace iTeffa.Finance
 {

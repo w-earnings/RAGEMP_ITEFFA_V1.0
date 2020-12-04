@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using GTANetworkAPI;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using Newtonsoft.Json;
 using iTeffa.Settings;
 
@@ -197,7 +197,7 @@ namespace iTeffa.Fractions
                 if (canmeds)
                     NAPI.Data.SetEntityData(veh, "CANMEDKITS", true);
                 NAPI.Vehicle.SetVehicleNumberPlate(veh, vehicle.Key);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
                 VehicleManager.FracApplyCustomization(veh, fraction);
                 if (model == VehicleHash.Submersible || model == VehicleHash.Thruster) veh.SetSharedData("PETROL", 0);
             }
@@ -225,7 +225,7 @@ namespace iTeffa.Fractions
                 if (canmeds)
                     NAPI.Data.SetEntityData(vehicle, "CANMEDKITS", true);
                 NAPI.Vehicle.SetVehicleNumberPlate(vehicle, number);
-                Kernel.VehicleStreaming.SetEngineState(vehicle, false);
+                Globals.VehicleStreaming.SetEngineState(vehicle, false);
                 VehicleManager.FracApplyCustomization(vehicle, fraction);
             }
             catch (Exception e) { Log.Write("RespawnFractionCar: " + e.Message, nLog.Type.Error); }

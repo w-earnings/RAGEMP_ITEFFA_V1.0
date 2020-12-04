@@ -1,6 +1,6 @@
 ﻿using GTANetworkAPI;
 using Newtonsoft.Json;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using iTeffa.Interface;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 
 namespace iTeffa.Speaking
@@ -87,7 +87,7 @@ namespace iTeffa.Speaking
                     if (!target.IsInVehicle) target.StopAnimation();
                     else target.SetData("ToResetAnimPhone", true);
 
-                    Kernel.BasicSync.DetachObject(target);
+                    Globals.BasicSync.DetachObject(target);
 
                     Trigger.ClientEvent(target, "voice.phoneStop");
 
@@ -196,7 +196,7 @@ namespace iTeffa.Speaking
 
                     Main.OnAntiAnim(player);
                     player.PlayAnimation("anim@cellphone@in_car@ds", "cellphone_call_listen_base", 49);
-                    Kernel.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.06, 0.01, -0.02), new Vector3(80, -10, 110));
+                    Globals.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.06, 0.01, -0.02), new Vector3(80, -10, 110));
 
                     player.SetData("PhoneVoip", playerPhoneMeta);
                     target.SetData("PhoneVoip", targetPhoneMeta);
@@ -221,7 +221,7 @@ namespace iTeffa.Speaking
                                 player.StopAnimation();
                             else
                                 player.SetData("ToResetAnimPhone", true);
-                            Kernel.BasicSync.DetachObject(player);
+                            Globals.BasicSync.DetachObject(player);
 
                             player.SetData("PhoneVoip", pPhoneMeta);
                             target.SetData("PhoneVoip", tPhoneMeta);
@@ -295,7 +295,7 @@ namespace iTeffa.Speaking
 
                 Main.OnAntiAnim(player);
                 player.PlayAnimation("anim@cellphone@in_car@ds", "cellphone_call_listen_base", 49);
-                Kernel.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.06, 0.01, -0.02), new Vector3(80, -10, 110));
+                Globals.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.06, 0.01, -0.02), new Vector3(80, -10, 110));
 
                 Trigger.ClientEvent(player, "voice.phoneCall", target, 1);
                 Trigger.ClientEvent(target, "voice.phoneCall", player, 1);
@@ -351,8 +351,8 @@ namespace iTeffa.Speaking
                 if (player.IsInVehicle) player.SetData("ToResetAnimPhone", true);
                 if (player.IsInVehicle) target.SetData("ToResetAnimPhone", true);
 
-                Kernel.BasicSync.DetachObject(player);
-                Kernel.BasicSync.DetachObject(target);
+                Globals.BasicSync.DetachObject(player);
+                Globals.BasicSync.DetachObject(target);
 
                 Trigger.ClientEvent(player, "voice.phoneStop");
                 Trigger.ClientEvent(target, "voice.phoneStop");

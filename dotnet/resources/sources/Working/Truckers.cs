@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using Newtonsoft.Json;
 using iTeffa.Interface;
@@ -36,7 +36,7 @@ namespace iTeffa.Working
             for (int a = 0; a < CarInfos.Count; a++)
             {
                 var veh = NAPI.Vehicle.CreateVehicle(CarInfos[a].Model, CarInfos[a].Position, CarInfos[a].Rotation.Z, CarInfos[a].Color1, CarInfos[a].Color2, CarInfos[a].Number);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
                 NAPI.Data.SetEntityData(veh, "ACCESS", "WORK");
                 NAPI.Data.SetEntityData(veh, "WORK", 6);
                 NAPI.Data.SetEntityData(veh, "TYPE", "TRUCKER");
@@ -153,8 +153,8 @@ namespace iTeffa.Working
                 NAPI.Entity.SetEntityPosition(veh, CarInfos[i].Position);
                 NAPI.Entity.SetEntityRotation(veh, CarInfos[i].Rotation);
                 VehicleManager.RepairCar(veh);
-                Kernel.VehicleStreaming.SetEngineState(veh, false);
-                Kernel.VehicleStreaming.SetLockStatus(veh, false);
+                Globals.VehicleStreaming.SetEngineState(veh, false);
+                Globals.VehicleStreaming.SetLockStatus(veh, false);
                 NAPI.Data.SetEntityData(veh, "WORK", 6);
                 NAPI.Data.SetEntityData(veh, "TYPE", "TRUCKER");
                 NAPI.Data.SetEntityData(veh, "NUMBER", i);
@@ -173,7 +173,7 @@ namespace iTeffa.Working
                 var vehicle = player.Vehicle;
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
                 player.ResetData("WayPointBiz");
-                Kernel.VehicleStreaming.SetEngineState(vehicle, true);
+                Globals.VehicleStreaming.SetEngineState(vehicle, true);
                 NAPI.Data.SetEntityData(player, "ON_WORK", true);
                 NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
                 NAPI.Data.SetEntityData(vehicle, "ON_WORK", true);

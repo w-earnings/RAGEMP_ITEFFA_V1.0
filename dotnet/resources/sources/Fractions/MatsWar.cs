@@ -1,6 +1,6 @@
 ﻿using System;
 using GTANetworkAPI;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 
 namespace iTeffa.Fractions

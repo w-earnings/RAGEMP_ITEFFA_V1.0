@@ -1,4 +1,4 @@
-﻿using iTeffa.Kernel;
+﻿using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Interface;
 using GTANetworkAPI;

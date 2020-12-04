@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GTANetworkAPI;
 using MySqlConnector;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Interface;
 using System.Data;

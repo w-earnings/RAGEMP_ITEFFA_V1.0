@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using iTeffa.Kernel;
+using iTeffa.Globals;
 using iTeffa.Settings;
 using iTeffa.Finance;
 using Newtonsoft.Json;
@@ -47,7 +47,7 @@ namespace iTeffa.Interface
                 int index = Convert.ToInt32(arguments[1]);
                 string data = Convert.ToString(arguments[2]);
                 Log.Debug($"Type: {type} | Index: {index} | Data: {data}");
-                Kernel.Character.Character acc = Main.Players[player];
+                Globals.Character.Character acc = Main.Players[player];
                 List<nItem> items;
                 nItem item;
                 switch (type)
@@ -776,7 +776,7 @@ namespace iTeffa.Interface
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                Kernel.Character.Character acc = Main.Players[player];
+                Globals.Character.Character acc = Main.Players[player];
 
                 string status =
                     (acc.AdminLVL >= 1) ? "Администратор" :
@@ -833,7 +833,7 @@ namespace iTeffa.Interface
             {
                 if (!Main.Players.ContainsKey(player))
                     return Task.CompletedTask;
-                Kernel.Character.Character acc = Main.Players[player];
+                Globals.Character.Character acc = Main.Players[player];
 
                 string status =
                     acc.AdminLVL >= 1 ? "Администратор" :
