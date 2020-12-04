@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
 using iTeffa.Models;
-using iTeffa.Globals;
 using iTeffa.Speaking;
 using iTeffa.Houses;
 

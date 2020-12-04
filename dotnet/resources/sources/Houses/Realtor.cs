@@ -11,7 +11,6 @@ namespace iTeffa.Houses
         private static List<object> HouseList = new List<object>();
         private static ColShape shape;
         private static Marker intmarker;
-        private static Blip blip;
         private static Vector3 PositionRealtor = new Vector3(-1289.75, -574.48, 29.08);
         private static int[] PriceToInfo = { 0, 100, 200, 500, 1000, 1500, 2000 };
 
