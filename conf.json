@@ -1,8 +1,9 @@
 {
 	"maxplayers" : 100,
 	"name" : "iTeffa.com", 
+	"language" : "ru",
 	"gamemode" : "roleplay", 
-	"stream-distance" : 650.0,
+	"stream-distance" : 500.0,
 	"announce" : false,
 	"csharp" : "enabled",
 	"bind" : "0.0.0.0",
