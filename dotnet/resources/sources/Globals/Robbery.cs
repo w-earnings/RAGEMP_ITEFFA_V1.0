@@ -126,8 +126,8 @@ namespace iTeffa.Globals
             isCracking = true;
             safeDrill = NAPI.Object.CreateObject(-443429795, new Vector3(253.9534, 225.2, 102.22), new Vector3(0, 0, -18), 255, 0);
             label = NAPI.TextLabel.CreateTextLabel("~r~8:00", new Vector3(253.9534, 225.2, 102.22), 4F, 0.3F, 0, new Color(255, 255, 255));
-            secondsLeft = 480;
-            timer = Timers.StartTask("DoorCracking", 1000, () => updateDoorCracking());
+            secondsLeft = 480;  
+            timer = Timers.StartTask("DoorCracking", 1000, () => NAPI.Task.Run(() => updateDoorCracking()));
             canBeClosed = false;
             Manager.sendFractionMessage(6, "Кто-то пытается взломать дверь в хранилище мэрии.");
             Manager.sendFractionMessage(7, "Кто-то пытается взломать дверь в хранилище мэрии.");
