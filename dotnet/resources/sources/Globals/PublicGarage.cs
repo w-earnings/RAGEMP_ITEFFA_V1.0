@@ -164,7 +164,7 @@ namespace iTeffa.Globals
                     try
                     {
                         Notify.Send(entity, NotifyType.Info, NotifyPosition.TopCenter,
-                            $"Нажмите Numpad 2, чтобы открыть меню!",
+                            $"Нажмите E, чтобы открыть меню!",
                         3000);
                     }
                     catch (Exception e) { Console.WriteLine("shape.OnEntityEnterColshape: " + e.Message); }

@@ -1,0 +1,21 @@
+html, body {
+  margin: 0 auto;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+  
+}
+
+* {
+  font-family: 'Lato', Helvetica, sans-serif;
+  color: #fff;
+}
+
+.text-yellow {
+  color: #f8cd1e;
+}
+
+.text-gray {
+  color: #cdcdcd;
+}

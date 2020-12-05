@@ -242,7 +242,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
 });
 
     require('./game_resources/handlers/plugins/bind_keys.js');
-    require('./game_resources/handlers/control/coordinates.js');
+    // require('./game_resources/handlers/control/coordinates.js');
     require('./game_resources/handlers/control/adminpanel.js');
     require('./game_resources/handlers/control/admesp.js');
     require('./game_resources/handlers/menus.js');
