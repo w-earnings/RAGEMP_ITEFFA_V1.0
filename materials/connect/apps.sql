@@ -1,22 +1,12 @@
--- --------------------------------------------------------
--- Хост:                         127.0.0.1
--- Версия сервера:               5.6.13 - MySQL Community Server (GPL)
--- Операционная система:         Win32
--- HeidiSQL Версия:              11.0.0.5919
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Дамп структуры базы данных iteffa
 CREATE DATABASE IF NOT EXISTS `iteffa` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `iteffa`;
 
--- Дамп структуры для таблица iteffa.accounts
 CREATE TABLE IF NOT EXISTS `accounts` (
   `socialclub` text NOT NULL,
   `login` varchar(155) NOT NULL,
@@ -36,28 +26,28 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.accounts: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`socialclub`, `login`, `hwid`, `coins`, `ip`, `character1`, `character2`, `character3`, `email`, `password`, `viplvl`, `vipdate`, `promocodes`, `present`, `idkey`) VALUES
-	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '0', '127.0.0.1', '333333', '-1', '-2', 'iTeffa', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-12-03 01:03:57', '["noref"]', 0, 1);
+	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '20', '127.0.0.1', '333333', '-1', '-2', 'iTeffa', '69e9e1e1c72d179485296e250982e9cb9e8318e81089cb0812d9caed5a0c89c1', '0', '2020-12-03 01:03:57', '["noref"]', 0, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.adminaccess
 CREATE TABLE IF NOT EXISTS `adminaccess` (
   `minrank` int(11) NOT NULL,
   `command` varchar(155) NOT NULL,
   `isadmin` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.adminaccess: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `adminaccess` DISABLE KEYS */;
 INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
-	(7, 'stop', 1, 1);
+	(7, 'stop', 1, 1),
+	(7, 'tpc', 1, 2),
+	(7, 'save', 1, 3),
+	(7, 'vehc', 1, 4),
+	(7, 'guns', 1, 5);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.advertised
 CREATE TABLE IF NOT EXISTS `advertised` (
   `ID` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `Author` varchar(40) NOT NULL,
@@ -71,11 +61,9 @@ CREATE TABLE IF NOT EXISTS `advertised` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Дамп данных таблицы iteffa.advertised: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `advertised` DISABLE KEYS */;
 /*!40000 ALTER TABLE `advertised` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.alcoclubs
 CREATE TABLE IF NOT EXISTS `alcoclubs` (
   `id` int(155) NOT NULL,
   `alco1` int(155) NOT NULL,
@@ -86,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `alcoclubs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.alcoclubs: ~4 rows (приблизительно)
 /*!40000 ALTER TABLE `alcoclubs` DISABLE KEYS */;
 INSERT INTO `alcoclubs` (`id`, `alco1`, `alco2`, `alco3`, `pricemod`, `mats`) VALUES
 	(10, 1000, 3000, 5000, '100', 100000),
@@ -95,7 +82,6 @@ INSERT INTO `alcoclubs` (`id`, `alco1`, `alco2`, `alco3`, `pricemod`, `mats`) VA
 	(13, 1000, 3000, 5000, '100', 100000);
 /*!40000 ALTER TABLE `alcoclubs` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.banned
 CREATE TABLE IF NOT EXISTS `banned` (
   `uuid` int(155) NOT NULL,
   `name` text NOT NULL,
@@ -111,11 +97,9 @@ CREATE TABLE IF NOT EXISTS `banned` (
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.banned: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `banned` DISABLE KEYS */;
 /*!40000 ALTER TABLE `banned` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.businesses
 CREATE TABLE IF NOT EXISTS `businesses` (
   `id` int(255) NOT NULL,
   `owner` text NOT NULL,
@@ -130,7 +114,6 @@ CREATE TABLE IF NOT EXISTS `businesses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Дамп данных таблицы iteffa.businesses: ~77 rows (приблизительно)
 /*!40000 ALTER TABLE `businesses` DISABLE KEYS */;
 INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enterpoint`, `unloadpoint`, `money`, `mafia`, `orders`) VALUES
 	(0, 'Государство', '1000000', '0', '[{"Price":100,"Lefts":0,"Autosell":1,"Name":"Бургер","Ordered":true},{"Price":60,"Lefts":0,"Autosell":1,"Name":"Хот-Дог","Ordered":true},{"Price":30,"Lefts":0,"Autosell":1,"Name":"Сэндвич","Ordered":true},{"Price":20,"Lefts":0,"Autosell":1,"Name":"eCola","Ordered":true},{"Price":30,"Lefts":0,"Autosell":1,"Name":"Sprunk","Ordered":true},{"Price":200,"Lefts":0,"Autosell":1,"Name":"Монтировка","Ordered":true},{"Price":240,"Lefts":0,"Autosell":1,"Name":"Фонарик","Ordered":true},{"Price":200,"Lefts":0,"Autosell":1,"Name":"Молоток","Ordered":true},{"Price":200,"Lefts":0,"Autosell":1,"Name":"Гаечный ключ","Ordered":true},{"Price":120,"Lefts":0,"Autosell":1,"Name":"Канистра бензина","Ordered":true},{"Price":60,"Lefts":0,"Autosell":1,"Name":"Чипсы","Ordered":true},{"Price":100,"Lefts":0,"Autosell":1,"Name":"Пицца","Ordered":true},{"Price":200,"Lefts":0,"Autosell":1,"Name":"Сим-карта","Ordered":true},{"Price":200,"Lefts":0,"Autosell":1,"Name":"Связка ключей","Ordered":true}]', '{"x":1163.3069,"y":-324.0096,"z":68.08507}', '{"x":0.0,"y":0.0,"z":0.0}', '898416', '-1', '[{"Name":"Бургер","Amount":25},{"Name":"Хот-Дог","Amount":10},{"Name":"Сэндвич","Amount":10},{"Name":"eCola","Amount":10},{"Name":"Sprunk","Amount":10},{"Name":"Монтировка","Amount":5},{"Name":"Фонарик","Amount":5},{"Name":"Молоток","Amount":5},{"Name":"Гаечный ключ","Amount":5},{"Name":"Канистра бензина","Amount":5},{"Name":"Чипсы","Amount":5},{"Name":"Пицца","Amount":5},{"Name":"Сим-карта","Amount":5},{"Name":"Связка ключей","Amount":5}]'),
@@ -212,7 +195,6 @@ INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enter
 	(76, 'Государство', '1000000', '13', '[{"Price":200,"Lefts":200,"Autosell":0,"Name":"Средство для мытья","Ordered":false}]', '{"x":170.96251,"y":-1718.0438,"z":28.171608}', '{"x":0.0,"y":0.0,"z":0.0}', '344454', '-1', '[]');
 /*!40000 ALTER TABLE `businesses` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.characters
 CREATE TABLE IF NOT EXISTS `characters` (
   `uuid` bigint(255) NOT NULL,
   `adminlvl` int(255) NOT NULL,
@@ -254,13 +236,11 @@ CREATE TABLE IF NOT EXISTS `characters` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.characters: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 INSERT INTO `characters` (`uuid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
-	(333333, 8, 500000, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 100, 98, 0, 0, '2020-12-03 01:04:04', 0, 392642, 'null', 0, 0, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 4, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-03 01:04:04', '{"x":379.0306,"y":-1417.317,"z":38.0}', 0, 1, 4, 0);
+	(333333, 8, 851145, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 0, 2, 0, 0, '2020-12-03 01:04:04', 0, 392642, 'null', 4, 8, 1, 18, 0, '[false,false,false,false,false,false,false,false]', '', 0, 18, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-03 01:04:04', '{"x":230.2144,"y":-794.8322,"z":30.602015}', 0, 1, 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.customization
 CREATE TABLE IF NOT EXISTS `customization` (
   `uuid` bigint(255) NOT NULL,
   `gender` text NOT NULL,
@@ -282,22 +262,18 @@ CREATE TABLE IF NOT EXISTS `customization` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.customization: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `customization` DISABLE KEYS */;
 INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearance`, `hair`, `clothes`, `accessory`, `tattoos`, `eyebrowc`, `beardc`, `eyec`, `blushc`, `lipstickc`, `chesthairc`, `iscreated`, `idkey`) VALUES
-	(333333, '0', '{"Father":0,"Mother":21,"Similarity":0.5,"SkinSimilarity":0.5}', '[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":0,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":0,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":0},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":1},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":0}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '0', '0', '0', '0', 1, 1);
+	(333333, '0', '{"Father":0,"Mother":21,"Similarity":0.5,"SkinSimilarity":0.5}', '[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":0,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":0,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":11,"Texture":0},"Leg":{"Variation":103,"Texture":0},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":1},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":0}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '0', '0', '0', '0', 1, 1);
 /*!40000 ALTER TABLE `customization` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.eventcfg
 CREATE TABLE IF NOT EXISTS `eventcfg` (
   `RewardLimit` int(155) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.eventcfg: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `eventcfg` DISABLE KEYS */;
 /*!40000 ALTER TABLE `eventcfg` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.e_candidates
 CREATE TABLE IF NOT EXISTS `e_candidates` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Votes` text NOT NULL,
@@ -306,11 +282,9 @@ CREATE TABLE IF NOT EXISTS `e_candidates` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.e_candidates: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `e_candidates` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_candidates` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.e_points
 CREATE TABLE IF NOT EXISTS `e_points` (
   `Election` int(155) NOT NULL AUTO_INCREMENT,
   `X` varchar(11) NOT NULL,
@@ -321,11 +295,9 @@ CREATE TABLE IF NOT EXISTS `e_points` (
   PRIMARY KEY (`Election`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.e_points: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `e_points` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_points` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.e_voters
 CREATE TABLE IF NOT EXISTS `e_voters` (
   `Election` int(155) NOT NULL,
   `Login` text NOT NULL,
@@ -333,11 +305,9 @@ CREATE TABLE IF NOT EXISTS `e_voters` (
   `VotedFor` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.e_voters: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `e_voters` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_voters` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.fractionaccess
 CREATE TABLE IF NOT EXISTS `fractionaccess` (
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   `fraction` int(155) NOT NULL,
@@ -346,7 +316,6 @@ CREATE TABLE IF NOT EXISTS `fractionaccess` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
--- Дамп данных таблицы iteffa.fractionaccess: ~15 rows (приблизительно)
 /*!40000 ALTER TABLE `fractionaccess` DISABLE KEYS */;
 INSERT INTO `fractionaccess` (`idkey`, `fraction`, `commands`, `weapons`) VALUES
 	(1, 1, '{"takedrugs":6,"takemedkits":8,"takestock":10,"openweaponstock":10,"takemats":10,"capture":10,"takemoney":11,"invite":10,"setrank":11,"openstock":10,"closestock":10,"respawn":12,"uninvite":10,"buydrugs":8}', '{"Medkits":8}'),
@@ -366,7 +335,6 @@ INSERT INTO `fractionaccess` (`idkey`, `fraction`, `commands`, `weapons`) VALUES
 	(18, 18, '{"invite": "13",  "uninvite": "13",  "setrank": "13",  "ticket": "1",  "arrest": "1",  "rfp": "1",  "follow": "1",  "su": "1",  "incar": "1",  "pull": "1",  "warg": "12",  "openweaponstock": "12",  "openstock": "12",  "givegunlic": "5",  "takegunlic": "5",  "cuff": "1",  "dep": "1",  "gov": "1"}', '{"sheriffgun":"1", "armor":"1", "Medkits":"1", "PistolAmmo":"1", "SMGAmmo":"1", "ShotgunsAmmo":"1", "RiflesAmmo":"1"}');
 /*!40000 ALTER TABLE `fractionaccess` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.fractionranks
 CREATE TABLE IF NOT EXISTS `fractionranks` (
   `fraction` int(155) NOT NULL,
   `rank` int(155) NOT NULL,
@@ -376,7 +344,6 @@ CREATE TABLE IF NOT EXISTS `fractionranks` (
   `clothesf` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Дамп данных таблицы iteffa.fractionranks: ~242 rows (приблизительно)
 /*!40000 ALTER TABLE `fractionranks` DISABLE KEYS */;
 INSERT INTO `fractionranks` (`fraction`, `rank`, `payday`, `name`, `clothesm`, `clothesf`) VALUES
 	(1, 1, 100, 'Outsider', '', ''),
@@ -623,7 +590,6 @@ INSERT INTO `fractionranks` (`fraction`, `rank`, `payday`, `name`, `clothesm`, `
 	(18, 14, 6600, 'Стёпка 14 уровня', 'sheriff_8', 'sheriff_8');
 /*!40000 ALTER TABLE `fractionranks` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.fractions
 CREATE TABLE IF NOT EXISTS `fractions` (
   `id` int(155) NOT NULL,
   `drugs` int(155) NOT NULL,
@@ -638,7 +604,6 @@ CREATE TABLE IF NOT EXISTS `fractions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.fractions: ~18 rows (приблизительно)
 /*!40000 ALTER TABLE `fractions` DISABLE KEYS */;
 INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`, `weapons`, `isopen`, `fuellimit`, `fuelleft`) VALUES
 	(1, 0, 142900, 10000, 50, '1', '[]', 1, 200, 150),
@@ -646,7 +611,7 @@ INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`
 	(3, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(4, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
 	(5, 0, 100000, 10000, 50, '1', '[]', 1, 200, 150),
-	(6, 0, 133429, 10000, 50, '1', '[]', 1, 200, 200),
+	(6, 0, 134677, 10000, 50, '1', '[]', 1, 200, 200),
 	(7, 0, 100000, 10000, 48, '1', '[]', 1, 200, 200),
 	(8, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200),
 	(9, 0, 100000, 10000, 46, '1', '[]', 1, 200, 200),
@@ -661,7 +626,6 @@ INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`
 	(18, 0, 100000, 10000, 50, '1', '[]', 1, 200, 200);
 /*!40000 ALTER TABLE `fractions` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.fractionvehicles
 CREATE TABLE IF NOT EXISTS `fractionvehicles` (
   `fraction` int(155) NOT NULL,
   `number` text NOT NULL,
@@ -674,7 +638,6 @@ CREATE TABLE IF NOT EXISTS `fractionvehicles` (
   `colorsec` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.fractionvehicles: ~55 rows (приблизительно)
 /*!40000 ALTER TABLE `fractionvehicles` DISABLE KEYS */;
 INSERT INTO `fractionvehicles` (`fraction`, `number`, `components`, `model`, `position`, `rotation`, `rank`, `colorprim`, `colorsec`) VALUES
 	(3, 'VAGOS', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'speedo4', '{"x":480.659058,"y":-1897.94,"z":26.3010216}', '{"x":-2.14845753,"y":-0.149998382,"z":294.1523}', 1, 89, 89),
@@ -734,7 +697,6 @@ INSERT INTO `fractionvehicles` (`fraction`, `number`, `components`, `model`, `po
 	(7, 'LSPD40', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'towtruck', '{"x":460.00473,"y":-1110.86462,"z":29.6666584}', '{"x":0.484348625,"y":0.4495527,"z":44.02881}', 8, 1, 111);
 /*!40000 ALTER TABLE `fractionvehicles` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.furniture
 CREATE TABLE IF NOT EXISTS `furniture` (
   `uuid` varchar(155) NOT NULL,
   `furniture` text NOT NULL,
@@ -742,7 +704,6 @@ CREATE TABLE IF NOT EXISTS `furniture` (
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.furniture: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `furniture` DISABLE KEYS */;
 INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 	('0', '{}', '{}'),
@@ -913,18 +874,15 @@ INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 	('99', '{}', '{}');
 /*!40000 ALTER TABLE `furniture` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.gangspoints
 CREATE TABLE IF NOT EXISTS `gangspoints` (
   `id` int(155) NOT NULL,
   `gangid` int(155) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.gangspoints: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `gangspoints` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gangspoints` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.garages
 CREATE TABLE IF NOT EXISTS `garages` (
   `id` int(155) NOT NULL,
   `type` int(155) NOT NULL,
@@ -933,7 +891,6 @@ CREATE TABLE IF NOT EXISTS `garages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.garages: ~166 rows (приблизительно)
 /*!40000 ALTER TABLE `garages` DISABLE KEYS */;
 INSERT INTO `garages` (`id`, `type`, `position`, `rotation`) VALUES
 	(1, 5, '{"x":-2597.433,"y":1929.78931,"z":166.883179}', '{"x":0.2614351,"y":-0.168447033,"z":274.7524}'),
@@ -1104,7 +1061,6 @@ INSERT INTO `garages` (`id`, `type`, `position`, `rotation`) VALUES
 	(166, 5, '{"x":-2786.349,"y":1430.36548,"z":100.621628}', '{"x":-0.0609915964,"y":-0.08839638,"z":235.202774}');
 /*!40000 ALTER TABLE `garages` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.houses
 CREATE TABLE IF NOT EXISTS `houses` (
   `id` int(155) NOT NULL,
   `owner` text NOT NULL,
@@ -1118,7 +1074,6 @@ CREATE TABLE IF NOT EXISTS `houses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.houses: ~166 rows (приблизительно)
 /*!40000 ALTER TABLE `houses` DISABLE KEYS */;
 INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `garage`, `bank`, `roommates`) VALUES
 	(0, '', '6', '{"x":-2587.8977,"y":1911.192,"z":166.37895}', '20000000', 1, '1', '103598', '[]'),
@@ -1179,7 +1134,7 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(55, '', '5', '{"x":-1960.8195,"y":212.09187,"z":85.68907}', '3000000', 0, '56', '771824', '[]'),
 	(56, '', '5', '{"x":-1970.3928,"y":246.13947,"z":86.69214}', '2800000', 0, '57', '686757', '[]'),
 	(57, '', '5', '{"x":-1995.3086,"y":300.5059,"z":90.84466}', '3200000', 0, '58', '214586', '[]'),
-	(58, 'Jack_Brown', '5', '{"x":-2008.8673,"y":367.55692,"z":93.694305}', '3200000', 1, '59', '5177', '[]'),
+	(58, '', '5', '{"x":-2008.8673,"y":367.55692,"z":93.694305}', '3200000', 1, '59', '5177', '[]'),
 	(59, '', '5', '{"x":-2010.9653,"y":445.1746,"z":101.8959}', '3200000', 0, '60', '196598', '[]'),
 	(60, '', '5', '{"x":-2014.618,"y":499.78394,"z":106.05179}', '2800000', 0, '61', '79683', '[]'),
 	(61, '', '5', '{"x":-1996.034,"y":591.0544,"z":116.98196}', '3000000', 0, '62', '23777', '[]'),
@@ -1289,7 +1244,6 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(165, '', '6', '{"x":-2797.6306,"y":1431.908,"z":99.80837}', '50000000', 0, '166', '842769', '[]');
 /*!40000 ALTER TABLE `houses` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.inventory
 CREATE TABLE IF NOT EXISTS `inventory` (
   `items` text NOT NULL,
   `uuid` int(255) NOT NULL,
@@ -1297,13 +1251,11 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.inventory: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
 INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
-	('[{"Data":"26_0_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_0_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_1_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 333333, 1);
+	('[{"Data":"26_0_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_0_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_1_True","ID":-6,"Type":-6,"Count":1,"IsActive":true},{"Data":"000000001","ID":100,"Type":100,"Count":1,"IsActive":false},{"Data":null,"ID":200,"Type":200,"Count":12,"IsActive":false}]', 333333, 1);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.money
 CREATE TABLE IF NOT EXISTS `money` (
   `id` varchar(155) NOT NULL,
   `holder` varchar(155) NOT NULL,
@@ -1312,7 +1264,6 @@ CREATE TABLE IF NOT EXISTS `money` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.money: ~244 rows (приблизительно)
 /*!40000 ALTER TABLE `money` DISABLE KEYS */;
 INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('100225', '', '1000', '2'),
@@ -1394,7 +1345,7 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('376413', '', '1000', '3'),
 	('388639', '', '1000', '3'),
 	('389391', '', '1000', '3'),
-	('392642', 'Jack_Brown', '0', '1'),
+	('392642', 'Jack_Brown', '1255255', '1'),
 	('392828', '', '1000', '3'),
 	('400434', '', '1000', '2'),
 	('415545', '', '1000', '2'),
@@ -1431,7 +1382,7 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('506657', '', '1000', '3'),
 	('507881', '', '1000', '2'),
 	('509009', '', '1000', '2'),
-	('5177', '', '1000', '2'),
+	('5177', '', '-248', '2'),
 	('518891', '', '1000', '2'),
 	('522090', '', '1000', '2'),
 	('523356', '', '1000', '2'),
@@ -1563,17 +1514,14 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('994557', '', '1000', '2');
 /*!40000 ALTER TABLE `money` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.nicknames
 CREATE TABLE IF NOT EXISTS `nicknames` (
   `srv` varchar(155) NOT NULL,
   `name` varchar(155) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.nicknames: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `nicknames` DISABLE KEYS */;
 /*!40000 ALTER TABLE `nicknames` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.othervehicles
 CREATE TABLE IF NOT EXISTS `othervehicles` (
   `idkey` int(155) NOT NULL AUTO_INCREMENT,
   `type` varchar(155) NOT NULL,
@@ -1587,7 +1535,6 @@ CREATE TABLE IF NOT EXISTS `othervehicles` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.othervehicles: ~85 rows (приблизительно)
 /*!40000 ALTER TABLE `othervehicles` DISABLE KEYS */;
 INSERT INTO `othervehicles` (`idkey`, `type`, `number`, `model`, `position`, `rotation`, `color1`, `color2`, `price`) VALUES
 	(1, '3', 'TAX01', 'taxi', '{"x":911.3861,"y":-163.55806,"z":74.96563}', '{"x":-3.46154332,"y":4.644617,"z":195.023743}', 88, 88, 500),
@@ -1677,7 +1624,6 @@ INSERT INTO `othervehicles` (`idkey`, `type`, `number`, `model`, `position`, `ro
 	(85, '7', 'INK13', 'stockade', '{"x":854.991943,"y":-1237.62878,"z":26.9910374}', '{"x":0.355626345,"y":0.376740217,"z":308.505585}', 53, 53, 100);
 /*!40000 ALTER TABLE `othervehicles` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.promocodes
 CREATE TABLE IF NOT EXISTS `promocodes` (
   `name` text NOT NULL,
   `type` int(155) NOT NULL,
@@ -1687,11 +1633,9 @@ CREATE TABLE IF NOT EXISTS `promocodes` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.promocodes: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `promocodes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `promocodes` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.questions
 CREATE TABLE IF NOT EXISTS `questions` (
   `ID` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `Author` text NOT NULL,
@@ -1704,11 +1648,9 @@ CREATE TABLE IF NOT EXISTS `questions` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Дамп данных таблицы iteffa.questions: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.rodings
 CREATE TABLE IF NOT EXISTS `rodings` (
   `id` int(11) NOT NULL,
   `radius` varchar(255) DEFAULT NULL,
@@ -1716,11 +1658,9 @@ CREATE TABLE IF NOT EXISTS `rodings` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Дамп данных таблицы iteffa.rodings: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `rodings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rodings` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.safes
 CREATE TABLE IF NOT EXISTS `safes` (
   `minamount` int(155) NOT NULL,
   `maxamount` int(155) NOT NULL,
@@ -1729,13 +1669,15 @@ CREATE TABLE IF NOT EXISTS `safes` (
   `rotation` int(11) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.safes: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `safes` DISABLE KEYS */;
+INSERT INTO `safes` (`minamount`, `maxamount`, `pos`, `address`, `rotation`, `idkey`) VALUES
+	(12859, 35870, '{"x":262.900482,"y":216.127136,"z":101.683334}', '0', 0, 1),
+	(32428, 55800, '{"x":266.267944,"y":215.220749,"z":101.683441}', '0', 0, 2),
+	(45200, 75800, '{"x":264.3013,"y":216.193329,"z":101.683372}', '0', 0, 3);
 /*!40000 ALTER TABLE `safes` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.vehicles
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `holder` varchar(155) NOT NULL,
   `model` varchar(155) NOT NULL,
@@ -1753,18 +1695,15 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.vehicles: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.weapons
 CREATE TABLE IF NOT EXISTS `weapons` (
   `id` varchar(155) NOT NULL,
   `lastserial` varchar(155) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы iteffa.weapons: ~11 rows (приблизительно)
 /*!40000 ALTER TABLE `weapons` DISABLE KEYS */;
 INSERT INTO `weapons` (`id`, `lastserial`) VALUES
 	('28', '0'),
@@ -1780,14 +1719,12 @@ INSERT INTO `weapons` (`id`, `lastserial`) VALUES
 	('8', '0');
 /*!40000 ALTER TABLE `weapons` ENABLE KEYS */;
 
--- Дамп структуры для таблица iteffa.whitelist
 CREATE TABLE IF NOT EXISTS `whitelist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `socialclub` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Дамп данных таблицы iteffa.whitelist: ~0 rows (приблизительно)
 /*!40000 ALTER TABLE `whitelist` DISABLE KEYS */;
 /*!40000 ALTER TABLE `whitelist` ENABLE KEYS */;
 
