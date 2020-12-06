@@ -2461,7 +2461,7 @@ namespace iTeffa
                             DateTime date = new DateTime((new DateTime().AddMinutes(oldconfig.LastBonusMin - Players[p].LastBonus)).Ticks);
                             var hour = date.Hour;
                             var min = date.Minute;
-                            Trigger.ClientEvent(p, "updlastbonus", $"{hour}ч. {min}м.");
+                            Trigger.ClientEvent(p, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
                         }
                         #endregion
 

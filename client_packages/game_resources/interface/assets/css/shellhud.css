@@ -1,51 +1,279 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900i&display=swap");
+/*
+* IT Studio "iTeffa"
+* url: www.iteffa.com
+* CSS файл Стилизации
+*/
 
-body {user-select: none;}
-* {margin: 0; padding: 0; -webkit-box-sizing: border-box; box-sizing: border-box;}
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;}
+.inGameHud {
+  width: 100%;
+  height: 100%;
+}
 
-.inGameHud {position: absolute;margin: 0 auto;font-family: Uni Neue;line-height: normal;width: 100%;height: 100%;}
-.iTeffa {user-select:none;-moz-user-select: none;-webkit-user-select:none;overflow:hidden;margin:0;}
-.iTeffa p {margin: 0;}
-.iTeffa #effect {position:absolute;left:0;top: 0;}
-.iTeffa #safezone {position:absolute; top:0;bottom:0;left:0;right: 0;}
-.iTeffa .beta {position: absolute; font-family: Uni Neue;font-size: 12px;color: #fff;top: 1.3%; left: 50%; margin-right: -50%; transform: translate(-50%, -1.3%)}
-.iTeffa .logobox {position: absolute; flex-direction:column; top: 15px; right:15px;}
-.iTeffa .logobox .copyright {font-size:0;vertical-align:top;display:inline-block;}
-.iTeffa .logobox .copyright p {font-family: "impact"; color: #fff; font-size: 21pt; text-transform: uppercase;}
-.iTeffa .logobox .copyright img,p {vertical-align:middle; display:inline-block;}
-.iTeffa .logobox .copyright img{width: 70px;height: 60px; margin:0 -7px 25px 0;}
-.iTeffa .logobox .player {font-size: 10pt; color: #fff; position: absolute; top: 12px; text-align-last: right; opacity: 0.85;text-align-last: right;right:15px;}
-.iTeffa .logobox .online {font-size: 10pt; color: #fff; position: absolute; top: 57px; text-align-last: right; opacity: 0.85;text-align-last: right;right:25px;}
-.iTeffa .inGameHud .help {position: absolute; top: 40%; right: 0px; transform: translate(-40%)}
+#effect {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 
-.bonus {position: absolute;top: 200px;right: 5px;z-index: 999;}
-.bonus-bar {background: #18191D;border-radius: 5px;padding: 2px 5px;color: gray;font-size: 1.5em;}
-.bonus-block {display: flex;flex-wrap: wrap;width: 300px;height: auto;background-color: #18191D; color:#fff;}
-.bonus-block header {flex: 40%;width: 100%;background-color: #1D2027;padding: 7px 15px;display: flex;align-items: center;justify-content: space-between;}
-.bonus-block header .fa-times {color: #ab2b2b;}
-.bonus-block .main {flex: 60%;width: 100%;padding: 10px;background-color: transparent;}
-.bonus-block .main p {padding: 10px 30px;text-align: center;background-color: #131316;box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 1);}
+#safezone {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
 
-.speedometer {position: absolute;bottom: 10px;right: 20px;}
-.speedometer .speed {position: absolute;bottom: 0vh;right: 3vh;width: 26.85185vh;height: unset;}
-.speedometer .speed path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
-.speedometer .speed path.bg {stroke: rgba(255, 255, 255, 0.2);}
-.speedometer .speed path.meter {stroke: #ff5a1b;} 
-.speedometer .fuel {position: absolute;bottom: 1.8vh;right: 32.59259vh;width: 7.40741vh;height: unset;}
-.speedometer .fuel path {will-change: auto;stroke-width: 0.74074vh;stroke-miterlimit: round;-webkit-transition: stroke-dashoffset 850ms ease-in-out;transition: stroke-dashoffset 850ms ease-in-out;}
-.speedometer .fuel path.bg {stroke: rgba(255, 255, 255, 0.2);}
-.speedometer .fuel path.meter {stroke: #fff;}
-.speedometer .icon_fuel {width: 1.48148vh;position: absolute;bottom: 4vh;right: 35.46296vh;} 
-.speedometer .lamp_list {width: 13.88889vh;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: absolute;bottom: 2.5vh;right: 9.2vh;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
-.speedometer .lamp_list .engine {width: 2.22222vh;}
-.speedometer .lamp_list .door {width: 1.75926vh;}
-.speedometer .lamp_list .sec {width: 1.75926vh;}
-.speedometer .speed_count .bg {opacity: 0.19;}
-.speedometer .speed_count {position: absolute;-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-align: center;-ms-flex-align: center;align-items: center;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;flex-direction: column;font-size: 5.92593vh;color: #ffffff;font-weight: 900;right: 10.5vh;bottom: 8vh;}
-.speedometer .speed_count .count {display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; width: 11vh;}
-.speedometer .speed_count .type {text-transform: uppercase;font-size: 1.2963vh;font-weight: 900;opacity: 0.19;}
+.inGameHud .logobox {
+  position: absolute;
+  font-family: Uni Neue;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  font-size: 10.5pt;
+}
 
+.inGameHud .wallet {
+  position: absolute;
+  font-family: Uni Neue;
+  top: 16px;
+  right: 15px;
+  font-size: 10.5pt;
+  text-align: right;
+}
+
+.inGameHud .wallet p {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+/* IT Studio "iTeffa" - Bind Помощь */
+.inGameHud .help {
+  position: absolute;
+  text-align: center;
+  left: 20px;
+  font-family: Uni Neue;
+  font-size: 10px;
+  width: 148px;
+  color: #ffffff;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.inGameHud .help p {
+  font-size: 7pt;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  border-radius: 3px;
+  margin-top: 5px;
+  background: #1e1e1e80;
+  padding: 5px 20px;
+  color: #ffffff;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0);
+}
+
+.inGameHud .help span {
+  font-size: 7pt;
+  font-weight: 600;
+  float: left;
+  text-align: center;
+  background: rgb(255, 255, 255, 0.9);
+  position: relative;
+  left: -22px;
+  top: -5px;
+  width: 14px;
+  border-radius: 3px;
+  padding: 6px 6px;
+  color: #1e1e1e;
+  text-shadow: 0px 0px 0px rgba(145, 145, 145);
+}
+
+/* IT Studio "iTeffa" - Voice Chat */
+.inGameHud .microhud {
+  font-size: 22pt;
+  padding: 0 20px 0 0;
+}
+
+.inGameHud .microhud .activate {
+  color: #047a14
+}
+
+.inGameHud .microhud .offline {
+  color: #ff0000
+}
+
+/* IT Studio "iTeffa" - Локализация */
+.inGameHud .locationhud {
+  position: absolute;
+  font-family: Uni Neue;
+  bottom: 0.2px;
+  right: 15px;
+  font-size: 13pt;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* IT Studio "iTeffa" - Спидометр транспорта */
+.inGameHud .speedometer {
+  position: absolute;
+  bottom: 7px;
+  right: 20px;
+  display: block;
+}
+
+.inGameHud .hud-speedometer {
+  position: absolute;
+  bottom: 3.4vh;
+  right: 0;
+}
+
+.inGameHud .hud-speedometer p {
+  margin: 0 0 -20px 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.inGameHud .hud-speedometer .hud-speed-text {
+  position: absolute;
+  color: #fff;
+  bottom: 7vh;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  font-size: 5vh;
+  text-transform: uppercase;
+  transform: skewY(-4deg);
+  width: 28vh;
+  align-items: flex-end;
+  align-items: center;
+  letter-spacing: 0;
+}
+
+.inGameHud .hud-speedometer .hud-engine-text {
+  position: absolute;
+  color: #fff;
+  bottom: 18vh;
+  left: 1.6vh;
+  transform: rotate(-66deg) skewY(4deg);
+  font-size: 1.4vh;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-align: right;
+}
+
+.inGameHud .speedometer .lamp_list {
+  position: absolute;
+  width: 13.88889vh;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  bottom: 0.7vh;
+  right: 6.35vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.inGameHud .speedometer .lamp_list .icon_fuel {
+  width: 1.75926vh;
+}
+
+.inGameHud .speedometer .lamp_list .icon_door {
+  width: 1.75926vh;
+}
+
+.inGameHud .speedometer .lamp_list .icon_sec {
+  width: 1.75926vh;
+}
+
+.inGameHud .speedometer .icon-engine {
+  position: absolute;
+  bottom: 2.4vh;
+  left: 2.2vh;
+  width: 2.2vh;
+  height: 1.6vh;
+  background-size: contain;
+}
+
+/* IT Studio "iTeffa" - Ежедневный подарок */
+.inGameHud .bonus {
+  position: absolute;
+  top: 180px;
+  right: 5px;
+}
+
+.inGameHud .bonus-bar {
+  background: #18191D;
+  border-radius: 5px;
+  padding: 2px 5px;
+  color: gray;
+  font-size: 1.5em;
+}
+
+.inGameHud .bonus-block {
+  display: flex;
+  flex-wrap: wrap;
+  width: 240px;
+  height: auto;
+  background-color: #18191D;
+  color: #fff;
+}
+
+.inGameHud .bonus-block section {
+  flex: 40%;
+  width: 100%;
+  background-color: #1D2027;
+  padding: 7px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inGameHud .bonus-block section .fa-times {
+  color: #ab2b2b;
+}
+
+/* IT Studio "iTeffa" - Система пищеварения */
+.inGameHud .digestion {
+  position: absolute;
+  bottom: 1%;
+  left: 16%;
+  width: 150px;
+}
+
+.inGameHud .info_table .eatings {
+  display: flex;
+  position: absolute;
+  margin-top: -34px;
+  margin-left: 7px;
+}
+
+.inGameHud .info_table .eatings .eat {
+  margin-right: 16px;
+}
+
+.inGameHud .info_table .eatings .icohud {
+  width: 1.3vh;
+}
+
+.inGameHud .info_table .eatings .waterhud {
+  width: 1.89vh;
+}
+
+.inGameHud .info_table .eatings a {
+  margin-left: 4px;
+  position: relative;
+  top: -0.6vh;
+  font-size: 1.8vh;
+}
+
+/* IT Studio "iTeffa" - Ниже будет переделываться! */
 .noty_theme__fivestar.noty_bar {margin: 4px 0;overflow: hidden;position: relative;background-color: rgba(0, 0, 0, 0.6);box-shadow: rgba(0, 0, 0, 0.6) 0 0 10px 0;}
 .noty_theme__fivestar.noty_bar .noty_body {padding: 1.25em;font-size: 12pt;}
 .noty_theme__fivestar.noty_bar .noty_buttons {padding: 0 10px 0.5em 10px;}
@@ -112,6 +340,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appe
 ::-webkit-scrollbar {width: 0px;}
 ::-webkit-scrollbar-track {box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;}
 ::-webkit-scrollbar-thumb {border-radius: 10px; box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;}
 
 @media (min-width: 1601px) and (max-width: 2560px) {
     .iTeffa .inGameHud .adaptivhud {zoom: 100%}

@@ -1,95 +1,125 @@
 <!DOCTYPE html>
 <html lang="ru">
+
   <head>
     <meta charset="UTF-8">
-	<title> iTeffa.com | Hud Window </title>
+    <title> iTeffa.Com | Hud Window </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./assets/css/shellhud.css">
-
+    <link rel="stylesheet" href="./assets/css/iteffa.css">
+    <link rel="stylesheet" href="./assets/css/shellhud.css">
   </head>
-  <body class="iTeffa">
+
+  <body">
     <div id="safezone">
-	  <div id="chat" class="chat">
+      <div id="chat" class="chat">
         <ul id="chat_messages"></ul>
       </div>
-	  <div class="inGameHud" v-if="show">
-	  <div class="beta">Frontend и backend разработка!</div>
-
-	  <div class="bonus">
-		<div class="bonus-bar" v-if="!bonusblock">
+      <div class="inGameHud" v-if="show">
+        <table class="logobox">
+          <tr>
+            <th>
+              <p style="text-align: left; padding: 0 15px 0 0px;">
+                <i class="far fa-clock text-yellow"></i>&ensp; {{time}}
+                <br />
+                <i class="far fa-calendar-alt text-yellow"></i>&ensp; {{date}}
+              </p>
+            </th>
+            <th>
+              <p>
+                <span class="text-yellow" style="font-size: 15pt;">iTeffa.Com</span>
+                <br />
+                <span style="font-size: 10pt;">Role Play</span>
+              </p>
+            </th>
+            <th>
+              <p style="text-align: left; padding: 0 0 0 18px;">
+                <i class="fas fa-user text-yellow"></i>&ensp; {{online}}/<span class="text-gray">1500</span>
+                <br />
+                <i class="fas fa-server text-yellow"></i>&ensp; ID: {{playerId}}
+              </p>
+            </th>
+          </tr>
+        </table>
+        <table class="wallet">
+          <tr>
+            <th>
+              <div class="microhud">
+                <i v-if="mic" id="microsound" class="fas fa-microphone-alt activate"></i>
+                <i v-else id="microsound" class="fas fa-microphone alt offline"></i>
+              </div>
+            </th>
+            <th>
+              <p>$ {{bank}}&ensp; <i class="fas fa-university text-yellow"></i>
+              <p>
+              <p>$ {{money}}&ensp; <i class="fas fa-wallet text-yellow"></i></p>
+              <p id="patronnum" v-if="ammo">{{ammo}} шт.&ensp; <i class="fa fa-compress text-yellow"></i></p>
+            </th>
+          </tr>
+        </table>
+        <div class="help">
+          <p><span>Ё</span>Курсор</p>
+          <p><span>F3</span>Перезагрузка</p>
+          <p><span>I</span>Открить меню</p>
+          <p><span>M</span>Телефон</p>
+          <p><span>N</span>Voice Chat</p>
+          <p><span>5</span>Никнеймы</p>
+        </div>
+        <div class="locationhud">
+          <p id="location"><i class="fas fa-map-marker-alt text-yellow"></i> {{crossingRoad}} - <span class="text-gray" id="street">{{street}}</span></p>
+        </div>
+        <div class="speedometer" :style="{ opacity: inVeh ? 1:0 }">
+          <div class="hud-speedometer">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5vh" height="22.4vh" :data-value="speed" viewBox="-4 -10 275 214" preserveAspectRatio="xMaxYMin meet" style="position: absolute;">
+              <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M60.340,185.660 C18.553,143.874 18.553,76.126 60.340,34.340 C102.126,-7.447 169.874,-7.447 211.660,34.340 C253.446,76.126 253.446,143.874 211.660,185.660 "></path>
+              <path id="hud-speedometer" fill-rule="evenodd" stroke="rgb(255, 232, 19)" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M60.340,185.660 C18.553,143.874 18.553,76.126 60.340,34.340 C102.126,-7.447 169.874,-7.447 211.660,34.340 C253.446,76.126 253.446,143.874 211.660,185.660 " style="stroke-dasharray: 504.295, 504.295; stroke-dashoffset: 504.267;"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5vh" height="22.4vh" :data-value="hp" viewBox="-4 -10 275 214" preserveAspectRatio="xMaxYMin meet" style="position: absolute;">
+              <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M17.319,170.926 C-0.528,135.060 -1.246,92.839 15.164,56.462 "></path>
+              <path id="hud-speedometer" fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M17.319,170.926 C-0.528,135.060 -1.246,92.839 15.164,56.462 " style="stroke-dasharray: 118.296, 118.296; stroke-dashoffset: 118.289;"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5vh" height="22.4vh" :data-value="fuel" viewBox="-4 -10 275 214" preserveAspectRatio="xMaxYMin meet">
+              <path fill-rule="evenodd" stroke="rgb(255, 255, 255)" stroke-width="0.6vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="0.4" fill="none" d="M224.989,204.006 C276.978,152.089 276.978,67.914 224.989,15.997"></path>
+              <path id="hud-speedometer" fill-rule="evenodd" stroke="#fa6f71" stroke-width="1vh" stroke-linecap="butt" stroke-linejoin="miter" opacity="1" fill="none" d="M224.989,204.006 C276.978,152.089 276.978,67.914 224.989,15.997 " style="stroke-dasharray: 208.907, 208.907; stroke-dashoffset: 208.896;"></path>
+            </svg>
+            <div class="hud-speed-text">
+              <div><span>{{speed}}</span></div>
+              <p>км/ч</p>
+            </div>
+            <div class="hud-engine-text">{{hp}}%</div>
+            <i v-if="engine" class="fas fa-cog icon-engine text-green"></i>
+            <i v-else class="fas fa-cog icon-engine text-red"></i>
+            <div class="lamp_list">
+              <img v-if="belt" class="icon_sec" src="./assets/icons/shellhud/sec_yes.png" alt="iTeffa">
+              <img v-else class="icon_sec" src="./assets/icons/shellhud/sec_no.png" alt="iTeffa">
+              <img v-if="doors" class="icon_door" src="./assets/icons/shellhud/door_no.png" alt="iTeffa">
+              <img v-else class="icon_door" src="./assets/icons/shellhud/door_yes.png" alt="iTeffa">
+              <img class="icon_fuel" src="./assets/icons/shellhud/fuel.png" alt="iTeffa">
+            </div>
+          </div>
+		</div>
+		<div class="bonus">
+		  <div class="bonus-block" v-if="!bonusblock">
+			<section>
+			  {{lastbonus}} <i @click="showbonus()" aria-hidden="true" class="fa fa-times"></i> 
+			</section>
+		  </div>
+		  <div class="bonus-bar" v-else>
 			<i @click="showbonus()" class="fa fa-gift" aria-hidden="true"></i>
-		</div>
-		<div class="bonus-block" v-else>
-			<header>
-				<span>Вы получите бонус через:</span>
-				<i @click="showbonus()" aria-hidden="true" class="fa fa-times"></i>
-			</header>
-			<div class="main">
-				<p>{{lastbonus}}</p>
-			</div>
-		</div>
-	</div>
-
-		<div class="logobox">
-		  <div class="player">
-		    <i class="fas fa-clock"></i> {{time}}
-			<b>ID:</b><span class="id"> {{playerId}}</span>
 		  </div>
-		  <div class="copyright">
-		    <img src="./assets/icons/shellhud/favicon.png" alt="iTeffa.com"><p>GTA5RAGE</p>
-		  </div>
-		  <div class="online"> Online: {{online}}</div>
-		</div>	
-		<div class="help">
-		  <img src="./assets/icons/shellhud/f2_bind.png" alt="iTeffa.com">
-		<br />
-		  <img src="./assets/icons/shellhud/n_bind.png" alt="iTeffa.com">
-		<br />
-		  <img src="./assets/icons/shellhud/g_bind.png" alt="iTeffa.com">
-		<br />
-		  <img src="./assets/icons/shellhud/f5_bind.png" alt="iTeffa.com">
 		</div>
-		<div class="speedometer" :style="{ opacity: inVeh ? 1 : 0 }">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="speed" class="speed">
-				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
-				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="fuel" data-maxvalue="100" class="fuel">
-				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
-				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 167 167" :data-value="hp" data-maxvalue="100" class="hp" style="display: none;">
-				<path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
-				<path class="meter" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
-			</svg>
-			<div class="speed_count">
-				<div class="count" v-if="speed < 10"><div class="bg">00</div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
-				<div class="count" v-else-if="speed < 100"><div class="bg">0</div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
-				<div class="count" v-else><div class="bg"></div><div v-bind:style="{ color: cruiseColor }">{{speed}}</div></div>
-				<div class="type">км/ч</div>
+		<div class="digestion info_table">
+		  <div class="eatings">
+			<div class="eat"><img src="./assets/icons/shellhud/eat.svg" class="icohud">
+			  <a v-if="eat < 20" style="color:red;">{{eat}}</a>
+			  <a v-else-if="eat < 50" style="color:#E1E442;">{{eat}}</a>
+			  <a v-else>{{eat}}</a>
 			</div>
-			<img src="./assets/icons/shellhud/speedometer/fuel.png" alt="" class="icon_fuel">
-			<div class="eng_check" style="display: none;">
-				<div class="engon" v-if="engine">
-					<img v-if="hp > 30" src="./assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
-					<img v-if="hp < 31" src="./assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
-				</div>
-				<div class="engon" v-else>
-					<img v-if="hp > 30" src="./assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
-					<img v-if="hp < 31" src="./assets/icons/shellhud/speedometer/engine_brock.png" alt="" class="engine">
-				</div>
+			<div class="water"><img src="./assets/icons/shellhud/water.svg" class="waterhud">
+			  <a v-if="water < 20" style="color:red;">{{water}}</a>
+			  <a v-else-if="water < 50" style="color:#E1E442;">{{water}}</a>
+			  <a v-else>{{water}}</a>
 			</div>
-			<div class="lamp_list">
-				<img v-if="belt" src="./assets/icons/shellhud/speedometer/sec_yes.png" alt="" class="sec">
-				<img v-else src="./assets/icons/shellhud/speedometer/sec_no.png" alt="" class="sec">
-				<img v-if="doors" src="./assets/icons/shellhud/speedometer/door_yes.png" alt="" class="door">
-				<img v-else src="./assets/icons/shellhud/speedometer/door_no.png" alt="" class="door">
-				<img v-if="engine" src="./assets/icons/shellhud/speedometer/engine_yes.png" alt="" class="engine">
-				<img v-else src="./assets/icons/shellhud/speedometer/engine_no.png" alt="" class="engine">
-			</div>
-			<span style="display: none;">{{gear}}</span>
-			<br>
-			<span style="display: none;">{{rpm}}</span>
+		  </div>
 		</div>
       </div>
       <div id="notify"></div>
@@ -97,15 +127,39 @@
     </div>
     <script src="./plugins/jquery-3.2.1.min.js"></script>
     <script src="./plugins/vue.js"></script>
-	<script src="./assets/js/chat.js"></script>
-	<script src="./assets/js/shellhud.js"></script>
-	<script src="./assets/js/notify.js"></script>
-	<script src="./assets/js/noty.min.js"></script>
-	<script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
-	<script>
-      function hidehud(toggle) {if (toggle) {HUD.show = false;logotype.show = false;} else {HUD.show = true;logotype.show = true;}}
-	  function hidehelp(toggle) {if (toggle) {$('.help').hide();} else {$('.help').show();}}
-	</script>
-    <script>function updateSafeZoneSize(screenWidht, screenHeight, safeZoneSize) {var savezoneDiv = document.getElementById("safezone");safeZoneSize = (((1.0 - safeZoneSize) * 0.5) * 100.0);savezoneDiv.style.right = savezoneDiv.style.left = ((screenWidht / 100) * safeZoneSize) + "px";savezoneDiv.style.top = savezoneDiv.style.bottom = ((screenHeight / 100) * safeZoneSize) + "px";return true;}</script>
+    <script src="./assets/js/chat.js"></script>
+    <script src="./assets/js/shellhud.js"></script>
+    <script src="./assets/js/notify.js"></script>
+    <script src="./assets/js/noty.min.js"></script>
+    <script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
+    <script>
+    function hidehud(toggle) {
+      if (toggle) {
+        HUD.show = false;
+        logotype.show = false;
+      } else {
+        HUD.show = true;
+        logotype.show = true;
+      }
+    }
+
+    function hidehelp(toggle) {
+      if (toggle) {
+        $('.help').hide();
+      } else {
+        $('.help').show();
+      }
+    }
+    </script>
+    <script>
+    function updateSafeZoneSize(screenWidht, screenHeight, safeZoneSize) {
+      var savezoneDiv = document.getElementById("safezone");
+      safeZoneSize = (((1.0 - safeZoneSize) * 0.5) * 100.0);
+      savezoneDiv.style.right = savezoneDiv.style.left = ((screenWidht / 100) * safeZoneSize) + "px";
+      savezoneDiv.style.top = savezoneDiv.style.bottom = ((screenHeight / 100) * safeZoneSize) + "px";
+      return true;
+    }
+    </script>
   </body>
+
 </html>

@@ -19,3 +19,11 @@ html, body {
 .text-gray {
   color: #cdcdcd;
 }
+
+.text-green {
+  color: #2e7e00;
+}
+
+.text-red {
+  color: #ff0000;
+}

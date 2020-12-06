@@ -44,14 +44,14 @@ namespace iTeffa.Globals.Character
                         #region D2U LastBonus
                         if (IsBonused)
                         {
-                            Trigger.ClientEvent(player, "updlastbonus", $"следующий бонус можно получить только завтра"); //todo bonus
+                            Trigger.ClientEvent(player, "updlastbonus", $"~w~Бонус получен!");
                         }
                         else
                         {
                             DateTime date = new DateTime((new DateTime().AddMinutes(Main.oldconfig.LastBonusMin - LastBonus)).Ticks);
                             var hour = date.Hour;
                             var min = date.Minute;
-                            Trigger.ClientEvent(player, "updlastbonus", $"{hour}ч. {min}м."); //todo bonus
+                            Trigger.ClientEvent(player, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
                         }
                         #endregion
 
