@@ -31,8 +31,5 @@
   <ItemGroup>
     <Folder Include="Infodata\" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /y /d $(ProjectDir)$(OutDir)\runtimes\win-x64\native\SQLite.Interop.dll $(ProjectDir)$(OutDir)" />
-  </Target>
+  
 </Project>
