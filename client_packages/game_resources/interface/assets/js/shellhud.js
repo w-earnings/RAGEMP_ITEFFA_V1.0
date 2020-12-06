@@ -35,9 +35,9 @@ var HUD = new Vue({
     showbonus() {
       this.bonusblock = !this.bonusblock;
     },
-    updateSpeed(currentspeed, maxspeed = 350) {
+    updateSpeed(currentspeed, maxspeed = 240) {
       this.speed = currentspeed;
-      const meters = document.querySelectorAll('svg[data-value] .meter');
+      const meters = document.querySelectorAll('svg[data-value] #hud-speedometer');
       meters.forEach((path) => {
         let length = path.getTotalLength();
         let c = parseInt(path.parentNode.getAttribute('data-value'));
@@ -50,3 +50,4 @@ var HUD = new Vue({
     }
   }
 });
+
