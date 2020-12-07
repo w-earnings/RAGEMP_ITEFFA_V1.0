@@ -3,16 +3,19 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# RAGE:MP
+# RAGE:MP 1.1
+client_packages/game_resources/dlcpacks/map_california
 dotnet/resources/ragemp
 dotnet/resources/.vs
+dotnet/runtime
+dotnet/vehicleData.json
 dotnet/server_exceptions.txt
 dotnet/server_logs.txt
-client_packages/game_resources/dlcpacks/map_california
+BugTrap-x64.dll
 launchSettings.json
 linux_x64.tar.gz
-iTeffa.db
 coords.txt
+iTeffa.db
 
 # User-specific files
 *.rsuser
