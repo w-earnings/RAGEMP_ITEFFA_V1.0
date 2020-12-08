@@ -261,10 +261,10 @@ mp.keys.bind(Keys.VK_K, false, function () {
 
     if (hudstatus.belt) {
       localplayer.setConfigFlag(32, true);
-      mp.events.call('notify', 0, 2, "Вы отстегнули ремень безопасности", 2000);
+      mp.events.call('notify', 2, 2, "Вы отстегнули ремень безопасности", 2000);
     } else {
       localplayer.setConfigFlag(32, false);
-      mp.events.call('notify', 0, 2, "Вы пристегнули ремень безопасности", 2000);
+      mp.events.call('notify', 2, 2, "Вы пристегнули ремень безопасности", 2000);
     }
 
     hudstatus.belt = !hudstatus.belt;
