@@ -7,7 +7,8 @@ global.pocketEnabled = false;
 var Peds = [
 	{Hash: -1988720319, Pos: new mp.Vector3(-1290.61, -574.38, 30.57), Angle: 260.92}, // Реалторское агенство
     {Hash:  1055701597, Pos: new mp.Vector3(-1030.60, -2744.5, 13.85), Angle: 21.000}, // Информация о сервере
-    {Hash: -356333586, Pos: new mp.Vector3(1695.806, 43.05446, 161.7473), Angle: 99.60 }, // Работа: Дайвер
+    {Hash: -356333586, Pos: new mp.Vector3(1695.806, 43.05446, 161.7473), Angle: 99.60}, // Работа: Дайвер
+    {Hash: 1644266841, Pos: new mp.Vector3(144.8581, -373.5612, 43.65), Angle: 35.74032}, // Работа грузчик
     // Банды
     {Hash: 1706635382, Pos: new mp.Vector3(-20.23, -1413.89, 29.31, 272.53), Angle: 272.53}, // The Families
     {Hash: 588969535, Pos: new mp.Vector3(122.29, -1997.97, 18.40), Angle: 284.86 }, // The Ballas

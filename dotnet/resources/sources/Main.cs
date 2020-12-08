@@ -315,6 +315,7 @@ namespace iTeffa
                         Working.Truckers.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Collector.Event_PlayerDisconnected(player, type, reason);
                         Working.AutoMechanic.onPlayerDissconnectedHandler(player, type, reason);
+                        Working.Construction.Event_PlayerDisconnected(player, type, reason);
                         Working.Diver.Event_PlayerDisconnected(player, type, reason);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.jobs\":\n" + e.ToString()); }
@@ -1907,6 +1908,10 @@ namespace iTeffa
                         }
                         return;
 
+
+                    case 509:
+                        Working.Construction.StartWorkDayConstruction(player);
+                        return;
                     case 510:
                         Working.Diver.StartWorkDayDiver(player);
                         return;

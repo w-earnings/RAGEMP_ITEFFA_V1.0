@@ -1,105 +1,253 @@
-
-.JobStatsInfoDiver {position: absolute; font-family: Uni Neue;font-size: 12px;background: #00000070; border-left: 3px solid #fbb80499; border-right: 3px solid #fbb80499; color: white; width: 120px;top: 115px; right:15px;}
-    
-    
-
-
-.Diver {box-shadow: 0 0px 50px rgb(0 0 0 / 30%);border-left: 5px solid #fbb80499;position: absolute;width: 770px;height: 400px;background-color: #545454;left: 50%;margin-left: -385px;top: 50%;margin-top: -275px;max-height: 550px;overflow: hidden;}
-    .Diver .header {
-        height: 70px;
-        width: 100%;
-        color: white;
-        border-radius: 0px 5px 0px 0px;
-        font-weight: 900;
-        background: #000000;
-        font-size: 20px;
-        margin: 0px;
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    .Diver .content {
-        padding: 5px;
-        margin: 10px;
-        color: white;
-    }
-
-        .Diver .content p {
-            margin: 0;
-            margin-bottom: 8px;
-        }
-
-    .Diver .buttons {
-        padding: 5px;
-    }
-
-    .Diver .block {
-        height: 250px;
-        overflow: hidden;
-        overflow-y: scroll;
-    }
-
-    .Diver .header i {
-        padding: 15px;
-        float: right;
-        font-family: icons;
-        font-size: 16pt;
-        margin: 10px;
-        cursor: pointer;
-        font-style: normal;
-    }
-
-    .Diver .header h1 {
-        padding: 15px;
-        margin: 0px;
-        width: 100%;
-        float: left;
-    }
-
-    .Diver .left {
-        float: left;
-    }
-
-    .Diver .right {
-        float: right;
-        width: 310px;
-    }
-
-    .Diver .imgblock {
-        box-shadow: 0 0 10px rgb(0 0 0 / 11%);
-        float: left;
-    }
-
-    .Diver img {
-        width: 100%;
-        width: 400px;
-    }
-
-    .Diver .enterDiver {
-        cursor: pointer;
-        margin-top: 5px;
-        box-shadow: 0 0 10px rgb(0 0 0 / 11%);
-        background: #3a3a3ab8;
-        font-size: 27px;
-        font-weight: 900;
-        text-align: center;
-        width: 100%;
-        border-radius: 5px;
-        padding-top: 3px;
-        padding-bottom: 4px;
-    }
-
-        .Diver .enterDiver:hover {
-            box-shadow: 0 0 10px rgb(0 0 0 / 24%);
-            background: #292828;
-        }
-
-    .Diver .info {
-        font-size: 20px;
-        font-weight: 900;
-    }
-
-    .Diver .price {
-        color: #ffbe0e;
-        font-size: 30px;
-        font-weight: 900;
-    }
+.JobStatsInfoDiver {
+    position: absolute;
+    font-family: Uni Neue;
+    font-size: 12px;
+    background: #00000070;
+    border-left: 3px solid #fbb80499;
+    border-right: 3px solid #fbb80499;
+    color: white;
+    width: 120px;
+    top: 115px;
+    right: 15px;
+  }
+  
+  .JobStatsInfo {
+    position: absolute;
+    font-family: Uni Neue;
+    font-size: 12px;
+    background: #00000070;
+    border-left: 3px solid #fbb80499;
+    border-right: 3px solid #fbb80499;
+    color: white;
+    width: 120px;
+    top: 115px;
+    right: 15px;
+  }
+  
+  .Diver {
+    box-shadow: 0 0px 50px rgb(0 0 0 / 30%);
+    border-left: 5px solid #fbb80499;
+    position: absolute;
+    width: 770px;
+    height: 400px;
+    background-color: #545454;
+    left: 50%;
+    margin-left: -385px;
+    top: 50%;
+    margin-top: -275px;
+    max-height: 550px;
+    overflow: hidden;
+  }
+  
+  .Diver .header {
+    height: 70px;
+    width: 100%;
+    color: white;
+    border-radius: 0px 5px 0px 0px;
+    font-weight: 900;
+    background: #000000;
+    font-size: 20px;
+    margin: 0px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .Diver .content {
+    padding: 5px;
+    margin: 10px;
+    color: white;
+  }
+  
+  .Diver .content p {
+    margin: 0;
+    margin-bottom: 8px;
+  }
+  
+  .Diver .buttons {
+    padding: 5px;
+  }
+  
+  .Diver .block {
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  
+  .Diver .header i {
+    padding: 15px;
+    float: right;
+    font-family: icons;
+    font-size: 16pt;
+    margin: 10px;
+    cursor: pointer;
+    font-style: normal;
+  }
+  
+  .Diver .header h1 {
+    padding: 15px;
+    margin: 0px;
+    width: 100%;
+    float: left;
+  }
+  
+  .Diver .left {
+    float: left;
+  }
+  
+  .Diver .right {
+    float: right;
+    width: 310px;
+  }
+  
+  .Diver .imgblock {
+    box-shadow: 0 0 10px rgb(0 0 0 / 11%);
+    float: left;
+  }
+  
+  .Diver img {
+    width: 100%;
+    width: 400px;
+  }
+  
+  .Diver .enterDiver {
+    cursor: pointer;
+    margin-top: 5px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 11%);
+    background: #3a3a3ab8;
+    font-size: 27px;
+    font-weight: 900;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+  }
+  
+  .Diver .enterDiver:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 24%);
+    background: #292828;
+  }
+  
+  .Diver .info {
+    font-size: 20px;
+    font-weight: 900;
+  }
+  
+  .Diver .price {
+    color: #ffbe0e;
+    font-size: 30px;
+    font-weight: 900;
+  }
+  
+  .Construction {
+    box-shadow: 0 0px 50px rgb(0 0 0 / 30%);
+    border-left: 5px solid #fbb80499;
+    position: absolute;
+    width: 770px;
+    height: 400px;
+    background-color: #545454;
+    left: 50%;
+    margin-left: -385px;
+    top: 50%;
+    margin-top: -275px;
+    max-height: 550px;
+    overflow: hidden;
+  }
+  
+  .Construction .header {
+    height: 70px;
+    width: 100%;
+    color: white;
+    border-radius: 0px 5px 0px 0px;
+    font-weight: 900;
+    background: #000000;
+    font-size: 20px;
+    margin: 0px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .Construction .content {
+    padding: 5px;
+    margin: 10px;
+    color: white;
+  }
+  
+  .Construction .content p {
+    margin: 0;
+    margin-bottom: 8px;
+  }
+  
+  .Construction .buttons {
+    padding: 5px;
+  }
+  
+  .Construction .block {
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  
+  .Construction .header i {
+    padding: 15px;
+    float: right;
+    font-family: icons;
+    font-size: 16pt;
+    margin: 10px;
+    cursor: pointer;
+    font-style: normal;
+  }
+  
+  .Construction .header h1 {
+    padding: 15px;
+    margin: 0px;
+    width: 100%;
+    float: left;
+  }
+  
+  .Construction .left {
+    float: left;
+  }
+  
+  .Construction .right {
+    float: right;
+    width: 310px;
+  }
+  
+  .Construction .imgblock {
+    box-shadow: 0 0 10px rgb(0 0 0 / 11%);
+    float: left;
+  }
+  
+  .Construction img {
+    width: 100%;
+    width: 400px;
+  }
+  
+  .Construction .enterConstruction {
+    cursor: pointer;
+    margin-top: 5px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 11%);
+    background: #3a3a3ab8;
+    font-size: 27px;
+    font-weight: 900;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+  }
+  
+  .Construction .enterConstruction:hover {
+    box-shadow: 0 0 10px rgb(0 0 0 / 24%);
+    background: #292828;
+  }
+  
+  .Construction .info {
+    font-size: 20px;
+    font-weight: 900;
+  }
+  
+  .Construction .price {
+    color: #ffbe0e;
+    font-size: 30px;
+    font-weight: 900;
+  }

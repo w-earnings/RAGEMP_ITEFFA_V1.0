@@ -253,6 +253,7 @@ namespace iTeffa.Fractions
                 Working.Collector.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Gopostal.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Diver.Event_PlayerDeath(player, entityKiller, weapon);
+                Working.Construction.Event_PlayerDeath(player, entityKiller, weapon);
 
                 VehicleManager.WarpPlayerOutOfVehicle(player);
                 Main.Players[player].IsAlive = false;

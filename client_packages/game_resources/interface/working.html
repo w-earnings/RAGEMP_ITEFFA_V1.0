@@ -1,66 +1,105 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 
-<head>
-  <meta charset="UTF-8">
-  <title>iTeffa.com | Workings</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link href="./assets/css/working.css" rel="stylesheet" >
-  <link rel="stylesheet" href="./assets/fonts/FontAwesome/font-awesome.css">
-  <style>
-    ::-webkit-scrollbar {width: 0px;}
-    ::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;}
-    ::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>iTeffa.com | Workings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <link href="./assets/css/working.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/fonts/FontAwesome/font-awesome.css">
+    <style>
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
 
-<body>
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
 
-  <div class="JobStatsInfoDiver" v-if="active">
-    <div style="text-align: left;padding: 10px;">
-      <p style="margin:0px;">Заработано: {{money}}$</p><br />
-      <p style="margin:0px;">Собрано: {{obj}} ИЗ {{obji}}</p>
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+    </style>
+  </head>
+
+  <body>
+    <div class="JobStatsInfoDiver" v-if="active">
+      <div style="text-align: left;padding: 10px;">
+        <p style="margin:0px;">Заработано: {{money}}$</p><br />
+        <p style="margin:0px;">Собрано: {{obj}} ИЗ {{obji}}</p>
+      </div>
     </div>
-  </div>
-
-
-  <div class="Diver" v-if="active">
-    <div class="header">
-      <h1>{{header}}</h1><i class="cancel" @click="exit"></i>
+    <div class="JobStatsInfo" v-if="active">
+      <div style="text-align: left;padding: 10px;">
+        <p style="margin:0px;">Заработано: {{money}}$</p>
+      </div>
     </div>
-    <div class="content">
-      <div class="block">
-        <div class="left">
-          <div class="imgblock"><img src="./assets/img/working/diver.jpg" alt=""></div>
+    <!-- Строитель -->
+    <div class="Construction" v-if="active">
+      <div class="header">
+        <h1>{{header}}</h1><i class="cancel" @click="exit"></i>
+      </div>
+      <div class="content">
+        <div class="block">
+          <div class="left">
+            <div class="imgblock">,,,</div>
+          </div>
+          <div class="right">
+            <p class="info">Строительный рабочий - это рабочий, занятый физическим строительством искусственной среды и ее инфраструктуры. Термин является общим, общим, и большинство таких работников в основном описываются конкретным уровнем и типом работы, которую они выполняют.</p>
+            <p class="price">Зарплата: {{money}}$</p>
+          </div>
         </div>
-        <div class="right">
-          <p class="info">Водолаз — специалист, умеющий выполнять работы под водой в водолазном снаряжении и допущенный к производству водолазных спусков в установленном порядке. Профессия водолаза относится к числу профессий с особо вредными и особо тяжелыми условиями труда.</p>
-          <p class="price">Зарплата: {{money}}$</p>
+        <div v-if="work == 1" style="margin-top: 8px;width:45%;float:left;">
+          <div class="enterConstruction" v-on:click="enterJob(-1)">Закончить работу</div>
+        </div>
+        <div v-else style="margin-top: 8px;width:45%;float:left;">
+          <div class="enterConstruction" v-on:click="enterJob(1)">Начать работу</div>
+        </div>
+        <div v-if="jobid == 12" style="margin-top: 8px;width:45%;float:right;">
+          <div class="enterConstruction" v-on:click="selectJob(-1)">Уволиться</div>
+        </div>
+        <div v-else style="margin-top: 8px;width:45%;float:right;">
+          <div class="enterConstruction" v-on:click="selectJob(12)">Устроиться</div>
         </div>
       </div>
-      <div v-if="work == 1" style="margin-top: 8px;width:45%;float:left;">
-        <div class="enterDiver" v-on:click="enterJob(-1)">Закончить работу</div>
+    </div>
+    <!-- Дайвер -->
+    <div class="Diver" v-if="active">
+      <div class="header">
+        <h1>{{header}}</h1><i class="cancel" @click="exit"></i>
       </div>
-      <div v-else style="margin-top: 8px;width:45%;float:left;">
-        <div class="enterDiver" v-on:click="enterJob(1)">Начать работу</div>
-      </div>
-
-      <div v-if="jobid == 13" style="margin-top: 8px;width:45%;float:right;">
-        <div class="enterDiver" v-on:click="selectJob(-1)">Уволиться</div>
-      </div>
-      <div v-else style="margin-top: 8px;width:45%;float:right;">
-        <div class="enterDiver" v-on:click="selectJob(13)">Устроиться</div>
+      <div class="content">
+        <div class="block">
+          <div class="left">
+            <div class="imgblock"><img src="./assets/img/working/diver.jpg" alt=""></div>
+          </div>
+          <div class="right">
+            <p class="info">Водолаз — специалист, умеющий выполнять работы под водой в водолазном снаряжении и допущенный к производству водолазных спусков в установленном порядке. Профессия водолаза относится к числу профессий с особо вредными и особо тяжелыми условиями труда.</p>
+            <p class="price">Зарплата: {{money}}$</p>
+          </div>
+        </div>
+        <div v-if="work == 1" style="margin-top: 8px;width:45%;float:left;">
+          <div class="enterDiver" v-on:click="enterJob(-1)">Закончить работу</div>
+        </div>
+        <div v-else style="margin-top: 8px;width:45%;float:left;">
+          <div class="enterDiver" v-on:click="enterJob(1)">Начать работу</div>
+        </div>
+        <div v-if="jobid == 13" style="margin-top: 8px;width:45%;float:right;">
+          <div class="enterDiver" v-on:click="selectJob(-1)">Уволиться</div>
+        </div>
+        <div v-else style="margin-top: 8px;width:45%;float:right;">
+          <div class="enterDiver" v-on:click="selectJob(13)">Устроиться</div>
+        </div>
       </div>
     </div>
-  </div>
-
-	<script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.iteffa.com/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
-  
-  <script src="package://game_resources/interface/assets/js/dial.js"></script>
-  <script src="package://game_resources/interface/assets/js/working.js"></script>
-</body>
+    <script src="https://cdn.iteffa.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.iteffa.com/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.iteffa.com/vue/dist/vue.min.js"></script>
+    <script src="package://game_resources/interface/assets/js/dial.js"></script>
+    <script src="package://game_resources/interface/assets/js/working.js"></script>
+  </body>
 
 </html>

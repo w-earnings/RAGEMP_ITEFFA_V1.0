@@ -77,6 +77,7 @@ namespace iTeffa.Working
             "Инкассатор",
             "Автомеханик",
             "Водолазом",
+            "Строителем",
         };
         public static SortedList<int, Vector3> Points = new SortedList<int, Vector3>
         {
