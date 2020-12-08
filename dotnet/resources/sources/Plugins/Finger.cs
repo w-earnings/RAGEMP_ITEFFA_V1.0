@@ -1,9 +1,6 @@
 ﻿using GTANetworkAPI;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace iTeffa.Globals
+namespace iTeffa.Plugins
 {
     class Fingerpointing : Script
     {
@@ -15,7 +12,6 @@ namespace iTeffa.Globals
         [RemoteEvent("pointingStop")]
         public void FingerStop(Player client)
         {
-            client.StopAnimation();
             client.StopAnimation();
         }
     }
