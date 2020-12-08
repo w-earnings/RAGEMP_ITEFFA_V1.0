@@ -4478,6 +4478,48 @@ namespace iTeffa.Globals
             return Task.CompletedTask;
         }
         #endregion RP Chat
+
+
+
+        [Command("resurrection")]
+        public static void CMD_revive(Player client, int id)
+        {
+            try
+            {
+                if (!Group.CanUseCmd(client, "resurrection")) return;
+                Player target = Main.GetPlayerByID(id);
+                if (target == null)
+                {
+                    Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Игрок с таким ID не найден", 3000);
+                    return;
+                }
+                target.StopAnimation();
+                NAPI.Entity.SetEntityPosition(target, target.Position + new Vector3(0, 0, 0.5));
+                target.SetSharedData("InDeath", false);
+                Trigger.ClientEvent(target, "DeathTimer", false);
+                target.Health = 100;
+                target.ResetData("IS_DYING");
+                Main.Players[target].IsAlive = true;
+                Main.OffAntiAnim(target);
+                if (target.HasData("DYING_TIMER"))
+                {
+                    Timers.Stop(target.GetData<string>("DYING_TIMER"));
+                    target.ResetData("DYING_TIMER");
+                }
+                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
+                Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
+
+                if (target.HasData("CALLEMS_BLIP"))
+                {
+                    NAPI.Entity.DeleteEntity(target.GetData<Blip>("CALLEMS_BLIP"));
+                }
+                if (target.HasData("CALLEMS_COL"))
+                {
+                    NAPI.ColShape.DeleteColShape(target.GetData<ColShape>("CALLEMS_COL"));
+                }
+            }
+            catch (Exception e) { Log.Write("Resurrection AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
+        }
         [Command("addfence")]
         public static void CMD_bc(Player player)
         {
