@@ -4478,6 +4478,51 @@ namespace iTeffa.Globals
             return Task.CompletedTask;
         }
         #endregion RP Chat
+        [Command("addfence")]
+        public static void CMD_bc(Player player)
+        {
+            try
+            {
+                if (Main.Players[player].FractionID != 7) return;
+                if (Main.Players[player].FractionLVL < 5) return;
+                if (player.Dimension != 0) return;
+
+                if (player.HasData("PDOBJECT"))
+                {
+                    var beacon = NAPI.Data.GetEntityData(player, "PDOBJECT");
+                    try
+                    {
+                        NAPI.Entity.DeleteEntity(beacon);
+                        NAPI.ColShape.DeleteColShape(player.GetData<ColShape>("PDOBJECTSHAPE"));
+                        NAPI.Data.ResetEntityData(player, "PDOBJECT");
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                else
+                {
+                    var beacon = NAPI.Object.CreateObject(10928689, player.Position - new Vector3(0, 0, 1.0), new Vector3(0, 0, 0), 255, 0);
+                    var beaconShape = NAPI.ColShape.CreateCylinderColShape(player.Position - new Vector3(0, 0, 1.0), 1, 2, 0);
+                    beaconShape.OnEntityEnterColShape += (s, e) =>
+                    {
+                        if (!Main.Players.ContainsKey(e)) return;
+                        e.SetData("PDOBJECT", beacon);
+                        e.SetData("PDOBJECTSHAPE", beaconShape);
+                    };
+                    beaconShape.OnEntityExitColShape += (s, e) =>
+                    {
+                        if (!Main.Players.ContainsKey(e)) return;
+                        e.ResetData("PDOBJECT");
+                    };
+                }
+            }
+            catch
+            {
+
+            }
+        }
         [Command("roll")]
         public static void rollDice(Player player, int id, int money)
         {
