@@ -70,6 +70,13 @@ function getNearestObjects() {
     nearestObject = tempO;
 }
 
+
+
+
+
+
+
+
 mp.events.add('blockMove', function (argument) {
     blockcontrols = argument;
 });
@@ -145,6 +152,7 @@ mp.events.add('SetOrderTruck', (vehicle) => {
 	}
 });
 
+let radioOffTimer = 0;
 mp.events.add('render', () => {
 	try {
         if (!loggedin) return;
@@ -191,6 +199,13 @@ mp.events.add('render', () => {
 			mp.game.invoke(getNative('SET_MISSION_FLAG'), false);
 		}
 
+        // Функция переводит стояние радио в "выключенное".
+        if (mp.players.local.vehicle && new Date().getTime() - radioOffTimer < 1500) {
+            mp.game.audio.setRadioToStationName("OFF");
+        }
+        mp.events.add("playerEnterVehicle", (vehicle, seat) => {
+            radioOffTimer = new Date().getTime(); 
+        });
 
 		if (pocketEnabled) {
 	        mp.game.controls.disableControlAction(2, 0, true);
