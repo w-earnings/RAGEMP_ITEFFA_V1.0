@@ -202,11 +202,11 @@ namespace iTeffa.Globals
             if (!Group.CanUseCmd(player, "setadmin")) return;
             if (Main.Players[target].AdminLVL >= 1)
             {
-                target.SetSharedData("IS_ADMIN", true);
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока уже есть админ. прав", 3000);
                 return;
             }
             Main.Players[target].AdminLVL = 1;
+            target.SetSharedData("IS_ADMIN", true);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы Выдали админ. права игроку {target.Name}", 3000);
             Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} Выдал Вам админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"setAdmin", $"{target.Name}");
@@ -222,7 +222,6 @@ namespace iTeffa.Globals
             }
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                target.ResetSharedData("IS_ADMIN");
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете забрать права у этого администратора", 3000);
                 return;
             }
@@ -232,7 +231,7 @@ namespace iTeffa.Globals
                 return;
             }
             Main.Players[target].AdminLVL = 0;
-
+            target.ResetSharedData("IS_ADMIN");
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы забрали права у администратора {target.Name}", 3000);
             Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name} забрал у Вас админ. права", 3000);
             GameLog.Admin($"{player.Name}", $"delAdmin", $"{target.Name}");
