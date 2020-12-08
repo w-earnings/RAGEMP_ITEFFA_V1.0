@@ -12,52 +12,53 @@ namespace iTeffa.Settings
         private static readonly nLog Log = new nLog("MySQL");
         private static string Connection = null;
         public static bool Debug = false;
-
         public static void Init()
         {
             if (Connection is string) return;
-            Connection = 
-                $"Host={config.TryGet<string>("Server", "127.0.0.1")};" +
+            Connection =
+                $"Host={config.TryGet<string>("Server", "srv1.iteffa.com")};" +
                 $"Port={config.TryGet<string>("Port", 3306)};" +
-                $"User={config.TryGet<string>("User", "root")};" +
-                $"Password={config.TryGet<string>("Password", "usbw")};" + 
-                $"Database={config.TryGet<string>("DataBase", "iteffa")};" + 
+                $"User={config.TryGet<string>("User", "")};" +
+                $"Password={config.TryGet<string>("Password", "")};" +
+                $"Database={config.TryGet<string>("DataBase", "")};" +
                 $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }
-
-        public static bool Test()
+        public static bool Test
         {
-            Log.Debug("Testing connection...");
-            try
+            get
             {
-                using(MySqlConnection conn = new MySqlConnection(Connection))
+                Log.Debug("Testing connection...");
+                try
                 {
-                    conn.Open();
-                    Log.Debug("Connection is successful!", nLog.Type.Success);
-                    conn.Close();
+                    using (MySqlConnection conn = new MySqlConnection(Connection))
+                    {
+                        conn.Open();
+                        Log.Debug("Connection is successful!", nLog.Type.Success);
+                        conn.Close();
+                    }
+                    return true;
                 }
-                return true;
-            }
-            catch (ArgumentException ae)
-            {
-                Log.Write($"Сonnection string contains an error\n{ae.ToString()}", nLog.Type.Error);
-                return false;
-            }
-            catch (MySqlException me)
-            {
-                switch (me.Number)
+                catch (ArgumentException ae)
                 {
-                    case 1042:
-                        Log.Write("Unable to connect to any of the specified MySQL hosts", nLog.Type.Error);
-                        break;
-                    case 0:
-                        Log.Write("Access denied", nLog.Type.Error);
-                        break;
-                    default:
-                        Log.Write($"({me.Number}) {me.Message}", nLog.Type.Error);
-                        break;
+                    Log.Write($"Сonnection string contains an error\n{ae.ToString()}", nLog.Type.Error);
+                    return false;
                 }
-                return false;
+                catch (MySqlException me)
+                {
+                    switch (me.Number)
+                    {
+                        case 1042:
+                            Log.Write("Unable to connect to any of the specified MySQL hosts", nLog.Type.Error);
+                            break;
+                        case 0:
+                            Log.Write("Access denied", nLog.Type.Error);
+                            break;
+                        default:
+                            Log.Write($"({me.Number}) {me.Message}", nLog.Type.Error);
+                            break;
+                    }
+                    return false;
+                }
             }
         }
 
@@ -66,114 +67,77 @@ namespace iTeffa.Settings
             try
             {
                 if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
-                using (MySqlConnection connection = new MySqlConnection(Connection))
-                {
-                    connection.Open();
-
-                    command.Connection = connection;
-
-                    command.ExecuteNonQuery();
-                }
+                using MySqlConnection connection = new MySqlConnection(Connection);
+                connection.Open();
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-
         public static void Query(string command)
         {
-            using(MySqlCommand cmd = new MySqlCommand(command))
-            {
-                Query(cmd);
-            }
+            using MySqlCommand cmd = new MySqlCommand(command);
+            Query(cmd);
         }
-
         public static async Task QueryAsync(MySqlCommand command)
         {
             try
             {
                 if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
-                using (MySqlConnection connection = new MySqlConnection(Connection))
-                {
-                    await connection.OpenAsync();
-
-                    command.Connection = connection;
-
-                    await command.ExecuteNonQueryAsync();
-                }
+                using MySqlConnection connection = new MySqlConnection(Connection);
+                await connection.OpenAsync();
+                command.Connection = connection;
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-
         public static async Task QueryAsync(string command)
         {
             try
             {
                 if (Debug) Log.Debug("Query to DB:\n" + command);
-                using (MySqlConnection connection = new MySqlConnection(Connection))
-                {
-                    await connection.OpenAsync();
-
-                    using (MySqlCommand cmd = new MySqlCommand())
-                    {
-                        cmd.Connection = connection;
-                        cmd.CommandText = command;
-
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-                }
+                using MySqlConnection connection = new MySqlConnection(Connection);
+                await connection.OpenAsync();
+                using MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = command;
+                await cmd.ExecuteNonQueryAsync();
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-
         public static DataTable QueryRead(MySqlCommand command)
         {
             if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
-            using (MySqlConnection connection = new MySqlConnection(Connection))
-            {
-                connection.Open();
+            using MySqlConnection connection = new MySqlConnection(Connection);
+            connection.Open();
+            command.Connection = connection;
+            DbDataReader reader = command.ExecuteReader();
+            DataTable result = new DataTable();
+            result.Load(reader);
 
-                command.Connection = connection;
-
-                DbDataReader reader = command.ExecuteReader();
-                DataTable result = new DataTable();
-                result.Load(reader);
-
-                return result;
-            }
+            return result;
         }
-
         public static DataTable QueryRead(string command)
         {
-            using(MySqlCommand cmd = new MySqlCommand(command))
-            {
-                return QueryRead(cmd);
-            }
+            using MySqlCommand cmd = new MySqlCommand(command);
+            return QueryRead(cmd);
         }
-
         public static async Task<DataTable> QueryReadAsync(MySqlCommand command)
         {
             if (Debug) Log.Debug("Query to DB:\n" + command.CommandText);
-            using (MySqlConnection connection = new MySqlConnection(Connection))
-            {
-                await connection.OpenAsync();
-
-                command.Connection = connection;
-
-                DbDataReader reader = await command.ExecuteReaderAsync();
-                DataTable result = new DataTable();
-                result.Load(reader);
-
-                return result;
-            }
+            using MySqlConnection connection = new MySqlConnection(Connection);
+            await connection.OpenAsync();
+            command.Connection = connection;
+            DbDataReader reader = await command.ExecuteReaderAsync();
+            DataTable result = new DataTable();
+            result.Load(reader);
+            return result;
         }
-
         public static async Task<DataTable> QueryReadAsync(string command)
         {
-            using(MySqlCommand cmd = new MySqlCommand(command))
-            {
-                return await QueryReadAsync(cmd);
-            }
+            using MySqlCommand cmd = new MySqlCommand(command);
+            return await QueryReadAsync(cmd);
         }
-        
         public static string ConvertTime(DateTime DateTime)
         {
             return DateTime.ToString("s");

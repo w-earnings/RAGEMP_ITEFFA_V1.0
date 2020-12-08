@@ -16,9 +16,9 @@ namespace iTeffa.Infodata
         public bool Gender { get; set; } = true;
         public int Health { get; set; } = 100;
         public int Armor { get; set; } = 0;
-        public int LVL { get; set; } = 0;
-        public int EXP { get; set; } = 0;
-        public long Money { get; set; } = 500000;
+        public int LVL { get; set; } = 2;
+        public int EXP { get; set; } = 6;
+        public long Money { get; set; } = 10000;
         public int Bank { get; set; } = 0;
         public int WorkID { get; set; } = 0;
         public int FractionID { get; set; } = 0;
@@ -29,7 +29,7 @@ namespace iTeffa.Infodata
         public int DemorganTime { get; set; } = 0;
         public WantedLevel WantedLVL { get; set; } = null;
         public List<int> BizIDs { get; set; } = new List<int>();
-        public int AdminLVL { get; set; } = 8;
+        public int AdminLVL { get; set; } = 0;
         public List<bool> Licenses { get; set; } = new List<bool>();
         public DateTime Unwarn { get; set; } = DateTime.Now;
         public int Unmute { get; set; } = 0;

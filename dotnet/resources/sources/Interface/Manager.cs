@@ -51,13 +51,9 @@ namespace iTeffa.Interface
                         if (menu == null) return Task.CompletedTask;
                         string ItemID = Convert.ToString(arguments[1]);
                         string Event = Convert.ToString(arguments[2]);
-                        //dynamic data = NAPI.Util.FromJson(arguments[3].ToString());
                         dynamic data = JsonConvert.DeserializeObject(arguments[3].ToString());
-
                         Menu.Item item = menu.Items.FirstOrDefault(i => i.ID == ItemID);
                         if (item == null) return Task.CompletedTask;
-                        //await Log.DebugAsync($"app:{menu.ID}; item:{item.ID};");
-                        //await Log.DebugAsync($"json:{Convert.ToString(arguments[3])}");
                         menu.Callback.Invoke(client, menu, item, Event, data);
                         return Task.CompletedTask;
                 }
@@ -84,7 +80,6 @@ namespace iTeffa.Interface
                 }
                 Menus.Add(client, menu);
 
-                //string data = JsonConvert.SerializeObject(menu);
                 string data = menu.getJsonStr();
 
                 if (!client.HasData("Phone"))
