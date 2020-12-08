@@ -324,7 +324,42 @@ mp.events.add('authready', () => {
 mp.events.add('acpos', () => {
     global.acheat.pos();
 })
-// // // // // // //
+
+// Vehicle damage system + notifications
+var duration;
+mp.events.add("playerEnterVehicle", (vehicle, seat) => {
+        vehicle.setInvincible(false);
+});
+class HeadNotification {
+    constructor(text) {
+        this.resolution = mp.game.graphics.getScreenActiveResolution(0, 0);
+        this.text = text;
+        this.startDuration = duration;
+        this.alpha = 255;
+        this.offset = 0;
+        this.onUpdateEventHandler = mp.events.add('render', () => this.onUpdateHandler());
+    }
+    onUpdateHandler() {
+        if (this.alpha <= 0) {
+            return;
+        }
+        mp.game.graphics.drawText(
+            this.text,
+            [0.5, 0.5 + this.offset], {
+            font: 4,
+            color: [255, 255, 255, this.alpha],
+            scale: [0.5, 0.5],
+            outline: true
+        });
+
+        this.offset -= 0.0005;
+        this.alpha -= 1;
+    }
+}
+mp.events.add("createNewHeadNotificationAdvanced", (notificationText) => {
+    new HeadNotification(notificationText);
+});
+// 
 var spectating = false;
 var sptarget = null;
 

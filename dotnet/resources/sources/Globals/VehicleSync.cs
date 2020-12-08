@@ -6,10 +6,9 @@ using iTeffa.Settings;
 
 namespace iTeffa.Globals
 {
-
     public class VehicleStreaming : Script
     {
-        private static nLog Log = new nLog("VehicleStreaming");
+        private static readonly nLog Log = new nLog("VehicleStreaming");
         public class VehicleSyncData
         {
             public bool Locked { get; set; } = false;
@@ -24,7 +23,7 @@ namespace iTeffa.Globals
             public int[] Wheel { get; set; } = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         }
 
-        private static Dictionary<Entity, VehicleSyncData> VehiclesSyncDatas = new Dictionary<Entity, VehicleSyncData>();
+        private static readonly Dictionary<Entity, VehicleSyncData> VehiclesSyncDatas = new Dictionary<Entity, VehicleSyncData>();
 
         [ServerEvent(Event.EntityDeleted)]
         public void Event_EntityDeleted(Entity entity)
@@ -70,6 +69,72 @@ namespace iTeffa.Globals
         }
 
         [ServerEvent(Event.VehicleDamage)]
+        public void OnVehicleDamageHandler(Vehicle entity, float bodyHealthLoss, float engineHealthLoss)
+        {
+            List<Vehicle> allVehicles = NAPI.Pools.GetAllVehicles();
+            if (allVehicles.Count == 0) return;
+            foreach (Vehicle veh in allVehicles)
+            {
+                var players = NAPI.Pools.GetAllPlayers();
+                foreach (var player in players)
+                {
+                    if (veh.Health >= 800)
+                    {
+                        if (player.IsInVehicle)
+                        {
+                            if (player.Vehicle == veh)
+                            {
+                                if (player.VehicleSeat == 0)
+                                {
+                                    int damagged = (int)veh.Health;
+                                    var rnd = new Random();
+                                    var damage = rnd.Next(5, 10);
+                                    veh.Health -= damage;
+                                    veh.SetSharedData("HEALTHVEHICLE", damagged);
+                                    player.TriggerEvent("createNewHeadNotificationAdvanced", "-" + damage + "Damaged" + "~r~Health=" + veh.Health);
+                                }
+                            }
+                        }
+                    }
+                    else if (veh.Health < 800)
+                    {
+                        if (player.IsInVehicle)
+                        {
+                            if (player.Vehicle == veh)
+                            {
+                                if (player.VehicleSeat == 0)
+                                {
+                                    var rndm = new Random();
+                                    var emkan = rndm.Next(1, 10);
+                                    if (emkan > 6)
+                                    {
+                                        if (!NAPI.Data.HasEntityData(player.Vehicle, "vehicle_colision"))
+                                        {
+                                            player.TriggerEvent("createNewHeadNotificationAdvanced", "~r~Автомобиль поврежден, ~g~Повторите попытку");
+                                            NAPI.Data.SetEntityData(veh, "vehicle_colision", true);
+                                            NAPI.Vehicle.SetVehicleEngineStatus(veh, false);
+                                            var damage = rndm.Next(5, 7);
+                                            veh.Health -= damage;
+                                            int random_timer = rndm.Next(15, 45);
+                                            int damagged = (int)veh.Health;
+                                            veh.SetSharedData("HEALTHVEHICLE", damagged);
+                                            NAPI.Task.Run(() =>
+                                            {
+                                                NAPI.Data.ResetEntityData(veh, "vehicle_colision");
+                                            }, random_timer * 1000);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        /*
+        [ServerEvent(Event.VehicleDamage)]
         public void VehDamage(Vehicle veh, float bodyHealthLoss, float engineHealthLoss)
         {
             VehicleSyncData data = GetVehicleSyncData(veh);
@@ -84,6 +149,7 @@ namespace iTeffa.Globals
             if (NAPI.Vehicle.GetVehicleDriver(veh) != default(Player))
                 NAPI.ClientEvent.TriggerClientEvent((Player)NAPI.Vehicle.GetVehicleDriver(veh), "VehStream_PlayerExitVehicleAttempt", veh);
         }
+        */
 
         public static void SetVehicleWheelState(Vehicle veh, WheelID wheel, WheelState state)
         {
