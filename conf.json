@@ -8,7 +8,6 @@
   "announce":false,
   "csharp":"enabled",
   "api-threading-debugging": false,
-  "fqdn":"srv1.iteffa.com",
   "bind":"0.0.0.0",
   "port":22005,
   "voice-chat":true,  

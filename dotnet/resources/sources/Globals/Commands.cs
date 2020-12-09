@@ -3761,17 +3761,12 @@ namespace iTeffa.Globals
                         return;
                     }
                 }
-                player.SetData("NEXT_REPORT", DateTime.Now.AddMinutes(2));
-                foreach (var p in Main.Players.Keys.ToList())
+                if (player.HasData("MUTE_TIMER"))
                 {
-                    if (!Main.Players.ContainsKey(p)) continue;
-                    if (Main.Players[p].AdminLVL >= 1)
-                    {
-                        p.SendChatMessage($"~b~[Report] {player.Name} ({player.Value}): {message}");
-                    }
+                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Пока вы заблокированы/отключены, вы не можете подавать жалобу.", 3000);
+                    return;
                 }
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отправили жалобу: {message}", 3000);
-                player.SetData("IS_REPORT", true);
+                ReportSys.AddReport(player, message);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }

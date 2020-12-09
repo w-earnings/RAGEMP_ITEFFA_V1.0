@@ -257,7 +257,6 @@ mp.events.add('DestroyCamera', () => {
     {
         global.loggedin = true;
         global.menu = mp.browsers["new"]('package://game_resources/interface/menu.html');
-        global.helpmenu = mp.browsers["new"]('package://game_resources/interface/help.html');
     }
 });
 
