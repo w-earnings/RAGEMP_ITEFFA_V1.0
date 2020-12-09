@@ -19,7 +19,6 @@ mp.keys.bind(Keys.VK_ESCAPE, false, function() {
     }
 });
 
-
 var reds = 0;
 var donateOpened = false;
 mp.events.add("WheelsRun", () => {

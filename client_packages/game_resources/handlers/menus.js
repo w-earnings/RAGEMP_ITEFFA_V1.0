@@ -1644,35 +1644,33 @@ mp.events.add('colors', (btn) => {
 })
 // Selected color event
 mp.events.add('scolor', (c) => {
-    // JSON String
-    // c = {r: 255, g: 255, b: 255}
     c = JSON.parse(c);
     mp.events.call("tunColor", c)
 })
 
 // Report menu
-var report = mp.browsers.new('package://game_resources/interface/ticket.html');
+var report = mp.browsers.new('package://game_resources/interface/report.html');
 var reportactive = false;
 mp.events.add('addreport', (id_, author_, quest_) => {
-    report.execute(`addReport(${id_},'${author_}','${quest_}', false, '')`);
-    mp.events.call('notify', 0, 2, "Пришел новый репорт!", 3000);
+  report.execute(`addReport(${id_},'${author_}','${quest_}', false, '')`);
+  mp.events.call('notify', 0, 2, "Пришел новый репорт!", 3000);
 })
 mp.events.add('setreport', (id, name) => {
-    report.execute(`setStatus(${id}, '${name}')`);
+  report.execute(`setStatus(${id}, '${name}')`);
 })
 mp.events.add('delreport', (id) => {
-    report.execute(`deleteReport(${id})`);
+  report.execute(`deleteReport(${id})`);
 })
 mp.events.add('takereport', (id, r) => {
-    mp.events.callRemote('takereport', id, r);
+  mp.events.callRemote('takereport', id, r);
 })
 mp.events.add('sendreport', (id, a) => {
-    mp.events.callRemote('sendreport', id, a);
+  mp.events.callRemote('sendreport', id, a);
 })
 mp.events.add('exitreport', () => {
-	global.menuClose();
-	reportactive = false;
-    mp.gui.cursor.visible = false;
+  global.menuClose();
+  reportactive = false;
+  mp.gui.cursor.visible = false;
 })
 
 // Advert menu
