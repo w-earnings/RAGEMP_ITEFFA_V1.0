@@ -1,5 +1,5 @@
 var admlist = new Vue({
-  el: "#app",
+  el: "#iteffa",
   data: {
     active: false,
     activeModal: false,

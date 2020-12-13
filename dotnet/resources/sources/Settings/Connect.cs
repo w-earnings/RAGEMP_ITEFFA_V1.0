@@ -16,11 +16,11 @@ namespace iTeffa.Settings
         {
             if (Connection is string) return;
             Connection =
-                $"Host={config.TryGet<string>("Server", "srv1.iteffa.com")};" +
+                $"Host={config.TryGet<string>("Server", "localhost")};" +
                 $"Port={config.TryGet<string>("Port", 3306)};" +
-                $"User={config.TryGet<string>("User", "")};" +
-                $"Password={config.TryGet<string>("Password", "")};" +
-                $"Database={config.TryGet<string>("DataBase", "")};" +
+                $"User={config.TryGet<string>("User", "root")};" +
+                $"Password={config.TryGet<string>("Password", "usbw")};" +
+                $"Database={config.TryGet<string>("DataBase", "iteffa")};" +
                 $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }
         public static bool Test
