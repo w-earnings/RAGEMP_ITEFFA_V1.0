@@ -960,7 +960,7 @@ namespace iTeffa.Houses
             menu.Add(menuItem);
 
             menuItem = new Menu.Item("spawnmycar", Menu.MenuItem.Button);
-            menuItem.Text = $"Вызвать авто";
+            menuItem.Text = $"Вызвать авто (2500$)";
             menu.Add(menuItem);
 
             if (check)
@@ -1110,7 +1110,10 @@ namespace iTeffa.Houses
                     {
                         if (number != null)
                         {
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ваша машина будет доставлена в течении 10-ти секунд", 3000);
+                            var pricespawncar = 2500;
+                            if (Main.Players[player].Money > pricespawncar)
+                                Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ваша машина будет доставлена в течении 10-ти секунд", 3000);
+                            Finance.Wallet.Change(player, -pricespawncar);
                             NAPI.Task.Run(() =>
                             {
                                 garage.SpawnCarAtPosition(player, number, player.Position, player.Rotation);
