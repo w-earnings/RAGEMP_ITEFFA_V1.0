@@ -1315,7 +1315,7 @@ namespace iTeffa.Globals
                     }
                     break;
                 case 1:
-                    products_list.Add(new Product(ProductsOrderPrice["Бензин"], ProductsCapacity[name], 0, "Бензин", false));
+                    products_list.Add(new Product(ProductsOrderPrice["Бензин"], 100, 0, "Бензин", false));
                     break;
                 case 2:
                     foreach (var name in CarsNames[0])
@@ -1358,39 +1358,39 @@ namespace iTeffa.Globals
                         Product product = new Product(ProductsOrderPrice[name], ProductsCapacity[name], 5, name, false);
                         products_list.Add(product);
                     }
-                    products_list.Add(new Product(ProductsOrderPrice["Патроны"], ProductsCapacity[name], 5, "Патроны", false));
+                    products_list.Add(new Product(ProductsOrderPrice["Патроны"], 0, 5, "Патроны", false));
                     break;
                 case 8:
-                    products_list.Add(new Product(100, ProductsCapacity[name], 10, "Одежда", false));
+                    products_list.Add(new Product(100, 200, 10, "Одежда", false));
                     break;
                 case 9:
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Расходники", false));
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Татуировки", false));
+                    products_list.Add(new Product(100, 100, 0, "Расходники", false));
+                    products_list.Add(new Product(100, 0, 0, "Татуировки", false));
                     break;
                 case 10:
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Расходники", false));
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Парики", false));
+                    products_list.Add(new Product(100, 100, 0, "Расходники", false));
+                    products_list.Add(new Product(100, 0, 0, "Парики", false));
                     break;
                 case 11:
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Маски", false));
+                    products_list.Add(new Product(100, 50, 0, "Маски", false));
                     break;
                 case 12:
-                    products_list.Add(new Product(100, ProductsCapacity[name], 0, "Запчасти", false));
+                    products_list.Add(new Product(100, 1000, 0, "Запчасти", false));
                     break;
                 case 13:
-                    products_list.Add(new Product(200, ProductsCapacity[name], 0, "Средство для мытья", false));
+                    products_list.Add(new Product(200, 200, 0, "Средство для мытья", false));
                     break;
                 case 14:
                     foreach (var name in FishProducts)
                     {
-                        Product product = new Product(ProductsOrderPrice[name], ProductsCapacity[name], 1, name, false);
+                        Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
                 case 15:
                     foreach (var name in SellProducts)
                     {
-                        Product product = new Product(ProductsOrderPrice[name], ProductsCapacity[name], 1, name, false);
+                        Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
                         products_list.Add(product);
                     }
                     break;
