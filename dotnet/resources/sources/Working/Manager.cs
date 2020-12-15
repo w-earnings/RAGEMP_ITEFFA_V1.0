@@ -230,27 +230,39 @@ namespace iTeffa.Working
         #region GoPostal Job
         public static void openGoPostalStart(Player player)
         {
-            Menu menu = new Menu("gopostal", false, false);
-            menu.Callback = callback_gpStartMenu;
+            Menu menu = new Menu("gopostal", false, false)
+            {
+                Callback = callback_gpStartMenu
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Склад";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Склад"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("start", Menu.MenuItem.Button);
-            menuItem.Text = "Начать работу";
+            menuItem = new Menu.Item("start", Menu.MenuItem.Button)
+            {
+                Text = "Начать работу"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("get", Menu.MenuItem.Button);
-            menuItem.Text = "Взять посылки";
+            menuItem = new Menu.Item("get", Menu.MenuItem.Button)
+            {
+                Text = "Взять посылки"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("finish", Menu.MenuItem.Button);
-            menuItem.Text = "Закончить работу";
+            menuItem = new Menu.Item("finish", Menu.MenuItem.Button)
+            {
+                Text = "Закончить работу"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -390,8 +402,10 @@ namespace iTeffa.Working
             Menu menu = new Menu("truckersorders", false, false);
             menu.Callback += callback_truckersorders;
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Заказы";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Заказы"
+            };
             menu.Add(menuItem);
 
             Order order = null;
@@ -411,12 +425,16 @@ namespace iTeffa.Working
                 return;
             }
 
-            menuItem = new Menu.Item("products", Menu.MenuItem.List);
-            menuItem.Elements = ordersIDs;
+            menuItem = new Menu.Item("products", Menu.MenuItem.List)
+            {
+                Elements = ordersIDs
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("Name", Menu.MenuItem.Card);
-            menuItem.Text = $"Продукт: {order.Name}";
+            menuItem = new Menu.Item("Name", Menu.MenuItem.Card)
+            {
+                Text = $"Продукт: {order.Name}"
+            };
             menu.Add(menuItem);
 
             var youGet = Convert.ToInt32(order.Amount * BusinessManager.ProductsOrderPrice[order.Name] * 0.1);
@@ -424,16 +442,22 @@ namespace iTeffa.Working
             var min = Convert.ToInt32(500 * Group.GroupPayAdd[Main.Accounts[player].VipLvl]);
             if (youGet > max) youGet = max;
             else if (youGet < min) youGet = min;
-            menuItem = new Menu.Item("youget", Menu.MenuItem.Card);
-            menuItem.Text = $"Вы получите: {youGet}$";
+            menuItem = new Menu.Item("youget", Menu.MenuItem.Card)
+            {
+                Text = $"Вы получите: {youGet}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("take", Menu.MenuItem.Button);
-            menuItem.Text = "Взять заказ";
+            menuItem = new Menu.Item("take", Menu.MenuItem.Button)
+            {
+                Text = "Взять заказ"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

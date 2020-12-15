@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using iTeffa.Interface;
 using System.Linq;
 using iTeffa.Settings;
 
@@ -11,7 +9,7 @@ namespace iTeffa.Globals
 {
     class CarRoom : Script
     {
-        private static nLog Log = new nLog("CARROOM");
+        private static readonly nLog Log = new nLog("CARROOM");
 
         public static Vector3 CamPosition = new Vector3(-42.3758, -1101.672, 26.42235); // Позиция камеры
         public static Vector3 CamRotation = new Vector3(0, 0, 1.701622); // Rotation камеры

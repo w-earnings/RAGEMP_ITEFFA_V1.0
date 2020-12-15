@@ -9,7 +9,7 @@ namespace iTeffa.Speaking
 {
     public class Voice : Script
     {
-        private static nLog Log = new nLog("Voice");
+        private static readonly nLog Log = new nLog("Voice");
         public Voice()
         {
             RoomController.getInstance().CreateRoom("VoiceRoom");

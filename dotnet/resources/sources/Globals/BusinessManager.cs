@@ -2835,22 +2835,29 @@ namespace iTeffa.Globals
                 return;
             }
 
-            Menu menu = new Menu("bizlist", false, false);
-            menu.Callback = callback_bizlist;
+            Menu menu = new Menu("bizlist", false, false)
+            {
+                Callback = callback_bizlist
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Ваши бизнесы";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Ваши бизнесы"
+            };
             menu.Add(menuItem);
 
             foreach (var id in Main.Players[player].BizIDs)
             {
-                menuItem = new Menu.Item(id.ToString(), Menu.MenuItem.Button);
-                menuItem.Text = BusinessManager.BusinessTypeNames[BusinessManager.BizList[id].Type];
+                Menu.Item item = new Menu.Item(id.ToString(), Menu.MenuItem.Button);
+                menuItem = item;
+                menuItem.Text = BusinessTypeNames[BusinessManager.BizList[id].Type];
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -2877,8 +2884,10 @@ namespace iTeffa.Globals
                 return;
             }
 
-            Menu menu = new Menu("bizmanage", false, false);
-            menu.Callback = callback_bizmanage;
+            Menu menu = new Menu("bizmanage", false, false)
+            {
+                Callback = callback_bizmanage
+            };
 
             Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
             menuItem.Text = "Управление бизнесом";

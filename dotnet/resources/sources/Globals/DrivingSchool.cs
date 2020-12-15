@@ -313,39 +313,57 @@ namespace iTeffa.Globals
         #region menu
         public static void OpenDriveSchoolMenu(Player player)
         {
-            Menu menu = new Menu("driveschool", false, false);
-            menu.Callback = callback_driveschool;
+            Menu menu = new Menu("driveschool", false, false)
+            {
+                Callback = callback_driveschool
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Лицензии";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Лицензии"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_0", Menu.MenuItem.Button);
-            menuItem.Text = $"(A) Мотоциклы - {LicPrices[0]}$";
+            menuItem = new Menu.Item("lic_0", Menu.MenuItem.Button)
+            {
+                Text = $"(A) Мотоциклы - {LicPrices[0]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_1", Menu.MenuItem.Button);
-            menuItem.Text = $"(B) Легковые машины - {LicPrices[1]}$";
+            menuItem = new Menu.Item("lic_1", Menu.MenuItem.Button)
+            {
+                Text = $"(B) Легковые машины - {LicPrices[1]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_2", Menu.MenuItem.Button);
-            menuItem.Text = $"(C) Грузовые машины - {LicPrices[2]}$";
+            menuItem = new Menu.Item("lic_2", Menu.MenuItem.Button)
+            {
+                Text = $"(C) Грузовые машины - {LicPrices[2]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_3", Menu.MenuItem.Button);
-            menuItem.Text = $"(V) Водный транспорт - {LicPrices[3]}$";
+            menuItem = new Menu.Item("lic_3", Menu.MenuItem.Button)
+            {
+                Text = $"(V) Водный транспорт - {LicPrices[3]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_4", Menu.MenuItem.Button);
-            menuItem.Text = $"(LV) Вертолёты - {LicPrices[4]}$";
+            menuItem = new Menu.Item("lic_4", Menu.MenuItem.Button)
+            {
+                Text = $"(LV) Вертолёты - {LicPrices[4]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("lic_5", Menu.MenuItem.Button);
-            menuItem.Text = $"(LS) Самолёты - {LicPrices[5]}$";
+            menuItem = new Menu.Item("lic_5", Menu.MenuItem.Button)
+            {
+                Text = $"(LS) Самолёты - {LicPrices[5]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

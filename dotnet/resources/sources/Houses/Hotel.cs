@@ -211,20 +211,28 @@ namespace iTeffa.Houses
             Menu menu = new Menu("hotelbuy", false, false);
             menu.Callback += callback_hotelbuy;
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = $"Отель";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = $"Отель"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info", Menu.MenuItem.Card);
-            menuItem.Text = $"Деньги за аренду будут сниматься каждый пейдей только когда Вы в игре.";
+            menuItem = new Menu.Item("info", Menu.MenuItem.Card)
+            {
+                Text = $"Деньги за аренду будут сниматься каждый пейдей только когда Вы в игре."
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("rent", Menu.MenuItem.Button);
-            menuItem.Text = $"Арендовать ({HotelRent}$)";
+            menuItem = new Menu.Item("rent", Menu.MenuItem.Button)
+            {
+                Text = $"Арендовать ({HotelRent}$)"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -264,24 +272,34 @@ namespace iTeffa.Houses
             Menu menu = new Menu("hotelmanage", false, false);
             menu.Callback += callback_hotelmanage;
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = $"Отель";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = $"Отель"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("info", Menu.MenuItem.Card);
-            menuItem.Text = $"Аренда оплачена на {Main.Players[player].HotelLeft}ч";
+            menuItem = new Menu.Item("info", Menu.MenuItem.Card)
+            {
+                Text = $"Аренда оплачена на {Main.Players[player].HotelLeft}ч"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("extend", Menu.MenuItem.Button);
-            menuItem.Text = "Продлить аренду";
+            menuItem = new Menu.Item("extend", Menu.MenuItem.Button)
+            {
+                Text = "Продлить аренду"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("moveout", Menu.MenuItem.Button);
-            menuItem.Text = "Выселиться";
+            menuItem = new Menu.Item("moveout", Menu.MenuItem.Button)
+            {
+                Text = "Выселиться"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

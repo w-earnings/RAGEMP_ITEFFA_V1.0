@@ -252,30 +252,42 @@ namespace iTeffa.Houses
         #region Menus
         public static void OpenHouseBuyMenu(Player player)
         {
-            Menu menu = new Menu("housebuy", false, false);
-            menu.Callback = callback_housebuy;
+            Menu menu = new Menu("housebuy", false, false)
+            {
+                Callback = callback_housebuy
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Покупка дома";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Покупка дома"
+            };
             menu.Add(menuItem);
 
             if (Main.Players[player].HotelID != -1)
             {
-                menuItem = new Menu.Item("hotelinfo", Menu.MenuItem.Card);
-                menuItem.Text = "Внимание! При покупке дома Вас выселят из отеля";
+                menuItem = new Menu.Item("hotelinfo", Menu.MenuItem.Card)
+                {
+                    Text = "Внимание! При покупке дома Вас выселят из отеля"
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("buy", Menu.MenuItem.Button);
-            menuItem.Text = "Купить дом";
+            menuItem = new Menu.Item("buy", Menu.MenuItem.Button)
+            {
+                Text = "Купить дом"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("interior", Menu.MenuItem.Button);
-            menuItem.Text = "Посмотреть интерьер";
+            menuItem = new Menu.Item("interior", Menu.MenuItem.Button)
+            {
+                Text = "Посмотреть интерьер"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -359,39 +371,57 @@ namespace iTeffa.Houses
                 return;
             }
 
-            Menu menu = new Menu("housemanage", false, false);
-            menu.Callback = callback_housemanage;
+            Menu menu = new Menu("housemanage", false, false)
+            {
+                Callback = callback_housemanage
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Управление домом";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Управление домом"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("changestate", Menu.MenuItem.Button);
-            menuItem.Text = "Открыть/закрыть";
+            menuItem = new Menu.Item("changestate", Menu.MenuItem.Button)
+            {
+                Text = "Открыть/закрыть"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("removeall", Menu.MenuItem.Button);
-            menuItem.Text = "Выгнать всех";
+            menuItem = new Menu.Item("removeall", Menu.MenuItem.Button)
+            {
+                Text = "Выгнать всех"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("furniture", Menu.MenuItem.Button);
-            menuItem.Text = "Мебель";
+            menuItem = new Menu.Item("furniture", Menu.MenuItem.Button)
+            {
+                Text = "Мебель"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("cars", Menu.MenuItem.Button);
-            menuItem.Text = "Машины";
+            menuItem = new Menu.Item("cars", Menu.MenuItem.Button)
+            {
+                Text = "Машины"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("roommates", Menu.MenuItem.Button);
-            menuItem.Text = "Сожители";
+            menuItem = new Menu.Item("roommates", Menu.MenuItem.Button)
+            {
+                Text = "Сожители"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("sell", Menu.MenuItem.Button);
-            menuItem.Text = $"Продать гос-ву за {Convert.ToInt32(house.Price * 0.6)}$";
+            menuItem = new Menu.Item("sell", Menu.MenuItem.Button)
+            {
+                Text = $"Продать гос-ву за {Convert.ToInt32(house.Price * 0.6)}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -498,28 +528,38 @@ namespace iTeffa.Houses
 
         public static void OpenCarsSellMenu(Player player)
         {
-            Menu menu = new Menu("carsell", false, false);
-            menu.Callback = callback_carsell;
+            Menu menu = new Menu("carsell", false, false)
+            {
+                Callback = callback_carsell
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Продажа автомобилей";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Продажа автомобилей"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("label", Menu.MenuItem.Card);
-            menuItem.Text = "Выберите машину, которую хотите продать";
+            menuItem = new Menu.Item("label", Menu.MenuItem.Card)
+            {
+                Text = "Выберите машину, которую хотите продать"
+            };
             menu.Add(menuItem);
 
             foreach (var v in VehicleManager.getAllPlayerVehicles(player.Name))
             {
                 var vData = VehicleManager.Vehicles[v];
                 var price = (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model)) ? Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5) : 0;
-                menuItem = new Menu.Item(v, Menu.MenuItem.Button);
-                menuItem.Text = $"{vData.Model} - {v} ({price}$)";
+                menuItem = new Menu.Item(v, Menu.MenuItem.Button)
+                {
+                    Text = $"{vData.Model} - {v} ({price}$)"
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -550,23 +590,33 @@ namespace iTeffa.Houses
                 return;
             }
 
-            Menu menu = new Menu("furnitures", false, false);
-            menu.Callback = callback_furniture0;
+            Menu menu = new Menu("furnitures", false, false)
+            {
+                Callback = callback_furniture0
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Мебель";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Мебель"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("buyfurniture", Menu.MenuItem.Button);
-            menuItem.Text = "Покупка мебели";
+            menuItem = new Menu.Item("buyfurniture", Menu.MenuItem.Button)
+            {
+                Text = "Покупка мебели"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("tofurniture", Menu.MenuItem.Button);
-            menuItem.Text = "Управление мебелью";
+            menuItem = new Menu.Item("tofurniture", Menu.MenuItem.Button)
+            {
+                Text = "Управление мебелью"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -606,40 +656,56 @@ namespace iTeffa.Houses
                     MenuManager.Close(player);
                     return;
                 }
-                Menu nmenu = new Menu("furnitures", false, false);
-                nmenu.Callback = callback_furniture;
+                Menu nmenu = new Menu("furnitures", false, false)
+                {
+                    Callback = callback_furniture
+                };
 
-                Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-                menuItem.Text = "Управление мебелью";
+                Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+                {
+                    Text = "Управление мебелью"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("furniture", Menu.MenuItem.List);
-                menuItem.Text = "ID:";
+                menuItem = new Menu.Item("furniture", Menu.MenuItem.List)
+                {
+                    Text = "ID:"
+                };
                 var list = new List<string>();
                 foreach (var f in FurnitureManager.HouseFurnitures[house.ID]) list.Add(f.Value.ID.ToString());
                 menuItem.Elements = list;
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("sellit", Menu.MenuItem.Button);
-                menuItem.Text = "Продать (7500$)";
+                menuItem = new Menu.Item("sellit", Menu.MenuItem.Button)
+                {
+                    Text = "Продать (7500$)"
+                };
                 nmenu.Add(menuItem);
 
                 var furn = FurnitureManager.HouseFurnitures[house.ID][Convert.ToInt32(list[0])];
-                menuItem = new Menu.Item("type", Menu.MenuItem.Card);
-                menuItem.Text = $"Тип: {furn.Name}";
+                menuItem = new Menu.Item("type", Menu.MenuItem.Card)
+                {
+                    Text = $"Тип: {furn.Name}"
+                };
                 nmenu.Add(menuItem);
 
                 var open = (furn.IsSet) ? "Да" : "Нет";
-                menuItem = new Menu.Item("isSet", Menu.MenuItem.Card);
-                menuItem.Text = $"Установлено: {open}";
+                menuItem = new Menu.Item("isSet", Menu.MenuItem.Card)
+                {
+                    Text = $"Установлено: {open}"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("change", Menu.MenuItem.Button);
-                menuItem.Text = "Установить/Убрать";
+                menuItem = new Menu.Item("change", Menu.MenuItem.Button)
+                {
+                    Text = "Установить/Убрать"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-                menuItem.Text = "Закрыть";
+                menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+                {
+                    Text = "Закрыть"
+                };
                 nmenu.Add(menuItem);
 
                 nmenu.Open(player);
@@ -648,27 +714,39 @@ namespace iTeffa.Houses
             else if (item.ID == "buyfurniture")
             {
 
-                Menu nmenu = new Menu("furnitures", false, false);
-                nmenu.Callback = callback_furniture1;
+                Menu nmenu = new Menu("furnitures", false, false)
+                {
+                    Callback = callback_furniture1
+                };
 
-                Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-                menuItem.Text = "Покупка мебели";
+                Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+                {
+                    Text = "Покупка мебели"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("buy1", Menu.MenuItem.Button);
-                menuItem.Text = "Оружейный сейф (15000$)";
+                menuItem = new Menu.Item("buy1", Menu.MenuItem.Button)
+                {
+                    Text = "Оружейный сейф (15000$)"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("buy2", Menu.MenuItem.Button);
-                menuItem.Text = "Шкаф с одеждой (15000$)";
+                menuItem = new Menu.Item("buy2", Menu.MenuItem.Button)
+                {
+                    Text = "Шкаф с одеждой (15000$)"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("buy3", Menu.MenuItem.Button);
-                menuItem.Text = "Шкаф с предметами (15000$)";
+                menuItem = new Menu.Item("buy3", Menu.MenuItem.Button)
+                {
+                    Text = "Шкаф с предметами (15000$)"
+                };
                 nmenu.Add(menuItem);
 
-                menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-                menuItem.Text = "Закрыть";
+                menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+                {
+                    Text = "Закрыть"
+                };
                 nmenu.Add(menuItem);
 
                 nmenu.Open(player);
@@ -838,36 +916,48 @@ namespace iTeffa.Houses
 
         public static void OpenRoommatesMenu(Player player)
         {
-            Menu menu = new Menu("roommates", false, false);
-            menu.Callback = callback_roommates;
+            Menu menu = new Menu("roommates", false, false)
+            {
+                Callback = callback_roommates
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Сожители";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Сожители"
+            };
             menu.Add(menuItem);
 
             var house = GetHouse(player, true);
             if (house.Roommates.Count > 0)
             {
-                menuItem = new Menu.Item("label", Menu.MenuItem.Card);
-                menuItem.Text = "Нажмите на имя игрока, которого хотите выселить";
+                menuItem = new Menu.Item("label", Menu.MenuItem.Card)
+                {
+                    Text = "Нажмите на имя игрока, которого хотите выселить"
+                };
                 menu.Add(menuItem);
 
                 foreach (var p in house.Roommates)
                 {
-                    menuItem = new Menu.Item(p, Menu.MenuItem.Button);
-                    menuItem.Text = $"{p.Replace('_', ' ')}";
+                    menuItem = new Menu.Item(p, Menu.MenuItem.Button)
+                    {
+                        Text = $"{p.Replace('_', ' ')}"
+                    };
                     menu.Add(menuItem);
                 }
             }
             else
             {
-                menuItem = new Menu.Item("label", Menu.MenuItem.Card);
-                menuItem.Text = "У Вас никто не подселен в дом";
+                menuItem = new Menu.Item("label", Menu.MenuItem.Card)
+                {
+                    Text = "У Вас никто не подселен в дом"
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -891,22 +981,30 @@ namespace iTeffa.Houses
 
         public static void OpenCarsMenu(Player player)
         {
-            Menu menu = new Menu("cars", false, false);
-            menu.Callback = callback_cars;
+            Menu menu = new Menu("cars", false, false)
+            {
+                Callback = callback_cars
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Машины";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Машины"
+            };
             menu.Add(menuItem);
 
             foreach (var v in VehicleManager.getAllPlayerVehicles(player.Name))
             {
-                menuItem = new Menu.Item(v, Menu.MenuItem.Button);
-                menuItem.Text = $"{VehicleManager.Vehicles[v].Model} - {v}";
+                menuItem = new Menu.Item(v, Menu.MenuItem.Button)
+                {
+                    Text = $"{VehicleManager.Vehicles[v].Model} - {v}"
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -927,8 +1025,10 @@ namespace iTeffa.Houses
 
         public static void OpenSelectedCarMenu(Player player, string number)
         {
-            Menu menu = new Menu("selectedcar", false, false);
-            menu.Callback = callback_selectedcar;
+            Menu menu = new Menu("selectedcar", false, false)
+            {
+                Callback = callback_selectedcar
+            };
 
             var vData = VehicleManager.Vehicles[number];
 
@@ -937,46 +1037,64 @@ namespace iTeffa.Houses
             var check = garage.CheckCar(false, number);
             var check_pos = (string.IsNullOrEmpty(vData.Position)) ? false : true;
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = number;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = number
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("model", Menu.MenuItem.Card);
-            menuItem.Text = vData.Model;
+            menuItem = new Menu.Item("model", Menu.MenuItem.Card)
+            {
+                Text = vData.Model
+            };
             menu.Add(menuItem);
 
             var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
 
-            menuItem = new Menu.Item("repair", Menu.MenuItem.Button);
-            menuItem.Text = $"Восстановить {VehicleManager.VehicleRepairPrice[vClass]}$";
+            menuItem = new Menu.Item("repair", Menu.MenuItem.Button)
+            {
+                Text = $"Восстановить {VehicleManager.VehicleRepairPrice[vClass]}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("key", Menu.MenuItem.Button);
-            menuItem.Text = $"Получить дубликат ключа";
+            menuItem = new Menu.Item("key", Menu.MenuItem.Button)
+            {
+                Text = $"Получить дубликат ключа"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("changekey", Menu.MenuItem.Button);
-            menuItem.Text = $"Сменить замки";
+            menuItem = new Menu.Item("changekey", Menu.MenuItem.Button)
+            {
+                Text = $"Сменить замки"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("spawnmycar", Menu.MenuItem.Button);
-            menuItem.Text = $"Вызвать авто (2500$)";
+            menuItem = new Menu.Item("spawnmycar", Menu.MenuItem.Button)
+            {
+                Text = $"Вызвать авто (2500$)"
+            };
             menu.Add(menuItem);
 
             if (check)
             {
-                menuItem = new Menu.Item("evac", Menu.MenuItem.Button);
-                menuItem.Text = $"Эвакуировать машину";
+                menuItem = new Menu.Item("evac", Menu.MenuItem.Button)
+                {
+                    Text = $"Эвакуировать машину"
+                };
                 menu.Add(menuItem);
 
-                menuItem = new Menu.Item("gps", Menu.MenuItem.Button);
-                menuItem.Text = $"Отметить в GPS";
+                menuItem = new Menu.Item("gps", Menu.MenuItem.Button)
+                {
+                    Text = $"Отметить в GPS"
+                };
                 menu.Add(menuItem);
             }
             else if (check_pos)
             {
-                menuItem = new Menu.Item("evac_pos", Menu.MenuItem.Button);
-                menuItem.Text = $"Эвакуировать машину";
+                menuItem = new Menu.Item("evac_pos", Menu.MenuItem.Button)
+                {
+                    Text = $"Эвакуировать машину"
+                };
                 menu.Add(menuItem);
             }
 
@@ -1005,12 +1123,16 @@ namespace iTeffa.Houses
                         break;
                 }
             }
-            menuItem = new Menu.Item("sell", Menu.MenuItem.Button);
-            menuItem.Text = $"Продать ({price}$)";
+            menuItem = new Menu.Item("sell", Menu.MenuItem.Button)
+            {
+                Text = $"Продать ({price}$)"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);

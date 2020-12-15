@@ -704,23 +704,33 @@ namespace iTeffa.Globals
 
         public static void OpenSafedoorMenu(Player player)
         {
-            Menu menu = new Menu("safedoor", false, false);
-            menu.Callback = callback_safedoor;
+            Menu menu = new Menu("safedoor", false, false)
+            {
+                Callback = callback_safedoor
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Дверь хранилища";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Дверь хранилища"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("change", Menu.MenuItem.Button);
-            menuItem.Text = "Открыть/Закрыть";
+            menuItem = new Menu.Item("change", Menu.MenuItem.Button)
+            {
+                Text = "Открыть/Закрыть"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("crack", Menu.MenuItem.Button);
-            menuItem.Text = "Взломать";
+            menuItem = new Menu.Item("crack", Menu.MenuItem.Button)
+            {
+                Text = "Взломать"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
