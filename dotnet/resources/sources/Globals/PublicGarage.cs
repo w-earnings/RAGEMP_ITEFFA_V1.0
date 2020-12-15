@@ -21,6 +21,9 @@ namespace iTeffa.Globals
             }
         }
 
+
+
+        #region Кординаты парковок
         public static Vector3[] vehstore = new Vector3[]
         {
             new Vector3(-1186.033, -742.2707, 19.11804),
@@ -36,8 +39,131 @@ namespace iTeffa.Globals
             new Vector3(-905.5421, -161.0625, 41.87945),
             new Vector3(-68.31268, 897.8906, 234.5641)
         };
+        #endregion
+        #region Парковка № 1
+        public static List<Vector3> ParkingPlacesOne = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 2
+        public static List<Vector3> ParkingPlacesTwo = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 3
+        public static List<Vector3> ParkingPlacesThree = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 4
+        public static List<Vector3> ParkingPlacesFour = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 5
+        public static List<Vector3> ParkingPlacesFive = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 6
+        public static List<Vector3> ParkingPlacesSix = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 7
+        public static List<Vector3> ParkingPlacesSeven = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 8
+        public static List<Vector3> ParkingPlacesEight = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 9
+        public static List<Vector3> ParkingPlacesNine = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 10
+        public static List<Vector3> ParkingPlacesTen = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 11
+        public static List<Vector3> ParkingPlacesEleven = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
+        #region Парковка № 12
+        public static List<Vector3> ParkingPlacesTwelve = new List<Vector3>()
+        {
+            new Vector3(0, 0, 0), // Место 1
+            new Vector3(0, 0, 0), // Место 2
+            new Vector3(0, 0, 0), // Место 3
+            new Vector3(0, 0, 0), // Место 4
+            new Vector3(0, 0, 0), // Место 5
+        };
+        #endregion
 
-        [RemoteEvent("IsInNearVehStore")]
+
+
+                [RemoteEvent("IsInNearVehStore")]
         public void IsInNearVehStore(Player c)
         {
             foreach (Vector3 garagePosition in vehstore)
