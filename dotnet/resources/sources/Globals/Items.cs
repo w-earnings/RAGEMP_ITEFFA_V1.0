@@ -818,7 +818,26 @@ namespace iTeffa.Globals
                         break;
 
 
+                    case ItemType.Remka:
 
+                        if (!player.IsInVehicle)
+                        {
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
+                            return;
+                        }
+                        {
+                            if (player.VehicleSeat == 0)
+                            {
+                                if (VehicleStreaming.GetVehicleDirt(player.Vehicle) >= 0.0f)
+                                {
+
+                                    VehicleManager.RepairCar(player.Vehicle);
+                                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Вы отремонтировали транспорт", 3000);
+                                }
+
+                            }
+                        }
+                        break;
 
                     case ItemType.Lockpick:
                         if (player.GetData<int>("INTERACTIONCHECK") != 3)

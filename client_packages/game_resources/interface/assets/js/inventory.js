@@ -152,7 +152,9 @@ var itemsData = {
 	225: "Коньяк Арарат",
 	226: "Пиво разливное",
 	227: "Пиво бутылочное",
-	228: "Кальян",
+    228: "Кальян",
+    
+    777: "Рем.Комплект",
 }
 
 var itemsInfo = {
@@ -197,7 +199,9 @@ var itemsInfo = {
 	26:	"iTeffa.com | Нет описания...",
 	27:	"iTeffa.com | Нет описания...",
 	28:	"iTeffa.com | Нет описания...",
-	29:	"iTeffa.com | Нет описания...",
+    29:	"iTeffa.com | Нет описания...",
+    
+    777: "Комплект для ремонта транспорта.",
 }
 Vue.component('item', {
 	template: '<div :class="test"><div class="item" v-bind:title="name" v-bind:weight="(weight*count).toFixed(2)" :fastslot="fast_slot" v-bind:class="{active: isactive}" @click.right.prevent="select"> \

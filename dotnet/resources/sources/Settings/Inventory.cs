@@ -155,6 +155,9 @@ namespace iTeffa.Settings
         Ygol = 216, // Угорь
         Amyr = 217, // Чёрный амур
         Chyka = 218, // Щука
+
+
+        Remka = 777, //Ремонт Комплект
     }
 
     public class nItem

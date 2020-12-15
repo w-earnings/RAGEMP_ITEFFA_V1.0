@@ -160,6 +160,7 @@ namespace iTeffa.Globals
             "Пицца",
             "Сим-карта",
             "Связка ключей",
+            "Рем.Комплект",
         };
         #endregion
         #region FishShop
@@ -1190,6 +1191,7 @@ namespace iTeffa.Globals
             { "Пицца", 50},
             { "Сим-карта", 50},
             { "Связка ключей", 50},
+            { "Рем.Комплект", 20000},
             #endregion
             { "Расходники", 800 }, // tattoo shop
             { "Татуировки", 0 },
@@ -1253,6 +1255,7 @@ namespace iTeffa.Globals
             {"Пицца",100},
             {"Сим-карта",200},
             {"Связка ключей",200},
+            {"Рем.Комплект", 2000},
             #endregion
             {"Расходники",50},
             {"Татуировки",20},
@@ -1307,7 +1310,7 @@ namespace iTeffa.Globals
                 case 0:
                     foreach (var name in MarketProducts)
                     {
-                        Product product = new Product(ProductsOrderPrice[name], 0, 1, name, false);
+                        Product product = new Product(ProductsOrderPrice[name], ProductsCapacity[name], 1, name, false);
                         products_list.Add(product);
                     }
                     break;
@@ -1451,6 +1454,9 @@ namespace iTeffa.Globals
                     break;
                 case "Наживка":
                     type = (int)ItemType.Naz;
+                    break;
+                case "Рем.Комплект":
+                    type = (int)ItemType.Remka;
                     break;
             }
             return type;

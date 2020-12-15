@@ -155,6 +155,8 @@ namespace iTeffa.Globals
             {216, "Угорь" },
             {217, "Чёрный амур" },
             {218, "Щука" },
+
+            {777, "Рем.Компплект" },
         };
         public static Dictionary<int, string> ItemsDescriptions = new Dictionary<int, string>();
         public static Dictionary<ItemType, uint> ItemModels = new Dictionary<ItemType, uint>()
@@ -300,6 +302,7 @@ namespace iTeffa.Globals
             { ItemType.Ygol, NAPI.Util.GetHashKey("prop_starfish_01") },
             { ItemType.Amyr, NAPI.Util.GetHashKey("prop_starfish_01") },
             { ItemType.Chyka, NAPI.Util.GetHashKey("prop_starfish_01") },
+            { ItemType.Remka, NAPI.Util.GetHashKey("prop_tool_box_01") },
         };
 
         public static Dictionary<ItemType, Vector3> ItemsPosOffset = new Dictionary<ItemType, Vector3>()
@@ -445,6 +448,8 @@ namespace iTeffa.Globals
             { ItemType.Ygol, new Vector3(0, 0, -0.99) },
             { ItemType.Amyr, new Vector3(0, 0, -0.99) },
             { ItemType.Chyka, new Vector3(0, 0, -0.99) },
+
+            { ItemType.Remka, new Vector3(0, 0, -1) },
         };
         public static Dictionary<ItemType, Vector3> ItemsRotOffset = new Dictionary<ItemType, Vector3>()
         {
@@ -589,6 +594,8 @@ namespace iTeffa.Globals
             { ItemType.Ygol, new Vector3(90, 0, 0) },
             { ItemType.Amyr, new Vector3(90, 0, 0) },
             { ItemType.Chyka, new Vector3(90, 0, 0) },
+
+            { ItemType.Remka, new Vector3() },
         };
 
         public static Dictionary<ItemType, int> ItemsStacks = new Dictionary<ItemType, int>()
@@ -739,6 +746,8 @@ namespace iTeffa.Globals
             { ItemType.Ygol, 30 },
             { ItemType.Amyr, 30 },
             { ItemType.Chyka, 30 },
+
+            { ItemType.Remka, 7 },
         };
 
         public static List<ItemType> ClothesItems = new List<ItemType>()
