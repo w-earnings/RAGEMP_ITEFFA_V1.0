@@ -959,6 +959,10 @@ namespace iTeffa.Houses
             menuItem.Text = $"Сменить замки";
             menu.Add(menuItem);
 
+            menuItem = new Menu.Item("spawnmycar", Menu.MenuItem.Button);
+            menuItem.Text = $"Вызвать авто";
+            menu.Add(menuItem);
+
             if (check)
             {
                 menuItem = new Menu.Item("evac", Menu.MenuItem.Button);
@@ -1068,6 +1072,7 @@ namespace iTeffa.Houses
                     garage.SendVehicleIntoGarage(menu.Items[0].Text);
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы восстановили {vData.Model} ({menu.Items[0].Text})", 3000);
                     return;
+
                 case "evac":
                     if (!Main.Players.ContainsKey(player)) return;
 
@@ -1096,6 +1101,30 @@ namespace iTeffa.Houses
                     GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ваша машина была отогнана в гараж", 3000);
                     return;
+
+                case "spawnmycar":
+                    garage = GarageManager.Garages[GetHouse(player).GarageID];
+                    number = menu.Items[0].Text;
+                    check = garage.CheckCar(false, number);
+                    if (!check)
+                    {
+                        if (number != null)
+                        {
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Ваша машина будет доставлена в течении 10-ти секунд", 3000);
+                            NAPI.Task.Run(() =>
+                            {
+                                garage.SpawnCarAtPosition(player, number, player.Position, player.Rotation);
+                            }, delayTime: 10000);
+
+                        }
+                    }
+                    else
+                    {
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Эта машина не стоит в гараже", 3000);
+                        return;
+                    }
+                    return;
+
                 case "evac_pos":
                     if (!Main.Players.ContainsKey(player)) return;
 
