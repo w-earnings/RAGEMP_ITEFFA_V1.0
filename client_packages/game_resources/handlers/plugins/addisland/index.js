@@ -6,11 +6,11 @@ class HeistIslandMP {
   islandBounds = [];
   isPointInPolygon(x, y, polygon) {
     if (typeof x !== 'number' || typeof y !== 'number') {
-      return mp.gui.chat.push('Invalid latitude or longitude. Numbers are expected')
+      return mp.gui.chat.push('Неверная широта или долгота. Цифры ожидаются')
     } else if (!polygon || !Array.isArray(polygon)) {
-      return mp.gui.chat.push('Invalid polygon. Array with locations expected')
+      return mp.gui.chat.push('Неверный многоугольник. Массив с ожидаемыми местоположениями')
     } else if (polygon.length === 0) {
-      return mp.gui.chat.push('Invalid polygon. Non-empty Array expected')
+      return mp.gui.chat.push('Неверный многоугольник. Ожидается непустой массив')
     }
     let inside = false
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -35,10 +35,10 @@ class HeistIslandMP {
       if (isWithinIslandBounds && !this.isMapLoaded) {
         this.isMapLoaded = true;
         mp.game.invoke("0x5E1460624D194A38", this.isMapLoaded);
-      } /* else if (!isWithinIslandBounds && this.isMapLoaded) {
+      } else if (!isWithinIslandBounds && this.isMapLoaded) {
         this.isMapLoaded = false;
         mp.game.invoke("0x5E1460624D194A38", this.isMapLoaded);
-      } */
+      }
       if (!this.isLoaded) {
         this.isLoaded = true;
         for (var i = 0; i < island.ipls.length; i++) {
