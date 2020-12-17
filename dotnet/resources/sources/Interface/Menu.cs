@@ -164,11 +164,6 @@ namespace iTeffa.Interface
             ilanBtn,
             closeBtn,
             businessBtn,
-            adminBtn,
-            lockBtn,
-            leaveBtn,
-            onRadio,
-            offRadio,
             promoBtn
 
         }

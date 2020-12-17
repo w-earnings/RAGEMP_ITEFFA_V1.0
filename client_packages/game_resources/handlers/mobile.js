@@ -2,7 +2,7 @@
 var phoneWindow = null;
 var phoneOppened = false;
 mp.events.add('initPhone', () => {
-    phone = mp.browsers.new('package://game_resources/interface/phone.html');
+    phone = mp.browsers.new('package://game_resources/interface/mobile.html');
 });
 
 mp.events.add('phoneShow', () => {

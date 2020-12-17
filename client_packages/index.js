@@ -252,7 +252,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
     require('./game_resources/handlers/render.js');
     require('./game_resources/handlers/nucleus.js');
     require('./game_resources/handlers/voice.js');
-    require('./game_resources/handlers/phone.js');
+    require('./game_resources/handlers/mobile.js');
     require('./game_resources/handlers/checkpoints.js');
     require('./game_resources/handlers/inventory.js');
     require('./game_resources/handlers/shellhud.js');

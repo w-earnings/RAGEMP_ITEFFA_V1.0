@@ -3123,7 +3123,7 @@ namespace iTeffa
 
             Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
             {
-                Text = "Меню"
+                Text = ""
             };
             menu.Add(menuItem);
 
@@ -3250,13 +3250,13 @@ namespace iTeffa
 
             menuItem = new Menu.Item("ad", Menu.MenuItem.ilanBtn)
             {
-                Text = "???"
+                Text = "Обьявления"
             };
             menu.Add(menuItem);
 
             menuItem = new Menu.Item("close", Menu.MenuItem.closeBtn)
             {
-                Text = "???"
+                Text = "Выход"
             };
             menu.Add(menuItem);
 

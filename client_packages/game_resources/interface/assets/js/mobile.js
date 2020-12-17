@@ -64,25 +64,7 @@ function open(id, canhome, canback, data) {
             case 15:
                 iconBtn(item[0], i, item[1], item[4], item[5],"businessBtn");
                 break;
-            case 16:
-                iconBtn(item[0], i, item[1], item[4], item[5],"adminBtn");
-                break;
-            case 17:
-                iconBtn(item[0], i, item[1], item[4], item[5],"lockBtn");
-                break;
-            case 18:
-                iconBtn(item[0], i, item[1], item[4], item[5],"leaveBtn");
-                break;
-            case 19:
-                iconBtn(item[0], i, item[1], item[4], item[5],"onRadio");
-                break;
-            case 20:
-                iconBtn(item[0], i, item[1], item[4], item[5],"offRadio");
-                break;
-			case 21:
-                iconBtn(item[0], i, item[1], item[4], item[5],"bankBtn");
-                break;	
-			case 22:
+			case 16:
                 iconBtn(item[0], i, item[1], item[4], item[5],"promoBtn");
                 break;
         }
@@ -90,37 +72,37 @@ function open(id, canhome, canback, data) {
     });
 }
 function show() {
-    move('.phone')
+    move('.iphone')
         .duration(0)
         .y(0)
         .end(function () {
-            move('.phone')
+            move('.iphone')
                 .y(0)
                 .set('opacity', 1)
                 .end();
         });
 }
 function hide() {
-    move('.phone')
+    move('.iphone')
         .y(0)
         .set('opacity', 0)
         .end();
 }
 // ELEMENTS //
 function addHeader(id, index, text, col, color) {
-    var pure = "pure-u-";
+    var pure = "";
     var style = "";
     if (col === 1) pure = pure + col;
     else pure = pure + '1-2';
     style = getColor(color);
-
     var card = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
-    <h1 class="'+ style + '">' + text + '</h1></div>';
-    $('.main').append(card);
+    <h1 style="display: none" class="'+ style + '">' + text + '</h1></div>';
+    $('.apps').append(card);
 }
+
 function addBtn(id, index, title, col, big,btnType) {
     var callback = "call('" + id + "','button');";
-    var pure = "pure-u-";
+    var pure = "";
     var style = "button";
     if (col === 1) pure = pure + col;
     else pure = pure + '1-2';
@@ -128,8 +110,23 @@ function addBtn(id, index, title, col, big,btnType) {
 
     var btn = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
     <div onClick="'+ callback + '" class="' + style + '">' + title + '</div></div>';
-    $('.main').append(btn);
+    $('.apps').append(btn);
 }
+
+function iconBtn(id, index, title, col, big, btnType) {
+    var callback = "call('" + id + "','button');";
+    var pure = "app-wrapper";
+    var style = btnType;
+    if (big == true) style = style + " big";
+    var btn = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
+    <div class="app">\
+    <div onClick="' + callback + '"><img class="icon" src="https://cdn.iteffa.com/project/modules/iphone/assets/apps_icons/' + style + '.svg" alt="iTeffa"></div>\
+    <div class="title">' + title + '</div>\
+    </div></div>';
+    $('.apps').append(btn);
+  }
+
+/*
 function iconBtn(id, index, title, col, big,btnType) {
     var callback = "call('" + id + "','button');";
     var pure = "pure-u-6-24";
@@ -138,8 +135,9 @@ function iconBtn(id, index, title, col, big,btnType) {
 
     var btn = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
     <div onClick="'+ callback + '" class="' + style + '">' + title + '</div></div>';
-    $('.main').append(btn);
+    $('.apps').append(btn);
 }
+*/
 
 function addCard(id, index, text, col, color) {
     var pure = "pure-u-";
@@ -150,13 +148,13 @@ function addCard(id, index, text, col, color) {
 
     var card = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
     <p class="'+ style + '">' + text + '</p></div>';
-    $('.main').append(card);
+    $('.apps').append(card);
 }
 
 function addInput(id, index, title) {
     var inp = '<div id="' + index + '" data-id="' + id + '" class="pure-u-1">\
     <input type="text" placeholder="'+ title + '"></div>';
-    $('.main').append(inp);
+    $('.apps').append(inp);
 }
 function addList(id, index, elements) {
     var data = JSON.parse(elements);
@@ -170,7 +168,7 @@ function addList(id, index, elements) {
     <input id="l0" type="text" value="'+ data[0] + '" onClick="' + callback + '" readonly>\
     <i class="right flaticon-arrowhead-pointing-to-the-right" onClick="'+ callRight + '"></i>\
     </div></div>';
-    $('.main').append(list);
+    $('.apps').append(list);
 }
 function addCheck(id, index, col, checked) {
     var pure = "pure-u-";
@@ -182,7 +180,7 @@ function addCheck(id, index, col, checked) {
 
     var box = '<div id="' + index + '" data-id="' + id + '" class="' + pure + '">\
     <input type="checkbox"'+ chk + ' onClick="' + callback + '"></div>';
-    $('.main').append(box);
+    $('.apps').append(box);
 }
 
 function change(ind, data) {
@@ -279,7 +277,7 @@ function reset() {
     Items = {};
     Lists = [];
     IND = 0;
-    $('.main').empty();
+    $('.apps').empty();
 }
 function call(id, event) {
     //console.log(id);
