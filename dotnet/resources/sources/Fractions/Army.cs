@@ -10,7 +10,7 @@ namespace iTeffa.Fractions
     class Army : Script
     {
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -61,9 +61,9 @@ namespace iTeffa.Fractions
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static nLog Log = new nLog("Army");
+        private static readonly nLog Log = new nLog("Army");
 
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> ArmyCheckpoints = new List<Vector3>()
         {
             new Vector3(-2345.839, 3268.359, 31.81075),

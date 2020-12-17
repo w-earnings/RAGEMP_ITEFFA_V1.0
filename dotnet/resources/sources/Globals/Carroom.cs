@@ -99,7 +99,7 @@ namespace iTeffa.Globals
         }
 
         #region Menu
-        private static Dictionary<string, Color> carColors = new Dictionary<string, Color>
+        private static readonly Dictionary<string, Color> carColors = new Dictionary<string, Color>
         {
             { "Черный", new Color(0, 0, 0) },
             { "Белый", new Color(225, 225, 225) },

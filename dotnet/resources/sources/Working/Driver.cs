@@ -8,11 +8,11 @@ namespace iTeffa.Working
 {
     class Diver : Script
     {
-        private static int checkpointPayment = 100;
-        private static int JobWorkId = 13;
-        private static int JobsMinLVL = 3;
-        private static int ColObjects = 5;
-        private static nLog Log = new nLog("Diver");
+        private static readonly int checkpointPayment = 100;
+        private static readonly int JobWorkId = 13;
+        private static readonly int JobsMinLVL = 3;
+        private static readonly int ColObjects = 5;
+        private static readonly nLog Log = new nLog("Diver");
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()
@@ -59,7 +59,7 @@ namespace iTeffa.Working
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static List<Checkpoint> Checkpoints = new List<Checkpoint>()
+        private static readonly List<Checkpoint> Checkpoints = new List<Checkpoint>()
         {
             new Checkpoint(new Vector3(1762.287, -19.40464, 154.4776), 206.6532),
             new Checkpoint(new Vector3(1857.945, 1.099715, 152.0033), 206.6532),
@@ -68,13 +68,13 @@ namespace iTeffa.Working
             new Checkpoint(new Vector3(1971.705, 190.3279, 148.1627), 206.6532),
         };
 
-        private static List<Checkpoint> Checkpoints2 = new List<Checkpoint>()
+        private static readonly List<Checkpoint> Checkpoints2 = new List<Checkpoint>()
         {
             new Checkpoint(new Vector3(1695.163, 42.85501, 160.6473), 99.49088),
         };
 
 
-        private static List<string> Objects = new List<string>(){"apa_mp_h_acc_bottle_01", "bkr_prop_clubhouse_laptop_01b", "bkr_prop_coke_boxeddoll", "prop_roadcone02b", "prop_mr_rasberryclean"};
+        private static readonly List<string> Objects = new List<string>(){"apa_mp_h_acc_bottle_01", "bkr_prop_clubhouse_laptop_01b", "bkr_prop_coke_boxeddoll", "prop_roadcone02b", "prop_mr_rasberryclean"};
 
 
         #region Меню которое нажимается на E
@@ -148,14 +148,14 @@ namespace iTeffa.Working
         }
         #endregion
         #region Рандом Штаны и куртка Для мужиков
-        private static List<string> SetClothes4 = new List<string>()
+        private static readonly List<string> SetClothes4 = new List<string>()
         {
             "0",
             "1",
             "2",
             "3",
         };
-        private static List<string> SetClothes11 = new List<string>()
+        private static readonly List<string> SetClothes11 = new List<string>()
         {
             "0",
             "1",
@@ -164,14 +164,14 @@ namespace iTeffa.Working
         };
         #endregion
         #region Рандом Куртка и куртка Для девушек
-        private static List<string> SetClothes4_2 = new List<string>()
+        private static readonly List<string> SetClothes4_2 = new List<string>()
         {
             "0",
             "1",
             "2",
             "3",
         };
-        private static List<string> SetClothes11_2 = new List<string>()
+        private static readonly List<string> SetClothes11_2 = new List<string>()
         {
             "0",
             "1",

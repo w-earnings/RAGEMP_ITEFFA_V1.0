@@ -40,7 +40,7 @@ namespace iTeffa.Settings
                 }
                 catch (ArgumentException ae)
                 {
-                    Log.Write($"Сonnection string contains an error\n{ae.ToString()}", nLog.Type.Error);
+                    Log.Write($"Сonnection string contains an error\n{ae}", nLog.Type.Error);
                     return false;
                 }
                 catch (MySqlException me)
@@ -98,9 +98,11 @@ namespace iTeffa.Settings
                 if (Debug) Log.Debug("Query to DB:\n" + command);
                 using MySqlConnection connection = new MySqlConnection(Connection);
                 await connection.OpenAsync();
-                using MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = connection;
-                cmd.CommandText = command;
+                using MySqlCommand cmd = new MySqlCommand
+                {
+                    Connection = connection,
+                    CommandText = command
+                };
                 await cmd.ExecuteNonQueryAsync();
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }

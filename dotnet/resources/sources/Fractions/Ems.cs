@@ -9,11 +9,11 @@ namespace iTeffa.Fractions
 {
     class Ems : Script
     {
-        private static nLog Log = new nLog("EMS");
+        private static readonly nLog Log = new nLog("EMS");
         public static int HumanMedkitsLefts = 100;
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -203,7 +203,7 @@ namespace iTeffa.Fractions
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов", 3000);
                 where = 11;
             }
-            catch (Exception e) { Log.Write($"acceptCall/{where}/: {e.ToString()}"); }
+            catch (Exception e) { Log.Write($"acceptCall/{where}/: {e}"); }
         }
 
         public static void onPlayerDisconnectedhandler(Player player, DisconnectionType type, string reason)
@@ -234,7 +234,7 @@ namespace iTeffa.Fractions
             catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
         }
 
-        private static List<string> deadAnims = new List<string>() { "dead_a", "dead_b", "dead_c", "dead_d", "dead_e", "dead_f", "dead_g", "dead_h" };
+        private static readonly List<string> deadAnims = new List<string>() { "dead_a", "dead_b", "dead_c", "dead_d", "dead_e", "dead_f", "dead_g", "dead_h" };
         [ServerEvent(Event.PlayerDeath)]
         public void onPlayerDeathHandler(Player player, Player entityKiller, uint weapon)
         {
@@ -578,7 +578,7 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваше лечение закончено", 3000);
                         return;
                     }
-                    player.Health = player.Health + 1;
+                    player.Health += 1;
                 }
                 catch { }
             });
@@ -765,7 +765,7 @@ namespace iTeffa.Fractions
             menu.Open(player);
         }
 
-        private static List<string> TattooZonesNames = new List<string>() { "торса", "головы", "левой руки", "правой руки", "левой ноги", "правой ноги" };
+        private static readonly List<string> TattooZonesNames = new List<string>() { "торса", "головы", "левой руки", "правой руки", "левой ноги", "правой ноги" };
         private static void callback_tattoodelete(Player client, Menu menu, Menu.Item item, string eventName, dynamic data)
         {
             if (item.ID == "close")
@@ -789,9 +789,11 @@ namespace iTeffa.Fractions
 
             foreach (var tattoo in Customization.CustomPlayerData[Main.Players[client].UUID].Tattoos[Convert.ToInt32(zone)])
             {
-                var decoration = new Decoration();
-                decoration.Collection = NAPI.Util.GetHashKey(tattoo.Dictionary);
-                decoration.Overlay = NAPI.Util.GetHashKey(tattoo.Hash);
+                var decoration = new Decoration
+                {
+                    Collection = NAPI.Util.GetHashKey(tattoo.Dictionary),
+                    Overlay = NAPI.Util.GetHashKey(tattoo.Hash)
+                };
                 client.RemoveDecoration(decoration);
             }
             Customization.CustomPlayerData[Main.Players[client].UUID].Tattoos[Convert.ToInt32(zone)] = new List<Tattoo>();

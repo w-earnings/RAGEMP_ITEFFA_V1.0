@@ -9,19 +9,19 @@ namespace iTeffa.Globals
     class DrivingSchool : Script
     {
         // мотоциклы, легковые машины, грузовые, водный, вертолёты, самолёты
-        private static List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 };
-        private static Vector3 enterSchool = new Vector3(228.572708, 373.805969, 104.994225);
-        private static List<Vector3> startCourseCoord = new List<Vector3>()
+        private static readonly List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 };
+        private static readonly Vector3 enterSchool = new Vector3(228.572708, 373.805969, 104.994225);
+        private static readonly List<Vector3> startCourseCoord = new List<Vector3>()
         {
             new Vector3(213.8353, 389.4972, 106.6874),
         };
-        private static List<Vector3> startCourseRot = new List<Vector3>()
+        private static readonly List<Vector3> startCourseRot = new List<Vector3>()
         {
             new Vector3(-0.08991995, -0.000970318, 51.23025),
             new Vector3(-0.08991995, -0.000970318, 51.23025),
             new Vector3(-0.08991995, -0.000970318, 51.23025),
         };
-        private static List<Vector3> drivingCoords = new List<Vector3>()
+        private static readonly List<Vector3> drivingCoords = new List<Vector3>()
         {
             new Vector3(188.7008, 366.5621, 107.6869),
             new Vector3(140.3896, 362.6936, 111.3745),
@@ -56,10 +56,10 @@ namespace iTeffa.Globals
             new Vector3(213.2493, 388.6108, 106.7043),
         };
 
-        private static nLog Log = new nLog("Driving School");
+        private static readonly nLog Log = new nLog("Driving School");
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class Items : Script
     {
-        private static nLog Log = new nLog("Items");
+        private static readonly nLog Log = new nLog("Items");
 
         public static List<int> ItemsDropped = new List<int>();
         public static List<int> InProcessering = new List<int>();
@@ -926,11 +926,11 @@ namespace iTeffa.Globals
             }
         }
         // TO DELETE
-        private static List<int> TypesCounts = new List<int>()
+        private static readonly List<int> TypesCounts = new List<int>()
         {
             5, 10, 15, 3000, 5000, 10000
         };
-        private static List<Tuple<int, int>> PresentsTypes = new List<Tuple<int, int>>()
+        private static readonly List<Tuple<int, int>> PresentsTypes = new List<Tuple<int, int>>()
         {
             new Tuple<int, int>(0, 5),
             new Tuple<int, int>(1, 4),

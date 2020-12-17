@@ -9,9 +9,9 @@ namespace iTeffa.Fractions
 {
     class Fbi : Script
     {
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -88,7 +88,7 @@ namespace iTeffa.Fractions
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static List<Vector3> fbiCheckpoints = new List<Vector3>()
+        private static readonly List<Vector3> fbiCheckpoints = new List<Vector3>()
         {
             new Vector3(147.2835, -757.7181, 241.032),      // duty         0
             new Vector3(136.1821, -761.7615, 241.152),      // 49 floor     1
@@ -102,7 +102,7 @@ namespace iTeffa.Fractions
             new Vector3(151.8786, -736.7075, 241.032),      // fbi stock    9
         };
         public static bool warg_mode = false;
-        private static nLog Log = new nLog("FBI");
+        private static readonly nLog Log = new nLog("FBI");
         public static void interactPressed(Player player, int interact)
         {
             switch (interact)

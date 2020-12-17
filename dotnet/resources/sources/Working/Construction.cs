@@ -61,7 +61,7 @@ namespace iTeffa.Working
         }
 
         #region Чекпоинты
-        private static List<Checkpoint> Checkpoints = new List<Checkpoint>()
+        private static readonly List<Checkpoint> Checkpoints = new List<Checkpoint>()
         {
             new Checkpoint(new Vector3(22.8898, -402.6957, 44.43897), 19.49689), // Тоскает коробку
             new Checkpoint(new Vector3(28.69614, -452.2071, 44.43775), 243.5095), // Тоскает мусор цемент
@@ -71,7 +71,7 @@ namespace iTeffa.Working
             new Checkpoint(new Vector3(38.71178, -401.6262, 44.43897), 68.8477), // Стучит молотком
             new Checkpoint(new Vector3(38.71178, -401.6262, 44.43897), 341.7192), // Стучит молотком
         };
-        private static List<Checkpoint> Checkpoints2 = new List<Checkpoint>()
+        private static readonly List<Checkpoint> Checkpoints2 = new List<Checkpoint>()
         {
             new Checkpoint(new Vector3(54.49169, -377.0713, 44.43923), 152.6219), // Тоскает коробку Конец
             new Checkpoint(new Vector3(60.10947, -398.5452, 38.80103), 65.90971), // Тоскает мусор Конец

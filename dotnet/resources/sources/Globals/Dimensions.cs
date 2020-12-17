@@ -8,10 +8,10 @@ namespace iTeffa.Globals
 {
     class Dimensions : Script
     {
-        private static nLog Log = new nLog("Dimensions");
+        private static readonly nLog Log = new nLog("Dimensions");
 
-        private static Dictionary<int, Entity> DimensionsInUse = new Dictionary<int, Entity>();
-        private static ICollection<int> Keys = DimensionsInUse.Keys;
+        private static readonly Dictionary<int, Entity> DimensionsInUse = new Dictionary<int, Entity>();
+        private static readonly ICollection<int> Keys = DimensionsInUse.Keys;
 
         public static uint RequestPrivateDimension(Player requester)
         {

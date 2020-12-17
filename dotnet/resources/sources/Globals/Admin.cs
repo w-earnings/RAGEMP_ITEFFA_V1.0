@@ -16,7 +16,7 @@ namespace iTeffa.Globals
 {
     class Admin : Script
     {
-        private static nLog Log = new nLog("Admin");
+        private static readonly nLog Log = new nLog("Admin");
         public static bool IsServerStoping = false;
 
         [ServerEvent(Event.ResourceStart)]

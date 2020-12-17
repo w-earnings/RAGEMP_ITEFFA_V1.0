@@ -21,7 +21,7 @@ namespace iTeffa.Finance
         };
         #endregion
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

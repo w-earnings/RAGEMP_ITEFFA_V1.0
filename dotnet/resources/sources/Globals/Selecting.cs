@@ -11,7 +11,7 @@ namespace iTeffa.Globals
 {
     class Selecting : Script
     {
-        private static nLog Log = new nLog("Selecting");
+        private static readonly nLog Log = new nLog("Selecting");
 
         [RemoteEvent("oSelected")]
         public static void objectSelected(Player player, GTANetworkAPI.Object entity)

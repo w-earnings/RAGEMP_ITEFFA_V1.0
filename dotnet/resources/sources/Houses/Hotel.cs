@@ -9,18 +9,18 @@ namespace iTeffa.Houses
 {
     class Hotel : Script
     {
-        private static nLog Log = new nLog("Hotel");
+        private static readonly nLog Log = new nLog("Hotel");
 
         public static int HotelRent = 100;
         public static List<Vector3> HotelEnters = new List<Vector3>()
         {
             new Vector3(-1274.113, 315.5634, 64.39182),
         };
-        private static List<Vector3> CarsGet = new List<Vector3>()
+        private static readonly List<Vector3> CarsGet = new List<Vector3>()
         {
             new Vector3(-1276.953, 314.8228, 64.39178),
         };
-        private static Vector3 InteriorDoor = new Vector3(151.2052, -1008.007, -100.12);
+        private static readonly Vector3 InteriorDoor = new Vector3(151.2052, -1008.007, -100.12);
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()

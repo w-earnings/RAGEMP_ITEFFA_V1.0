@@ -11,7 +11,7 @@ namespace iTeffa.Working
 {
     class Truckers : Script
     {
-        private static nLog Log = new nLog("Truckers");
+        private static readonly nLog Log = new nLog("Truckers");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -47,7 +47,7 @@ namespace iTeffa.Working
             }
         }
 
-        private static List<ColShape> cols = new List<ColShape>();
+        private static readonly List<ColShape> cols = new List<ColShape>();
         public static List<Vector3> getProduct = new List<Vector3>()
         {
             new Vector3(95.82169, 6363.628, 30.37586), // 24/7 products && burger-shot && clothesshop && tattoo-salon && barber-shop && masks shop && ls customs
@@ -55,7 +55,7 @@ namespace iTeffa.Working
             new Vector3(148.6672, 6362.376, 30.52923), // autos
             new Vector3(2710.076, 3454.989, 55.31736), // gun products
         };
-        private static List<List<Vector3>> SpawnTrailers = new List<List<Vector3>>()
+        private static readonly List<List<Vector3>> SpawnTrailers = new List<List<Vector3>>()
         {
             new List<Vector3>()
             {
@@ -82,7 +82,7 @@ namespace iTeffa.Working
                 new Vector3(2657.382, 3452.611, 55.75822),
             }, // guns
         };
-        private static List<List<Vector3>> SpawnTrailersRot = new List<List<Vector3>>()
+        private static readonly List<List<Vector3>> SpawnTrailersRot = new List<List<Vector3>>()
         {
             new List<Vector3>()
             {
@@ -109,7 +109,7 @@ namespace iTeffa.Working
                 new Vector3(-1.767069, 1.140572, 245.2113),
             }, // guns
         };
-        private static List<int> LastTrailerSpawn = new List<int>()
+        private static readonly List<int> LastTrailerSpawn = new List<int>()
         {
             0, 0, 0, 0
         };

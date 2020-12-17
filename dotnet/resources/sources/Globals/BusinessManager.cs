@@ -16,10 +16,10 @@ namespace iTeffa.Globals
 {
     class BusinessManager : Script
     {
-        private static nLog Log = new nLog("BusinessManager");
+        private static readonly nLog Log = new nLog("BusinessManager");
         private static int lastBizID = -1;
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -144,7 +144,7 @@ namespace iTeffa.Globals
         };
         #endregion
         #region 24/7 Маркет
-        private static List<string> MarketProducts = new List<string>()
+        private static readonly List<string> MarketProducts = new List<string>()
         {
             "Бургер",
             "Хот-Дог",
@@ -164,7 +164,7 @@ namespace iTeffa.Globals
         };
         #endregion
         #region FishShop
-        private static List<string> FishProducts = new List<string>()
+        private static readonly List<string> FishProducts = new List<string>()
         {
             "Удочка",
             "Улучшенная удочка",
@@ -173,7 +173,7 @@ namespace iTeffa.Globals
         };
         #endregion
         #region SellShop
-        private static List<string> SellProducts = new List<string>()
+        private static readonly List<string> SellProducts = new List<string>()
         {
             "Корюшка",
             "Кунджа",
@@ -198,7 +198,7 @@ namespace iTeffa.Globals
         };
         #endregion
         #region Оружейная
-        private static List<string> GunNames = new List<string>()
+        private static readonly List<string> GunNames = new List<string>()
         {
             "Pistol",
             "CombatPistol",
@@ -1965,7 +1965,7 @@ namespace iTeffa.Globals
             }
             return nearestBiz;
         }
-        private static List<int> clothesOutgo = new List<int>()
+        private static readonly List<int> clothesOutgo = new List<int>()
         {
             1, // Головные уборы
             4, // Верхняя одежда
@@ -3328,8 +3328,8 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, nLog.Type.Error); }
         }
-        private static List<int> AmmoPrices = new List<int>() { 4, 8, 15, 110, 8 };
-        private static List<ItemType> AmmoTypes = new List<ItemType>() { ItemType.PistolAmmo, ItemType.SMGAmmo, ItemType.RiflesAmmo, ItemType.SniperAmmo, ItemType.ShotgunsAmmo };
+        private static readonly List<int> AmmoPrices = new List<int>() { 4, 8, 15, 110, 8 };
+        private static readonly List<ItemType> AmmoTypes = new List<ItemType>() { ItemType.PistolAmmo, ItemType.SMGAmmo, ItemType.RiflesAmmo, ItemType.SniperAmmo, ItemType.ShotgunsAmmo };
 
         [RemoteEvent("wshop")]
         public static void Event_WShop(Player client, int cat, int index)
@@ -3376,7 +3376,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, nLog.Type.Error); }
         }
-        private static List<List<string>> gunsCat = new List<List<string>>()
+        private static readonly List<List<string>> gunsCat = new List<List<string>>()
         {
             new List<string>()
             {

@@ -23,14 +23,14 @@ namespace iTeffa.Interface
             catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
         }
 
-        private static nLog Log = new nLog("Dashboard");
+        private static readonly nLog Log = new nLog("Dashboard");
         public static Dictionary<Player, bool> isopen = new Dictionary<Player, bool>();
-        private static Dictionary<int, string> Status = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> Status = new Dictionary<int, string>
         {// Group id, Status
             {0, "Игрок" },
             {16, "Администратор" }
         };
-        private static Dictionary<int, string> Gender = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> Gender = new Dictionary<int, string>
         {// Group id, Status
             {0, "Женский" },
             {1, "Мужской" }

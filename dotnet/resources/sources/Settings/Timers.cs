@@ -8,7 +8,7 @@ namespace iTeffa.Settings
     {
         public static Dictionary<string, NTimer> timers = new Dictionary<string, NTimer>();
         public static nLog Log = new nLog("nTimer", false);
-        private static Config config = new Config("Timers");
+        private static readonly Config config = new Config("Timers");
         private static Thread thread;
 
         private static int delay;

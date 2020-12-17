@@ -8,7 +8,7 @@ namespace iTeffa.Fractions
 {
     class Cityhall : Script
     {
-        private static nLog Log = new nLog("Cityhall");
+        private static readonly nLog Log = new nLog("Cityhall");
         public static int lastHourTax = 0;
         public static int canGetMoney = 999999;
 
@@ -66,7 +66,7 @@ namespace iTeffa.Fractions
             }
         }
 
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> CityhallChecksCoords = new List<Vector3>
         {
             new Vector3(253.9357, 228.9332, 100.6832), // оружейка в мэрии 0z

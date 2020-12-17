@@ -8,11 +8,11 @@ namespace iTeffa.Globals
     class EatManager : Script
     {
 
-        private static nLog Log = new nLog("EatManager");
+        private static readonly nLog Log = new nLog("EatManager");
 
         [ServerEvent(Event.ResourceStart)]
 
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             Log.Write("Staring timers.", nLog.Type.Info);
             Timers.StartTask("checkwater", 180000, () => CheckWater());

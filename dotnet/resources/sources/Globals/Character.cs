@@ -18,8 +18,8 @@ namespace iTeffa.Globals.Character
 {
     public class Character : CharacterData
     {
-        private static nLog Log = new nLog("Character");
-        private static Random Rnd = new Random();
+        private static readonly nLog Log = new nLog("Character");
+        private static readonly Random Rnd = new Random();
 
         public void Spawn(Player player)
         {

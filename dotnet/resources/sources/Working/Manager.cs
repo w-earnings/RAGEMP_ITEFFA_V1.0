@@ -10,11 +10,11 @@ namespace iTeffa.Working
 {
     class WorkManager : Script
     {
-        private static nLog Log = new nLog("WorkManager");
+        private static readonly nLog Log = new nLog("WorkManager");
         public static Random rnd = new Random();
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace iTeffa.Working
             catch (Exception ex) { Log.Write("JobMenu_onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
         }
 
-        private static SortedDictionary<int, ColShape> Cols = new SortedDictionary<int, ColShape>();
+        private static readonly SortedDictionary<int, ColShape> Cols = new SortedDictionary<int, ColShape>();
         public static List<string> JobStats = new List<string>
         {
             "Электрик",
@@ -92,7 +92,7 @@ namespace iTeffa.Working
             {8, new Vector3(473.9508, -1275.597, 29.60513) },  // AutoMechanic job
             {9, new Vector3(1695.163, 42.85501, 160.6473) },  // Водолаз
         };
-        private static SortedList<int, string> JobList = new SortedList<int, string>
+        private static readonly SortedList<int, string> JobList = new SortedList<int, string>
         {
             {1, "электриком" },
             {2, "почтальоном" },
@@ -104,7 +104,7 @@ namespace iTeffa.Working
             {8, "автомехаником" },
             {9, "Водолазом" },
         };
-        private static SortedList<int, int> JobsMinLVL = new SortedList<int, int>()
+        private static readonly SortedList<int, int> JobsMinLVL = new SortedList<int, int>()
         {
             { 1, 0 },
             { 2, 1 },

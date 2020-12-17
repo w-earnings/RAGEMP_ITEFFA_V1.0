@@ -12,8 +12,8 @@ namespace iTeffa.Fractions
 {
     class Police : Script
     {
-        private static nLog Log = new nLog("Police");
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly nLog Log = new nLog("Police");
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> policeCheckpoints = new List<Vector3>()
         {
             new Vector3(463.2361, -998.3675, 23.91487),   // shape, where player can arrest suspect       0
@@ -29,7 +29,7 @@ namespace iTeffa.Fractions
         };
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

@@ -27,10 +27,10 @@ namespace iTeffa.Working
                 Globals.VehicleStreaming.SetLockStatus(veh, false);
             }
         }
-        private static nLog Log = new nLog("Mechanic");
+        private static readonly nLog Log = new nLog("Mechanic");
 
-        private static int mechanicRentCost = 100;
-        private static Dictionary<Player, ColShape> orderCols = new Dictionary<Player, ColShape>();
+        private static readonly int mechanicRentCost = 100;
+        private static readonly Dictionary<Player, ColShape> orderCols = new Dictionary<Player, ColShape>();
 
         public static void mechanicRepair(Player player, Player target, int price)
         {

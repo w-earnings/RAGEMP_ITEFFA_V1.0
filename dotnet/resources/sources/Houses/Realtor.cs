@@ -7,12 +7,12 @@ namespace iTeffa.Houses
 {
     class Realtor : Script
     {
-        private static nLog RLog = new nLog("RealtorManager");
-        private static List<object> HouseList = new List<object>();
+        private static readonly nLog RLog = new nLog("RealtorManager");
+        private static readonly List<object> HouseList = new List<object>();
         private static ColShape shape;
         private static Marker intmarker;
-        private static Vector3 PositionRealtor = new Vector3(-1289.75, -574.48, 29.08);
-        private static int[] PriceToInfo = { 0, 100, 200, 500, 1000, 1500, 2000 };
+        private static readonly Vector3 PositionRealtor = new Vector3(-1289.75, -574.48, 29.08);
+        private static readonly int[] PriceToInfo = { 0, 100, 200, 500, 1000, 1500, 2000 };
 
         [ServerEvent(Event.ResourceStart)]
         public static void EnterShapeRealtor()

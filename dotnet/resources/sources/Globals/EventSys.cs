@@ -23,9 +23,9 @@ namespace iTeffa.Globals
             public List<Player> EventMembers = new List<Player>();
             public List<Vehicle> EventVehicles = new List<Vehicle>();
         }
-        private static CustomEvent AdminEvent = new CustomEvent(); // Одновременно можно будет создать только одно мероприятие.
-        private static nLog Log = new nLog("EventSys");
-        private static Config config = new Config("EventSys");
+        private static readonly CustomEvent AdminEvent = new CustomEvent(); // Одновременно можно будет создать только одно мероприятие.
+        private static readonly nLog Log = new nLog("EventSys");
+        private static readonly Config config = new Config("EventSys");
 
         public static void Init()
         {

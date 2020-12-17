@@ -10,7 +10,7 @@ namespace iTeffa.Finance
 {
     class ATM : Script
     {
-        private static nLog Log = new nLog("Bank - ATMs");
+        private static readonly nLog Log = new nLog("Bank - ATMs");
         public static Dictionary<int, ColShape> ATMCols = new Dictionary<int, ColShape>();
         #region Координаты банкоматов
         public static List<Vector3> ATMs = new List<Vector3>
@@ -144,7 +144,7 @@ namespace iTeffa.Finance
         };
         #endregion Координаты банкоматов
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

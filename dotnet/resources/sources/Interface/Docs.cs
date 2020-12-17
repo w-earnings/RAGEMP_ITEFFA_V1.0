@@ -7,7 +7,7 @@ namespace iTeffa.Interface
 {
     class Docs : Script
     {
-        private static nLog Log = new nLog("Docs");
+        private static readonly nLog Log = new nLog("Docs");
         [RemoteEvent("passport")]
         public static void Event_Passport(Player player, params object[] arguments)
         {

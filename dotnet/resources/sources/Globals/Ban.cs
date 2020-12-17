@@ -14,8 +14,8 @@ namespace iTeffa.Globals
 {
     class Ban : BanData
     {
-        private static List<Ban> Banned = new List<Ban>();
-        private static nLog Log = new nLog("BanSystem");
+        private static readonly List<Ban> Banned = new List<Ban>();
+        private static readonly nLog Log = new nLog("BanSystem");
         
         // Синхронизация с базой
         public static void Sync()

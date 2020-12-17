@@ -7,9 +7,9 @@ namespace iTeffa.Globals
 {
     class ArmedBody : Script
     {
-        static string[] WeaponKeys = { "WEAPON_OBJ_PISTOL", "WEAPON_OBJ_SMG", "WEAPON_OBJ_BACK_RIGHT", "WEAPON_OBJ_BACK_LEFT" };
+        static readonly string[] WeaponKeys = { "WEAPON_OBJ_PISTOL", "WEAPON_OBJ_SMG", "WEAPON_OBJ_BACK_RIGHT", "WEAPON_OBJ_BACK_LEFT" };
 
-        private static nLog Log = new nLog("Armedbody");
+        private static readonly nLog Log = new nLog("Armedbody");
 
         public enum WeaponAttachmentType
         {
@@ -29,7 +29,7 @@ namespace iTeffa.Globals
                 Type = type;
             }
         }
-        static Dictionary<WeaponHash, WeaponAttachmentInfo> WeaponData = new Dictionary<WeaponHash, WeaponAttachmentInfo>
+        static readonly Dictionary<WeaponHash, WeaponAttachmentInfo> WeaponData = new Dictionary<WeaponHash, WeaponAttachmentInfo>
         {
             // pistols
             { WeaponHash.Pistol, new WeaponAttachmentInfo("w_pi_pistol", WeaponAttachmentType.RightLeg) },

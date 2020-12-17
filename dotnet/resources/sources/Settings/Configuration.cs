@@ -7,9 +7,9 @@ namespace iTeffa.Settings
 {
     public class Config
     {
-        private Dictionary<string, object> configs;
-        private string Category;
-        private string DBCONN = "Data Source=iTeffa.db;Version=3;";
+        private readonly Dictionary<string, object> configs;
+        private readonly string Category;
+        private readonly string DBCONN = "Data Source=iTeffa.db;Version=3;";
         public Config(string category_)
         {
             configs = new Dictionary<string, object>();

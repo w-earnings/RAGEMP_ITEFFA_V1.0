@@ -14,7 +14,7 @@ namespace iTeffa.Globals
         }
 
         public static List<HuntingAnimal> SpawnedAnimals = new List<HuntingAnimal>();
-        private static Random Rnd = new Random();
+        private static readonly Random Rnd = new Random();
         public static int Interval = 1000;
 
         // Defining of the animals.

@@ -11,7 +11,7 @@ namespace iTeffa.Interface
     class MenuManager : Script
     {
         public static Dictionary<Entity, Menu> Menus = new Dictionary<Entity, Menu>();
-        private static nLog Log = new nLog("MenuControl");
+        private static readonly nLog Log = new nLog("MenuControl");
 
         public static void Event_OnPlayerDisconnected(Player client, DisconnectionType type, string reason)
         {

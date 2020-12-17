@@ -21,8 +21,6 @@ namespace iTeffa.Interface
         public MenuCallback Callback { get; set; }
         [JsonIgnore]
         public MenuBack BackButton { get; set; }
-        [JsonIgnore]
-        private static nLog Log = new nLog("Menu");
 
         public Menu(string id, bool canback, bool canhome)
         {

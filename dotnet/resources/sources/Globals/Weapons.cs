@@ -9,7 +9,7 @@ namespace iTeffa.Globals
 {
     class Weapons : Script
     {
-        private static nLog Log = new nLog("Weapons");
+        private static readonly nLog Log = new nLog("Weapons");
         
         internal enum Hash : Int32
         {

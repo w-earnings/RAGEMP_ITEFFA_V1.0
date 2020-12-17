@@ -109,7 +109,7 @@ namespace iTeffa.Houses
         public static int DimensionID = 1000;
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

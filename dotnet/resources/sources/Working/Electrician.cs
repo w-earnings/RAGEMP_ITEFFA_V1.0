@@ -9,8 +9,8 @@ namespace iTeffa.Working
 {
     class Electrician : Script
     {
-        private static int checkpointPayment = 7;
-        private static nLog Log = new nLog("Electrician");
+        private static readonly int checkpointPayment = 7;
+        private static readonly nLog Log = new nLog("Electrician");
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()
@@ -164,7 +164,7 @@ namespace iTeffa.Working
             }
         }
 
-        private static List<Checkpoint> Checkpoints = new List<Checkpoint>()
+        private static readonly List<Checkpoint> Checkpoints = new List<Checkpoint>()
         {
             new Checkpoint(new Vector3(678.6784, 163.7561, 79.80791), 338.0567),
             new Checkpoint(new Vector3(697.9194, 158.3429, 79.8203), 162.1701),

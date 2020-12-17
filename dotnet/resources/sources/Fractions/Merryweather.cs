@@ -7,9 +7,9 @@ namespace iTeffa.Fractions
 {
     class Merryweather : Script
     {
-        private static nLog Log = new nLog("Merryweather");
+        private static readonly nLog Log = new nLog("Merryweather");
 
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> Coords = new List<Vector3>
         {
             new Vector3(1571.831, 2240.648, 78.40011),    // Колшэйп входа в бункер

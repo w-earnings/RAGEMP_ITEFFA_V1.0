@@ -9,10 +9,10 @@ namespace iTeffa.Globals
 {
     class Rentcar : Script
     {
-        private static nLog Log = new nLog("Rentcar");
+        private static readonly nLog Log = new nLog("Rentcar");
         public static List<CarInfo> CarInfos = new List<CarInfo>();
 
-        private static List<Vector3> RentAreas = new List<Vector3>()
+        private static readonly List<Vector3> RentAreas = new List<Vector3>()
         {
             new Vector3(-80.102, 6344.091, 31.48188),
             new Vector3(1691.532, 4778.648, 41.91788),

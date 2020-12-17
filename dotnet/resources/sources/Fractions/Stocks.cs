@@ -12,10 +12,10 @@ namespace iTeffa.Fractions
 {
     class Stocks : Script
     {
-        private static nLog Log = new nLog("Stocks");
+        private static readonly nLog Log = new nLog("Stocks");
 
         public static Dictionary<int, FractionStock> fracStocks = new Dictionary<int, FractionStock>();
-        private static Dictionary<int, Vector3> stockCoords = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> stockCoords = new Dictionary<int, Vector3>()
         {
             {1, new Vector3(-25.72462, -1397.463, 23.55845)},     // The Families
             {2, new Vector3(114.8752, -1995.554, 11.48072)},      // The Ballas Gang
@@ -37,7 +37,7 @@ namespace iTeffa.Fractions
             { 17, new Vector3(2040.175, 3018.278, -73.82208)},
             { 18, new Vector3()},
         };
-        private static Dictionary<int, Vector3> garageCoords = new Dictionary<int, Vector3>()
+        private static readonly Dictionary<int, Vector3> garageCoords = new Dictionary<int, Vector3>()
         {
             {1, new Vector3(-25.12974, -1411.033, 28.50709)},    // The Families
             {2, new Vector3(115.0507, -1993.898, 17.18044)},     // The Ballas Gang

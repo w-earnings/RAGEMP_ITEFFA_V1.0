@@ -13,8 +13,8 @@ namespace iTeffa.Fractions
 {
     class Manager : Script
     {
-        private static nLog Log = new nLog("Fractions");
-        public static void onResourceStart()
+        private static readonly nLog Log = new nLog("Fractions");
+        public static void OnResourceStart()
         {
             try
             {
@@ -44,10 +44,12 @@ namespace iTeffa.Fractions
                 {
                     foreach (DataRow Row in result.Rows)
                     {
-                        var memberData = new MemberData();
-                        memberData.Name = $"{Convert.ToString(Row["firstname"])}_{Convert.ToString(Row["lastname"])}";
-                        memberData.FractionID = Convert.ToInt32(Row["fraction"]);
-                        memberData.FractionLVL = Convert.ToInt32(Row["fractionlvl"]);
+                        var memberData = new MemberData
+                        {
+                            Name = $"{Convert.ToString(Row["firstname"])}_{Convert.ToString(Row["lastname"])}",
+                            FractionID = Convert.ToInt32(Row["fraction"]),
+                            FractionLVL = Convert.ToInt32(Row["fractionlvl"])
+                        };
                         memberData.inFracName = getNickname(memberData.FractionID, memberData.FractionLVL);
 
                         if (memberData.FractionID != 0)
@@ -103,7 +105,7 @@ namespace iTeffa.Fractions
 
         };
         public static int matsForArmor = 250;
-        private static List<List<string>> gangGuns = new List<List<string>>
+        private static readonly List<List<string>> gangGuns = new List<List<string>>
         {
             new List<string>
             {
@@ -125,7 +127,7 @@ namespace iTeffa.Fractions
             },
             new List<string>(),
         };
-        private static List<List<string>> mafiaGuns = new List<List<string>>
+        private static readonly List<List<string>> mafiaGuns = new List<List<string>>
         {
             new List<string>
             {
@@ -246,7 +248,7 @@ namespace iTeffa.Fractions
                         NAPI.Chat.SendChatMessageToPlayer(p, msgSender);
                 }
             }
-            catch (Exception e) { Log.Write($"FractionChat:\n {e.ToString()}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"FractionChat:\n {e}", nLog.Type.Error); }
         }
 
         public static Dictionary<int, int> GovIds = new Dictionary<int, int>
@@ -284,7 +286,7 @@ namespace iTeffa.Fractions
 
             var color = "!{#B8962E}";
             string msgSender = $"{color}[{GovTags[Fraction]}] {Members[sender].inFracName} " + sender.Name.ToString().Replace('_', ' ') + " (" + sender.Value + "): " + message;
-            var fracid = Main.Players[sender].FractionID;
+            _ = Main.Players[sender].FractionID;
             foreach (var p in NAPI.Pools.GetAllPlayers())
             {
                 if (p == null) continue;
@@ -297,11 +299,13 @@ namespace iTeffa.Fractions
         public static void Load(Player player, int fractionID, int fractionLVL)
         {
             if (Members.ContainsKey(player)) Members.Remove(player);
-            MemberData data = new MemberData();
-            data.FractionID = fractionID;
-            data.FractionLVL = fractionLVL;
-            data.inFracName = getNickname(fractionID, fractionLVL);
-            data.Name = player.Name.ToString();
+            MemberData data = new MemberData
+            {
+                FractionID = fractionID,
+                FractionLVL = fractionLVL,
+                inFracName = getNickname(fractionID, fractionLVL),
+                Name = player.Name.ToString()
+            };
             Members.Add(player, data);
 
             if (fractionID == 14 && fractionLVL < 6)
@@ -323,7 +327,7 @@ namespace iTeffa.Fractions
             }
             Trigger.ClientEvent(player, "fractionChange", fractionID);
             player.SetSharedData("fraction", fractionID);
-            Log.Write($"Member {player.Name.ToString()} loaded. ", nLog.Type.Success);
+            Log.Write($"Member {player.Name} loaded. ", nLog.Type.Success);
         }
         public static void UNLoad(Player player)
         {
@@ -351,7 +355,7 @@ namespace iTeffa.Fractions
                         }
                     }
                 }
-                Log.Write($"Member {player.Name.ToString()} unloaded.", nLog.Type.Success);
+                Log.Write($"Member {player.Name} unloaded.", nLog.Type.Success);
             }
             catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
         }
@@ -1243,13 +1247,13 @@ namespace iTeffa.Fractions
         {
             if (!Main.Players.ContainsKey(player) || !Stocks.fracStocks.ContainsKey(Main.Players[player].FractionID)) return;
 
-            if (player.HasData($"GET_{gun.ToString()}") && DateTime.Now < player.GetData<DateTime>($"GET_{gun.ToString()}"))
+            if (player.HasData($"GET_{gun}") && DateTime.Now < player.GetData<DateTime>($"GET_{gun}"))
             {
-                DateTime date = player.GetData<DateTime>($"GET_{gun.ToString()}");
+                DateTime date = player.GetData<DateTime>($"GET_{gun}");
                 DateTime g = new DateTime((date - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете взять {gun.ToString()} через {min}:{sec}", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете взять {gun} через {min}:{sec}", 3000);
                 return;
             }
 
@@ -1281,10 +1285,10 @@ namespace iTeffa.Fractions
             var minutes = 5;
             if (Main.Players[player].FractionID == 7) minutes = 10;
             if (Main.Players[player].FractionID == 18) minutes = 10;
-            player.SetData($"GET_{gun.ToString()}", DateTime.Now.AddMinutes(minutes));
+            player.SetData($"GET_{gun}", DateTime.Now.AddMinutes(minutes));
 
-            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{gun.ToString()}({serial})", 1, false);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {wType.ToString()}", 3000);
+            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{gun}({serial})", 1, false);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {wType}", 3000);
             return;
         }
 
@@ -1356,7 +1360,7 @@ namespace iTeffa.Fractions
             int where = -1;
             try
             {
-                Log.Debug($"{frac.ToString()}:{cat.ToString()}:{index.ToString()}");
+                Log.Debug($"{frac}:{cat}:{index}");
                 List<List<string>> list = null;
                 if (FractionTypes[frac] == 1) list = gangGuns;
                 else if (FractionTypes[frac] == 0) list = mafiaGuns;
@@ -1393,7 +1397,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write($"Event_WCraft/{where}/{frac}/{cat}/{index}/: \n{e.ToString()}", nLog.Type.Error);
+                Log.Write($"Event_WCraft/{where}/{frac}/{cat}/{index}/: \n{e}", nLog.Type.Error);
             }
         }
         [RemoteEvent("wcraftammo")]
@@ -1436,7 +1440,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
         }
-        private static Dictionary<ItemType, int> MatsForAmmoType = new Dictionary<ItemType, int>()
+        private static readonly Dictionary<ItemType, int> MatsForAmmoType = new Dictionary<ItemType, int>()
         {
             { ItemType.PistolAmmo, 1 },
             { ItemType.ShotgunsAmmo, 4 },
@@ -1444,14 +1448,14 @@ namespace iTeffa.Fractions
             { ItemType.RiflesAmmo, 4 },
             { ItemType.SniperAmmo, 10 },
         };
-        private static List<int> MatsForAmmo = new List<int>()
+        private static readonly List<int> MatsForAmmo = new List<int>()
         {
             1, // pistol
             4, // shotgun
             2, // smg
             4, // rifles
         };
-        private static List<ItemType> AmmoTypes = new List<ItemType>()
+        private static readonly List<ItemType> AmmoTypes = new List<ItemType>()
         {
             ItemType.PistolAmmo,
             ItemType.ShotgunsAmmo,

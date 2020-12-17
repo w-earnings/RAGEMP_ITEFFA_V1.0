@@ -1,14 +1,13 @@
 ﻿using System;
 using GTANetworkAPI;
-using iTeffa.Fractions;
 using iTeffa.Settings;
 
 namespace iTeffa.Plugins
 {
     public class Blips : Script
     {
-        private static nLog Log = new nLog("Blips");
-        public static void onResourceStart()
+        private static readonly nLog Log = new nLog("Blips");
+        public static void OnResourceStart()
         {
             try
             {

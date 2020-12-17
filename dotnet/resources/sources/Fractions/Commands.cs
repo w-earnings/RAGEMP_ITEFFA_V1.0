@@ -15,7 +15,7 @@ namespace iTeffa.Fractions
         private static readonly nLog Log = new nLog("FractionCommangs");
 
         [ServerEvent(Event.PlayerEnterVehicle)]
-        public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
+        public void onPlayerEnterVehicleHandler(Player player)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
         }
-        private static Dictionary<int, DateTime> NextCarRespawn = new Dictionary<int, DateTime>()
+        private static readonly Dictionary<int, DateTime> NextCarRespawn = new Dictionary<int, DateTime>()
         {
             { 1, DateTime.Now },
             { 2, DateTime.Now },
@@ -82,8 +82,8 @@ namespace iTeffa.Fractions
             foreach (var vehicle in all_vehicles)
             {
                 if (VehicleManager.GetVehicleOccupants(vehicle).Count >= 1) continue;
-                var color1 = vehicle.PrimaryColor;
-                var color2 = vehicle.SecondaryColor;
+                //var color1 = vehicle.PrimaryColor;
+                //var color2 = vehicle.SecondaryColor;
                 if (!vehicle.HasData("ACCESS")) continue;
 
                 if (vehicle.GetData<string>("ACCESS") == "FRACTION" && vehicle.GetData<int>("FRACTION") == Main.Players[player].FractionID)
@@ -106,15 +106,14 @@ namespace iTeffa.Fractions
             if (target == null) return;
             var cuffmesp = ""; 
             var cuffmest = "";
-            var uncuffmesp = "";
-            var uncuffmest = ""; 
             var cuffme = "";
-            var uncuffme = "";
-
             if (player.IsInVehicle) return;
             if (target.IsInVehicle) return;
 
-            if (Manager.FractionTypes[fracid] == 2) 
+            string uncuffmest;
+            string uncuffmesp;
+            string uncuffme;
+            if (Manager.FractionTypes[fracid] == 2)
             {
                 if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                 {
@@ -679,7 +678,7 @@ namespace iTeffa.Fractions
                     targetFollowPlayer(player, target);
                 }
             }
-            catch (Exception e) { Log.Write($"PlayerPressFollow: {e.ToString()} // {e.TargetSite} // ", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"PlayerPressFollow: {e} // {e.TargetSite} // ", nLog.Type.Error); }
         }
 
         public static void unFollow(Player cop, Player suspect)
@@ -743,7 +742,7 @@ namespace iTeffa.Fractions
         public static void targetUnFollowPlayer(Player player)
         {
             if (!Manager.canUseCommand(player, "follow")) return;
-            var fracid = Main.Players[player].FractionID;
+            _ = Main.Players[player].FractionID;
             if (!NAPI.Data.HasEntityData(player, "FOLLOWER"))
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы никого не тащите за собой", 3000);
@@ -870,8 +869,8 @@ namespace iTeffa.Fractions
             if (player != target)
             {
                 if (!Manager.canUseCommand(player, "pull")) return;
-                Vector3 posPlayer = NAPI.Entity.GetEntityPosition(player);
-                Vector3 posTarget = NAPI.Entity.GetEntityPosition(target);
+                _ = NAPI.Entity.GetEntityPosition(player);
+                _ = NAPI.Entity.GetEntityPosition(target);
                 if (player.Position.DistanceTo(target.Position) < 5)
                 {
                     if (NAPI.Player.IsPlayerInAnyVehicle(target))
@@ -904,16 +903,16 @@ namespace iTeffa.Fractions
             }
             if (Main.Players[player].FractionID == 7)
             {
-                var message = "";
                 Police.is_warg = !Police.is_warg;
+                string message;
                 if (Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(7, message);
             }
             else if (Main.Players[player].FractionID == 9)
             {
-                var message = "";
                 Fbi.warg_mode = !Fbi.warg_mode;
+                string message;
                 if (Fbi.warg_mode) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(9, message);

@@ -12,7 +12,7 @@ namespace iTeffa.Plugins
 {
     class ContainerSystem : Script
     {
-        private static nLog Log = new nLog("SysContainers");
+        private static readonly nLog Log = new nLog("SysContainers");
 
         public static List<Container> containers = new List<Container>();
 

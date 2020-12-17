@@ -9,15 +9,15 @@ namespace iTeffa.Globals
     {
 
         private static Thread thread;
-        private static nLog Log = new nLog("GameLog");
-        private static Queue<string> queue = new Queue<string>();
-        private static Dictionary<int, DateTime> OnlineQueue = new Dictionary<int, DateTime>();
+        private static readonly nLog Log = new nLog("GameLog");
+        private static readonly Queue<string> queue = new Queue<string>();
+        private static readonly Dictionary<int, DateTime> OnlineQueue = new Dictionary<int, DateTime>();
         
-        private static Config config = new Config("MySQL");
+        private static readonly Config config = new Config("MySQL");
 
-        private static string DB = config.TryGet<string>("DataBase", "") + "logs";
+        private static readonly string DB = config.TryGet<string>("DataBase", "") + "logs";
 
-        private static string insert = "insert into " + DB + ".{0}({1}) values ({2})";
+        private static readonly string insert = "insert into " + DB + ".{0}({1}) values ({2})";
         
         public static void Votes(uint ElectionId, string Login, string VoteFor)
         {

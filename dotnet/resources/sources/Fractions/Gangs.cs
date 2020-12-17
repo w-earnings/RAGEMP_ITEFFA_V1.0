@@ -8,14 +8,14 @@ namespace iTeffa.Fractions
 {
     class Gangs : Script
     {
-        private static nLog Log = new nLog("Gangs");
+        private static readonly nLog Log = new nLog("Gangs");
 
         public static List<Vector3> DrugPoints = new List<Vector3>()
         {
             new Vector3(8.621573, 3701.914, 39.51624),
             new Vector3(3804.169, 4444.753, 3.977164),
         };
-        private static int PricePerDrug = 60;
+        private static readonly int PricePerDrug = 60;
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_OnResourceStart()

@@ -10,10 +10,10 @@ namespace iTeffa.Working
 {
     class Gopostal : Script
     {
-        private static nLog Log = new nLog("GoPostal");
+        private static readonly nLog Log = new nLog("GoPostal");
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -33,15 +33,15 @@ namespace iTeffa.Working
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static int checkpointPayment = 3;
+        private static readonly int checkpointPayment = 3;
 
         public static List<Vector3> Coords = new List<Vector3>()
         {
             new Vector3(105.4633, -1568.843, 28.60269), // start work
             new Vector3(106.2007, -1563.748, 28.60272), // get car
         };
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
-        private static Dictionary<int, ColShape> gCols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> gCols = new Dictionary<int, ColShape>();
         // Postal items (objects) //
         public static List<uint> GoPostalObjects = new List<uint>
         {

@@ -66,7 +66,7 @@ namespace iTeffa.Globals
             { 20, 100 }, // Commercial
             // 21 trains
         };
-        private static SortedDictionary<int, int> PetrolRate = new SortedDictionary<int, int>()
+        private static readonly SortedDictionary<int, int> PetrolRate = new SortedDictionary<int, int>()
         {
             { -1, 0 },
             { 0, 1 }, // compacts

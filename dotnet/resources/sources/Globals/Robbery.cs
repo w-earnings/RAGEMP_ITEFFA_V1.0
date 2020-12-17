@@ -49,7 +49,7 @@ namespace iTeffa.Globals
             new Vector3(2192.614, 5596.246, 53.89177),
             new Vector3(-215.4299, 6445.921, 31.43351),
         };
-        private static List<string> moneyFlowers = new List<string>()
+        private static readonly List<string> moneyFlowers = new List<string>()
         {
             "Sergey Mavrodi",
             "Jonny Evreyski",
@@ -59,7 +59,7 @@ namespace iTeffa.Globals
         };
 
         public object LogCat { get; private set; }
-        private static nLog Log = new nLog("SafeCracker");
+        private static readonly nLog Log = new nLog("SafeCracker");
 
         #region Methods
         public static bool IsIDInUse(int ID)

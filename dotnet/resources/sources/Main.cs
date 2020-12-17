@@ -67,7 +67,7 @@ namespace iTeffa
         };
         private static readonly nLog Log = new nLog("GM");
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -215,7 +215,7 @@ namespace iTeffa
                     Finance.Donations.Start();
 
                 Log.Write(Constants.GM_VERSION + " started at " + StartDate.ToString("s"), nLog.Type.Success);
-                Log.Write($"Assembly compiled {CompileDate.ToString("s")}", nLog.Type.Success);
+                Log.Write($"Assembly compiled {CompileDate:s}", nLog.Type.Success);
 
                 Console.Title = "RageMP - " + oldconfig.ServerName;
             }
@@ -254,7 +254,7 @@ namespace iTeffa
             {
                 if (type == DisconnectionType.Timeout)
                     Log.Write($"{player.Name} crashed", nLog.Type.Warn);
-                Log.Debug($"DisconnectionType: {type.ToString()}");
+                Log.Debug($"DisconnectionType: {type}");
 
                 Log.Debug("DISCONNECT STARTED");
 
@@ -928,8 +928,7 @@ namespace iTeffa
                             nItem item = items[index];
                             if (item.Type != type) return;
 
-                            int transferAmount;
-                            if (int.TryParse(text, out transferAmount))
+                            if (int.TryParse(text, out int transferAmount))
                             {
                                 if (transferAmount <= 0) return;
                                 if (item.Count < transferAmount)
@@ -1209,8 +1208,7 @@ namespace iTeffa
                         return;
                     case "extend_hotel_rent":
                         {
-                            int hours = 0;
-                            if (!int.TryParse(text, out hours))
+                            if (!int.TryParse(text, out int hours))
                             {
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
@@ -1260,8 +1258,7 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
-                            int num;
-                            if (Int32.TryParse(text, out num))
+                            if (int.TryParse(text, out int num))
                             {
                                 if (!SimCards.ContainsKey(num))
                                 {
@@ -1383,7 +1380,7 @@ namespace iTeffa
                         break;
                 }
             }
-            catch (Exception e) { Log.Write($"inputCallback/{callback}/: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"inputCallback/{callback}/: {e}\n{e.StackTrace}", nLog.Type.Error); }
         }
         [RemoteEvent("openPlayerMenu")]
         public async Task ClientEvent_openPlayerMenu(Player player, params object[] arguments)
@@ -1574,7 +1571,7 @@ namespace iTeffa
                 {
                     if (ban.isHard && ban.CheckDate())
                     {
-                        NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until.ToString()}. Причина: {ban.Reason} ({ban.ByAdmin})"));
+                        NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
                         return;
                     }
                 }
@@ -1632,7 +1629,7 @@ namespace iTeffa
                     {
                         if (ban.isHard && ban.CheckDate())
                         {
-                            NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until.ToString()}. Причина: {ban.Reason} ({ban.ByAdmin})"));
+                            NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
                             return;
                         }
                     }
@@ -2287,8 +2284,7 @@ namespace iTeffa
             Fractions.LSNews.Init();
             EventSys.Init();
             Fractions.ElectionsSystem.OnResourceStart();
-
-            List<string> zones = new List<string>() // Не удалять - надо разобраться для чего это вобше!!!
+            _ = new List<string>()
             {
                 "torso",
                 "head",
@@ -2412,7 +2408,7 @@ namespace iTeffa
                     ClientEventToAll("Enviroment_Weather", newWeather);
                 }
             }
-            catch (Exception e) { Log.Write($"enviromentChangeTrigger: {e.ToString()}"); }
+            catch (Exception e) { Log.Write($"enviromentChangeTrigger: {e}"); }
         }
         private static void playedMinutesTrigger()
         {
@@ -2478,9 +2474,9 @@ namespace iTeffa
                     catch (Exception e) { Log.Write($"PlayedMinutesTrigger: " + e.Message, nLog.Type.Error); }
                 }
             }
-            catch (Exception e) { Log.Write($"playerMinutesTrigger: {e.ToString()}"); }
+            catch (Exception e) { Log.Write($"playerMinutesTrigger: {e}"); }
         }
-        private static Random rndf = new Random();
+        private static readonly Random rndf = new Random();
         public static int pluscost = rndf.Next(10, 20);
         public static void payDayTrigger()
         {
@@ -2767,8 +2763,10 @@ namespace iTeffa
             {
                 foreach (KeyValuePair<int, string> c in acc.Contacts)
                 {
-                    menuItem = new Menu.Item(c.Key.ToString(), Menu.MenuItem.Button);
-                    menuItem.Text = c.Value;
+                    menuItem = new Menu.Item(c.Key.ToString(), Menu.MenuItem.Button)
+                    {
+                        Text = c.Value
+                    };
                     menu.Add(menuItem);
                 }
             }
@@ -3333,7 +3331,7 @@ namespace iTeffa
             }
         }
         private static readonly List<string> MoneyPromos = new List<string>() { };
-        private static Dictionary<string, List<string>> Category = new Dictionary<string, List<string>>()
+        private static readonly Dictionary<string, List<string>> Category = new Dictionary<string, List<string>>()
         {
             { "Категории", new List<string>(){
                 "Гос.структуры",
@@ -3381,7 +3379,7 @@ namespace iTeffa
                 "Ближайшая остановка",
             }},
         };
-        private static Dictionary<string, Vector3> Points = new Dictionary<string, Vector3>()
+        private static readonly Dictionary<string, Vector3> Points = new Dictionary<string, Vector3>()
         {
             { "Мэрия", new Vector3(-535.6117,-220.598,0) },
             { "LSPD", new Vector3(424.4417,-980.3409,0) },
@@ -3573,7 +3571,7 @@ namespace iTeffa
                     Fractions.Ems.callEms(player);
                     return;
                 case "back":
-                    Task pmenu = OpenPlayerMenu(player);
+                    _ = OpenPlayerMenu(player);
                     return;
             }
         }
@@ -3650,7 +3648,7 @@ namespace iTeffa
                     OpenFuelcontrolMenu(player);
                     return;
                 case "back":
-                    Task pmenu = OpenPlayerMenu(player);
+                    _ = OpenPlayerMenu(player);
                     return;
             }
         }

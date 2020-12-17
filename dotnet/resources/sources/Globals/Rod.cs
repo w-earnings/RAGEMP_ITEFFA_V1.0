@@ -165,13 +165,13 @@ namespace iTeffa.Globals
             Trigger.ClientEvent(player, "fishshop", json);
         }
 
-        private static nLog Log = new nLog("RodManager");
+        private static readonly nLog Log = new nLog("RodManager");
 
         private static int lastRodID = -1;
 
         [ServerEvent(Event.ResourceStart)]
 
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -337,7 +337,7 @@ namespace iTeffa.Globals
             [JsonIgnore]
             private readonly Blip blip = null;
             [JsonIgnore]
-            private ColShape shape = null;
+            private readonly ColShape shape = null;
             public Roding(int id, Vector3 areapoint, float radius)
             {
                 ID = id;

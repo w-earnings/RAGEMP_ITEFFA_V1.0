@@ -6,11 +6,10 @@ namespace iTeffa.Plugins
 {
     class InfoPed : Script
     {
-        private static nLog Log = new nLog("InfoPed");
         public static Vector3 NPCPoint1 = new Vector3(-1030.60, -2744.5, 13.85);
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             ColShape shape = NAPI.ColShape.CreateCylinderColShape(NPCPoint1, 3f, 10f);
             NAPI.Blip.CreateBlip(197, NPCPoint1, 0.75F, 37, Main.StringToU16("Newbie spawn"), 255, 0, true, 0, 0);

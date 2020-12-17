@@ -884,12 +884,12 @@ namespace iTeffa.Globals
 
         // UUID, Items by index
         public static Dictionary<int, List<nItem>> Items = new Dictionary<int, List<nItem>>();
-        private static nLog Log = new nLog("nInventory");
+        private static readonly nLog Log = new nLog("nInventory");
         private static Timer SaveTimer;
 
         #region Constructor
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

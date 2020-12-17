@@ -23,9 +23,9 @@ namespace iTeffa.Houses
         [JsonIgnore]
         public Blip blip;
         [JsonIgnore]
-        private TextLabel label;
+        private readonly TextLabel label;
         [JsonIgnore]
-        private ColShape shape;
+        private readonly ColShape shape;
         [JsonIgnore]
         private ColShape intshape;
         [JsonIgnore]
@@ -33,7 +33,7 @@ namespace iTeffa.Houses
         [JsonIgnore]
         private List<GTANetworkAPI.Object> Objects = new List<GTANetworkAPI.Object>();
         [JsonIgnore]
-        private List<NetHandle> PlayersInside = new List<NetHandle>();
+        private readonly List<NetHandle> PlayersInside = new List<NetHandle>();
         public House(int id, string owner, int type, Vector3 position, int price, bool locked, int garageID, int bank, List<string> roommates)
         {
             ID = id;

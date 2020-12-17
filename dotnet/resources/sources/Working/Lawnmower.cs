@@ -9,8 +9,8 @@ namespace iTeffa.Working
 {
     class Lawnmower : Script
     {
-        static int checkpointPayment = 2;
-        private static nLog Log = new nLog("Lawnmower");
+        static readonly int checkpointPayment = 2;
+        private static readonly nLog Log = new nLog("Lawnmower");
 
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStartHandler()
@@ -51,8 +51,8 @@ namespace iTeffa.Working
             }
         }
 
-        private static List<Dictionary<int, ColShape>> MowerWaysCols = new List<Dictionary<int, ColShape>>();
-        private static List<List<Vector3>> MowerWays = new List<List<Vector3>>()
+        private static readonly List<Dictionary<int, ColShape>> MowerWaysCols = new List<Dictionary<int, ColShape>>();
+        private static readonly List<List<Vector3>> MowerWays = new List<List<Vector3>>()
         {
             new List<Vector3>()
             {

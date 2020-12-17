@@ -7,18 +7,18 @@ namespace iTeffa.Fractions
 {
     class MatsWar : Script
     {
-        private static API api = new API();
+        private static readonly API api = new API();
         public static bool isWar = false;
         public static int matsLeft = 15000;
         private static Marker warMarker = null;
-        private static Vector3 warPosition = new Vector3(33.33279, -2669.874, 5.008363);
+        private static readonly Vector3 warPosition = new Vector3(33.33279, -2669.874, 5.008363);
         private static Blip warblip;
         private static string startWarTimer = null;
 
-        private static nLog Log = new nLog("MatsWar");
+        private static readonly nLog Log = new nLog("MatsWar");
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

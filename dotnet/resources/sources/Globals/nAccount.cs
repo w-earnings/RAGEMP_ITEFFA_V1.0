@@ -17,7 +17,7 @@ namespace iTeffa.Globals.nAccount
 {
     public class Account : AccountData
     {
-        private static nLog Log = new nLog("Account");
+        private static readonly nLog Log = new nLog("Account");
 
         public async Task<RegisterEvent> Register(Player client, string login_, string pass_, string email_, string promo_)
         {

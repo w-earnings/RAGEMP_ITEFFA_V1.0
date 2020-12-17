@@ -46,7 +46,7 @@ namespace iTeffa.Globals
         }
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace iTeffa.Globals
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static nLog Log = new nLog("Character");
+        private static readonly nLog Log = new nLog("Character");
 
         public static Dictionary<int, PlayerCustomization> CustomPlayerData = new Dictionary<int, PlayerCustomization>();
 

@@ -26,7 +26,7 @@ namespace iTeffa.Houses
             new HouseType("Премиум", new Vector3(-17.85757, -589.0983, 88.99482), new Vector3(-38.84652, -578.466, 88.58952), 50.8f, "hei_hw1_blimp_interior_10_dlc_apart_high_new_milo_"),
             new HouseType("Премиум+", new Vector3(-173.9419, 497.8622, 136.5341), new Vector3(-164.9799, 480.7568, 137.1526), 40.0f, "apa_ch2_05e_interior_0_v_mp_stilts_b_milo_"),
         };
-        private static List<int> MaxRoommates = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+        private static readonly List<int> MaxRoommates = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
 
         private static int GetUID()
         {
@@ -39,7 +39,7 @@ namespace iTeffa.Houses
 
         #region Events
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

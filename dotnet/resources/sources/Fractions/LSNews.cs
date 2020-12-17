@@ -11,7 +11,7 @@ namespace iTeffa.Fractions
 {
     class LSNews : Script
     {
-        private static nLog Log = new nLog("News");
+        private static readonly nLog Log = new nLog("News");
         private class Advert
         {
             public int ID { get; set; }
@@ -51,7 +51,7 @@ namespace iTeffa.Fractions
 
         public static List<string> AdvertNames;
 
-        private static Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
+        private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> LSNewsCoords = new List<Vector3>
         {
             new Vector3(-1072.655, -246.5676, 53.506), // Колшэйп на крыше LSN
@@ -335,8 +335,10 @@ namespace iTeffa.Fractions
                     response += " | Удалено";
                 }
 
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "UPDATE advertised SET Editor=@resp,EditedAD=@res,Status=@st,Closed=@time WHERE ID=@repid LIMIT 1";
+                MySqlCommand cmd = new MySqlCommand
+                {
+                    CommandText = "UPDATE advertised SET Editor=@resp,EditedAD=@res,Status=@st,Closed=@time WHERE ID=@repid LIMIT 1"
+                };
                 cmd.Parameters.AddWithValue("@resp", player.Name);
                 cmd.Parameters.AddWithValue("@res", response);
                 cmd.Parameters.AddWithValue("@st", true);

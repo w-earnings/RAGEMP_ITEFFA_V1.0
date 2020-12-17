@@ -18,7 +18,7 @@ namespace iTeffa.Houses
         [JsonIgnore] public int Dimension { get; set; }
 
         [JsonIgnore]
-        private ColShape shape;
+        private readonly ColShape shape;
 
         [JsonIgnore]
         private ColShape intShape;
@@ -29,7 +29,7 @@ namespace iTeffa.Houses
         private Dictionary<string, Tuple<int, Entity>> entityVehicles = new Dictionary<string, Tuple<int, Entity>>();
         [JsonIgnore]
         private Dictionary<string, Entity> vehiclesOut = new Dictionary<string, Entity>();
-        private nLog Log = new nLog("Garage");
+        private readonly nLog Log = new nLog("Garage");
 
         public Garage(int id, int type, Vector3 position, Vector3 rotation)
         {

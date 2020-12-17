@@ -8,7 +8,7 @@ namespace iTeffa.Fractions
 {
     class CarDelivery : Script
     {
-        private static nLog Log = new nLog("Crime:CarDelivery");
+        private static readonly nLog Log = new nLog("Crime:CarDelivery");
 
         private static readonly List<VehicleHash> GangsVehiclesHashes = new List<VehicleHash>()
         {
@@ -74,7 +74,7 @@ namespace iTeffa.Fractions
         };
 
         private static readonly Vector3 GangStartDelivery = new Vector3(480.9385, -1302.576, 28.12353);
-        private static List<Vector3> GangSpawnAutos = new List<Vector3>()
+        private static readonly List<Vector3> GangSpawnAutos = new List<Vector3>()
         {
             new Vector3(814.4807, -747.8201, 26.8163),
             new Vector3(711.6686, -895.5933, 23.6463),

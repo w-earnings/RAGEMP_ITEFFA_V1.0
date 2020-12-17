@@ -26,10 +26,10 @@ namespace iTeffa.Working
                 Globals.VehicleStreaming.SetLockStatus(veh, false);
             }
         }
-        private static nLog Log = new nLog("Taxi");
+        private static readonly nLog Log = new nLog("Taxi");
 
-        private static int taxiRentCost = 100;
-        private static Dictionary<Player, ColShape> orderCols = new Dictionary<Player, ColShape>();
+        private static readonly int taxiRentCost = 100;
+        private static readonly Dictionary<Player, ColShape> orderCols = new Dictionary<Player, ColShape>();
 
         public static void taxiRent(Player player)
         {

@@ -9,14 +9,14 @@ namespace iTeffa.Working
 {
     class Bus : Script
     {
-        private static List<int> BuswaysPayments = new List<int>()
+        private static readonly List<int> BuswaysPayments = new List<int>()
         {
             3, 4, 3, 4, 4, 8
         };
-        private static nLog Log = new nLog("Bus");
+        private static readonly nLog Log = new nLog("Bus");
         
-        private static int BusRentCost = 150;
-        private static List<String> BusWaysNames = new List<String>
+        private static readonly int BusRentCost = 150;
+        private static readonly List<String> BusWaysNames = new List<String>
         {
             "ЛСПД  - Центральная Площадь - ФБР",
             "Западное Гетто - Аэропорт -  Центральная Площадь",
@@ -25,7 +25,7 @@ namespace iTeffa.Working
             "Западное Гетто - Дальнобойщик - Восточное Гетто -  Инкасатор -  Механик",
             "Центральная Площадь - Чумаш - Армия - Палето Бэй - Сэнди Шорс",
         };
-        private static List<List<BusCheck>> BusWays = new List<List<BusCheck>>()
+        private static readonly List<List<BusCheck>> BusWays = new List<List<BusCheck>>()
         {
             new List<BusCheck>() // busway1
             {
@@ -663,7 +663,7 @@ namespace iTeffa.Working
         };
 
         #region BusStations
-        private static Dictionary<string, Vector3> BusStations = new Dictionary<string, Vector3>()
+        private static readonly Dictionary<string, Vector3> BusStations = new Dictionary<string, Vector3>()
         {
             { "LSPD", new Vector3(394.8946, -990.8792, 30.60689) },
             { "Главная площадь", new Vector3(-528.8386, -328.6082, 36.34783) },

@@ -11,8 +11,8 @@ namespace iTeffa.Fractions
 {
     class ElectionsSystem : Script
     {
-        private static nLog Log = new nLog("Elections");
-        private static Config config = new Config("Elections");
+        private static readonly nLog Log = new nLog("Elections");
+        private static readonly Config config = new Config("Elections");
 
         private class ElectionPoints
         {
@@ -310,8 +310,10 @@ namespace iTeffa.Fractions
             Vector3 pos = client.Position;
             pos.Z -= 1.12F;
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "INSERT INTO `e_points` (`Election`,`X`,`Y`,`Z`,`Dimension`,`Opened`) VALUES (@ele,@x,@y,@z,@dim,@opn)";
+            MySqlCommand cmd = new MySqlCommand
+            {
+                CommandText = "INSERT INTO `e_points` (`Election`,`X`,`Y`,`Z`,`Dimension`,`Opened`) VALUES (@ele,@x,@y,@z,@dim,@opn)"
+            };
             cmd.Parameters.AddWithValue("@ele", ElectionID);
             cmd.Parameters.AddWithValue("@x", pos.X);
             cmd.Parameters.AddWithValue("@y", pos.Y);

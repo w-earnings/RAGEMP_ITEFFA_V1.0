@@ -12,8 +12,8 @@ namespace iTeffa.Fractions
 {
     class GangsCapture : Script
     {
-        private static nLog Log = new nLog("GangCapture");
-        private static Config config = new Config("GangCapture");
+        private static readonly nLog Log = new nLog("GangCapture");
+        private static readonly Config config = new Config("GangCapture");
         public static Dictionary<int, GangPoint> gangPoints = new Dictionary<int, GangPoint>();
         public static bool captureIsGoing = false;
         public static bool captureStarting = false;
@@ -36,7 +36,7 @@ namespace iTeffa.Fractions
             { 4, 77 }, // marabunta
             { 5, 59 }, // blood street
         };
-        private static Dictionary<int, string> pictureNotif = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> pictureNotif = new Dictionary<int, string>
         {
             { 1, "CHAR_MP_FAM_BOSS" }, // families
             { 2, "CHAR_MP_GERALD" }, // ballas
@@ -44,7 +44,7 @@ namespace iTeffa.Fractions
             { 4, "CHAR_MP_ROBERTO" }, // marabunta
             { 5, "CHAR_MP_SNITCH" }, // blood street
         };
-        private static Dictionary<int, DateTime> nextCaptDate = new Dictionary<int, DateTime>
+        private static readonly Dictionary<int, DateTime> nextCaptDate = new Dictionary<int, DateTime>
         {
             { 1, DateTime.Now },
             { 2, DateTime.Now },
@@ -52,7 +52,7 @@ namespace iTeffa.Fractions
             { 4, DateTime.Now },
             { 5, DateTime.Now },
         };
-        private static Dictionary<int, DateTime> protectDate = new Dictionary<int, DateTime>
+        private static readonly Dictionary<int, DateTime> protectDate = new Dictionary<int, DateTime>
         {
             { 1, DateTime.Now },
             { 2, DateTime.Now },
@@ -174,7 +174,7 @@ namespace iTeffa.Fractions
         };
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {

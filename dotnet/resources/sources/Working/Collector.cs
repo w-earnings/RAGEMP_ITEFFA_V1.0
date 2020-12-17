@@ -9,10 +9,10 @@ namespace iTeffa.Working
 {
     class Collector : Script
     {
-        private static nLog Log = new nLog("Collector");
-        private static int checkpointPayment = 7;
+        private static readonly nLog Log = new nLog("Collector");
+        private static readonly int checkpointPayment = 7;
 
-        private static Vector3 TakeMoneyPos = new Vector3(915.9069, -1265.255, 24.50912);
+        private static readonly Vector3 TakeMoneyPos = new Vector3(915.9069, -1265.255, 24.50912);
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()

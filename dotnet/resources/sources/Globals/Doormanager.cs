@@ -8,10 +8,10 @@ namespace iTeffa.Globals
 {
     class Doormanager : Script
     {
-        private static nLog Log = new nLog("Doormanager");
+        private static readonly nLog Log = new nLog("Doormanager");
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
@@ -88,7 +88,7 @@ namespace iTeffa.Globals
             catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
         }
 
-        private static List<Door> allDoors = new List<Door>();
+        private static readonly List<Door> allDoors = new List<Door>();
         public static int RegisterDoor(int model, Vector3 Position)
         {
             allDoors.Add(new Door(model, Position));

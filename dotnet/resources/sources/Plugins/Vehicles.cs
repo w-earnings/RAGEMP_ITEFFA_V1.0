@@ -6,8 +6,8 @@ namespace iTeffa.Plugins
 {
     public class Vehicles : Script
     {
-        private static nLog Log = new nLog("Blips");
-        public static void onResourceStart()
+        private static readonly nLog Log = new nLog("Blips");
+        public static void OnResourceStart()
         {
             try
             {

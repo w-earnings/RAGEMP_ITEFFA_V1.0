@@ -54,7 +54,7 @@ namespace iTeffa.Fractions
         private static readonly nLog Log = new nLog("MafiaWars");
 
         [ServerEvent(Event.ResourceStart)]
-        public void onResourceStart()
+        public void OnResourceStart()
         {
             try
             {
