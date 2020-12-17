@@ -18,6 +18,7 @@ namespace iTeffa.Fractions
         {
             try
             {
+                NAPI.Blip.CreateBlip(771, new Vector3(4840.571, -5174.425, 2.0), 0.75F, 46, Main.StringToU16("Остров невезений"), 255, 0, true, 0);
                 NAPI.Blip.CreateBlip(437, FractionSpawns[1], 0.85F, 52, Main.StringToU16("The Families"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(437, FractionSpawns[2], 0.85F, 58, Main.StringToU16("The Ballas"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(437, FractionSpawns[3], 0.85f, 28, Main.StringToU16("Los Santos Vagos"), 255, 0, true, 0, 0);
@@ -29,17 +30,11 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(88, FractionSpawns[9], 0.75F, 58, Main.StringToU16("FIB"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(640, FractionSpawns[14], 0.75F, 52, Main.StringToU16("Army"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(526, FractionSpawns[18], 0.75F, 47, Main.StringToU16("Sheriff"), 255, 0, true, 0, 0);
-                /* --- */
                 NAPI.Blip.CreateBlip(78, FractionSpawns[10], 0.75F, 5, Main.StringToU16("La Cosa Nostra"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[11], 0.75F, 4, Main.StringToU16("Русская мафия"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[12], 0.75F, 76, Main.StringToU16("Якудза"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[13], 0.75F, 40, Main.StringToU16("Армянская мафия"), 255, 0, true, 0, 0);
-
-
                 NAPI.Blip.CreateBlip(184, LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
-
-
-
                 NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
                 NAPI.Blip.CreateBlip(675, new Vector3(-1304.6462, -560.2332, 33.25491), 0.85F, 14, Main.StringToU16("CityHall"), 255, 0, true, 0);

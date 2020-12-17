@@ -281,7 +281,8 @@ mp.events.add('UpdateBank', function (temp, amount) {
     require('./game_resources/handlers/configs/clothe.js');
     require('./game_resources/handlers/configs/tattoo.js');
     require('./game_resources/handlers/configs/tuning.js');
-
+    // Остров
+    require('./game_resources/handlers/plugins/addisland/index.js');
 if (mp.storage.data.friends == undefined) {
   mp.storage.data.friends = {};
   mp.storage.flush();
