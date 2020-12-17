@@ -1035,7 +1035,7 @@ namespace iTeffa.Houses
             var house = GetHouse(player);
             var garage = GarageManager.Garages[house.GarageID];
             var check = garage.CheckCar(false, number);
-            var check_pos = (string.IsNullOrEmpty(vData.Position)) ? false : true;
+            var check_pos = string.IsNullOrEmpty(vData.Position) ? false : true;
 
             Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
             {
@@ -1101,27 +1101,20 @@ namespace iTeffa.Houses
             int price = 0;
             if (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model))
             {
-                switch (Main.Accounts[player].VipLvl)
+                price = Main.Accounts[player].VipLvl switch
                 {
-                    case 0: // None
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                        break;
-                    case 1: // Bronze
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6);
-                        break;
-                    case 2: // Silver
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7);
-                        break;
-                    case 3: // Gold
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8);
-                        break;
-                    case 4: // Platinum
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9);
-                        break;
-                    default:
-                        price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                        break;
-                }
+                    // None
+                    0 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                    // Bronze
+                    1 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6),
+                    // Silver
+                    2 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7),
+                    // Gold
+                    3 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8),
+                    // Platinum
+                    4 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9),
+                    _ => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                };
             }
             menuItem = new Menu.Item("sell", Menu.MenuItem.Button)
             {
@@ -1148,27 +1141,20 @@ namespace iTeffa.Houses
                     int price = 0;
                     if (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model))
                     {
-                        switch (Main.Accounts[player].VipLvl)
+                        price = Main.Accounts[player].VipLvl switch
                         {
-                            case 0: // None
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                                break;
-                            case 1: // Bronze
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6);
-                                break;
-                            case 2: // Silver
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7);
-                                break;
-                            case 3: // Gold
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8);
-                                break;
-                            case 4: // Platinum
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9);
-                                break;
-                            default:
-                                price = Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5);
-                                break;
-                        }
+                            // None
+                            0 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                            // Bronze
+                            1 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.6),
+                            // Silver
+                            2 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.7),
+                            // Gold
+                            3 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.8),
+                            // Platinum
+                            4 => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.9),
+                            _ => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
+                        };
                     }
                     Trigger.ClientEvent(player, "openDialog", "CAR_SELL_TOGOV", $"Вы действительно хотите продать государству {vData.Model} ({menu.Items[0].Text}) за ${price}?");
                     MenuManager.Close(player);

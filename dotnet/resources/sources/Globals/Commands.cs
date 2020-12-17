@@ -17,8 +17,8 @@ namespace iTeffa.Globals
 {
     class Commands : Script
     {
-        private static nLog Log = new nLog("Commands");
-        private static Random rnd = new Random();
+        private static readonly nLog Log = new nLog("Commands");
+        private static readonly Random rnd = new Random();
 
         public static void SendToAdmins(ushort minLVL, string message)
         {
@@ -721,8 +721,7 @@ namespace iTeffa.Globals
                 if (!Main.Players.ContainsKey(player)) return;
                 if (!Group.CanUseCmd(player, "id")) return;
 
-                int id;
-                if (Int32.TryParse(target, out id))
+                if (int.TryParse(target, out int id))
                 {
                     foreach (var p in Main.Players.Keys.ToList())
                     {
@@ -794,7 +793,7 @@ namespace iTeffa.Globals
 
                 if (!Main.Players.ContainsKey(target)) return;
                 GameLog.Admin($"{player.Name}", $"checkDim", $"{target.Name}");
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Измерение игрока - {target.Dimension.ToString()}", 4000);
+                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Измерение игрока - {target.Dimension}", 4000);
             }
             catch (Exception e)
             {
@@ -1171,7 +1170,7 @@ namespace iTeffa.Globals
                 var acc = Main.Players[player];
                 string status =
                     (acc.AdminLVL >= 1) ? "Администратор" :
-                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate.ToString("dd.MM.yyyy")}" :
+                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate:dd.MM.yyyy}" :
                     $"{Group.GroupNames[Main.Accounts[player].VipLvl]}";
 
                 long bank = (acc.Bank != 0) ? Finance.Bank.Accounts[acc.Bank].Balance : 0;
@@ -2098,7 +2097,7 @@ namespace iTeffa.Globals
             Admin.stopServer(player, text);
         }
         [Command("payday")]
-        public static void payDay(Player player, string text = null)
+        public static void payDay(Player player)
         {
             if (!Group.CanUseCmd(player, "payday")) return;
             GameLog.Admin($"{player.Name}", $"payDay", "");
@@ -2124,8 +2123,7 @@ namespace iTeffa.Globals
 
                 if (itemType == 12)
                 {
-                    int parsedData = 0;
-                    int.TryParse(data, out parsedData);
+                    int.TryParse(data, out int parsedData);
 
                     if (parsedData > 100)
                     {
@@ -2518,6 +2516,7 @@ namespace iTeffa.Globals
         {
             c.Position = new Vector3(x, y, z);
         }
+
         [Command("veh")]
         public static void CMD_createVehicle(Player player, string name, int a, int b)
         {
@@ -3583,7 +3582,7 @@ namespace iTeffa.Globals
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
         [Command("testnotify", GreedyArg = true)]
-        public static void CMD_testnotify(Player player, int id, int sum, string reason)
+        public static void CMD_testnotify(Player player)
         {
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Уведомление Success", 3000);
             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Уведомление Error", 3000);
