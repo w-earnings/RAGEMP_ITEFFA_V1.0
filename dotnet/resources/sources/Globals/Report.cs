@@ -143,8 +143,10 @@ namespace iTeffa.Globals
                 Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Sie haben eine Frage gesendet: {question}", 3000);
                 player.SetData("IS_REPORT", true);
 
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "INSERT INTO `questions` (`Author`,`Question`,`Opened`,`Closed`) VALUES (@pn,@q,@time,@ntime); SELECT LAST_INSERT_ID();";
+                MySqlCommand cmd = new MySqlCommand
+                {
+                    CommandText = "INSERT INTO `questions` (`Author`,`Question`,`Opened`,`Closed`) VALUES (@pn,@q,@time,@ntime); SELECT LAST_INSERT_ID();"
+                };
                 cmd.Parameters.AddWithValue("@pn", player.Name);
                 cmd.Parameters.AddWithValue("@q", question);
                 cmd.Parameters.AddWithValue("@time", Connect.ConvertTime(DateTime.Now));
@@ -209,8 +211,10 @@ namespace iTeffa.Globals
                     Log.Write($"PlayerAnswer:\n" + ex.ToString(), nLog.Type.Error);
                 }
 
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "UPDATE questions SET Respondent=@resp,Response=@res,Status=@st,Closed=@time WHERE ID=@repid LIMIT 1";
+                MySqlCommand cmd = new MySqlCommand
+                {
+                    CommandText = "UPDATE questions SET Respondent=@resp,Response=@res,Status=@st,Closed=@time WHERE ID=@repid LIMIT 1"
+                };
                 cmd.Parameters.AddWithValue("@resp", player.Name);
                 cmd.Parameters.AddWithValue("@res", response);
                 cmd.Parameters.AddWithValue("@st", true);

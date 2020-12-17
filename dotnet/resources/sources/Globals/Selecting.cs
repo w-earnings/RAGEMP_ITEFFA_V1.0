@@ -325,10 +325,12 @@ namespace iTeffa.Globals
                                     itemNames.Add($"{nInventory.ItemsNames[(int)i.Type]} x{i.Count}");
                             }
 
-                            var data = new SearchObject();
-                            data.Name = target.Name.Replace('_', ' ');
-                            data.Weapons = weapons;
-                            data.Items = itemNames;
+                            var data = new SearchObject
+                            {
+                                Name = target.Name.Replace('_', ' '),
+                                Weapons = weapons,
+                                Items = itemNames
+                            };
 
                             Trigger.ClientEvent(player, "newPassport", target, Main.Players[target].UUID);
                             Trigger.ClientEvent(player, "bsearchOpen", JsonConvert.SerializeObject(data));

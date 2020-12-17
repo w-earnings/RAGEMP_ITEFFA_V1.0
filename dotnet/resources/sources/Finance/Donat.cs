@@ -51,8 +51,10 @@ namespace iTeffa.Finance
                 Log.Debug("Donate time");
                 using MySqlConnection connection = new MySqlConnection(Connection);
                 connection.Open();
-                MySqlCommand command = new MySqlCommand();
-                command.Connection = connection;
+                MySqlCommand command = new MySqlCommand
+                {
+                    Connection = connection
+                };
                 while (toChange.Count > 0)
                 {
                     KeyValuePair<string, string> kvp = toChange.Dequeue();

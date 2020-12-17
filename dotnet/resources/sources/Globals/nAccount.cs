@@ -129,9 +129,11 @@ namespace iTeffa.Globals.nAccount
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "UPDATE `accounts` SET `password`=@pass,`email`=@email,`socialclub`=@sc,`coins`=@red,`viplvl`=@vipl,`hwid`=@hwid,`ip`=@ip," +
-                    "`vipdate`=@vipd,`character1`=@charf,`character2`=@charn,`character3`=@charm,`present`=@pres WHERE `login`=@login";
+                MySqlCommand cmd = new MySqlCommand
+                {
+                    CommandText = "UPDATE `accounts` SET `password`=@pass,`email`=@email,`socialclub`=@sc,`coins`=@red,`viplvl`=@vipl,`hwid`=@hwid,`ip`=@ip," +
+                    "`vipdate`=@vipd,`character1`=@charf,`character2`=@charn,`character3`=@charm,`present`=@pres WHERE `login`=@login"
+                };
                 cmd.Parameters.AddWithValue("@pass", Password);
                 cmd.Parameters.AddWithValue("@email", Email);
                 cmd.Parameters.AddWithValue("@sc", SocialClub);

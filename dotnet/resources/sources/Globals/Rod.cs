@@ -156,9 +156,11 @@ namespace iTeffa.Globals
 
             foreach (var p in biz.Products)
             {
-                List<string> item = new List<string>();
-                item.Add(p.Name);
-                item.Add($"{p.Price * Main.pluscost}$");
+                List<string> item = new List<string>
+                {
+                    p.Name,
+                    $"{p.Price * Main.pluscost}$"
+                };
                 items.Add(item);
             }
             string json = JsonConvert.SerializeObject(items);

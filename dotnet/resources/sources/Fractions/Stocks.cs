@@ -494,8 +494,10 @@ namespace iTeffa.Fractions
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
                             return;
                         }
-                        var data = new nItem(ItemType.Material);
-                        data.Count = amount;
+                        var data = new nItem(ItemType.Material)
+                        {
+                            Count = amount
+                        };
                         VehicleInventory.Add(vehicle, data);
                         fracStocks[onfrac].Materials -= amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
@@ -540,8 +542,10 @@ namespace iTeffa.Fractions
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во наркотиков", 3000);
                             return;
                         }
-                        data = new nItem(ItemType.Drugs);
-                        data.Count = amount;
+                        data = new nItem(ItemType.Drugs)
+                        {
+                            Count = amount
+                        };
                         VehicleInventory.Add(vehicle, data);
                         fracStocks[onfrac].Drugs -= amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили наркотики в машину", 3000);

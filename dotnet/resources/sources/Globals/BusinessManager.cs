@@ -2889,29 +2889,41 @@ namespace iTeffa.Globals
                 Callback = callback_bizmanage
             };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Управление бизнесом";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Управление бизнесом"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("products", Menu.MenuItem.Button);
-            menuItem.Text = "Товары";
+            menuItem = new Menu.Item("products", Menu.MenuItem.Button)
+            {
+                Text = "Товары"
+            };
             menu.Add(menuItem);
 
             Business biz = BizList[id];
-            menuItem = new Menu.Item("tax", Menu.MenuItem.Card);
-            menuItem.Text = $"Налог: {Convert.ToInt32(biz.SellPrice / 100 * 0.013)}$/ч";
+            menuItem = new Menu.Item("tax", Menu.MenuItem.Card)
+            {
+                Text = $"Налог: {Convert.ToInt32(biz.SellPrice / 100 * 0.013)}$/ч"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("money", Menu.MenuItem.Card);
-            menuItem.Text = $"Счёт бизнеса: {Finance.Bank.Accounts[biz.BankID].Balance}$";
+            menuItem = new Menu.Item("money", Menu.MenuItem.Card)
+            {
+                Text = $"Счёт бизнеса: {Finance.Bank.Accounts[biz.BankID].Balance}$"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("sell", Menu.MenuItem.Button);
-            menuItem.Text = "Продать бизнес";
+            menuItem = new Menu.Item("sell", Menu.MenuItem.Button)
+            {
+                Text = "Продать бизнес"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("close", Menu.MenuItem.Button);
-            menuItem.Text = "Закрыть";
+            menuItem = new Menu.Item("close", Menu.MenuItem.Button)
+            {
+                Text = "Закрыть"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -2936,22 +2948,30 @@ namespace iTeffa.Globals
 
         public static void OpenBizSellMenu(Player player)
         {
-            Menu menu = new Menu("bizsell", false, false);
-            menu.Callback = callback_bizsell;
+            Menu menu = new Menu("bizsell", false, false)
+            {
+                Callback = callback_bizsell
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Продажа";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Продажа"
+            };
             menu.Add(menuItem);
 
             var bizID = player.GetData<int>("SELECTEDBIZ");
             Business biz = BizList[bizID];
             var price = biz.SellPrice / 100 * 70;
-            menuItem = new Menu.Item("govsell", Menu.MenuItem.Button);
-            menuItem.Text = $"Продать государству (${price})";
+            menuItem = new Menu.Item("govsell", Menu.MenuItem.Button)
+            {
+                Text = $"Продать государству (${price})"
+            };
             menu.Add(menuItem);
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -2995,11 +3015,15 @@ namespace iTeffa.Globals
                 return;
             }
 
-            Menu menu = new Menu("bizproducts", false, false);
-            menu.Callback = callback_bizprod;
+            Menu menu = new Menu("bizproducts", false, false)
+            {
+                Callback = callback_bizprod
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = "Товары";
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = "Товары"
+            };
             menu.Add(menuItem);
 
             var bizID = player.GetData<int>("SELECTEDBIZ");
@@ -3007,13 +3031,17 @@ namespace iTeffa.Globals
             Business biz = BizList[bizID];
             foreach (var p in biz.Products)
             {
-                menuItem = new Menu.Item(p.Name, Menu.MenuItem.Button);
-                menuItem.Text = p.Name;
+                menuItem = new Menu.Item(p.Name, Menu.MenuItem.Button)
+                {
+                    Text = p.Name
+                };
                 menu.Add(menuItem);
             }
 
-            menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-            menuItem.Text = "Назад";
+            menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+            {
+                Text = "Назад"
+            };
             menu.Add(menuItem);
 
             menu.Open(player);
@@ -3041,11 +3069,15 @@ namespace iTeffa.Globals
                 return;
             }
 
-            Menu menu = new Menu("bizsetting", false, false);
-            menu.Callback = callback_bizsetting;
+            Menu menu = new Menu("bizsetting", false, false)
+            {
+                Callback = callback_bizsetting
+            };
 
-            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header);
-            menuItem.Text = product;
+            Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
+            {
+                Text = product
+            };
             menu.Add(menuItem);
 
             var bizID = player.GetData<int>("SELECTEDBIZ");
@@ -3055,33 +3087,47 @@ namespace iTeffa.Globals
                 if (p.Name == product)
                 {
                     string ch = (biz.Type == 8 || biz.Type == 11 || biz.Type == 12 || product == "Татуировки" || product == "Парики" || product == "Патроны") ? "%" : "$";
-                    menuItem = new Menu.Item("price", Menu.MenuItem.Card);
-                    menuItem.Text = $"Текущая цена: {p.Price}{ch}";
+                    menuItem = new Menu.Item("price", Menu.MenuItem.Card)
+                    {
+                        Text = $"Текущая цена: {p.Price}{ch}"
+                    };
                     menu.Add(menuItem);
 
-                    menuItem = new Menu.Item("lefts", Menu.MenuItem.Card);
-                    menuItem.Text = $"Кол-во на складе: {p.Lefts}";
+                    menuItem = new Menu.Item("lefts", Menu.MenuItem.Card)
+                    {
+                        Text = $"Кол-во на складе: {p.Lefts}"
+                    };
                     menu.Add(menuItem);
 
-                    menuItem = new Menu.Item("capacity", Menu.MenuItem.Card);
-                    menuItem.Text = $"Вместимость склада: {ProductsCapacity[p.Name]}";
+                    menuItem = new Menu.Item("capacity", Menu.MenuItem.Card)
+                    {
+                        Text = $"Вместимость склада: {ProductsCapacity[p.Name]}"
+                    };
                     menu.Add(menuItem);
 
-                    menuItem = new Menu.Item("setprice", Menu.MenuItem.Button);
-                    menuItem.Text = "Установить цену";
+                    menuItem = new Menu.Item("setprice", Menu.MenuItem.Button)
+                    {
+                        Text = "Установить цену"
+                    };
                     menu.Add(menuItem);
 
                     var price = (product == "Патроны") ? 4 : ProductsOrderPrice[product];
-                    menuItem = new Menu.Item("order", Menu.MenuItem.Button);
-                    menuItem.Text = $"Заказать: {price}$/шт";
+                    menuItem = new Menu.Item("order", Menu.MenuItem.Button)
+                    {
+                        Text = $"Заказать: {price}$/шт"
+                    };
                     menu.Add(menuItem);
 
-                    menuItem = new Menu.Item("cancel", Menu.MenuItem.Button);
-                    menuItem.Text = "Отменить заказ";
+                    menuItem = new Menu.Item("cancel", Menu.MenuItem.Button)
+                    {
+                        Text = "Отменить заказ"
+                    };
                     menu.Add(menuItem);
 
-                    menuItem = new Menu.Item("back", Menu.MenuItem.Button);
-                    menuItem.Text = "Назад";
+                    menuItem = new Menu.Item("back", Menu.MenuItem.Button)
+                    {
+                        Text = "Назад"
+                    };
                     menu.Add(menuItem);
 
                     player.SetData("SELECTPROD", product);

@@ -255,8 +255,10 @@ namespace iTeffa.Fractions
                 player.SetData("NEXT_AD", DateTime.Now.AddMinutes(45));
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы подали объявление. Ожидайте модерации", 3000);
 
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = "INSERT INTO `advertised` (`Author`,`AuthorSIM`,`AD`,`Opened`,`Closed`) VALUES (@pn,@sim,@ques,@time,@ntime); SELECT LAST_INSERT_ID();";
+                MySqlCommand cmd = new MySqlCommand
+                {
+                    CommandText = "INSERT INTO `advertised` (`Author`,`AuthorSIM`,`AD`,`Opened`,`Closed`) VALUES (@pn,@sim,@ques,@time,@ntime); SELECT LAST_INSERT_ID();"
+                };
                 cmd.Parameters.AddWithValue("@pn", player.Name);
                 cmd.Parameters.AddWithValue("@sim", Main.Players[player].Sim);
                 cmd.Parameters.AddWithValue("@ques", question);

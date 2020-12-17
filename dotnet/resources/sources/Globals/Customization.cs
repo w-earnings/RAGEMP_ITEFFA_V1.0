@@ -2097,9 +2097,11 @@ namespace iTeffa.Globals
                 foreach (var t in list)
                 {
                     if (t == null) continue;
-                    var decoration = new Decoration();
-                    decoration.Collection = NAPI.Util.GetHashKey(t.Dictionary);
-                    decoration.Overlay = NAPI.Util.GetHashKey(t.Hash);
+                    var decoration = new Decoration
+                    {
+                        Collection = NAPI.Util.GetHashKey(t.Dictionary),
+                        Overlay = NAPI.Util.GetHashKey(t.Hash)
+                    };
                     player.SetDecoration(decoration);
                 }
             }
@@ -2125,26 +2127,30 @@ namespace iTeffa.Globals
             var custom = CustomPlayerData[Main.Players[player].UUID];
 
             var parents = custom.Parents;
-            var headBlend = new HeadBlend();
-            headBlend.ShapeFirst = (byte)parents.Mother;
-            headBlend.ShapeSecond = (byte)parents.Father;
-            headBlend.ShapeThird = 0;
+            var headBlend = new HeadBlend
+            {
+                ShapeFirst = (byte)parents.Mother,
+                ShapeSecond = (byte)parents.Father,
+                ShapeThird = 0,
 
-            headBlend.SkinFirst = (byte)parents.Mother;
-            headBlend.SkinSecond = (byte)parents.Father;
-            headBlend.SkinThird = 0;
+                SkinFirst = (byte)parents.Mother,
+                SkinSecond = (byte)parents.Father,
+                SkinThird = 0,
 
-            headBlend.ShapeMix = parents.Similarity;
-            headBlend.SkinMix = parents.SkinSimilarity;
-            headBlend.ThirdMix = 0.0f;
+                ShapeMix = parents.Similarity,
+                SkinMix = parents.SkinSimilarity,
+                ThirdMix = 0.0f
+            };
 
             NAPI.Player.SetPlayerHeadBlend(player, headBlend);
             for (int i = 0; i < custom.Features.Count(); i++) NAPI.Player.SetPlayerFaceFeature(player, i, custom.Features[i]);
             for (int i = 0; i < custom.Appearance.Count(); i++)
             {
-                var headOverlay = new HeadOverlay();
-                headOverlay.Index = (byte)custom.Appearance[i].Value;
-                headOverlay.Opacity = (byte)custom.Appearance[i].Opacity;
+                var headOverlay = new HeadOverlay
+                {
+                    Index = (byte)custom.Appearance[i].Value,
+                    Opacity = (byte)custom.Appearance[i].Opacity
+                };
                 if (i == 1) headOverlay.Color = (byte)custom.BeardColor;
                 else if (i == 2) headOverlay.Color = (byte)custom.EyebrowColor;
                 else if (i == 5) headOverlay.Color = (byte)custom.BlushColor;
@@ -2363,18 +2369,20 @@ namespace iTeffa.Globals
         public static void ApplyMaskFace(Player player)
         {
             var parents = CustomPlayerData[Main.Players[player].UUID].Parents;
-            var headBlend = new HeadBlend();
-            headBlend.ShapeFirst = (byte)parents.Mother;
-            headBlend.ShapeSecond = (byte)parents.Father;
-            headBlend.ShapeThird = 0;
+            var headBlend = new HeadBlend
+            {
+                ShapeFirst = (byte)parents.Mother,
+                ShapeSecond = (byte)parents.Father,
+                ShapeThird = 0,
 
-            headBlend.SkinFirst = (byte)parents.Mother;
-            headBlend.SkinSecond = (byte)parents.Father;
-            headBlend.SkinThird = 0;
+                SkinFirst = (byte)parents.Mother,
+                SkinSecond = (byte)parents.Father,
+                SkinThird = 0,
 
-            headBlend.ShapeMix = 0.0f;
-            headBlend.SkinMix = parents.SkinSimilarity;
-            headBlend.ThirdMix = 0.0f;
+                ShapeMix = 0.0f,
+                SkinMix = parents.SkinSimilarity,
+                ThirdMix = 0.0f
+            };
 
             NAPI.Player.SetPlayerHeadBlend(player, headBlend);
 
@@ -2393,10 +2401,12 @@ namespace iTeffa.Globals
             {
                 if (i != 2 && i != 10)
                 {
-                    var headOverlay = new HeadOverlay();
-                    headOverlay.Index = 255;
-                    headOverlay.Opacity = 0;
-                    headOverlay.SecondaryColor = 100;
+                    var headOverlay = new HeadOverlay
+                    {
+                        Index = 255,
+                        Opacity = 0,
+                        SecondaryColor = 100
+                    };
                     NAPI.Player.SetPlayerHeadOverlay(player, i, headOverlay);
                 }
             }

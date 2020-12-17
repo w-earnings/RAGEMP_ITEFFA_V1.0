@@ -19,9 +19,11 @@ namespace iTeffa.Settings
             delay = config.TryGet<int>("delay", 100);
             clearDelay = config.TryGet<int>("clearDelay", 300000);
 
-            thread = new Thread(Logic);
-            thread.IsBackground = true;
-            thread.Name = "nTimer";
+            thread = new Thread(Logic)
+            {
+                IsBackground = true,
+                Name = "nTimer"
+            };
             thread.Start();
 
             Timers.Start(clearDelay, () =>

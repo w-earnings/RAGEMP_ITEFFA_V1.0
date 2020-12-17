@@ -127,8 +127,10 @@ namespace iTeffa.Globals
         #region Логика потока
         public static void Start()
         {
-            thread = new Thread(Worker);
-            thread.IsBackground = true;
+            thread = new Thread(Worker)
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
         private static void Worker()

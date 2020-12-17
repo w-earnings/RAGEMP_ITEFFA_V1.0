@@ -76,8 +76,10 @@ namespace iTeffa.Houses
                         var bank = Convert.ToInt32(Row["bank"]);
                         var roommates = JsonConvert.DeserializeObject<List<string>>(Row["roommates"].ToString());
 
-                        House house = new House(id, owner, type, position, price, locked, garage, bank, roommates);
-                        house.Dimension = DimensionID;
+                        House house = new House(id, owner, type, position, price, locked, garage, bank, roommates)
+                        {
+                            Dimension = DimensionID
+                        };
                         house.CreateInterior();
                         FurnitureManager.Create(id);
                         house.CreateAllFurnitures();

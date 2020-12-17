@@ -160,8 +160,10 @@ namespace iTeffa.Finance
         {
             if (!Accounts.ContainsKey(id)) return;
             Accounts.Remove(id);
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "DELETE FROM `money` WHERE id=@pn";
+            MySqlCommand cmd = new MySqlCommand
+            {
+                CommandText = "DELETE FROM `money` WHERE id=@pn"
+            };
             cmd.Parameters.AddWithValue("@pn", id);
             Connect.Query(cmd);
             Log.Write("Bank account deleted! ID:" + id, nLog.Type.Warn);
