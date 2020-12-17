@@ -24,5 +24,20 @@ namespace iTeffa.Finance
             data.Money = Amount;
             Trigger.ClientEvent(player, "UpdateMoney", data.Money);
         }
+
+        public static bool ChangeDonateBalance(Player player, int Amount)
+        {
+            if (!Main.Players.ContainsKey(player)) return false;
+            if (Main.Players[player] == null) return false;
+            int temp = Convert.ToInt32(Main.Accounts[player].Coins + Amount);
+            if (temp < 0)
+                return false;
+            else
+            {
+                Main.Accounts[player].Coins = temp;
+                Connect.Query($"UPDATE `accounts` SET `redbucks`={temp} WHERE login='{Main.Accounts[player].Login}'");
+                return true;
+            }
+        }
     }
 }

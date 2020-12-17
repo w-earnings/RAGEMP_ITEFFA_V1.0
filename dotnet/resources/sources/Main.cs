@@ -1923,6 +1923,10 @@ namespace iTeffa
                     case 571:
                         Plugins.InfoPed.Interact1(player);
                         return;
+                    case 814:
+                        Plugins.ContainerSystem.OpenMenuContainer(player);
+                        break;
+
 
                     default: return;
                 }
@@ -2484,6 +2488,22 @@ namespace iTeffa
             {
                 try
                 {
+                    if (DateTime.Now.Hour == 19)
+                    {
+                        try
+                        {
+                            foreach (var item in Plugins.ContainerSystem.containers)
+                            {
+                                item.Visible(true);
+                            }
+                            NAPI.Chat.SendChatMessageToAll("!{#fc4615} [Порт]: !{#ffffff}" + "В штат привезли новую партию контейнеров!");
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Write($"Ошибка контейнеров: {e.Message}", nLog.Type.Error);
+                        }
+                    }
+
                     Fractions.Cityhall.lastHourTax = 0;
                     Fractions.Ems.HumanMedkitsLefts = 100;
 
@@ -3136,21 +3156,21 @@ namespace iTeffa
             menuItem = new Menu.Item("gps", Menu.MenuItem.gpsBtn)
             {
                 Column = 2,
-                Text = ""
+                Text = "Навигатор"
             };
             menu.Add(menuItem);
 
             menuItem = new Menu.Item("contacts", Menu.MenuItem.contactBtn)
             {
                 Column = 2,
-                Text = ""
+                Text = "Контакты"
             };
             menu.Add(menuItem);
 
             menuItem = new Menu.Item("services", Menu.MenuItem.servicesBtn)
             {
                 Column = 2,
-                Text = ""
+                Text = "Сервисы"
             };
             menu.Add(menuItem);
 
@@ -3159,7 +3179,7 @@ namespace iTeffa
                 menuItem = new Menu.Item("biz", Menu.MenuItem.businessBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Бизнес"
                 };
                 menu.Add(menuItem);
             }
@@ -3169,7 +3189,7 @@ namespace iTeffa
                 menuItem = new Menu.Item("frac", Menu.MenuItem.grupBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Фракция"
                 };
                 menu.Add(menuItem);
             }
@@ -3179,7 +3199,7 @@ namespace iTeffa
                 menuItem = new Menu.Item("citymanage", Menu.MenuItem.businessBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Управление"
                 };
                 menu.Add(menuItem);
             }
@@ -3189,17 +3209,17 @@ namespace iTeffa
                 menuItem = new Menu.Item("hotel", Menu.MenuItem.hotelBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Отель"
                 };
                 menu.Add(menuItem);
             }
 
-            if (Players[player].LVL < 1)
+            if (Players[player].LVL < 50)
             {
                 menuItem = new Menu.Item("promo", Menu.MenuItem.promoBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Промо"
                 };
                 menu.Add(menuItem);
             }
@@ -3209,7 +3229,7 @@ namespace iTeffa
                 menuItem = new Menu.Item("house", Menu.MenuItem.homeBtn)
                 {
                     Column = 2,
-                    Text = ""
+                    Text = "Мой дом"
                 };
                 menu.Add(menuItem);
             }
@@ -3230,13 +3250,13 @@ namespace iTeffa
 
             menuItem = new Menu.Item("ad", Menu.MenuItem.ilanBtn)
             {
-                Text = ""
+                Text = "???"
             };
             menu.Add(menuItem);
 
             menuItem = new Menu.Item("close", Menu.MenuItem.closeBtn)
             {
-                Text = ""
+                Text = "???"
             };
             menu.Add(menuItem);
 
