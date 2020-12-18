@@ -35,7 +35,7 @@ namespace iTeffa.Finance
             else
             {
                 Main.Accounts[player].Coins = temp;
-                Connect.Query($"UPDATE `accounts` SET `redbucks`={temp} WHERE login='{Main.Accounts[player].Login}'");
+                Connect.Query($"UPDATE `accounts` SET `coins`={temp} WHERE login='{Main.Accounts[player].Login}'");
                 return true;
             }
         }

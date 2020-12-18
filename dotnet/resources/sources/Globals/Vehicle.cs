@@ -1082,6 +1082,8 @@ namespace iTeffa.Globals
                     #region outVehicle
                     vehicle = getNearestVehicle(sender, 10);
                     if (vehicle != null)
+                        vehicle.Locked = !vehicle.Locked;
+                    if (vehicle != null)
                         ChangeVehicleDoors(sender, vehicle);
                     #endregion
                     break;
