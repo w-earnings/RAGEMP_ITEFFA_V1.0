@@ -15,7 +15,7 @@ namespace iTeffa.Fractions
         private static readonly nLog Log = new nLog("FractionCommangs");
 
         [ServerEvent(Event.PlayerEnterVehicle)]
-        public void onPlayerEnterVehicleHandler(Player player)
+        public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
         {
             try
             {
@@ -82,8 +82,8 @@ namespace iTeffa.Fractions
             foreach (var vehicle in all_vehicles)
             {
                 if (VehicleManager.GetVehicleOccupants(vehicle).Count >= 1) continue;
-                //var color1 = vehicle.PrimaryColor;
-                //var color2 = vehicle.SecondaryColor;
+                var color1 = vehicle.PrimaryColor;
+                var color2 = vehicle.SecondaryColor;
                 if (!vehicle.HasData("ACCESS")) continue;
 
                 if (vehicle.GetData<string>("ACCESS") == "FRACTION" && vehicle.GetData<int>("FRACTION") == Main.Players[player].FractionID)

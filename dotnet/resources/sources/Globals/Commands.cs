@@ -2097,7 +2097,7 @@ namespace iTeffa.Globals
             Admin.stopServer(player, text);
         }
         [Command("payday")]
-        public static void payDay(Player player)
+        public static void payDay(Player player, string text = null)
         {
             if (!Group.CanUseCmd(player, "payday")) return;
             GameLog.Admin($"{player.Name}", $"payDay", "");
@@ -3582,7 +3582,7 @@ namespace iTeffa.Globals
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), nLog.Type.Error); }
         }
         [Command("testnotify", GreedyArg = true)]
-        public static void CMD_testnotify(Player player)
+        public static void CMD_testnotify(Player player, int id, int sum, string reason)
         {
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Уведомление Success", 3000);
             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Уведомление Error", 3000);

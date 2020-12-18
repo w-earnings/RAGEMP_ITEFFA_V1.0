@@ -1,6 +1,6 @@
 {
-  "name":"iTeffa | Server #1 | X2 [NEW][DEV][BETA]",
-  "url":"https://iteffa.com", 
+  "name":"Wix Role Play | Server #1 | X2 [NEW][DEV][BETA]",
+  "url":"https://wixrp.com/", 
   "maxplayers":100,
   "language":"ru",
   "gamemode":"roleplay", 
@@ -8,6 +8,7 @@
   "announce":false,
   "csharp":"enabled",
   "api-threading-debugging": false,
+  "fqdn":"localhost",
   "bind":"0.0.0.0",
   "port":22005,
   "voice-chat":true,  
