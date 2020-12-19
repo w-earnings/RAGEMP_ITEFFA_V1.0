@@ -2,7 +2,7 @@ var HUD = new Vue({
   el: ".inGameHud",
   data: {
     show: false,
-    personId: 0,
+    personSid: 0,
     bonusblock: true,
     lastbonus: null,
     ammo: 0,

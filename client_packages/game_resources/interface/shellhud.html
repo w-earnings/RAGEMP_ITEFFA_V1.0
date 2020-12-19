@@ -53,9 +53,9 @@
               </div>
             </th>
             <th>
-              <p>$ {{bank}}&ensp; <i class="fas fa-university text-yellow"></i>
-              <p>
+              <p>{{personSid}}&ensp; <i class="fas fa-user-lock text-yellow"></i></p>
               <p>$ {{money}}&ensp; <i class="fas fa-wallet text-yellow"></i></p>
+              <p>$ {{bank}}&ensp; <i class="fas fa-university text-yellow"></i>
               <p id="patronnum" v-if="ammo">{{ammo}} шт.&ensp; <i class="fa fa-compress text-yellow"></i></p>
             </th>
           </tr>
@@ -111,7 +111,6 @@
 			<i @click="showbonus()" class="fa fa-gift" aria-hidden="true"></i>
 		  </div>
     </div>
-    <div class="personid">SID: {{personId}}</div>
 		<div class="digestion info_table">
 		  <div class="eatings">
 			<div class="eat"><img src="./assets/icons/shellhud/eat.svg" class="icohud">

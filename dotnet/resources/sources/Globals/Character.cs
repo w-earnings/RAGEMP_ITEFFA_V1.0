@@ -55,14 +55,13 @@ namespace iTeffa.Globals.Character
                         }
                         #endregion
 
-
                         // Skin, Health, Armor, RemoteID
                         player.SetSkin((Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                         player.Health = (Health > 5) ? Health : 5;
                         player.Armor = Armor;
 
                         player.SetSharedData("REMOTE_ID", player.Value);
-                        player.SetSharedData("PERSON_ID", PersonID);
+                        player.SetSharedData("PERSON_SID", PersonSID);
 
                         Speaking.Voice.PlayerJoin(player);
 
@@ -169,9 +168,8 @@ namespace iTeffa.Globals.Character
                 {
                     foreach (DataRow Row in result.Rows)
                     {
-                        if (PersonID == null || PersonID == "") PersonID = GeneratePersonID(uuid, true);
                         UUID = Convert.ToInt32(Row["uuid"]);
-                        PersonID = Convert.ToString(Row["personid"]);
+                        PersonSID = Convert.ToString(Row["personsid"]);
                         FirstName = Convert.ToString(Row["firstname"]);
                         LastName = Convert.ToString(Row["lastname"]);
                         Gender = Convert.ToBoolean(Row["gender"]);
@@ -204,6 +202,12 @@ namespace iTeffa.Globals.Character
                         HotelLeft = Convert.ToInt32(Row["hotelleft"]);
                         Contacts = JsonConvert.DeserializeObject<Dictionary<int, string>>(Row["contacts"].ToString());
                         Achievements = JsonConvert.DeserializeObject<List<bool>>(Row["achiev"].ToString());
+
+                        if (PersonSID == null || PersonSID == "")
+                        {
+                            PersonSID = GeneratePersonSID(uuid, true);
+                        }
+
                         if (Achievements == null)
                         {
                             Achievements = new List<bool>();
@@ -329,7 +333,7 @@ namespace iTeffa.Globals.Character
                     $"`wanted`='{JsonConvert.SerializeObject(WantedLVL)}',`biz`='{JsonConvert.SerializeObject(BizIDs)}',`adminlvl`={AdminLVL}," +
                     $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Connect.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
                     $"`warns`={Warns},`hotel`={HotelID},`hotelleft`={HotelLeft},`lastveh`='{LastVeh}',`onduty`={OnDuty},`lasthour`={LastHourMin},`lastbonus`={LastBonus},`isbonused`={IsBonused}," +
-                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`personid`='{PersonID}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
+                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`personsid`='{PersonSID}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
 
                 Finance.Bank.Save(Bank);
                 await Log.DebugAsync($"Player [{FirstName}:{LastName}] was saved.");
@@ -364,7 +368,7 @@ namespace iTeffa.Globals.Character
                 }
 
                 UUID = GenerateUUID();
-                PersonID = GeneratePersonID();
+                PersonSID = GeneratePersonSID();
 
                 FirstName = firstName;
                 LastName = lastName;
@@ -385,9 +389,9 @@ namespace iTeffa.Globals.Character
                 Main.PlayerUUIDs.Add($"{firstName}_{lastName}", UUID);
                 Main.PlayerNames.Add(UUID, $"{firstName}_{lastName}");
 
-                await Connect.QueryAsync($"INSERT INTO `characters`(`uuid`,`personid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
+                await Connect.QueryAsync($"INSERT INTO `characters`(`uuid`,`personsid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
                     $"`biz`,`adminlvl`,`licenses`,`unwarn`,`unmute`,`warns`,`lastveh`,`onduty`,`lasthour`,`lastbonus`,`isbonused`,`hotel`,`hotelleft`,`contacts`,`achiev`,`sim`,`pos`,`createdate`,`eat`,`water`) " +
-                    $"VALUES({UUID},'{PersonID}','{FirstName}','{LastName}',{Gender},{Health},{Armor},{LVL},{EXP},{Money},{Bank},{WorkID},{FractionID},{FractionLVL},{ArrestTime},{DemorganTime}," +
+                    $"VALUES({UUID},'{PersonSID}','{FirstName}','{LastName}',{Gender},{Health},{Armor},{LVL},{EXP},{Money},{Bank},{WorkID},{FractionID},{FractionLVL},{ArrestTime},{DemorganTime}," +
                     $"'{JsonConvert.SerializeObject(WantedLVL)}','{JsonConvert.SerializeObject(BizIDs)}',{AdminLVL},'{JsonConvert.SerializeObject(Licenses)}','{Connect.ConvertTime(Unwarn)}'," +
                     $"'{Unmute}',{Warns},'{LastVeh}',{OnDuty},{LastHourMin},{LastBonus},{IsBonused},{HotelID},{HotelLeft},'{JsonConvert.SerializeObject(Contacts)}','{JsonConvert.SerializeObject(Achievements)}',{Sim}," +
                     $"'{JsonConvert.SerializeObject(SpawnPos)}','{Connect.ConvertTime(CreateDate)}','{Eat}','{Water}')");
@@ -414,28 +418,34 @@ namespace iTeffa.Globals.Character
             return result;
         }
 
-        public static Dictionary<string, string> toChange = new Dictionary<string, string>();
-        private static MySqlCommand nameCommand;
-
-        public Character()
+        private string GeneratePersonSID(int uuid = -1, bool save = false)
         {
-            nameCommand = new MySqlCommand("UPDATE `characters` SET `firstname`=@fn, `lastname`=@ln WHERE `uuid`=@uuid");
-        }
-
-        private string GeneratePersonID(int uuid = -1, bool save = false)
-        {
-            string result = "";
-            while (Main.PersonIDs.Contains(result))
+            string result = "ITEFFA21";
+            while (Main.PersonSIDs.Contains(result))
             {
                 result += (char)Rnd.Next(0x0030, 0x0039);
                 result += (char)Rnd.Next(0x0041, 0x005A);
                 result += (char)Rnd.Next(0x0030, 0x0039);
                 result += (char)Rnd.Next(0x0041, 0x005A);
             }
-            Main.PersonIDs.Add(result);
-            if (save) Connect.Query($"UPDATE `characters` SET `personid`='{result}' WHERE `uuid`={uuid}");
-
+            Main.PersonSIDs.Add(result);
+            if (save)
+            {
+                Connect.Query($"UPDATE `characters` SET `personsid`='{result}' WHERE `uuid`={uuid}");
+            }
             return result;
+        }
+
+
+       
+
+
+        public static Dictionary<string, string> toChange = new Dictionary<string, string>();
+        private static MySqlCommand nameCommand;
+
+        public Character()
+        {
+            nameCommand = new MySqlCommand("UPDATE `characters` SET `firstname`=@fn, `lastname`=@ln WHERE `uuid`=@uuid");
         }
 
         public static async Task changeName(string oldName)

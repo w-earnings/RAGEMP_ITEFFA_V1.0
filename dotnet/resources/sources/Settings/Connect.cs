@@ -18,9 +18,9 @@ namespace iTeffa.Settings
             Connection =
                 $"Host={config.TryGet<string>("Server", "localhost")};" +
                 $"Port={config.TryGet<string>("Port", 3306)};" +
-                $"User={config.TryGet<string>("User", "root")};" +
-                $"Password={config.TryGet<string>("Password", "usbw")};" +
-                $"Database={config.TryGet<string>("DataBase", "iteffa")};" +
+                $"User={config.TryGet<string>("User", "wixrp")};" +
+                $"Password={config.TryGet<string>("Password", "8Bvx4Tt7G2")};" +
+                $"Database={config.TryGet<string>("DataBase", "wixrp")};" +
                 $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }
         public static bool Test

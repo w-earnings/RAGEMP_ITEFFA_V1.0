@@ -87,7 +87,7 @@ mp.events.add('render', function (nametags) {
                         var label = tagLabelPool[_player.remoteId];
                         if (label !== undefined) {
                             drawPlayerTag(_player, x, y, label.text, label.color);
-                            drawPlayerTag(player, x, y, '\n #' + player.getVariable('PERSON_ID'), [200,200,200,200]);
+                            drawPlayerTag(player, x, y, '\n #' + player.getVariable('PERSON_SID'), [200,200,200,200]);
                             drawPlayerVoiceIcon(_player, x, y);
                         }
                     }
@@ -98,15 +98,9 @@ mp.events.add('render', function (nametags) {
 });
 
 function drawPlayerTag(player, x, y, displayname, color) {
-    //var position = player.getBoneCoords(12844, 0.6, 0, 0); //player.position;
-    //position.z += 1.5;
-    //var frameTime = lastFrameTime;
-    //const frameRate = 1.0 / (mp.game.invoke("0x15C40837039FFAF7") / );
-
     // draw user name
     mp.game.graphics.drawText(displayname, [x, y], { font: 4, color: color, scale: [0.35, 0.35], outline: true });
 
-    //
     // draw health & ammo bar
     if (playerTarget != undefined && player.handle == playerTarget.handle || playerAimAt != undefined && player.handle == playerAimAt.handle || global.spectating) {
         y += 0.04;

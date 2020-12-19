@@ -843,7 +843,7 @@ namespace iTeffa.Globals
                 Main.SimCards.Remove(newnumber);
                 Main.SimCards.Add(newnumber, Main.Players[target].UUID);
                 Main.Players[target].Sim = newnumber;
-                Interface.Dashboard.sendStats(target);
+                Dashboard.sendStats(target);
                 GameLog.Admin($"{player.Name}", $"newsim({newnumber})", $"{target.Name}");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Новый номер для {target.Name} = {newnumber}", 3000);
             }
@@ -864,7 +864,7 @@ namespace iTeffa.Globals
                 if (player != null && Main.Players.ContainsKey(player))
                 {
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Администратор отобрал у Вас бизнес", 3000);
-                    Finance.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
+                    Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
                     Main.Players[player].BizIDs.Remove(biz.ID);
                 }
                 else
@@ -2133,7 +2133,7 @@ namespace iTeffa.Globals
                     }
                 }
 
-                nInventory.Add(player, new nItem((ItemType)itemType, amount, data));  //                nInventory.Add(player, new nItem((ItemType)itemType, amount, data));
+                nInventory.Add(player, new nItem((ItemType)itemType, amount, data));
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"У вас есть {amount} {nInventory.ItemsNames[itemType]} ", 3000);
             }
             catch { }
@@ -2474,16 +2474,7 @@ namespace iTeffa.Globals
             Vector3 pos = c.Position;
             Vector3 rot = c.Rotation;
 
-            //Console Anzeige der Positionen//
-            //Console.WriteLine("Diese Positionsdaten wurden von " + c.Name + " angefordert:");
-            //Console.WriteLine("Position");
-            //Console.WriteLine("Pos: " + pos.X + "| " + pos.Y + "| " + pos.Z);
-            //Console.WriteLine("Rotation");
-            //Console.WriteLine("Z: " + rot.Z);
-
-            //Console.WriteLine("---------------");
             c.SendChatMessage("---------------");
-
             c.SendChatMessage("Position");
             c.SendChatMessage("Pos: " + pos.X + "| " + pos.Y + "| " + pos.Z);
             c.SendChatMessage("Rotation");
@@ -2750,12 +2741,9 @@ namespace iTeffa.Globals
                 if (!Main.Players.ContainsKey(client)) return;
                 if (!Group.CanUseCmd(client, "setvehdirt")) return;
                 Color color = new Color(r, g, b);
-
                 var number = client.Vehicle.NumberPlate;
-
                 VehicleManager.Vehicles[number].Components.SecColor = color;
                 VehicleManager.Vehicles[number].Components.SecModColor = mod;
-
                 VehicleManager.ApplyCustomization(client.Vehicle);
 
             }

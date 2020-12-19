@@ -121,8 +121,9 @@ mp.events.add('showHUD', (show) => {
 
   var playerId = localplayer.getVariable('REMOTE_ID');
   mp.gui.execute(`HUD.playerId='${playerId}'`);
-	var personId = localplayer.getVariable('PERSON_ID');
-  mp.gui.execute(`HUD.personId='${personId}'`);
+  
+  var personSid = localplayer.getVariable('PERSON_SID');
+	mp.gui.execute(`HUD.personSid='${personSid}'`);
 
   mp.game.ui.displayAreaName(showhud);
   mp.game.ui.displayRadar(showhud);
