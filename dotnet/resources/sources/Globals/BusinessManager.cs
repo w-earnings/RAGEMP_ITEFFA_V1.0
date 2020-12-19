@@ -190,11 +190,11 @@ namespace iTeffa.Globals
         #region Автосалон
         public static List<List<string>> CarsNames = new List<List<string>>()
         {
-            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
-            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
-            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
-            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
-            new List<string>(){"Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"w140", "w210", "volga","Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"w140", "w210", "volga","Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"w140", "w210", "volga","Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"w140", "w210", "volga", "Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
+            new List<string>(){"w140", "w210", "volga","Sultan","Kuruma","Jackal","Surano","Dubsta","Rocoto"},
         };
         #endregion
         #region Оружейная
@@ -1210,6 +1210,9 @@ namespace iTeffa.Globals
             { "MachinePistol", 20},
             { "Патроны", 5000},
             #region Автосалоны
+            {"w140", 100},
+            {"w210", 100},
+            {"volga", 100},
             {"Sultan", 100},
             {"Kuruma", 100},
             {"Jackal", 100},
@@ -1274,6 +1277,9 @@ namespace iTeffa.Globals
             {"MachinePistol",2160},
             {"Патроны",4},
             #region Автосалоны
+            {"w140", 100000},
+            {"w210", 100000},
+            {"volga", 100000},
             {"Sultan", 100000},
             {"Kuruma", 100000},
             {"Jackal", 100000},
