@@ -239,6 +239,16 @@
   color: #ab2b2b;
 }
 
+.inGameHud .personid {
+  position: absolute;
+  top: 120px;
+  right: 1px;
+  width: 160px;
+  color:#fff
+}
+
+
+
 /* IT Studio "iTeffa" - Система пищеварения */
 .inGameHud .digestion {
   position: absolute;

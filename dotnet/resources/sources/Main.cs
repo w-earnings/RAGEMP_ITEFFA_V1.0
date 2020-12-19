@@ -29,9 +29,11 @@ namespace iTeffa
         private static readonly int Slots = NAPI.Server.GetMaxPlayers();
         public static Dictionary<string, Tuple<int, int, int>> PromoCodes = new Dictionary<string, Tuple<int, int, int>>();
         public static List<int> UUIDs = new List<int>();
+        public static List<string> PersonIDs = new List<string>();
         public static Dictionary<int, string> PlayerNames = new Dictionary<int, string>();
         public static Dictionary<string, int> PlayerBankAccs = new Dictionary<string, int>();
         public static Dictionary<string, int> PlayerUUIDs = new Dictionary<string, int>();
+        public static Dictionary<string, string> PersonPlayerIDs = new Dictionary<string, string>();
         public static Dictionary<int, Tuple<int, int, int, long>> PlayerSlotsInfo = new Dictionary<int, Tuple<int, int, int, long>>();
         public static Dictionary<string, Player> LoggedIn = new Dictionary<string, Player>();
         public static Dictionary<Player, Character> Players = new Dictionary<Player, Character>();
@@ -78,7 +80,8 @@ namespace iTeffa
                     NAPI.World.SetTime(DateTime.Now.Hour, 0, 0);
                 });
 
-                DataTable result = Connect.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
+                DataTable result = Connect.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl`,`personid` FROM `characters`");
+
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -86,6 +89,7 @@ namespace iTeffa
                         try
                         {
                             int uuid = Convert.ToInt32(Row["uuid"]);
+                            string personid = Convert.ToString(Row["personid"]);
                             string name = Convert.ToString(Row["firstname"]);
                             string lastname = Convert.ToString(Row["lastname"]);
                             int lvl = Convert.ToInt32(Row["lvl"]);
@@ -95,10 +99,11 @@ namespace iTeffa
                             int adminlvl = Convert.ToInt32(Row["adminlvl"]);
                             int bank = Convert.ToInt32(Row["bank"]);
 
-                            UUIDs.Add(uuid);
+                            UUIDs.Add(uuid); PersonIDs.Add(personid);
                             if (Convert.ToInt32(Row["sim"]) != -1) SimCards.Add(Convert.ToInt32(Row["sim"]), uuid);
                             PlayerNames.Add(uuid, $"{name}_{lastname}");
                             PlayerUUIDs.Add($"{name}_{lastname}", uuid);
+                            PersonPlayerIDs.Add($"{name}_{lastname}", personid);
                             PlayerBankAccs.Add($"{name}_{lastname}", bank);
                             PlayerSlotsInfo.Add(uuid, new Tuple<int, int, int, long>(lvl, exp, fraction, money));
 

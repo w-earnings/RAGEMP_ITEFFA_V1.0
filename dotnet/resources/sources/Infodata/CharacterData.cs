@@ -8,6 +8,7 @@ namespace iTeffa.Infodata
     public class CharacterData
     {
         public int UUID { get; set; } = -1;
+        public string PersonID { get; set; } = null;
         public Vector3 SpawnPos { get; set; } = new Vector3(0, 0, 0);
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime BirthDate { get; set; } = DateTime.Now;

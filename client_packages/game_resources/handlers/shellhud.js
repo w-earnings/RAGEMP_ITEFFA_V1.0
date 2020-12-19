@@ -120,8 +120,9 @@ mp.events.add('showHUD', (show) => {
   mp.gui.execute(`updateSafeZoneSize(${screen.x},${screen.y},${hudstatus.safezone})`);
 
   var playerId = localplayer.getVariable('REMOTE_ID');
-
   mp.gui.execute(`HUD.playerId='${playerId}'`);
+	var personId = localplayer.getVariable('PERSON_ID');
+  mp.gui.execute(`HUD.personId='${personId}'`);
 
   mp.game.ui.displayAreaName(showhud);
   mp.game.ui.displayRadar(showhud);

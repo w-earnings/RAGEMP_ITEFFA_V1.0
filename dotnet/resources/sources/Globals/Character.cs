@@ -62,6 +62,7 @@ namespace iTeffa.Globals.Character
                         player.Armor = Armor;
 
                         player.SetSharedData("REMOTE_ID", player.Value);
+                        player.SetSharedData("PERSON_ID", PersonID);
 
                         Speaking.Voice.PlayerJoin(player);
 
@@ -168,7 +169,9 @@ namespace iTeffa.Globals.Character
                 {
                     foreach (DataRow Row in result.Rows)
                     {
+                        if (PersonID == null || PersonID == "") PersonID = GeneratePersonID(uuid, true);
                         UUID = Convert.ToInt32(Row["uuid"]);
+                        PersonID = Convert.ToString(Row["personid"]);
                         FirstName = Convert.ToString(Row["firstname"]);
                         LastName = Convert.ToString(Row["lastname"]);
                         Gender = Convert.ToBoolean(Row["gender"]);
@@ -326,7 +329,7 @@ namespace iTeffa.Globals.Character
                     $"`wanted`='{JsonConvert.SerializeObject(WantedLVL)}',`biz`='{JsonConvert.SerializeObject(BizIDs)}',`adminlvl`={AdminLVL}," +
                     $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Connect.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
                     $"`warns`={Warns},`hotel`={HotelID},`hotelleft`={HotelLeft},`lastveh`='{LastVeh}',`onduty`={OnDuty},`lasthour`={LastHourMin},`lastbonus`={LastBonus},`isbonused`={IsBonused}," +
-                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
+                    $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`personid`='{PersonID}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
 
                 Finance.Bank.Save(Bank);
                 await Log.DebugAsync($"Player [{FirstName}:{LastName}] was saved.");
@@ -361,6 +364,7 @@ namespace iTeffa.Globals.Character
                 }
 
                 UUID = GenerateUUID();
+                PersonID = GeneratePersonID();
 
                 FirstName = firstName;
                 LastName = lastName;
@@ -381,9 +385,9 @@ namespace iTeffa.Globals.Character
                 Main.PlayerUUIDs.Add($"{firstName}_{lastName}", UUID);
                 Main.PlayerNames.Add(UUID, $"{firstName}_{lastName}");
 
-                await Connect.QueryAsync($"INSERT INTO `characters`(`uuid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
+                await Connect.QueryAsync($"INSERT INTO `characters`(`uuid`,`personid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
                     $"`biz`,`adminlvl`,`licenses`,`unwarn`,`unmute`,`warns`,`lastveh`,`onduty`,`lasthour`,`lastbonus`,`isbonused`,`hotel`,`hotelleft`,`contacts`,`achiev`,`sim`,`pos`,`createdate`,`eat`,`water`) " +
-                    $"VALUES({UUID},'{FirstName}','{LastName}',{Gender},{Health},{Armor},{LVL},{EXP},{Money},{Bank},{WorkID},{FractionID},{FractionLVL},{ArrestTime},{DemorganTime}," +
+                    $"VALUES({UUID},'{PersonID}','{FirstName}','{LastName}',{Gender},{Health},{Armor},{LVL},{EXP},{Money},{Bank},{WorkID},{FractionID},{FractionLVL},{ArrestTime},{DemorganTime}," +
                     $"'{JsonConvert.SerializeObject(WantedLVL)}','{JsonConvert.SerializeObject(BizIDs)}',{AdminLVL},'{JsonConvert.SerializeObject(Licenses)}','{Connect.ConvertTime(Unwarn)}'," +
                     $"'{Unmute}',{Warns},'{LastVeh}',{OnDuty},{LastHourMin},{LastBonus},{IsBonused},{HotelID},{HotelLeft},'{JsonConvert.SerializeObject(Contacts)}','{JsonConvert.SerializeObject(Achievements)}',{Sim}," +
                     $"'{JsonConvert.SerializeObject(SpawnPos)}','{Connect.ConvertTime(CreateDate)}','{Eat}','{Water}')");
@@ -407,6 +411,24 @@ namespace iTeffa.Globals.Character
                 result = Rnd.Next(000001, 999999);
 
             Main.UUIDs.Add(result);
+            return result;
+        }
+
+        private string GeneratePersonID(int uuid = -1, bool save = false)
+        {
+            string result = "";
+            while (Main.PersonIDs.Contains(result))
+            {
+                result += (char)Rnd.Next(0x0030, 0x0039);
+                result += (char)Rnd.Next(0x0041, 0x005A);
+                result += (char)Rnd.Next(0x0030, 0x0039);
+                result += (char)Rnd.Next(0x0041, 0x005A);
+            }
+            Main.PersonIDs.Add(result);
+            if (save)
+            {
+                Connect.Query($"UPDATE `characters` SET `personid`='{result}' WHERE `uuid`={uuid}");
+            }
             return result;
         }
 
