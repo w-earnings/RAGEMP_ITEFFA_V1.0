@@ -406,12 +406,20 @@ namespace iTeffa.Globals.Character
 
         private int GenerateUUID()
         {
-            var result = 333333;
+            var result = 100000;
             while (Main.UUIDs.Contains(result))
                 result = Rnd.Next(000001, 999999);
 
             Main.UUIDs.Add(result);
             return result;
+        }
+
+        public static Dictionary<string, string> toChange = new Dictionary<string, string>();
+        private static MySqlCommand nameCommand;
+
+        public Character()
+        {
+            nameCommand = new MySqlCommand("UPDATE `characters` SET `firstname`=@fn, `lastname`=@ln WHERE `uuid`=@uuid");
         }
 
         private string GeneratePersonID(int uuid = -1, bool save = false)
@@ -425,19 +433,9 @@ namespace iTeffa.Globals.Character
                 result += (char)Rnd.Next(0x0041, 0x005A);
             }
             Main.PersonIDs.Add(result);
-            if (save)
-            {
-                Connect.Query($"UPDATE `characters` SET `personid`='{result}' WHERE `uuid`={uuid}");
-            }
+            if (save) Connect.Query($"UPDATE `characters` SET `personid`='{result}' WHERE `uuid`={uuid}");
+
             return result;
-        }
-
-        public static Dictionary<string, string> toChange = new Dictionary<string, string>();
-        private static MySqlCommand nameCommand;
-
-        public Character()
-        {
-            nameCommand = new MySqlCommand("UPDATE `characters` SET `firstname`=@fn, `lastname`=@ln WHERE `uuid`=@uuid");
         }
 
         public static async Task changeName(string oldName)
@@ -447,8 +445,6 @@ namespace iTeffa.Globals.Character
                 if (!toChange.ContainsKey(oldName)) return;
 
                 string newName = toChange[oldName];
-
-                //int UUID = Main.PlayerNames.FirstOrDefault(u => u.Value == oldName).Key;
                 int Uuid = Main.PlayerUUIDs.GetValueOrDefault(oldName);
                 if (Uuid <= 0)
                 {

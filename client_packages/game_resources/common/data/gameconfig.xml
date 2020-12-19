@@ -14,11 +14,11 @@
 
                         <Item>
                             <PoolName>AnimatedBuilding</PoolName>
-                            <PoolSize value="600"/>
+                            <PoolSize value="1600"/>
                         </Item>
                         <Item>
                             <PoolName>AttachmentExtension</PoolName>
-                            <PoolSize value="430"/>
+                            <PoolSize value="4300"/>
                         </Item>
                         <Item>
                             <PoolName>AudioHeap</PoolName>
@@ -175,7 +175,7 @@
                         </Item>
                         <Item>
                             <PoolName>DrawableStore</PoolName>
-                            <PoolSize value="75635"/>
+                            <PoolSize value="368500"/>
                         </Item>
                         <Item>
                             <PoolName>Dummy Object</PoolName>
@@ -183,7 +183,7 @@
                         </Item>
                         <Item>
                             <PoolName>DwdStore</PoolName>
-                            <PoolSize value="17400"/>
+                            <PoolSize value="358000"/>
                         </Item>
                         <Item>
                             <PoolName>EntityBatch</PoolName>
@@ -203,7 +203,7 @@
                         </Item>
                         <Item>
                             <PoolName>FragmentStore</PoolName>
-                            <PoolSize value="23400"/>
+                            <PoolSize value="1186500"/>
                         </Item>
                         <Item>
                             <PoolName>GamePlayerBroadcastDataHandler_Remote</PoolName>
@@ -247,7 +247,7 @@
                         </Item>
                         <Item>
                             <PoolName>LightEntity</PoolName>
-                            <PoolSize value="4700"/>
+                            <PoolSize value="6200"/>
                         </Item>
                         <Item>
                             <PoolName>MapDataLoadedNode</PoolName>
@@ -379,11 +379,11 @@
                         </Item>
                         <Item>
                             <PoolName>TxdStore</PoolName>
-                            <PoolSize value="68000"/>
+                            <PoolSize value="300500"/>
                         </Item>
                         <Item>
                             <PoolName>Vehicles</PoolName>
-                            <PoolSize value="300"/>
+                            <PoolSize value="3000"/>
                         </Item>
                         <Item>
                             <PoolName>VehicleStreamRequest</PoolName>
@@ -399,7 +399,7 @@
                         </Item>
                         <Item>
                             <PoolName>HandlingData</PoolName>
-                            <PoolSize value="1450"/>
+                            <PoolSize value="6250"/>
                         </Item>
                         <Item>
                             <!-- Size of the CWaypointRecording streaming module. -->
@@ -432,7 +432,7 @@
                         </Item>
                         <Item>
                             <PoolName>fwDynamicArchetypeComponent</PoolName>
-                            <PoolSize value="12500"/>
+                            <PoolSize value="76000"/>
                         </Item>
                         <Item>
                             <PoolName>fwDynamicEntityComponent</PoolName>
@@ -780,13 +780,13 @@
                     <MaxCompEntityModelInfos value="100"/>
                     <MaxMloInstances value="18000"/>
                     <MaxMloModelInfos value="220"/>
-                    <MaxPedModelInfos value="725"/>
+                    <MaxPedModelInfos value="1725"/>
                     <MaxTimeModelInfos value="1800"/>
-                    <MaxVehicleModelInfos value="320"/>
+                    <MaxVehicleModelInfos value="6320"/>
                     <MaxWeaponModelInfos value="115"/>
-                    <MaxExtraPedModelInfos value="240"/>
-                    <MaxExtraVehicleModelInfos value="425"/>
-                    <MaxExtraWeaponModelInfos value="490"/>
+                    <MaxExtraPedModelInfos value="2128"/>
+                    <MaxExtraVehicleModelInfos value="13800"/>
+                    <MaxExtraWeaponModelInfos value="1480"/>
                 </ConfigModelInfo>
 
                 <ConfigExtensions>
