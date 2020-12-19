@@ -4,9 +4,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE IF NOT EXISTS `iteffa` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `iteffa`;
-
 CREATE TABLE IF NOT EXISTS `accounts` (
   `socialclub` mediumtext NOT NULL,
   `login` varchar(155) NOT NULL,
@@ -21,12 +18,14 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `viplvl` varchar(155) NOT NULL,
   `vipdate` datetime NOT NULL,
   `promocodes` varchar(155) NOT NULL,
-  `present` tinyint(1) NOT NULL DEFAULT '0',
+  `present` tinyint(1) NOT NULL DEFAULT 0,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+INSERT INTO `accounts` (`socialclub`, `login`, `hwid`, `coins`, `ip`, `character1`, `character2`, `character3`, `email`, `password`, `viplvl`, `vipdate`, `promocodes`, `present`, `idkey`) VALUES
+	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '0', '194.28.4.19', '100000', '-1', '-2', 'project@wixrp.com', 'cf9db608d98dbaf81a1e3a4bc0f0609472904539db5215cf8ec49d76bf329337', '0', '2020-12-19 23:46:54', '["noref"]', 0, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `adminaccess` (
@@ -49,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `advertised` (
   `EditedAD` varchar(150) DEFAULT NULL,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT '0',
+  `Status` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -189,6 +188,7 @@ INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enter
 
 CREATE TABLE IF NOT EXISTS `characters` (
   `uuid` bigint(20) NOT NULL,
+  `personsid` varchar(50) NOT NULL,
   `adminlvl` int(11) NOT NULL,
   `money` int(11) NOT NULL,
   `firstname` text NOT NULL,
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `unwarn` datetime NOT NULL,
   `unmute` int(11) NOT NULL,
   `bank` int(11) NOT NULL,
-  `wanted` text,
+  `wanted` text DEFAULT NULL,
   `lvl` int(11) NOT NULL,
   `exp` int(11) NOT NULL,
   `gender` tinyint(1) NOT NULL,
@@ -223,23 +223,24 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `pos` text NOT NULL,
   `work` int(11) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  `personid` int(11) NOT NULL,
-  `lastbonus` int(11) DEFAULT '0',
-  `isbonused` int(11) DEFAULT '0',
+  `lastbonus` int(11) DEFAULT 0,
+  `isbonused` int(11) DEFAULT 0,
   PRIMARY KEY (`idkey`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
+INSERT INTO `characters` (`uuid`, `personsid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
+	(100000, 'ITEFFA21', 8, 10000, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 96, 96, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 2, 6, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 5, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":379.0306,"y":-1417.317,"z":38.0}', 0, 1, 5, 0);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `containers` (
   `id` int(11) NOT NULL,
-  `name` text,
-  `price` int(11) NOT NULL DEFAULT '0',
-  `donate` tinyint(1) DEFAULT '0',
-  `position` text,
+  `name` text DEFAULT NULL,
+  `price` int(11) NOT NULL DEFAULT 0,
+  `donate` tinyint(1) DEFAULT 0,
+  `position` text DEFAULT NULL,
   `rotation` text NOT NULL,
-  `loot` text,
+  `loot` text DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -272,9 +273,11 @@ CREATE TABLE IF NOT EXISTS `customization` (
   `iscreated` tinyint(1) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `customization` DISABLE KEYS */;
+INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearance`, `hair`, `clothes`, `accessory`, `tattoos`, `eyebrowc`, `beardc`, `eyec`, `blushc`, `lipstickc`, `chesthairc`, `iscreated`, `idkey`) VALUES
+	(100000, '0', '{"Father":4,"Mother":40,"Similarity":0.0,"SkinSimilarity":1.0}', '[0.0,0.0,0.0,0.0,0.0,0.0,-0.2,0.0,-0.7,0.0,0.0,0.0,0.4,0.0,0.0,0.3,1.0,1.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":1,"Opacity":100.0},{"Value":9,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":17,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":3},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":0},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":6}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '1', '0', '0', '0', 1, 1);
 /*!40000 ALTER TABLE `customization` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `eventcfg` (
@@ -1509,9 +1512,11 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `uuid` int(11) NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
+	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 100000, 7);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `money` (
@@ -1535,6 +1540,7 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('122578', '', '1000', '2'),
 	('125091', '', '1000', '2'),
 	('128674', '', '1000', '3'),
+	('130486', 'Jack_Brown', '0', '1'),
 	('137532', '', '1000', '2'),
 	('145503', '', '1000', '2'),
 	('148329', '', '1000', '2'),
@@ -1936,11 +1942,11 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Author` text NOT NULL,
   `Question` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `Respondent` text,
-  `Response` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `Respondent` text DEFAULT NULL,
+  `Response` text CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT '0',
+  `Status` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
@@ -2024,9 +2030,6 @@ CREATE TABLE IF NOT EXISTS `whitelist` (
 /*!40000 ALTER TABLE `whitelist` DISABLE KEYS */;
 /*!40000 ALTER TABLE `whitelist` ENABLE KEYS */;
 
-CREATE DATABASE IF NOT EXISTS `iteffalogs` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `iteffalogs`;
-
 CREATE TABLE IF NOT EXISTS `adminlog` (
   `time` datetime NOT NULL,
   `admin` text NOT NULL,
@@ -2034,20 +2037,9 @@ CREATE TABLE IF NOT EXISTS `adminlog` (
   `player` text NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40000 ALTER TABLE `adminlog` DISABLE KEYS */;
-INSERT INTO `adminlog` (`time`, `admin`, `action`, `player`, `idkey`) VALUES
-	('2020-12-18 04:20:47', 'server', 'stopServer(Автоматическая перезагрузка)', '', 1),
-	('2020-12-18 10:40:20', 'Jack_Brown', 'delacars', '', 2),
-	('2020-12-18 11:46:09', 'Jack_Brown', 'setWeather(12)', '', 3),
-	('2020-12-18 11:46:12', 'Jack_Brown', 'setWeather(4)', '', 4),
-	('2020-12-18 11:46:18', 'Jack_Brown', 'setWeather(18)', '', 5),
-	('2020-12-18 11:46:23', 'Jack_Brown', 'setWeather(19)', '', 6),
-	('2020-12-18 11:46:27', 'Jack_Brown', 'setWeather(15)', '', 7),
-	('2020-12-18 11:46:36', 'Jack_Brown', 'setWeather(0)', '', 8),
-	('2020-12-19 04:20:57', 'server', 'stopServer(Автоматическая перезагрузка)', '', 9),
-	('2020-12-19 14:42:06', 'Jack_Brown', 'stopServer()', '', 10);
 /*!40000 ALTER TABLE `adminlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `arrestlog` (
@@ -2088,29 +2080,9 @@ CREATE TABLE IF NOT EXISTS `connlog` (
   `ip` text NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40000 ALTER TABLE `connlog` DISABLE KEYS */;
-INSERT INTO `connlog` (`uuid`, `in`, `out`, `sclub`, `hwid`, `ip`, `idkey`) VALUES
-	('333333', '2020-12-18 03:36:42', '2020-12-18 04:20:50', 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 1),
-	('333333', '2020-12-18 10:39:40', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 2),
-	('333333', '2020-12-18 11:19:21', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 3),
-	('333333', '2020-12-18 11:24:09', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 4),
-	('333333', '2020-12-18 11:26:58', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 5),
-	('333333', '2020-12-18 11:37:57', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 6),
-	('333333', '2020-12-18 17:51:35', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 7),
-	('333333', '2020-12-18 17:56:30', '2020-12-19 04:20:58', 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 8),
-	('333333', '2020-12-19 13:08:33', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 9),
-	('333333', '2020-12-19 14:07:20', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 10),
-	('333333', '2020-12-19 14:09:39', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 11),
-	('333333', '2020-12-19 14:11:40', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 12),
-	('333333', '2020-12-19 14:21:15', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 13),
-	('333333', '2020-12-19 14:23:50', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 14),
-	('333333', '2020-12-19 14:25:49', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 15),
-	('333333', '2020-12-19 14:26:15', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 16),
-	('333333', '2020-12-19 14:40:14', '2020-12-19 14:42:08', 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 17),
-	('333333', '2020-12-19 14:43:04', '2020-12-19 14:48:20', 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 18),
-	('100000', '2020-12-19 14:44:05', '2020-12-19 14:48:06', 'Jaroslav123123', '418099F08A68EB8871B8EF047DBC4C80F792C0FCEC2CE4B8C92AA4ECDFBE0E80C8EEE3005FE8CE60850AE390E9BAFF60B410E53440C2E470DC524B9C7CE27F80', '109.252.128.99', 19);
 /*!40000 ALTER TABLE `connlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `deletelog` (
@@ -2145,29 +2117,9 @@ CREATE TABLE IF NOT EXISTS `idlog` (
   `name` text NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40000 ALTER TABLE `idlog` DISABLE KEYS */;
-INSERT INTO `idlog` (`in`, `out`, `uuid`, `id`, `name`, `idkey`) VALUES
-	('2020-12-18 03:36:42', NULL, '333333', '0', 'Jack_Brown', 1),
-	('2020-12-18 10:39:40', NULL, '333333', '0', 'Jack_Brown', 2),
-	('2020-12-18 11:19:21', NULL, '333333', '0', 'Jack_Brown', 3),
-	('2020-12-18 11:24:09', NULL, '333333', '0', 'Jack_Brown', 4),
-	('2020-12-18 11:26:58', NULL, '333333', '0', 'Jack_Brown', 5),
-	('2020-12-18 11:37:57', NULL, '333333', '0', 'Jack_Brown', 6),
-	('2020-12-18 17:51:35', NULL, '333333', '0', 'Jack_Brown', 7),
-	('2020-12-18 17:56:30', NULL, '333333', '0', 'Jack_Brown', 8),
-	('2020-12-19 13:08:33', NULL, '333333', '0', 'Jack_Brown', 9),
-	('2020-12-19 14:07:20', NULL, '333333', '0', 'Jack_Brown', 10),
-	('2020-12-19 14:09:39', NULL, '333333', '0', 'Jack_Brown', 11),
-	('2020-12-19 14:11:40', NULL, '333333', '0', 'Jack_Brown', 12),
-	('2020-12-19 14:21:15', NULL, '333333', '0', 'Jack_Brown', 13),
-	('2020-12-19 14:23:50', NULL, '333333', '0', 'Jack_Brown', 14),
-	('2020-12-19 14:25:49', NULL, '333333', '0', 'Jack_Brown', 15),
-	('2020-12-19 14:26:15', NULL, '333333', '0', 'Jack_Brown', 16),
-	('2020-12-19 14:40:14', NULL, '333333', '1', 'Jack_Brown', 17),
-	('2020-12-19 14:43:04', NULL, '333333', '0', 'Jack_Brown', 18),
-	('2020-12-19 14:44:05', NULL, '100000', '1', 'Axmat_Mentura', 19);
 /*!40000 ALTER TABLE `idlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `itemslog` (
@@ -2179,11 +2131,9 @@ CREATE TABLE IF NOT EXISTS `itemslog` (
   `data` text NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40000 ALTER TABLE `itemslog` DISABLE KEYS */;
-INSERT INTO `itemslog` (`time`, `from`, `to`, `type`, `amount`, `data`, `idkey`) VALUES
-	('2020-12-18 11:50:57', 'player(333333)', 'use', '205', '1', '', 1);
 /*!40000 ALTER TABLE `itemslog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `moneylog` (
@@ -2194,56 +2144,9 @@ CREATE TABLE IF NOT EXISTS `moneylog` (
   `comment` text NOT NULL,
   `idkey` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40000 ALTER TABLE `moneylog` DISABLE KEYS */;
-INSERT INTO `moneylog` (`time`, `from`, `to`, `amount`, `comment`, `idkey`) VALUES
-	('2020-12-18 01:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 1),
-	('2020-12-18 02:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 2),
-	('2020-12-18 03:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 3),
-	('2020-12-18 04:00:01', 'server', 'player(333333)', '4500', 'payday', 4),
-	('2020-12-18 04:00:01', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 5),
-	('2020-12-18 11:00:01', 'server', 'player(333333)', '4500', 'payday', 6),
-	('2020-12-18 11:00:01', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 7),
-	('2020-12-18 12:00:00', 'server', 'player(333333)', '4500', 'payday', 8),
-	('2020-12-18 12:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 9),
-	('2020-12-18 13:00:00', 'server', 'player(333333)', '4500', 'payday', 10),
-	('2020-12-18 13:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 11),
-	('2020-12-18 14:00:00', 'server', 'player(333333)', '4500', 'payday', 12),
-	('2020-12-18 14:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 13),
-	('2020-12-18 15:00:00', 'server', 'player(333333)', '4500', 'payday', 14),
-	('2020-12-18 15:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 15),
-	('2020-12-18 18:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 16),
-	('2020-12-18 18:06:41', 'iteffa', 'server', '500', 'donateChar', 17),
-	('2020-12-18 18:32:45', 'server', 'player(333333)', '0', 'carSell(sentinel)', 18),
-	('2020-12-18 18:32:51', 'server', 'player(333333)', '0', 'carSell(comet2)', 19),
-	('2020-12-18 18:32:54', 'server', 'player(333333)', '0', 'carSell(faction)', 20),
-	('2020-12-18 18:32:56', 'player(333333)', 'server', '4000000', 'houseBuy(99)', 21),
-	('2020-12-18 19:00:00', 'server', 'player(333333)', '4500', 'payday', 22),
-	('2020-12-18 19:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 23),
-	('2020-12-18 19:00:00', 'house(99)', 'frac(6)', '520', 'houseTaxHour', 24),
-	('2020-12-18 20:00:00', 'server', 'player(333333)', '4500', 'payday', 25),
-	('2020-12-18 20:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 26),
-	('2020-12-18 20:00:00', 'house(99)', 'frac(6)', '520', 'houseTaxHour', 27),
-	('2020-12-18 21:00:00', 'server', 'player(333333)', '4500', 'payday', 28),
-	('2020-12-18 21:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 29),
-	('2020-12-18 21:00:00', 'house(99)', 'frac(6)', '520', 'houseTaxHour', 30),
-	('2020-12-18 22:00:00', 'server', 'player(333333)', '4500', 'payday', 31),
-	('2020-12-18 22:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 32),
-	('2020-12-18 22:00:00', 'house(99)', 'frac(6)', '520', 'houseTaxHour', 33),
-	('2020-12-18 22:00:00', 'server', 'player(333333)', '2000000', 'houseTax', 34),
-	('2020-12-18 23:00:00', 'server', 'player(333333)', '4500', 'payday', 35),
-	('2020-12-18 23:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 36),
-	('2020-12-19 00:00:00', 'server', 'player(333333)', '4500', 'payday', 37),
-	('2020-12-19 00:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 38),
-	('2020-12-19 01:00:00', 'server', 'player(333333)', '4500', 'payday', 39),
-	('2020-12-19 01:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 40),
-	('2020-12-19 02:00:00', 'server', 'player(333333)', '4500', 'payday', 41),
-	('2020-12-19 02:00:00', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 42),
-	('2020-12-19 03:00:01', 'server', 'player(333333)', '4500', 'payday', 43),
-	('2020-12-19 03:00:01', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 44),
-	('2020-12-19 04:00:01', 'server', 'player(333333)', '4500', 'payday', 45),
-	('2020-12-19 04:00:01', 'biz(80)', 'frac(6)', '0', 'bizTaxHour', 46);
 /*!40000 ALTER TABLE `moneylog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `namelog` (
