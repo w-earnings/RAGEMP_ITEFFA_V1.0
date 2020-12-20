@@ -214,7 +214,7 @@ namespace iTeffa
 
                 Fractions.Configs.LoadFractionConfigs();
 
-                NAPI.World.SetWeather(config.TryGet<string>("Weather", "CLEAR"));
+                NAPI.World.SetWeather(config.TryGet<string>("Weather", "XMAS")); // CLEAR.
 
                 if (oldconfig.DonateChecker)
                     Finance.Donations.Start();
@@ -2340,7 +2340,7 @@ namespace iTeffa
         private static DateTime NextWeatherChange = DateTime.Now.AddMinutes(rnd.Next(30, 70));
         private static List<int> Env_lastDate = new List<int>() { DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year };
         private static List<int> Env_lastTime = new List<int>() { DateTime.Now.Hour, DateTime.Now.Minute };
-        private static string Env_lastWeather = config.TryGet<string>("Weather", "CLEAR"); // XMAS - Зима
+        private static string Env_lastWeather = config.TryGet<string>("Weather", "XMAS"); // CLEAR
         public static bool SCCheck = config.TryGet<bool>("SocialClubCheck", false);
         public static void changeWeather(byte id)
         {
