@@ -7,12 +7,8 @@
 client_packages/game_resources/dlcpacks/map_california
 dotnet/resources/ragemp
 dotnet/resources/.vs
-dotnet/runtime
-dotnet/vehicleData.json
 dotnet/server_exceptions.txt
 dotnet/server_logs.txt
-BugTrap-x64.dll
-launchSettings.json
 linux_x64.tar.gz
 coords.txt
 iTeffa.db
