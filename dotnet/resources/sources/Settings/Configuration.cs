@@ -15,28 +15,28 @@ namespace iTeffa.Settings
             configs = new Dictionary<string, object>();
             Category = category_;
 
-            using (SQLiteConnection connection = new SQLiteConnection())
+            using SQLiteConnection connection = new SQLiteConnection
             {
-                connection.ConnectionString = DBCONN;
-                connection.Open();
+                ConnectionString = DBCONN
+            };
+            connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand(connection))
-                {
-                    command.CommandText = $"CREATE TABLE IF NOT EXISTS '{Category}' " + "(Param TEXT NOT NULL UNIQUE, Value TEXT, PRIMARY KEY(Param))";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"SELECT * FROM '{Category}'";
+            using SQLiteCommand command = new SQLiteCommand(connection)
+            {
+                CommandText = $"CREATE TABLE IF NOT EXISTS '{Category}' " + "(Param TEXT NOT NULL UNIQUE, Value TEXT, PRIMARY KEY(Param))"
+            };
+            command.ExecuteNonQuery();
+            command.CommandText = $"SELECT * FROM '{Category}'";
 
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    DataTable table = new DataTable();
+            SQLiteDataReader reader = command.ExecuteReader();
+            DataTable table = new DataTable();
 
-                    table.Load(reader);
+            table.Load(reader);
 
-                    foreach (DataRow row in table.Rows)
-                    {
-                        configs.Add(row["Param"].ToString(), row["Value"]);
-                        Console.WriteLine($"Loaded config: {Category} {row["Param"].ToString()} {row["Value"]}");
-                    }
-                }
+            foreach (DataRow row in table.Rows)
+            {
+                configs.Add(row["Param"].ToString(), row["Value"]);
+                Console.WriteLine($"Loaded config: {Category} {row["Param"]} {row["Value"]}");
             }
         }
 
@@ -45,32 +45,32 @@ namespace iTeffa.Settings
             if (configs.ContainsKey(param))
             {
                 configs[param] = value;
-                using (SQLiteConnection connection = new SQLiteConnection())
+                using SQLiteConnection connection = new SQLiteConnection
                 {
-                    connection.ConnectionString = DBCONN;
-                    connection.Open();
+                    ConnectionString = DBCONN
+                };
+                connection.Open();
 
-                    using (SQLiteCommand command = new SQLiteCommand(connection))
-                    {
-                        command.CommandText = $"UPDATE '{Category}' SET 'Value'='{value.ToString()}' WHERE 'Param'='{param}'";
-                        command.ExecuteNonQuery();
-                    }
-                }
+                using SQLiteCommand command = new SQLiteCommand(connection)
+                {
+                    CommandText = $"UPDATE '{Category}' SET 'Value'='{value}' WHERE 'Param'='{param}'"
+                };
+                command.ExecuteNonQuery();
             }
             else
             {
                 configs.Add(param, value);
-                using (SQLiteConnection connection = new SQLiteConnection())
+                using SQLiteConnection connection = new SQLiteConnection
                 {
-                    connection.ConnectionString = DBCONN;
-                    connection.Open();
+                    ConnectionString = DBCONN
+                };
+                connection.Open();
 
-                    using (SQLiteCommand command = new SQLiteCommand(connection))
-                    {
-                        command.CommandText = $"INSERT INTO '{Category}'('Param','Value') VALUES ('{param}','{value.ToString()}')";
-                        command.ExecuteNonQuery();
-                    }
-                }
+                using SQLiteCommand command = new SQLiteCommand(connection)
+                {
+                    CommandText = $"INSERT INTO '{Category}'('Param','Value') VALUES ('{param}','{value}')"
+                };
+                command.ExecuteNonQuery();
             }
             return value;
         }

@@ -937,7 +937,7 @@ namespace iTeffa.Globals
                         int count = Items[UUID][index].Count;
                         Items[UUID][index].Count = count + item.Count;
                         Interface.Dashboard.Update(player, Items[UUID][index], index);
-                        Log.Debug($"Added existing item! {UUID.ToString()}:{index.ToString()}");
+                        Log.Debug($"Added existing item! {UUID}:{index}");
                     }
                     else
                     {
@@ -945,7 +945,7 @@ namespace iTeffa.Globals
                         Interface.Dashboard.Update(player, item, Items[UUID].IndexOf(item));
                     }
                 }
-                Log.Debug($"Item added. {UUID.ToString()}:{index.ToString()}");
+                Log.Debug($"Item added. {UUID}:{index}");
             }
             catch (Exception e)
             {
@@ -1033,7 +1033,7 @@ namespace iTeffa.Globals
                         Interface.Dashboard.sendItems(player);
                     }
                 }
-                Log.Debug($"Item removed. {UUID.ToString()}:{Index.ToString()}");
+                Log.Debug($"Item removed. {UUID}:{Index}");
                 return;
             }
             catch (Exception e)
@@ -1053,7 +1053,7 @@ namespace iTeffa.Globals
                 {
                     Items[UUID].Remove(item);
                     Interface.Dashboard.sendItems(player);
-                    Log.Debug($"Item removed. {UUID.ToString()}:TYPE {(int)item.Type}");
+                    Log.Debug($"Item removed. {UUID}:TYPE {(int)item.Type}");
                 }
                 else
                 {
@@ -1072,7 +1072,7 @@ namespace iTeffa.Globals
                             Interface.Dashboard.sendItems(player);
                         }
                     }
-                    Log.Debug($"Item removed. {UUID.ToString()}:{Index.ToString()}");
+                    Log.Debug($"Item removed. {UUID}:{Index}");
                 }
                 return;
             }

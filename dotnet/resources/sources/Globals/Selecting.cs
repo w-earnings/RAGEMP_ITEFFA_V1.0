@@ -154,7 +154,7 @@ namespace iTeffa.Globals
                         }
                 }
             }
-            catch (Exception e) { Log.Write($"oSelected/: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"oSelected/: {e}\n{e.StackTrace}", nLog.Type.Error); }
         }
 
         [RemoteEvent("vehicleSelected")]

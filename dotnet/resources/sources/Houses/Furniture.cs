@@ -205,7 +205,7 @@ namespace iTeffa.Houses
         }
         public static int GetCountOfType(int houseID, int furnID, ItemType type)
         {
-            HouseFurniture furniture = HouseFurnitures[houseID][furnID];
+            _ = HouseFurnitures[houseID][furnID];
             var items = FurnituresItems[houseID][furnID];
             var count = 0;
 

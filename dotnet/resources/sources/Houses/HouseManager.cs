@@ -973,7 +973,7 @@ namespace iTeffa.Houses
             }
 
             var mName = item.ID;
-            var roomMate = NAPI.Player.GetPlayerFromName(mName);
+            _ = NAPI.Player.GetPlayerFromName(mName);
 
             var house = GetHouse(player);
             if (house.Roommates.Contains(mName)) house.Roommates.Remove(mName);
@@ -1037,7 +1037,7 @@ namespace iTeffa.Houses
             var house = GetHouse(player);
             var garage = GarageManager.Garages[house.GarageID];
             var check = garage.CheckCar(false, number);
-            var check_pos = string.IsNullOrEmpty(vData.Position) ? false : true;
+            var check_pos = !string.IsNullOrEmpty(vData.Position);
 
             Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
             {

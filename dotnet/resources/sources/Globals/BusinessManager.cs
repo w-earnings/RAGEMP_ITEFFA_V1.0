@@ -1642,7 +1642,7 @@ namespace iTeffa.Globals
                 Finance.Wallet.Change(client, +prices);
                 GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prices, $"sellShop");
             }
-            catch (Exception e) { Log.Write($"SellShop: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"SellShop: {e}\n{e.StackTrace}", nLog.Type.Error); }
         }
         public static void Carwash_Pay(Player player)
         {
@@ -1923,12 +1923,12 @@ namespace iTeffa.Globals
                     Bank.Data bData = Bank.Get(Main.PlayerBankAccs[biz.Owner]);
                     if (bData.ID == 0)
                     {
-                        Log.Write($"TakeProd BankID error: {bizid.ToString()}({biz.Owner}) {amount.ToString()} {prodname} {addMoney.ToString()}", nLog.Type.Error);
+                        Log.Write($"TakeProd BankID error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", nLog.Type.Error);
                         return false;
                     }
                     if (!Bank.Change(bData.ID, addMoney, false))
                     {
-                        Log.Write($"TakeProd error: {bizid.ToString()}({biz.Owner}) {amount.ToString()} {prodname} {addMoney.ToString()}", nLog.Type.Error);
+                        Log.Write($"TakeProd error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", nLog.Type.Error);
                         return false;
                     }
                     GameLog.Money($"biz({bizid})", $"bank({bData.ID})", addMoney, "bizProfit");
@@ -3209,9 +3209,11 @@ namespace iTeffa.Globals
 
             foreach (var p in biz.Products)
             {
-                List<string> item = new List<string>();
-                item.Add(p.Name);
-                item.Add($"{p.Price}$");
+                List<string> item = new List<string>
+                {
+                    p.Name,
+                    $"{p.Price}$"
+                };
                 items.Add(item);
             }
             string json = JsonConvert.SerializeObject(items);
@@ -3273,7 +3275,7 @@ namespace iTeffa.Globals
                 Finance.Wallet.Change(client, -prod.Price);
                 GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyShop");
             }
-            catch (Exception e) { Log.Write($"BuyShop: {e.ToString()}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"BuyShop: {e}\n{e.StackTrace}", nLog.Type.Error); }
         }
 
         public static void OpenPetrolMenu(Player player)

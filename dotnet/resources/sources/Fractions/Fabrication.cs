@@ -344,7 +344,7 @@ namespace iTeffa.Fractions
         public static void OpenBuyAlcoholMenu(Player player)
         {
             int club = player.GetData<int>("CLUB");
-            var isOwner = (Main.Players[player].FractionID == club && Manager.isLeader(player, club)) ? true : false;
+            var isOwner = (Main.Players[player].FractionID == club && Manager.isLeader(player, club));
             var stock = new List<int>()
             {
                 ClubsStocks[club].Materials,

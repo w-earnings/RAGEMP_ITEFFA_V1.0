@@ -105,8 +105,8 @@ namespace iTeffa.Globals.Character
                                 List<bool> prepData = new List<bool>
                                 {
                                     true,
-                                    (FractionID > 0) ? true : false,
-                                    (house != null || HotelID != -1) ? true : false,
+                                    (FractionID > 0),
+                                    (house != null || HotelID != -1),
                                 };
                                 Trigger.ClientEvent(player, "spawnShow", JsonConvert.SerializeObject(prepData));
                                 Customization.ApplyCharacter(player);

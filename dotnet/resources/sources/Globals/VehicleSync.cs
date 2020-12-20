@@ -508,7 +508,7 @@ namespace iTeffa.Globals
             }
             catch { };
 
-            return default(VehicleSyncData);
+            return default;
         }
 
         public static bool UpdateVehicleSyncData(Vehicle veh, VehicleSyncData data)

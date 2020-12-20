@@ -493,7 +493,7 @@ namespace iTeffa.Globals
 
             Ban.Online(target, unbanTime, false, reason, player.Name);
 
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы заблокированы до {unbanTime.ToString()}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы заблокированы до {unbanTime}", 30000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Причина: {reason}", 30000);
 
             int AUUID = Main.Players[player].UUID;
@@ -529,7 +529,7 @@ namespace iTeffa.Globals
 
             Ban.Online(target, unbanTime, true, reason, player.Name);
 
-            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Ты словил банхаммер до {unbanTime.ToString()}", 30000);
+            Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Ты словил банхаммер до {unbanTime}", 30000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Причина: {reason}", 30000);
 
             int AUUID = Main.Players[player].UUID;
@@ -866,7 +866,7 @@ namespace iTeffa.Globals
                 return;
             }
             Weapons.GiveWeapon(target, wType, serial);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} оружие ({weapon.ToString()})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} оружие ({weapon})", 3000);
             GameLog.Admin($"{player.Name}", $"giveGun({weapon},{serial})", $"{target.Name}");
         }
         public static void giveTargetSkin(Player player, Player target, string pedModel)
@@ -925,7 +925,7 @@ namespace iTeffa.Globals
                 return;
             }
             Weapons.GiveWeapon(target, wType, serial);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} одежду ({weapon.ToString()})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы выдали игроку {target.Name} одежду ({weapon})", 3000);
         }
         public static void takeTargetGun(Player player, Player target)
         {

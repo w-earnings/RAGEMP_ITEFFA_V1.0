@@ -367,7 +367,7 @@ namespace iTeffa.Interface
                                             nItem keyring = nInventory.Items[Main.Players[player].UUID][player.GetData<int>("KEYRING")];
                                             string keysData = Convert.ToString(keyring.Data);
                                             List<string> keys = (keysData.Length == 0) ? new List<string>() : new List<string>(keysData.Split('/'));
-                                            if (keys.Count > 0 && string.IsNullOrEmpty(keys[keys.Count - 1]))
+                                            if (keys.Count > 0 && string.IsNullOrEmpty(keys[^1]))
                                                 keys.RemoveAt(keys.Count - 1);
 
                                             if (keys.Count >= 5)
@@ -606,7 +606,7 @@ namespace iTeffa.Interface
                             nItem keyring = nInventory.Items[Main.Players[player].UUID][player.GetData<int>("KEYRING")];
                             string keysData = Convert.ToString(keyring.Data);
                             List<string> keys = (keysData.Length == 0) ? new List<string>() : new List<string>(keysData.Split('/'));
-                            if (keys.Count > 0 && keys[keys.Count - 1] == "")
+                            if (keys.Count > 0 && keys[^1] == "")
                                 keys.RemoveAt(keys.Count - 1);
 
                             item = new nItem(ItemType.CarKey, 1, keys[index]);
@@ -780,7 +780,7 @@ namespace iTeffa.Interface
 
                 string status =
                     (acc.AdminLVL >= 1) ? "Администратор" :
-                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate.ToString("dd.MM.yyyy")}" :
+                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate:dd.MM.yyyy}" :
                     $"{Group.GroupNames[Main.Accounts[player].VipLvl]}";
 
                 long bank = (acc.Bank != 0) ? Bank.Accounts[acc.Bank].Balance : 0;
@@ -837,7 +837,7 @@ namespace iTeffa.Interface
 
                 string status =
                     acc.AdminLVL >= 1 ? "Администратор" :
-                    Main.Accounts[player].VipLvl > 0 ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate.ToString("dd.MM.yyyy")}" :
+                    Main.Accounts[player].VipLvl > 0 ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate:dd.MM.yyyy}" :
                     $"{Group.GroupNames[Main.Accounts[player].VipLvl]}";
 
                 long bank = acc.Bank != 0 ? Bank.Accounts[acc.Bank].Balance : 0;
@@ -965,9 +965,11 @@ namespace iTeffa.Interface
             try
             {
                 if (type == 0) return;
-                List<object> data = new List<object>();
-                data.Add(type);
-                data.Add(title);
+                List<object> data = new List<object>
+                {
+                    type,
+                    title
+                };
                 List<object> Items = new List<object>();
                 foreach (nItem item in items)
                 {

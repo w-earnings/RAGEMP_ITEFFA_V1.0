@@ -100,26 +100,15 @@ namespace iTeffa.Globals
                         return;
                     }
                     int price = CarInfos[number].Price;
-                    switch(Main.Accounts[player].VipLvl) {
-                        case 0: 
-                            price = CarInfos[number].Price;
-                            break;
-                        case 1:
-                            price = Convert.ToInt32(CarInfos[number].Price * 0.95);
-                            break;
-                        case 2:
-                            price = Convert.ToInt32(CarInfos[number].Price * 0.9);
-                            break;
-                        case 3: 
-                            price = Convert.ToInt32(CarInfos[number].Price * 0.85);
-                            break;
-                        case 4: 
-                            price = Convert.ToInt32(CarInfos[number].Price * 0.8);
-                            break;
-                        default:
-                            price = CarInfos[number].Price;
-                            break;
-                    }
+                    price = Main.Accounts[player].VipLvl switch
+                    {
+                        0 => CarInfos[number].Price,
+                        1 => Convert.ToInt32(CarInfos[number].Price * 0.95),
+                        2 => Convert.ToInt32(CarInfos[number].Price * 0.9),
+                        3 => Convert.ToInt32(CarInfos[number].Price * 0.85),
+                        4 => Convert.ToInt32(CarInfos[number].Price * 0.8),
+                        _ => CarInfos[number].Price,
+                    };
                     Trigger.ClientEvent(player, "openDialog", "RENT_CAR", $"Вы хотите арендовать этот транспорт за ${price}?");
                 }
                 else
@@ -195,27 +184,17 @@ namespace iTeffa.Globals
                 VehicleManager.WarpPlayerOutOfVehicle(player);
                 return;
             }
-            int price = CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price;
-            switch(Main.Accounts[player].VipLvl) {
-                case 0: 
-                    price = CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price;
-                    break;
-                case 1:
-                    price = Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.95);
-                    break;
-                case 2:
-                    price = Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.9);
-                    break;
-                case 3: 
-                    price = Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.85);
-                    break;
-                case 4: 
-                    price = Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.8);
-                    break;
-                default:
-                    price = CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price;
-                    break;
-            }
+
+            _ = CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price;
+            var price = Main.Accounts[player].VipLvl switch
+            {
+                0 => CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price,
+                1 => Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.95),
+                2 => Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.9),
+                3 => Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.85),
+                4 => Convert.ToInt32(CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price * 0.8),
+                _ => CarInfos[player.Vehicle.GetData<int>("NUMBER")].Price,
+            };
             if (Main.Players[player].Money < price)
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств на аренду", 3000);

@@ -161,7 +161,7 @@ namespace iTeffa.Houses
 
                         count += vehicles.Count;
                     }
-                    catch (Exception e) { Log.Write($"garage load vehicles {e.ToString()}", nLog.Type.Error); }
+                    catch (Exception e) { Log.Write($"garage load vehicles {e}", nLog.Type.Error); }
                 }
             }
             Log.Write($"{count} vehicles were spawned in garages.", nLog.Type.Success);

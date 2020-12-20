@@ -50,7 +50,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e.ToString()}", nLog.Type.Error);
+                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", nLog.Type.Error);
             }
         }
 

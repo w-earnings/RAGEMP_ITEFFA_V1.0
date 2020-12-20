@@ -23,68 +23,57 @@ namespace iTeffa.Globals
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "votelog", "`election`,`login`,`votefor`,`time`", $"'{ElectionId}','{Login}','{VoteFor}','{DateTime.Now.ToString("s")}'"));
+                insert, "votelog", "`election`,`login`,`votefor`,`time`", $"'{ElectionId}','{Login}','{VoteFor}','{DateTime.Now:s}'"));
         }
         public static void Stock(int Frac, int Uuid, string Type, int Amount, bool In)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "stocklog", "`time`,`frac`,`uuid`,`type`,`amount`,`in`", $"'{DateTime.Now.ToString("s")}',{Frac},{Uuid},'{Type}',{Amount},{In}"));
+                insert, "stocklog", "`time`,`frac`,`uuid`,`type`,`amount`,`in`", $"'{DateTime.Now:s}',{Frac},{Uuid},'{Type}',{Amount},{In}"));
         }
         public static void Admin(string Admin, string Action, string Player)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "adminlog", "`time`,`admin`,`action`,`player`", $"'{DateTime.Now.ToString("s")}','{Admin}','{Action}','{Player}'"));
+                insert, "adminlog", "`time`,`admin`,`action`,`player`", $"'{DateTime.Now:s}','{Admin}','{Action}','{Player}'"));
         }
-        /// <summary>
-        /// Формат для From и To:
-        /// Для игрока - player(UUID).
-        /// Для бизнеса - biz(ID).
-        /// Для банка - bank(UUID).
-        /// Для сервисов и услуг - произвольно.
-        /// Пример: Money("donate","player(1)",100500)
-        /// </summary>
+
         public static void Money(string From, string To, long Amount, string Comment)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "moneylog", "`time`,`from`,`to`,`amount`,`comment`", $"'{DateTime.Now.ToString("s")}','{From}','{To}',{Amount.ToString()},'{Comment}'"));
+                insert, "moneylog", "`time`,`from`,`to`,`amount`,`comment`", $"'{DateTime.Now:s}','{From}','{To}',{Amount},'{Comment}'"));
         }
         public static void Items(string From, string To, int Type, int Amount, string Data)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "itemslog", "`time`,`from`,`to`,`type`,`amount`,`data`", $"'{DateTime.Now.ToString("s")}','{From}','{To}',{Type},{Amount},'{Data}'"));
+                insert, "itemslog", "`time`,`from`,`to`,`type`,`amount`,`data`", $"'{DateTime.Now:s}','{From}','{To}',{Type},{Amount},'{Data}'"));
         }
         public static void Name(int Uuid, string Old, string New)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "namelog", "`time`,`uuid`,`old`,`new`", $"'{DateTime.Now.ToString("s")}',{Uuid},'{Old}','{New}'"));
+                insert, "namelog", "`time`,`uuid`,`old`,`new`", $"'{DateTime.Now:s}',{Uuid},'{Old}','{New}'"));
         }
-        /// <summary>
-        /// Лог банов
-        /// </summary>
-        /// <param name="Admin">UUID админа</param>
-        /// <param name="Player">UUID игрока</param>
+
         public static void Ban(int Admin, int Player, DateTime Until, string Reason, bool isHard)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "banlog", "`time`,`admin`,`player`,`until`,`reason`,`ishard`", $"'{DateTime.Now.ToString("s")}',{Admin},{Player},'{Until.ToString("s")}','{Reason}',{isHard}"));
+                insert, "banlog", "`time`,`admin`,`player`,`until`,`reason`,`ishard`", $"'{DateTime.Now:s}',{Admin},{Player},'{Until:s}','{Reason}',{isHard}"));
         }
         public static void Ticket(int player, int target, int sum, string reason, string pnick, string tnick)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "ticketlog", "`time`,`player`,`target`,`sum`,`reason`,`pnick`,`tnick`", $"'{DateTime.Now.ToString("s")}',{player},{target},{sum},'{reason}','{pnick}','{tnick}'"));
+                insert, "ticketlog", "`time`,`player`,`target`,`sum`,`reason`,`pnick`,`tnick`", $"'{DateTime.Now:s}',{player},{target},{sum},'{reason}','{pnick}','{tnick}'"));
         }
         public static void Arrest(int player, int target, string reason, int stars, string pnick, string tnick)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "arrestlog", "`time`,`player`,`target`,`reason`,`stars`,`pnick`,`tnick`", $"'{DateTime.Now.ToString("s")}',{player},{target},'{reason}',{stars},'{pnick}','{tnick}'"));
+                insert, "arrestlog", "`time`,`player`,`target`,`reason`,`stars`,`pnick`,`tnick`", $"'{DateTime.Now:s}',{player},{target},'{reason}',{stars},'{pnick}','{tnick}'"));
         }
         public static void Connected(string Name, int Uuid, string SClub, string Hwid, int Id, string ip)
         {
@@ -92,9 +81,9 @@ namespace iTeffa.Globals
             DateTime now = DateTime.Now;
             if(ip.Equals("80.235.53.64")) ip = "31.13.190.88";
             queue.Enqueue(string.Format(
-                insert, "connlog", "`in`,`out`,`uuid`,`sclub`,`hwid`,`ip`", $"'{now.ToString("s")}',null,'{Uuid}','{SClub}','{Hwid}','{ip}'"));
+                insert, "connlog", "`in`,`out`,`uuid`,`sclub`,`hwid`,`ip`", $"'{now:s}',null,'{Uuid}','{SClub}','{Hwid}','{ip}'"));
             queue.Enqueue(string.Format(
-                insert, "idlog", "`in`,`out`,`uuid`,`id`,`name`", $"'{now.ToString("s")}',null,'{Uuid}','{Id}','{Name}'"));
+                insert, "idlog", "`in`,`out`,`uuid`,`id`,`name`", $"'{now:s}',null,'{Uuid}','{Id}','{Name}'"));
             OnlineQueue.Add(Uuid, now);
         }
         public static void Disconnected(int Uuid)
@@ -103,14 +92,13 @@ namespace iTeffa.Globals
             DateTime conn = OnlineQueue[Uuid];
             if (conn == null) return;
             OnlineQueue.Remove(Uuid);
-            queue.Enqueue($"update {DB}.connlog set `out`='{DateTime.Now.ToString("s")}' WHERE `in`='{conn.ToString("s")}' and `uuid`={Uuid}");
-            //queue.Enqueue($"update masklog set `out`='{DateTime.Now.ToString("s")}' WHERE `in`='{conn.ToString("s")}' and `uuid`={Uuid}");
+            queue.Enqueue($"update {DB}.connlog set `out`='{DateTime.Now:s}' WHERE `in`='{conn:s}' and `uuid`={Uuid}");
         }
         public static void CharacterDelete(string name, int uuid, string account)
         {
             if (thread == null) return;
             queue.Enqueue(string.Format(
-                insert, "deletelog", "`time`,`uuid`,`name`,`account`", $"'{DateTime.Now.ToString("s")}',{uuid},'{name}','{account}'"));
+                insert, "deletelog", "`time`,`uuid`,`name`,`account`", $"'{DateTime.Now:s}',{uuid},'{name}','{account}'"));
         }
         public static void EventLogAdd(string AdmName, string EventName, ushort MembersLimit, string Started)
         {
@@ -148,7 +136,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write($"{e.ToString()}\n{CMD}", nLog.Type.Error);
+                Log.Write($"{e}\n{CMD}", nLog.Type.Error);
             }
         }
         public static void Stop()

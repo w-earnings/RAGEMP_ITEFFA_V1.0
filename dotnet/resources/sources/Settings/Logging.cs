@@ -29,7 +29,7 @@ namespace iTeffa.Settings
             try
             {
                 Console.ResetColor();
-                Console.Write($"{DateTime.Now.ToString("HH':'mm':'ss.fff")} | ");
+                Console.Write($"{DateTime.Now:HH':'mm':'ss.fff} | ");
                 switch (logType)
                 {
                     case Type.Error:
@@ -67,7 +67,7 @@ namespace iTeffa.Settings
             try
             {
                 Console.ResetColor();
-                Console.Write($"{DateTime.Now.ToString("HH':'mm':'ss.fff")} | ");
+                Console.Write($"{DateTime.Now:HH':'mm':'ss.fff} | ");
                 switch (logType)
                 {
                     case Type.Error:
@@ -108,7 +108,7 @@ namespace iTeffa.Settings
                 if (!CanDebug) return;
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"{DateTime.Now.ToString("HH':'mm':'ss.fff")}");
+                Console.Write($"{DateTime.Now:HH':'mm':'ss.fff}");
                 Console.ResetColor();
                 Console.Write($" | ");
                 switch (logType)
@@ -150,7 +150,7 @@ namespace iTeffa.Settings
                 if (!CanDebug) return Task.CompletedTask;
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"{DateTime.Now.ToString("HH':'mm':'ss.fff")}");
+                Console.Write($"{DateTime.Now:HH':'mm':'ss.fff}");
                 Console.ResetColor();
                 Console.Write($" | ");
                 switch (logType)
