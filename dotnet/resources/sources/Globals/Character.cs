@@ -420,7 +420,7 @@ namespace iTeffa.Globals.Character
 
         private string GeneratePersonSID(int uuid = -1, bool save = false)
         {
-            string result = "ITEFFA21";
+            string result = "";
             while (Main.PersonSIDs.Contains(result))
             {
                 result += (char)Rnd.Next(0x0030, 0x0039);
