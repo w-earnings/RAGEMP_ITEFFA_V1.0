@@ -17,17 +17,15 @@ namespace iTeffa.Finance
     {
         public static Queue<KeyValuePair<string, string>> toChange = new Queue<KeyValuePair<string, string>>();
         public static Queue<string> newNames = new Queue<string>();
-        private static readonly DateTime lastCheck = DateTime.Now;
         private static readonly Nlogs Log = new Nlogs("Donations");
         private static Timer scanTimer;
-        private static readonly Config config = new Config("Donations");
         private static string SYNCSTR;
         private static string CHNGSTR;
         private static string NEWNSTR;
         private static string Connection;
         public static void LoadDonations()
         {
-            Connection = $"Host={config.TryGet<string>("Server", "127.0.0.1")};" + $"Port={config.TryGet<string>("Port", 3306)};" + $"User={config.TryGet<string>("User", "root")};" + $"Password={config.TryGet<string>("Password", "usbw")};" + $"Database={config.TryGet<string>("Database", "websites")};" + $"{config.TryGet<string>("SSL", "SslMode=None;")}";
+            Connection = Connect.ExportSiteDonat;
             SYNCSTR = string.Format("select * from completed where srv={0}", Main.oldconfig.ServerNumber);
             CHNGSTR = "update nicknames SET name='{0}' WHERE name='{1}' and srv={2}";
             NEWNSTR = "insert into nicknames(srv, name) VALUES ({0}, '{1}')";

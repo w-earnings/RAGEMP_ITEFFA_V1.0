@@ -1,16 +1,13 @@
 ﻿using GTANetworkAPI;
+using iTeffa.Infodata;
+using iTeffa.Interface;
+using iTeffa.Settings;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Linq;
 using System.Data;
-using iTeffa.Interface;
-using iTeffa.Infodata;
-using iTeffa.Plugins;
-using iTeffa.Models;
-using iTeffa.Globals;
-using iTeffa.Settings;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace iTeffa.Globals
 {
