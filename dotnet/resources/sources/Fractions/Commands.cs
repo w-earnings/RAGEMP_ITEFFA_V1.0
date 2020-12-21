@@ -194,7 +194,7 @@ namespace iTeffa.Fractions
                 Trigger.ClientEvent(target, "blockMove", true);
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, cuffmesp, 3000);
                 Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, cuffmest, 3000);
-                Controller.RPChat("me", player, cuffme, target);
+                Commands.Controller.RPChat("me", player, cuffme, target);
                 return;
             }
             unCuffPlayer(target);
@@ -202,7 +202,7 @@ namespace iTeffa.Fractions
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, uncuffmest, 3000);
             NAPI.Data.SetEntityData(target, "CUFFED_BY_COP", false);
             NAPI.Data.SetEntityData(target, "CUFFED_BY_MAFIA", false);
-            Controller.RPChat("me", player, uncuffme, target);
+            Commands.Controller.RPChat("me", player, uncuffme, target);
             return;
         }
 
@@ -502,7 +502,7 @@ namespace iTeffa.Fractions
                 Finance.Wallet.Change(player, Convert.ToInt32(sum * 0.1));
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Вы оплатили штраф в размере {sum}$ за {reason}", 3000);
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"{target.Name} оплатил штраф в размере {sum}$ за {reason}", 3000);
-                Controller.RPChat("me", player, " выписал штраф для {name}", target);
+                Commands.Controller.RPChat("me", player, " выписал штраф для {name}", target);
                 Manager.sendFractionMessage(7, $"{player.Name} оштрафовал {target.Name} на {sum}$ ({reason})", true);
                 GameLog.Ticket(Main.Players[player].UUID, Main.Players[target].UUID, sum, reason, player.Name, target.Name);
             }
@@ -558,7 +558,7 @@ namespace iTeffa.Fractions
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы посадили игрока ({target.Value}) на {Main.Players[target].WantedLVL.Level * 20} минут", 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) посадил Вас на {Main.Players[target].WantedLVL.Level * 20} минут", 3000);
-            Controller.RPChat("me", player, " поместил {name} в КПЗ", target);
+            Commands.Controller.RPChat("me", player, " поместил {name} в КПЗ", target);
             Manager.sendFractionMessage(7, $"{player.Name} посадил в КПЗ {target.Name} ({Main.Players[target].WantedLVL.Reason})", true);
             Manager.sendFractionMessage(9, $"{player.Name} посадил в КПЗ {target.Name} ({Main.Players[target].WantedLVL.Reason})", true);
             Main.Players[target].ArrestTime = Main.Players[target].WantedLVL.Level * 20 * 60;
@@ -598,7 +598,7 @@ namespace iTeffa.Fractions
             Main.Players[target].ArrestTime = 0;
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы освободили игрока ({target.Value}) из тюрьмы", 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) освободил Вас из тюрьмы", 3000);
-            Controller.RPChat("me", player, " освободил {name} из КПЗ", target);
+            Commands.Controller.RPChat("me", player, " освободил {name} из КПЗ", target);
         }
 
         public static void arrestTimer(Player player)
@@ -736,7 +736,7 @@ namespace iTeffa.Fractions
             NAPI.Data.SetEntityData(player, "FOLLOWER", target);
             NAPI.Data.SetEntityData(target, "FOLLOWING", player);
             Trigger.ClientEvent(target, "setFollow", true, player);
-            Controller.RPChat("me", player, "потащил(а) {name} за собой", target);
+            Commands.Controller.RPChat("me", player, "потащил(а) {name} за собой", target);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы потащили за собой игрока ({target.Value})", 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) потащил Вас за собой", 3000);
         }
@@ -862,7 +862,7 @@ namespace iTeffa.Fractions
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы запихали игрока ({target.Value}) в машину", 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) запихал Вас в машину", 3000);
-            Controller.RPChat("me", player, " открыл дверь и усадил {name} в машину", target);
+            Commands.Controller.RPChat("me", player, " открыл дверь и усадил {name} в машину", target);
         }
 
         public static void playerOutCar(Player player, Player target)
@@ -879,7 +879,7 @@ namespace iTeffa.Fractions
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выкинули игрока ({target.Value}) из машины", 3000);
                         Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) Выкинул Вас из машины", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(target);
-                        Controller.RPChat("me", player, " открыл дверь и вытащил {name} из машины", target);
+                        Commands.Controller.RPChat("me", player, " открыл дверь и вытащил {name} из машины", target);
                     }
                     else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не в машине", 3000);
                 }
@@ -1021,7 +1021,7 @@ namespace iTeffa.Fractions
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сорвали маску с игрока ({target.Value})", 3000);
             Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) сорвал с Вас маску", 3000);
-            Controller.RPChat("me", player, " сорвал маску с {name}", target);
+            Commands.Controller.RPChat("me", player, " сорвал маску с {name}", target);
         }
         #endregion
 
@@ -1044,7 +1044,7 @@ namespace iTeffa.Fractions
 
             if (Main.Players[target].LVL < 2 || Main.Players[target].Money <= 1000 || (target.HasData("NEXT_ROB") && DateTime.Now < target.GetData<DateTime>("NEXT_ROB")))
             {
-                Controller.RPChat("me", player, "хорошенько обшарив {name}, ничего не нашёл", target);
+                Commands.Controller.RPChat("me", player, "хорошенько обшарив {name}, ничего не нашёл", target);
                 return;
             }
 
@@ -1057,7 +1057,7 @@ namespace iTeffa.Fractions
             GameLog.Money($"player({Main.Players[target].UUID})", $"player({Main.Players[player].UUID})", found, $"robbery");
             target.SetData("NEXT_ROB", DateTime.Now.AddMinutes(60));
 
-            Controller.RPChat("me", player, "хорошенько обшарив {name}" + $", нашёл ${found}", target);
+            Commands.Controller.RPChat("me", player, "хорошенько обшарив {name}" + $", нашёл ${found}", target);
         }
 
         public static void playerChangePocket(Player player, Player target)
@@ -1076,7 +1076,7 @@ namespace iTeffa.Fractions
 
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы сняли мешок с игрока ({target.Value})", 3000);
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) снял с Вас мешок", 3000);
-                Controller.RPChat("me", player, "снял(а) мешок с {name}", target);
+                Commands.Controller.RPChat("me", player, "снял(а) мешок с {name}", target);
             }
             else
             {
@@ -1095,7 +1095,7 @@ namespace iTeffa.Fractions
                 nInventory.Remove(player, ItemType.Pocket, 1);
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы надели мешок на игрока ({target.Value})", 3000);
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) надел на Вас мешок", 3000);
-                Controller.RPChat("me", player, "надел(а) мешок на {name}", target);
+                Commands.Controller.RPChat("me", player, "надел(а) мешок на {name}", target);
             }
         }
         #endregion
