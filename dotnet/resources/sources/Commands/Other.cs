@@ -1,168 +1,25 @@
 ﻿using GTANetworkAPI;
+using iTeffa.Finance;
+using iTeffa.Globals;
+using iTeffa.Interface;
+using iTeffa.Settings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using iTeffa.Interface;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data;
-using Newtonsoft.Json;
-using iTeffa.Settings;
-using iTeffa.Finance;
-using System.Text.RegularExpressions;
-using MySqlConnector;
-using iTeffa.Speaking;
-using iTeffa.Houses;
 
-namespace iTeffa.Globals
+namespace iTeffa.Commands
 {
-    class Commands : Script
+    public class OtherCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Commands");
+        private static readonly Nlogs Log = new Nlogs("Other Commands");
         private static readonly Random rnd = new Random();
-
-        public static void SendToAdmins(ushort minLVL, string message)
-        {
-            foreach (var p in Main.Players.Keys.ToList())
-            {
-                if (!Main.Players.ContainsKey(p)) continue;
-                if (Main.Players[p].AdminLVL >= minLVL)
-                {
-                    p.SendChatMessage(message);
-                }
-            }
-        }
-        private static string RainbowExploit(Player sender, string message)
-        {
-            if (message.Contains("!{"))
-            {
-                foreach (var p in Main.Players.Keys.ToList())
-                {
-                    if (!Main.Players.ContainsKey(p)) continue;
-                    if (Main.Players[p].AdminLVL >= 1)
-                    {
-                        p.SendChatMessage($"~y~[CHAT-EXPLOIT] {sender.Name} ({sender.Value}) - {message}");
-                    }
-                }
-                return Regex.Replace(message, "!", string.Empty);
-            }
-            return message;
-        }
-        [ServerEvent(Event.ChatMessage)]
-        public void API_onChatMessage(Player sender, string message)
-        {
-            try
-            {
-                if (!Main.Players.ContainsKey(sender)) return;
-                if (Main.Players[sender].Unmute > 0)
-                {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
-                    return;
-                }
-                else if (Main.Players[sender].VoiceMuted)
-                {
-                    NAPI.Task.Run(() =>
-                    {
-                        try
-                        {
-                            Main.Players[sender].VoiceMuted = false;
-                            sender.SetSharedData("voice.muted", false);
-                        }
-                        catch { }
-                    });
-                }
-
-                message = RainbowExploit(sender, message);
-                List<Player> players = Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension);
-                NAPI.Task.Run(() =>
-                {
-                    try
-                    {
-                        int[] id = new int[] { sender.Value };
-                        foreach (Player c in players)
-                        {
-                            Trigger.ClientEvent(c, "sendRPMessage", "chat", "{name}: " + message, id);
-                        }
-
-                        if (!sender.HasData("PhoneVoip")) return;
-                        Speaking.VoicePhoneMetaData phoneMeta = sender.GetData<VoicePhoneMetaData>("PhoneVoip");
-                        if (phoneMeta.CallingState == "talk" && Main.Players.ContainsKey(phoneMeta.Target))
-                        {
-                            var pSim = Main.Players[sender].Sim;
-                            var contactName = (Main.Players[phoneMeta.Target].Contacts.ContainsKey(pSim)) ? Main.Players[phoneMeta.Target].Contacts[pSim] : pSim.ToString();
-                            phoneMeta.Target.SendChatMessage($"[В телефоне] {contactName}: {message}");
-                        }
-                    }
-                    catch (Exception e) { Log.Write("ChatMessage_TaskRun: " + e.Message, Nlogs.Type.Error); }
-                });
-                return;
-            }
-            catch (Exception e) { Log.Write("ChatMessage: " + e.Message, Nlogs.Type.Error); }
-        }
-
-        [Command("setgarage")]
-        public static void CMD_SetGarage(Player player, int ID)
-        {
-            if (!Group.CanUseCmd(player, "ban")) return;
-            if (!player.HasData("HOUSEID"))
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
-                return;
-            }
-
-            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            if (house == null) return;
-
-            if (!GarageManager.Garages.ContainsKey(ID)) return;
-            house.GarageID = ID;
-            house.Save();
-        }
-        [Command("creategarage")]
-        public static void CMD_CreateGarage(Player player, int type)
-        {
-            if (!player.IsInVehicle)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du musst im Auto sitzen!", 3000);
-                return;
-            }
-
-            if (!Group.CanUseCmd(player, "allspawncar")) return;
-            if (!GarageManager.GarageTypes.ContainsKey(type)) return;
-            int id = 0;
-            do
-            {
-                id++;
-
-            } while (GarageManager.Garages.ContainsKey(id));
-
-            Garage garage = new Garage(id, type, player.Vehicle.Position, player.Vehicle.Rotation)
-            {
-                Dimension = GarageManager.DimensionID
-            };
-            garage.Create();
-            if (type != -1) garage.CreateInterior();
-
-            GarageManager.Garages.Add(garage.ID, garage);
-            NAPI.Chat.SendChatMessageToPlayer(player, garage.ID.ToString());
-        }
-        [Command("removegarage")]
-        public static void CMD_RemoveGarage(Player player)
-        {
-            if (!Group.CanUseCmd(player, "allspawncar")) return;
-            if (!player.HasData("GARAGEID"))
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie sollten auf dem Garagenmarker stehen", 3000);
-                return;
-            }
-            if (!GarageManager.Garages.ContainsKey(player.GetData<int>("GARAGEID"))) return;
-            Garage garage = GarageManager.Garages[player.GetData<int>("GARAGEID")];
-            garage.Destroy();
-            GarageManager.Garages.Remove(player.GetData<int>("GARAGEID"));
-            Connect.Query($"DELETE FROM `garages` WHERE `id`='{garage.ID}'");
-        }
         [Command("getbonus")]
         public static void GetLastBonus(Player player, int id)
         {
-            if (!Group.CanUseCmd(player, "getbonus")) return;
+            if (!Globals.Group.CanUseCmd(player, "getbonus")) return;
 
             var target = Main.GetPlayerByID(id);
             if (target == null)
@@ -178,7 +35,7 @@ namespace iTeffa.Globals
         [Command("lastbonus")]
         public static void LastBonus(Player player)
         {
-            if (!Group.CanUseCmd(player, "lastbonus")) return;
+            if (!Globals.Group.CanUseCmd(player, "lastbonus")) return;
             DateTime date = new DateTime((new DateTime().AddMinutes(Main.oldconfig.LastBonusMin)).Ticks);
             var hour = date.Hour;
             var min = date.Minute;
@@ -187,7 +44,7 @@ namespace iTeffa.Globals
         [Command("setbonus")]
         public static void SetLastBonus(Player player, int id, int count)
         {
-            if (!Group.CanUseCmd(player, "setbonus")) return;
+            if (!Globals.Group.CanUseCmd(player, "setbonus")) return;
 
             var target = Main.GetPlayerByID(id);
             if (target == null)
@@ -207,62 +64,12 @@ namespace iTeffa.Globals
             var min = date.Minute;
             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус для игрока({id}) установлен на {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
         }
-        [Command("createrod")]
-        public static void CMD_createRod(Player player, float radius)
-        {
-            try
-            {
-                RodManager.createRodAreaCommand(player, radius);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("sh1")]
-        public static void CMD_sheriffAccept(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Fractions.Sheriff.acceptCall(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("givelic")]
-        public static void CMD_giveLicense(Player player, int id, int lic)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "givelic")) return;
-
-                var target = Main.GetPlayerByID(id);
-                if (target == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-
-                if (lic < 0 || lic >= Main.Players[target].Licenses.Count)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"lic = от 0 до {Main.Players[target].Licenses.Count - 1}", 3000);
-                    return;
-                }
-
-                Main.Players[target].Licenses[lic] = true;
-                Dashboard.sendStats(target);
-
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Успешно выдано", 3000);
-            }
-            catch { }
-        }
         [Command("vehchange")]
         public static void CMD_vehchage(Player client, string newmodel)
         {
             try
             {
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
 
                 if (!client.IsInVehicle) return;
 
@@ -301,7 +108,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
                 if (Bank.Accounts.ContainsKey(bank))
                 {
                     Bank.RemoveByID(bank);
@@ -316,7 +123,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
                 Player target = Main.GetPlayerByID(ID);
                 if (target == null)
                 {
@@ -332,7 +139,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
                 Player target = Main.GetPlayerByID(ID);
                 if (target == null)
                 {
@@ -373,7 +180,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "vconfigload")) return;
+                if (!Globals.Group.CanUseCmd(player, "vconfigload")) return;
                 if (type == 0)
                 {
                     Fractions.Configs.FractionVehicles[number] = new Dictionary<string, Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>>();
@@ -517,30 +324,12 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("vconfigload: " + e.Message, Nlogs.Type.Error); }
         }
-        [Command("addpromo")]
-        public static void CMD_addPromo(Player player, int uuid, string promocode)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "promosync")) return;
-                promocode = promocode.ToLower();
-                Main.PromoCodes.Add(promocode, new Tuple<int, int, int>(1, 0, uuid));
-                MySqlCommand queryCommand = new MySqlCommand(@"INSERT INTO `promocodes` (`name`, `type`, `count`, `owner`) VALUES (@NAME, @TYPE, @COUNT, @OWNER)");
-                queryCommand.Parameters.AddWithValue("@NAME", promocode);
-                queryCommand.Parameters.AddWithValue("@TYPE", 1);
-                queryCommand.Parameters.AddWithValue("@COUNT", 0);
-                queryCommand.Parameters.AddWithValue("@OWNER", uuid);
-                Connect.Query(queryCommand);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"success", 3000);
-            }
-            catch { }
-        }
         [Command("giveammo")]
         public static void CMD_ammo(Player client, int ID, int type, int amount = 1)
         {
             try
             {
-                if (!Group.CanUseCmd(client, "giveammo")) return;
+                if (!Globals.Group.CanUseCmd(client, "giveammo")) return;
 
                 var target = Main.GetPlayerByID(ID);
                 if (target == null)
@@ -576,7 +365,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "newvnum")) return;
+                if (!Globals.Group.CanUseCmd(player, "newvnum")) return;
                 if (!VehicleManager.Vehicles.ContainsKey(oldNum))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Такой машины не существует", 3000);
@@ -606,66 +395,14 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("newvnum: " + e.Message, Nlogs.Type.Error); }
         }
-        [Command("redname")]
-        public static void CMD_redname(Player player)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "redname")) return;
-
-                if (!player.HasSharedData("REDNAME") || !player.GetSharedData<bool>("REDNAME"))
-                {
-                    player.SendChatMessage("~r~Redname ON");
-                    player.SetSharedData("REDNAME", true);
-                }
-                else
-                {
-                    player.SendChatMessage("~r~Redname OFF");
-                    player.SetSharedData("REDNAME", false);
-                }
-
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("hidenick")]
-        public static void CMD_hidenick(Player player)
-        {
-            if (!Group.CanUseCmd(player, "setvehdirt")) return;
-            if (!player.HasSharedData("HideNick") || !player.GetSharedData<bool>("HideNick"))
-            {
-                player.SendChatMessage("~g~HideNick ON");
-                player.SetSharedData("HideNick", true);
-            }
-            else
-            {
-                player.SendChatMessage("~g~HideNick OFF");
-                player.SetSharedData("HideNick", false);
-            }
-
-        }
-        [Command("givecoins")]
-        public static void CMD_givecoins(Player player, int id, int amount)
-        {
-            try
-            {
-                var target = Main.GetPlayerByID(id);
-                if (target == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.sendCoins(player, target, amount);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
         [Command("takecoins")]
         public static void CMD_offredbaks(Player client, string name, long amount)
         {
-            if (!Group.CanUseCmd(client, "takecoins")) return;
+            if (!Globals.Group.CanUseCmd(client, "takecoins")) return;
             try
             {
                 name = name.ToLower();
-                KeyValuePair<Player, nAccount.Account> acc = Main.Accounts.FirstOrDefault(x => x.Value.Login == name);
+                KeyValuePair<Player, Globals.nAccount.Account> acc = Main.Accounts.FirstOrDefault(x => x.Value.Login == name);
                 if (acc.Value != null)
                 {
                     Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок онлайн! {acc.Key.Name}:{acc.Key.Value}", 8000);
@@ -682,7 +419,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "checkprop")) return;
+                if (!Globals.Group.CanUseCmd(player, "checkprop")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -719,7 +456,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "id")) return;
+                if (!Globals.Group.CanUseCmd(player, "id")) return;
 
                 if (int.TryParse(target, out int id))
                 {
@@ -758,7 +495,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "setdim")) return;
+                if (!Globals.Group.CanUseCmd(player, "setdim")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -782,7 +519,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "checkdim")) return;
+                if (!Globals.Group.CanUseCmd(player, "checkdim")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -806,7 +543,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "setbizmafia")) return;
+                if (!Globals.Group.CanUseCmd(player, "setbizmafia")) return;
                 if (player.GetData<int>("BIZ_ID") == -1) return;
                 if (mafia < 10 || mafia > 13) return;
 
@@ -824,7 +561,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "newsimcard")) return;
+                if (!Globals.Group.CanUseCmd(player, "newsimcard")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -849,57 +586,13 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("newsimcard: " + e.Message, Nlogs.Type.Error); }
         }
-        [Command("takeoffbiz")]
-        public static void CMD_takeOffBusiness(Player admin, int bizid, bool byaclear = false)
-        {
-            try
-            {
-                if (!Main.Players.ContainsKey(admin)) return;
-                if (!Group.CanUseCmd(admin, "takeoffbiz")) return;
-
-                var biz = BusinessManager.BizList[bizid];
-                var owner = biz.Owner;
-                var player = NAPI.Player.GetPlayerFromName(owner);
-
-                if (player != null && Main.Players.ContainsKey(player))
-                {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Администратор отобрал у Вас бизнес", 3000);
-                    Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
-                    Main.Players[player].BizIDs.Remove(biz.ID);
-                }
-                else
-                {
-                    var split = biz.Owner.Split('_');
-                    var data = Connect.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
-                    List<int> ownerBizs = new List<int>();
-                    var money = 0;
-
-                    foreach (DataRow Row in data.Rows)
-                    {
-                        ownerBizs = JsonConvert.DeserializeObject<List<int>>(Row["biz"].ToString());
-                        money = Convert.ToInt32(Row["money"]);
-                    }
-
-                    ownerBizs.Remove(biz.ID);
-                    Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money={money + Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
-                }
-
-                Finance.Bank.Accounts[biz.BankID].Balance = 0;
-                biz.Owner = "Государство";
-                biz.UpdateLabel();
-                GameLog.Money($"server", $"player({Main.PlayerUUIDs[owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"takeoffBiz({biz.ID})");
-                Notify.Send(admin, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отобрали бизнес у {owner}", 3000);
-                if (!byaclear) GameLog.Admin($"{player.Name}", $"takeoffBiz({biz.ID})", $"");
-            }
-            catch (Exception e) { Log.Write("takeoffbiz: " + e.Message, Nlogs.Type.Error); }
-        }
         [Command("paydaymultiplier")]
         public static void CMD_paydaymultiplier(Player player, int multi)
         {
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "paydaymultiplier")) return;
+                if (!Globals.Group.CanUseCmd(player, "paydaymultiplier")) return;
                 if (multi < 1 || multi > 5)
                 {
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Возможно установить только от 1 до 5", 3000);
@@ -918,7 +611,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "expmultiplier")) return;
+                if (!Globals.Group.CanUseCmd(player, "expmultiplier")) return;
                 if (multi < 1 || multi > 5)
                 {
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Возможно установить только от 1 до 5", 3000);
@@ -937,7 +630,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "offdelfrac")) return;
+                if (!Globals.Group.CanUseCmd(player, "offdelfrac")) return;
 
                 var split = name.Split('_');
                 Connect.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
@@ -957,7 +650,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "removeobj")) return;
+                if (!Globals.Group.CanUseCmd(player, "removeobj")) return;
 
                 player.SetData("isRemoveObject", true);
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Следующий подобранный предмет будет в бане", 3000);
@@ -970,7 +663,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "unwarn")) return;
+                if (!Globals.Group.CanUseCmd(player, "unwarn")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -1001,7 +694,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "unwarn")) return;
+                if (!Globals.Group.CanUseCmd(player, "unwarn")) return;
 
                 if (!Main.PlayerNames.ContainsValue(target))
                 {
@@ -1041,7 +734,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "rescar")) return;
+                if (!Globals.Group.CanUseCmd(player, "rescar")) return;
                 if (!player.IsInVehicle) return;
                 var vehicle = player.Vehicle;
 
@@ -1065,7 +758,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "ban")) return;
+                if (!Globals.Group.CanUseCmd(client, "ban")) return;
                 Notify.Send(client, NotifyType.Warning, NotifyPosition.TopCenter, "Начинаю процедуру синхронизации...", 4000);
                 Ban.Sync();
                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Процедура завершена!", 3000);
@@ -1078,7 +771,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "setcolour")) return;
+                if (!Globals.Group.CanUseCmd(player, "setcolour")) return;
 
                 if (player.GetData<int>("GANGPOINT") == -1)
                 {
@@ -1106,7 +799,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "allspawncar")) return;
+                if (!Globals.Group.CanUseCmd(player, "allspawncar")) return;
                 player.SetClothes(id, draw, texture);
                 if (id == 11) player.SetClothes(3, Customization.CorrectTorso[Main.Players[player].Gender][draw], 0);
                 if (id == 1) Customization.SetMask(player, draw, texture);
@@ -1117,7 +810,7 @@ namespace iTeffa.Globals
         public static void CMD_setAccessories(Player player, int id, int draw, int texture)
         {
             if (!Main.Players.ContainsKey(player)) return;
-            if (!Group.CanUseCmd(player, "allspawncar")) return;
+            if (!Globals.Group.CanUseCmd(player, "allspawncar")) return;
             if (draw > -1)
                 player.SetAccessories(id, draw, texture);
             else
@@ -1128,7 +821,7 @@ namespace iTeffa.Globals
         public static void CMD_checkwanted(Player player, int id)
         {
             if (!Main.Players.ContainsKey(player)) return;
-            if (!Group.CanUseCmd(player, "checkwanted")) return;
+            if (!Globals.Group.CanUseCmd(player, "checkwanted")) return;
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
@@ -1143,7 +836,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "fixcar")) return;
+                if (!Globals.Group.CanUseCmd(player, "fixcar")) return;
                 if (!player.IsInVehicle) return;
                 VehicleManager.RepairCar(player.Vehicle);
             }
@@ -1152,93 +845,12 @@ namespace iTeffa.Globals
                 Log.Write("EXCEPTION AT \"CMD_fixcar\":" + e.ToString(), Nlogs.Type.Error);
             }
         }
-        [Command("stats")]
-        public static void CMD_showPlayerStats(Player admin, int id)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(admin, "stats")) return;
-
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(admin, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-
-                Player player = Main.GetPlayerByID(id);
-                if (player == admin) return;
-                var acc = Main.Players[player];
-                string status =
-                    (acc.AdminLVL >= 1) ? "Администратор" :
-                    (Main.Accounts[player].VipLvl > 0) ? $"{Group.GroupNames[Main.Accounts[player].VipLvl]} до {Main.Accounts[player].VipDate:dd.MM.yyyy}" :
-                    $"{Group.GroupNames[Main.Accounts[player].VipLvl]}";
-
-                long bank = (acc.Bank != 0) ? Finance.Bank.Accounts[acc.Bank].Balance : 0;
-
-                var lic = "";
-                for (int i = 0; i < acc.Licenses.Count; i++)
-                    if (acc.Licenses[i]) lic += $"{Main.LicWords[i]} / ";
-                if (lic == "") lic = "Отсутствуют";
-
-                string work = (acc.WorkID > 0) ? Working.WorkManager.JobStats[acc.WorkID - 1] : "Безработный";
-                string fraction = (acc.FractionID > 0) ? Fractions.Manager.FractionNames[acc.FractionID] : "Нет";
-
-                var number = (acc.Sim == -1) ? "Нет сим-карты" : Main.Players[player].Sim.ToString();
-
-                List<object> data = new List<object>
-                {
-                    acc.LVL,
-                    $"{acc.EXP}/{3 + acc.LVL * 3}",
-                    number,
-                    status,
-                    0,
-                    acc.Warns,
-                    lic,
-                    acc.CreateDate.ToString("dd.MM.yyyy"),
-                    acc.UUID,
-                    acc.Bank,
-                    work,
-                    fraction,
-                    acc.FractionLVL,
-                };
-
-                string json = JsonConvert.SerializeObject(data);
-                Trigger.ClientEvent(admin, "board", 2, json);
-                admin.SetData("CHANGE_WITH", player);
-                Interface.Dashboard.OpenOut(admin, nInventory.Items[acc.UUID], player.Name, 20);
-            }
-            catch (Exception e)
-            {
-                Log.Write("EXCEPTION AT \"CMD_showPlayerStats\":" + e.ToString(), Nlogs.Type.Error);
-            }
-        }
-        [Command("admins")]
-        public static void CMD_AllAdmins(Player client)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(client, "admins")) return;
-
-                client.SendChatMessage("=== ADMINS ONLINE ===");
-                foreach (var p in Main.Players)
-                {
-                    if (p.Value.AdminLVL < 1) continue;
-                    client.SendChatMessage($"[{p.Key.Value}] {p.Key.Name} - {p.Value.AdminLVL}");
-                }
-                client.SendChatMessage("=== ADMINS ONLINE ===");
-
-            }
-            catch (Exception e)
-            {
-                Log.Write("EXCEPTION AT \"CMD_AllAdmins\":" + e.ToString(), Nlogs.Type.Error);
-            }
-        }
         [Command("fixweaponsshops")]
         public static void CMD_fixweaponsshops(Player client)
         {
             try
             {
-                if (!Group.CanUseCmd(client, "fixgovbizprices")) return;
+                if (!Globals.Group.CanUseCmd(client, "fixgovbizprices")) return;
 
                 foreach (var biz in BusinessManager.BizList.Values)
                 {
@@ -1261,7 +873,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "fixgovbizprices")) return;
+                if (!Globals.Group.CanUseCmd(client, "fixgovbizprices")) return;
 
                 foreach (var biz in BusinessManager.BizList.Values)
                 {
@@ -1296,7 +908,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "setproductbyindex")) return;
+                if (!Globals.Group.CanUseCmd(client, "setproductbyindex")) return;
 
                 var biz = BusinessManager.BizList[id];
                 biz.Products[index].Lefts = product;
@@ -1311,7 +923,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "deleteproducts")) return;
+                if (!Globals.Group.CanUseCmd(client, "deleteproducts")) return;
 
                 var biz = BusinessManager.BizList[id];
                 foreach (var p in biz.Products)
@@ -1325,7 +937,7 @@ namespace iTeffa.Globals
         [Command("changebizprice")]
         public static void CMD_changeBusinessPrice(Player player, int newPrice)
         {
-            if (!Group.CanUseCmd(player, "changebizprice")) return;
+            if (!Globals.Group.CanUseCmd(player, "changebizprice")) return;
             if (player.GetData<int>("BIZ_ID") == -1)
             {
                 player.SendChatMessage("~r~Вы должны находиться на одном из бизнесов");
@@ -1338,19 +950,19 @@ namespace iTeffa.Globals
         [Command("pa")]
         public static void CMD_playAnimation(Player player, string dict, string anim, int flag)
         {
-            if (!Group.CanUseCmd(player, "pa")) return;
+            if (!Globals.Group.CanUseCmd(player, "pa")) return;
             player.PlayAnimation(dict, anim, flag);
         }
         [Command("sa")]
         public static void CMD_stopAnimation(Player player)
         {
-            if (!Group.CanUseCmd(player, "sa")) return;
+            if (!Globals.Group.CanUseCmd(player, "sa")) return;
             player.StopAnimation();
         }
         [Command("changestock")]
         public static void CMD_changeStock(Player player, int fracID, string item, int amount)
         {
-            if (!Group.CanUseCmd(player, "changestock")) return;
+            if (!Globals.Group.CanUseCmd(player, "changestock")) return;
             if (!Fractions.Stocks.fracStocks.ContainsKey(fracID))
             {
                 player.SendChatMessage("~r~Склада такой фракции нет");
@@ -1384,14 +996,14 @@ namespace iTeffa.Globals
         [Command("tpc")]
         public static void CMD_tpCoord(Player player, double x, double y, double z)
         {
-            if (!Group.CanUseCmd(player, "tpc")) return;
+            if (!Globals.Group.CanUseCmd(player, "tpc")) return;
             NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
         }
         [Command("inv")]
         public static void CMD_ToogleInvisible(Player player)
         {
             if (!Main.Players.ContainsKey(player)) return;
-            if (!Group.CanUseCmd(player, "inv")) return;
+            if (!Globals.Group.CanUseCmd(player, "inv")) return;
 
             BasicSync.SetInvisible(player, !BasicSync.GetInvisible(player));
         }
@@ -1410,7 +1022,7 @@ namespace iTeffa.Globals
         public static void CMD_SendToCreator(Player player, int id)
         {
             if (!Main.Players.ContainsKey(player)) return;
-            if (!Group.CanUseCmd(player, "sendcreator")) return;
+            if (!Globals.Group.CanUseCmd(player, "sendcreator")) return;
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
@@ -1425,7 +1037,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "afuel")) return;
+                if (!Globals.Group.CanUseCmd(player, "afuel")) return;
                 if (!player.IsInVehicle) return;
                 player.Vehicle.SetSharedData("PETROL", fuel);
                 GameLog.Admin($"{player.Name}", $"afuel({fuel})", $"");
@@ -1437,7 +1049,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(client, "changename")) return;
+                if (!Globals.Group.CanUseCmd(client, "changename")) return;
                 if (!Main.PlayerNames.ContainsValue(curient)) return;
 
                 try
@@ -1458,12 +1070,12 @@ namespace iTeffa.Globals
                 }
 
                 Player target = NAPI.Player.GetPlayerFromName(curient);
-                Character.Character.toChange.Add(curient, newName);
+                Globals.Character.Character.toChange.Add(curient, newName);
 
                 if (target == null || target.IsNull)
                 {
                     Notify.Send(client, NotifyType.Alert, NotifyPosition.TopCenter, "Игрок оффлайн, меняем...", 3000);
-                    Task changeTask = Character.Character.changeName(curient);
+                    Task changeTask = Globals.Character.Character.changeName(curient);
                 }
                 else
                 {
@@ -1485,7 +1097,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "startmatwars")) return;
+                if (!Globals.Group.CanUseCmd(player, "startmatwars")) return;
                 if (Fractions.MatsWar.isWar)
                 {
                     player.SendChatMessage("~r~Война за маты уже идёт");
@@ -1569,7 +1181,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "giveexp")) return;
+                if (!Globals.Group.CanUseCmd(player, "giveexp")) return;
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
@@ -1594,7 +1206,7 @@ namespace iTeffa.Globals
         [Command("housetypeprice")]
         public static void CMD_replaceHousePrices(Player player, int type, int newPrice)
         {
-            if (!Group.CanUseCmd(player, "housetypeprice")) return;
+            if (!Globals.Group.CanUseCmd(player, "housetypeprice")) return;
             foreach (var h in Houses.HouseManager.Houses)
             {
                 if (h.Type != type) continue;
@@ -1606,7 +1218,7 @@ namespace iTeffa.Globals
         [Command("delhouseowner")]
         public static void CMD_deleteHouseOwner(Player player)
         {
-            if (!Group.CanUseCmd(player, "delhouseowner")) return;
+            if (!Globals.Group.CanUseCmd(player, "delhouseowner")) return;
             if (!player.HasData("HOUSEID"))
             {
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
@@ -1626,7 +1238,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "stt")) return;
+                if (!Globals.Group.CanUseCmd(player, "stt")) return;
                 if (!player.IsInVehicle) return;
                 Trigger.ClientEvent(player, "svem", power, torque);
             }
@@ -1640,7 +1252,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "svm")) return;
+                if (!Globals.Group.CanUseCmd(player, "svm")) return;
                 if (!player.IsInVehicle) return;
                 player.Vehicle.SetMod(type, index);
 
@@ -1655,7 +1267,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "svm")) return;
+                if (!Globals.Group.CanUseCmd(player, "svm")) return;
                 if (!player.IsInVehicle) return;
                 Vehicle v = player.Vehicle;
                 if (alpha != 0)
@@ -1679,7 +1291,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "svm")) return;
+                if (!Globals.Group.CanUseCmd(player, "svm")) return;
                 if (!player.IsInVehicle) return;
                 Vehicle v = player.Vehicle;
                 if (hlcolor >= 0 && hlcolor <= 12)
@@ -1699,7 +1311,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "svh")) return;
+                if (!Globals.Group.CanUseCmd(player, "svh")) return;
                 if (!player.IsInVehicle) return;
                 Vehicle v = player.Vehicle;
                 v.Repair();
@@ -1712,394 +1324,10 @@ namespace iTeffa.Globals
             }
 
         }
-        [Command("delacars")]
-        public static void CMD_deleteAdminCars(Player player)
-        {
-            try
-            {
-                NAPI.Task.Run(() =>
-                {
-                    try
-                    {
-                        if (!Group.CanUseCmd(player, "delacars")) return;
-                        foreach (var v in NAPI.Pools.GetAllVehicles())
-                        {
-                            if (v.HasData("ACCESS") && v.GetData<string>("ACCESS") == "ADMIN")
-                                v.Delete();
-                        }
-                        GameLog.Admin($"{player.Name}", $"delacars", $"");
-                    }
-                    catch { }
-                });
-            }
-            catch (Exception e) { Log.Write("delacars: " + e.Message, Nlogs.Type.Error); }
-        }
-        [Command("delacar")]
-        public static void CMD_deleteThisAdminCar(Player client)
-        {
-            if (!Group.CanUseCmd(client, "delacar")) return;
-            if (!client.IsInVehicle) return;
-            Vehicle veh = client.Vehicle;
-            if (veh.HasData("ACCESS") && veh.GetData<string>("ACCESS") == "ADMIN")
-                veh.Delete();
-            GameLog.Admin($"{client.Name}", $"delacar", $"");
-        }
-        [Command("delmycars", "dmcs")]
-        public static void CMD_delMyCars(Player client)
-        {
-            try
-            {
-                NAPI.Task.Run(() =>
-                {
-                    try
-                    {
-                        if (!Group.CanUseCmd(client, "vehc")) return;
-                        foreach (var v in NAPI.Pools.GetAllVehicles())
-                        {
-                            if (v.HasData("ACCESS") && v.GetData<string>("ACCESS") == "ADMIN")
-                            {
-                                if (v.GetData<string>("BY") == client.Name)
-                                    v.Delete();
-                            }
-                        }
-                        GameLog.Admin($"{client.Name}", $"delmycars", $"");
-                    }
-                    catch { }
-                });
-            }
-            catch (Exception e) { Log.Write("delacars: " + e.Message, Nlogs.Type.Error); }
-        }
-        [Command("allspawncar")]
-        public static void CMD_allSpawnCar(Player player)
-        {
-            Admin.respawnAllCars(player);
-        }
-        [Command("save")]
-        public static void CMD_saveCoord(Player player, string name)
-        {
-            Admin.saveCoords(player, name);
-        }
-        [Command("setfractun")]
-        public static void ACMD_setfractun(Player player, int cat = -1, int id = -1)
-        {
-            try
-            {
-                if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                if (!player.IsInVehicle)
-                {
-                    player.SendChatMessage("Вы должны сидеть в машине фракции, которую хотите изменить");
-                    return;
-                }
-                if (player.Vehicle.HasData("ACCESS") && player.Vehicle.GetData<string>("ACCESS") == "FRACTION")
-                {
-                    if (!Fractions.Configs.FractionVehicles[player.Vehicle.GetData<int>("FRACTION")].ContainsKey(player.Vehicle.NumberPlate)) return;
-                    int fractionid = player.Vehicle.GetData<int>("FRACTION");
-                    if (cat < 0)
-                    {
-                        Globals.VehicleManager.FracApplyCustomization(player.Vehicle, fractionid);
-                        return;
-                    }
-
-                    string number = player.Vehicle.NumberPlate;
-                    Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization> oldtuple = Fractions.Configs.FractionVehicles[fractionid][number];
-                    VehicleHash oldvehhash = oldtuple.Item1;
-                    Vector3 oldvehpos = oldtuple.Item2;
-                    Vector3 oldvehrot = oldtuple.Item3;
-                    int oldvehrank = oldtuple.Item4;
-                    int oldvehc1 = oldtuple.Item5;
-                    int oldvehc2 = oldtuple.Item6;
-                    VehicleManager.VehicleCustomization oldvehdata = oldtuple.Item7;
-                    switch (cat)
-                    {
-                        case 0:
-                            oldvehdata.Spoiler = id;
-                            break;
-                        case 1:
-                            oldvehdata.FrontBumper = id;
-                            break;
-                        case 2:
-                            oldvehdata.RearBumper = id;
-                            break;
-                        case 3:
-                            oldvehdata.SideSkirt = id;
-                            break;
-                        case 4:
-                            oldvehdata.Muffler = id;
-                            break;
-                        case 5:
-                            oldvehdata.Wings = id;
-                            break;
-                        case 6:
-                            oldvehdata.Roof = id;
-                            break;
-                        case 7:
-                            oldvehdata.Hood = id;
-                            break;
-                        case 8:
-                            oldvehdata.Vinyls = id;
-                            break;
-                        case 9:
-                            oldvehdata.Lattice = id;
-                            break;
-                        case 10:
-                            oldvehdata.Engine = id;
-                            break;
-                        case 11:
-                            oldvehdata.Turbo = id;
-                            var turbo = (oldvehdata.Turbo == 0);
-                            player.Vehicle.SetSharedData("TURBO", turbo);
-                            break;
-                        case 12:
-                            oldvehdata.Horn = id;
-                            break;
-                        case 13:
-                            oldvehdata.Transmission = id;
-                            break;
-                        case 14:
-                            oldvehdata.WindowTint = id;
-                            break;
-                        case 15:
-                            oldvehdata.Suspension = id;
-                            break;
-                        case 16:
-                            oldvehdata.Brakes = id;
-                            break;
-                        case 17:
-                            oldvehdata.Headlights = id;
-                            break;
-                        case 18:
-                            oldvehdata.NumberPlate = id;
-                            break;
-                        case 19:
-                            oldvehdata.NeonColor.Red = id;
-                            break;
-                        case 20:
-                            oldvehdata.NeonColor.Green = id;
-                            break;
-                        case 21:
-                            oldvehdata.NeonColor.Blue = id;
-                            break;
-                        case 22:
-                            oldvehdata.NeonColor.Alpha = id;
-                            break;
-                        case 23:
-                            oldvehdata.WheelsType = id;
-                            break;
-                        case 24:
-                            oldvehdata.Wheels = id;
-                            break;
-                        case 25:
-                            oldvehdata.WheelsColor = id;
-                            break;
-                    }
-                    Fractions.Configs.FractionVehicles[fractionid][number] = new Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>(oldvehhash, oldvehpos, oldvehrot, oldvehrank, oldvehc1, oldvehc2, oldvehdata);
-                    MySqlCommand cmd = new MySqlCommand
-                    {
-                        CommandText = "UPDATE `fractionvehicles` SET `components`=@com WHERE `number`=@num"
-                    };
-                    cmd.Parameters.AddWithValue("@com", JsonConvert.SerializeObject(oldvehdata));
-                    cmd.Parameters.AddWithValue("@num", player.Vehicle.NumberPlate);
-                    Connect.Query(cmd);
-                    Globals.VehicleManager.FracApplyCustomization(player.Vehicle, fractionid);
-                    player.SendChatMessage("Вы изменили тюнинг этой машины для фракции.");
-                }
-                else player.SendChatMessage("Вы должны сидеть в машине фракции, которую хотите изменить");
-            }
-            catch { }
-        }
-        [Command("newrentveh")]
-        public static void newrentveh(Player player, string model, string number, int price, int c1, int c2)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "newrentveh")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(model);
-                if (vh == 0) throw null;
-                var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                VehicleStreaming.SetEngineState(veh, true);
-                veh.Dimension = player.Dimension;
-                MySqlCommand cmd = new MySqlCommand
-                {
-                    CommandText = "INSERT INTO `othervehicles`(`type`, `number`, `model`, `position`, `rotation`, `color1`, `color2`, `price`) VALUES (@type, @number, @model, @pos, @rot, @c1, @c2, @price);"
-                };
-                cmd.Parameters.AddWithValue("@type", 0);
-                cmd.Parameters.AddWithValue("@price", price);
-                cmd.Parameters.AddWithValue("@model", model);
-                cmd.Parameters.AddWithValue("@number", number);
-                cmd.Parameters.AddWithValue("@c1", c1);
-                cmd.Parameters.AddWithValue("@c2", c2);
-                cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
-                cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Connect.Query(cmd);
-                veh.PrimaryColor = c1;
-                veh.SecondaryColor = c2;
-                veh.NumberPlate = number;
-                player.SendChatMessage("Вы добавили машину для аренды.");
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"newrentveh\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("newjobveh")]
-        public static void newjobveh(Player player, string typejob, string model, string number, int c1, int c2)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "newjobveh")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(model);
-                if (vh == 0) throw null;
-                int typeIdJob = 999;
-                switch (typejob)
-                {
-                    case "Taxi":
-                        typeIdJob = 3;
-                        break;
-                    case "Bus":
-                        typeIdJob = 4;
-                        break;
-                    case "Lawnmower":
-                        typeIdJob = 5;
-                        break;
-                    case "Truckers":
-                        typeIdJob = 6;
-                        break;
-                    case "Collector":
-                        typeIdJob = 7;
-                        break;
-                    case "AutoMechanic":
-                        typeIdJob = 8;
-                        break;
-                    case "Scourge":
-                        typeIdJob = 10;
-                        break;
-                    case "Driving":
-                        typeIdJob = 100;
-                        break;
-                }
-                if (typeIdJob == 999)
-                {
-                    player.SendChatMessage("Выберите один тип работы из: Taxi, Bus, Lawnmower, Truckers, Collector, AutoMechanic, Scourge, Driving");
-                    throw null;
-                }
-                var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                VehicleStreaming.SetEngineState(veh, true);
-                veh.Dimension = player.Dimension;
-                MySqlCommand cmd = new MySqlCommand
-                {
-                    CommandText = "INSERT INTO `othervehicles`(`type`, `number`, `model`, `position`, `rotation`, `color1`, `color2`, `price`) VALUES (@type, @number, @model, @pos, @rot, @c1, @c2, '0');"
-                };
-                cmd.Parameters.AddWithValue("@type", typeIdJob);
-                cmd.Parameters.AddWithValue("@model", model);
-                cmd.Parameters.AddWithValue("@number", number);
-                cmd.Parameters.AddWithValue("@c1", c1);
-                cmd.Parameters.AddWithValue("@c2", c2);
-                cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
-                cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Connect.Query(cmd);
-                veh.PrimaryColor = c1;
-                veh.SecondaryColor = c2;
-                veh.NumberPlate = number;
-                player.SendChatMessage("Вы добавили рабочую машину.");
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"newjobveh\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("newfracveh")]
-        public static void ACMD_newfracveh(Player player, string model, int fracid, string number, int c1, int c2) // add rank, number
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "newfracveh")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(model);
-                if (vh == 0) throw null;
-                var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                VehicleStreaming.SetEngineState(veh, true);
-                veh.Dimension = player.Dimension;
-                MySqlCommand cmd = new MySqlCommand
-                {
-                    CommandText = "INSERT INTO `fractionvehicles`(`fraction`, `number`, `components`, `model`, `position`, `rotation`, `rank`, `colorprim`, `colorsec`) VALUES (@idfrac, @number, '{}', @model, @pos, @rot, '1', @c1, @c2);"
-                };
-                cmd.Parameters.AddWithValue("@idfrac", fracid);
-                cmd.Parameters.AddWithValue("@model", model);
-                cmd.Parameters.AddWithValue("@number", number);
-                cmd.Parameters.AddWithValue("@c1", c1);
-                cmd.Parameters.AddWithValue("@c2", c2);
-                cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
-                cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Connect.Query(cmd);
-                veh.PrimaryColor = c1;
-                veh.SecondaryColor = c2;
-                veh.NumberPlate = number;
-                VehicleManager.FracApplyCustomization(veh, fracid);
-                player.SendChatMessage("Вы добавили машину фракции.");
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"ACMD_newfracveh\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("setfracveh")]
-        public static void ACMD_setfracveh(Player player, string vehname, int rank, int c1, int c2)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setfracveh")) return;
-                if (!player.IsInVehicle)
-                {
-                    player.SendChatMessage("Вы должны сидеть в машине фракции, которую хотите изменить");
-                    return;
-                }
-                if (rank <= 0 || c1 < 0 || c1 >= 160 || c2 < 0 || c2 >= 160) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(vehname);
-                if (vh == 0) return;
-                Vehicle vehicle = player.Vehicle;
-                if (vehicle.HasData("ACCESS") && vehicle.GetData<string>("ACCESS") == "FRACTION")
-                {
-                    if (!Fractions.Configs.FractionVehicles[vehicle.GetData<int>("FRACTION")].ContainsKey(vehicle.NumberPlate)) return;
-
-                    var canmats = (vh == VehicleHash.Barracks || vh == VehicleHash.Youga || vh == VehicleHash.Burrito3);
-                    var candrugs = (vh == VehicleHash.Youga || vh == VehicleHash.Burrito3);
-                    var canmeds = (vh == VehicleHash.Ambulance);
-                    int fractionid = vehicle.GetData<int>("FRACTION");
-                    NAPI.Data.SetEntityData(vehicle, "CANMATS", false);
-                    NAPI.Data.SetEntityData(vehicle, "CANDRUGS", false);
-                    NAPI.Data.SetEntityData(vehicle, "CANMEDKITS", false);
-                    if (canmats) NAPI.Data.SetEntityData(vehicle, "CANMATS", true);
-                    if (candrugs) NAPI.Data.SetEntityData(vehicle, "CANDRUGS", true);
-                    if (canmeds) NAPI.Data.SetEntityData(vehicle, "CANMEDKITS", true);
-                    NAPI.Data.SetEntityData(vehicle, "MINRANK", rank);
-                    Vector3 pos = NAPI.Entity.GetEntityPosition(vehicle) + new Vector3(0, 0, 0.5);
-                    Vector3 rot = NAPI.Entity.GetEntityRotation(vehicle);
-                    VehicleManager.VehicleCustomization data = Fractions.Configs.FractionVehicles[fractionid][vehicle.NumberPlate].Item7;
-                    if (Fractions.Configs.FractionVehicles[fractionid][vehicle.NumberPlate].Item1 != vh) data = new VehicleManager.VehicleCustomization();
-                    Fractions.Configs.FractionVehicles[fractionid][vehicle.NumberPlate] = new Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>(vh, pos, rot, rank, c1, c2, data);
-                    MySqlCommand cmd = new MySqlCommand
-                    {
-                        CommandText = "UPDATE `fractionvehicles` SET `model`=@mod,`position`=@pos,`rotation`=@rot,`rank`=@ra,`colorprim`=@col,`colorsec`=@sec,`components`=@com WHERE `number`=@num"
-                    };
-                    cmd.Parameters.AddWithValue("@mod", vehname);
-                    cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(pos));
-                    cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(rot));
-                    cmd.Parameters.AddWithValue("@ra", rank);
-                    cmd.Parameters.AddWithValue("@col", c1);
-                    cmd.Parameters.AddWithValue("@sec", c2);
-                    cmd.Parameters.AddWithValue("@com", JsonConvert.SerializeObject(data));
-                    cmd.Parameters.AddWithValue("@num", vehicle.NumberPlate);
-                    Connect.Query(cmd);
-                    vehicle.PrimaryColor = c1;
-                    vehicle.SecondaryColor = c2;
-                    NAPI.Entity.SetEntityModel(vehicle, (uint)vh);
-                    VehicleManager.FracApplyCustomization(vehicle, fractionid);
-                    player.SendChatMessage("Вы изменили данные этой машины для фракции.");
-                }
-                else player.SendChatMessage("Вы должны сидеть в машине фракции, которую хотите изменить");
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"ACMD_setfracveh\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("stop")]
-        public static void CMD_stopServer(Player player, string text = null)
-        {
-            Admin.stopServer(player, text);
-        }
         [Command("payday")]
         public static void payDay(Player player, string text = null)
         {
-            if (!Group.CanUseCmd(player, "payday")) return;
+            if (!Globals.Group.CanUseCmd(player, "payday")) return;
             GameLog.Admin($"{player.Name}", $"payDay", "");
             Main.payDayTrigger();
         }
@@ -2108,7 +1336,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "giveitem"))
+                if (!Globals.Group.CanUseCmd(player, "giveitem"))
                 {
                     return;
                 }
@@ -2152,138 +1380,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        [Command("sp")]
-        public static void CMD_spectateMode(Player player, int id)
-        {
-            if (!Group.CanUseCmd(player, "sp")) return;
-            try
-            {
-                AdminSP.Spectate(player, id);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("usp")]
-        public static void CMD_unspectateMode(Player player)
-        {
-            if (!Group.CanUseCmd(player, "sp")) return;
-            try
-            {
-                AdminSP.UnSpectate(player);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("metp")]
-        public static void CMD_teleportToMe(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.teleportTargetToPlayer(player, Main.GetPlayerByID(id), false);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("gethere")]
-        public static void CMD_teleportVehToMe(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.teleportTargetToPlayer(player, Main.GetPlayerByID(id), true);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("kill")]
-        public static void CMD_kill(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.killTarget(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("hp")]
-        public static void CMD_adminHeal(Player player, int id, int hp)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.healTarget(player, Main.GetPlayerByID(id), hp);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("ar")]
-        public static void CMD_adminArmor(Player player, int id, int ar)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.armorTarget(player, Main.GetPlayerByID(id), ar);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("fz")]
-        public static void CMD_adminFreeze(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.freezeTarget(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("ufz")]
-        public static void CMD_adminUnFreeze(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.unFreezeTarget(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("setadmin")]
-        public static void CMD_setAdmin(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.setPlayerAdminGroup(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
+
         [Command("lsn", GreedyArg = true)]
         public static void CMD_adminLSnewsChat(Player player, string message)
         {
@@ -2319,34 +1416,7 @@ namespace iTeffa.Globals
                 Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
-        [Command("deladmin")]
-        public static void CMD_delAdmin(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.delPlayerAdminGroup(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("setadminrank")]
-        public static void CMD_setAdminRank(Player player, int id, int rank)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.setPlayerAdminRank(player, Main.GetPlayerByID(id), rank);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
+
         [Command("guns")]
         public static void CMD_adminGuns(Player player, int id, string wname, string serial)
         {
@@ -2403,34 +1473,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        [Command("givemoney")]
-        public static void CMD_adminGiveMoney(Player player, int id, int money)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.giveMoney(player, Main.GetPlayerByID(id), money);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("delleader")]
-        public static void CMD_delleader(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.delFracLeader(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
+
         [Command("deljob")]
         public static void CMD_deljob(Player player, int id)
         {
@@ -2445,28 +1488,6 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        [Command("vehc")]
-        public static void CMD_createVehicleCustom(Player player, string name, int r, int g, int b)
-        {
-            try
-            {
-                if (player == null || !Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "vehc")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(name);
-                if (vh == 0) throw null;
-                var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                veh.Dimension = player.Dimension;
-                veh.NumberPlate = "ADMIN";
-                veh.CustomPrimaryColor = new Color(r, g, b);
-                veh.CustomSecondaryColor = new Color(r, g, b);
-                veh.SetData("ACCESS", "ADMIN");
-                veh.SetData("BY", player.Name);
-                VehicleStreaming.SetEngineState(veh, true);
-                Log.Debug($"vehc {name} {r} {g} {b}");
-                GameLog.Admin($"{player.Name}", $"vehCreate({name})", $"");
-            }
-            catch { }
-        }
         [Command("pos")]
         public void HandlePos(Player c)
         {
@@ -2480,23 +1501,6 @@ namespace iTeffa.Globals
             c.SendChatMessage("Rotation");
             c.SendChatMessage("Z: " + rot.Z);
         }
-        [Command("restart")]
-        public void HandleShutDown(Player cc, int second)
-        {
-            if (second < 5 || second > 900)
-            {
-                cc.SendNotification("Минимум 5 секунд и максимум 9 минут!");
-                return;
-            }
-            foreach (Player c in NAPI.Pools.GetAllPlayers()) { }
-            NAPI.Chat.SendChatMessageToAll("[~r~SERVER~w~]: Перезагрузка сервера через " + second + " Секунды. Пожалуйста, выйдите из системы заранее, чтобы ваши вещи были сохранены!");
-            Task.Run(() =>
-            {
-                Task.Delay(1000 * second * 1).Wait();
-
-                Environment.Exit(0);
-            });
-        }
         [Command("dim")]
         public void HandleTp(Player c, uint d)
         {
@@ -2507,126 +1511,13 @@ namespace iTeffa.Globals
         {
             c.Position = new Vector3(x, y, z);
         }
-
-        [Command("veh")]
-        public static void CMD_createVehicle(Player player, string name, int a, int b)
-        {
-            try
-            {
-                if (player == null || !Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "vehc")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(name);
-                player.SendChatMessage("vh " + vh);
-                if (vh == 0)
-                {
-                    player.SendChatMessage("vh return");
-                    return;
-                }
-                var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                veh.Dimension = player.Dimension;
-                veh.NumberPlate = "ADMIN";
-                veh.PrimaryColor = a;
-                veh.SecondaryColor = b;
-                veh.SetData("ACCESS", "ADMIN");
-                veh.SetData("BY", player.Name);
-                VehicleStreaming.SetEngineState(veh, true);
-                player.SetIntoVehicle(veh, 0);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD_veh\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("vehhash")]
-        public static void CMD_createVehicleHash(Player player, string name, int a, int b)
-        {
-            try
-            {
-                if (player == null || !Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                var veh = NAPI.Vehicle.CreateVehicle(Convert.ToInt32(name, 16), player.Position, player.Rotation.Z, 0, 0);
-                veh.Dimension = player.Dimension;
-                veh.NumberPlate = "PROJECT";
-                veh.PrimaryColor = a;
-                veh.SecondaryColor = b;
-                veh.SetData("ACCESS", "ADMIN");
-                veh.SetData("BY", player.Name);
-                VehicleStreaming.SetEngineState(veh, true);
-            }
-            catch { }
-        }
-        [Command("vehs")]
-        public static void CMD_createVehicles(Player player, string name, int a, int b, int count)
-        {
-            try
-            {
-                if (player == null || !Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "vehc")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(name);
-                if (vh == 0) throw null;
-                for (int i = count; i > 0; i--)
-                {
-                    var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                    veh.Dimension = player.Dimension;
-                    veh.NumberPlate = "ADMIN";
-                    veh.PrimaryColor = a;
-                    veh.SecondaryColor = b;
-                    veh.SetData("ACCESS", "ADMIN");
-                    veh.SetData("BY", player.Name);
-                    VehicleStreaming.SetEngineState(veh, true);
-                }
-                GameLog.Admin($"{player.Name}", $"vehsCreate({name})", $"");
-            }
-            catch { }
-        }
-        [Command("vehcs")]
-        public static void CMD_createVehicleCustoms(Player player, string name, int r, int g, int b, int count)
-        {
-            try
-            {
-                if (player == null || !Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "vehc")) return;
-                VehicleHash vh = (VehicleHash)NAPI.Util.GetHashKey(name);
-                if (vh == 0) throw null;
-                for (int i = count; i > 0; i--)
-                {
-                    var veh = NAPI.Vehicle.CreateVehicle(vh, player.Position, player.Rotation.Z, 0, 0);
-                    veh.Dimension = player.Dimension;
-                    veh.NumberPlate = "ADMIN";
-                    veh.CustomPrimaryColor = new Color(r, g, b);
-                    veh.CustomSecondaryColor = new Color(r, g, b);
-                    veh.SetData("ACCESS", "ADMIN");
-                    veh.SetData("BY", player.Name);
-                    VehicleStreaming.SetEngineState(veh, true);
-                    Log.Debug($"vehc {name} {r} {g} {b}");
-                }
-                GameLog.Admin($"{player.Name}", $"vehsCreate({name})", $"");
-            }
-            catch { }
-        }
-        [Command("vehcustompcolor")]
-        public static void CMD_ApplyCustomPColor(Player client, int r, int g, int b, int mod = -1)
-        {
-            try
-            {
-                if (!Main.Players.ContainsKey(client)) return;
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
-                Color color = new Color(r, g, b);
-
-                var number = client.Vehicle.NumberPlate;
-
-                VehicleManager.Vehicles[number].Components.PrimColor = color;
-                VehicleManager.Vehicles[number].Components.PrimModColor = mod;
-
-                VehicleManager.ApplyCustomization(client.Vehicle);
-
-            }
-            catch { }
-        }
         [Command("aclear")]
         public static void ACMD_aclear(Player player, string target)
         {
             try
             {
                 if (!Main.Players.ContainsKey(player)) return;
-                if (!Group.CanUseCmd(player, "aclear")) return;
+                if (!Globals.Group.CanUseCmd(player, "aclear")) return;
                 if (!Main.PlayerNames.ContainsValue(target))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок не найден", 3000);
@@ -2646,7 +1537,7 @@ namespace iTeffa.Globals
                     DataRow row = result.Rows[0];
                     if (Convert.ToInt32(row["adminlvl"]) >= Main.Players[player].AdminLVL)
                     {
-                        SendToAdmins(3, $"!{{#d35400}}[ACLEAR-DENIED] {player.Name} ({player.Value}) попытался очистить {target} (offline), который имеет выше уровень администратора.");
+                        Controller.SendToAdmins(3, $"!{{#d35400}}[ACLEAR-DENIED] {player.Name} ({player.Value}) попытался очистить {target} (offline), который имеет выше уровень администратора.");
                         return;
                     }
                     tuuid = Convert.ToInt32(row["uuid"]);
@@ -2739,7 +1630,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(client)) return;
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
                 Color color = new Color(r, g, b);
                 var number = client.Vehicle.NumberPlate;
                 VehicleManager.Vehicles[number].Components.SecColor = color;
@@ -2753,7 +1644,7 @@ namespace iTeffa.Globals
         public static void CMD_FindByVeh(Player player, string number)
         {
             if (!Main.Players.ContainsKey(player)) return;
-            if (!Group.CanUseCmd(player, "findbyveh")) return;
+            if (!Globals.Group.CanUseCmd(player, "findbyveh")) return;
             if (number.Length > 8)
             {
                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Количество символов в номерном знаке не может превышать 8.", 3000);
@@ -2768,7 +1659,7 @@ namespace iTeffa.Globals
             try
             {
                 if (!Main.Players.ContainsKey(client)) return;
-                if (!Group.CanUseCmd(client, "setvehdirt")) return;
+                if (!Globals.Group.CanUseCmd(client, "setvehdirt")) return;
 
                 if (!client.IsInVehicle) return;
 
@@ -2868,17 +1759,10 @@ namespace iTeffa.Globals
             }
             catch { }
         }
-        [Command("sw")] // Управления погодой...
-        public static void CMD_setWeatherID(Player player, byte weather)
-        {
-            if (!Group.CanUseCmd(player, "sw")) return;
-            Main.changeWeather(weather);
-            GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
-        }
         [Command("st")]
         public static void CMD_setTime(Player player, int hours, int minutes, int seconds)
         {
-            if (!Group.CanUseCmd(player, "st")) return;
+            if (!Globals.Group.CanUseCmd(player, "st")) return;
             NAPI.World.SetTime(hours, minutes, seconds);
         }
         [Command("tp")]
@@ -2886,7 +1770,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "tp")) return;
+                if (!Globals.Group.CanUseCmd(player, "tp")) return;
 
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -2904,7 +1788,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "tp")) return;
+                if (!Globals.Group.CanUseCmd(player, "tp")) return;
                 if (!player.IsInVehicle) return;
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
@@ -2922,7 +1806,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "tp")) return;
+                if (!Globals.Group.CanUseCmd(player, "tp")) return;
                 Player target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
@@ -2945,7 +1829,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "mtp")) return;
+                if (!Globals.Group.CanUseCmd(player, "mtp")) return;
 
                 if (!Main.MaskIds.ContainsKey(id))
                 {
@@ -2956,59 +1840,6 @@ namespace iTeffa.Globals
 
                 NAPI.Entity.SetEntityPosition(player, target.Position);
                 NAPI.Entity.SetEntityDimension(player, NAPI.Entity.GetEntityDimension(target));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("createbusiness")]
-        public static void CMD_createBiz(Player player, int govPrice, int type)
-        {
-            try
-            {
-                BusinessManager.createBusinessCommand(player, govPrice, type);
-            }
-            catch (Exception e) 
-            { 
-                Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error);
-            }
-        }
-        [Command("deletebusiness")]
-        public static void CMD_deleteBiz(Player player, int bizid)
-        {
-            try
-            {
-                BusinessManager.deleteBusinessCommand(player, bizid);
-            }
-            catch (Exception e)
-            {
-                Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error);
-            }
-
-        }
-        [Command("position")]
-        public static void position(Player player)
-        {
-            try
-            {
-                player.SendChatMessage(player.Position.ToString());
-                player.SendChatMessage(player.Rotation.ToString());
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("createunloadpoint")]
-        public static void CMD_createUnloadPoint(Player player, int bizid)
-        {
-            try
-            {
-                BusinessManager.createBusinessUnloadpoint(player, bizid);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("createsafe", GreedyArg = true)]
-        public static void CMD_createSafe(Player player, int id, float distance, int min, int max, string address)
-        {
-            try
-            {
-                SafeMain.CMD_CreateSafe(player, id, distance, min, max, address);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -3024,127 +1855,12 @@ namespace iTeffa.Globals
                 catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
             });
         }
-        [Command("createstock")]
-        public static void CMD_createStock(Player player, int frac, int drugs, int mats, int medkits, int money)
-        {
-            try
-            {
-                Connect.Query($"INSERT INTO fractions (id,drugs,mats,medkits,money) VALUES ({frac},{drugs},{mats},{medkits},{money})");
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("demorgan", GreedyArg = true)]
-        public static void CMD_sendTargetToDemorgan(Player player, int id, int time, string reason)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.sendPlayerToDemorgan(player, Main.GetPlayerByID(id), time, reason);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("loadipl")]
-        public static void CMD_LoadIPL(Player player, string ipl)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                NAPI.World.RequestIpl(ipl);
-                player.SendChatMessage("Вы подгрузили IPL: " + ipl);
-            }
-            catch
-            {
-            }
-        }
-        [Command("unloadipl")]
-        public static void CMD_UnLoadIPL(Player player, string ipl)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                NAPI.World.RemoveIpl(ipl);
-                player.SendChatMessage("Вы выгрузили IPL: " + ipl);
-            }
-            catch
-            {
-            }
-        }
-        [Command("loadprop")]
-        public static void CMD_LoadProp(Player player, double x, double y, double z, string prop)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "loadProp", x, y, z, prop);
-                player.SendChatMessage("Вы подгрузили Interior Prop: " + prop);
-            }
-            catch
-            {
-            }
-        }
-        [Command("unloadprop")]
-        public static void CMD_UnLoadProp(Player player, double x, double y, double z, string prop)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "UnloadProp", x, y, z, prop);
-                player.SendChatMessage("Вы выгрузили Interior Prop: " + prop);
-            }
-            catch
-            {
-            }
-        }
-        [Command("starteffect")]
-        public static void CMD_StartEffect(Player player, string effect, int dur = 0, bool loop = false)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "startScreenEffect", effect, dur, loop);
-                player.SendChatMessage("Вы включили Effect: " + effect);
-            }
-            catch
-            {
-            }
-        }
-        [Command("stopeffect")]
-        public static void CMD_StopEffect(Player player, string effect)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "stopScreenEffect", effect);
-                player.SendChatMessage("Вы выключили Effect: " + effect);
-            }
-            catch
-            {
-            }
-        }
-        [Command("udemorgan")]
-        public static void CMD_releaseTargetFromDemorgan(Player player, int id)
-        {
-            try
-            {
-                if (Main.GetPlayerByID(id) == null)
-                {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                Admin.releasePlayerFromDemorgan(player, Main.GetPlayerByID(id));
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
         [Command("offjail", GreedyArg = true)]
         public static void CMD_offlineJailTarget(Player player, string target, int time, string reason)
         {
             try
             {
-                if (!Group.CanUseCmd(player, "offjail")) return;
+                if (!Globals.Group.CanUseCmd(player, "offjail")) return;
                 if (!Main.PlayerNames.ContainsValue(target))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок не найден", 3000);
@@ -3183,7 +1899,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "offwarn")) return;
+                if (!Globals.Group.CanUseCmd(player, "offwarn")) return;
                 if (!Main.PlayerNames.ContainsValue(target))
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
@@ -3204,7 +1920,7 @@ namespace iTeffa.Globals
                     int targetadminlvl = Convert.ToInt32(row[0]);
                     if (targetadminlvl >= Main.Players[player].AdminLVL)
                     {
-                        SendToAdmins(3, $"!{{#d35400}}[OFFWARN-DENIED] {player.Name} ({player.Value}) попытался забанить {target} (offline), который имеет выше уровень администратора.");
+                        Controller.SendToAdmins(3, $"!{{#d35400}}[OFFWARN-DENIED] {player.Name} ({player.Value}) попытался забанить {target} (offline), который имеет выше уровень администратора.");
                         return;
                     }
                 }
@@ -3287,7 +2003,7 @@ namespace iTeffa.Globals
         [Command("unban", GreedyArg = true)]
         public static void CMD_unbanTarget(Player player, string name)
         {
-            if (!Group.CanUseCmd(player, "ban")) return;
+            if (!Globals.Group.CanUseCmd(player, "ban")) return;
             try
             {
                 Admin.unbanPlayer(player, name);
@@ -3297,7 +2013,7 @@ namespace iTeffa.Globals
         [Command("unhardban", GreedyArg = true)]
         public static void CMD_unhardbanTarget(Player player, string name)
         {
-            if (!Group.CanUseCmd(player, "ban")) return;
+            if (!Globals.Group.CanUseCmd(player, "ban")) return;
             try
             {
                 Admin.unhardbanPlayer(player, name);
@@ -3357,7 +2073,7 @@ namespace iTeffa.Globals
                     return;
                 }
 
-                if (!Group.CanUseCmd(player, "mute")) return;
+                if (!Globals.Group.CanUseCmd(player, "mute")) return;
                 player.SetSharedData("voice.muted", true);
                 Trigger.ClientEvent(player, "voice.mute");
             }
@@ -3374,7 +2090,7 @@ namespace iTeffa.Globals
                     return;
                 }
 
-                if (!Group.CanUseCmd(player, "unmute")) return;
+                if (!Globals.Group.CanUseCmd(player, "unmute")) return;
                 player.SetSharedData("voice.muted", false);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
@@ -3435,12 +2151,12 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        [Command("agm")] // Вкл, Выкл Бессмертие
+        [Command("agm")]
         public static void CMD_enableGodmode(Player player)
         {
             try
             {
-                if (!Group.CanUseCmd(player, "agm")) return;
+                if (!Globals.Group.CanUseCmd(player, "agm")) return;
                 if (!player.HasSharedData("AGM"))
                 {
                     Trigger.ClientEvent(player, "AGM", true);
@@ -3494,24 +2210,6 @@ namespace iTeffa.Globals
                     return;
                 }
                 Admin.answerReport(player, sender, answer);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("global", GreedyArg = true)]
-        public static void CMD_adminGlobalChat(Player player, string message)
-        {
-            try
-            {
-                Admin.adminGlobal(player, message);
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        [Command("a", GreedyArg = true)]
-        public static void CMD_adminChat(Player player, string message)
-        {
-            try
-            {
-                Admin.adminChat(player, message);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -3666,7 +2364,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "a")) return;
+                if (!Globals.Group.CanUseCmd(player, "a")) return;
                 Player target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
@@ -4016,7 +2714,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                if (!Group.CanUseCmd(player, "a")) return;
+                if (!Globals.Group.CanUseCmd(player, "a")) return;
                 NAPI.Chat.SendChatMessageToPlayer(player, "Coords", NAPI.Entity.GetEntityPosition(player).ToString());
                 NAPI.Chat.SendChatMessageToPlayer(player, "Rot", NAPI.Entity.GetEntityRotation(player).ToString());
             }
@@ -4225,283 +2923,6 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        [Command("me", GreedyArg = true)]
-        public static async Task CMD_chatMe(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            msg = RainbowExploit(player, msg);
-            await RPChatAsync("me", player, msg);
-        }
-        [Command("do", GreedyArg = true)]
-        public static async Task CMD_chatDo(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            msg = RainbowExploit(player, msg);
-            await RPChatAsync("do", player, msg);
-        }
-        [Command("todo", GreedyArg = true)]
-        public static async Task CMD_chatToDo(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("todo", player, msg);
-        }
-        [Command("s", GreedyArg = true)]
-        public static async Task CMD_chatS(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("s", player, msg);
-        }
-        [Command("b", GreedyArg = true)]
-        public static async Task CMD_chatB(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("b", player, msg);
-        }
-        [Command("vh", GreedyArg = true)]
-        public static async Task CMD_chatVh(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("vh", player, msg);
-        }
-        [Command("m", GreedyArg = true)]
-        public static async Task CMD_chatM(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("m", player, msg);
-        }
-        [Command("t", GreedyArg = true)]
-        public static async Task CMD_chatT(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            await RPChatAsync("t", player, msg);
-        }
-        [Command("try", GreedyArg = true)]
-        public static void CMD_chatTry(Player player, string msg)
-        {
-            if (Main.Players[player].Unmute > 0)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
-                return;
-            }
-            Try(player, msg);
-        }
-        #region Try command handler
-        private static void Try(Player sender, string message)
-        {
-            try
-            {
-                int result = rnd.Next(5);
-                Log.Debug("Random result: " + result.ToString());
-                switch (result)
-                {
-                    case 3:
-                        foreach (Player player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#277C6B}" + " удачно", new int[] { sender.Value });
-                        return;
-                    default:
-                        foreach (Player player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#FF0707}" + " неудачно", new int[] { sender.Value });
-                        return;
-                }
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        #endregion Try command handler
-        #region RP Chat
-        public static void RPChat(string cmd, Player sender, string message, Player target = null)
-        {
-            try
-            {
-                if (!Main.Players.ContainsKey(sender)) return;
-                var names = new int[] { sender.Value };
-                if (target != null) names = new int[] { sender.Value, target.Value };
-                switch (cmd)
-                {
-                    case "me":
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#ffe666}{name} " + message, names);
-                        return;
-                    case "todo":
-                        var args = message.Split('*');
-                        var msg = args[0];
-                        var action = args[1];
-                        var genderCh = (Main.Players[sender].Gender) ? "" : "а";
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#ffe666} - сказал" + genderCh + " {name}, " + action, names);
-                        return;
-                    case "do":
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#ffe666}" + message + " ({name})", names);
-                        return;
-                    case "s":
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 30f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
-                        return;
-                    case "b":
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
-                        return;
-                    case "m":
-                        if (Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9 || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
-                        var vehicle = sender.Vehicle;
-                        if (vehicle.GetData<string>("ACCESS") != "FRACTION") return;
-                        if (vehicle.GetData<int>("FRACTION") != 7 && vehicle.GetData<int>("FRACTION") != 9) return;
-                        foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 120f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "m", "~r~[Мегафон] {name}: " + message, names);
-                        return;
-                    case "t":
-                        if (!Main.Players.ContainsKey(sender) || Main.Players[sender].WorkID != 6) return;
-                        foreach (var p in Main.Players.Keys.ToList())
-                        {
-                            if (p == null || !Main.Players.ContainsKey(p)) continue;
-
-                            if (Main.Players[p].WorkID == 6)
-                            {
-                                if (p.HasData("ON_WORK") && p.GetData<bool>("ON_WORK") && p.IsInVehicle)
-                                    p.SendChatMessage($"~y~[Рация дальнобойщиков] [{sender.Name}]: {message}");
-                            }
-                        }
-                        return;
-                }
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
-        public static Task RPChatAsync(string cmd, Player sender, string message)
-        {
-            NAPI.Task.Run(() =>
-            {
-                try
-                {
-                    if (!Main.Players.ContainsKey(sender)) return;
-                    var names = new int[] { sender.Value };
-                    switch (cmd)
-                    {
-                        case "me":
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#E066FF}{name} " + message, names);
-                            return;
-                        case "todo":
-                            var args = message.Split('*');
-                            var msg = args[0];
-                            var action = args[1];
-                            var genderCh = Main.Players[sender].Gender ? "" : "а";
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#E066FF} - сказал" + genderCh + " {name}, " + action, names);
-                            return;
-                        case "do":
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#E066FF}" + message + " ({name})", names);
-                            return;
-                        case "s":
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 30f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
-                            return;
-                        case "b":
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
-                            return;
-                        case "m":
-                            if ((Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9) || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
-                            var vehicle = sender.Vehicle;
-                            if (vehicle.GetData<string>("ACCESS") != "FRACTION") return;
-                            if (vehicle.GetData<int>("FRACTION") != 7 && vehicle.GetData<int>("FRACTION") != 9) return;
-                            foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 120f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "m", "!{#FF4D4D}[Мегафон] {name}: " + message, names);
-                            return;
-                        case "t":
-                            if (!Main.Players.ContainsKey(sender) || Main.Players[sender].WorkID != 6) return;
-                            foreach (var p in Main.Players.Keys.ToList())
-                            {
-                                if (p == null || !Main.Players.ContainsKey(p)) continue;
-
-                                if (Main.Players[p].WorkID == 6)
-                                {
-                                    if (p.HasData("ON_WORK") && p.GetData<bool>("ON_WORK") && p.IsInVehicle)
-                                        p.SendChatMessage($"~y~[Рация дальнобойщиков] [{sender.Name}]: {message}");
-                                }
-                            }
-                            return;
-                    }
-                }
-                catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-            });
-            return Task.CompletedTask;
-        }
-        #endregion RP Chat
-
-
-
-        [Command("resurrection")]
-        public static void CMD_revive(Player client, int id)
-        {
-            try
-            {
-                if (!Group.CanUseCmd(client, "resurrection")) return;
-                Player target = Main.GetPlayerByID(id);
-                if (target == null)
-                {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Игрок с таким ID не найден", 3000);
-                    return;
-                }
-                target.StopAnimation();
-                NAPI.Entity.SetEntityPosition(target, target.Position + new Vector3(0, 0, 0.5));
-                target.SetSharedData("InDeath", false);
-                Trigger.ClientEvent(target, "DeathTimer", false);
-                target.Health = 100;
-                target.ResetData("IS_DYING");
-                Main.Players[target].IsAlive = true;
-                Main.OffAntiAnim(target);
-                if (target.HasData("DYING_TIMER"))
-                {
-                    Timers.Stop(target.GetData<string>("DYING_TIMER"));
-                    target.ResetData("DYING_TIMER");
-                }
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
-                Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
-
-                if (target.HasData("CALLEMS_BLIP"))
-                {
-                    NAPI.Entity.DeleteEntity(target.GetData<Blip>("CALLEMS_BLIP"));
-                }
-                if (target.HasData("CALLEMS_COL"))
-                {
-                    NAPI.ColShape.DeleteColShape(target.GetData<ColShape>("CALLEMS_COL"));
-                }
-            }
-            catch (Exception e) { Log.Write("Resurrection AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-        }
         [Command("addfence")]
         public static void CMD_bc(Player player)
         {
@@ -4575,66 +2996,5 @@ namespace iTeffa.Globals
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
-        #region Roll command handler
-        public static int acceptDiceGame(Player playerTwo)
-        {
-            try
-            {
-                Player originPlayer = playerTwo.GetData<Player>("DICE_PLAYER");
-                int money = playerTwo.GetData<int>("DICE_VALUE");
-
-                if (money <= 0)
-                {
-                    Notify.Send(playerTwo, NotifyType.Error, NotifyPosition.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
-                    Notify.Send(originPlayer, NotifyType.Error, NotifyPosition.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
-
-                    return 0;
-                }
-
-                int playerOneResult = new Random().Next(1, 6);
-                int playerTwoResult = new Random().Next(1, 6);
-
-                while (playerOneResult == playerTwoResult)
-                {
-                    Notify.Send(playerTwo, NotifyType.Warning, NotifyPosition.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
-                    Notify.Send(originPlayer, NotifyType.Warning, NotifyPosition.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
-
-                    playerOneResult = new Random().Next(1, 6);
-                    playerTwoResult = new Random().Next(1, 6);
-                }
-
-
-                Notify.Send(originPlayer, NotifyType.Info, NotifyPosition.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
-                Notify.Send(playerTwo, NotifyType.Info, NotifyPosition.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
-
-                if (playerOneResult > playerTwoResult)
-                {
-                    Notify.Send(originPlayer, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
-                    Finance.Wallet.Change(originPlayer, money);
-                    Finance.Wallet.Change(playerTwo, -money);
-                    return 1;
-                }
-                else
-                {
-                    Notify.Send(playerTwo, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
-                    Finance.Wallet.Change(originPlayer, -money);
-                    Finance.Wallet.Change(playerTwo, money);
-                    return 2;
-                }
-            }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
-
-            return 0;
-        }
-        public static void rejectDiceGame(Player playerTwo)
-        {
-            Player originPlayer = playerTwo.GetData<Player>("DICE_PLAYER");
-
-            Notify.Send(originPlayer, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок (${playerTwo.Value}) отклонил игру", 3000);
-
-            playerTwo.ResetData("DICE_PLAYER");
-            playerTwo.ResetData("DICE_VALUE");
-        }
-        #endregion Roll command handler
     }
 }

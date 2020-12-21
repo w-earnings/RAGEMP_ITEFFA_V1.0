@@ -371,7 +371,7 @@ namespace iTeffa.Fractions
                     if (Main.Players[sender].FractionID == 18 || Main.Players[sender].FractionID == 9)
                     {
                         Trigger.ClientEvent(sender, "openPc");
-                        Commands.RPChat("me", sender, "включил(а) бортовой компьютер");
+                        Commands.Controller.RPChat("me", sender, "включил(а) бортовой компьютер");
                     }
                 }
                 return;

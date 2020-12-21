@@ -109,7 +109,7 @@ namespace iTeffa.Working
             GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price, $"mechanicRepair");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт Вашего транспортного средства", 3000);
             Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил ремонт", 3000);
-            Commands.RPChat("me", driver, $"починил автомобиль");
+            Commands.Controller.RPChat("me", driver, $"починил автомобиль");
 
             player.ResetData("MECHANIC_DRIVER");
             driver.ResetData("MECHANIC_CLIENT");
@@ -526,7 +526,7 @@ namespace iTeffa.Working
             GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price * fuel, $"mechanicFuel");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт заправку транспортного средства", 3000);
             Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил заправку транспорта", 3000);
-            Commands.RPChat("me", driver, $"заправил транспортное средство");
+            Commands.Controller.RPChat("me", driver, $"заправил транспортное средство");
 
             var carFuel = (player.Vehicle.GetSharedData<object>("PETROL") + fuel > player.Vehicle.GetSharedData<object>("MAXPETROL")) ? player.Vehicle.GetSharedData<object>("MAXPETROL") : player.Vehicle.GetSharedData<object>("PETROL") + fuel;
             player.Vehicle.SetSharedData("PETROL", carFuel);

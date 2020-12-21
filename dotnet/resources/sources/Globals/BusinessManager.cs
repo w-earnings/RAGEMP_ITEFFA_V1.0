@@ -2528,7 +2528,7 @@ namespace iTeffa.Globals
                     VehicleManager.Vehicles[number].Fuel += lvl;
                 }
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Транспорт заправлен", 3000);
-                Commands.RPChat("me", player, $"заправил(а) транспортное средство");
+                Commands.Controller.RPChat("me", player, $"заправил(а) транспортное средство");
             }
             catch (Exception e) { Log.Write("Petrol: " + e.Message, Nlogs.Type.Error); }
         }

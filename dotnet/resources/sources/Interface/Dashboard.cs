@@ -161,12 +161,12 @@ namespace iTeffa.Interface
                                             if (veh is null) return;
                                             if (veh.Dimension != player.Dimension)
                                             {
-                                                Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
+                                                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
                                                 return;
                                             }
                                             if (veh.Position.DistanceTo(player.Position) > 10f)
                                             {
-                                                Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
+                                                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
                                                 return;
                                             }
 
@@ -439,12 +439,12 @@ namespace iTeffa.Interface
                             if (veh is null) return;
                             if (veh.Dimension != player.Dimension)
                             {
-                                Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
+                                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
                                 return;
                             }
                             if (veh.Position.DistanceTo(player.Position) > 10f)
                             {
-                                Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
+                                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
                                 return;
                             }
                             items = veh.GetData<List<nItem>>("ITEMS");
@@ -713,7 +713,6 @@ namespace iTeffa.Interface
                                 nInventory.Add(player, item);
                                 nInventory.Remove(target, item);
                                 Close(player);
-                                Commands.CMD_showPlayerStats(player, target.Value);
                                 GameLog.Admin(player.Name, $"takeItem({item.Type} | {item.Data})", target.Name);
                                 return;
                             }

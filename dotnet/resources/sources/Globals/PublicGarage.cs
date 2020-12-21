@@ -221,7 +221,7 @@ namespace iTeffa.Globals
                     if (! VehicleManager.getAllPlayerVehicles(c.Name).Contains(vNumber))
                     {
                         Log.Write("Кто-то пытался создать не его транспортное средство!");
-                        Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-GARAGE-EXPLOIT] {c.Name} ({c.Value})");
+                        Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-GARAGE-EXPLOIT] {c.Name} ({c.Value})");
                         Notify.Send(c, NotifyType.Warning, NotifyPosition.TopCenter,
                             $"Это не твоя машина!",
                         3000);

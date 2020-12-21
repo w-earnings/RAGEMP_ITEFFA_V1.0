@@ -21,7 +21,7 @@ namespace iTeffa.Globals
                 if (entity == null || player == null || !Main.Players.ContainsKey(player)) return;
                 if (player.HasData("PICKEDT") && player.GetData<bool>("PICKEDT") == true)
                 {
-                    Commands.SendToAdmins(3, $"!{{#d35400}}[PICKUP-ITEMS-EXPLOIT] {player.Name} ({player.Value}) ");
+                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[PICKUP-ITEMS-EXPLOIT] {player.Name} ({player.Value}) ");
                     return;
                 }
                 entity.SetSharedData("PICKEDT", true);
@@ -196,7 +196,7 @@ namespace iTeffa.Globals
                         }
                         if (VehicleStreaming.GetDoorState(vehicle, DoorID.DoorTrunk) == DoorState.DoorOpen)
                         {
-                            Commands.RPChat("me", player, $"закрыл(а) багажник");
+                            Commands.Controller.RPChat("me", player, $"закрыл(а) багажник");
                             VehicleStreaming.SetDoorState(vehicle, DoorID.DoorTrunk, DoorState.DoorClosed);
                             foreach (var p in Main.Players.Keys.ToList())
                             {
@@ -224,7 +224,7 @@ namespace iTeffa.Globals
                                 }
                             }
                             VehicleStreaming.SetDoorState(vehicle, DoorID.DoorTrunk, DoorState.DoorOpen);
-                            Commands.RPChat("me", player, $"открыл(а) багажник");
+                            Commands.Controller.RPChat("me", player, $"открыл(а) багажник");
                         }
                         return;
                     case 2:
@@ -508,7 +508,7 @@ namespace iTeffa.Globals
             Finance.Wallet.Change(target, amount);
             Finance.Wallet.Change(player, -amount);
             GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", amount, $"transfer");
-            Commands.RPChat("me", player, $"передал(а) {amount}$ " + "{name}", target);
+            Commands.Controller.RPChat("me", player, $"передал(а) {amount}$ " + "{name}", target);
         }
         public static void playerHealTarget(Player player, Player target)
         {

@@ -53,7 +53,7 @@ namespace iTeffa.Globals
                 var col = NAPI.ColShape.CreateCylinderColShape(new Vector3(403.1231, -1000.107, -100.1241), 1, 2, NAPI.GlobalDimension);
                 col.OnEntityEnterColShape += (s, e) =>
                 {
-                    Commands.SendToAdmins(3, $"!{{#d35400}}[CHAR-CREATOR-EXPLOIT] {e.Name} ({e.Value})"); // Будет Exploit, если игрок сам спрыгнул  в fix-creator
+                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CHAR-CREATOR-EXPLOIT] {e.Name} ({e.Value})"); // Будет Exploit, если игрок сам спрыгнул  в fix-creator
                     
                 };
                 NAPI.Marker.CreateMarker(1, new Vector3(403.1231, -1000.107, -100.1241), new Vector3(), new Vector3(), 1, new Color(255, 255, 255), false, NAPI.GlobalDimension);

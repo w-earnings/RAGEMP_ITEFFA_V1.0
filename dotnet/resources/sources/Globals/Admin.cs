@@ -91,15 +91,6 @@ namespace iTeffa.Globals
             Trigger.ClientEvent(player, "loadPlayerInfo", json);
         }
 
-
-
-
-
-
-
-
-
-
         public static void sendCoins(Player player, Player target, int amount)
         {
             if (!Group.CanUseCmd(player, "givecoins")) return;
@@ -471,7 +462,7 @@ namespace iTeffa.Globals
             if (player == target) return;
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Commands.SendToAdmins(3, $"!{{#d35400}}[BAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[BAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                 return;
             }
             DateTime unbanTime = DateTime.Now.AddMinutes(time);
@@ -509,7 +500,7 @@ namespace iTeffa.Globals
             if (player == target) return;
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Commands.SendToAdmins(3, $"!{{#d35400}}[HARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[HARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                 return;
             }
             DateTime unbanTime = DateTime.Now.AddMinutes(time);
@@ -550,7 +541,7 @@ namespace iTeffa.Globals
                 {
                     if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
                     {
-                        Commands.SendToAdmins(3, $"!{{#d35400}}[OFFBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                        Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[OFFBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                         return;
                     }
                     else
@@ -568,7 +559,7 @@ namespace iTeffa.Globals
                 int targetadminlvl = Convert.ToInt32(row[0]);
                 if (targetadminlvl >= Main.Players[player].AdminLVL)
                 {
-                    Commands.SendToAdmins(3, $"!{{#d35400}}[OFFBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {name} (offline), который имеет выше уровень администратора.");
+                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[OFFBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {name} (offline), который имеет выше уровень администратора.");
                     return;
                 }
             }
@@ -615,7 +606,7 @@ namespace iTeffa.Globals
                 {
                     if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
                     {
-                        Commands.SendToAdmins(3, $"!{{#d35400}}[OFFHARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                        Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[OFFHARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                         return;
                     }
                     else
@@ -633,7 +624,7 @@ namespace iTeffa.Globals
                 int targetadminlvl = Convert.ToInt32(row[0]);
                 if (targetadminlvl >= Main.Players[player].AdminLVL)
                 {
-                    Commands.SendToAdmins(3, $"!{{#d35400}}[OFFHARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {name} (offline), который имеет выше уровень администратора.");
+                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[OFFHARDBAN-DENIED] {player.Name} ({player.Value}) попытался забанить {name} (offline), который имеет выше уровень администратора.");
                     return;
                 }
             }
@@ -704,7 +695,7 @@ namespace iTeffa.Globals
             if (!Group.CanUseCmd(player, cmd)) return;
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Commands.SendToAdmins(3, $"!{{#d35400}}[KICK-DENIED] {player.Name} ({player.Value}) попытался кикнуть {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[KICK-DENIED] {player.Name} ({player.Value}) попытался кикнуть {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                 return;
             }
             if (!isSilence)
@@ -729,7 +720,7 @@ namespace iTeffa.Globals
             if (player == target) return;
             if (Main.Players[target].AdminLVL >= Main.Players[player].AdminLVL)
             {
-                Commands.SendToAdmins(3, $"!{{#d35400}}[WARN-DENIED] {player.Name} ({player.Value}) попытался предупредить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
+                Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[WARN-DENIED] {player.Name} ({player.Value}) попытался предупредить {target.Name} ({target.Value}), который имеет выше уровень администратора.");
                 return;
             }
             Main.Players[target].Warns++;

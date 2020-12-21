@@ -92,10 +92,10 @@ namespace iTeffa.Fractions
                         return;
                     case 3:
                         if (!Manager.canGetWeapon(client, "armor")) return;
-                        if (Stocks.fracStocks[14].Materials > Fractions.Manager.matsForArmor && nInventory.Find(Main.Players[client].UUID, ItemType.BodyArmor) == null)
+                        if (Stocks.fracStocks[14].Materials > Manager.matsForArmor && nInventory.Find(Main.Players[client].UUID, ItemType.BodyArmor) == null)
                         {
                             nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
-                            Stocks.fracStocks[14].Materials -= Fractions.Manager.matsForArmor;
+                            Stocks.fracStocks[14].Materials -= Manager.matsForArmor;
                             Stocks.fracStocks[14].UpdateLabel();
                             GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);

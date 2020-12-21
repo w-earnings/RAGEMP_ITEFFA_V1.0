@@ -8,7 +8,7 @@ namespace iTeffa.Settings
 {
     public static class Connect
     {
-        private static readonly Config config = new Config("MySQL");
+        //private static readonly Config config = new Config("MySQL");
         private static readonly Nlogs Log = new Nlogs("MySQL");
         private static readonly string Connection = "SERVER=localhost;PORT=3306;DATABASE=iteffa;UID=root;PASSWORD=8Bvx4Tt7G2;SSL Mode=None;pooling = false;convert zero datetime=True";
         public static bool Debug = true;

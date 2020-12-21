@@ -1,21 +1,21 @@
-﻿using System;
-using System.IO;
+﻿using GTANetworkAPI;
+using iTeffa.Globals;
+using iTeffa.Globals.Character;
+using iTeffa.Globals.nAccount;
+using iTeffa.Houses;
+using iTeffa.Interface;
+using iTeffa.Models;
+using iTeffa.Settings;
+using iTeffa.Speaking;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
-using GTANetworkAPI;
-using iTeffa.Globals;
-using iTeffa.Settings;
-using iTeffa.Globals.nAccount;
-using iTeffa.Globals.Character;
-using iTeffa.Interface;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
-using iTeffa.Models;
-using iTeffa.Speaking;
-using iTeffa.Houses;
+using System.Threading.Tasks;
 
 // __________________________________________________________ //
 //      _____  _____   ____       _ ______ _____ _______      //
@@ -415,7 +415,7 @@ namespace iTeffa
                 NAPI.Entity.SetEntityDimension(player, dimension);
                 Trigger.ClientEvent(player, "ServerNum", servernum);
                 Trigger.ClientEvent(player, "Enviroment_Start", Env_lastTime, Env_lastDate, Env_lastWeather);
-                CMD_BUILD(player);
+                Commands.PlayerCommands.CMD_BUILD(player);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_OnPlayerConnected\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -957,12 +957,12 @@ namespace iTeffa
                                 if (veh == null) return;
                                 if (veh.Dimension != player.Dimension)
                                 {
-                                    Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
+                                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) dimension");
                                     return;
                                 }
                                 if (veh.Position.DistanceTo(player.Position) > 10f)
                                 {
-                                    Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
+                                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-INVENTORY-EXPLOIT] {player.Name} ({player.Value}) distance");
                                     return;
                                 }
 
@@ -1523,7 +1523,8 @@ namespace iTeffa
                     int mycode = rnd.Next(1000, 10000);
                     if (RestorePass.ContainsKey(client)) RestorePass.Remove(client);
                     RestorePass.Add(client, new Tuple<int, string, string, string>(mycode, loginorcode, client.GetData<string>("RealSocialClub"), email));
-                    await Task.Run(() => {
+                    await Task.Run(() =>
+                    {
                         PasswordRestore.SendEmail(0, email, mycode);
                     });
                 }
@@ -1537,7 +1538,8 @@ namespace iTeffa
                             {
                                 Log.Debug($"{client.GetData<string>("RealSocialClub")} удачно восстановил пароль!", Nlogs.Type.Info);
                                 int newpas = rnd.Next(1000000, 9999999);
-                                await Task.Run(() => {
+                                await Task.Run(() =>
+                                {
                                     PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
                                 });
                                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
@@ -2050,7 +2052,7 @@ namespace iTeffa
                                 Player sellfor = seller.GetData<Player>("SELLCARFOR");
                                 if (sellfor != player || sellfor is null)
                                 {
-                                    Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
+                                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
                                     return;
                                 }
                                 if (!Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
@@ -2066,7 +2068,7 @@ namespace iTeffa
                                 }
                                 if (VehicleManager.Vehicles[number].Holder != seller.Name)
                                 {
-                                    Commands.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
+                                    Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
                                     return;
                                 }
 
@@ -2310,7 +2312,7 @@ namespace iTeffa
                 "rightleg",
             };
         }
-        private static void saveDatabase()
+        public static void saveDatabase()
         {
             Log.Write("Saving Database...");
 
@@ -2926,15 +2928,6 @@ namespace iTeffa
         }
         #endregion SMS
         #region SPECIAL
-        [Command("build")]
-        public static void CMD_BUILD(Player client)
-        {
-            try
-            {
-                client.SendChatMessage($"Сборка: !{{#00FFFF}}{Constants.GM_VERSION}!{{#FFF}} запущена !{{#f39c12}}{StartDate}");
-            }
-            catch { }
-        }
         public static int GenerateSimcard(int uuid)
         {
             int result = rnd.Next(1000000, 9999999);

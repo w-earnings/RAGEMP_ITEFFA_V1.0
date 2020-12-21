@@ -873,8 +873,8 @@ namespace iTeffa.Globals
                         case "beltCarPressed":
                             if (!NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
                             bool beltstate = Convert.ToBoolean(args[0]);
-                            if (!beltstate) Commands.RPChat("me", sender, "пристегнул(а) ремень безопасности");
-                            else Commands.RPChat("me", sender, "отслегнул(а) ремень безопасности");
+                            if (!beltstate) Commands.Controller.RPChat("me", sender, "пристегнул(а) ремень безопасности");
+                            else Commands.Controller.RPChat("me", sender, "отслегнул(а) ремень безопасности");
                             break;
                         case "RENT":
                             if (NAPI.Data.GetEntityData(vehicle, "DRIVER") != sender && Main.Players[sender].AdminLVL < 3)
@@ -1066,8 +1066,8 @@ namespace iTeffa.Globals
                             }
                             break;
                     }
-                    if (VehicleStreaming.GetEngineState(vehicle)) Commands.RPChat("me", sender, "завел(а) транспортное средство");
-                    else Commands.RPChat("me", sender, "заглушил(а) транспортное средство");
+                    if (VehicleStreaming.GetEngineState(vehicle)) Commands.Controller.RPChat("me", sender, "завел(а) транспортное средство");
+                    else Commands.Controller.RPChat("me", sender, "заглушил(а) транспортное средство");
                     return;
                 #endregion Engine button
                 case "lockCarPressed":

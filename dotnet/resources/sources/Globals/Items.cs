@@ -79,7 +79,7 @@ namespace iTeffa.Globals
                     {
                         var wHash = Weapons.GetHash(item.Type.ToString());
                         Trigger.ClientEvent(player, "takeOffWeapon", (int)wHash);
-                        Commands.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)item.Type]}");
                     }
                     else
                     {
@@ -90,7 +90,7 @@ namespace iTeffa.Globals
                             Trigger.ClientEvent(player, "serverTakeOffWeapon", (int)oldwHash);
                             oldwItem.IsActive = false;
                             Interface.Dashboard.Update(player, oldwItem, nInventory.Items[UUID].IndexOf(oldwItem));
-                            Commands.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)oldwItem.Type]}");
+                            Commands.Controller.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)oldwItem.Type]}");
                         }
 
                         var wHash = Weapons.GetHash(item.Type.ToString());
@@ -107,7 +107,7 @@ namespace iTeffa.Globals
                             Trigger.ClientEvent(player, "wgive", (int)wHash, 1, false, true);
                         }
 
-                        Commands.RPChat("me", player, $"достал(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"достал(а) {nInventory.ItemsNames[(int)item.Type]}");
                         item.IsActive = true;
                         player.SetData("LastActiveWeap", item.Type);
                         Interface.Dashboard.Update(player, item, index);
@@ -170,7 +170,7 @@ namespace iTeffa.Globals
                     /*if (!player.HasData("RESIST_TIMER"))
                         player.SetData("RESIST_TIMER", Timers.Start(1000, () => Fractions.AlcoFabrication.ResistTimer(player.Name)));*/
 
-                    Commands.RPChat("me", player, "выпил бутылку " + nInventory.ItemsNames[(int)item.Type]);
+                    Commands.Controller.RPChat("me", player, "выпил бутылку " + nInventory.ItemsNames[(int)item.Type]);
                     GameLog.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                 }
 
@@ -700,48 +700,48 @@ namespace iTeffa.Globals
                     case ItemType.Beer:
                         EatManager.AddWater(player, 12);
                         EatManager.AddEat(player, 2);
-                        Commands.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Burger:
                         player.Health = (player.Health + 30 > 100) ? 100 : player.Health + 30;
                         EatManager.AddEat(player, 15);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.eCola:
                         EatManager.AddWater(player, 15);
                         EatManager.AddEat(player, 2);
-                        Commands.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.HotDog:
                         EatManager.AddWater(player, -10);
                         EatManager.AddEat(player, 14);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Pizza:
                         EatManager.AddWater(player, -10);
                         EatManager.AddEat(player, 30);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sandwich:
                         EatManager.AddWater(player, -5);
                         EatManager.AddEat(player, 8);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sprunk:
                         EatManager.AddWater(player, 25);
                         EatManager.AddEat(player, 2);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Сrisps:
                         EatManager.AddWater(player, -10);
                         EatManager.AddEat(player, 15);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Commands.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
+                        Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Rod:
                         RodManager.useInventory(player, 1);
@@ -757,7 +757,7 @@ namespace iTeffa.Globals
                         {
                             player.Health = (player.Health + 50 > 100) ? 100 : player.Health + 50;
                             Trigger.ClientEvent(player, "startScreenEffect", "DrugsTrevorClownsFight", 300000, false);
-                            Commands.RPChat("me", player, $"закурил(а) косяк");
+                            Commands.Controller.RPChat("me", player, $"закурил(а) косяк");
                             player.SetData("USE_DRUGS", DateTime.Now.AddMinutes(3));
                         }
                         else
@@ -808,7 +808,7 @@ namespace iTeffa.Globals
                                     Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                                 } catch { }
                             }, 5000);
-                            Commands.RPChat("me", player, $"использовал(а) аптечку");
+                            Commands.Controller.RPChat("me", player, $"использовал(а) аптечку");
                         }
                         else
                         {
@@ -910,7 +910,7 @@ namespace iTeffa.Globals
                             Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
                         }
 
-                        Commands.RPChat("me", player, $"открыл(а) подарок {types.Item1} + {types.Item2}");
+                        Commands.Controller.RPChat("me", player, $"открыл(а) подарок {types.Item1} + {types.Item2}");
                         break;
 
 
@@ -946,7 +946,7 @@ namespace iTeffa.Globals
             {
                 var rnd = new Random();
                 if (data != null && (int)data != 1)
-                    Commands.RPChat("me", player, $"выбросил(а) {nInventory.ItemsNames[(int)item.Type]}");
+                    Commands.Controller.RPChat("me", player, $"выбросил(а) {nInventory.ItemsNames[(int)item.Type]}");
 
                 GameLog.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(item.Type), 1, $"{item.Data}");
 

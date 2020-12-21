@@ -327,7 +327,7 @@ namespace iTeffa.Globals
             nInventory.Remove(player, ItemType.Naz, 1);
             player.SetData("FISHLEVEL", level);
             setallow(player);
-            Commands.RPChat("me", player, $"Начал(а) рыбачить");
+            Commands.Controller.RPChat("me", player, $"Начал(а) рыбачить");
         }
 
         public class Roding
