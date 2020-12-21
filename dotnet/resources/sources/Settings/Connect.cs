@@ -1,17 +1,17 @@
-﻿using System;
-using MySqlConnector;
-using System.Data.Common;
+﻿using MySqlConnector;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace iTeffa.Settings
 {
     public static class Connect
     {
-        //private static readonly Config config = new Config("MySQL");
         private static readonly Nlogs Log = new Nlogs("MySQL");
         private static readonly string Connection = "SERVER=localhost;PORT=3306;DATABASE=iteffa;UID=root;PASSWORD=8Bvx4Tt7G2;SSL Mode=None;pooling = false;convert zero datetime=True";
-        public static bool Debug = true;
+        public const string ExportSiteDonat = "SERVER=localhost;PORT=;DATABASE=;UID=;PASSWORD=;SSL Mode=;pooling =;convert zero datetime=";
+        public static bool Debug = false;
         public static void Init()
         {
             if (Connection is string) return;
@@ -29,11 +29,13 @@ namespace iTeffa.Settings
             }
             catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
         }
+
         public static void Query(string command)
         {
             using MySqlCommand cmd = new MySqlCommand(command);
             Query(cmd);
         }
+
         public static async Task QueryAsync(MySqlCommand command)
         {
             try
