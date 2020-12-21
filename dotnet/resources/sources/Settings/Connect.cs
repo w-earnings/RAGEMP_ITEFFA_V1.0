@@ -9,51 +9,12 @@ namespace iTeffa.Settings
     public static class Connect
     {
         private static readonly Config config = new Config("MySQL");
-        private static readonly nLog Log = new nLog("MySQL");
+        private static readonly Nlogs Log = new Nlogs("MySQL");
         private static readonly string Connection = "SERVER=localhost;PORT=3306;DATABASE=iteffa;UID=root;PASSWORD=8Bvx4Tt7G2;SSL Mode=None;pooling = false;convert zero datetime=True";
         public static bool Debug = true;
         public static void Init()
         {
             if (Connection is string) return;
-        }
-
-        public static bool Test
-        {
-            get
-            {
-                Log.Debug("Testing connection...");
-                try
-                {
-                    using (MySqlConnection conn = new MySqlConnection(Connection))
-                    {
-                        conn.Open();
-                        Log.Debug("Connection is successful!", nLog.Type.Success);
-                        conn.Close();
-                    }
-                    return true;
-                }
-                catch (ArgumentException ae)
-                {
-                    Log.Write($"Сonnection string contains an error\n{ae}", nLog.Type.Error);
-                    return false;
-                }
-                catch (MySqlException me)
-                {
-                    switch (me.Number)
-                    {
-                        case 1042:
-                            Log.Write("Unable to connect to any of the specified MySQL hosts", nLog.Type.Error);
-                            break;
-                        case 0:
-                            Log.Write("Access denied", nLog.Type.Error);
-                            break;
-                        default:
-                            Log.Write($"({me.Number}) {me.Message}", nLog.Type.Error);
-                            break;
-                    }
-                    return false;
-                }
-            }
         }
 
         public static void Query(MySqlCommand command)
@@ -66,7 +27,7 @@ namespace iTeffa.Settings
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             }
-            catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
         }
         public static void Query(string command)
         {
@@ -83,7 +44,7 @@ namespace iTeffa.Settings
                 command.Connection = connection;
                 await command.ExecuteNonQueryAsync();
             }
-            catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
         }
         public static async Task QueryAsync(string command)
         {
@@ -99,7 +60,7 @@ namespace iTeffa.Settings
                 };
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch (Exception e) { Log.Write(e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
         }
         public static DataTable QueryRead(MySqlCommand command)
         {

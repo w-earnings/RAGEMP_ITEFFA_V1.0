@@ -8,7 +8,7 @@ namespace iTeffa.Globals
     public class GameLog
     {
         private static Thread thread;
-        private static readonly nLog Log = new nLog("GameLog");
+        private static readonly Nlogs Log = new Nlogs("GameLog");
         private static readonly Queue<string> queue = new Queue<string>();
         private static readonly Dictionary<int, DateTime> OnlineQueue = new Dictionary<int, DateTime>();
         private static readonly string insert = "insert into {0}({1}) values ({2})";
@@ -128,7 +128,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write($"{e}\n{CMD}", nLog.Type.Error);
+                Log.Write($"{e}\n{CMD}", Nlogs.Type.Error);
             }
         }
         public static void Stop()

@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class Items : Script
     {
-        private static readonly nLog Log = new nLog("Items");
+        private static readonly Nlogs Log = new Nlogs("Items");
 
         public static List<int> ItemsDropped = new List<int>();
         public static List<int> InProcessering = new List<int>();
@@ -26,7 +26,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("Event_OnEntityDeleted: " + e.Message, nLog.Type.Error);
+                Log.Write("Event_OnEntityDeleted: " + e.Message, Nlogs.Type.Error);
             }
         }
 
@@ -44,7 +44,7 @@ namespace iTeffa.Globals
                 }
                 catch (Exception e)
                 {
-                    Log.Write("UpdateObject: " + e.Message, nLog.Type.Error);
+                    Log.Write("UpdateObject: " + e.Message, Nlogs.Type.Error);
                 }
             }, 0);
         }
@@ -922,7 +922,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write($"EXCEPTION AT\"ITEM_USE\"/{item.Type}/{index}/{player.Name}/:\n" + e.ToString(), nLog.Type.Error);
+                Log.Write($"EXCEPTION AT\"ITEM_USE\"/{item.Type}/{index}/{player.Name}/:\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         // TO DELETE
@@ -981,7 +981,7 @@ namespace iTeffa.Globals
                 //obj.SetData("DELETETIMER", Main.StartT(14400000, 99999999, (o) => deleteObject(obj), "ODELETE_TIMER"));
                 obj.SetData("DELETETIMER", Timers.StartOnce(14400000, () => deleteObject(obj)));
             }
-            catch (Exception e) { Log.Write("onDrop: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("onDrop: " + e.Message, Nlogs.Type.Error); }
         }
         public static void onTransfer(Player player, nItem item, dynamic data)
         {

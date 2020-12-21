@@ -9,7 +9,7 @@ namespace iTeffa.Houses
 {
     class Hotel : Script
     {
-        private static readonly nLog Log = new nLog("Hotel");
+        private static readonly Nlogs Log = new Nlogs("Hotel");
 
         public static int HotelRent = 100;
         public static List<Vector3> HotelEnters = new List<Vector3>()
@@ -41,7 +41,7 @@ namespace iTeffa.Houses
                             e.SetData("HOTEL_ID", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 48);
                         }
-                        catch (Exception ex) { Log.Write("Enter.colshape.OnEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("Enter.colshape.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
                     colshape.OnEntityExitColShape += (s, e) =>
                     {
@@ -49,7 +49,7 @@ namespace iTeffa.Houses
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("Enter.colshape.OnEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("Enter.colshape.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pos - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
@@ -70,7 +70,7 @@ namespace iTeffa.Houses
                             e.SetData("HOTEL_ID", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 50);
                         }
-                        catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
                     colshape.OnEntityExitColShape += (s, e) =>
                     {
@@ -78,7 +78,7 @@ namespace iTeffa.Houses
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pos - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
@@ -86,7 +86,7 @@ namespace iTeffa.Houses
                     HotelID++;
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void Event_InteractPressed(Player player, int action)
@@ -148,7 +148,7 @@ namespace iTeffa.Houses
                 {
                     e.SetData("INTERACTIONCHECK", 49);
                 }
-                catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+                catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
             };
             colShape.OnEntityExitColShape += (s, e) =>
             {
@@ -156,7 +156,7 @@ namespace iTeffa.Houses
                 {
                     e.SetData("INTERACTIONCHECK", 0);
                 }
-                catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+                catch (Exception ex) { Log.Write("CarsGet.colshape.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
             };
             player.SetData("InsideHotel_ColShape", colShape);
             var marker = NAPI.Marker.CreateMarker(1, InteriorDoor, new Vector3(), new Vector3(), 1, new Color(255, 255, 255), false, dim);

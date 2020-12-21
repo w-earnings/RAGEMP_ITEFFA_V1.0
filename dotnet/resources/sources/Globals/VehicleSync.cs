@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     public class VehicleStreaming : Script
     {
-        private static readonly nLog Log = new nLog("VehicleStreaming");
+        private static readonly Nlogs Log = new Nlogs("VehicleStreaming");
         public class VehicleSyncData
         {
             public bool Locked { get; set; } = false;
@@ -328,7 +328,7 @@ namespace iTeffa.Globals
                 }
                 return;
             }
-            catch (Exception e) { Log.Write("VehStream_RequestFixStreamIn: " + e.Message, nLog.Type.Error); return; }
+            catch (Exception e) { Log.Write("VehStream_RequestFixStreamIn: " + e.Message, Nlogs.Type.Error); return; }
         }
 
         [RemoteEvent("VehStream_SetVehicleDirt")]
@@ -338,7 +338,7 @@ namespace iTeffa.Globals
             {
                 if (vehicle != null) SetVehicleDirt(vehicle, dirt);
             }
-            catch (Exception e) { Log.Write("VehStream_SetVehicleDirt: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("VehStream_SetVehicleDirt: " + e.Message, Nlogs.Type.Error); }
         }
 
         [RemoteEvent("VehStream_SetDirtLevel")]
@@ -532,7 +532,7 @@ namespace iTeffa.Globals
                 }
                 return false;
             }
-            catch (Exception e) { Log.Write("UpdateVehicleSyncData: " + e.Message, nLog.Type.Error); return false; }
+            catch (Exception e) { Log.Write("UpdateVehicleSyncData: " + e.Message, Nlogs.Type.Error); return false; }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace iTeffa.Houses
 {
     class GarageManager : Script
     {
-        private static readonly nLog Log = new nLog("Garages");
+        private static readonly Nlogs Log = new Nlogs("Garages");
         public static Dictionary<int, Garage> Garages = new Dictionary<int, Garage>();
         public static Dictionary<int, GarageType> GarageTypes = new Dictionary<int, GarageType>()
         {
@@ -116,7 +116,7 @@ namespace iTeffa.Houses
                 var result = Connect.QueryRead($"SELECT * FROM `garages`");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB return null result.", nLog.Type.Warn);
+                    Log.Write("DB return null result.", Nlogs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -135,14 +135,14 @@ namespace iTeffa.Houses
                     Garages.Add(id, garage);
                     DimensionID++;
                 }
-                Log.Write($"Loaded {Garages.Count} garages.", nLog.Type.Success);
+                Log.Write($"Loaded {Garages.Count} garages.", Nlogs.Type.Success);
             }
-            catch (Exception e) { Log.Write($"ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void spawnCarsInGarage()
         {
-            Log.Write($"Loading garage cars.", nLog.Type.Info);
+            Log.Write($"Loading garage cars.", Nlogs.Type.Info);
             var count = 0;
             lock (Garages)
             {
@@ -161,10 +161,10 @@ namespace iTeffa.Houses
 
                         count += vehicles.Count;
                     }
-                    catch (Exception e) { Log.Write($"garage load vehicles {e}", nLog.Type.Error); }
+                    catch (Exception e) { Log.Write($"garage load vehicles {e}", Nlogs.Type.Error); }
                 }
             }
-            Log.Write($"{count} vehicles were spawned in garages.", nLog.Type.Success);
+            Log.Write($"{count} vehicles were spawned in garages.", Nlogs.Type.Success);
         }
 
         public static void interactionPressed(Player player, int id)
@@ -230,7 +230,7 @@ namespace iTeffa.Houses
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"GARAGE_INTERACTION\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"GARAGE_INTERACTION\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
 

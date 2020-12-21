@@ -56,7 +56,7 @@ namespace iTeffa.Globals
             new Vector3(213.2493, 388.6108, 106.7043),
         };
 
-        private static readonly nLog Log = new nLog("Driving School");
+        private static readonly Nlogs Log = new Nlogs("Driving School");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -77,7 +77,7 @@ namespace iTeffa.Globals
                     colshape.SetData("NUMBER", i);
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -93,7 +93,7 @@ namespace iTeffa.Globals
                     return;
                 }
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         private void timer_exitVehicle(Player player)
@@ -113,7 +113,7 @@ namespace iTeffa.Globals
                     player.ResetData("SCHOOL_TIMER");
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы провалили экзмен", 3000);
                 }
-                catch (Exception e) { Log.Write("TimerDrivingSchool: " + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("TimerDrivingSchool: " + e.Message, Nlogs.Type.Error); }
             });
         }
 
@@ -125,7 +125,7 @@ namespace iTeffa.Globals
                 {
                     if (player.HasData("SCHOOLVEH")) NAPI.Entity.DeleteEntity(player.GetData<Vehicle>("SCHOOLVEH"));
                 }
-                catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
             }, 0);
         }
         public static void startDrivingCourse(Player player, int index)
@@ -256,7 +256,7 @@ namespace iTeffa.Globals
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 39);
             }
-            catch (Exception e) { Log.Write("onPlayerEnterSchool: " + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("onPlayerEnterSchool: " + e.ToString(), Nlogs.Type.Error); }
         }
         private void onPlayerExitSchool(ColShape shape, Player player)
         {
@@ -306,7 +306,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("ENTERDRIVE:\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("ENTERDRIVE:\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
 

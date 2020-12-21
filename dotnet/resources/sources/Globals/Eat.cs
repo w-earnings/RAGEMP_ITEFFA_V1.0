@@ -8,16 +8,16 @@ namespace iTeffa.Globals
     class EatManager : Script
     {
 
-        private static readonly nLog Log = new nLog("EatManager");
+        private static readonly Nlogs Log = new Nlogs("EatManager");
 
         [ServerEvent(Event.ResourceStart)]
 
         public void OnResourceStart()
         {
-            Log.Write("Staring timers.", nLog.Type.Info);
+            Log.Write("Staring timers.", Nlogs.Type.Info);
             Timers.StartTask("checkwater", 180000, () => CheckWater());
             Timers.StartTask("checkeat", 300000, () => CheckEat());
-            Log.Write("Timers started.", nLog.Type.Success);
+            Log.Write("Timers started.", Nlogs.Type.Success);
         }
         public static void SetEat(Player player, int change)
         {
@@ -72,7 +72,7 @@ namespace iTeffa.Globals
         {
             NAPI.Task.Run(() =>
             {
-                Log.Write("Check Eat.", nLog.Type.Info);
+                Log.Write("Check Eat.", Nlogs.Type.Info);
                 foreach (Player player in Main.Players.Keys.ToList())
                 {
                     try
@@ -125,7 +125,7 @@ namespace iTeffa.Globals
         {
             NAPI.Task.Run(() =>
             {
-                Log.Write("Check Water.", nLog.Type.Info);
+                Log.Write("Check Water.", Nlogs.Type.Info);
                 foreach (Player player in Main.Players.Keys.ToList())
                 {
                     try

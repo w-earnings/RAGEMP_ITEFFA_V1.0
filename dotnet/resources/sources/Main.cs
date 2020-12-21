@@ -78,7 +78,7 @@ namespace iTeffa
             "G",
             "MED"
         };
-        private static readonly nLog Log = new nLog("GM");
+        private static readonly Nlogs Log = new Nlogs("GM");
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
         {
@@ -125,10 +125,10 @@ namespace iTeffa
                                 string socialclub = Convert.ToString(result2.Rows[0]["socialclub"]);
                             }
                         }
-                        catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+                        catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
                     }
                 }
-                else Log.Write("DB `characters` return null result", nLog.Type.Warn);
+                else Log.Write("DB `characters` return null result", Nlogs.Type.Warn);
 
                 result = Connect.QueryRead("SELECT `login`,`socialclub`,`email`,`hwid` FROM `accounts`");
                 if (result != null)
@@ -139,16 +139,16 @@ namespace iTeffa
                         {
                             string login = Convert.ToString(Row["login"]);
                             Usernames.Add(login.ToLower());
-                            if (SocialClubs.Contains(Convert.ToString(Row["socialclub"]))) Log.Write("ResourceStart: sc contains " + Convert.ToString(Row["socialclub"]), nLog.Type.Error);
+                            if (SocialClubs.Contains(Convert.ToString(Row["socialclub"]))) Log.Write("ResourceStart: sc contains " + Convert.ToString(Row["socialclub"]), Nlogs.Type.Error);
                             else SocialClubs.Add(Convert.ToString(Row["socialclub"]));
                             Emails.Add(Convert.ToString(Row["email"]), login);
                             HWIDs.Add(Convert.ToString(Row["hwid"]));
 
                         }
-                        catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+                        catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
                     }
                 }
-                else Log.Write("DB `accounts` return null result", nLog.Type.Warn);
+                else Log.Write("DB `accounts` return null result", Nlogs.Type.Warn);
 
                 result = Connect.QueryRead("SELECT `name`,`type`,`count`,`owner` FROM `promocodes`");
                 if (result != null)
@@ -156,7 +156,7 @@ namespace iTeffa
                     foreach (DataRow Row in result.Rows)
                         PromoCodes.Add(Convert.ToString(Row["name"]), new Tuple<int, int, int>(Convert.ToInt32(Row["type"]), Convert.ToInt32(Row["count"]), Convert.ToInt32(Row["owner"])));
                 }
-                else Log.Write("DB `promocodes` return null result", nLog.Type.Warn);
+                else Log.Write("DB `promocodes` return null result", Nlogs.Type.Warn);
 
                 Ban.Sync();
 
@@ -221,7 +221,7 @@ namespace iTeffa
                     Working.Collector.collectorCarsSpawner();
                     Working.AutoMechanic.mechanicCarsSpawner();
                 }
-                else Log.Write("DB `othervehicles` return null result", nLog.Type.Warn);
+                else Log.Write("DB `othervehicles` return null result", Nlogs.Type.Warn);
 
                 Fractions.Configs.LoadFractionConfigs();
 
@@ -230,12 +230,12 @@ namespace iTeffa
                 if (oldconfig.DonateChecker)
                     Finance.Donations.Start();
 
-                Log.Write(Constants.GM_VERSION + " started at " + StartDate.ToString("s"), nLog.Type.Success);
-                Log.Write($"Assembly compiled {CompileDate:s}", nLog.Type.Success);
+                Log.Write(Constants.GM_VERSION + " started at " + StartDate.ToString("s"), Nlogs.Type.Success);
+                Log.Write($"Assembly compiled {CompileDate:s}", Nlogs.Type.Success);
 
                 Console.Title = "RageMP - " + oldconfig.ServerName;
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
         [ServerEvent(Event.EntityCreated)]
         public void Event_entityCreated(Entity entity)
@@ -260,7 +260,7 @@ namespace iTeffa
                 vehicle.SetData("SPAWNPOS", vehicle.Position);
                 vehicle.SetData("SPAWNROT", vehicle.Rotation);
             }
-            catch (Exception e) { Log.Write("EntityCreated: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("EntityCreated: " + e.Message, Nlogs.Type.Error); }
         }
         #region Player
         [ServerEvent(Event.PlayerDisconnected)]
@@ -269,7 +269,7 @@ namespace iTeffa
             try
             {
                 if (type == DisconnectionType.Timeout)
-                    Log.Write($"{player.Name} crashed", nLog.Type.Warn);
+                    Log.Write($"{player.Name} crashed", Nlogs.Type.Warn);
                 Log.Debug($"DisconnectionType: {type}");
 
                 Log.Debug("DISCONNECT STARTED");
@@ -388,7 +388,7 @@ namespace iTeffa
                 Log.Write(player.Name + " disconnected from server. (" + reason + ")");
 
             }
-            catch (Exception e) { Log.Write($"PlayerDisconnected (value: {player.Value}): " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"PlayerDisconnected (value: {player.Value}): " + e.Message, Nlogs.Type.Error); }
         }
         [ServerEvent(Event.PlayerConnected)]
         public void Event_OnPlayerConnected(Player player)
@@ -417,7 +417,7 @@ namespace iTeffa
                 Trigger.ClientEvent(player, "Enviroment_Start", Env_lastTime, Env_lastDate, Env_lastWeather);
                 CMD_BUILD(player);
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_OnPlayerConnected\":\n" + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_OnPlayerConnected\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
         #endregion Player
         #region ClientEvents
@@ -428,7 +428,7 @@ namespace iTeffa
             {
                 player.Kick();
             }
-            catch (Exception e) { Log.Write("kickclient: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("kickclient: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("teleportWaypoint")]
         public void ClientEvent_tpWP(Player player, float x, float y, float z)
@@ -468,7 +468,7 @@ namespace iTeffa
                     player.ResetSharedData("HASARMOR");
                 }
             }
-            catch (Exception e) { Log.Write("deletearmor: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("deletearmor: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("syncWaypoint")]
         public void Event_SyncWP(Player player, float X, float Y)
@@ -506,7 +506,7 @@ namespace iTeffa
                         player.SetSharedData("voice.muted", true);
                         Trigger.ClientEvent(player, "voice.mute");
                     }
-                    else Log.Write($"ClientSpawn MuteTime (MUTE) worked avoid", nLog.Type.Warn);
+                    else Log.Write($"ClientSpawn MuteTime (MUTE) worked avoid", Nlogs.Type.Warn);
                 }
                 if (Players[player].ArrestTime != 0)
                 {
@@ -516,7 +516,7 @@ namespace iTeffa
                         NAPI.Entity.SetEntityPosition(player, Fractions.Police.policeCheckpoints[4]);
                         NAPI.Entity.SetEntityPosition(player, Fractions.Sheriff.sheriffCheckpoints[4]);
                     }
-                    else Log.Write($"ClientSpawn ArrestTime (KPZ) worked avoid", nLog.Type.Warn);
+                    else Log.Write($"ClientSpawn ArrestTime (KPZ) worked avoid", Nlogs.Type.Warn);
                 }
                 else if (Players[player].DemorganTime != 0)
                 {
@@ -527,7 +527,7 @@ namespace iTeffa
                         NAPI.Entity.SetEntityPosition(player, Admin.DemorganPosition + new Vector3(0, 0, 1.5));
                         NAPI.Entity.SetEntityDimension(player, 1337);
                     }
-                    else Log.Write($"ClientSpawn ArrestTime (DEMORGAN) worked avoid", nLog.Type.Warn);
+                    else Log.Write($"ClientSpawn ArrestTime (DEMORGAN) worked avoid", Nlogs.Type.Warn);
                 }
                 else
                 {
@@ -614,7 +614,7 @@ namespace iTeffa
                 player.SetSharedData("InDeath", false);
 
             }
-            catch (Exception e) { Log.Write($"ClientEvent_Spawn/{where}: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"ClientEvent_Spawn/{where}: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("setStock")]
         public void ClientEvent_setStock(Player player, string stock)
@@ -623,7 +623,7 @@ namespace iTeffa
             {
                 player.SetData("selectedStock", stock);
             }
-            catch (Exception e) { Log.Write("setStock: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("setStock: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("inputCallback")]
         public void ClientEvent_inputCallback(Player player, params object[] arguments)
@@ -1396,7 +1396,7 @@ namespace iTeffa
                         break;
                 }
             }
-            catch (Exception e) { Log.Write($"inputCallback/{callback}/: {e}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"inputCallback/{callback}/: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
         }
         [RemoteEvent("openPlayerMenu")]
         public async Task ClientEvent_openPlayerMenu(Player player, params object[] arguments)
@@ -1414,7 +1414,7 @@ namespace iTeffa
                     }
                 }
             }
-            catch (Exception e) { Log.Write("openPlayerMenu: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("openPlayerMenu: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("closePlayerMenu")]
         public void ClientEvent_closePlayerMenu(Player player, params object[] arguments)
@@ -1428,7 +1428,7 @@ namespace iTeffa
             }
             catch (Exception e)
             {
-                Log.Write("closePlayerMenu: " + e.Message, nLog.Type.Error);
+                Log.Write("closePlayerMenu: " + e.Message, Nlogs.Type.Error);
             }
         }
         #region Account
@@ -1443,7 +1443,7 @@ namespace iTeffa
                 int slot = Convert.ToInt32(arguments[0].ToString());
                 await SelecterCharacterOnTimer(player, player.Value, slot);
             }
-            catch (Exception e) { Log.Write("newchar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("newchar: " + e.Message, Nlogs.Type.Error); }
         }
         public async Task SelecterCharacterOnTimer(Player player, int value, int slot)
         {
@@ -1463,7 +1463,7 @@ namespace iTeffa
                 await character.Load(player, Accounts[player].Characters[slot - 1]);
                 return;
             }
-            catch (Exception e) { Log.Write("selectcharTimer: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("selectcharTimer: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("newchar")]
         public async Task ClientEvent_newCharacter(Player player, params object[] arguments)
@@ -1479,7 +1479,7 @@ namespace iTeffa
                 await Accounts[player].CreateCharacter(player, slot, firstname, lastname);
                 return;
             }
-            catch (Exception e) { Log.Write("newchar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("newchar: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("delchar")]
         public async Task ClientEvent_deleteCharacter(Player player, params object[] arguments)
@@ -1495,7 +1495,7 @@ namespace iTeffa
                 await Accounts[player].DeleteCharacter(player, slot, firstname, lastname, pass);
                 return;
             }
-            catch (Exception e) { Log.Write("transferchar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("transferchar: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("restorepass")]
         public async void RestorePassword_event(Player client, byte state, string loginorcode)
@@ -1509,7 +1509,7 @@ namespace iTeffa
                     DataTable result = Connect.QueryRead($"SELECT email, socialclub FROM `accounts` WHERE `login`='{loginorcode}'");
                     if (result == null || result.Rows.Count == 0)
                     {
-                        Log.Debug($"Ошибка при попытке восстановить пароль от аккаунта!", nLog.Type.Warn);
+                        Log.Debug($"Ошибка при попытке восстановить пароль от аккаунта!", Nlogs.Type.Warn);
                         return;
                     }
                     DataRow row = result.Rows[0];
@@ -1517,7 +1517,7 @@ namespace iTeffa
                     string sc = row["socialclub"].ToString();
                     if (sc != client.GetData<string>("RealSocialClub"))
                     {
-                        Log.Debug($"SocialClub не соответствует SocialClub при регистрации", nLog.Type.Warn);
+                        Log.Debug($"SocialClub не соответствует SocialClub при регистрации", Nlogs.Type.Warn);
                         return;
                     }
                     int mycode = rnd.Next(1000, 10000);
@@ -1535,7 +1535,7 @@ namespace iTeffa
                         {
                             if (Convert.ToInt32(loginorcode) == RestorePass[client].Item1)
                             {
-                                Log.Debug($"{client.GetData<string>("RealSocialClub")} удачно восстановил пароль!", nLog.Type.Info);
+                                Log.Debug($"{client.GetData<string>("RealSocialClub")} удачно восстановил пароль!", Nlogs.Type.Info);
                                 int newpas = rnd.Next(1000000, 9999999);
                                 await Task.Run(() => {
                                     PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
@@ -1554,7 +1554,7 @@ namespace iTeffa
             }
             catch (Exception ex)
             {
-                Log.Write("EXCEPTION AT \"RestorePass\":\n" + ex.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"RestorePass\":\n" + ex.ToString(), Nlogs.Type.Error);
                 return;
             }
         }
@@ -1570,7 +1570,7 @@ namespace iTeffa
                 SignInOnTimer(player, login, pass);
                 Log.Write($"{nickname} try to signin step 1.5");
             }
-            catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("signin: " + e.Message, Nlogs.Type.Error); }
         }
         public async void SignInOnTimer(Player player, string login, string pass)
         {
@@ -1613,7 +1613,7 @@ namespace iTeffa
                 Log.Write($"{nickname} try to signin step 3");
                 return;
             }
-            catch (Exception e) { Log.Write("signin: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("signin: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("signup")]
         public void ClientEvent_signup(Player player, params object[] arguments)
@@ -1666,7 +1666,7 @@ namespace iTeffa
                     Log.Write($"{player.Name} try to signup step 3");
                     return;
                 }
-                catch (Exception e) { Log.Write("signup: " + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("signup: " + e.Message, Nlogs.Type.Error); }
 
             });
         }
@@ -1679,7 +1679,7 @@ namespace iTeffa
                 VehicleManager.onClientEvent(player, "engineCarPressed", arguments);
                 return;
             }
-            catch (Exception e) { Log.Write("engineCarPressed: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("engineCarPressed: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("lockCarPressed")]
         public void ClientEvent_lockCarPressed(Player player, params object[] arguments)
@@ -1689,7 +1689,7 @@ namespace iTeffa
                 VehicleManager.onClientEvent(player, "lockCarPressed", arguments);
                 return;
             }
-            catch (Exception e) { Log.Write("lockCarPressed: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("lockCarPressed: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("OpenSafe")]
         public void ClientEvent_OpenSafe(Player player, params object[] arguments)
@@ -1699,7 +1699,7 @@ namespace iTeffa
                 SafeMain.openSafe(player, arguments);
                 return;
             }
-            catch (Exception e) { Log.Write("OpenSafe: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("OpenSafe: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("InteractSafe")]
         public void ClientEvent_InteractSafe(Player player, params object[] arguments)
@@ -1709,7 +1709,7 @@ namespace iTeffa
                 SafeMain.interactSafe(player);
                 return;
             }
-            catch (Exception e) { Log.Write("InteractSafe: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("InteractSafe: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("interactionPressed")]
         public void ClientEvent_interactionPressed(Player player, params object[] arguments)
@@ -1946,7 +1946,7 @@ namespace iTeffa
 
                 #endregion
             }
-            catch (Exception e) { Log.Write($"interactionPressed/{intid}/: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"interactionPressed/{intid}/: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("acceptPressed")]
         public void RemoteEvent_acceptPressed(Player player)
@@ -1976,7 +1976,7 @@ namespace iTeffa
 
                 player.SetData("IS_REQUESTED", false);
             }
-            catch (Exception e) { Log.Write($"acceptPressed/{req}/: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"acceptPressed/{req}/: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("cancelPressed")]
         public void RemoteEvent_cancelPressed(Player player)
@@ -1987,7 +1987,7 @@ namespace iTeffa
                 player.SetData("IS_REQUESTED", false);
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Отмена", 3000);
             }
-            catch (Exception e) { Log.Write("cancelPressed: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("cancelPressed: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("dialogCallback")]
         public void RemoteEvent_DialogCallback(Player player, string callback, bool yes)
@@ -2227,7 +2227,7 @@ namespace iTeffa
                     }
                 }
             }
-            catch (Exception e) { Log.Write($"dialogCallback ({callback} yes: {yes}): " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"dialogCallback ({callback} yes: {yes}): " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("playerPressCuffBut")]
         public void ClientEvent_playerPressCuffBut(Player player, params object[] arguments)
@@ -2237,7 +2237,7 @@ namespace iTeffa
                 Fractions.FractionCommands.playerPressCuffBut(player);
                 return;
             }
-            catch (Exception e) { Log.Write("playerPressCuffBut: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("playerPressCuffBut: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("cuffUpdate")]
         public void ClientEvent_cuffUpdate(Player player, params object[] arguments)
@@ -2247,7 +2247,7 @@ namespace iTeffa
                 NAPI.Player.PlayPlayerAnimation(player, 49, "mp_arresting", "idle");
                 return;
             }
-            catch (Exception e) { Log.Write("cuffUpdate: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("cuffUpdate: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
         public class TestTattoo
@@ -2487,7 +2487,7 @@ namespace iTeffa
                         #endregion
 
                     }
-                    catch (Exception e) { Log.Write($"PlayedMinutesTrigger: " + e.Message, nLog.Type.Error); }
+                    catch (Exception e) { Log.Write($"PlayedMinutesTrigger: " + e.Message, Nlogs.Type.Error); }
                 }
             }
             catch (Exception e) { Log.Write($"playerMinutesTrigger: {e}"); }
@@ -2512,7 +2512,7 @@ namespace iTeffa
                         }
                         catch (Exception e)
                         {
-                            Log.Write($"Ошибка контейнеров: {e.Message}", nLog.Type.Error);
+                            Log.Write($"Ошибка контейнеров: {e.Message}", Nlogs.Type.Error);
                         }
                     }
 
@@ -2618,7 +2618,7 @@ namespace iTeffa
 
                             Dashboard.sendStats(player);
                         }
-                        catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_Player_{player.Name}\":\n" + e.ToString(), nLog.Type.Error); }
+                        catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_Player_{player.Name}\":\n" + e.ToString(), Nlogs.Type.Error); }
                     }
                     foreach (Business biz in BusinessManager.BizList.Values)
                     {
@@ -2698,7 +2698,7 @@ namespace iTeffa
                             biz.Owner = "Государство";
                             biz.UpdateLabel();
                         }
-                        catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger_Business\":\n" + e.ToString(), nLog.Type.Error); }
+                        catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger_Business\":\n" + e.ToString(), Nlogs.Type.Error); }
                     }
                     foreach (House h in HouseManager.Houses)
                     {
@@ -2734,7 +2734,7 @@ namespace iTeffa
                             h.SetOwner(null);
                             GameLog.Money($"server", $"player({PlayerUUIDs[owner]})", Convert.ToInt32(h.Price / 2.0), $"houseTax");
                         }
-                        catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_House_{h.Owner}\":\n" + e.ToString(), nLog.Type.Error); }
+                        catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_House_{h.Owner}\":\n" + e.ToString(), Nlogs.Type.Error); }
                     }
                     foreach (Fractions.GangsCapture.GangPoint point in Fractions.GangsCapture.gangPoints.Values) Fractions.Stocks.fracStocks[point.GangOwner].Money += 100;
 
@@ -2749,7 +2749,7 @@ namespace iTeffa
                     }
                     Log.Write("Payday time!");
                 }
-                catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger\":\n" + e.ToString(), nLog.Type.Error); }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_PayDayTrigger\":\n" + e.ToString(), Nlogs.Type.Error); }
             });
         }
         #region SMS
@@ -2837,7 +2837,7 @@ namespace iTeffa
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT SMS:\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT SMS:\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         public static void OpenContactData(Player client, string Number, string Name)

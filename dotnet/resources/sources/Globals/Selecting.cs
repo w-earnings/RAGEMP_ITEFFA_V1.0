@@ -11,7 +11,7 @@ namespace iTeffa.Globals
 {
     class Selecting : Script
     {
-        private static readonly nLog Log = new nLog("Selecting");
+        private static readonly Nlogs Log = new Nlogs("Selecting");
 
         [RemoteEvent("oSelected")]
         public static void objectSelected(Player player, GTANetworkAPI.Object entity)
@@ -154,7 +154,7 @@ namespace iTeffa.Globals
                         }
                 }
             }
-            catch (Exception e) { Log.Write($"oSelected/: {e}\n{e.StackTrace}", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"oSelected/: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
         }
 
         [RemoteEvent("vehicleSelected")]
@@ -257,7 +257,7 @@ namespace iTeffa.Globals
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("vSelected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("vSelected: " + e.Message, Nlogs.Type.Error); }
 
         }
 
@@ -461,7 +461,7 @@ namespace iTeffa.Globals
                         return;
                 }
             }
-            catch (Exception e) { Log.Write($"pSelected: " + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"pSelected: " + e.ToString(), Nlogs.Type.Error); }
         }
 
         public static void playerTransferMoney(Player player, string arg)
@@ -584,7 +584,7 @@ namespace iTeffa.Globals
                                 NAPI.ColShape.DeleteColShape(target.GetData<ColShape>("CALLEMS_COL"));
                             }
                         }
-                        catch (Exception e) { Log.Write("playerHealedtarget: " + e.Message, nLog.Type.Error); }
+                        catch (Exception e) { Log.Write("playerHealedtarget: " + e.Message, Nlogs.Type.Error); }
                     }, 15000);
                 }
                 else
@@ -752,7 +752,7 @@ namespace iTeffa.Globals
                     }
                 }
             }
-            catch (Exception e) { Log.Write("aSelected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("aSelected: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static List<List<Animation>> AnimList = new List<List<Animation>>()

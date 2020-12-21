@@ -17,7 +17,7 @@ namespace iTeffa.Globals.nAccount
 {
     public class Account : AccountData
     {
-        private static readonly nLog Log = new nLog("Account");
+        private static readonly Nlogs Log = new Nlogs("Account");
 
         public async Task<RegisterEvent> Register(Player client, string login_, string pass_, string email_, string promo_)
         {
@@ -66,7 +66,7 @@ namespace iTeffa.Globals.nAccount
             }
             catch (Exception ex)
             {
-                await Log.WriteAsync(ex.ToString(), nLog.Type.Error);
+                await Log.WriteAsync(ex.ToString(), Nlogs.Type.Error);
                 return RegisterEvent.Error;
             }
         }
@@ -121,7 +121,7 @@ namespace iTeffa.Globals.nAccount
             }
             catch(Exception ex)
             {
-                await Log.WriteAsync(ex.ToString(), nLog.Type.Error);
+                await Log.WriteAsync(ex.ToString(), Nlogs.Type.Error);
                 return LoginEvent.Error;
             }
         }
@@ -153,7 +153,7 @@ namespace iTeffa.Globals.nAccount
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"Save\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"Save\":\n" + e.ToString(), Nlogs.Type.Error);
                 return false;
             }
         }
@@ -210,7 +210,7 @@ namespace iTeffa.Globals.nAccount
             {
                 if (Main.LoggedIn.ContainsKey(Login)) Main.LoggedIn.Remove(Login);
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "К сожалению, невозможно получить данные о персонажах аккаунта, сообщите в тех.раздел на форуме.", 5000);
-                Log.Write("EXCEPTION AT \"LoadSlots\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"LoadSlots\":\n" + e.ToString(), Nlogs.Type.Error);
                 return;
             }
         }

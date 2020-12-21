@@ -6,7 +6,7 @@ namespace iTeffa.Plugins
 {
     public class Vehicles : Script
     {
-        private static readonly nLog Log = new nLog("Blips");
+        private static readonly Nlogs Log = new Nlogs("Blips");
         public static void OnResourceStart()
         {
             try
@@ -15,7 +15,7 @@ namespace iTeffa.Plugins
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"MANAGER_VEHICLE\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"MANAGER_VEHICLE\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
 

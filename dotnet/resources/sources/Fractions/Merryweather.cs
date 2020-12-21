@@ -7,7 +7,7 @@ namespace iTeffa.Fractions
 {
     class Merryweather : Script
     {
-        private static readonly nLog Log = new nLog("Merryweather");
+        private static readonly Nlogs Log = new Nlogs("Merryweather");
 
         private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> Coords = new List<Vector3>
@@ -50,7 +50,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT\"FRACTIONS_MERRYWEATHER\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT\"FRACTIONS_MERRYWEATHER\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
 
@@ -60,7 +60,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception e) { Log.Write("mws_OnEntityEnterColShape: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("mws_OnEntityEnterColShape: " + e.Message, Nlogs.Type.Error); }
         }
 
         private void mws_OnEntityExitColShape(ColShape shape, Player entity)
@@ -69,7 +69,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception e) { Log.Write("mws_OnEntityExitColShape: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("mws_OnEntityExitColShape: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void interactPressed(Player player, int interact)

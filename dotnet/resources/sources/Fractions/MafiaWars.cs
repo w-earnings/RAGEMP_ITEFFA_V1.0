@@ -51,7 +51,7 @@ namespace iTeffa.Fractions
         private static readonly Dictionary<int, Blip> warBlips = new Dictionary<int, Blip>();
         private static readonly List<ColShape> warPointColshape = new List<ColShape>();
 
-        private static readonly nLog Log = new nLog("MafiaWars");
+        private static readonly Nlogs Log = new Nlogs("MafiaWars");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -69,7 +69,7 @@ namespace iTeffa.Fractions
                     i++;
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         [Command("takebiz")]
@@ -224,7 +224,7 @@ namespace iTeffa.Fractions
                     }
                 }
             }
-            catch (Exception e) { Log.Write("MafiaWars: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("MafiaWars: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static void endCapture()
@@ -268,7 +268,7 @@ namespace iTeffa.Fractions
                 warIsGoing = false;
                 warBlips[whereWarIsGoing].Color = 40;
             }
-            catch (Exception e) { Log.Write($"EndMafiaWar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"EndMafiaWar: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static void onPlayerEnterBizWar(ColShape shape, Player player)
@@ -288,7 +288,7 @@ namespace iTeffa.Fractions
                     }
                 }
             }
-            catch (Exception ex) { Log.Write("onPlayerEnterBizWar: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("onPlayerEnterBizWar: " + ex.Message, Nlogs.Type.Error); }
         }
 
         private static void onPlayerExitBizWar(ColShape shape, Player player)
@@ -302,7 +302,7 @@ namespace iTeffa.Fractions
                     Trigger.ClientEvent(player, "captureHud", false);
                 }
             }
-            catch (Exception ex) { Log.Write("onPlayerExitBizWar: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("onPlayerExitBizWar: " + ex.Message, Nlogs.Type.Error); }
         }
     }
 }

@@ -167,7 +167,7 @@ namespace iTeffa.Globals
             Trigger.ClientEvent(player, "fishshop", json);
         }
 
-        private static readonly nLog Log = new nLog("RodManager");
+        private static readonly Nlogs Log = new Nlogs("RodManager");
 
         private static int lastRodID = -1;
 
@@ -180,7 +180,7 @@ namespace iTeffa.Globals
                 var result = Connect.QueryRead($"SELECT * FROM rodings");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB rod return null result.", nLog.Type.Warn);
+                    Log.Write("DB rod return null result.", Nlogs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -194,7 +194,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"RODINGS\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"RODINGS\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
 

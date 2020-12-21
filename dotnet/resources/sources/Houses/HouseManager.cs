@@ -12,7 +12,7 @@ namespace iTeffa.Houses
 {
     class HouseManager : Script
     {
-        public static nLog Log = new nLog("HouseManager");
+        public static Nlogs Log = new Nlogs("HouseManager");
 
         public static List<House> Houses = new List<House>();
         public static List<HouseType> HouseTypeList = new List<HouseType>
@@ -48,7 +48,7 @@ namespace iTeffa.Houses
                 var result = Connect.QueryRead($"SELECT * FROM `houses`");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB return null result.", nLog.Type.Warn);
+                    Log.Write("DB return null result.", Nlogs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -90,16 +90,16 @@ namespace iTeffa.Houses
                     }
                     catch (Exception e)
                     {
-                        Log.Write(Row["id"].ToString() + e.ToString(), nLog.Type.Error);
+                        Log.Write(Row["id"].ToString() + e.ToString(), Nlogs.Type.Error);
                     }
 
                 }
 
                 NAPI.Object.CreateObject(0x07e08443, new Vector3(1972.76892, 3815.36694, 33.6632576), new Vector3(0, 0, -109.999962), 255, NAPI.GlobalDimension);
                 GarageManager.spawnCarsInGarage();
-                Log.Write($"Loaded {Houses.Count} houses.", nLog.Type.Success);
+                Log.Write($"Loaded {Houses.Count} houses.", Nlogs.Type.Success);
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void Event_OnPlayerDeath(Player player, Player entityKiller, uint weapon)
@@ -109,7 +109,7 @@ namespace iTeffa.Houses
                 NAPI.Entity.SetEntityDimension(player, 0);
                 RemovePlayerFromHouseList(player);
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void Event_OnPlayerDisconnected(Player player, DisconnectionType type, string reason)
@@ -118,13 +118,13 @@ namespace iTeffa.Houses
             {
                 RemovePlayerFromHouseList(player);
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void SavingHouses()
         {
             foreach (var h in Houses) h.Save();
-            Log.Write("Houses has been saved to DB", nLog.Type.Success);
+            Log.Write("Houses has been saved to DB", Nlogs.Type.Success);
         }
 
         [ServerEvent(Event.ResourceStop)]
@@ -134,7 +134,7 @@ namespace iTeffa.Houses
             {
                 SavingHouses();
             }
-            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
 
@@ -1021,7 +1021,7 @@ namespace iTeffa.Houses
                     if (item.ID == "close") return;
                     OpenSelectedCarMenu(player, item.ID);
                 }
-                catch (Exception e) { Log.Write("callback_cars: " + e.Message + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("callback_cars: " + e.Message + e.Message, Nlogs.Type.Error); }
             });
         }
 

@@ -41,7 +41,7 @@ namespace iTeffa.Globals
             }
         }
         private static Dictionary<int, Report> Reports;
-        private static readonly nLog Log = new nLog("ReportSys");
+        private static readonly Nlogs Log = new Nlogs("ReportSys");
         private static readonly Config conf = new Config("ReportSys");
         private static readonly byte adminLvL = conf.TryGet<byte>("AdminLvL", 1);
         public static void Init()
@@ -73,7 +73,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("Init: " + e.ToString(), nLog.Type.Error);
+                Log.Write("Init: " + e.ToString(), Nlogs.Type.Error);
             }
         }
         public static void onAdminLoad(Player client)
@@ -88,7 +88,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("onAdminLoad: " + e.ToString(), nLog.Type.Error);
+                Log.Write("onAdminLoad: " + e.ToString(), Nlogs.Type.Error);
             }
         }
         #region Remote Events
@@ -169,7 +169,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
         private static void AddAnswer(Player player, int repID, string response)
@@ -208,7 +208,7 @@ namespace iTeffa.Globals
                 }
                 catch (Exception ex)
                 {
-                    Log.Write($"PlayerAnswer:\n" + ex.ToString(), nLog.Type.Error);
+                    Log.Write($"PlayerAnswer:\n" + ex.ToString(), Nlogs.Type.Error);
                 }
 
                 MySqlCommand cmd = new MySqlCommand
@@ -231,7 +231,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
         private static void Remove(int ID_, Player someone = null)
@@ -259,7 +259,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
     }

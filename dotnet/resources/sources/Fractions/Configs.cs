@@ -10,7 +10,7 @@ namespace iTeffa.Fractions
 {
     class Configs : Script
     {
-        private static readonly nLog Log = new nLog("FractionConfigs");
+        private static readonly Nlogs Log = new Nlogs("FractionConfigs");
         // fractionid - vehicle number - vehiclemodel, position, rotation, min rank, color1, color2
         public static Dictionary<int, Dictionary<string, Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>>> FractionVehicles = new Dictionary<int, Dictionary<string, Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>>>();
         public static Dictionary<int, string> FractionTypes = new Dictionary<int, string>()
@@ -228,7 +228,7 @@ namespace iTeffa.Fractions
                 Globals.VehicleStreaming.SetEngineState(vehicle, false);
                 VehicleManager.FracApplyCustomization(vehicle, fraction);
             }
-            catch (Exception e) { Log.Write("RespawnFractionCar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("RespawnFractionCar: " + e.Message, Nlogs.Type.Error); }
         }
     }
 }

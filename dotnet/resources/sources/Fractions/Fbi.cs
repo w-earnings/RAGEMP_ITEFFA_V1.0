@@ -85,7 +85,7 @@ namespace iTeffa.Fractions
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Open gun stock"), new Vector3(fbiCheckpoints[9].X, fbiCheckpoints[9].Y, fbiCheckpoints[9].Z + 0.3), 5F, 0.3F, 0, new Color(255, 255, 255));
                 #endregion
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static readonly List<Vector3> fbiCheckpoints = new List<Vector3>()
@@ -102,7 +102,7 @@ namespace iTeffa.Fractions
             new Vector3(151.8786, -736.7075, 241.032),      // fbi stock    9
         };
         public static bool warg_mode = false;
-        private static readonly nLog Log = new nLog("FBI");
+        private static readonly Nlogs Log = new Nlogs("FBI");
         public static void interactPressed(Player player, int interact)
         {
             switch (interact)
@@ -234,7 +234,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception ex) { Log.Write("fbiShape_onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("fbiShape_onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         private void fbiShape_onEntityExitColShape(ColShape shape, Player entity)
@@ -243,7 +243,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception ex) { Log.Write("fbiShape_onEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("fbiShape_onEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         #region menus
@@ -282,7 +282,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("fbilift: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("fbilift: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void OpenFbiGunMenu(Player player)
@@ -387,7 +387,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("Fbigun: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("Fbigun: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
     }

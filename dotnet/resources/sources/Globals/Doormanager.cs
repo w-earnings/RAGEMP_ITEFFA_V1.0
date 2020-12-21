@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class Doormanager : Script
     {
-        private static readonly nLog Log = new nLog("Doormanager");
+        private static readonly Nlogs Log = new Nlogs("Doormanager");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -85,7 +85,7 @@ namespace iTeffa.Globals
                 NAPI.World.DeleteWorldProp(NAPI.Util.GetHashKey("v_ilev_gasdoor"), new Vector3(1699.661, 4930.278, 42.21359), 30f);
                 // X:-59,89302 Y:-1092,952 Z:26,88362
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static readonly List<Door> allDoors = new List<Door>();
@@ -106,7 +106,7 @@ namespace iTeffa.Globals
                 var door = allDoors[shape.GetData<int>("DoorID")];
                 Trigger.ClientEvent(entity, "setDoorLocked", door.Model, door.Position.X, door.Position.Y, door.Position.Z, door.Locked, door.Angle);
             }
-            catch (Exception e) { Log.Write("Door_onEntityEnterColshape: " + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("Door_onEntityEnterColshape: " + e.ToString(), Nlogs.Type.Error); }
         }
 
         public static void SetDoorLocked(int id, bool locked, float angle)

@@ -7,7 +7,7 @@ namespace iTeffa.Globals
 {
     class PublicGarage : Script
     {
-        private static readonly nLog Log = new nLog("PublicGarage");
+        private static readonly Nlogs Log = new Nlogs("PublicGarage");
 
         [RemoteEvent("publicGarage:spawnCars")]
         public static void spawnCars(Player player, params object[] arguments)

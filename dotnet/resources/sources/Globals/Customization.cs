@@ -19,7 +19,7 @@ namespace iTeffa.Globals
             var result = Connect.QueryRead($"SELECT * FROM customization");
             if (result == null || result.Rows.Count == 0)
             {
-                Log.Write("DB return null result.", nLog.Type.Warn);
+                Log.Write("DB return null result.", Nlogs.Type.Warn);
                 return;
             }
             foreach (DataRow Row in result.Rows)
@@ -59,10 +59,10 @@ namespace iTeffa.Globals
                 NAPI.Marker.CreateMarker(1, new Vector3(403.1231, -1000.107, -100.1241), new Vector3(), new Vector3(), 1, new Color(255, 255, 255), false, NAPI.GlobalDimension);
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("Fix creator"), new Vector3(403.1231, -1000.107, -99.1241), 20F, 0.3F, 0, new Color(0, 180, 0));
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
-        private static readonly nLog Log = new nLog("Character");
+        private static readonly Nlogs Log = new Nlogs("Character");
 
         public static Dictionary<int, PlayerCustomization> CustomPlayerData = new Dictionary<int, PlayerCustomization>();
 
@@ -2598,7 +2598,7 @@ namespace iTeffa.Globals
                 Trigger.ClientEvent(player, "stopAndStartScreenEffect", "MinigameTransitionIn", "MinigameTransitionOut", 0, false);
                 return;
             }
-            catch (Exception e) { Log.Write("SaveCharacter: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("SaveCharacter: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
     }

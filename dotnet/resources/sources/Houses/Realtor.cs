@@ -7,7 +7,7 @@ namespace iTeffa.Houses
 {
     class Realtor : Script
     {
-        private static readonly nLog RLog = new nLog("RealtorManager");
+        private static readonly Nlogs RLog = new Nlogs("RealtorManager");
         private static readonly List<object> HouseList = new List<object>();
         private static ColShape shape;
         private static Marker intmarker;
@@ -41,9 +41,9 @@ namespace iTeffa.Houses
                 };
                 #endregion
 
-                RLog.Write("Loaded", nLog.Type.Info);
+                RLog.Write("Loaded", Nlogs.Type.Info);
             }
-            catch (Exception e) { RLog.Write(e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { RLog.Write(e.ToString(), Nlogs.Type.Error); }
         }
 
         public static void OpenRealtorMenu(Player player)
@@ -111,7 +111,7 @@ namespace iTeffa.Houses
             }
             catch (Exception e)
             {
-                RLog.Write(e.ToString(), nLog.Type.Error);
+                RLog.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
     }

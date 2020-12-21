@@ -15,7 +15,7 @@ namespace iTeffa.Globals
     class Ban : BanData
     {
         private static readonly List<Ban> Banned = new List<Ban>();
-        private static readonly nLog Log = new nLog("BanSystem");
+        private static readonly Nlogs Log = new Nlogs("BanSystem");
         
         // Синхронизация с базой
         public static void Sync()
@@ -97,7 +97,7 @@ namespace iTeffa.Globals
         {
             var acc = Main.Players[client];
             if (acc == null) {
-                Log.Write($"Can't ban player {client.Name}", nLog.Type.Error);
+                Log.Write($"Can't ban player {client.Name}", Nlogs.Type.Error);
                 return;
             }
             Ban ban = new Ban()

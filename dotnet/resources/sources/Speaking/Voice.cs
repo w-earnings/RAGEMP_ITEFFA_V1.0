@@ -9,7 +9,7 @@ namespace iTeffa.Speaking
 {
     public class Voice : Script
     {
-        private static readonly nLog Log = new nLog("Voice");
+        private static readonly Nlogs Log = new Nlogs("Voice");
         public Voice()
         {
             RoomController.getInstance().CreateRoom("VoiceRoom");
@@ -246,7 +246,7 @@ namespace iTeffa.Speaking
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCall: {e.Message}", nLog.Type.Error);
+                Log.Write($"PhoneCall: {e.Message}", Nlogs.Type.Error);
             }
         }
 
@@ -308,7 +308,7 @@ namespace iTeffa.Speaking
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCallAccept: {e.Message}", nLog.Type.Error);
+                Log.Write($"PhoneCallAccept: {e.Message}", Nlogs.Type.Error);
             }
         }
 
@@ -362,7 +362,7 @@ namespace iTeffa.Speaking
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCallCancel: {e.Message}", nLog.Type.Error);
+                Log.Write($"PhoneCallCancel: {e.Message}", Nlogs.Type.Error);
             }
         }
 

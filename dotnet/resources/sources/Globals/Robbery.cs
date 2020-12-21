@@ -59,7 +59,7 @@ namespace iTeffa.Globals
         };
 
         public object LogCat { get; private set; }
-        private static readonly nLog Log = new nLog("SafeCracker");
+        private static readonly Nlogs Log = new Nlogs("SafeCracker");
 
         #region Methods
         public static bool IsIDInUse(int ID)
@@ -192,7 +192,7 @@ namespace iTeffa.Globals
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сесть в машину с сумками", 3000);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.ResourceStart)]
@@ -216,7 +216,7 @@ namespace iTeffa.Globals
                 var result = Connect.QueryRead($"SELECT * FROM safes");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB return null result.", nLog.Type.Warn);
+                    Log.Write("DB return null result.", Nlogs.Type.Warn);
                     return;
                 }
                 int i = 0;
@@ -233,7 +233,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT\"SAFEMAIN_INIT\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT\"SAFEMAIN_INIT\":\n" + e.ToString(), Nlogs.Type.Error);
             }
 
         }
@@ -244,7 +244,7 @@ namespace iTeffa.Globals
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 14);
             }
-            catch (Exception e) { Log.Write("narkosale_onEntityEnterColShape: " + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("narkosale_onEntityEnterColShape: " + e.ToString(), Nlogs.Type.Error); }
         }
 
         public void narkosale_onEntityExitColShape(ColShape shape, Player entity)
@@ -253,7 +253,7 @@ namespace iTeffa.Globals
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception e) { Log.Write("narkosale_onEntityExitColShape: " + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("narkosale_onEntityExitColShape: " + e.ToString(), Nlogs.Type.Error); }
         }
 
         [RemoteEvent("dialPress")]
@@ -300,7 +300,7 @@ namespace iTeffa.Globals
                     }
                 }
             }
-            catch (Exception e) { Log.Write("dialPressed: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("dialPressed: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void interactSafe(Player player)
@@ -512,7 +512,7 @@ namespace iTeffa.Globals
                 safe.Occupier = null;
                 return;
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.ResourceStop)]
@@ -523,7 +523,7 @@ namespace iTeffa.Globals
                 foreach (Safe safe in Safes) safe.Destroy();
                 Safes.Clear();
             }
-            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
 
@@ -576,7 +576,7 @@ namespace iTeffa.Globals
                 safe.Occupier = null;
                 return;
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         #region Menus
@@ -699,7 +699,7 @@ namespace iTeffa.Globals
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("mavrbuy: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("mavrbuy: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void OpenSafedoorMenu(Player player)

@@ -10,7 +10,7 @@ namespace iTeffa.Working
 {
     class Gopostal : Script
     {
-        private static readonly nLog Log = new nLog("GoPostal");
+        private static readonly Nlogs Log = new Nlogs("GoPostal");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -30,7 +30,7 @@ namespace iTeffa.Working
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("Take work car"), Coords[1] + new Vector3(0, 0, 0.3), 10F, 0.6F, 0, new Color(0, 180, 0));
 
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static readonly int checkpointPayment = 3;
@@ -61,7 +61,7 @@ namespace iTeffa.Working
                     BasicSync.AttachObjectToPlayer(player, GoPostalObjects[x], 60309, new Vector3(0.03, 0, 0.02), new Vector3(0, 0, 50));
                 }
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void Event_PlayerDeath(Player player, Player entityKiller, uint weapon)
@@ -75,7 +75,7 @@ namespace iTeffa.Working
                     Customization.ApplyCharacter(player);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void GoPostal_onEntityEnterColShape(ColShape shape, Player player)
@@ -156,7 +156,7 @@ namespace iTeffa.Working
                     }
                 }
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"GoPostal\":\n" + e.ToString(), nLog.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"GoPostal\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
         private void gp_onEntityEnterColShape(ColShape shape, Player entity)
         {
@@ -164,7 +164,7 @@ namespace iTeffa.Working
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception ex) { Log.Write("gp_onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("gp_onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
         }
         private void gp_onEntityExitColShape(ColShape shape, Player entity)
         {
@@ -172,7 +172,7 @@ namespace iTeffa.Working
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception ex) { Log.Write("gp_onEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("gp_onEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -182,7 +182,7 @@ namespace iTeffa.Working
             {
                 BasicSync.DetachObject(player);
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void getGoPostalCar(Player player)

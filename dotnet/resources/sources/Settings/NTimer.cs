@@ -44,13 +44,13 @@ namespace iTeffa.Settings
                     if (isTask) Task.Run(() => action.Invoke());
                     else action.Invoke();
 
-                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", nLog.Type.Success);
+                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", Nlogs.Type.Success);
                 }
 
             }
             catch (Exception e)
             {
-                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", nLog.Type.Error);
+                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", Nlogs.Type.Error);
             }
         }
 

@@ -10,7 +10,7 @@ namespace iTeffa.Working
 {
     class WorkManager : Script
     {
-        private static readonly nLog Log = new nLog("WorkManager");
+        private static readonly Nlogs Log = new Nlogs("WorkManager");
         public static Random rnd = new Random();
 
         [ServerEvent(Event.ResourceStart)]
@@ -53,7 +53,7 @@ namespace iTeffa.Working
                 NAPI.Marker.CreateMarker(1, new Vector3(106.2007, -1563.748, 28.60272) - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
                 NAPI.Marker.CreateMarker(1, new Vector3(-0.51, -436.71, 38.74) - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(255, 255, 255, 220));
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public void JobMenu_onEntityEnterColShape(ColShape shape, Player entity)
@@ -62,7 +62,7 @@ namespace iTeffa.Working
             {
                 openJobsSelecting(entity);
             }
-            catch (Exception ex) { Log.Write("JobMenu_onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("JobMenu_onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         private static readonly SortedDictionary<int, ColShape> Cols = new SortedDictionary<int, ColShape>();
@@ -224,7 +224,7 @@ namespace iTeffa.Working
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("jobjoin: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("jobjoin: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
         #region GoPostal Job

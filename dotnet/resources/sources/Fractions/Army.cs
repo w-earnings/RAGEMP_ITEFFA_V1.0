@@ -58,10 +58,10 @@ namespace iTeffa.Fractions
                 NAPI.Marker.CreateMarker(1, ArmyCheckpoints[4] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(0, 255, 255));
                 NAPI.Marker.CreateMarker(1, ArmyCheckpoints[5] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1f, new Color(0, 255, 255));
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
-        private static readonly nLog Log = new nLog("Army");
+        private static readonly Nlogs Log = new Nlogs("Army");
 
         private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
         public static List<Vector3> ArmyCheckpoints = new List<Vector3>()
@@ -134,7 +134,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("ArmyGun: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ArmyGun: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void interactPressed(Player player, int interact)
@@ -245,7 +245,7 @@ namespace iTeffa.Fractions
                 NAPI.Data.SetEntityData(player, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
                 if (shape.GetData<int>("INTERACT") == 36) Trigger.ClientEvent(player, "interactHint", true);
             }
-            catch (Exception e) { Log.Write("onEntityEnterColshape: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("onEntityEnterColshape: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static void onEntityExitColshape(ColShape shape, Player entity)
@@ -254,7 +254,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception e) { Log.Write("onEntityExitColshape: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("onEntityExitColshape: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static void onEntityExitArmyMats(ColShape shape, Player player)
@@ -319,7 +319,7 @@ namespace iTeffa.Fractions
                     player.ResetData("loadMatsTimer");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
                 }
-                catch (Exception e) { Log.Write("LoadMatsTimer: " + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("LoadMatsTimer: " + e.Message, Nlogs.Type.Error); }
             });
         }
         
@@ -337,7 +337,7 @@ namespace iTeffa.Fractions
                     player.ResetData("loadMatsTimer");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void onPlayerDisconnected(Player player, DisconnectionType type, string reason)
@@ -351,7 +351,7 @@ namespace iTeffa.Fractions
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.VehicleDeath)]
@@ -369,7 +369,7 @@ namespace iTeffa.Fractions
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                 }
             }
-            catch (Exception e) { Log.Write("VehicleDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("VehicleDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         #region menu

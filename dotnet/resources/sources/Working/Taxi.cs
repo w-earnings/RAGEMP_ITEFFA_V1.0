@@ -26,7 +26,7 @@ namespace iTeffa.Working
                 Globals.VehicleStreaming.SetLockStatus(veh, false);
             }
         }
-        private static readonly nLog Log = new nLog("Taxi");
+        private static readonly Nlogs Log = new Nlogs("Taxi");
 
         private static readonly int taxiRentCost = 100;
         private static readonly Dictionary<Player, ColShape> orderCols = new Dictionary<Player, ColShape>();
@@ -96,7 +96,7 @@ namespace iTeffa.Working
                     catch { }
                 }
             }
-            catch (Exception ex) { Log.Write("order_onEntityExit: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("order_onEntityExit: " + ex.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -166,7 +166,7 @@ namespace iTeffa.Working
                     }
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void respawnCar(Vehicle veh)
@@ -188,7 +188,7 @@ namespace iTeffa.Working
                 Globals.VehicleStreaming.SetLockStatus(veh, false);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
-            catch (Exception e) { Log.Write($"respawnCar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"respawnCar: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void onPlayerDissconnectedHandler(Player player, DisconnectionType type, string reason)
@@ -229,7 +229,7 @@ namespace iTeffa.Working
                     }
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -249,7 +249,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.StartTask(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
             }
-            catch (Exception e) { Log.Write("PlayerExit: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExit: " + e.Message, Nlogs.Type.Error); }
         }
 
         private void timer_playerExitWorkVehicle(Player player, Vehicle vehicle)

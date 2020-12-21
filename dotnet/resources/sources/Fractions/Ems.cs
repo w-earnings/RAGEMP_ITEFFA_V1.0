@@ -9,7 +9,7 @@ namespace iTeffa.Fractions
 {
     class Ems : Script
     {
-        private static readonly nLog Log = new nLog("EMS");
+        private static readonly Nlogs Log = new Nlogs("EMS");
         public static int HumanMedkitsLefts = 100;
 
         [ServerEvent(Event.ResourceStart)]
@@ -75,7 +75,7 @@ namespace iTeffa.Fractions
                     Marker marker = NAPI.Marker.CreateMarker(1, emsCheckpoints[i] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(255, 255, 255, 220));
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static List<Vector3> emsCheckpoints = new List<Vector3>()
@@ -231,7 +231,7 @@ namespace iTeffa.Fractions
                     NAPI.ColShape.DeleteColShape(player.GetData<ColShape>("CALLEMS_COL"));
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         private static readonly List<string> deadAnims = new List<string>() { "dead_a", "dead_b", "dead_c", "dead_d", "dead_e", "dead_f", "dead_g", "dead_h" };
@@ -341,7 +341,7 @@ namespace iTeffa.Fractions
                     }, 4000);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void DeathConfirm(Player player, bool call)
@@ -590,7 +590,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception ex) { Log.Write("emsShape_onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("emsShape_onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         private void emsShape_onEntityExitColShape(ColShape shape, Player entity)
@@ -599,7 +599,7 @@ namespace iTeffa.Fractions
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception ex) { Log.Write("emsShape_onEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("emsShape_onEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         #region menus

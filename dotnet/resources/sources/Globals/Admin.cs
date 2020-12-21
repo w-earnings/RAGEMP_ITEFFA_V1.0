@@ -16,7 +16,7 @@ namespace iTeffa.Globals
 {
     class Admin : Script
     {
-        private static readonly nLog Log = new nLog("Admin");
+        private static readonly Nlogs Log = new Nlogs("Admin");
         public static bool IsServerStoping = false;
 
         [ServerEvent(Event.ResourceStart)]
@@ -119,7 +119,7 @@ namespace iTeffa.Globals
             IsServerStoping = true;
             GameLog.Admin($"{sender.Name}", $"stopServer({reason})", "");
 
-            Log.Write("Force saving database...", nLog.Type.Warn);
+            Log.Write("Force saving database...", Nlogs.Type.Warn);
             BusinessManager.SavingBusiness();
             Fractions.GangsCapture.SavingRegions();
             Houses.HouseManager.SavingHouses();
@@ -127,12 +127,12 @@ namespace iTeffa.Globals
             nInventory.SaveAll();
             Fractions.Stocks.saveStocksDic();
             Weapons.SaveWeaponsDB();
-            Log.Write("All data has been saved!", nLog.Type.Success);
+            Log.Write("All data has been saved!", Nlogs.Type.Success);
 
-            Log.Write("Force kicking players...", nLog.Type.Warn);
+            Log.Write("Force kicking players...", Nlogs.Type.Warn);
             foreach (Player player in NAPI.Pools.GetAllPlayers())
                 NAPI.Task.Run(() => NAPI.Player.KickPlayer(player, reason));
-            Log.Write("All players has kicked!", nLog.Type.Success);
+            Log.Write("All players has kicked!", Nlogs.Type.Success);
 
             NAPI.Task.Run(() =>
             {
@@ -144,7 +144,7 @@ namespace iTeffa.Globals
             IsServerStoping = true;
             GameLog.Admin("server", $"stopServer({reason})", "");
 
-            Log.Write("Force saving database...", nLog.Type.Warn);
+            Log.Write("Force saving database...", Nlogs.Type.Warn);
             BusinessManager.SavingBusiness();
             Fractions.GangsCapture.SavingRegions();
             Houses.HouseManager.SavingHouses();
@@ -152,12 +152,12 @@ namespace iTeffa.Globals
             nInventory.SaveAll();
             Fractions.Stocks.saveStocksDic();
             Weapons.SaveWeaponsDB();
-            Log.Write("All data has been saved!", nLog.Type.Success);
+            Log.Write("All data has been saved!", Nlogs.Type.Success);
 
-            Log.Write("Force kicking players...", nLog.Type.Warn);
+            Log.Write("Force kicking players...", Nlogs.Type.Warn);
             foreach (Player player in NAPI.Pools.GetAllPlayers())
                 NAPI.Player.KickPlayer(player, reason);
-            Log.Write("All players has kicked!", nLog.Type.Success);
+            Log.Write("All players has kicked!", Nlogs.Type.Success);
 
             NAPI.Task.Run(() =>
             {
@@ -806,7 +806,7 @@ namespace iTeffa.Globals
                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"У {target.Name} {Main.Players[target].Money}$ | Bank: {bankMoney}", 3000);
                 GameLog.Admin($"{player.Name}", $"checkMoney", $"{target.Name}");
             }
-            catch (Exception e) { Log.Write("CheckMoney: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("CheckMoney: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void teleportTargetToPlayer(Player player, Player target, bool withveh = false)
@@ -1033,7 +1033,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("DEMORGAN_TIMER: " + e.ToString(), nLog.Type.Error);
+                Log.Write("DEMORGAN_TIMER: " + e.ToString(), Nlogs.Type.Error);
             }
         }
         public static void timer_mute(Player player)
@@ -1055,7 +1055,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("MUTE_TIMER: " + e.ToString(), nLog.Type.Error);
+                Log.Write("MUTE_TIMER: " + e.ToString(), Nlogs.Type.Error);
             }
         }
         #endregion

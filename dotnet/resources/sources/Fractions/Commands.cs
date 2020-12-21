@@ -12,7 +12,7 @@ namespace iTeffa.Fractions
 {
     class FractionCommands : Script
     {
-        private static readonly nLog Log = new nLog("FractionCommangs");
+        private static readonly Nlogs Log = new Nlogs("FractionCommangs");
 
         [ServerEvent(Event.PlayerEnterVehicle)]
         public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
@@ -32,7 +32,7 @@ namespace iTeffa.Fractions
                     return;
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
         }
         private static readonly Dictionary<int, DateTime> NextCarRespawn = new Dictionary<int, DateTime>()
         {
@@ -233,7 +233,7 @@ namespace iTeffa.Fractions
                     player.ResetData("HEAD_POCKET");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
         }
 
         #region every fraction commands
@@ -251,7 +251,7 @@ namespace iTeffa.Fractions
                 }
                 else if (Group.CanUseCmd(player, "delad")) LSNews.AddAnswer(player, AdID, reason, true);
             }
-            catch (Exception e) { Log.Write("delad: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("delad: " + e.Message, Nlogs.Type.Error); }
         }
 
         [Command("openstock")]
@@ -614,7 +614,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("ARRESTTIMER: " + e.ToString(), nLog.Type.Error);
+                Log.Write("ARRESTTIMER: " + e.ToString(), Nlogs.Type.Error);
             }
 
         }
@@ -678,7 +678,7 @@ namespace iTeffa.Fractions
                     targetFollowPlayer(player, target);
                 }
             }
-            catch (Exception e) { Log.Write($"PlayerPressFollow: {e} // {e.TargetSite} // ", nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"PlayerPressFollow: {e} // {e.TargetSite} // ", Nlogs.Type.Error); }
         }
 
         public static void unFollow(Player cop, Player suspect)

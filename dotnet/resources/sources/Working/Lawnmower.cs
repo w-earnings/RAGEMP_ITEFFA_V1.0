@@ -10,7 +10,7 @@ namespace iTeffa.Working
     class Lawnmower : Script
     {
         static readonly int checkpointPayment = 2;
-        private static readonly nLog Log = new nLog("Lawnmower");
+        private static readonly Nlogs Log = new Nlogs("Lawnmower");
 
         [ServerEvent(Event.ResourceStart)]
         public void onResourceStartHandler()
@@ -31,7 +31,7 @@ namespace iTeffa.Working
                         MowerWaysCols[i][d].SetData("NUMBER", d);
                     }
                 }
-            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static List<CarInfo> CarInfos = new List<CarInfo>();
@@ -166,7 +166,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
-            catch (Exception e) { Log.Write("respawnCar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("respawnCar: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void onPlayerDissconnectedHandler(Player player, DisconnectionType type, string reason)
@@ -183,7 +183,7 @@ namespace iTeffa.Working
                     respawnCar(vehicle);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -203,7 +203,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.StartTask(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
-            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, nLog.Type.Error); }
+            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         private void timer_playerExitWorkVehicle(Player player, Vehicle vehicle)
@@ -234,7 +234,7 @@ namespace iTeffa.Working
                     }
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", NAPI.Data.GetEntityData(player, "CAR_EXIT_TIMER_COUNT") + 1);
                 }
-                catch (Exception e) { Log.Write("Timer_PlayerExitWorkVehicle_Lawnmower: " + e.Message, nLog.Type.Error); }
+                catch (Exception e) { Log.Write("Timer_PlayerExitWorkVehicle_Lawnmower: " + e.Message, Nlogs.Type.Error); }
             });
         }
 
@@ -271,7 +271,7 @@ namespace iTeffa.Working
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете газонокосильщиком. Устроиться можно в мэрии", 3000);
                     VehicleManager.WarpPlayerOutOfVehicle(player);
                 }
-            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, nLog.Type.Error); }
+            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void mowerRent(Player player)
@@ -353,7 +353,7 @@ namespace iTeffa.Working
                     //NAPI.Data.SetEntityData(player, "PAYMENT", NAPI.Data.GetEntityData(player, "PAYMENT") + payment);
                 }
             }
-            catch (Exception ex) { Log.Write("mowerCheckpointEnterWay: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("mowerCheckpointEnterWay: " + ex.Message, Nlogs.Type.Error); }
         }
     }
 }

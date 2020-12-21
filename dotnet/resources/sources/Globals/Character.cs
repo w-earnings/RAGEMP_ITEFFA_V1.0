@@ -18,7 +18,7 @@ namespace iTeffa.Globals.Character
 {
     public class Character : CharacterData
     {
-        private static readonly nLog Log = new nLog("Character");
+        private static readonly Nlogs Log = new Nlogs("Character");
         private static readonly Random Rnd = new Random();
 
         public void Spawn(Player player)
@@ -116,7 +116,7 @@ namespace iTeffa.Globals.Character
                     }
                     catch (Exception e)
                     {
-                        Log.Write($"EXCEPTION AT \"Spawn.NAPI.Task.Run\":\n" + e.ToString(), nLog.Type.Error);
+                        Log.Write($"EXCEPTION AT \"Spawn.NAPI.Task.Run\":\n" + e.ToString(), Nlogs.Type.Error);
                     }
                 });
 
@@ -220,7 +220,7 @@ namespace iTeffa.Globals.Character
                         SpawnPos = JsonConvert.DeserializeObject<Vector3>(Row["pos"].ToString());
                         if (Row["pos"].ToString().Contains("NaN"))
                         {
-                            Log.Debug("Detected wrong coordinates!", nLog.Type.Warn);
+                            Log.Debug("Detected wrong coordinates!", Nlogs.Type.Warn);
                             if (LVL <= 1) SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
                             else SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
                         }
@@ -352,7 +352,7 @@ namespace iTeffa.Globals.Character
             {
                 if (Main.Players.ContainsKey(player))
                 {
-                    Log.Debug("Main.Players.ContainsKey(player)", nLog.Type.Error);
+                    Log.Debug("Main.Players.ContainsKey(player)", Nlogs.Type.Error);
                     return -1;
                 }
 
@@ -458,7 +458,7 @@ namespace iTeffa.Globals.Character
                 int Uuid = Main.PlayerUUIDs.GetValueOrDefault(oldName);
                 if (Uuid <= 0)
                 {
-                    await Log.WriteAsync($"Cant'find UUID of player [{oldName}]", nLog.Type.Warn);
+                    await Log.WriteAsync($"Cant'find UUID of player [{oldName}]", Nlogs.Type.Warn);
                     return;
                 }
 
@@ -496,14 +496,14 @@ namespace iTeffa.Globals.Character
                     catch { }
                 });
 
-                await Log.DebugAsync("Nickname has been changed!", nLog.Type.Success);
+                await Log.DebugAsync("Nickname has been changed!", Nlogs.Type.Success);
                 toChange.Remove(oldName);
                 Finance.Donations.Rename(oldName, newName);
                 GameLog.Name(Uuid, oldName, newName);
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"CHANGENAME\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"CHANGENAME\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
     }

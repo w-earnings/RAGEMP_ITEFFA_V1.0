@@ -12,7 +12,7 @@ namespace iTeffa.Plugins
 {
     class ContainerSystem : Script
     {
-        private static readonly nLog Log = new nLog("SysContainers");
+        private static readonly Nlogs Log = new Nlogs("SysContainers");
 
         public static List<Container> containers = new List<Container>();
 
@@ -27,7 +27,7 @@ namespace iTeffa.Plugins
                 var table = Connect.QueryRead($"SELECT * FROM `containers`");
                 if (table == null || table.Rows.Count == 0)
                 {
-                    Log.Write("Containers return null result.", nLog.Type.Warn);
+                    Log.Write("Containers return null result.", Nlogs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in table.Rows)
@@ -57,7 +57,7 @@ namespace iTeffa.Plugins
             }
             catch (Exception e)
             {
-                Log.Write($"Контейнеры: {e.Message}", nLog.Type.Error);
+                Log.Write($"Контейнеры: {e.Message}", Nlogs.Type.Error);
             }
         }
         #endregion
@@ -120,7 +120,7 @@ namespace iTeffa.Plugins
             }
             catch (Exception e)
             {
-                Log.Write(e.Message, nLog.Type.Error);
+                Log.Write(e.Message, Nlogs.Type.Error);
             }
         }
         #endregion

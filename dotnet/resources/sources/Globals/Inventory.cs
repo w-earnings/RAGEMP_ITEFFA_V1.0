@@ -884,7 +884,7 @@ namespace iTeffa.Globals
 
         // UUID, Items by index
         public static Dictionary<int, List<nItem>> Items = new Dictionary<int, List<nItem>>();
-        private static readonly nLog Log = new nLog("nInventory");
+        private static readonly Nlogs Log = new Nlogs("nInventory");
         private static Timer SaveTimer;
 
         #region Constructor
@@ -893,12 +893,12 @@ namespace iTeffa.Globals
         {
             try
             {
-                Log.Write("Loading player items...", nLog.Type.Info);
+                Log.Write("Loading player items...", Nlogs.Type.Info);
                 // // //
                 var result = Connect.QueryRead($"SELECT * FROM `inventory`");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB return null result", nLog.Type.Warn);
+                    Log.Write("DB return null result", Nlogs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -909,11 +909,11 @@ namespace iTeffa.Globals
                     Items.Add(UUID, items);
                 }
                 SaveTimer = new Timer(new TimerCallback(SaveAll), null, 0, 1800000);
-                Log.Write("Items loaded.", nLog.Type.Success);
+                Log.Write("Items loaded.", Nlogs.Type.Success);
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_CONSTRUCT\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_CONSTRUCT\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         #endregion
@@ -949,7 +949,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_ADD\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_ADD\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         public static int TryAdd(Player client, nItem item)
@@ -1009,7 +1009,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_ADD\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_ADD\":\n" + e.ToString(), Nlogs.Type.Error);
                 return 0;
             }
         }
@@ -1038,7 +1038,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_REMOVE\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_REMOVE\":\n" + e.ToString(), Nlogs.Type.Error);
             }
 
         }
@@ -1078,7 +1078,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_REMOVE\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_REMOVE\":\n" + e.ToString(), Nlogs.Type.Error);
             }
 
         }
@@ -1089,7 +1089,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                Log.Write("Saving items...", nLog.Type.Info);
+                Log.Write("Saving items...", Nlogs.Type.Info);
                 if (Items.Count == 0) return;
                 Dictionary<int, List<nItem>> cItems = new Dictionary<int, List<nItem>>(Items);
 
@@ -1099,11 +1099,11 @@ namespace iTeffa.Globals
                     string json = JsonConvert.SerializeObject(kvp.Value);
                     Connect.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
                 }
-                Log.Write("Items has been saved to DB.", nLog.Type.Success);
+                Log.Write("Items has been saved to DB.", Nlogs.Type.Success);
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_SAVEALL\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_SAVEALL\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         public static void Save(int UUID)
@@ -1111,14 +1111,14 @@ namespace iTeffa.Globals
             try
             {
                 if (!Items.ContainsKey(UUID)) return;
-                Log.Write($"Saving items for {UUID}", nLog.Type.Info);
+                Log.Write($"Saving items for {UUID}", Nlogs.Type.Info);
                 string json = JsonConvert.SerializeObject(Items[UUID]);
                 Connect.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
-                Log.Write("Items has been saved to DB.", nLog.Type.Success);
+                Log.Write("Items has been saved to DB.", Nlogs.Type.Success);
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"INVENTORY_SAVE\":\n" + e.ToString(), nLog.Type.Error);
+                Log.Write("EXCEPTION AT \"INVENTORY_SAVE\":\n" + e.ToString(), Nlogs.Type.Error);
             }
         }
         #endregion
@@ -1179,7 +1179,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
         public static void ClearAllClothes(Player client)
@@ -1197,7 +1197,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
         #endregion

@@ -29,7 +29,7 @@ namespace iTeffa.Houses
         private Dictionary<string, Tuple<int, Entity>> entityVehicles = new Dictionary<string, Tuple<int, Entity>>();
         [JsonIgnore]
         private Dictionary<string, Entity> vehiclesOut = new Dictionary<string, Entity>();
-        private readonly nLog Log = new nLog("Garage");
+        private readonly Nlogs Log = new Nlogs("Garage");
 
         public Garage(int id, int type, Vector3 position, Vector3 rotation)
         {
@@ -413,7 +413,7 @@ namespace iTeffa.Houses
                     }
                 }
             }
-            catch (Exception e) { Log.Write($"SendVehiclesInsteadNearest: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"SendVehiclesInsteadNearest: " + e.Message, Nlogs.Type.Error); }
 
             return number;
         }

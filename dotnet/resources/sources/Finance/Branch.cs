@@ -10,7 +10,7 @@ namespace iTeffa.Finance
 {
     class Branch : Script
     {
-        private static readonly nLog Log = new nLog("Bank branches");
+        private static readonly Nlogs Log = new Nlogs("Bank branches");
         public static Dictionary<int, ColShape> BRANCHCols = new Dictionary<int, ColShape>();
         #region Branches List
         public static List<Vector3> BRANCHs = new List<Vector3>
@@ -38,18 +38,18 @@ namespace iTeffa.Finance
                             e.SetData("INTERACTIONCHECK", 506);
                             Working.Collector.CollectorEnterATM(e, s);
                         }
-                        catch (Exception ex) { Log.Write("BRANCHCols.OnEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("BRANCHCols.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
                     BRANCHCols[i].OnEntityExitColShape += (s, e) => {
                         try
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("BRANCHCols.OnEntityExitrColShape: " + ex.Message, nLog.Type.Error); }
+                        catch (Exception ex) { Log.Write("BRANCHCols.OnEntityExitrColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
         public static Vector3 GetNearestBRANCH(Player player)
         {
@@ -221,7 +221,7 @@ namespace iTeffa.Finance
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), nLog.Type.Error);
+                Log.Write(e.ToString(), Nlogs.Type.Error);
             }
         }
         [RemoteEvent("branchDP")]
@@ -310,7 +310,7 @@ namespace iTeffa.Finance
 
                 }
             }
-            catch (Exception e) { Log.Write("branchCB: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("branchCB: " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("branch")]
         public static void ClientEvent_BRANCH(Player player, params object[] args)
@@ -404,7 +404,7 @@ namespace iTeffa.Finance
                         break;
                 }
             }
-            catch (Exception e) { Log.Write("branch: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("branch: " + e.Message, Nlogs.Type.Error); }
         }
     }
 }

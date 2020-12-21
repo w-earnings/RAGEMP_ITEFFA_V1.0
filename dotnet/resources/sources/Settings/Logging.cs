@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace iTeffa.Settings
 {
-    public class nLog
+    public class Nlogs
     {
-        public nLog(string _reference = null, bool _canDebug = true)
+        public Nlogs(string _reference = null, bool _canDebug = true)
         {
             if (_reference == null) _reference = "Logger";
             Reference = _reference;

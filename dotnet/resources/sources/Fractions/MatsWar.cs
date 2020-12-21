@@ -15,7 +15,7 @@ namespace iTeffa.Fractions
         private static Blip warblip;
         private static string startWarTimer = null;
 
-        private static readonly nLog Log = new nLog("MatsWar");
+        private static readonly Nlogs Log = new Nlogs("MatsWar");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -28,7 +28,7 @@ namespace iTeffa.Fractions
 
                 warblip = NAPI.Blip.CreateBlip(478, warPosition, 0.75F, 40, Main.StringToU16("Война за материалы"), 255, 0, true, 0, 0);
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void startMatWarTimer()
@@ -90,7 +90,7 @@ namespace iTeffa.Fractions
                     warblip.Color = 49;
                 });
             }
-            catch (Exception e) { Log.Write($"EndMatsWar: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write($"EndMatsWar: " + e.Message, Nlogs.Type.Error); }
         }
 
         public static void interact(Player player)
@@ -140,7 +140,7 @@ namespace iTeffa.Fractions
                 if (NAPI.Entity.GetEntityType(entity) != EntityType.Player) return;
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 37);
             }
-            catch (Exception ex) { Log.Write("onEntityEnterColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
         }
 
         private void onEntityExitColShape(ColShape shape, Player entity)
@@ -161,7 +161,7 @@ namespace iTeffa.Fractions
                     }
                 }
             }
-            catch (Exception ex) { Log.Write("onEntityExitColShape: " + ex.Message, nLog.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace iTeffa.Globals
     {
         static readonly string[] WeaponKeys = { "WEAPON_OBJ_PISTOL", "WEAPON_OBJ_SMG", "WEAPON_OBJ_BACK_RIGHT", "WEAPON_OBJ_BACK_LEFT" };
 
-        private static readonly nLog Log = new nLog("Armedbody");
+        private static readonly Nlogs Log = new Nlogs("Armedbody");
 
         public enum WeaponAttachmentType
         {
@@ -183,7 +183,7 @@ namespace iTeffa.Globals
             {
                 foreach (Player player in NAPI.Pools.GetAllPlayers()) RemoveWeaponProps(player);
             }
-            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, nLog.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, Nlogs.Type.Error); }
         }
         #endregion
     }
