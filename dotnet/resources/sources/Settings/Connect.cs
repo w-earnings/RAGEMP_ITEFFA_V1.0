@@ -10,19 +10,13 @@ namespace iTeffa.Settings
     {
         private static readonly Config config = new Config("MySQL");
         private static readonly nLog Log = new nLog("MySQL");
-        private static string Connection = null;
-        public static bool Debug = false;
+        private static readonly string Connection = "SERVER=localhost;PORT=3306;DATABASE=iteffa;UID=root;PASSWORD=8Bvx4Tt7G2;SSL Mode=None;pooling = false;convert zero datetime=True";
+        public static bool Debug = true;
         public static void Init()
         {
             if (Connection is string) return;
-            Connection =
-                $"Host={config.TryGet<string>("Server", "localhost")};" +
-                $"Port={config.TryGet<string>("Port", 3306)};" +
-                $"User={config.TryGet<string>("User", "root")};" +
-                $"Password={config.TryGet<string>("Password", "8Bvx4Tt7G2")};" +
-                $"Database={config.TryGet<string>("DataBase", "iteffa")};" +
-                $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }
+
         public static bool Test
         {
             get

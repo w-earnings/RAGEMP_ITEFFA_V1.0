@@ -7,18 +7,11 @@ namespace iTeffa.Globals
 {
     public class GameLog
     {
-
         private static Thread thread;
         private static readonly nLog Log = new nLog("GameLog");
         private static readonly Queue<string> queue = new Queue<string>();
         private static readonly Dictionary<int, DateTime> OnlineQueue = new Dictionary<int, DateTime>();
-        
-        private static readonly Config config = new Config("MySQL");
-
-        private static readonly string DB = config.TryGet<string>("DataBase", "") + "logs";
-
-        private static readonly string insert = "insert into " + DB + ".{0}({1}) values ({2})";
-        
+        private static readonly string insert = "insert into {0}({1}) values ({2})";
         public static void Votes(uint ElectionId, string Login, string VoteFor)
         {
             if (thread == null) return;
@@ -37,7 +30,6 @@ namespace iTeffa.Globals
             queue.Enqueue(string.Format(
                 insert, "adminlog", "`time`,`admin`,`action`,`player`", $"'{DateTime.Now:s}','{Admin}','{Action}','{Player}'"));
         }
-
         public static void Money(string From, string To, long Amount, string Comment)
         {
             if (thread == null) return;
@@ -92,7 +84,7 @@ namespace iTeffa.Globals
             DateTime conn = OnlineQueue[Uuid];
             if (conn == null) return;
             OnlineQueue.Remove(Uuid);
-            queue.Enqueue($"update {DB}.connlog set `out`='{DateTime.Now:s}' WHERE `in`='{conn:s}' and `uuid`={Uuid}");
+            queue.Enqueue($"update connlog set `out`='{DateTime.Now:s}' WHERE `in`='{conn:s}' and `uuid`={Uuid}");
         }
         public static void CharacterDelete(string name, int uuid, string account)
         {
@@ -109,7 +101,7 @@ namespace iTeffa.Globals
         public static void EventLogUpdate(string AdmName, int MembCount, string WinName, uint Reward, string Time, uint RewardLimit, ushort MemLimit, string EvName)
         {
             if (thread == null) return;
-            queue.Enqueue($"update {DB}.eventslog set `AdminClosed`='{AdmName}',`Members`={MembCount},`Winner`='{WinName},`Reward`={Reward},`Ended`='{Time}',`RewardLimit`={RewardLimit} WHERE `Winner`='Undefined' AND `MembersLimit`={MemLimit} AND `EventName`='{EvName}'");
+            queue.Enqueue($"update eventslog set `AdminClosed`='{AdmName}',`Members`={MembCount},`Winner`='{WinName},`Reward`={Reward},`Ended`='{Time}',`RewardLimit`={RewardLimit} WHERE `Winner`='Undefined' AND `MembersLimit`={MemLimit} AND `EventName`='{EvName}'");
         }
         
         #region Логика потока
