@@ -3,6 +3,10 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+CREATE DATABASE IF NOT EXISTS `iteffa` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `iteffa`;
 
 CREATE TABLE IF NOT EXISTS `accounts` (
   `socialclub` mediumtext NOT NULL,
@@ -18,37 +22,57 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `viplvl` varchar(155) NOT NULL,
   `vipdate` datetime NOT NULL,
   `promocodes` varchar(155) NOT NULL,
-  `present` tinyint(1) NOT NULL DEFAULT 0,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `present` tinyint(1) NOT NULL DEFAULT '0',
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`socialclub`, `login`, `hwid`, `coins`, `ip`, `character1`, `character2`, `character3`, `email`, `password`, `viplvl`, `vipdate`, `promocodes`, `present`, `idkey`) VALUES
-	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '0', '194.28.4.19', '100000', '-1', '-2', 'project@wixrp.com', 'cf9db608d98dbaf81a1e3a4bc0f0609472904539db5215cf8ec49d76bf329337', '0', '2020-12-19 23:46:54', '["noref"]', 0, 1);
+	('Jack_Brawn', 'iteffa', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '20', '127.0.0.1', '100000', '-1', '-2', 'project@wixrp.com', 'cf9db608d98dbaf81a1e3a4bc0f0609472904539db5215cf8ec49d76bf329337', '0', '2020-12-19 23:46:54', '["noref"]', 0, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `adminaccess` (
-  `minrank` int(11) NOT NULL,
+  `minrank` int NOT NULL,
   `command` varchar(155) NOT NULL,
   `isadmin` tinyint(1) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `adminaccess` DISABLE KEYS */;
+INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
+	(7, 'sw', 1, 1),
+	(7, 'vehc', 1, 2),
+	(7, 'fixcar', 1, 3),
+	(7, 'givemoney', 1, 4);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `adminlog` (
+  `time` datetime NOT NULL,
+  `admin` text NOT NULL,
+  `action` text NOT NULL,
+  `player` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `adminlog` DISABLE KEYS */;
+INSERT INTO `adminlog` (`time`, `admin`, `action`, `player`, `idkey`) VALUES
+	('2020-12-21 07:03:14', 'Jack_Brown', 'giveMoney(1)', 'Jack_Brown', 1),
+	('2020-12-21 07:03:18', 'Jack_Brown', 'giveMoney(1)', 'Jack_Brown', 2);
+/*!40000 ALTER TABLE `adminlog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `advertised` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ID` int unsigned NOT NULL AUTO_INCREMENT,
   `Author` varchar(40) NOT NULL,
-  `AuthorSIM` int(11) NOT NULL,
+  `AuthorSIM` int NOT NULL,
   `AD` varchar(150) NOT NULL,
   `Editor` varchar(40) DEFAULT NULL,
   `EditedAD` varchar(150) DEFAULT NULL,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
+  `Status` tinyint DEFAULT '0',
   PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -56,12 +80,12 @@ CREATE TABLE IF NOT EXISTS `advertised` (
 /*!40000 ALTER TABLE `advertised` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `alcoclubs` (
-  `id` int(11) NOT NULL,
-  `alco1` int(11) NOT NULL,
-  `alco2` int(11) NOT NULL,
-  `alco3` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `alco1` int NOT NULL,
+  `alco2` int NOT NULL,
+  `alco3` int NOT NULL,
   `pricemod` varchar(155) NOT NULL,
-  `mats` int(11) NOT NULL,
+  `mats` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -73,13 +97,42 @@ INSERT INTO `alcoclubs` (`id`, `alco1`, `alco2`, `alco3`, `pricemod`, `mats`) VA
 	(13, 1000, 3000, 5000, '100', 100000);
 /*!40000 ALTER TABLE `alcoclubs` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `arrestlog` (
+  `time` datetime NOT NULL,
+  `player` text NOT NULL,
+  `target` text NOT NULL,
+  `reason` text NOT NULL,
+  `stars` text NOT NULL,
+  `pnick` text NOT NULL,
+  `tnick` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `arrestlog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `arrestlog` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `banlog` (
+  `time` datetime NOT NULL,
+  `admin` text NOT NULL,
+  `player` text NOT NULL,
+  `until` datetime NOT NULL,
+  `reason` text NOT NULL,
+  `ishard` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `banlog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `banlog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `banned` (
-  `uuid` int(11) NOT NULL,
+  `uuid` int NOT NULL,
   `name` text NOT NULL,
   `account` text NOT NULL,
   `time` varchar(155) NOT NULL,
   `until` varchar(155) NOT NULL,
-  `ishard` bigint(20) NOT NULL,
+  `ishard` bigint NOT NULL,
   `ip` varchar(155) NOT NULL,
   `socialclub` text NOT NULL,
   `hwid` varchar(155) NOT NULL,
@@ -92,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `banned` (
 /*!40000 ALTER TABLE `banned` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `businesses` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `owner` text NOT NULL,
   `sellprice` text NOT NULL,
   `type` text NOT NULL,
@@ -187,60 +240,78 @@ INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enter
 /*!40000 ALTER TABLE `businesses` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `characters` (
-  `uuid` bigint(20) NOT NULL,
+  `uuid` bigint NOT NULL,
   `personsid` varchar(50) NOT NULL,
-  `adminlvl` int(11) NOT NULL,
-  `money` int(11) NOT NULL,
+  `adminlvl` int NOT NULL,
+  `money` int NOT NULL,
   `firstname` text NOT NULL,
   `lastname` text NOT NULL,
-  `fraction` int(11) NOT NULL,
-  `fractionlvl` int(11) NOT NULL,
-  `warns` int(11) NOT NULL,
+  `fraction` int NOT NULL,
+  `fractionlvl` int NOT NULL,
+  `warns` int NOT NULL,
   `biz` mediumtext NOT NULL,
-  `hotel` int(11) NOT NULL,
-  `hotelleft` int(11) NOT NULL,
-  `sim` int(11) NOT NULL,
-  `eat` int(11) NOT NULL,
-  `water` int(11) NOT NULL,
-  `demorgan` int(11) NOT NULL,
-  `arrest` int(11) NOT NULL,
+  `hotel` int NOT NULL,
+  `hotelleft` int NOT NULL,
+  `sim` int NOT NULL,
+  `eat` int NOT NULL,
+  `water` int NOT NULL,
+  `demorgan` int NOT NULL,
+  `arrest` int NOT NULL,
   `unwarn` datetime NOT NULL,
-  `unmute` int(11) NOT NULL,
-  `bank` int(11) NOT NULL,
-  `wanted` text DEFAULT NULL,
-  `lvl` int(11) NOT NULL,
-  `exp` int(11) NOT NULL,
+  `unmute` int NOT NULL,
+  `bank` int NOT NULL,
+  `wanted` text,
+  `lvl` int NOT NULL,
+  `exp` int NOT NULL,
   `gender` tinyint(1) NOT NULL,
-  `health` int(11) NOT NULL,
-  `armor` int(11) NOT NULL,
+  `health` int NOT NULL,
+  `armor` int NOT NULL,
   `licenses` text NOT NULL,
   `lastveh` text NOT NULL,
   `onduty` tinyint(1) NOT NULL,
-  `lasthour` int(11) NOT NULL,
+  `lasthour` int NOT NULL,
   `contacts` text NOT NULL,
   `achiev` text NOT NULL,
   `createdate` datetime NOT NULL,
   `pos` text NOT NULL,
-  `work` int(11) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  `lastbonus` int(11) DEFAULT 0,
-  `isbonused` int(11) DEFAULT 0,
+  `work` int NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  `lastbonus` int DEFAULT '0',
+  `isbonused` int DEFAULT '0',
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 INSERT INTO `characters` (`uuid`, `personsid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
-	(100000, 'ITEFFA21', 8, 10000, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 96, 96, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 2, 6, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 5, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":379.0306,"y":-1417.317,"z":38.0}', 0, 1, 5, 0);
+	(100000, 'ITEFFA21', 8, 10502, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 30, 28, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 3, 2, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 32, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":371.64716,"y":-1412.1846,"z":37.911148}', 0, 1, 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `connlog` (
+  `uuid` text NOT NULL,
+  `in` datetime NOT NULL,
+  `out` datetime DEFAULT NULL,
+  `sclub` text NOT NULL,
+  `hwid` text NOT NULL,
+  `ip` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `connlog` DISABLE KEYS */;
+INSERT INTO `connlog` (`uuid`, `in`, `out`, `sclub`, `hwid`, `ip`, `idkey`) VALUES
+	('100000', '2020-12-21 07:02:37', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 1),
+	('100000', '2020-12-21 07:10:52', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 2),
+	('100000', '2020-12-21 07:13:21', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 3);
+/*!40000 ALTER TABLE `connlog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `containers` (
-  `id` int(11) NOT NULL,
-  `name` text DEFAULT NULL,
-  `price` int(11) NOT NULL DEFAULT 0,
-  `donate` tinyint(1) DEFAULT 0,
-  `position` text DEFAULT NULL,
+  `id` int NOT NULL,
+  `name` text,
+  `price` int NOT NULL DEFAULT '0',
+  `donate` tinyint(1) DEFAULT '0',
+  `position` text,
   `rotation` text NOT NULL,
-  `loot` text DEFAULT NULL,
+  `loot` text,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -255,7 +326,7 @@ INSERT INTO `containers` (`id`, `name`, `price`, `donate`, `position`, `rotation
 /*!40000 ALTER TABLE `containers` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `customization` (
-  `uuid` bigint(20) NOT NULL,
+  `uuid` bigint NOT NULL,
   `gender` text NOT NULL,
   `parents` text NOT NULL,
   `features` text NOT NULL,
@@ -271,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `customization` (
   `lipstickc` text NOT NULL,
   `chesthairc` text NOT NULL,
   `iscreated` tinyint(1) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -280,15 +351,39 @@ INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearanc
 	(100000, '0', '{"Father":4,"Mother":40,"Similarity":0.0,"SkinSimilarity":1.0}', '[0.0,0.0,0.0,0.0,0.0,0.0,-0.2,0.0,-0.7,0.0,0.0,0.0,0.4,0.0,0.0,0.3,1.0,1.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":1,"Opacity":100.0},{"Value":9,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":17,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":3},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":0},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":6}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '1', '0', '0', '0', 1, 1);
 /*!40000 ALTER TABLE `customization` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `deletelog` (
+  `time` datetime NOT NULL,
+  `uuid` text NOT NULL,
+  `name` text NOT NULL,
+  `account` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `deletelog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deletelog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `eventcfg` (
-  `RewardLimit` int(11) NOT NULL
+  `RewardLimit` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `eventcfg` DISABLE KEYS */;
 /*!40000 ALTER TABLE `eventcfg` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `eventslog` (
+  `AdminStarted` text NOT NULL,
+  `EventName` text NOT NULL,
+  `MembersLimit` text NOT NULL,
+  `Started` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `eventslog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `eventslog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `e_candidates` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int NOT NULL AUTO_INCREMENT,
   `Votes` text NOT NULL,
   `Election` text NOT NULL,
   `Name` text NOT NULL,
@@ -299,11 +394,11 @@ CREATE TABLE IF NOT EXISTS `e_candidates` (
 /*!40000 ALTER TABLE `e_candidates` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `e_points` (
-  `Election` int(11) NOT NULL AUTO_INCREMENT,
+  `Election` int NOT NULL AUTO_INCREMENT,
   `X` varchar(11) NOT NULL,
   `Y` varchar(11) NOT NULL,
   `Z` varchar(11) NOT NULL,
-  `Dimension` int(11) NOT NULL,
+  `Dimension` int NOT NULL,
   `Opened` text NOT NULL,
   PRIMARY KEY (`Election`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -312,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `e_points` (
 /*!40000 ALTER TABLE `e_points` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `e_voters` (
-  `Election` int(11) NOT NULL,
+  `Election` int NOT NULL,
   `Login` text NOT NULL,
   `TimeVoted` text NOT NULL,
   `VotedFor` text NOT NULL
@@ -322,8 +417,8 @@ CREATE TABLE IF NOT EXISTS `e_voters` (
 /*!40000 ALTER TABLE `e_voters` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `fractionaccess` (
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  `fraction` int(11) NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  `fraction` int NOT NULL,
   `commands` text NOT NULL,
   `weapons` text NOT NULL,
   PRIMARY KEY (`idkey`) USING BTREE
@@ -349,9 +444,9 @@ INSERT INTO `fractionaccess` (`idkey`, `fraction`, `commands`, `weapons`) VALUES
 /*!40000 ALTER TABLE `fractionaccess` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `fractionranks` (
-  `fraction` int(11) NOT NULL,
-  `rank` int(11) NOT NULL,
-  `payday` int(11) NOT NULL,
+  `fraction` int NOT NULL,
+  `rank` int NOT NULL,
+  `payday` int NOT NULL,
   `name` text NOT NULL,
   `clothesm` text NOT NULL,
   `clothesf` mediumtext NOT NULL
@@ -604,16 +699,16 @@ INSERT INTO `fractionranks` (`fraction`, `rank`, `payday`, `name`, `clothesm`, `
 /*!40000 ALTER TABLE `fractionranks` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `fractions` (
-  `id` int(11) NOT NULL,
-  `drugs` int(11) NOT NULL,
-  `money` int(11) NOT NULL,
-  `mats` int(11) NOT NULL,
-  `medkits` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `drugs` int NOT NULL,
+  `money` int NOT NULL,
+  `mats` int NOT NULL,
+  `medkits` int NOT NULL,
   `lastserial` text NOT NULL,
   `weapons` text NOT NULL,
   `isopen` tinyint(1) NOT NULL,
-  `fuellimit` int(11) NOT NULL,
-  `fuelleft` int(11) NOT NULL,
+  `fuellimit` int NOT NULL,
+  `fuelleft` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -640,15 +735,15 @@ INSERT INTO `fractions` (`id`, `drugs`, `money`, `mats`, `medkits`, `lastserial`
 /*!40000 ALTER TABLE `fractions` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `fractionvehicles` (
-  `fraction` int(11) NOT NULL,
+  `fraction` int NOT NULL,
   `number` text NOT NULL,
   `components` text NOT NULL,
   `model` text NOT NULL,
   `position` text NOT NULL,
   `rotation` text NOT NULL,
-  `rank` int(11) NOT NULL,
-  `colorprim` int(11) NOT NULL,
-  `colorsec` int(11) NOT NULL
+  `rank` int NOT NULL,
+  `colorprim` int NOT NULL,
+  `colorsec` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `fractionvehicles` DISABLE KEYS */;
@@ -1138,8 +1233,8 @@ INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
 /*!40000 ALTER TABLE `furniture` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `gangspoints` (
-  `id` int(11) NOT NULL,
-  `gangid` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `gangid` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -1147,8 +1242,8 @@ CREATE TABLE IF NOT EXISTS `gangspoints` (
 /*!40000 ALTER TABLE `gangspoints` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `garages` (
-  `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `type` int NOT NULL,
   `position` text NOT NULL,
   `rotation` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -1325,12 +1420,12 @@ INSERT INTO `garages` (`id`, `type`, `position`, `rotation`) VALUES
 /*!40000 ALTER TABLE `garages` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `houses` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `owner` text NOT NULL,
   `type` varchar(11) NOT NULL,
   `position` text NOT NULL,
   `price` text NOT NULL,
-  `locked` tinyint(4) NOT NULL,
+  `locked` tinyint NOT NULL,
   `garage` text NOT NULL,
   `bank` text NOT NULL,
   `roommates` text NOT NULL,
@@ -1507,17 +1602,48 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(165, '', '6', '{"x":-2797.6306,"y":1431.908,"z":99.80837}', '50000000', 0, '166', '842769', '[]');
 /*!40000 ALTER TABLE `houses` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `idlog` (
+  `in` datetime NOT NULL,
+  `out` datetime DEFAULT NULL,
+  `uuid` text NOT NULL,
+  `id` text NOT NULL,
+  `name` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `idlog` DISABLE KEYS */;
+INSERT INTO `idlog` (`in`, `out`, `uuid`, `id`, `name`, `idkey`) VALUES
+	('2020-12-21 07:02:37', NULL, '100000', '0', 'Jack_Brown', 1),
+	('2020-12-21 07:10:52', NULL, '100000', '0', 'Jack_Brown', 2),
+	('2020-12-21 07:13:21', NULL, '100000', '0', 'Jack_Brown', 3);
+/*!40000 ALTER TABLE `idlog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `inventory` (
   `items` text NOT NULL,
-  `uuid` int(11) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` int NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
 INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
-	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 100000, 7);
+	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true},{"Data":2,"ID":40,"Type":40,"Count":1,"IsActive":false}]', 100000, 7);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `itemslog` (
+  `time` datetime NOT NULL,
+  `from` text NOT NULL,
+  `to` text NOT NULL,
+  `type` text NOT NULL,
+  `amount` text NOT NULL,
+  `data` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `itemslog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itemslog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `money` (
   `id` varchar(155) NOT NULL,
@@ -1777,6 +1903,34 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('994557', '', '1000', '2');
 /*!40000 ALTER TABLE `money` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `moneylog` (
+  `time` datetime NOT NULL,
+  `from` text NOT NULL,
+  `to` text NOT NULL,
+  `amount` text NOT NULL,
+  `comment` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `moneylog` DISABLE KEYS */;
+INSERT INTO `moneylog` (`time`, `from`, `to`, `amount`, `comment`, `idkey`) VALUES
+	('2020-12-21 07:03:14', 'player(100000)', 'player(100000)', '1', 'admin', 1),
+	('2020-12-21 07:03:18', 'player(100000)', 'player(100000)', '1', 'admin', 2);
+/*!40000 ALTER TABLE `moneylog` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `namelog` (
+  `time` datetime NOT NULL,
+  `uuid` text NOT NULL,
+  `old` text NOT NULL,
+  `new` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `namelog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `namelog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `nicknames` (
   `srv` varchar(155) NOT NULL,
   `name` varchar(155) NOT NULL
@@ -1786,15 +1940,15 @@ CREATE TABLE IF NOT EXISTS `nicknames` (
 /*!40000 ALTER TABLE `nicknames` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `othervehicles` (
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   `type` varchar(155) NOT NULL,
   `number` text NOT NULL,
   `model` text NOT NULL,
   `position` text NOT NULL,
   `rotation` text NOT NULL,
-  `color1` int(11) NOT NULL,
-  `color2` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
+  `color1` int NOT NULL,
+  `color2` int NOT NULL,
+  `price` int NOT NULL,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -1928,10 +2082,10 @@ INSERT INTO `othervehicles` (`idkey`, `type`, `number`, `model`, `position`, `ro
 
 CREATE TABLE IF NOT EXISTS `promocodes` (
   `name` text NOT NULL,
-  `type` int(11) NOT NULL,
-  `count` int(11) NOT NULL,
-  `owner` int(11) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int NOT NULL,
+  `count` int NOT NULL,
+  `owner` int NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -1939,14 +2093,14 @@ CREATE TABLE IF NOT EXISTS `promocodes` (
 /*!40000 ALTER TABLE `promocodes` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `questions` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ID` int unsigned NOT NULL AUTO_INCREMENT,
   `Author` text NOT NULL,
   `Question` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `Respondent` text DEFAULT NULL,
-  `Response` text CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Respondent` text,
+  `Response` text CHARACTER SET utf8 COLLATE utf8_bin,
   `Opened` datetime NOT NULL,
   `Closed` datetime DEFAULT NULL,
-  `Status` tinyint(4) DEFAULT 0,
+  `Status` tinyint DEFAULT '0',
   PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
@@ -1954,7 +2108,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `rodings` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `radius` varchar(255) DEFAULT NULL,
   `pos` varchar(255) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -1964,12 +2118,12 @@ CREATE TABLE IF NOT EXISTS `rodings` (
 /*!40000 ALTER TABLE `rodings` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `safes` (
-  `minamount` int(11) NOT NULL,
-  `maxamount` int(11) NOT NULL,
+  `minamount` int NOT NULL,
+  `maxamount` int NOT NULL,
   `pos` text NOT NULL,
   `address` text NOT NULL,
-  `rotation` int(11) NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `rotation` int NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -1980,19 +2134,48 @@ INSERT INTO `safes` (`minamount`, `maxamount`, `pos`, `address`, `rotation`, `id
 	(45200, 75800, '{"x":264.3013,"y":216.193329,"z":101.683372}', '0', 0, 3);
 /*!40000 ALTER TABLE `safes` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `stocklog` (
+  `time` datetime NOT NULL,
+  `frac` text NOT NULL,
+  `uuid` text NOT NULL,
+  `type` text NOT NULL,
+  `amount` text NOT NULL,
+  `in` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `stocklog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stocklog` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `ticketlog` (
+  `time` datetime NOT NULL,
+  `player` text NOT NULL,
+  `target` text NOT NULL,
+  `sum` text NOT NULL,
+  `reason` text NOT NULL,
+  `pnick` text NOT NULL,
+  `tnick` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `ticketlog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ticketlog` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `holder` varchar(155) NOT NULL,
   `model` varchar(155) NOT NULL,
-  `health` int(11) NOT NULL,
-  `fuel` int(11) NOT NULL,
+  `health` int NOT NULL,
+  `fuel` int NOT NULL,
   `components` text NOT NULL,
   `items` text NOT NULL,
   `position` varchar(255) DEFAULT NULL,
   `rotation` varchar(255) DEFAULT NULL,
-  `keynum` int(11) DEFAULT NULL,
+  `keynum` int DEFAULT NULL,
   `dirt` float DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
+  `price` int DEFAULT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
   `number` varchar(255) NOT NULL,
   PRIMARY KEY (`idkey`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -2022,7 +2205,7 @@ INSERT INTO `weapons` (`id`, `lastserial`) VALUES
 /*!40000 ALTER TABLE `weapons` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `whitelist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `socialclub` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -2030,166 +2213,7 @@ CREATE TABLE IF NOT EXISTS `whitelist` (
 /*!40000 ALTER TABLE `whitelist` DISABLE KEYS */;
 /*!40000 ALTER TABLE `whitelist` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `adminlog` (
-  `time` datetime NOT NULL,
-  `admin` text NOT NULL,
-  `action` text NOT NULL,
-  `player` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `adminlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `adminlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `arrestlog` (
-  `time` datetime NOT NULL,
-  `player` text NOT NULL,
-  `target` text NOT NULL,
-  `reason` text NOT NULL,
-  `stars` text NOT NULL,
-  `pnick` text NOT NULL,
-  `tnick` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `arrestlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `arrestlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `banlog` (
-  `time` datetime NOT NULL,
-  `admin` text NOT NULL,
-  `player` text NOT NULL,
-  `until` datetime NOT NULL,
-  `reason` text NOT NULL,
-  `ishard` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `banlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `banlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `connlog` (
-  `uuid` text NOT NULL,
-  `in` datetime NOT NULL,
-  `out` datetime DEFAULT NULL,
-  `sclub` text NOT NULL,
-  `hwid` text NOT NULL,
-  `ip` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `connlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `connlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `deletelog` (
-  `time` datetime NOT NULL,
-  `uuid` text NOT NULL,
-  `name` text NOT NULL,
-  `account` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `deletelog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `deletelog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `eventslog` (
-  `AdminStarted` text NOT NULL,
-  `EventName` text NOT NULL,
-  `MembersLimit` text NOT NULL,
-  `Started` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `eventslog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `eventslog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `idlog` (
-  `in` datetime NOT NULL,
-  `out` datetime DEFAULT NULL,
-  `uuid` text NOT NULL,
-  `id` text NOT NULL,
-  `name` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `idlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `idlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `itemslog` (
-  `time` datetime NOT NULL,
-  `from` text NOT NULL,
-  `to` text NOT NULL,
-  `type` text NOT NULL,
-  `amount` text NOT NULL,
-  `data` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `itemslog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemslog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `moneylog` (
-  `time` datetime NOT NULL,
-  `from` text NOT NULL,
-  `to` text NOT NULL,
-  `amount` text NOT NULL,
-  `comment` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `moneylog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `moneylog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `namelog` (
-  `time` datetime NOT NULL,
-  `uuid` text NOT NULL,
-  `old` text NOT NULL,
-  `new` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `namelog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `namelog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `stocklog` (
-  `time` datetime NOT NULL,
-  `frac` text NOT NULL,
-  `uuid` text NOT NULL,
-  `type` text NOT NULL,
-  `amount` text NOT NULL,
-  `in` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `stocklog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stocklog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `ticketlog` (
-  `time` datetime NOT NULL,
-  `player` text NOT NULL,
-  `target` text NOT NULL,
-  `sum` text NOT NULL,
-  `reason` text NOT NULL,
-  `pnick` text NOT NULL,
-  `tnick` text NOT NULL,
-  `idkey` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*!40000 ALTER TABLE `ticketlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ticketlog` ENABLE KEYS */;
-
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
