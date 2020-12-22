@@ -14,12 +14,9 @@ var height = 0.004;
 var border = 0.001;
 
 mp.keys.bind(global.Keys.VK_5, false, function () {
-    // Включить / Выключить.
-
     if (!global.loggedin || global.chatActive || global.editing || global.menuCheck()) return;
     showGamertags = !showGamertags;
 });
-
 function calculateDistance(v1, v2) {
     var dx = v1.x - v2.x;
     var dy = v1.y - v2.y;
@@ -27,20 +24,19 @@ function calculateDistance(v1, v2) {
 
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
 }
-
+mp.events.add('newFriend', function (player, pass) {
+    if (player && mp.players.exists(player)) {
+        mp.storage.data.friends[player.name] = true;
+        mp.storage.flush();
+    }
+});
 mp.events.add('render', function (nametags) {
 
     if (!global.loggedin) return;
-
-    // Pre draw
     playerPos = mp.players.local.position;
     playerAimAt = mp.game.player.getEntityIsFreeAimingAt();
     playerTarget = mp.players.local;
-
-    // Get variables
     var isAdmin = global.localplayer.getVariable('IS_ADMIN');
-
-    // Admin get target info
     if (isAdmin == true) {
         var player = playerTarget;
         if (player === undefined || player.handle === undefined || !player.handle) player = playerAimAt;
@@ -50,57 +46,59 @@ mp.events.add('render', function (nametags) {
             }
         }
     }
-
-    // Player gamertags
     if (showGamertags) {
 
-        nametags.forEach(function (nametag) {
-            try {
-                var _nametag = _slicedToArray(nametag, 4),
-                    _player = _nametag[0],
-                    x = _nametag[1],
-                    y = _nametag[2],
-                    distance = _nametag[3];
+        preDraw();
 
-                if (calculateDistance(playerPos, _player.position) < 15.0) {
-                    if (_player.getVariable('INVISIBLE') != true && _player.getVariable('HideNick') != true) {
-                        var passportText = '';
-                        if (global.passports[_player.name] !== undefined) passportText = ' | ' + global.passports[_player.name];
-                        if (tagLabelPool[_player.remoteId] === undefined || reupdateTagLabel[_player.remoteId] === undefined || new Date().getTime() - reupdateTagLabel[_player.remoteId] > 500) {
+        nametags.forEach(nametag => {
+            let [player, x, y, distance] = nametag;
+            
+            if(player.getVariable('INVISIBLE') != true && player.getVariable('HideNick') != true)
+            {
+                var passportText = '';
+                if (global.passports[player.name] !== undefined) passportText = ' | ' + global.passports[player.name];
 
-                            reupdateTagLabel[_player.remoteId] = new Date().getTime();
+                var text = '';
+                var tag = player.getVariable('REMOTE_ID');
+                var localFraction = global.localplayer.getVariable('fraction');
+                var playerFraction = player.getVariable('fraction');
+				
+				text = player.getVariable('IS_MASK') ? ( global.localplayer.getVariable('IS_ADMIN') || localFraction != null && playerFraction != null && localFraction === playerFraction ? player.name + ' [' + tag + ']' + '\n в маске' : 'Гражданин [' + tag + '] \n в маске') : (global.localplayer.getVariable('IS_ADMIN') || localFraction != null && playerFraction != null && localFraction === playerFraction || mp.storage.data.friends[player.name] ? player.name + ' [' + tag + ']' : 'Гражданин [' + tag + ']' );
+				text = text + ( localFraction != null && playerFraction != null && localFraction === playerFraction ? '\n' +  player.getVariable('fractionRankName') + '\n~c~#' + player.getVariable('PERSON_SID') : '\n~c~#' + player.getVariable('PERSON_SID'));
 
-                            var text = void 0;
-                            if (_player.getVariable('IS_MASK') == true) {
-                                if (isAdmin === true) text = '\u0418\u0433\u0440\u043E\u043A \u0432 \u043C\u0430\u0441\u043A\u0435: ' + _player.name + ' (' + _player.remoteId + passportText + ')';else text = 'ID: ' + _player.remoteId;
-                            } else {
-                                if (isAdmin === true || global.friends[_player.name] !== undefined || global.passports[_player.name] !== undefined) text = _player.name + ' (' + _player.remoteId + passportText + ')';else text = 'ID: ' + _player.remoteId;;
-                            }
-                            var localFraction = global.localplayer.getVariable('fraction');
-                            var playerFraction = _player.getVariable('fraction');
-                            if (localFraction != null && playerFraction != null && localFraction === playerFraction) text = _player.name + ' (' + _player.remoteId + passportText + ')';
-
-                            var color = _player.getVariable('REDNAME') === true ? [255, 0, 0, 255] : [255, 255, 255, 255];
-                            tagLabelPool[_player.remoteId] = { text: text, color: color };
-                        }
-                        if (_player.vehicle) y += 0.065;
-                        var label = tagLabelPool[_player.remoteId];
-                        if (label !== undefined) {
-                            drawPlayerTag(_player, x, y, label.text, label.color); 
-                            drawPlayerVoiceIcon(_player, x, y);
-                        }
-                    }
+                if (player.getVariable('IS_ADMIN') && player.getVariable('REDNAME') == true)
+                {
+                    text = text + '\n ~r~Администратор проекта'
                 }
-            } catch (e) {}
-        });
+
+                var color = (player.getVariable('REDNAME') == true) ? [255, 0, 0, 255] : [255, 255, 255, 255];
+    
+                if (player.vehicle) y += 0.065;
+                drawPlayerTag(player, x, y, text, color);
+                drawPlayerVoiceIcon(player, x, y);
+				
+                if (player.getVariable('InDeath'))
+                {
+                    drawPlayerTag(player, x, y - 0.03, "Гражданин в коме", [0,86,214,255]);
+                }	
+            }           
+        })
     }
 });
 
+function distanceVector(v1, v2)
+{
+    var dx = (v1.x - v2.x), dy = (v1.y - v2.y), dz = (v1.z - v2.z);
+    return Math.sqrt( dx * dx + dy * dy + dz * dz );
+}
+
+function preDraw()
+{
+    gameplayCamPos = mp.players.local.position;
+}
+
 function drawPlayerTag(player, x, y, displayname, color) {
-    // draw user name
     mp.game.graphics.drawText(displayname, [x, y], { font: 4, color: color, scale: [0.35, 0.35], outline: true });
-    drawPlayerTag(player, x, y, '\n #' + player.getVariable('PERSON_SID'), [200,200,200,200]);
-    // draw health & ammo bar
     if (playerTarget != undefined && player.handle == playerTarget.handle || playerAimAt != undefined && player.handle == playerAimAt.handle || global.spectating) {
         y += 0.04;
         var health = player.getHealth();
@@ -108,18 +106,14 @@ function drawPlayerTag(player, x, y, displayname, color) {
 
         var armour = player.getArmour() / 100;
         if (armour > 0) {
-
             mp.game.graphics.drawRect(x, y, width + border * 2, height + border * 2, 0, 0, 0, 200);
             mp.game.graphics.drawRect(x, y, width, height, 150, 150, 150, 255);
             mp.game.graphics.drawRect(x - width / 2 * (1 - health), y, width * health, height, 255, 255, 255, 200);
-
             y -= 0.007;
-
             mp.game.graphics.drawRect(x, y, width + border * 2, height + border * 2, 0, 0, 0, 200);
             mp.game.graphics.drawRect(x, y, width, height, 41, 66, 78, 255);
             mp.game.graphics.drawRect(x - width / 2 * (1 - armour), y, width * armour, height, 48, 108, 135, 200);
         } else {
-
             mp.game.graphics.drawRect(x, y, width + border * 2, height + border * 2, 0, 0, 0, 200);
             mp.game.graphics.drawRect(x, y, width, height, 150, 150, 150, 255);
             mp.game.graphics.drawRect(x - width / 2 * (1 - health), y, width * health, height, 255, 255, 255, 200);
@@ -128,8 +122,7 @@ function drawPlayerTag(player, x, y, displayname, color) {
 }
 
 function drawPlayerVoiceIcon(player, x, y) {
-	////
-	if (player.isVoiceActive) drawVoiceSprite("mpleaderboard", 'leaderboard_audio_3', [0.7, 0.7], 0, [255, 255, 255, 255], x, y - 0.02 * 0.7);else if (player.getVariable('voice.muted') == true) drawVoiceSprite("mpleaderboard", 'leaderboard_audio_mute', [0.7, 0.7], 0, [255, 0, 0, 255], x, y - 0.02 * 0.7);
+    if (player.isVoiceActive) drawVoiceSprite("mpleaderboard", 'leaderboard_audio_3', [0.7, 0.7], 0, [255, 255, 255, 255], x, y - 0.02 * 0.7);else if (player.getVariable('voice.muted') == true) drawVoiceSprite("mpleaderboard", 'leaderboard_audio_mute', [0.7, 0.7], 0, [255, 0, 0, 255], x, y - 0.02 * 0.7);
 }
 
 function drawVoiceSprite(dist, name, scale, heading, colour, x, y, layer) {
