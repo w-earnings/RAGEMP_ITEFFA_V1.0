@@ -1,18 +1,16 @@
-﻿using System;
+﻿using GTANetworkAPI;
+using iTeffa.Houses;
+using iTeffa.Infodata;
+using iTeffa.Interface;
+using iTeffa.Models;
+using iTeffa.Settings;
+using MySqlConnector;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using GTANetworkAPI;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using iTeffa.Houses;
-using iTeffa.Interface;
-using iTeffa.Settings;
-using MySqlConnector;
-using iTeffa.Plugins;
-using iTeffa.Models;
-using iTeffa.Infodata;
-using iTeffa.Globals;
 
 namespace iTeffa.Globals.Character
 {
@@ -84,7 +82,7 @@ namespace iTeffa.Globals.Character
                         House house = HouseManager.GetHouse(player);
                         if (house != null)
                         {
-                            
+
 
                             Trigger.ClientEvent(player, "changeBlipColor", house.blip, 73);
 
@@ -214,15 +212,15 @@ namespace iTeffa.Globals.Character
                             for (uint i = 0; i != 401; i++) Achievements.Add(false);
                         }
                         Sim = Convert.ToInt32(Row["sim"]);
-                        
+
                         CreateDate = ((DateTime)Row["createdate"]);
 
                         SpawnPos = JsonConvert.DeserializeObject<Vector3>(Row["pos"].ToString());
                         if (Row["pos"].ToString().Contains("NaN"))
                         {
                             Log.Debug("Detected wrong coordinates!", Nlogs.Type.Warn);
-                            if (LVL <= 1) SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
-                            else SpawnPos = new Vector3(-1036.3226, -2732.918, 12.766636);
+                            if (LVL <= 1) SpawnPos = new Vector3(-1036.3226, -2732.918, 13.766636);
+                            else SpawnPos = new Vector3(-1036.3226, -2732.918, 13.766636);
                         }
                     }
                     player.Name = FirstName + "_" + LastName;
@@ -296,7 +294,7 @@ namespace iTeffa.Globals.Character
                     if (IsSpawned && !IsAlive)
                     {
                         pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[0]);
-                        Health = 20;
+                        Health = 10;
                         Armor = 0;
                     }
                     else
@@ -437,7 +435,7 @@ namespace iTeffa.Globals.Character
         }
 
 
-       
+
 
 
         public static Dictionary<string, string> toChange = new Dictionary<string, string>();
