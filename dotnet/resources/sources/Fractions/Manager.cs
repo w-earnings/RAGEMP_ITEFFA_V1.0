@@ -162,7 +162,7 @@ namespace iTeffa.Fractions
             {5, new Vector3(966.2534, -1833.792, 31.14424)},     // Blood Street
             {6, new Vector3(-572.94464, -201.82872, 42.58397)},  // Cityhall
             {7, new Vector3(457.4271, -991.4473, 31.5696)},      // Police Dept
-            {8, new Vector3(346.2975, -1434.87, 32.81624)},      // Medical Center
+            {8, new Vector3(-451.56094, -317.66745, 34.975847)}, // Medical Center +
             {9, new Vector3(149.4746, -756.9065, 243.0319)},     // FBI
 
             {10, new Vector3(1387.338, 1155.952, 115.2144)},     // La Cosa Nostra 

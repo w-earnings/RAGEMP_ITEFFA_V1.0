@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using GTANetworkAPI;
+﻿using GTANetworkAPI;
 using iTeffa.Globals;
+using iTeffa.Interface;
 using iTeffa.Settings;
 using System;
-using iTeffa.Interface;
+using System.Collections.Generic;
 
 namespace iTeffa.Fractions
 {
@@ -80,12 +80,13 @@ namespace iTeffa.Fractions
 
         public static List<Vector3> emsCheckpoints = new List<Vector3>()
         {
-            new Vector3(379.0306, -1417.317, 38.00000),      // Spawn после смерти
-            new Vector3(362.8500, -1384.031, 31.30916),      // Больничный запас
-            new Vector3(352.3164, -1432.939, 31.81623),      // Изменение обязанности
-            new Vector3(346.9115, -1413.393, 31.30915),      // Начать курс лечения
-            new Vector3(306.4182, -1407.456, 32.11600),      // Татуировка удалить
+            new Vector3(-463.52603, -285.40915, 35.0001),
+            new Vector3(-457.99988, -310.73212, 33.910816),
+            new Vector3(-443.235, -310.82755, 34.410553),
+            new Vector3(-436.10864, -326.7106, 33.910763),
+            new Vector3(-455.35983, -316.70892, 33.910812)
         };
+
 
         public static void callEms(Player player, bool death = false)
         {
@@ -288,7 +289,8 @@ namespace iTeffa.Fractions
                 }
                 else
                 {
-                    NAPI.Task.Run(() => {
+                    NAPI.Task.Run(() =>
+                    {
                         try
                         {
                             if (!Main.Players.ContainsKey(player)) return;
@@ -357,7 +359,7 @@ namespace iTeffa.Fractions
             Speaking.Voice.PhoneHCommand(player);
 
             NAPI.Player.SetPlayerHealth(player, 10);
-            var time = (call) ? 600000 : 1800;
+            var time = (call) ? 600000 : 180000;
             Trigger.ClientEvent(player, "DeathTimer", time);
             var timeMsg = (call) ? "10 минут Вас не вылечит медик или кто-нибудь другой" : "3 минут Вас никто не вылечит";
             player.SetData("DYING_TIMER", Timers.StartOnce(time, () => DeathTimer(player)));
@@ -369,7 +371,8 @@ namespace iTeffa.Fractions
 
         public static void DeathTimer(Player player)
         {
-            NAPI.Task.Run(() => {
+            NAPI.Task.Run(() =>
+            {
                 try
                 {
                     player.Health = 0;
@@ -527,7 +530,7 @@ namespace iTeffa.Fractions
                     }
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы начали лечение", 3000);
 
-                    player.SetData("HEAL_TIMER", Timers.Start(3750, () => healTimer(player)));
+                    player.SetData("HEAL_TIMER", Timers.Start(3750, () => HealTimer(player)));
                     return;
                 case 51:
                     OpenTattooDeleteMenu(player);
@@ -564,21 +567,35 @@ namespace iTeffa.Fractions
             }
         }
 
-        private static void healTimer(Player player)
+
+
+        private static void HealTimer(Player player)
         {
             NAPI.Task.Run(() =>
             {
                 try
                 {
-                    if (player.Health == 100)
+                    if (emsCheckpoints[3].DistanceTo(player.Position) > 25)
                     {
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отошли слишком далеко. Лечение не возможно", 3000);
                         Timers.Stop(player.GetData<string>("HEAL_TIMER"));
                         player.ResetData("HEAL_TIMER");
                         Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваше лечение закончено", 3000);
                         return;
                     }
-                    player.Health += 1;
+                    else
+                    {
+                        if (player.Health == 100)
+                        {
+                            Timers.Stop(player.GetData<string>("HEAL_TIMER"));
+                            player.ResetData("HEAL_TIMER");
+                            player.StopAnimation();
+                            Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваше лечение закончено", 3000);
+                            return;
+                        }
+                        player.Health = player.Health + 1;
+                    }
                 }
                 catch { }
             });

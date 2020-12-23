@@ -129,8 +129,7 @@ namespace iTeffa.Globals
                 Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Через 3 минуты аренда транспорта закончится, если вы снова не сядете в т/с", 3000);
                 NAPI.Data.SetEntityData(player, "IN_RENT_CAR", false);
                 NAPI.Data.SetEntityData(player, "RENT_EXIT_TIMER_COUNT", 0);
-                //NAPI.Data.SetEntityData(player, "RENT_CAR_EXIT_TIMER", Main.StartT(1000, 1000, (o) => timer_playerExitRentVehicle(player, vehicle), "RENT_CAR_TIMER"));
-                NAPI.Data.SetEntityData(player, "RENT_CAR_EXIT_TIMER", Timers.Start(1000, () => timer_playerExitRentVehicle(player, vehicle)));
+                NAPI.Data.SetEntityData(player, "RENT_CAR_EXIT_TIMER", Timers.Start(180, () => timer_playerExitRentVehicle(player, vehicle)));
             }
             catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
         }
@@ -144,7 +143,6 @@ namespace iTeffa.Globals
                     if (!player.HasData("RENT_CAR_EXIT_TIMER")) return;
                     if (NAPI.Data.GetEntityData(player, "IN_RENT_CAR"))
                     {
-                        //                    Main.StopT(NAPI.Data.GetEntityData(player, "RENT_CAR_EXIT_TIMER"), "timer_28");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "RENT_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "RENT_CAR_EXIT_TIMER");
                         return;

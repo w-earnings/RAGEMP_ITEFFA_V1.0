@@ -24,7 +24,7 @@ namespace iTeffa.Fractions
             {5, new Vector3(973.9128, -1845.269, 25.28732)},      // Blood Street
             {6, new Vector3()},
             {7, new Vector3()},
-            {8, new Vector3()},
+            {8, new Vector3(-473.92178, -397.2854, 0)},   // Medical Center +
             {9, new Vector3()},
 
             { 10, new Vector3(1404.115, 1131.676, 83.217)},
@@ -46,7 +46,7 @@ namespace iTeffa.Fractions
             {5, new Vector3(975.5194, -1841.575, 30.14339)},     // Blood Street
             {6, new Vector3(-580.291, -130.4515, 34.00952)},     // Cityhall
             {7, new Vector3(434.195, -1005.593, 26.21062)},      // Police Dept
-            {8, new Vector3(322.0637, -1479.8123, 28.813513)},   // Medical Center
+            {8, new Vector3(-473.92178, -394.97482, 22.966234)},   // Medical Center +
             {9, new Vector3(128.3342, -703.3604, 32.00156)},
 
             { 10, new Vector3(1413.687, 1118.036, 112.838)},
