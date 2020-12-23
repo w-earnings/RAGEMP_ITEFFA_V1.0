@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Фермер</title>
+    <link rel="stylesheet" href="http://cdn.iteffa.com/project/modules/workings/farmer/assets/market.css">
+    <link rel="stylesheet" href="http://cdn.iteffa.com/project/fonts/styles.css">
+    <script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.iteffa.com/library/js/vuejs/2.6.12.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <transition name="modal">
+        <div class="container" v-if="active">
+          <header>
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <h1>{{header}}</h1>
+            <span>
+              <i @click="closeMenu()" class="fa fa-times-circle-o" aria-hidden="true"></i>
+            </span>
+          </header>
+          <div class="main" v-if="page == 0">
+            <div class="upblock">
+              <div class="avatar">
+                <img src="http://cdn.iteffa.com/project/modules/workings/farmer/assets/images/avatar1.png" :alt="header">
+              </div>
+              <div class="info">
+                <h2>
+                  <i class="fa fa-info-circle" aria-hidden="true"></i> Информация
+                </h2>
+                <p>
+                  <i class="fa fa-line-chart" aria-hidden="true"></i> Текущий курс: <b>{{curs}}</b>
+                </p>
+                <p>
+                  <i class="fa fa-archive" aria-hidden="true"></i> Урожая с собой: <b>{{hays}}</b>
+                </p>
+                <p>
+                  <i class="fa fa-pagelines" aria-hidden="true"></i> Семян с собой: <b>{{seedcount}}</b>
+                </p>
+              </div>
+            </div>
+            <div class="description">
+              <p> Здравствуй! Меня зовут Мелог, не Мелог, а Мелог! Я продаю семена для выращивания, а также могу купить что-то из урожая. Приходи ко мне часто,
+                и мы оба будем всегда в плюсе. </p>
+              <p> Заметь, каждый час мой капитал меняется, исходя из чего, я могу покупать у тебя продукты урожая каждый раз по разным ценам. Лови момент, когда
+                я буду платить тебе большую сумму. </p>
+            </div>
+          </div> 
+          <div class="main pageBuys" v-if="page == 1">
+            <h2>Купить товары</h2>
+            <div class="items">
+              <div class="item" v-for="(item, index) in buyitems">
+                <img :src="`../../assets/icons/items/` + item[1] + `.png`" alt="">
+                <p>
+                  {{item[2]}} <b>${{item[3] ? item[0] * curs : item[0]}}</b>
+                </p>
+                <input type="number" placeholder="количество" v-model="buyValue">
+                <a class="btnBuy" @click="buy(item[1])">Купить</a>
+              </div>
+            </div>
+          </div>
+          <div class="main pageSells" v-if="page == 2">
+            <h2>Продать товары</h2>
+            <div class="items">
+              <div class="item" v-for="(item, index) in sellitems">
+                <img :src="`../..//assets/icons/items/` + item[1] + `.png`" alt="">
+                <p>
+                  {{item[2]}} <b>${{item[3] ? item[0] * curs : item[0]}}</b>
+                </p>
+                <input type="number" placeholder="количество" v-model="sellValue">
+                <a class="btnBuy" @click="sell(item[1])">Продать</a>
+              </div>
+            </div>
+          </div>
+          <footer>
+            <div>
+              <a :class="{btnActive: page == 0}" class="button" @click="changePage(0)">Главная</a>
+            </div>
+            <div>
+              <a :class="{btnActive: page == 1}" class="button" @click="changePage(1)">Купить</a>
+            </div>
+            <div>
+              <a :class="{btnActive: page == 2}" class="button" @click="changePage(2)">Продать</a>
+            </div>
+          </footer>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div class="fade" v-if="active"></div>
+      </transition>
+    </div>
+    <script src="../../assets/js/workings/farmer/market.js"></script>
+  </body>
+
+</html>

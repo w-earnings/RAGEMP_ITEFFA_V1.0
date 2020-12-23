@@ -156,6 +156,8 @@ namespace iTeffa.Settings
         Amyr = 217, // Чёрный амур
         Chyka = 218, // Щука
 
+        Hay = 234,
+        Seed = 235,
 
         Remka = 777, //Ремонт Комплект
     }

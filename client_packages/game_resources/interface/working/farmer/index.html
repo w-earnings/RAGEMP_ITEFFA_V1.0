@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Фермер</title>
+  <link rel="stylesheet" href="http://cdn.iteffa.com/project/modules/workings/farmer/assets/farmer.css">
+  <link rel="stylesheet" href="http://cdn.iteffa.com/project/fonts/styles.css">
+  <script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.iteffa.com/library/js/vuejs/2.6.12.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <transition name="modal">
+      <div class="container" v-if="active">
+        <header>
+          <i class="fa fa-leaf" aria-hidden="true"></i>
+          <h1>{{header}}</h1>
+          <span>
+            <i @click="closeMenu()" class="fa fa-times-circle-o" aria-hidden="true"></i>
+          </span>
+        </header>
+        <div class="main">
+          <div class="upblock">
+            <div class="avatar">
+              <img src="http://cdn.iteffa.com/project/modules/workings/farmer/assets/images/avatar2.png" :alt="header">
+            </div>
+            <div class="info">
+              <h2>
+                <i class="fa fa-info-circle" aria-hidden="true"></i> Информация
+              </h2>
+              <p>
+                <i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Текущий уровень: <b>{{level}}</b>
+              </p>
+              <p>
+                <i class="fa fa-line-chart" aria-hidden="true"></i> Необходимо собрать: <b>{{exp}}</b>
+              </p>
+              <p>
+                <i class="fa fa-archive" aria-hidden="true"></i> Собрано за всё время: <b>{{allpoints}}</b>
+              </p>
+              <p>
+                <i class="fa fa-users" aria-hidden="true"></i> Фермеров работают: <b>{{farmerscount}}</b>
+              </p>
+              <p>
+                <i class="fa fa-pagelines" aria-hidden="true"></i> Семян с собой: <b>{{seedcount}}</b>
+              </p>
+            </div>
+          </div>
+          <div class="description">
+            <p>
+              На данной работе вам предстоит сажать семена, выращивать их. Затем собирать и продавать на рынке по ценам, которые имеются на тот момент.
+            </p>
+          </div>
+        </div>
+        <footer>
+          <a class="button" v-if="!onWork" @click="workState()">Начать работу</a>
+          <a class="button btnFinish" @click="workState()" v-else>Закончить работу</a>
+        </footer>
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div class="fade" v-if="active"></div>
+    </transition>
+  </div>
+  <script src="../../assets/js/workings/farmer/farmer.js"></script>
+</body>
+
+</html>

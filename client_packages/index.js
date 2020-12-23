@@ -242,7 +242,7 @@ mp.events.add('UpdateBank', function (temp, amount) {
 });
 
     require('./game_resources/handlers/plugins/bind_keys.js');
-    // require('./game_resources/handlers/control/coordinates.js');
+    require('./game_resources/handlers/control/coordinates.js');
     require('./game_resources/handlers/control/adminpanel.js');
     require('./game_resources/handlers/control/admesp.js');
     require('./game_resources/handlers/menus.js');
@@ -275,6 +275,8 @@ mp.events.add('UpdateBank', function (temp, amount) {
     require('./game_resources/handlers/realtor.js');
     require('./game_resources/handlers/infoped.js');
     require('./game_resources/handlers/working.js');
+    require('./game_resources/handlers/working/farmer/index.js');
+    require('./game_resources/handlers/working/farmer/market.js');
     require('./game_resources/handlers/containers.js');
     require('./game_resources/handlers/configs/barber.js');
     require('./game_resources/handlers/configs/natives.js');

@@ -331,6 +331,10 @@ namespace iTeffa
                         Working.Truckers.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Collector.Event_PlayerDisconnected(player, type, reason);
                         Working.AutoMechanic.onPlayerDissconnectedHandler(player, type, reason);
+                        if (player.GetData<string>("jobname") == "farmer" && player.HasData("job_farmer"))
+                        {
+                            Working.FarmerJob.Farmer.StartWork(player, false);
+                        }
                         Working.Construction.Event_PlayerDisconnected(player, type, reason);
                         Working.Diver.Event_PlayerDisconnected(player, type, reason);
                     }
@@ -1934,7 +1938,12 @@ namespace iTeffa
                     case 512:
                         Realtor.OpenRealtorMenu(player);
                         return;
-
+                    case 520:
+                        Working.FarmerJob.Farmer.OpenFarmerMenu(player);
+                        return;
+                    case 521:
+                        Working.FarmerJob.Market.OpenMarketMenu(player, 0);
+                        return;
                     case 571:
                         Plugins.InfoPed.Interact1(player);
                         return;
@@ -2520,7 +2529,7 @@ namespace iTeffa
 
                     Fractions.Cityhall.lastHourTax = 0;
                     Fractions.Ems.HumanMedkitsLefts = 100;
-
+                    Working.FarmerJob.Market.marketmultiplier = rnd.Next(15, 30);
                     var rndt = new Random();
                     pluscost = rndt.Next(10, 20);
 

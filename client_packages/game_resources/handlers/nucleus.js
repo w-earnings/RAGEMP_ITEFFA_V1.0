@@ -1,10 +1,13 @@
 var cam = mp.cameras.new('default', new mp.Vector3(0, 0, 0), new mp.Vector3(0, 0, 0), false);
+mp.peds.new(0x94562DD7, new mp.Vector3(2367.39, 4881.526, 42), 120, 0);    // Работа фермер
+mp.peds.new(0xEF154C47, new mp.Vector3(438.3554, 6510.949, 28.6), 90, 0);  // Работа фермер
 var effect = '';
 global.loggedin = false;
 global.lastCheck = 0;
 global.chatLastCheck = 0;
 global.pocketEnabled = false;
-var Peds = [{
+var Peds = [
+  {
     Hash: -1988720319,
     Pos: new mp.Vector3(-1290.61, -574.38, 30.57),
     Angle: 260.92

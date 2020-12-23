@@ -5,9 +5,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE DATABASE IF NOT EXISTS `iteffa` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `iteffa`;
-
 CREATE TABLE IF NOT EXISTS `accounts` (
   `socialclub` mediumtext NOT NULL,
   `login` varchar(155) NOT NULL,
@@ -283,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 INSERT INTO `characters` (`uuid`, `personsid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
-	(100000, 'ITEFFA21', 8, 10502, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 30, 28, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 3, 2, 1, 20, 0, '[false,false,false,false,false,false,false,false]', '', 0, 32, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":371.64716,"y":-1412.1846,"z":37.911148}', 0, 1, 0, 1);
+	(100000, 'ITEFFA21', 8, 11627, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 26, 18, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 4, 40, 1, 30, 0, '[false,false,false,false,false,false,false,false]', '', 0, 45, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":2360.4084,"y":4874.444,"z":41.723248}', 0, 1, 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `connlog` (
@@ -295,13 +292,15 @@ CREATE TABLE IF NOT EXISTS `connlog` (
   `ip` text NOT NULL,
   `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*!40000 ALTER TABLE `connlog` DISABLE KEYS */;
 INSERT INTO `connlog` (`uuid`, `in`, `out`, `sclub`, `hwid`, `ip`, `idkey`) VALUES
 	('100000', '2020-12-21 07:02:37', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 1),
 	('100000', '2020-12-21 07:10:52', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 2),
-	('100000', '2020-12-21 07:13:21', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 3);
+	('100000', '2020-12-21 07:13:21', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 3),
+	('100000', '2020-12-23 12:22:45', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 4),
+	('100000', '2020-12-23 12:32:45', NULL, 'Jack_Brawn', 'D8903A045B0CF9583F6A16A8B6C0D010B9185770C6F4563889F018C8DD223EE06BEEF3480614E080D9BA64BCBC4472E07D1208A056B6E970C77E9D7C7A7C9280', '127.0.0.1', 5);
 /*!40000 ALTER TABLE `connlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `containers` (
@@ -415,6 +414,19 @@ CREATE TABLE IF NOT EXISTS `e_voters` (
 
 /*!40000 ALTER TABLE `e_voters` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_voters` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `farmer` (
+  `uuid` int NOT NULL,
+  `level` int DEFAULT NULL,
+  `exp` int DEFAULT NULL,
+  `allpoints` int DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*!40000 ALTER TABLE `farmer` DISABLE KEYS */;
+INSERT INTO `farmer` (`uuid`, `level`, `exp`, `allpoints`) VALUES
+	(100000, 1, 1, 1);
+/*!40000 ALTER TABLE `farmer` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `fractionaccess` (
   `idkey` int NOT NULL AUTO_INCREMENT,
@@ -967,17 +979,7 @@ INSERT INTO `fractionvehicles` (`fraction`, `number`, `components`, `model`, `po
 	(17, 'MWS06', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'Rumpo3', '{"x":2548.34,"y":-390.81,"z":92.99}', '{"x":0.0,"y":0.0,"z":12.06}', 1, 49, 49),
 	(17, 'MWS17', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'Frogger', '{"x":2511.49,"y":-426.46,"z":118.19}', '{"x":0.0,"y":0.0,"z":42.31}', 1, 49, 49),
 	(17, 'MWS01', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'Terbyte', '{"x":2552.25,"y":-402.50,"z":92.99}', '{"x":0.0,"y":0.0,"z":272.96}', 1, 49, 49),
-	(8, 'EMS10', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":408.5755,"y":-1436.3048,"z":29.631958}', '{"x":0.53153145,"y":0.1565608,"z":29.650509}', 3, 111, 1),
-	(8, 'EMS9', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":412.3792,"y":-1434.1378,"z":29.621004}', '{"x":0.22419882,"y":0.22013985,"z":30.223572}', 3, 111, 1),
-	(8, 'EMS8', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":419.70288,"y":-1425.8396,"z":29.586283}', '{"x":-0.11423819,"y":0.30272186,"z":-39.590744}', 3, 111, 1),
-	(8, 'EMS7', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":416.97824,"y":-1423.4761,"z":29.618353}', '{"x":0.03822907,"y":0.69006425,"z":-39.745857}', 3, 111, 1),
-	(8, 'EMS6', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":398.83063,"y":-1429.408,"z":29.720129}', '{"x":0.27076966,"y":0.053014398,"z":-129.10223}', 3, 111, 1),
-	(8, 'EMS5', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":401.51273,"y":-1426.436,"z":29.719309}', '{"x":0.3057892,"y":0.0043937187,"z":-129.78432}', 3, 111, 1),
-	(8, 'EMS4', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":404.06604,"y":-1423.2189,"z":29.717737}', '{"x":0.257909,"y":0.010877447,"z":-133.45831}', 3, 111, 1),
-	(8, 'EMS3', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":330.18933,"y":-1467.759,"z":30.042507}', '{"x":1.5050845,"y":-0.7184201,"z":50.775383}', 3, 111, 1),
-	(8, 'EMS2', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":327.55142,"y":-1471.098,"z":30.04873}', '{"x":0.6718225,"y":1.0606611,"z":50.06155}', 3, 111, 1),
 	(8, 'EMS1', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":324.42056,"y":-1474.694,"z":30.078342}', '{"x":-0.12561615,"y":-0.008536155,"z":49.88212}', 3, 111, 1),
-	(8, 'EMS11', '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":0},"Armor":-1}', 'ambulance', '{"x":404.6352,"y":-1438.5382,"z":29.643398}', '{"x":0.7901658,"y":0.15667236,"z":30.694674}', 3, 111, 1),
 	(1, 'FAM03', '{}', 'bjxl', '{"x":-30.705454,"y":-1387.5283,"z":29.510038}', '{"x":-0.8281901,"y":-0.02379061,"z":-0.18908031}', 10, 57, 1),
 	(1, 'FAM04', '{}', 'phoenix', '{"x":-27.124542,"y":-1387.8479,"z":29.327068}', '{"x":-0.8544971,"y":0.004112329,"z":-0.2869053}', 10, 57, 1),
 	(1, 'FAM05', '{}', 'enduro', '{"x":-83.39783,"y":-1401.3595,"z":29.294674}', '{"x":-0.07925003,"y":0.02861714,"z":-87.40961}', 10, 57, 1),
@@ -1610,13 +1612,15 @@ CREATE TABLE IF NOT EXISTS `idlog` (
   `name` text NOT NULL,
   `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*!40000 ALTER TABLE `idlog` DISABLE KEYS */;
 INSERT INTO `idlog` (`in`, `out`, `uuid`, `id`, `name`, `idkey`) VALUES
 	('2020-12-21 07:02:37', NULL, '100000', '0', 'Jack_Brown', 1),
 	('2020-12-21 07:10:52', NULL, '100000', '0', 'Jack_Brown', 2),
-	('2020-12-21 07:13:21', NULL, '100000', '0', 'Jack_Brown', 3);
+	('2020-12-21 07:13:21', NULL, '100000', '0', 'Jack_Brown', 3),
+	('2020-12-23 12:22:45', NULL, '100000', '0', 'Jack_Brown', 4),
+	('2020-12-23 12:32:45', NULL, '100000', '0', 'Jack_Brown', 5);
 /*!40000 ALTER TABLE `idlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `inventory` (
@@ -1628,7 +1632,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
 INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
-	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true},{"Data":2,"ID":40,"Type":40,"Count":1,"IsActive":false}]', 100000, 7);
+	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true}]', 100000, 7);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `itemslog` (
@@ -1640,9 +1644,16 @@ CREATE TABLE IF NOT EXISTS `itemslog` (
   `data` text NOT NULL,
   `idkey` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*!40000 ALTER TABLE `itemslog` DISABLE KEYS */;
+INSERT INTO `itemslog` (`time`, `from`, `to`, `type`, `amount`, `data`, `idkey`) VALUES
+	('2020-12-23 12:28:53', 'player(100000)', 'use', '235', '1', '', 1),
+	('2020-12-23 12:29:43', 'player(100000)', 'use', '235', '1', '', 2),
+	('2020-12-23 12:29:46', 'player(100000)', 'use', '235', '1', '', 3),
+	('2020-12-23 12:29:56', 'player(100000)', 'use', '235', '1', '', 4),
+	('2020-12-23 12:33:48', 'player(100000)', 'use', '235', '1', '', 5),
+	('2020-12-23 12:36:37', 'player(100000)', 'use', '40', '1', '2', 6);
 /*!40000 ALTER TABLE `itemslog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `money` (

@@ -253,6 +253,10 @@ namespace iTeffa.Fractions
                 Houses.HouseManager.Event_OnPlayerDeath(player, entityKiller, weapon);
                 Working.Collector.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Gopostal.Event_PlayerDeath(player, entityKiller, weapon);
+                if (player.HasData("job_farmer"))
+                {
+                    Working.FarmerJob.Farmer.StartWork(player, false);
+                }
                 Working.Diver.Event_PlayerDeath(player, entityKiller, weapon);
                 Working.Construction.Event_PlayerDeath(player, entityKiller, weapon);
 
@@ -594,7 +598,7 @@ namespace iTeffa.Fractions
                             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваше лечение закончено", 3000);
                             return;
                         }
-                        player.Health = player.Health + 1;
+                        player.Health += 1;
                     }
                 }
                 catch { }
