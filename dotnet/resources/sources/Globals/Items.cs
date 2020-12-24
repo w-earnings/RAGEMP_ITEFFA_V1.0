@@ -822,7 +822,7 @@ namespace iTeffa.Globals
 
                         if (!player.IsInVehicle)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Вы должны находиться в машине", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
                             return;
                         }
                         {
@@ -832,7 +832,7 @@ namespace iTeffa.Globals
                                 {
 
                                     VehicleManager.RepairCar(player.Vehicle);
-                                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, "Вы отремонтировали транспорт", 3000);
+                                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы отремонтировали транспорт", 3000);
                                 }
 
                             }
@@ -876,7 +876,7 @@ namespace iTeffa.Globals
 
                     case ItemType.Present:
                         player.Health = (player.Health + 10 > 100) ? 100 : player.Health + 10;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы открыли подарок, в нём были:", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли подарок, в нём были:", 3000);
 
                         Tuple<int, int> types = nInventory.PresentsTypes[Convert.ToInt32(item.Data)];
                         if (types.Item1 <= 2)
@@ -888,17 +888,17 @@ namespace iTeffa.Globals
                                 Main.Players[player].LVL += 1;
                             }
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
 
                             Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item2]);
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
                         }
                         else
                         {
                             Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item1]);
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
 
                             Main.Players[player].EXP += nInventory.TypesCounts[types.Item2];
                             if (Main.Players[player].EXP >= 3 + Main.Players[player].LVL * 3)
@@ -907,7 +907,7 @@ namespace iTeffa.Globals
                                 Main.Players[player].LVL += 1;
                             }
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
                         }
 
                         Commands.Controller.RPChat("me", player, $"открыл(а) подарок {types.Item1} + {types.Item2}");

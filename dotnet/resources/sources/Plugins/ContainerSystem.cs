@@ -100,7 +100,7 @@ namespace iTeffa.Plugins
                 {
                     if (Main.Accounts[player].Coins < container.Price)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств", 2500);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 2500);
                         return;
                     }
                     Finance.Wallet.ChangeDonateBalance(player, -container.Price);
@@ -109,7 +109,7 @@ namespace iTeffa.Plugins
                 {
                     if (Main.Players[player].Money < container.Price)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств", 2500);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 2500);
                         return;
                     }
                     Finance.Wallet.Change(player, -container.Price);
@@ -261,14 +261,14 @@ namespace iTeffa.Plugins
             vNumber = VehicleManager.Create(player.Name, vName, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
             var house = Houses.HouseManager.GetHouse(player, true);
             if (house == null || house.GarageID == 0)
-                Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Ваш приз - {vName}", 2500);
+                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваш приз - {vName}", 2500);
             else
             {
                 var garage = Houses.GarageManager.Garages[house.GarageID];
                 if (vNumber != "no")
                 {
                     garage.SpawnCar(vNumber);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Ваш приз - {vName} будет доставлен в гараж", 2500);
+                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Ваш приз - {vName} будет доставлен в гараж", 2500);
                 }
             }
             NAPI.Task.Run(() => { CloseDoor(veh); }, 12600);

@@ -132,13 +132,13 @@ namespace iTeffa.Globals
 
             if (Main.Players[player].Money < prod.Price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно средств", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
                 return vNumber;
             }
 
             if (!BusinessManager.takeProd(biz.ID, 1, vName, prod.Price))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Транспортного средства больше нет на складе", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Транспортного средства больше нет на складе", 3000);
                 return vNumber;
             }
 
@@ -148,8 +148,8 @@ namespace iTeffa.Globals
 
             vNumber = VehicleManager.Create(player.Name, vName, carColors[color], carColors[color], new Color(0, 0, 0));
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Вы купили {vName} с идентификатором {vNumber} ", 3000);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Автомобиль доставлен в ваш гараж!", 5000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили {vName} с идентификатором {vNumber} ", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Автомобиль доставлен в ваш гараж!", 5000);
 
             return vNumber;
         }
@@ -186,7 +186,7 @@ namespace iTeffa.Globals
                     // Проверка свободного места в гараже
                     if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Ваши гаражи полны", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ваши гаражи полны", 3000);
                         return;
                     }
                     string vNumber = BuyVehicle(player, biz, vName, color);

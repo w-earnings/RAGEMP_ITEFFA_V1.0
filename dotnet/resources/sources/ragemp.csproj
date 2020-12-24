@@ -28,10 +28,6 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infodata\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /y /d $(ProjectDir)$(OutDir)\runtimes\win-x64\native\SQLite.Interop.dll $(ProjectDir)$(OutDir)" />
   </Target>

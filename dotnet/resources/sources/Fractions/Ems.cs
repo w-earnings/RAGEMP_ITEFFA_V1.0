@@ -581,7 +581,7 @@ namespace iTeffa.Fractions
                 {
                     if (emsCheckpoints[3].DistanceTo(player.Position) > 25)
                     {
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы отошли слишком далеко. Лечение не возможно", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы отошли слишком далеко. Лечение не возможно", 3000);
                         Timers.Stop(player.GetData<string>("HEAL_TIMER"));
                         player.ResetData("HEAL_TIMER");
                         Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");

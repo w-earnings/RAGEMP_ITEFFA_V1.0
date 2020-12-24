@@ -2485,7 +2485,7 @@ namespace iTeffa
                                 Random rnd = new Random();
                                 int type = rnd.Next(0, nInventory.PresentsTypes.Count);
                                 nInventory.Add(p, new nItem(ItemType.Present, 1, type));
-                                Notify.Send(p, NotifyType.Info, NotifyPosition.BottomCenter, "Вы получили 20 донат валюты и подарок, за 2 часа онлайна сегодня", 3000);
+                                Notify.Send(p, NotifyType.Info, NotifyPosition.TopCenter, "Вы получили 20 донат валюты и подарок, за 2 часа онлайна сегодня", 3000);
                                 Players[p].LastBonus = 0;
                                 Players[p].IsBonused = true;
                                 Accounts[p].Coins += 20;

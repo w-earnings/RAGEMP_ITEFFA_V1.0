@@ -120,7 +120,7 @@ namespace iTeffa.Working.FarmerJob
             var tryAdd = nInventory.TryAdd(player, new nItem(aItem.Type, count));
             if (tryAdd == -1 || tryAdd > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно места в инвентаре", 2000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 2000);
                 return;
             }
             int price = 0;
@@ -132,12 +132,12 @@ namespace iTeffa.Working.FarmerJob
             }
             if (Main.Players[player].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Недостаточно денег", 2000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 2000);
                 return;
             }
             Finance.Wallet.Change(player, -price);
             nInventory.Add(player, new nItem(aItem.Type, count));
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы купили {count} {name} за ${price}", 2000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {count} {name} за ${price}", 2000);
 
         }
         [RemoteEvent("sellFarmerItem")]
@@ -146,7 +146,7 @@ namespace iTeffa.Working.FarmerJob
             var aItem = nInventory.Find(Main.Players[player].UUID, (ItemType)id);
             if (aItem == null || aItem.Count < count)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, "Недостаточно предмета в инвентаре", 2000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно предмета в инвентаре", 2000);
                 return;
             }
             int price = 0;
@@ -158,7 +158,7 @@ namespace iTeffa.Working.FarmerJob
             }
             Finance.Wallet.Change(player, price);
             nInventory.Remove(player, new nItem(aItem.Type, count));
-            Notify.Send(player, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы продали {count} {name} за ${price}", 2000);
+            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {count} {name} за ${price}", 2000);
 
         }
         private class FarmerProduct

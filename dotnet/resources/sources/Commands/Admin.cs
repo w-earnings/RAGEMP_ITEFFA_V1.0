@@ -66,7 +66,7 @@ namespace iTeffa.Commands
                 Player target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.BottomCenter, "Игрок с таким ID не найден", 3000);
+                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Игрок с таким ID не найден", 3000);
                     return;
                 }
                 target.StopAnimation();
@@ -82,8 +82,8 @@ namespace iTeffa.Commands
                     Timers.Stop(target.GetData<string>("DYING_TIMER"));
                     target.ResetData("DYING_TIMER");
                 }
-                Notify.Send(target, NotifyType.Info, NotifyPosition.BottomCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
-                Notify.Send(client, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
+                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
+                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
 
                 if (target.HasData("CALLEMS_BLIP"))
                 {
@@ -1095,7 +1095,7 @@ namespace iTeffa.Commands
             Controller.SendToAdmins(8, $"!{{#d35400}} {restart.Name}, пытается перезагрузить сервер.");
             if (Main.Players[restart].AdminLVL < 8)
             {
-                Notify.Send(restart, NotifyType.Error, NotifyPosition.BottomCenter, $"У игрока нет админ. прав", 3000);
+                Notify.Send(restart, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет админ. прав", 3000);
                 return;
             }
             foreach (Player c in NAPI.Pools.GetAllPlayers())

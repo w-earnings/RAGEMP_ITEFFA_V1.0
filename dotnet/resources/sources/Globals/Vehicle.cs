@@ -825,18 +825,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -855,18 +855,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -891,18 +891,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -921,18 +921,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -951,18 +951,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -984,18 +984,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -1020,18 +1020,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;
@@ -1050,18 +1050,18 @@ namespace iTeffa.Globals
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.BottomCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.BottomCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
                                 }
                             }
                             break;

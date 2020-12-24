@@ -24,13 +24,13 @@ namespace iTeffa.Commands
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок с таким ID не найден", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
                 return;
             }
             DateTime date = new DateTime((new DateTime().AddMinutes(Main.Players[target].LastBonus)).Ticks);
             var hour = date.Hour;
             var min = date.Minute;
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус игрока({id}): {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Бонус игрока({id}): {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
         }
         [Command("lastbonus")]
         public static void LastBonus(Player player)
@@ -39,7 +39,7 @@ namespace iTeffa.Commands
             DateTime date = new DateTime((new DateTime().AddMinutes(Main.oldconfig.LastBonusMin)).Ticks);
             var hour = date.Hour;
             var min = date.Minute;
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус составляет: {hour} часов и {min} минут", 2500);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Бонус составляет: {hour} часов и {min} минут", 2500);
         }
         [Command("setbonus")]
         public static void SetLastBonus(Player player, int id, int count)
@@ -49,20 +49,20 @@ namespace iTeffa.Commands
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Игрок с таким ID не найден", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
                 return;
             }
             count = Convert.ToInt32(Math.Abs(count));
             if (count > Main.oldconfig.LastBonusMin)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.BottomCenter, $"Введенное число превышает значение максимума. Максимум: {Main.oldconfig.LastBonusMin}", 3000);
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введенное число превышает значение максимума. Максимум: {Main.oldconfig.LastBonusMin}", 3000);
                 return;
             }
             Main.Players[target].LastBonus = count;
             DateTime date = new DateTime((new DateTime().AddMinutes(Main.Players[target].LastBonus)).Ticks);
             var hour = date.Hour;
             var min = date.Minute;
-            Notify.Send(player, NotifyType.Info, NotifyPosition.BottomCenter, $"Бонус для игрока({id}) установлен на {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
+            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Бонус для игрока({id}) установлен на {hour} часов и {min} минут ({Main.Players[target].LastBonus})", 3000);
         }
         [Command("vehchange")]
         public static void CMD_vehchage(Player client, string newmodel)
