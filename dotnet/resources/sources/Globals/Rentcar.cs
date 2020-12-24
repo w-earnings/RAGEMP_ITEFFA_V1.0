@@ -147,12 +147,11 @@ namespace iTeffa.Globals
                         NAPI.Data.ResetEntityData(player, "RENT_CAR_EXIT_TIMER");
                         return;
                     }
-                    if (NAPI.Data.GetEntityData(player, "RENT_EXIT_TIMER_COUNT") > 1800)
+                    if (NAPI.Data.GetEntityData(player, "RENT_EXIT_TIMER_COUNT") > 180)
                     {
                         Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Срок аренды автомобиля закончился", 3000);
                         RespawnCar(vehicle);
                         player.ResetData("RENTED_CAR");
-                        //                        Main.StopT(NAPI.Data.GetEntityData(player, "RENT_CAR_EXIT_TIMER"), "timer_30");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "RENT_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "RENT_CAR_EXIT_TIMER");
                         return;
