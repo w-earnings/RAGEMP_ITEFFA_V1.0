@@ -264,9 +264,6 @@
     mp.storage.data.friends = {};
     mp.storage.flush();
   }
-  // LOAD ALL DEFAULT IPL'S
-  //mp.game.streaming.requestIpl("Coroner_Int_On");
-  //mp.game.streaming.requestIpl('hei_vw_dlc_casino_door_replay');
   mp.game.streaming.requestIpl('vw_prop_vw_casino_door_r_02a');
   mp.game.streaming.requestIpl('vw_casino_garage');
   mp.game.streaming.requestIpl('vw_casino_carpark');
@@ -292,17 +289,9 @@
   mp.game.streaming.requestIpl("hei_hw1_blimp_interior_v_comedy_milo_");
   mp.game.streaming.requestIpl("gr_case6_bunkerclosed");
   mp.game.streaming.requestIpl("vw_casino_main");
-  //
-  /*mp.events.add('emsload', () => {
-      if(emsloaded == false) {
-          emsloaded = true;
-          mp.game.streaming.requestIpl("Coroner_Int_On");
-      }
-  });*/
   mp.events.add('pentload', () => {
     if (pentloaded == false) {
       pentloaded = true;
-      // Enable Penthouse interior // Thanks & Credits to root <3
       let phIntID = mp.game.interior.getInteriorAtCoords(976.636, 70.295, 115.164);
       let phPropList = ["Set_Pent_Tint_Shell", "Set_Pent_Pattern_01", "Set_Pent_Spa_Bar_Open", "Set_Pent_Media_Bar_Open", "Set_Pent_Dealer",
         "Set_Pent_Arcade_Modern", "Set_Pent_Bar_Clutter", "Set_Pent_Clutter_01", "set_pent_bar_light_01", "set_pent_bar_party_0"
@@ -314,7 +303,6 @@
       mp.game.interior.refreshInterior(phIntID);
     }
   });
-  // // // // // // //
   const mSP = 30;
   var prevP = mp.players.local.position;
   var localWeapons = {};

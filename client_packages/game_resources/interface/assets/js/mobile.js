@@ -59,12 +59,15 @@ function open(id, canhome, canback, data) {
                 iconBtn(item[0], i, item[1], item[4], item[5],"ilanBtn");
                 break;
             case 14:
-                iconBtn(item[0], i, item[1], item[4], item[5],"closeBtn");
+                iconBtn(item[0], i, item[1], item[4], item[5],"forbBtn");
                 break;
             case 15:
+                iconBtn(item[0], i, item[1], item[4], item[5],"closeBtn");
+                break;
+            case 16:
                 iconBtn(item[0], i, item[1], item[4], item[5],"businessBtn");
                 break;
-			case 16:
+			case 17:
                 iconBtn(item[0], i, item[1], item[4], item[5],"promoBtn");
                 break;
         }

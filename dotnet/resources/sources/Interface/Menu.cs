@@ -160,6 +160,7 @@ namespace iTeffa.Interface
             grupBtn,
             hotelBtn,
             ilanBtn,
+            forbBtn,
             closeBtn,
             businessBtn,
             promoBtn

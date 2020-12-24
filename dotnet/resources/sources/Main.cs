@@ -91,6 +91,8 @@ namespace iTeffa
                     NAPI.World.SetTime(DateTime.Now.Hour, 0, 0);
                 });
 
+                Timers.StartOnceTask(10000, () => Plugins.Forbes.SyncMajors());
+
                 DataTable result = Connect.QueryRead("SELECT `uuid`, `personsid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
                 if (result != null)
                 {
@@ -2529,6 +2531,7 @@ namespace iTeffa
 
                     Fractions.Cityhall.lastHourTax = 0;
                     Fractions.Ems.HumanMedkitsLefts = 100;
+                    Plugins.Forbes.SyncMajors();
                     Working.FarmerJob.Market.marketmultiplier = rnd.Next(15, 30);
                     var rndt = new Random();
                     pluscost = rndt.Next(10, 20);
@@ -3270,6 +3273,12 @@ namespace iTeffa
             };
             menu.Add(menuItem);
 
+            menuItem = new Menu.Item("forb", Menu.MenuItem.forbBtn)
+            {
+                Text = "Рейтинг"
+            };
+            menu.Add(menuItem);
+
             menuItem = new Menu.Item("close", Menu.MenuItem.closeBtn)
             {
                 Text = "Выход"
@@ -3337,6 +3346,11 @@ namespace iTeffa
                         Trigger.ClientEvent(player, "deleteGarageBlip");
                     }
                     return;
+                
+                    case "forb":
+                    Plugins.Forbes.OpenForbes(player);
+                    return;
+                
                 case "promo":
                     Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
                     return;
