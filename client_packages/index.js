@@ -249,6 +249,7 @@
   require('./game_resources/handlers/atm.js');
   require('./game_resources/handlers/realtor.js');
   require('./game_resources/handlers/infoped.js');
+  require('./game_resources/handlers/houses.js');
   require('./game_resources/handlers/working.js');
   require('./game_resources/handlers/working/farmer/index.js');
   require('./game_resources/handlers/working/farmer/market.js');

@@ -1,6 +1,6 @@
 ﻿using GTANetworkAPI;
 
-namespace iTeffa.Houses
+namespace iTeffa.Infodata
 {
     public class HouseType
     {
