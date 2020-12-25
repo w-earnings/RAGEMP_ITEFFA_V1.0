@@ -58,9 +58,11 @@
     </div>
     <div class="hmExit" v-if="active">
       <div class="container">
-        <div class="showRight"></div>
+		<div class="showRight"></div>
+		<!--
         <div @click="close" class="exitBtn">х</div>
-        <div class="header">Меню выхода из дома</div>
+		<div class="header">Меню выхода из дома</div>
+		-->
         <div class="BtnsHouse">
           <div class="housebuy">
             <div @click="exit" class="buyHome">Выйти</div>
@@ -99,8 +101,10 @@
             <div class="houseOwner">
               <div class="buyHome" @click="enter(id)">Войти в дом</div>
               <div class="lockHome" @click="lock(id)">Закрыть / Открыть</div>
-              <div class="lockHome" @click="warn(id)" style="margin-top: 78px;">Выгнать всех</div>
-              <div class="lockHome" @click="sell(id)" style="margin-top: 141px;">Продать гос-ву</div>
+			  <div class="lockHome" @click="warn(id)" style="margin-top: 78px;">Выгнать всех</div>
+			  <!--
+			  <div class="lockHome" @click="sell(id)" style="margin-top: 141px;">Продать гос-ву</div>
+			  -->
             </div>
           </div>
         </div>

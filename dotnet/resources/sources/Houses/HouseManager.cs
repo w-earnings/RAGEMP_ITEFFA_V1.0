@@ -438,13 +438,13 @@ namespace iTeffa.Houses
                 Text = "Сожители"
             };
             menu.Add(menuItem);
-
+            /*
             menuItem = new Menu.Item("sell", Menu.MenuItem.Button)
             {
                 Text = $"Продать гос-ву за {Convert.ToInt32(house.Price * 0.6)}$"
             };
             menu.Add(menuItem);
-
+            */
             menuItem = new Menu.Item("close", Menu.MenuItem.Button)
             {
                 Text = "Закрыть"
