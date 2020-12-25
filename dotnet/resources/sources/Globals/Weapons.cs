@@ -11,7 +11,7 @@ namespace iTeffa.Globals
     {
         private static readonly Nlogs Log = new Nlogs("Weapons");
         
-        internal enum Hash : Int32
+        internal enum Hash : int
         {
             /* Handguns */
             Knife = -1716189206,
@@ -43,9 +43,10 @@ namespace iTeffa.Globals
             StunGun = 911657153,
             FlareGun = 1198879012,
             DoubleAction,
-            PistolMk2,
-            SNSPistolMk2,
-            RevolverMk2,
+            PistolMk2 = -1075685676,
+            SNSPistolMk2 = -2009644972,
+            RevolverMk2 = -879347409,
+            ceramicpistol = 727643628,
             /* SMG */
             MicroSMG = 324215364,
             MachinePistol = -619010992,
@@ -56,8 +57,8 @@ namespace iTeffa.Globals
             CombatMG = 2144741730,
             Gusenberg = 1627465347,
             MiniSMG = -1121678507,
-            SMGMk2,
-            CombatMGMk2,
+            SMGMk2 = 2024373456,
+            CombatMGMk2 = -608341376,
             /* Rifles */
             AssaultRifle = -1074790547,
             CarbineRifle = -2084633992,
@@ -65,16 +66,16 @@ namespace iTeffa.Globals
             SpecialCarbine = -1063057011,
             BullpupRifle = 2132975508,
             CompactRifle = 1649403952,
-            AssaultRifleMk2,
-            CarbineRifleMk2,
-            SpecialCarbineMk2,
-            BullpupRifleMk2,
+            AssaultRifleMk2 = 961495388,
+            CarbineRifleMk2 = -86904375,
+            SpecialCarbineMk2 = -1768145561,
+            BullpupRifleMk2 = -2066285827,
             /* Sniper */
             SniperRifle = 100416529,
             HeavySniper = 205991906,
             MarksmanRifle = -952879014,
-            HeavySniperMk2,
-            MarksmanRifleMk2,
+            HeavySniperMk2 = 177293209,
+            MarksmanRifleMk2 = 1785463520,
             /* Shotguns */
             PumpShotgun = 487013001,
             SawnOffShotgun = 2017895192,
@@ -84,7 +85,7 @@ namespace iTeffa.Globals
             HeavyShotgun = 984333226,
             DoubleBarrelShotgun = -275439685,
             SweeperShotgun = 317205821,
-            PumpShotgunMk2,
+            PumpShotgunMk2 = 1432025498,
             /* Heavy */
             GrenadeLauncher = -1568386805,
             RPG = -1312131151,
@@ -107,7 +108,7 @@ namespace iTeffa.Globals
             Snowball = 126349499,
             SmokeGrenade = -37975472,
             PipeBomb = -1169823560,
-            Parachute = 615608432,
+            Parachute = 615608432
         }
         
         public static Hash GetHash(string name)
