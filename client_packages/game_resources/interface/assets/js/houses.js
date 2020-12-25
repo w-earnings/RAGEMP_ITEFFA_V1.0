@@ -5,8 +5,8 @@ var hmBuy = new Vue({
       header: "Информация о доме",
       menu: 0,
       id: 0,
-      owner: "Государство",
-      type: "Premium+",
+      owner: "",
+      type: "",
       locked: ["Открыты", "Закрыты"],
       price: 0,
       garage: 5,
@@ -147,7 +147,7 @@ var hmBuy = new Vue({
       }
     }
   });
-  
+
   var MyyHouseMenu = new Vue({
     el: ".MyyHouseMenu",
     data: {

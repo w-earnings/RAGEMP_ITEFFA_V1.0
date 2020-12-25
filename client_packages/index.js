@@ -219,6 +219,7 @@
   require('./game_resources/handlers/plugins/bind_keys.js');
   require('./game_resources/handlers/control/coordinates.js');
   require('./game_resources/handlers/control/adminpanel.js');
+  require('./game_resources/handlers/control/teleport.js');
   require('./game_resources/handlers/control/admesp.js');
   require('./game_resources/handlers/menus.js');
   require('./game_resources/handlers/tuning.js');

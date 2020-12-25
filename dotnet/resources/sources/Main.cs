@@ -436,13 +436,7 @@ namespace iTeffa
             }
             catch (Exception e) { Log.Write("kickclient: " + e.Message, Nlogs.Type.Error); }
         }
-        [RemoteEvent("teleportWaypoint")]
-        public void ClientEvent_tpWP(Player player, float x, float y, float z)
-        {
-            if (!Players.ContainsKey(player)) return;
-            if (Players[player].AdminLVL < 1) return;
-            NAPI.Entity.SetEntityPosition(player, new Vector3(x, y, z));
-        }
+
         [RemoteEvent("reloadcef")]
         public static void ClientEvent_ReloadCef(Player player)
         {

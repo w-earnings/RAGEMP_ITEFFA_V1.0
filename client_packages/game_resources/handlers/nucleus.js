@@ -287,11 +287,7 @@ mp.events.add('setPocketEnabled', function (state) {
 mp.keys.bind(global.Keys.VK_F3, false, function () {
   mp.events.callRemote('reloadcef');
 });
-mp.keys.bind(Keys.VK_Y, false, function () {
-  if (!loggedin || chatActive || editing || new Date().getTime() - lastCheck < 1000 || global.menuOpened) return;
-  mp.events.callRemote('acceptPressed');
-  lastCheck = new Date().getTime();
-});
+
 mp.keys.bind(Keys.VK_N, false, function () {
   if (!loggedin || chatActive || editing || new Date().getTime() - lastCheck < 1000 || global.menuOpened) return;
   mp.events.callRemote('cancelPressed');
@@ -443,26 +439,6 @@ function CheckMyWaypoint() {
   } catch (e) {}
 }
 
-function GoPosPLS() {
-  try {
-    if (mp.game.invoke('0x1DD1F58F493F1DA5')) {
-      let foundblip = false;
-      let blipIterator = mp.game.invoke('0x186E5D252FA50E7D');
-      let totalBlipsFound = mp.game.invoke('0x9A3FF3DE163034E8');
-      let FirstInfoId = mp.game.invoke('0x1BEDE233E6CD2A1F', blipIterator);
-      let NextInfoId = mp.game.invoke('0x14F96AA50D6FBEA7', blipIterator);
-      for (let i = FirstInfoId, blipCount = 0; blipCount != totalBlipsFound; blipCount++, i = NextInfoId) {
-        if (mp.game.invoke('0x1FC877464A04FC4F', i) == 8) {
-          var coord = mp.game.ui.getBlipInfoIdCoord(i);
-          mp.game.graphics.notify("~g~Телепорт на метку");
-          const getGroundZ = mp.game.gameplay.getGroundZFor3dCoord(coord.x, coord.y, 20, parseFloat(0), false);
-          mp.events.callRemote('teleportWaypoint', coord.x, coord.y, getGroundZ);
-          break;
-        }
-      }
-    }
-  } catch (e) {}
-}
 mp.events.add('syncWP', function (bX, bY, type) {
   if (!mp.game.invoke('0x1DD1F58F493F1DA5')) {
     mp.game.ui.setNewWaypoint(bX, bY);
