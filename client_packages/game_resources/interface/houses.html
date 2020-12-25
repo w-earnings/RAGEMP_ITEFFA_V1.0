@@ -1,127 +1,118 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="http://cdn.iteffa.com/project/fonts/styles.css">
-	<link rel="stylesheet" href="http://cdn.iteffa.com/project/modules/houses/assets/css/manager.css">
-	<script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
-	<script src="https://cdn.iteffa.com/library/js/jquery/3.2.1.js"></script>
-	<script src="https://cdn.iteffa.com/library/js/vuejs/2.5.13.js"></script>
-</head>
-<body>
+    <link rel="stylesheet" href="http://cdn.iteffa.com/project/fonts/styles.css">
+    <link rel="stylesheet" href="http://cdn.iteffa.com/project/modules/houses/assets/css/manager.css">
+    <script src="https://kit.fontawesome.com/c552bfdf6a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.iteffa.com/library/js/jquery/3.2.1.js"></script>
+    <script src="https://cdn.iteffa.com/library/js/vuejs/2.6.12.js"></script>
+  </head>
 
+  <body>
     <div class="hmBuy" v-if="active">
-		<div class="container" >
-			<div class="showRight"></div>
-			
-			<div @click="exit" class="exitBtn">х</div>
-			<div class="idHome">
-			<p>ID:{{id}} </p>
-			</div>
-			
-			<div class="InfoHouseOwner">
-			<p class="Owner">Владелец</p>
-			<p class="OwnerName">Государство</p>
-			</div>
-			
-			<div class="InfoHouseTax">
-			<p class="Tax">Сожители</p>
-			<p class="TaxPrice">{{roommates}}</p>
-			</div>
-			
-			<div class="InfoHousePrice">
-			<p class="Price">Гос.Цена</p>
-			<p class="Prices">${{price | formatThousands}}</p>
-			</div>	
-			
-			<div class="InfoHouseKv">
-			<div class="kv">{{type}}</div>
-			<div class="garage">Гараж</div>
-			<div class="count"><p class="counts"> <i class="fas fa-car"></i> {{garage}}</p></div>
-			</div>
-			
-			<div class="BtnsHouse">
-				<div class="housebuy">
-					<div @click="open(1)" class="buyHome">Купить дом</div>
-					<div @click="int(id)" class="enterGarage">Посмотреть</div>
-				</div>
-			</div>	
-		</div>
-		
-		<div class="buyhome" v-if="menu == 1">
-		<div class="showBack"></div>
-			<div class="header">Покупка дома у госудраства</div>
-			<div class="info">Вы подтверджаете что готовы купить <b style="color:white">Дом #{{id}}</b>, у госудраства штата San-Andreas за <b style="color:white">${{price | formatThousands}}</b>. <br>После подтверждения Вы переместитесь в дом.
-				</div>
-					<div class="btn">
-						<div class="btnYes" @click="buy(id)">Cоглсаен</div>
-						<div class="btnNo" @click="open(0)">Не соглсаен</div>
-				 </div>
-			</div>
+      <div class="container">
+        <div class="showRight"></div>
+        <div @click="exit" class="exitBtn">х</div>
+        <div class="idHome">
+          <p>ID:{{id}} </p>
+        </div>
+        <div class="InfoHouseOwner">
+          <p class="Owner">Владелец</p>
+          <p class="OwnerName">Государство</p>
+        </div>
+        <div class="InfoHouseTax">
+          <p class="Tax">Сожители</p>
+          <p class="TaxPrice">{{roommates}}</p>
+        </div>
+        <div class="InfoHousePrice">
+          <p class="Price">Гос.Цена</p>
+          <p class="Prices">${{price | formatThousands}}</p>
+        </div>
+        <div class="InfoHouseKv">
+          <div class="kv">{{type}}</div>
+          <div class="garage">Гараж</div>
+          <div class="count"><img src="http://cdn.iteffa.com/project/modules/houses/assets/icon/cars.png" class="img">
+            <p class="counts">{{garage}}</p>
+          </div>
+        </div>
+        <div class="BtnsHouse">
+          <div class="housebuy">
+            <div @click="open(1)" class="buyHome">Купить дом</div>
+            <div @click="int(id)" class="enterGarage">Посмотреть</div>
+          </div>
+        </div>
+      </div>
+      <div class="buyhome" v-if="menu == 1">
+        <div class="showBack"></div>
+        <div class="header">Покупка дома у госудраства</div>
+        <div class="info">Вы подтверджаете что готовы купить <b style="color:white">Дом #{{id}}</b>, у госудраства штата San-Andreas за <b
+            style="color:white">${{price | formatThousands}}</b>. <br>После подтверждения Вы переместитесь в дом. </div>
+        <div class="btn">
+          <div class="btnYes" @click="buy(id)">Cоглсаен</div>
+          <div class="btnNo" @click="open(0)">Не соглсаен</div>
+        </div>
+      </div>
     </div>
-	
-	<div class="hmExit" v-if="active">
-		<div class="container">
-			<div class="showRight"></div>
-			
-			<div @click="close" class="exitBtn">х</div>
-			<div class="header">Меню выхода из дома</div>
-			<div class="BtnsHouse">
-				<div class="housebuy">
-					<div @click="exit" class="buyHome">Выйти</div>
-				</div>
-			</div>	
-		</div>
-	</div>	
-	
-	<div class="hm" v-if="active">
-		<div class="container">
-			<div class="showRight"></div>
-			
-			<div @click="exit" class="exitBtn">х</div>
-			<div class="idHome">
-			<p>ID:{{id}}</p>
-			</div>
-			
-			<div class="InfoHouseOwner">
-			<p class="Owner">Владелец</p>
-			<p class="OwnerName">{{owner}}</p>
-			</div>
-			
-			<div class="InfoHouseTax">
-			<p class="Tax">Сожители</p>
-			<p class="TaxPrice">{{roommates}}</p>
-			</div>
-			
-			<div class="InfoHousePrice">
-			<p class="Price">Гос.Цена</p>
-			<p class="Prices">${{price | formatThousands}}</p>
-			</div>	
-			<div class="InfoHouseKv">
-			<div class="kv">{{type}}</div>
-			<div class="garage">Гараж</div>
-			<div class="count"><p class="counts"> <i class="fas fa-car"></i> {{garage}}</p></div>
-			</div>
-			
-				<div class="BtnsHouse">
-					<div class="housebuy">
-						<div class="houseOwner">
-						<div class="buyHome" @click="enter(id)">Войти в дом</div>
-						
-						<div class="lockHome" @click="lock(id)">Закрыть / Открыть</div>
-						<div class="lockHome" @click="warn(id)" style="margin-top: 78px;">Выгнать всех</div>
-						<div class="lockHome" @click="sell(id)" style="margin-top: 141px;">Продать гос-ву</div>
-					</div>
-				</div>
-			</div>	
-		</div>
+    <div class="hmExit" v-if="active">
+      <div class="container">
+        <div class="showRight"></div>
+        <div @click="close" class="exitBtn">х</div>
+        <div class="header">Меню выхода из дома</div>
+        <div class="BtnsHouse">
+          <div class="housebuy">
+            <div @click="exit" class="buyHome">Выйти</div>
+          </div>
+        </div>
+      </div>
     </div>
-	
-	
-	<script>Vue.filter('formatThousands', (x) => {return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");})</script> 
+    <div class="hm" v-if="active">
+      <div class="container">
+        <div class="showRight"></div>
+        <div @click="exit" class="exitBtn">х</div>
+        <div class="idHome">
+          <p>ID:{{id}}</p>
+        </div>
+        <div class="InfoHouseOwner">
+          <p class="Owner">Владелец</p>
+          <p class="OwnerName">{{owner}}</p>
+        </div>
+        <div class="InfoHouseTax">
+          <p class="Tax">Сожители</p>
+          <p class="TaxPrice">{{roommates}}</p>
+        </div>
+        <div class="InfoHousePrice">
+          <p class="Price">Гос.Цена</p>
+          <p class="Prices">${{price | formatThousands}}</p>
+        </div>
+        <div class="InfoHouseKv">
+          <div class="kv">{{type}}</div>
+          <div class="garage">Гараж</div>
+          <div class="count"><img src="http://cdn.iteffa.com/project/modules/houses/assets/icon/cars.png" class="img">
+            <p class="counts">{{garage}}</p>
+          </div>
+        </div>
+        <div class="BtnsHouse">
+          <div class="housebuy">
+            <div class="houseOwner">
+              <div class="buyHome" @click="enter(id)">Войти в дом</div>
+              <div class="lockHome" @click="lock(id)">Закрыть / Открыть</div>
+              <div class="lockHome" @click="warn(id)" style="margin-top: 78px;">Выгнать всех</div>
+              <div class="lockHome" @click="sell(id)" style="margin-top: 141px;">Продать гос-ву</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+    Vue.filter('formatThousands', (x) => {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    })
+    </script>
     <script src="./assets/js/dial.js"></script>
     <script src="./assets/js/houses.js"></script>
-	
-</body>
+  </body>
+
 </html>

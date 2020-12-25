@@ -1017,6 +1017,131 @@ namespace iTeffa.Commands
         }
         #endregion
         #region Дом и гараж
+        [Command("cleargarages")]
+        public static void CMD_CreateHouse(Player player)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+
+            var list = new List<int>();
+            lock (GarageManager.Garages)
+            {
+                foreach (var g in GarageManager.Garages)
+                {
+                    var house = HouseManager.Houses.FirstOrDefault(h => h.GarageID == g.Key);
+                    if (house == null) list.Add(g.Key);
+                }
+            }
+
+            foreach (var id in list)
+            {
+                GarageManager.Garages.Remove(id);
+                Connect.Query($"DELETE FROM `garages` WHERE `id`={id}");
+            }
+        }
+        [Command("createhouse")]
+        public static void CMD_CreateHouse(Player player, int type, int price)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+            if (type < 0 || type >= HouseManager.HouseTypeList.Count)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Неправильный тип", 3000);
+                return;
+            }
+
+            var bankId = Bank.Create(string.Empty, 2, 0);
+            House new_house = new House(HouseManager.GetUID(), string.Empty, type, player.Position - new Vector3(0, 0, 1.12), price, false, 0, bankId, new List<string>());
+            HouseManager.DimensionID++;
+            new_house.Dimension = HouseManager.DimensionID;
+            new_house.Create();
+            FurnitureManager.Create(new_house.ID);
+            new_house.CreateInterior();
+
+            HouseManager.Houses.Add(new_house);
+        }
+        [Command("removehouse")]
+        public static void CMD_RemoveHouse(Player player, int id)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+
+            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == id);
+            if (house == null) return;
+
+            house.Destroy();
+            HouseManager.Houses.Remove(house);
+            Connect.Query($"DELETE FROM `houses` WHERE `id`='{house.ID}'");
+        }
+        [Command("houseis")]
+        public static void CMD_HouseIs(Player player)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+            if (!player.HasData("HOUSEID"))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                return;
+            }
+            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
+            if (house == null) return;
+
+            NAPI.Chat.SendChatMessageToPlayer(player, $"{player.GetData<int>("HOUSEID")}");
+        }
+        [Command("housechange")]
+        public static void CMD_HouseOwner(Player player, string newOwner)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+            if (!player.HasData("HOUSEID"))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                return;
+            }
+            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
+            if (house == null) return;
+
+            house.ChangeOwner(newOwner);
+            HouseManager.SavingHouses();
+        }
+        [Command("housenewprice")]
+        public static void CMD_setHouseNewPrice(Player player, int price)
+        {
+            if (!Globals.Group.CanUseCmd(player, "save")) return;
+            if (!player.HasData("HOUSEID"))
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                return;
+            }
+
+            House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
+            if (house == null) return;
+            house.Price = price;
+            house.UpdateLabel();
+            house.Save();
+        }
+        [Command("myguest")]
+        public static void CMD_InvitePlayerToHouse(Player player, int id)
+        {
+            var guest = Main.GetPlayerByID(id);
+            if (guest == null)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                return;
+            }
+            if (player.Position.DistanceTo(guest.Position) > 2)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко", 3000);
+                return;
+            }
+            HouseManager.InvitePlayerToHouse(player, guest);
+        }
+        [Command("sellhouse")]
+        public static void CMD_sellHouse(Player player, int id, int price)
+        {
+            var target = Main.GetPlayerByID(id);
+            if (target == null)
+            {
+                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                return;
+            }
+            HouseManager.OfferHouseSell(player, target, price);
+        }
         [Command("setgarage")]
         public static void CMD_SetGarage(Player player, int ID)
         {

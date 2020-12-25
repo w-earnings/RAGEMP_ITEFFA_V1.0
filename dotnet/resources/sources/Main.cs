@@ -2041,22 +2041,25 @@ namespace iTeffa
                             return;
                         case "BUY_CAR":
                             {
-                                House house = HouseManager.GetHouse(player, true);
-                                if (house == null)
+                                Houses.House house = Houses.HouseManager.GetHouse(player, true);
+                                if (house == null && VehicleManager.getAllPlayerVehicles(player.Name.ToString()).Count > 1)
                                 {
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет личного дома", 3000);
                                     break;
                                 }
-                                if (house.GarageID == 0)
+                                if (house != null)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет гаража", 3000);
-                                    break;
-                                }
-                                Garage garage = GarageManager.Garages[house.GarageID];
-                                if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= GarageManager.GarageTypes[garage.Type].MaxCars)
-                                {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас максимальное кол-во машин", 3000);
-                                    break;
+                                    if (house.GarageID == 0 && VehicleManager.getAllPlayerVehicles(player.Name.ToString()).Count > 1)
+                                    {
+                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет гаража", 3000);
+                                        break;
+                                    }
+                                    Houses.Garage garage = Houses.GarageManager.Garages[house.GarageID];
+                                    if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
+                                    {
+                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас максимальное кол-во машин", 3000);
+                                        break;
+                                    }
                                 }
 
                                 Player seller = player.GetData<Player>("CAR_SELLER");
@@ -2066,7 +2069,7 @@ namespace iTeffa
                                     Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-SALE-EXPLOIT] {seller.Name} ({seller.Value})");
                                     return;
                                 }
-                                if (!Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
+                                if (!Main.Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
                                 {
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
                                     break;
@@ -2098,14 +2101,24 @@ namespace iTeffa
                                 }
                                 VehicleManager.VehicleData vData = VehicleManager.Vehicles[number];
                                 VehicleManager.Vehicles[number].Holder = player.Name;
-                                Connect.Query($"UPDATE vehicles SET holder='{player.Name}' ''{number}'");
+                                Connect.Query($"UPDATE vehicles SET holder='{player.Name}' WHERE number='{number}'");
+
                                 Finance.Wallet.Change(seller, price);
                                 GameLog.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
 
-                                Garage sellerGarage = GarageManager.Garages[HouseManager.GetHouse(seller).GarageID];
-                                sellerGarage.DeleteCar(number);
+                                var houset = Houses.HouseManager.GetHouse(seller, true);
 
-                                garage.SpawnCar(number);
+                                if (houset != null)
+                                {
+                                    Houses.Garage sellerGarage = Houses.GarageManager.Garages[Houses.HouseManager.GetHouse(seller).GarageID];
+                                    sellerGarage.DeleteCar(number);
+                                }
+
+                                if (house != null)
+                                {
+                                    Houses.Garage Garage = Houses.GarageManager.Garages[Houses.HouseManager.GetHouse(player).GarageID];
+                                    Garage.SpawnCar(number);
+                                }
 
                                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {vData.Model} ({number}) за {price}$ у {seller.Name}", 3000);
                                 Notify.Send(seller, NotifyType.Success, NotifyPosition.TopCenter, $"{player.Name} купил у Вас {vData.Model} ({number}) за {price}$", 3000);
@@ -2198,9 +2211,6 @@ namespace iTeffa
                         case "TICKET":
                             Fractions.FractionCommands.ticketConfirm(player, true);
                             return;
-                        case "SCOURGE_RENT":
-                            VehicleManager.WarpPlayerOutOfVehicle(player);
-                            return;
                     }
                 }
                 else
@@ -2241,6 +2251,28 @@ namespace iTeffa
                 }
             }
             catch (Exception e) { Log.Write($"dialogCallback ({callback} yes: {yes}): " + e.Message, Nlogs.Type.Error); }
+        }
+        [RemoteEvent("SellHomeCallback")]
+        public void RemoteEvent_SellHomeCallback(Player player, string callback, bool yes)
+        {
+            try
+            {
+                if (yes)
+                {
+                    switch (callback)
+                    {
+
+                        case "HOUSE_SELL":
+                            Houses.HouseManager.acceptHouseSell(player);
+                            return;
+                        case "HOUSE_SELL_TOGOV":
+                            Houses.HouseManager.acceptHouseSellToGov(player);
+                            return;
+                    }
+                }
+
+            }
+            catch (Exception e) { Log.Write($"SellHomeCallback ({callback} yes: {yes}): " + e.Message, Nlogs.Type.Error); }
         }
         [RemoteEvent("playerPressCuffBut")]
         public void ClientEvent_playerPressCuffBut(Player player, params object[] arguments)
@@ -3346,11 +3378,11 @@ namespace iTeffa
                         Trigger.ClientEvent(player, "deleteGarageBlip");
                     }
                     return;
-                
-                    case "forb":
+
+                case "forb":
                     Plugins.Forbes.OpenForbes(player);
                     return;
-                
+
                 case "promo":
                     Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
                     return;

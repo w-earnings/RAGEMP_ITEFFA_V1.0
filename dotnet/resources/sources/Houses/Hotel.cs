@@ -242,7 +242,7 @@ namespace iTeffa.Houses
             switch (item.ID)
             {
                 case "rent":
-                    if (Houses.HouseManager.GetHouse(player) != null)
+                    if (HouseManager.GetHouse(player) != null)
                     {
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы проживаете в доме и не можете арендовать комнату в отеле", 3000);
                         return;

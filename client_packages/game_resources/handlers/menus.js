@@ -12,6 +12,7 @@ global.menuCheck = function () {
         return true;
     }
 };
+
 global.menuClose = function () {
     mp.gui.cursor.visible = false;
     global.menuOpened = false;

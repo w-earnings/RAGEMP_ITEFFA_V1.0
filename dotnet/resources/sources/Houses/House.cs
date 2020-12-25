@@ -35,7 +35,6 @@ namespace iTeffa.Houses
         private List<GTANetworkAPI.Object> Objects = new List<GTANetworkAPI.Object>();
         [JsonIgnore]
         private readonly List<NetHandle> PlayersInside = new List<NetHandle>();
-
         public House(int id, string owner, int type, Vector3 position, int price, bool locked, int garageID, int bank, List<string> roommates)
         {
             ID = id;
@@ -48,7 +47,6 @@ namespace iTeffa.Houses
             BankID = bank;
             Roommates = roommates;
 
-            #region Creating Blip
             blip = NAPI.Blip.CreateBlip(Position);
             if (string.IsNullOrEmpty(Owner))
             {
@@ -64,7 +62,6 @@ namespace iTeffa.Houses
             }
             blip.Scale = 0.6f;
             blip.ShortRange = true;
-            #endregion
 
             shape = NAPI.ColShape.CreateCylinderColShape(position, 1, 2, 0);
             shape.OnEntityEnterColShape += (s, ent) =>
@@ -78,7 +75,6 @@ namespace iTeffa.Houses
                 }
                 catch (Exception ex) { Console.WriteLine("shape.OnEntityEnterColShape: " + ex.Message); }
             };
-
             shape.OnEntityExitColShape += (s, ent) =>
             {
                 try
@@ -89,11 +85,9 @@ namespace iTeffa.Houses
                 }
                 catch (Exception ex) { Console.WriteLine("shape.OnEntityExitColShape: " + ex.Message); }
             };
-
             label = NAPI.TextLabel.CreateTextLabel(Main.StringToU16($"House {id}"), position + new Vector3(0, 0, 1.5), 10f, 0.4f, 0, new Color(255, 255, 255), false, 0);
             UpdateLabel();
         }
-
         public void UpdateLabel()
         {
             try
@@ -111,8 +105,6 @@ namespace iTeffa.Houses
                 Console.WriteLine(ID.ToString() + e.ToString());
             }
         }
-
-
         public void CreateAllFurnitures()
         {
             if (FurnitureManager.HouseFurnitures.ContainsKey(ID))
@@ -140,7 +132,6 @@ namespace iTeffa.Houses
             {
             }
         }
-
         public void DestroyFurnitures()
         {
             try
@@ -150,7 +141,6 @@ namespace iTeffa.Houses
             }
             catch { }
         }
-
         public void DestroyFurniture(int id)
         {
             NAPI.Task.Run(() =>
@@ -169,7 +159,6 @@ namespace iTeffa.Houses
                 catch { }
             });
         }
-
         public void UpdateBlip()
         {
             if (string.IsNullOrEmpty(Owner))
@@ -185,7 +174,6 @@ namespace iTeffa.Houses
                 blip.Color = 49;
             }
         }
-
         public void Create()
         {
             Connect.Query($"INSERT INTO `houses`(`id`,`owner`,`type`,`position`,`price`,`locked`,`garage`,`bank`,`roommates`) " +
@@ -197,7 +185,6 @@ namespace iTeffa.Houses
             Connect.Query($"UPDATE `houses` SET `owner`='{Owner}',`type`={Type},`position`='{JsonConvert.SerializeObject(Position)}',`price`={Price}," +
                 $"`locked`={Locked},`garage`={GarageID},`bank`={BankID},`roommates`='{JsonConvert.SerializeObject(Roommates)}' WHERE `id`='{ID}'");
         }
-
         public void Destroy()
         {
             RemoveAllPlayers();
@@ -208,14 +195,13 @@ namespace iTeffa.Houses
             intmarker.Delete();
             DestroyFurnitures();
         }
-
         public void SetLock(bool locked)
         {
             Locked = locked;
+
             UpdateLabel();
             Save();
         }
-
         public void SetOwner(Player player)
         {
             GarageManager.Garages[GarageID].DestroyCars();
@@ -228,11 +214,11 @@ namespace iTeffa.Houses
                 Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
                 Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[GarageID].Position);
                 Hotel.MoveOutPlayer(player);
+
                 var vehicles = VehicleManager.getAllPlayerVehicles(Owner);
                 if (GarageManager.Garages[GarageID].Type != -1)
                     NAPI.Task.Run(() => { try { GarageManager.Garages[GarageID].SpawnCars(vehicles); } catch { } });
             }
-
             foreach (var r in Roommates)
             {
                 var roommate = NAPI.Player.GetPlayerFromName(r);
@@ -246,7 +232,6 @@ namespace iTeffa.Houses
             Roommates = new List<string>();
             Save();
         }
-
         public string GaragePlayerExit(Player player)
         {
             var players = Main.Players.Keys.ToList();
@@ -261,7 +246,6 @@ namespace iTeffa.Houses
 
             return number;
         }
-
         public void SendPlayer(Player player)
         {
             NAPI.Entity.SetEntityPosition(player, HouseManager.HouseTypeList[Type].Position + new Vector3(0, 0, 1.12));
@@ -271,8 +255,6 @@ namespace iTeffa.Houses
             CreateAllFurnitures();
             if (!PlayersInside.Contains(player)) PlayersInside.Add(player);
         }
-
-        #region Меню выхода из дома
         public void RemovePlayer(Player player, bool exit = true)
         {
             if (exit)
@@ -285,13 +267,10 @@ namespace iTeffa.Houses
 
             if (PlayersInside.Contains(player.Handle)) PlayersInside.Remove(player.Handle);
         }
-        #endregion
-
         public void RemoveFromList(Player player)
         {
             if (PlayersInside.Contains(player)) PlayersInside.Remove(player);
         }
-
         public void RemoveAllPlayers(Player requster = null)
         {
             for (int i = PlayersInside.Count - 1; i >= 0; i--)
@@ -311,10 +290,10 @@ namespace iTeffa.Houses
                 PlayersInside.RemoveAt(i);
             }
         }
-
         public void CreateInterior()
         {
             intmarker = NAPI.Marker.CreateMarker(1, HouseManager.HouseTypeList[Type].Position - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(255, 255, 255, 220), false, (uint)Dimension);
+
             intshape = NAPI.ColShape.CreateCylinderColShape(HouseManager.HouseTypeList[Type].Position - new Vector3(0.0, 0.0, 1.0), 2f, 4f, (uint)Dimension);
             intshape.OnEntityEnterColShape += (s, ent) =>
             {
@@ -334,12 +313,11 @@ namespace iTeffa.Houses
                 catch (Exception ex) { Console.WriteLine("intshape.OnEntityExitColShape: " + ex.Message); }
             };
         }
-
-        public void changeOwner(string newName)
+        public void ChangeOwner(string newName)
         {
             Owner = newName;
-            UpdateLabel();
-            Save();
+            this.UpdateLabel();
+            this.Save();
         }
     }
 }

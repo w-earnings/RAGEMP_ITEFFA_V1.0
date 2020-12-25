@@ -1,6 +1,5 @@
 // HOUSE //
 global.house = mp.browsers.new('package://game_resources/interface/houses.html');
-// global.jobs = mp.browsers.new('package://cef/jobs.html');
 
 mp.events.add('HouseMenu', (id, Owner, Type, Locked, Price, Garage, Roommates) => {
 	if (global.menuCheck()) return;
@@ -88,5 +87,3 @@ mp.events.add("exitHouse", () => {
     mp.gui.cursor.visible = false;
 	global.menuClose();
 });
-
-

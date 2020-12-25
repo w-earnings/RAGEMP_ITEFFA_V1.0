@@ -26,7 +26,7 @@ namespace iTeffa.Houses
             new HouseType("Премиум+", new Vector3(-173.9419, 497.8622, 136.5341), new Vector3(-164.9799, 480.7568, 137.1526), 40.0f, "apa_ch2_05e_interior_0_v_mp_stilts_b_milo_"),
         };
         private static readonly List<int> MaxRoommates = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-        private static int GetUID()
+        public static int GetUID()
         {
             int newUID = 0;
             while (Houses.FirstOrDefault(h => h.ID == newUID) != null) newUID++;
@@ -164,7 +164,7 @@ namespace iTeffa.Houses
                 {
                     if (h.Owner != oldName) continue;
                     Log.Write($"The house was found! [{h.ID}]");
-                    h.changeOwner(newName);
+                    h.ChangeOwner(newName);
                     h.Save();
                 }
             }
@@ -312,7 +312,6 @@ namespace iTeffa.Houses
             Trigger.ClientEvent(player, "HouseMenu", id, house.Owner, HouseTypeList[house.Type].Name, house.Locked, house.Price, GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars, MaxRoommates[house.Type]);
 
         }
-
         [RemoteEvent("GoHouseInterS")]
         public static void GoHouseMenuInformA(Player player, int act)
         {
@@ -329,7 +328,6 @@ namespace iTeffa.Houses
             house.SendPlayer(player);
             return;
         }
-
         [RemoteEvent("GoHouseMenuS")]
         public static void GoHouseMenuInform(Player player, int act)
         {
@@ -345,8 +343,6 @@ namespace iTeffa.Houses
             house.SendPlayer(player);
 
         }
-
-
         [RemoteEvent("buyHouseMenuS")]
         private static void callback_housebuy(Player player, int act)
         {
@@ -391,7 +387,6 @@ namespace iTeffa.Houses
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
             return;
         }
-
         public static void OpenHouseManageMenu(Player player)
         {
             House house = GetHouse(player, true);
@@ -557,7 +552,6 @@ namespace iTeffa.Houses
             GameLog.Money($"server", $"player({Main.Players[player].UUID})", Convert.ToInt32(house.Price * 0.6), $"houseSell({house.ID})");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали свой дом государству за {price}$", 3000);
         }
-
         public static void OpenCarsSellMenu(Player player)
         {
             Menu menu = new Menu("carsell", false, false)
@@ -613,7 +607,6 @@ namespace iTeffa.Houses
             VehicleManager.Remove(item.ID);
             MenuManager.Close(player);
         }
-
         public static void OpenFurnitureMenu(Player player)
         {
             House house = GetHouse(player, true);
@@ -655,7 +648,6 @@ namespace iTeffa.Houses
 
             menu.Open(player);
         }
-
         private static void callback_furniture0(Player player, Menu menu, Menu.Item item, string eventName, dynamic data)
         {
             if (item.ID == "close")
@@ -786,7 +778,6 @@ namespace iTeffa.Houses
                 nmenu.Open(player);
             }
         }
-
         private static void callback_furniture1(Player player, Menu menu, Menu.Item item, string eventName, dynamic data)
         {
             if (item.ID == "close")
@@ -854,7 +845,6 @@ namespace iTeffa.Houses
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Поздравляем с успешной покупкой мебели!", 3000);
             MenuManager.Close(player);
         }
-
         private static void callback_furniture(Player player, Menu menu, Menu.Item item, string eventName, dynamic data)
         {
             if (item.ID == "close")
@@ -944,9 +934,7 @@ namespace iTeffa.Houses
                     menu.Change(player, 4, menu.Items[4]);
                     return;
             }
-            return;
         }
-
         public static void OpenRoommatesMenu(Player player)
         {
             Menu menu = new Menu("roommates", false, false)
@@ -1004,14 +992,13 @@ namespace iTeffa.Houses
             }
 
             var mName = item.ID;
-            _ = NAPI.Player.GetPlayerFromName(mName);
+            var roomMate = NAPI.Player.GetPlayerFromName(mName);
 
             var house = GetHouse(player);
             if (house.Roommates.Contains(mName)) house.Roommates.Remove(mName);
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выселили {mName} из своего дома", 3000);
         }
-
         public static void OpenCarsMenu(Player player)
         {
             Menu menu = new Menu("cars", false, false)
@@ -1055,7 +1042,6 @@ namespace iTeffa.Houses
                 catch (Exception e) { Log.Write("callback_cars: " + e.Message + e.Message, Nlogs.Type.Error); }
             });
         }
-
         public static void OpenSelectedCarMenu(Player player, string number)
         {
             Menu menu = new Menu("selectedcar", false, false)
@@ -1068,7 +1054,7 @@ namespace iTeffa.Houses
             var house = GetHouse(player);
             var garage = GarageManager.Garages[house.GarageID];
             var check = garage.CheckCar(false, number);
-            var check_pos = !string.IsNullOrEmpty(vData.Position);
+            var check_pos = (string.IsNullOrEmpty(vData.Position)) ? false : true;
 
             Menu.Item menuItem = new Menu.Item("header", Menu.MenuItem.Header)
             {
@@ -1199,7 +1185,6 @@ namespace iTeffa.Houses
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Машина не нуждается в восстановлении", 3000);
                         return;
                     }
-
                     var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
                     if (!Finance.Wallet.Change(player, -VehicleManager.VehicleRepairPrice[vClass]))
                     {
@@ -1215,7 +1200,6 @@ namespace iTeffa.Houses
                     return;
                 case "evac":
                     if (!Main.Players.ContainsKey(player)) return;
-
                     var number = menu.Items[0].Text;
                     garage = GarageManager.Garages[GetHouse(player).GarageID];
                     var check = garage.CheckCar(false, number);
@@ -1241,7 +1225,6 @@ namespace iTeffa.Houses
                     GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ваша машина была отогнана в гараж", 3000);
                     return;
-
                 case "spawnmycar":
                     garage = GarageManager.Garages[GetHouse(player).GarageID];
                     number = menu.Items[0].Text;
@@ -1267,7 +1250,6 @@ namespace iTeffa.Houses
                         return;
                     }
                     return;
-
                 case "evac_pos":
                     if (!Main.Players.ContainsKey(player)) return;
 
@@ -1393,7 +1375,6 @@ namespace iTeffa.Houses
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({guest.Value}) подселиться к Вам", 3000);
         }
-
         public static void acceptRoomInvite(Player player)
         {
             Player owner = player.GetData<Player>("ROOM_INVITER");
@@ -1419,126 +1400,6 @@ namespace iTeffa.Houses
             Notify.Send(owner, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) подселился к Вам", 3000);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы подселились к игроку ({owner.Value})", 3000);
         }
-
-        [Command("cleargarages")]
-        public static void CMD_CreateHouse(Player player)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-
-            var list = new List<int>();
-            lock (GarageManager.Garages)
-            {
-                foreach (var g in GarageManager.Garages)
-                {
-                    var house = Houses.FirstOrDefault(h => h.GarageID == g.Key);
-                    if (house == null) list.Add(g.Key);
-                }
-            }
-
-            foreach (var id in list)
-            {
-                GarageManager.Garages.Remove(id);
-                Connect.Query($"DELETE FROM `garages` WHERE `id`={id}");
-            }
-        }
-
-        [Command("createhouse")]
-        public static void CMD_CreateHouse(Player player, int type, int price)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-            if (type < 0 || type >= HouseTypeList.Count)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Неправильный тип", 3000);
-                return;
-            }
-
-            var bankId = Finance.Bank.Create(string.Empty, 2, 0);
-            House new_house = new House(GetUID(), string.Empty, type, player.Position - new Vector3(0, 0, 1.12), price, false, 0, bankId, new List<string>());
-            DimensionID++;
-            new_house.Dimension = DimensionID;
-            new_house.Create();
-            FurnitureManager.Create(new_house.ID);
-            new_house.CreateInterior();
-
-            Houses.Add(new_house);
-        }
-
-        [Command("removehouse")]
-        public static void CMD_RemoveHouse(Player player, int id)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-
-            House house = Houses.FirstOrDefault(h => h.ID == id);
-            if (house == null) return;
-
-            house.Destroy();
-            Houses.Remove(house);
-            Connect.Query($"DELETE FROM `houses` WHERE `id`='{house.ID}'");
-        }
-        [Command("houseis")]
-        public static void CMD_HouseIs(Player player)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-            if (!player.HasData("HOUSEID"))
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
-                return;
-            }
-            House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            if (house == null) return;
-
-            NAPI.Chat.SendChatMessageToPlayer(player, $"{player.GetData<int>("HOUSEID")}");
-        }
-        [Command("housechange")]
-        public static void CMD_HouseOwner(Player player, string newOwner)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-            if (!player.HasData("HOUSEID"))
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
-                return;
-            }
-            House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            if (house == null) return;
-
-            house.changeOwner(newOwner);
-            SavingHouses();
-        }
-
-        [Command("housenewprice")]
-        public static void CMD_setHouseNewPrice(Player player, int price)
-        {
-            if (!Group.CanUseCmd(player, "save")) return;
-            if (!player.HasData("HOUSEID"))
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
-                return;
-            }
-
-            House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            if (house == null) return;
-            house.Price = price;
-            house.UpdateLabel();
-            house.Save();
-        }
-
-        [Command("myguest")]
-        public static void CMD_InvitePlayerToHouse(Player player, int id)
-        {
-            var guest = Main.GetPlayerByID(id);
-            if (guest == null)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
-                return;
-            }
-            if (player.Position.DistanceTo(guest.Position) > 2)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко", 3000);
-                return;
-            }
-            InvitePlayerToHouse(player, guest);
-        }
-
         public static void InvitePlayerToHouse(Player player, Player guest)
         {
             House house = GetHouse(player);
@@ -1551,20 +1412,6 @@ namespace iTeffa.Houses
             Notify.Send(guest, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) пригласил Вас в свой дом", 3000);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы пригласили игрока ({guest.Value}) в свой дом", 3000);
         }
-
-        [Command("sellhouse")]
-        public static void CMD_sellHouse(Player player, int id, int price)
-        {
-            var target = Main.GetPlayerByID(id);
-            if (target == null)
-            {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
-                return;
-            }
-            OfferHouseSell(player, target, price);
-        }
-
-
         public static void OfferHouseSell(Player player, Player target, int price)
         {
             if (player.Position.DistanceTo(target.Position) > 2)
@@ -1599,7 +1446,6 @@ namespace iTeffa.Houses
             Trigger.ClientEvent(target, "openDialog", "HOUSE_SELL", $"Игрок ({player.Value}) предложил Вам купить свой дом за ${price}");
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш дом за {price}$", 3000);
         }
-
         public static void acceptHouseSell(Player player)
         {
             if (!player.HasData("HOUSE_SELLER") || !Main.Players.ContainsKey(player.GetData<Player>("HOUSE_SELLER"))) return;
