@@ -151,18 +151,6 @@ INSERT INTO `adminaccess` (`minrank`, `command`, `isadmin`, `idkey`) VALUES
 	(7, 'stop', 1, 111);
 /*!40000 ALTER TABLE `adminaccess` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `adminlog` (
-  `time` datetime NOT NULL,
-  `admin` text NOT NULL,
-  `action` text NOT NULL,
-  `player` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `adminlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `adminlog` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `advertised` (
   `ID` int unsigned NOT NULL AUTO_INCREMENT,
   `Author` varchar(40) NOT NULL,
@@ -196,35 +184,6 @@ INSERT INTO `alcoclubs` (`id`, `alco1`, `alco2`, `alco3`, `pricemod`, `mats`) VA
 	(12, 1000, 3000, 5000, '100', 100000),
 	(13, 1000, 3000, 5000, '100', 100000);
 /*!40000 ALTER TABLE `alcoclubs` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `arrestlog` (
-  `time` datetime NOT NULL,
-  `player` text NOT NULL,
-  `target` text NOT NULL,
-  `reason` text NOT NULL,
-  `stars` text NOT NULL,
-  `pnick` text NOT NULL,
-  `tnick` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `arrestlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `arrestlog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `banlog` (
-  `time` datetime NOT NULL,
-  `admin` text NOT NULL,
-  `player` text NOT NULL,
-  `until` datetime NOT NULL,
-  `reason` text NOT NULL,
-  `ishard` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `banlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `banlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `banned` (
   `uuid` int NOT NULL,
@@ -283,11 +242,11 @@ INSERT INTO `businesses` (`id`, `owner`, `sellprice`, `type`, `products`, `enter
 	(20, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":20000,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":1700.4988,"y":6412.9443,"z":31.701612}', '{"x":0.0,"y":0.0,"z":0.0}', '705991', '-1', '[{"Name":"Бензин","Amount":2000}]'),
 	(21, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":20000,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":-2555.167,"y":2330.7617,"z":31.93577}', '{"x":0.0,"y":0.0,"z":0.0}', '733845', '-1', '[{"Name":"Бензин","Amount":2000}]'),
 	(22, 'Государство', '1000000', '1', '[{"Price":1,"Lefts":20000,"Autosell":0,"Name":"Бензин","Ordered":true}]', '{"x":-2101.2036,"y":-319.75327,"z":11.908096}', '{"x":0.0,"y":0.0,"z":0.0}', '87251', '-1', '[{"Name":"Бензин","Amount":2000}]'),
-	(23, 'Государство', '1000000', '2', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},\r\n{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-32.603783,"y":-1111.3293,"z":25.302336}', '{"x":0.0,"y":0.0,"z":0.0}', '176568', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
-	(24, 'Государство', '1000000', '3', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},\r\n{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-41.673275,"y":-1676.1267,"z":28.3052}', '{"x":0.0,"y":0.0,"z":0.0}', '929736', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
-	(25, 'Государство', '1000000', '4', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},\r\n{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-804.4001,"y":-224.77362,"z":36.10452}', '{"x":0.0,"y":0.0,"z":0.0}', '976418', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
-	(26, 'Государство', '1000000', '5', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},\r\n{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-177.15984,"y":-1155.8358,"z":21.992376}', '{"x":0.0,"y":0.0,"z":0.0}', '956499', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
-	(27, 'Государство', '1000000', '6', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},\r\n{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-640.11194,"y":296.92105,"z":81.336105}', '{"x":0.0,"y":0.0,"z":0.0}', '282673', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
+	(23, 'Государство', '1000000', '2', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-32.603783,"y":-1111.3293,"z":25.302336}', '{"x":0.0,"y":0.0,"z":0.0}', '176568', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
+	(24, 'Государство', '1000000', '3', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-41.673275,"y":-1676.1267,"z":28.3052}', '{"x":0.0,"y":0.0,"z":0.0}', '929736', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
+	(25, 'Государство', '1000000', '4', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-804.4001,"y":-224.77362,"z":36.10452}', '{"x":0.0,"y":0.0,"z":0.0}', '976418', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
+	(26, 'Государство', '1000000', '5', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-177.15984,"y":-1155.8358,"z":21.992376}', '{"x":0.0,"y":0.0,"z":0.0}', '956499', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
+	(27, 'Государство', '1000000', '6', '[{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w140","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"w210","Ordered":true},{"Price":100000,"Lefts":100,"Autosell":0,"Name":"volga","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Sultan","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Kuruma","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Jackal","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Surano","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Dubsta","Ordered":true},{"Price":100000,"Lefts":0,"Autosell":0,"Name":"Rocoto","Ordered":true}]', '{"x":-640.11194,"y":296.92105,"z":81.336105}', '{"x":0.0,"y":0.0,"z":0.0}', '282673', '-1', '[{"Name":"Sultan","Amount":10},{"Name":"Kuruma","Amount":10},{"Name":"Jackal","Amount":10},{"Name":"Surano","Amount":10},{"Name":"Dubsta","Amount":10},{"Name":"Rocoto","Amount":10}]'),
 	(28, 'Государство', '1000000', '7', '[{"Price":720,"Lefts":1000,"Autosell":5,"Name":"Pistol","Ordered":true},{"Price":900,"Lefts":1000,"Autosell":5,"Name":"CombatPistol","Ordered":true},{"Price":12800,"Lefts":1000,"Autosell":5,"Name":"Revolver","Ordered":true},{"Price":1440,"Lefts":1000,"Autosell":5,"Name":"HeavyPistol","Ordered":true},{"Price":2880,"Lefts":1000,"Autosell":5,"Name":"BullpupShotgun","Ordered":true},{"Price":3600,"Lefts":1000,"Autosell":5,"Name":"CombatPDW","Ordered":true},{"Price":2160,"Lefts":1000,"Autosell":5,"Name":"MachinePistol","Ordered":true},{"Price":4,"Lefts":1000,"Autosell":5,"Name":"Патроны","Ordered":true}]', '{"x":810.3036,"y":-2156.8503,"z":28.498997}', '{"x":0.0,"y":0.0,"z":0.0}', '910783', '-1', '[{"Name":"Pistol","Amount":2},{"Name":"CombatPistol","Amount":2},{"Name":"Revolver","Amount":2},{"Name":"HeavyPistol","Amount":2},{"Name":"BullpupShotgun","Amount":2},{"Name":"CombatPDW","Amount":2},{"Name":"MachinePistol","Amount":2},{"Name":"Патроны","Amount":500}]'),
 	(29, 'Государство', '1000000', '7', '[{"Price":720,"Lefts":1000,"Autosell":5,"Name":"Pistol","Ordered":true},{"Price":900,"Lefts":1000,"Autosell":5,"Name":"CombatPistol","Ordered":true},{"Price":12800,"Lefts":1000,"Autosell":5,"Name":"Revolver","Ordered":true},{"Price":1440,"Lefts":1000,"Autosell":5,"Name":"HeavyPistol","Ordered":true},{"Price":2880,"Lefts":1000,"Autosell":5,"Name":"BullpupShotgun","Ordered":true},{"Price":3600,"Lefts":1000,"Autosell":5,"Name":"CombatPDW","Ordered":true},{"Price":2160,"Lefts":1000,"Autosell":5,"Name":"MachinePistol","Ordered":true},{"Price":4,"Lefts":1000,"Autosell":5,"Name":"Патроны","Ordered":true}]', '{"x":-1306.2894,"y":-394.21494,"z":35.57577}', '{"x":0.0,"y":0.0,"z":0.0}', '581563', '-1', '[{"Name":"Pistol","Amount":2},{"Name":"CombatPistol","Amount":2},{"Name":"Revolver","Amount":2},{"Name":"HeavyPistol","Amount":2},{"Name":"BullpupShotgun","Amount":2},{"Name":"CombatPDW","Amount":2},{"Name":"MachinePistol","Amount":2},{"Name":"Патроны","Amount":500}]'),
 	(30, 'Государство', '1000000', '7', '[{"Price":720,"Lefts":1000,"Autosell":5,"Name":"Pistol","Ordered":true},{"Price":900,"Lefts":1000,"Autosell":5,"Name":"CombatPistol","Ordered":true},{"Price":12800,"Lefts":1000,"Autosell":5,"Name":"Revolver","Ordered":true},{"Price":1440,"Lefts":1000,"Autosell":5,"Name":"HeavyPistol","Ordered":true},{"Price":2880,"Lefts":1000,"Autosell":5,"Name":"BullpupShotgun","Ordered":true},{"Price":3600,"Lefts":1000,"Autosell":5,"Name":"CombatPDW","Ordered":true},{"Price":2160,"Lefts":1000,"Autosell":5,"Name":"MachinePistol","Ordered":true},{"Price":4,"Lefts":1000,"Autosell":5,"Name":"Патроны","Ordered":true}]', '{"x":22.472319,"y":-1107.1295,"z":28.677008}', '{"x":0.0,"y":0.0,"z":0.0}', '392828', '-1', '[{"Name":"Pistol","Amount":2},{"Name":"CombatPistol","Amount":2},{"Name":"Revolver","Amount":2},{"Name":"HeavyPistol","Amount":2},{"Name":"BullpupShotgun","Amount":2},{"Name":"CombatPDW","Amount":2},{"Name":"MachinePistol","Amount":2},{"Name":"Патроны","Amount":500}]'),
@@ -383,22 +342,8 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
 INSERT INTO `characters` (`uuid`, `personsid`, `adminlvl`, `money`, `firstname`, `lastname`, `fraction`, `fractionlvl`, `warns`, `biz`, `hotel`, `hotelleft`, `sim`, `eat`, `water`, `demorgan`, `arrest`, `unwarn`, `unmute`, `bank`, `wanted`, `lvl`, `exp`, `gender`, `health`, `armor`, `licenses`, `lastveh`, `onduty`, `lasthour`, `contacts`, `achiev`, `createdate`, `pos`, `work`, `idkey`, `lastbonus`, `isbonused`) VALUES
-	(100000, 'ITEFFA21', 8, 1023427, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 40, 39, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 7, 4, 1, 100, 0, '[false,false,false,false,false,false,false,false]', '', 0, 17, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":-1200.1711,"y":-731.22516,"z":21.016659}', 0, 1, 0, 1);
+	(100000, 'ITEFFA21', 8, 1023627, 'Jack', 'Brown', 0, 0, 0, '[]', -1, 0, -1, 34, 33, 0, 0, '2020-12-19 23:47:03', 0, 130486, 'null', 7, 4, 1, 100, 0, '[false,false,false,false,false,false,false,false]', '', 0, 25, '{}', '[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]', '2020-12-19 23:47:03', '{"x":-1200.1711,"y":-731.22516,"z":21.016659}', 0, 1, 0, 1);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `connlog` (
-  `uuid` text NOT NULL,
-  `in` datetime NOT NULL,
-  `out` datetime DEFAULT NULL,
-  `sclub` text NOT NULL,
-  `hwid` text NOT NULL,
-  `ip` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `connlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `connlog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `containers` (
   `id` int NOT NULL,
@@ -447,36 +392,12 @@ INSERT INTO `customization` (`uuid`, `gender`, `parents`, `features`, `appearanc
 	(100000, '0', '{"Father":4,"Mother":40,"Similarity":0.0,"SkinSimilarity":1.0}', '[0.0,0.0,0.0,0.0,0.0,0.0,-0.2,0.0,-0.7,0.0,0.0,0.0,0.4,0.0,0.0,0.3,1.0,1.0,0.0,0.0]', '[{"Value":255,"Opacity":100.0},{"Value":1,"Opacity":100.0},{"Value":9,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0},{"Value":255,"Opacity":100.0}]', '{"Hair":17,"Color":0,"HighlightColor":0}', '{"Mask":{"Variation":0,"Texture":0},"Gloves":{"Variation":0,"Texture":0},"Torso":{"Variation":15,"Texture":0},"Leg":{"Variation":103,"Texture":3},"Bag":{"Variation":0,"Texture":0},"Feet":{"Variation":5,"Texture":0},"Accessory":{"Variation":0,"Texture":0},"Undershit":{"Variation":15,"Texture":0},"Bodyarmor":{"Variation":0,"Texture":0},"Decals":{"Variation":0,"Texture":0},"Top":{"Variation":26,"Texture":6}}', '{"Hat":{"Variation":-1,"Texture":0},"Glasses":{"Variation":-1,"Texture":0},"Ear":{"Variation":-1,"Texture":0},"Watches":{"Variation":-1,"Texture":0},"Bracelets":{"Variation":-1,"Texture":0}}', '{"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}', '0', '0', '1', '0', '0', '0', 1, 1);
 /*!40000 ALTER TABLE `customization` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `deletelog` (
-  `time` datetime NOT NULL,
-  `uuid` text NOT NULL,
-  `name` text NOT NULL,
-  `account` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `deletelog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `deletelog` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `eventcfg` (
   `RewardLimit` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `eventcfg` DISABLE KEYS */;
 /*!40000 ALTER TABLE `eventcfg` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `eventslog` (
-  `AdminStarted` text NOT NULL,
-  `EventName` text NOT NULL,
-  `MembersLimit` text NOT NULL,
-  `Started` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `eventslog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `eventslog` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `e_candidates` (
   `ID` int NOT NULL AUTO_INCREMENT,
@@ -1159,6 +1080,173 @@ CREATE TABLE IF NOT EXISTS `furniture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 /*!40000 ALTER TABLE `furniture` DISABLE KEYS */;
+INSERT INTO `furniture` (`uuid`, `furniture`, `data`) VALUES
+	('0', '{}', '{}'),
+	('1', '{}', '{}'),
+	('10', '{}', '{}'),
+	('100', '{}', '{}'),
+	('101', '{}', '{}'),
+	('102', '{}', '{}'),
+	('103', '{}', '{}'),
+	('104', '{}', '{}'),
+	('105', '{}', '{}'),
+	('106', '{}', '{}'),
+	('107', '{}', '{}'),
+	('108', '{}', '{}'),
+	('109', '{}', '{}'),
+	('11', '{}', '{}'),
+	('110', '{}', '{}'),
+	('111', '{}', '{}'),
+	('112', '{}', '{}'),
+	('113', '{}', '{}'),
+	('114', '{}', '{}'),
+	('115', '{}', '{}'),
+	('116', '{}', '{}'),
+	('117', '{}', '{}'),
+	('118', '{}', '{}'),
+	('119', '{}', '{}'),
+	('12', '{}', '{}'),
+	('120', '{}', '{}'),
+	('121', '{}', '{}'),
+	('122', '{}', '{}'),
+	('123', '{}', '{}'),
+	('124', '{}', '{}'),
+	('125', '{}', '{}'),
+	('126', '{}', '{}'),
+	('127', '{}', '{}'),
+	('128', '{}', '{}'),
+	('129', '{}', '{}'),
+	('13', '{}', '{}'),
+	('130', '{}', '{}'),
+	('131', '{}', '{}'),
+	('132', '{}', '{}'),
+	('133', '{}', '{}'),
+	('134', '{}', '{}'),
+	('135', '{}', '{}'),
+	('136', '{}', '{}'),
+	('137', '{}', '{}'),
+	('138', '{}', '{}'),
+	('139', '{}', '{}'),
+	('14', '{}', '{}'),
+	('140', '{}', '{}'),
+	('141', '{}', '{}'),
+	('142', '{}', '{}'),
+	('143', '{}', '{}'),
+	('144', '{}', '{}'),
+	('145', '{}', '{}'),
+	('146', '{}', '{}'),
+	('147', '{}', '{}'),
+	('148', '{}', '{}'),
+	('149', '{}', '{}'),
+	('15', '{}', '{}'),
+	('150', '{}', '{}'),
+	('151', '{}', '{}'),
+	('152', '{}', '{}'),
+	('153', '{}', '{}'),
+	('154', '{}', '{}'),
+	('155', '{}', '{}'),
+	('156', '{}', '{}'),
+	('157', '{}', '{}'),
+	('158', '{}', '{}'),
+	('159', '{}', '{}'),
+	('16', '{}', '{}'),
+	('160', '{}', '{}'),
+	('161', '{}', '{}'),
+	('162', '{}', '{}'),
+	('163', '{}', '{}'),
+	('164', '{}', '{}'),
+	('165', '{}', '{}'),
+	('17', '{}', '{}'),
+	('18', '{}', '{}'),
+	('19', '{}', '{}'),
+	('2', '{}', '{}'),
+	('20', '{}', '{}'),
+	('21', '{}', '{}'),
+	('22', '{}', '{}'),
+	('23', '{}', '{}'),
+	('24', '{}', '{}'),
+	('25', '{}', '{}'),
+	('26', '{}', '{}'),
+	('27', '{}', '{}'),
+	('28', '{}', '{}'),
+	('29', '{}', '{}'),
+	('3', '{}', '{}'),
+	('30', '{}', '{}'),
+	('31', '{}', '{}'),
+	('32', '{}', '{}'),
+	('33', '{}', '{}'),
+	('34', '{}', '{}'),
+	('35', '{}', '{}'),
+	('36', '{}', '{}'),
+	('37', '{}', '{}'),
+	('38', '{}', '{}'),
+	('39', '{}', '{}'),
+	('4', '{}', '{}'),
+	('40', '{}', '{}'),
+	('41', '{}', '{}'),
+	('42', '{}', '{}'),
+	('43', '{}', '{}'),
+	('44', '{}', '{}'),
+	('45', '{}', '{}'),
+	('46', '{}', '{}'),
+	('47', '{}', '{}'),
+	('48', '{}', '{}'),
+	('49', '{}', '{}'),
+	('5', '{}', '{}'),
+	('50', '{}', '{}'),
+	('51', '{}', '{}'),
+	('52', '{}', '{}'),
+	('53', '{}', '{}'),
+	('54', '{}', '{}'),
+	('55', '{}', '{}'),
+	('56', '{}', '{}'),
+	('57', '{}', '{}'),
+	('58', '{}', '{}'),
+	('59', '{}', '{}'),
+	('6', '{}', '{}'),
+	('60', '{}', '{}'),
+	('61', '{}', '{}'),
+	('62', '{}', '{}'),
+	('63', '{}', '{}'),
+	('64', '{}', '{}'),
+	('65', '{}', '{}'),
+	('66', '{}', '{}'),
+	('67', '{}', '{}'),
+	('68', '{}', '{}'),
+	('69', '{}', '{}'),
+	('7', '{}', '{}'),
+	('70', '{}', '{}'),
+	('71', '{}', '{}'),
+	('72', '{}', '{}'),
+	('73', '{}', '{}'),
+	('74', '{}', '{}'),
+	('75', '{}', '{}'),
+	('76', '{}', '{}'),
+	('77', '{}', '{}'),
+	('78', '{}', '{}'),
+	('79', '{}', '{}'),
+	('8', '{}', '{}'),
+	('80', '{}', '{}'),
+	('81', '{}', '{}'),
+	('82', '{}', '{}'),
+	('83', '{}', '{}'),
+	('84', '{}', '{}'),
+	('85', '{}', '{}'),
+	('86', '{}', '{}'),
+	('87', '{}', '{}'),
+	('88', '{}', '{}'),
+	('89', '{}', '{}'),
+	('9', '{}', '{}'),
+	('90', '{}', '{}'),
+	('91', '{}', '{}'),
+	('92', '{}', '{}'),
+	('93', '{}', '{}'),
+	('94', '{}', '{}'),
+	('95', '{}', '{}'),
+	('96', '{}', '{}'),
+	('97', '{}', '{}'),
+	('98', '{}', '{}'),
+	('99', '{}', '{}');
 /*!40000 ALTER TABLE `furniture` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `gangspoints` (
@@ -1633,19 +1721,6 @@ INSERT INTO `houses` (`id`, `owner`, `type`, `position`, `price`, `locked`, `gar
 	(165, '', '6', '{"x":-2797.6306,"y":1431.908,"z":99.80837}', '50000000', 0, '166', '842769', '[]');
 /*!40000 ALTER TABLE `houses` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `idlog` (
-  `in` datetime NOT NULL,
-  `out` datetime DEFAULT NULL,
-  `uuid` text NOT NULL,
-  `id` text NOT NULL,
-  `name` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `idlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `idlog` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `inventory` (
   `items` text NOT NULL,
   `uuid` int NOT NULL,
@@ -1658,7 +1733,99 @@ INSERT INTO `inventory` (`items`, `uuid`, `idkey`) VALUES
 	('[{"Data":"26_6_True","ID":-11,"Type":-11,"Count":1,"IsActive":true},{"Data":"103_3_True","ID":-4,"Type":-4,"Count":1,"IsActive":true},{"Data":"5_0_True","ID":-6,"Type":-6,"Count":1,"IsActive":true},{"Data":"A664Y_0","ID":19,"Type":19,"Count":1,"IsActive":false}]', 100000, 7);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `itemslog` (
+CREATE TABLE IF NOT EXISTS `logs_admins` (
+  `time` datetime NOT NULL,
+  `admin` text NOT NULL,
+  `action` text NOT NULL,
+  `player` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_admins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_admins` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_arrest` (
+  `time` datetime NOT NULL,
+  `player` text NOT NULL,
+  `target` text NOT NULL,
+  `reason` text NOT NULL,
+  `stars` text NOT NULL,
+  `pnick` text NOT NULL,
+  `tnick` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_arrest` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_arrest` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_ban` (
+  `time` datetime NOT NULL,
+  `admin` text NOT NULL,
+  `player` text NOT NULL,
+  `until` datetime NOT NULL,
+  `reason` text NOT NULL,
+  `ishard` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_ban` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_ban` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_conn` (
+  `uuid` text NOT NULL,
+  `in` datetime NOT NULL,
+  `out` datetime DEFAULT NULL,
+  `sclub` text NOT NULL,
+  `hwid` text NOT NULL,
+  `ip` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_conn` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_conn` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_delete` (
+  `time` datetime NOT NULL,
+  `uuid` text NOT NULL,
+  `name` text NOT NULL,
+  `account` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_delete` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_delete` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_events` (
+  `AdminStarted` text NOT NULL,
+  `EventName` text NOT NULL,
+  `MembersLimit` text NOT NULL,
+  `Started` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_events` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_events` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_id` (
+  `in` datetime NOT NULL,
+  `out` datetime DEFAULT NULL,
+  `uuid` text NOT NULL,
+  `id` text NOT NULL,
+  `name` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_id` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_id` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_items` (
   `time` datetime NOT NULL,
   `from` text NOT NULL,
   `to` text NOT NULL,
@@ -1669,8 +1836,74 @@ CREATE TABLE IF NOT EXISTS `itemslog` (
   PRIMARY KEY (`idkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*!40000 ALTER TABLE `itemslog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemslog` ENABLE KEYS */;
+/*!40000 ALTER TABLE `logs_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_items` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_money` (
+  `time` datetime NOT NULL,
+  `from` text NOT NULL,
+  `to` text NOT NULL,
+  `amount` text NOT NULL,
+  `comment` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_money` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_money` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_name` (
+  `time` datetime NOT NULL,
+  `uuid` text NOT NULL,
+  `old` text NOT NULL,
+  `new` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_name` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_name` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_stock` (
+  `time` datetime NOT NULL,
+  `frac` text NOT NULL,
+  `uuid` text NOT NULL,
+  `type` text NOT NULL,
+  `amount` text NOT NULL,
+  `in` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_stock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_stock` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_ticket` (
+  `time` datetime NOT NULL,
+  `player` text NOT NULL,
+  `target` text NOT NULL,
+  `sum` text NOT NULL,
+  `reason` text NOT NULL,
+  `pnick` text NOT NULL,
+  `tnick` text NOT NULL,
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*!40000 ALTER TABLE `logs_ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_ticket` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `logs_vote` (
+  `idkey` int NOT NULL AUTO_INCREMENT,
+  `election` text COLLATE utf8mb4_general_ci,
+  `login` text COLLATE utf8mb4_general_ci,
+  `votefor` text COLLATE utf8mb4_general_ci,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`idkey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*!40000 ALTER TABLE `logs_vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs_vote` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `money` (
   `id` varchar(155) NOT NULL,
@@ -1930,31 +2163,6 @@ INSERT INTO `money` (`id`, `holder`, `balance`, `type`) VALUES
 	('994557', '', '1000', '2');
 /*!40000 ALTER TABLE `money` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `moneylog` (
-  `time` datetime NOT NULL,
-  `from` text NOT NULL,
-  `to` text NOT NULL,
-  `amount` text NOT NULL,
-  `comment` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `moneylog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `moneylog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `namelog` (
-  `time` datetime NOT NULL,
-  `uuid` text NOT NULL,
-  `old` text NOT NULL,
-  `new` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `namelog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `namelog` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `nicknames` (
   `srv` varchar(155) NOT NULL,
   `name` varchar(155) NOT NULL
@@ -2158,35 +2366,6 @@ INSERT INTO `safes` (`minamount`, `maxamount`, `pos`, `address`, `rotation`, `id
 	(45200, 75800, '{"x":264.3013,"y":216.193329,"z":101.683372}', '0', 0, 3);
 /*!40000 ALTER TABLE `safes` ENABLE KEYS */;
 
-CREATE TABLE IF NOT EXISTS `stocklog` (
-  `time` datetime NOT NULL,
-  `frac` text NOT NULL,
-  `uuid` text NOT NULL,
-  `type` text NOT NULL,
-  `amount` text NOT NULL,
-  `in` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `stocklog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stocklog` ENABLE KEYS */;
-
-CREATE TABLE IF NOT EXISTS `ticketlog` (
-  `time` datetime NOT NULL,
-  `player` text NOT NULL,
-  `target` text NOT NULL,
-  `sum` text NOT NULL,
-  `reason` text NOT NULL,
-  `pnick` text NOT NULL,
-  `tnick` text NOT NULL,
-  `idkey` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idkey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*!40000 ALTER TABLE `ticketlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ticketlog` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `holder` varchar(155) NOT NULL,
   `model` varchar(155) NOT NULL,
@@ -2206,7 +2385,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
 INSERT INTO `vehicles` (`holder`, `model`, `health`, `fuel`, `components`, `items`, `position`, `rotation`, `keynum`, `dirt`, `price`, `idkey`, `number`) VALUES
-	('Jack_Brown', 'volga', 1000, 100, '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"Armor":-1}', '[]', NULL, NULL, 0, 0, 0, 3, 'A664Y');
+	('Jack_Brown', 'volga', 1000, 100, '{"PrimColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"SecColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"NeonColor":{"Red":0,"Green":0,"Blue":0,"Alpha":255},"PrimModColor":-1,"SecModColor":-1,"Muffler":-1,"SideSkirt":-1,"Hood":-1,"Spoiler":-1,"Lattice":-1,"Wings":-1,"Roof":-1,"Vinyls":-1,"FrontBumper":-1,"RearBumper":-1,"Engine":-1,"Turbo":-1,"Horn":-1,"Transmission":-1,"WindowTint":0,"Suspension":-1,"Brakes":-1,"Headlights":-1,"NumberPlate":0,"Wheels":-1,"WheelsType":0,"WheelsColor":0,"Armor":-1}', '[]', '', '', 0, 0, 0, 3, 'A664Y');
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `weapons` (
