@@ -385,7 +385,7 @@ namespace iTeffa.Fractions
                             return;
                         }
                         Stocks.fracStocks[club].Money += Convert.ToInt32(DrinksPrices[index] * ClubsStocks[club].PriceModifier);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"frac({club})", Convert.ToInt32(DrinksPrices[index] * ClubsStocks[club].PriceModifier), $"buyAlco");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"frac({club})", Convert.ToInt32(DrinksPrices[index] * ClubsStocks[club].PriceModifier), $"buyAlco");
                         nInventory.Add(player, new nItem(invItem));
 
                         switch (index)

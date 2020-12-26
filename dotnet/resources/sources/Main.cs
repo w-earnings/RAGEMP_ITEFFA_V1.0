@@ -381,7 +381,7 @@ namespace iTeffa
                     int uuid = Players[player].UUID;
                     Players.Remove(player);
                     Accounts.Remove(player);
-                    GameLog.Disconnected(uuid);
+                    Loggings.Disconnected(uuid);
                     Log.Debug("DISCONNECT FINAL");
                     Character.changeName(player.Name).Wait();
                 }
@@ -759,7 +759,7 @@ namespace iTeffa
                         }
                         Finance.Bank.Change(Players[player].Bank, amount);
                         Fractions.Stocks.fracStocks[6].Money -= amount;
-                        GameLog.Money($"frac(6)", $"bank({Players[player].Bank})", amount, "treasureTake");
+                        Loggings.Money($"frac(6)", $"bank({Players[player].Bank})", amount, "treasureTake");
                         return;
                     case "mayor_put":
                         if (!Fractions.Manager.isLeader(player, 6)) return;
@@ -778,7 +778,7 @@ namespace iTeffa
                             return;
                         }
                         Fractions.Stocks.fracStocks[6].Money += amount;
-                        GameLog.Money($"bank({Players[player].Bank})", $"frac(6)", amount, "treasurePut");
+                        Loggings.Money($"bank({Players[player].Bank})", $"frac(6)", amount, "treasurePut");
                         return;
                     case "call_police":
                         if (text.Length == 0)
@@ -985,7 +985,7 @@ namespace iTeffa
 
                                 VehicleInventory.Add(veh, new nItem(item.Type, transferAmount, item.Data));
                                 nInventory.Remove(player, item.Type, transferAmount);
-                                GameLog.Items($"player({Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                                Loggings.Items($"player({Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                             }
                             else
                             {
@@ -1058,8 +1058,8 @@ namespace iTeffa
 
                             nInventory.Remove(player, item.Type, transferAmount);
                             Fractions.Stocks.Add(onFraction, new nItem(item.Type, transferAmount));
-                            GameLog.Items($"player({Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
-                            GameLog.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, false);
+                            Loggings.Items($"player({Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            Loggings.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, false);
                         }
                         return;
                     case "item_transfer_toplayer":
@@ -1101,7 +1101,7 @@ namespace iTeffa
 
                             nInventory.Add(changeTarget, new nItem(item.Type, transferAmount));
                             nInventory.Remove(player, item.Type, transferAmount);
-                            GameLog.Items($"player({Players[player].UUID})", $"player({Players[changeTarget].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            Loggings.Items($"player({Players[player].UUID})", $"player({Players[changeTarget].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
 
                             Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                         }
@@ -1135,7 +1135,7 @@ namespace iTeffa
                                 }
                                 VehicleInventory.Remove(veh, item.Type, transferAmount);
                                 nInventory.Add(player, new nItem(item.Type, transferAmount, item.Data));
-                                GameLog.Items($"vehicle({veh.NumberPlate})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                                Loggings.Items($"vehicle({veh.NumberPlate})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                             }
                             else
                             {
@@ -1207,8 +1207,8 @@ namespace iTeffa
                             }
                             nInventory.Add(player, new nItem(item.Type, transferAmount));
                             Fractions.Stocks.Remove(onFraction, new nItem(item.Type, transferAmount));
-                            GameLog.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, true);
-                            GameLog.Items($"fracstock({onFraction})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
+                            Loggings.Stock(Players[player].FractionID, Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}", transferAmount, true);
+                            Loggings.Items($"fracstock({onFraction})", $"player({Players[player].UUID})", Convert.ToInt32(item.Type), transferAmount, $"{item.Data}");
                         }
                         return;
                     case "weaptransfer":
@@ -1316,7 +1316,7 @@ namespace iTeffa
                                 return;
                             }
 
-                            GameLog.Money($"bank({Players[player].Bank})", $"frac(6)", 10, "sms");
+                            Loggings.Money($"bank({Players[player].Bank})", $"frac(6)", 10, "sms");
                             int senderNum = Players[player].Sim;
                             string senderName = (Players[t].Contacts.ContainsKey(senderNum)) ? Players[t].Contacts[senderNum] : senderNum.ToString();
                             string msg = $"Сообщение от {senderName}: {text}";
@@ -2098,7 +2098,7 @@ namespace iTeffa
                                 Connect.Query($"UPDATE vehicles SET holder='{player.Name}' WHERE number='{number}'");
 
                                 Finance.Wallet.Change(seller, price);
-                                GameLog.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
+                                Loggings.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
 
                                 var houset = Houses.HouseManager.GetHouse(seller, true);
 
@@ -2182,7 +2182,7 @@ namespace iTeffa
                                     };
                                 }
                                 Finance.Wallet.Change(player, price);
-                                GameLog.Money($"server", $"player({Players[player].UUID})", price, $"carSell({vData.Model})");
+                                Loggings.Money($"server", $"player({Players[player].UUID})", price, $"carSell({vData.Model})");
                                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {vData.Model} ({vnumber}) за {price}$", 3000);
                                 VehicleManager.Remove(vnumber, player);
                             }
@@ -2334,7 +2334,7 @@ namespace iTeffa
             }
 
             Timers.Init();
-            GameLog.Start();
+            Loggings.Start();
             ReportSys.Init();
             Fractions.LSNews.Init();
             EventSys.Init();
@@ -2593,13 +2593,13 @@ namespace iTeffa
                                     int payment = Convert.ToInt32((100 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
                                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили пособие по безработице {payment}$", 3000);
                                     Finance.Wallet.Change(player, payment);
-                                    GameLog.Money($"server", $"player({Players[player].UUID})", payment, $"allowance");
+                                    Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"allowance");
                                     break;
                                 case 2:
                                     payment = Convert.ToInt32((Fractions.Configs.FractionRanks[Players[player].FractionID][Players[player].FractionLVL].Item4 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
                                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили зарплату в {payment}$", 3000);
                                     Finance.Wallet.Change(player, payment);
-                                    GameLog.Money($"server", $"player({Players[player].UUID})", payment, $"payday");
+                                    Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"payday");
                                     break;
                             }
 
@@ -2620,7 +2620,7 @@ namespace iTeffa
                                         Accounts[player].PresentGet = true;
                                         string promo = Accounts[player].PromoCodes[0];
                                         Finance.Wallet.Change(player, 2000);
-                                        GameLog.Money($"server", $"player({Players[player].UUID})", 2000, $"promo_{promo}");
+                                        Loggings.Money($"server", $"player({Players[player].UUID})", 2000, $"promo_{promo}");
                                         Customization.AddClothes(player, ItemType.Hat, 44, 3);
                                         nInventory.Add(player, new nItem(ItemType.Sprunk, 3));
                                         nInventory.Add(player, new nItem(ItemType.Сrisps, 3));
@@ -2699,7 +2699,7 @@ namespace iTeffa
                             Fractions.Stocks.fracStocks[6].Money += tax;
                             Fractions.Cityhall.lastHourTax += tax;
 
-                            GameLog.Money($"biz({biz.ID})", "frac(6)", tax, "bizTaxHour");
+                            Loggings.Money($"biz({biz.ID})", "frac(6)", tax, "bizTaxHour");
 
                             if (Finance.Bank.Accounts[biz.BankID].Balance >= 0) continue;
 
@@ -2731,7 +2731,7 @@ namespace iTeffa
                                         Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money=money+{Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                                     }
                                 }
-                                GameLog.Money($"server", $"player({PlayerUUIDs[biz.Owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"bizTax");
+                                Loggings.Money($"server", $"player({PlayerUUIDs[biz.Owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"bizTax");
                             }
 
                             Finance.Bank.Accounts[biz.BankID].Balance = 0;
@@ -2752,7 +2752,7 @@ namespace iTeffa
                             Fractions.Stocks.fracStocks[6].Money += tax;
                             Fractions.Cityhall.lastHourTax += tax;
 
-                            GameLog.Money($"house({h.ID})", "frac(6)", tax, "houseTaxHour");
+                            Loggings.Money($"house({h.ID})", "frac(6)", tax, "houseTaxHour");
 
                             if (Finance.Bank.Accounts[h.BankID].Balance >= 0) continue;
 
@@ -2772,7 +2772,7 @@ namespace iTeffa
                                 Connect.Query($"UPDATE characters SET money=money+{Convert.ToInt32(h.Price / 2.0)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                             }
                             h.SetOwner(null);
-                            GameLog.Money($"server", $"player({PlayerUUIDs[owner]})", Convert.ToInt32(h.Price / 2.0), $"houseTax");
+                            Loggings.Money($"server", $"player({PlayerUUIDs[owner]})", Convert.ToInt32(h.Price / 2.0), $"houseTax");
                         }
                         catch (Exception e) { Log.Write($"EXCEPTION AT \"MAIN_PayDayTrigger_House_{h.Owner}\":\n" + e.ToString(), Nlogs.Type.Error); }
                     }

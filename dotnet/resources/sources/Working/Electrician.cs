@@ -185,7 +185,7 @@ namespace iTeffa.Working
                 if (Checkpoints[(int)shape.GetData<int>("NUMBER")].Position.DistanceTo(player.Position) > 3) return;
                 var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                 Finance.Wallet.Change(player, payment);
-                GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"electricianCheck");
+                Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"electricianCheck");
 
                 NAPI.Entity.SetEntityPosition(player, Checkpoints[shape.GetData<int>("NUMBER")].Position + new Vector3(0, 0, 1.2));
                 NAPI.Entity.SetEntityRotation(player, new Vector3(0, 0, Checkpoints[shape.GetData<int>("NUMBER")].Heading));

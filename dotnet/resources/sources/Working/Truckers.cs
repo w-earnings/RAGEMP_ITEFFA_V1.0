@@ -510,7 +510,7 @@ namespace iTeffa.Working
                 if (payment > max) payment = max;
                 else if (payment < min) payment = min;
                 Finance.Wallet.Change(player, payment);
-                GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"truckerCheck");
+                Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"truckerCheck");
                 var ow = NAPI.Player.GetPlayerFromName(biz.Owner);
                 Trigger.ClientEvent(player, "SetOrderTruck", null);
                 player.ResetData("WayPointBiz");

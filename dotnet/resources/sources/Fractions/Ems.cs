@@ -456,7 +456,7 @@ namespace iTeffa.Fractions
                 NAPI.Player.SetPlayerHealth(player, 100);
                 Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
                 Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
-                GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
                 return;
             }
             else if (seller.GetData<bool>("IN_HOSPITAL") && player.GetData<bool>("IN_HOSPITAL"))
@@ -466,7 +466,7 @@ namespace iTeffa.Fractions
                 NAPI.Player.SetPlayerHealth(player, 100);
                 Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
                 Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
-                GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
                 Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 return;
             }
@@ -684,7 +684,7 @@ namespace iTeffa.Fractions
                     var itemInv = nInventory.Find(Main.Players[client].UUID, ItemType.HealthKit);
                     Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы взяли аптечку. У Вас {itemInv.Count} штук", 3000);
                     Stocks.fracStocks[8].Medkits--;
-                    GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
+                    Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
                     break;
                 case "putmed":
                     itemInv = nInventory.Find(Main.Players[client].UUID, ItemType.HealthKit);
@@ -696,7 +696,7 @@ namespace iTeffa.Fractions
                     nInventory.Remove(client, ItemType.HealthKit, 1);
                     Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы положили аптечку. У Вас осталось {itemInv.Count - 1} штук", 3000);
                     Stocks.fracStocks[8].Medkits++;
-                    GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, true);
+                    Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, true);
                     break;
                 case "tazer":
                     if (!Main.Players.ContainsKey(client)) return;
@@ -805,7 +805,7 @@ namespace iTeffa.Fractions
                 Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
                 return;
             }
-            GameLog.Money($"player({Main.Players[client].UUID})", $"server", 600, $"tattooRemove");
+            Loggings.Money($"player({Main.Players[client].UUID})", $"server", 600, $"tattooRemove");
             Stocks.fracStocks[6].Money += 600;
 
             foreach (var tattoo in Customization.CustomPlayerData[Main.Players[client].UUID].Tattoos[Convert.ToInt32(zone)])

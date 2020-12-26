@@ -171,7 +171,7 @@ namespace iTeffa.Globals
                         player.SetData("RESIST_TIMER", Timers.Start(1000, () => Fractions.AlcoFabrication.ResistTimer(player.Name)));*/
 
                     Commands.Controller.RPChat("me", player, "выпил бутылку " + nInventory.ItemsNames[(int)item.Type]);
-                    GameLog.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                    Loggings.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                 }
 
                 var gender = Main.Players[player].Gender;
@@ -917,7 +917,7 @@ namespace iTeffa.Globals
                 }
                 nInventory.Remove(player, item.Type, 1);
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы использовали {nInventory.ItemsNames[item.ID]}", 3000);
-                GameLog.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                Loggings.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                 Interface.Dashboard.Close(player);
             }
             catch (Exception e)
@@ -948,7 +948,7 @@ namespace iTeffa.Globals
                 if (data != null && (int)data != 1)
                     Commands.Controller.RPChat("me", player, $"выбросил(а) {nInventory.ItemsNames[(int)item.Type]}");
 
-                GameLog.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                Loggings.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(item.Type), 1, $"{item.Data}");
 
                 if (!nInventory.ClothesItems.Contains(item.Type) && !nInventory.WeaponsItems.Contains(item.Type) && item.Type != ItemType.CarKey && item.Type != ItemType.KeyRing)
                 {

@@ -2200,7 +2200,7 @@ namespace iTeffa.Globals
                     if (!Main.Accounts[player].PresentGet && Main.Accounts[player].PromoCodes[0].Equals("loveu"))
                     {
                         Main.Accounts[player].PresentGet = true;
-                        GameLog.Money($"server", $"player({Main.Players[player].UUID})", 7500, $"loveu");
+                        Loggings.Money($"server", $"player({Main.Players[player].UUID})", 7500, $"loveu");
                         AddClothes(player, ItemType.Hat, 44, 3);
                         nInventory.Add(player, new nItem(ItemType.Sprunk, 3));
                         nInventory.Add(player, new nItem(ItemType.Сrisps, 3));

@@ -285,7 +285,7 @@ namespace iTeffa.Globals.nAccount
             Characters[slot - 1] = -1;
             await Connect.QueryAsync($"UPDATE accounts SET character{slot}=-1 WHERE login='{Login}'");
 
-            GameLog.CharacterDelete($"{firstName}_{lastName}", uuid, Login);
+            Loggings.CharacterDelete($"{firstName}_{lastName}", uuid, Login);
 
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Персонаж {firstName} {lastName} успешно удален", 3000);
             NAPI.Task.Run(() => Trigger.ClientEvent(player, "delCharSuccess", slot));

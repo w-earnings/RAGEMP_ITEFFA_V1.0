@@ -184,7 +184,7 @@ namespace iTeffa.Houses
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
                 return;
             }
-            GameLog.Money($"player({Main.Players[player].UUID})", $"server", HotelRent * hours, $"hotelRent");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"server", HotelRent * hours, $"hotelRent");
             Main.Players[player].HotelLeft += hours;
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы продлили аренду на {hours} часов, Вас выселят через {Main.Players[player].HotelLeft} часов", 3000);
         }
@@ -253,7 +253,7 @@ namespace iTeffa.Houses
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
                         return;
                     }
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"server", HotelRent, $"hotelRent");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"server", HotelRent, $"hotelRent");
                     Main.Players[player].HotelID = player.GetData<int>("HOTEL_ID");
                     Main.Players[player].HotelLeft = 1;
 

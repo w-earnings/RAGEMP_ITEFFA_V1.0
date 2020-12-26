@@ -449,7 +449,7 @@ namespace iTeffa.Globals
             NAPI.Data.SetEntityData(money_bag, "MONEY_IN_BAG", money);
 
             player.ResetData("HAND_MONEY");
-            GameLog.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(ItemType.BagWithMoney), 1, $"{money}");
+            Loggings.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(ItemType.BagWithMoney), 1, $"{money}");
         }
 
         public static void dropDrillBag(Player player)
@@ -468,7 +468,7 @@ namespace iTeffa.Globals
             drillbag.SetSharedData("PICKEDT", false);
             player.ResetData("HEIST_DRILL");
             var item = nInventory.Find(Main.Players[player].UUID, ItemType.BagWithDrill);
-            GameLog.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(ItemType.BagWithDrill), 1, $"{item.Data}");
+            Loggings.Items($"player({Main.Players[player].UUID})", "ground", Convert.ToInt32(ItemType.BagWithDrill), 1, $"{item.Data}");
             nInventory.Remove(player, ItemType.BagWithDrill, 1);
         }
 
@@ -493,7 +493,7 @@ namespace iTeffa.Globals
 
             player.ResetData("HAND_MONEY");
             Wallet.Change(player, (int)(all_money * 0.97));
-            GameLog.Money($"server", $"player({Main.Players[player].UUID})", (int)(all_money * 0.97), $"moneyFlow");
+            Loggings.Money($"server", $"player({Main.Players[player].UUID})", (int)(all_money * 0.97), $"moneyFlow");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы отмыли {(int)(all_money * 0.97)}$. Мавроди забрал {(int)(all_money * 0.03)}$ за свои услуги", 3000);
         }
 
@@ -606,7 +606,7 @@ namespace iTeffa.Globals
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                             return;
                         }
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 20000, $"buyMavr(drill)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 20000, $"buyMavr(drill)");
                         player.SetClothes(5, 41, 0);
                         nInventory.Add(player, new nItem(ItemType.BagWithDrill));
                         player.SetData("HEIST_DRILL", true);
@@ -625,7 +625,7 @@ namespace iTeffa.Globals
                             return;
                         }
                         Wallet.Change(player, -200);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"buyMavr(lockpick)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 200, $"buyMavr(lockpick)");
                         nInventory.Add(player, new nItem(ItemType.Lockpick, 1));
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили отмычку для замков", 3000);
                         return;
@@ -642,7 +642,7 @@ namespace iTeffa.Globals
                             return;
                         }
                         Wallet.Change(player, -1200);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 1200, $"buyMavr(armylockpick)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 1200, $"buyMavr(armylockpick)");
                         nInventory.Add(player, new nItem(ItemType.ArmyLockpick, 1));
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили военную отмычку", 3000);
                         return;
@@ -659,7 +659,7 @@ namespace iTeffa.Globals
                             return;
                         }
                         Wallet.Change(player, -600);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(cuffs)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(cuffs)");
                         nInventory.Add(player, new nItem(ItemType.Cuffs, 1));
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили стяжки для рук", 3000);
                         return;
@@ -676,7 +676,7 @@ namespace iTeffa.Globals
                             return;
                         }
                         Wallet.Change(player, -600);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(pocket)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(pocket)");
                         nInventory.Add(player, new nItem(ItemType.Pocket, 1));
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили мешок на голову", 3000);
                         return;
@@ -692,7 +692,7 @@ namespace iTeffa.Globals
                             return;
                         }
                         Wallet.Change(player, -800);
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"server", 800, $"buyMavr(wanted)");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"server", 800, $"buyMavr(wanted)");
                         Main.Players[player].WantedLVL.Level--;
                         if (Main.Players[player].WantedLVL.Level == 0) Main.Players[player].WantedLVL = null;
                         Police.setPlayerWantedLevel(player, Main.Players[player].WantedLVL);

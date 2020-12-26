@@ -202,7 +202,7 @@ namespace iTeffa.Globals
             player.SetData("RENTED_CAR", player.Vehicle);
             player.SetData("IN_RENT_CAR", true);
             Finance.Wallet.Change(player, -price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"server", price, $"rentCar");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"server", price, $"rentCar");
         }
     }
 }

@@ -226,7 +226,7 @@ namespace iTeffa.Globals.Character
                     player.Name = FirstName + "_" + LastName;
                     Main.Players.Add(player, this);
                     CheckAchievements(player);
-                    GameLog.Connected(player.Name, UUID, player.GetData<string>("RealSocialClub"), player.GetData<string>("RealHWID"), player.Value, player.Address);
+                    Loggings.Connected(player.Name, UUID, player.GetData<string>("RealSocialClub"), player.GetData<string>("RealHWID"), player.Value, player.Address);
                     Spawn(player);
                 });
             }
@@ -497,7 +497,7 @@ namespace iTeffa.Globals.Character
                 await Log.DebugAsync("Nickname has been changed!", Nlogs.Type.Success);
                 toChange.Remove(oldName);
                 Finance.Donations.Rename(oldName, newName);
-                GameLog.Name(Uuid, oldName, newName);
+                Loggings.Name(Uuid, oldName, newName);
             }
             catch (Exception e)
             {

@@ -333,7 +333,7 @@ namespace iTeffa.Working
 
                 var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                 Finance.Wallet.Change(player, payment);
-                GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"lawnCheck");
+                Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"lawnCheck");
 
                 if (check + 1 != MowerWays[way].Count)
                 {

@@ -97,7 +97,7 @@ namespace iTeffa.Fractions
                             nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
                             Stocks.fracStocks[14].Materials -= Manager.matsForArmor;
                             Stocks.fracStocks[14].UpdateLabel();
-                            GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
+                            Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
                         }
                         return;
@@ -117,7 +117,7 @@ namespace iTeffa.Fractions
                         Stocks.fracStocks[14].Medkits--;
                         Stocks.fracStocks[14].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
-                        GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
+                        Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
                         return;
                     case 5:

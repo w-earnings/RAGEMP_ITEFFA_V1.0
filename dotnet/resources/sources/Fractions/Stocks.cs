@@ -352,14 +352,14 @@ namespace iTeffa.Fractions
                         {
                             data.Money += amount;
                             Finance.Wallet.Change(player, -amount);
-                            GameLog.Money($"player({Main.Players[player].UUID})", $"frac({Main.Players[player].FractionID})", amount, $"putStock");
+                            Loggings.Money($"player({Main.Players[player].UUID})", $"frac({Main.Players[player].FractionID})", amount, $"putStock");
                         }
                         else if (item == "medkits")
                         {
                             data.Medkits += amount;
                             nInventory.Remove(player, ItemType.HealthKit, amount);
                         }
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, true);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, true);
                         Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"На складе осталось {stockContains + amount}, у Вас {playerHave - amount}", 3000);
                         data.UpdateLabel();
                         break;
@@ -435,7 +435,7 @@ namespace iTeffa.Fractions
                         {
                             data.Money -= amount;
                             Finance.Wallet.Change(player, amount);
-                            GameLog.Money($"frac({Main.Players[player].FractionID})", $"player({Main.Players[player].UUID})", amount, $"takeStock");
+                            Loggings.Money($"frac({Main.Players[player].FractionID})", $"player({Main.Players[player].UUID})", amount, $"takeStock");
                         }
                         else if (item == "medkits")
                         {
@@ -448,7 +448,7 @@ namespace iTeffa.Fractions
                             data.Medkits -= amount;
                             nInventory.Add(player, new nItem(ItemType.HealthKit, amount));
                         }
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, false);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, item, amount, false);
                         Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"На складе осталось {stockContains - amount}, у Вас {playerHave + amount}", 3000);
                         data.UpdateLabel();
                         break;
@@ -502,7 +502,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Materials -= amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, false);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, false);
                         return;
                     case "unload_mats":
                         var count = VehicleInventory.GetCountOfType(vehicle, ItemType.Material);
@@ -522,7 +522,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Materials += amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили материалы из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, true);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "mats", amount, true);
                         return;
                     case "load_drugs":
                         if (Main.Players[player].FractionID != onfrac)
@@ -550,7 +550,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Drugs -= amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили наркотики в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, false);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, false);
                         return;
                     case "unload_drugs":
                         count = VehicleInventory.GetCountOfType(vehicle, ItemType.Drugs);
@@ -568,7 +568,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Drugs += amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили наркотики из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, true);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "drugs", amount, true);
                         return;
                     case "load_medkits":
                         if (Main.Players[player].FractionID != onfrac)
@@ -602,7 +602,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Medkits -= amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили аптечки в машину", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, false);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, false);
                         return;
                     case "unload_medkits":
                         if (!player.GetData<bool>("ON_DUTY"))
@@ -625,7 +625,7 @@ namespace iTeffa.Fractions
                         fracStocks[onfrac].Medkits += amount;
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выгрузили аптечки из машины", 3000);
                         fracStocks[onfrac].UpdateLabel();
-                        GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, true);
+                        Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, "medkits", amount, true);
                         return;
                 }
             }

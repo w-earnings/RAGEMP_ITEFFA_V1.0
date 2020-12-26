@@ -49,7 +49,7 @@ namespace iTeffa.Working
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно денег", 3000);
                         return;
                     }
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"server", taxiRentCost, $"taxiRent");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"server", taxiRentCost, $"taxiRent");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали такси. Чтобы предложить игроку оплатить проезд, напишите /tprice [ID] [Цена]", 3000);
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                 }
@@ -69,7 +69,7 @@ namespace iTeffa.Working
                 return;
             }
             Finance.Wallet.Change(seller, price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", taxiRentCost, $"taxiPay");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", taxiRentCost, $"taxiPay");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили проезд", 3000);
             Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок " + player.Name.Replace('_', ' ') + " оплатил проезд", 3000);
         }

@@ -72,7 +72,7 @@ namespace iTeffa.Globals
                             {
                                 entity.SetSharedData("PICKEDT", false);
                                 nInventory.Add(player, new nItem(item.Type, item.Count - tryAdd, item.Data));
-                                GameLog.Items($"ground", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), item.Count - tryAdd, $"{item.Data}");
+                                Loggings.Items($"ground", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), item.Count - tryAdd, $"{item.Data}");
                                 item.Count = tryAdd;
                                 entity.SetData("ITEM", item);
                                 Items.InProcessering.Remove(id);
@@ -81,7 +81,7 @@ namespace iTeffa.Globals
                             {
                                 NAPI.Task.Run(() => { try { NAPI.Entity.DeleteEntity(entity); } catch { } });
                                 nInventory.Add(player, item);
-                                GameLog.Items($"ground", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), item.Count, $"{item.Data}");
+                                Loggings.Items($"ground", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), item.Count, $"{item.Data}");
                             }
                             Main.OnAntiAnim(player);
                             player.PlayAnimation("random@domestic", "pickup_low", 39);
@@ -507,7 +507,7 @@ namespace iTeffa.Globals
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы передали игроку ({target.Value}) {amount}$", 3000);
             Finance.Wallet.Change(target, amount);
             Finance.Wallet.Change(player, -amount);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", amount, $"transfer");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", amount, $"transfer");
             Commands.Controller.RPChat("me", player, $"передал(а) {amount}$ " + "{name}", target);
         }
         public static void playerHealTarget(Player player, Player target)
@@ -553,7 +553,7 @@ namespace iTeffa.Globals
                                 if (!target.HasData("NEXT_DEATH_MONEY") || DateTime.Now > target.GetData<DateTime>("NEXT_DEATH_MONEY"))
                                 {
                                     Finance.Wallet.Change(player, 150);
-                                    GameLog.Money($"server", $"player({Main.Players[player].UUID})", 150, $"revieve({Main.Players[target].UUID})");
+                                    Loggings.Money($"server", $"player({Main.Players[player].UUID})", 150, $"revieve({Main.Players[target].UUID})");
                                     target.SetData("NEXT_DEATH_MONEY", DateTime.Now.AddMinutes(15));
                                 }
                             }

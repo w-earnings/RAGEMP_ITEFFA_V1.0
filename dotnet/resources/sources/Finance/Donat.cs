@@ -23,9 +23,10 @@ namespace iTeffa.Finance
         private static string CHNGSTR;
         private static string NEWNSTR;
         private static string Connection;
+
         public static void LoadDonations()
         {
-            Connection = Connect.ExportSiteDonat;
+            Connection ="SERVER=localhost;PORT=;DATABASE=;UID=;PASSWORD=;SSL Mode=;pooling =;convert zero datetime=";
             SYNCSTR = string.Format("select * from completed where srv={0}", Main.oldconfig.ServerNumber);
             CHNGSTR = "update nicknames SET name='{0}' WHERE name='{1}' and srv={2}";
             NEWNSTR = "insert into nicknames(srv, name) VALUES ({0}, '{1}')";
@@ -109,7 +110,7 @@ namespace iTeffa.Finance
                                 catch { }
                             });
                         }
-                        GameLog.Money("server", name, reds, "donateRed");
+                        Loggings.Money("server", name, reds, "donateRed");
                         command.CommandText = $"delete from completed where id={id}";
                         command.ExecuteNonQuery();
                     }
@@ -323,7 +324,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateChar");
+                            Loggings.Money(acc.Login, "server", 500, "donateChar");
                             Trigger.ClientEvent(client, "WheelsRun");
                             break;
                         }
@@ -335,7 +336,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 100;
-                            GameLog.Money(acc.Login, "server", 100, "donateChar");
+                            Loggings.Money(acc.Login, "server", 100, "donateChar");
                             Customization.SendToCreator(client);
                             break;
                         }
@@ -385,7 +386,7 @@ namespace iTeffa.Finance
                                 Main.Accounts[client].Coins -= 25;
                                 NAPI.Player.KickPlayer(target, "Смена ника");
                             }
-                            GameLog.Money(acc.Login, "server", 25, "donateName");
+                            Loggings.Money(acc.Login, "server", 25, "donateName");
                             break;
                         }
                     case Type.Convert:
@@ -407,11 +408,11 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= amount;
-                            GameLog.Money(acc.Login, "server", amount, "donateConvert");
+                            Loggings.Money(acc.Login, "server", amount, "donateConvert");
                             amount *= 100;
                             Wallet.Change(client, +amount);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно перевели RF в {amount}", 3000);
-                            GameLog.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
+                            Loggings.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
                             break;
                         }
                     case Type.BronzeVIP:
@@ -427,7 +428,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 300;
-                            GameLog.Money(acc.Login, "server", 300, "donateBVip");
+                            Loggings.Money(acc.Login, "server", 300, "donateBVip");
                             Main.Accounts[client].VipLvl = 1;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
                             Dashboard.sendStats(client);
@@ -446,7 +447,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 600;
-                            GameLog.Money(acc.Login, "server", 600, "donateSVip");
+                            Loggings.Money(acc.Login, "server", 600, "donateSVip");
                             Main.Accounts[client].VipLvl = 2;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
                             Dashboard.sendStats(client);
@@ -465,7 +466,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 800;
-                            GameLog.Money(acc.Login, "server", 800, "donateGVip");
+                            Loggings.Money(acc.Login, "server", 800, "donateGVip");
                             Main.Accounts[client].VipLvl = 3;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
                             Dashboard.sendStats(client);
@@ -484,7 +485,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 1000;
-                            GameLog.Money(acc.Login, "server", 1000, "donatePVip");
+                            Loggings.Money(acc.Login, "server", 1000, "donatePVip");
                             Main.Accounts[client].VipLvl = 4;
                             Main.Accounts[client].VipDate = DateTime.Now.AddDays(30);
                             Dashboard.sendStats(client);
@@ -503,7 +504,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 250;
-                            GameLog.Money(acc.Login, "server", 250, "donateWarn");
+                            Loggings.Money(acc.Login, "server", 250, "donateWarn");
                             Main.Players[client].Warns -= 1;
                             Dashboard.sendStats(client);
                             break;
@@ -517,7 +518,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 1000;
-                            GameLog.Money(acc.Login, "server", 1000, "donateSlot");
+                            Loggings.Money(acc.Login, "server", 1000, "donateSlot");
 
                             if (acc.VipLvl == 0)
                             {
@@ -544,7 +545,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
-                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 100000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $100 000", 3000);
                             Dashboard.sendStats(client);
@@ -558,7 +559,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
-                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 300000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $300 000", 3000);
                             Dashboard.sendStats(client);
@@ -572,7 +573,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
-                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 500000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $500 000", 3000);
                             Dashboard.sendStats(client);
@@ -586,7 +587,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
-                            GameLog.Money(acc.Login, "server", 2500, "donateMoney");
+                            Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 1000000);
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $1 000 000", 3000);
                             Dashboard.sendStats(client);
@@ -602,7 +603,7 @@ namespace iTeffa.Finance
 
 
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 10;
@@ -619,7 +620,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 15;
@@ -636,7 +637,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 20;
@@ -653,7 +654,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 25;
@@ -676,7 +677,7 @@ namespace iTeffa.Finance
                             }
 
                             Main.Accounts[client].Coins -= 500;
-                            GameLog.Money(acc.Login, "server", 500, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Main.Players[client].Licenses[1] = true;
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели легковую лицензию", 3000);
                             Dashboard.sendStats(client);
@@ -695,7 +696,7 @@ namespace iTeffa.Finance
                                 return;
                             }
                             Main.Accounts[client].Coins -= 600;
-                            GameLog.Money(acc.Login, "server", 600, "donateBox1");
+                            Loggings.Money(acc.Login, "server", 600, "donateBox1");
                             Main.Players[client].Licenses[2] = true;
                             Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели грузовую лицензию", 3000);
                             Dashboard.sendStats(client);

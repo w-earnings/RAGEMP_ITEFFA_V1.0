@@ -409,7 +409,7 @@ namespace iTeffa.Commands
                     return;
                 }
                 Connect.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
-                GameLog.Admin(client.Name, $"takecoins({amount})", name);
+                Loggings.Admin(client.Name, $"takecoins({amount})", name);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -506,7 +506,7 @@ namespace iTeffa.Commands
 
                 if (!Main.Players.ContainsKey(target)) return;
                 target.Dimension = Convert.ToUInt32(dim);
-                GameLog.Admin($"{player.Name}", $"setDim({dim})", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"setDim({dim})", $"{target.Name}");
             }
             catch (Exception e)
             {
@@ -529,7 +529,7 @@ namespace iTeffa.Commands
                 }
 
                 if (!Main.Players.ContainsKey(target)) return;
-                GameLog.Admin($"{player.Name}", $"checkDim", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"checkDim", $"{target.Name}");
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Измерение игрока - {target.Dimension}", 4000);
             }
             catch (Exception e)
@@ -550,7 +550,7 @@ namespace iTeffa.Commands
                 Business biz = BusinessManager.BizList[player.GetData<int>("BIZ_ID")];
                 biz.Mafia = mafia;
                 biz.UpdateLabel();
-                GameLog.Admin($"{player.Name}", $"setBizMafia({biz.ID},{mafia})", $"");
+                Loggings.Admin($"{player.Name}", $"setBizMafia({biz.ID},{mafia})", $"");
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"{mafia} мафия теперь владеет бизнесом №{biz.ID}", 3000);
             }
             catch (Exception e) { Log.Write("setbizmafia: " + e.Message, Nlogs.Type.Error); }
@@ -581,7 +581,7 @@ namespace iTeffa.Commands
                 Main.SimCards.Add(newnumber, Main.Players[target].UUID);
                 Main.Players[target].Sim = newnumber;
                 Dashboard.sendStats(target);
-                GameLog.Admin($"{player.Name}", $"newsim({newnumber})", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"newsim({newnumber})", $"{target.Name}");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Новый номер для {target.Name} = {newnumber}", 3000);
             }
             catch (Exception e) { Log.Write("newsimcard: " + e.Message, Nlogs.Type.Error); }
@@ -600,7 +600,7 @@ namespace iTeffa.Commands
                 }
 
                 Main.oldconfig.PaydayMultiplier = multi;
-                GameLog.Admin($"{player.Name}", $"paydayMultiplier({multi})", $"");
+                Loggings.Admin($"{player.Name}", $"paydayMultiplier({multi})", $"");
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"PaydayMultiplier изменен на {multi}", 3000);
             }
             catch (Exception e) { Log.Write("paydaymultiplier: " + e.Message, Nlogs.Type.Error); }
@@ -619,7 +619,7 @@ namespace iTeffa.Commands
                 }
 
                 Main.oldconfig.ExpMultiplier = multi;
-                GameLog.Admin($"{player.Name}", $"expMultiplier({multi})", $"");
+                Loggings.Admin($"{player.Name}", $"expMultiplier({multi})", $"");
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"ExpMultiplier изменен на {multi}", 3000);
             }
             catch (Exception e) { Log.Write("paydaymultiplier: " + e.Message, Nlogs.Type.Error); }
@@ -639,7 +639,7 @@ namespace iTeffa.Commands
                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == name);
                 if (index > -1) Fractions.Manager.AllMembers.RemoveAt(index);
 
-                GameLog.Admin($"{player.Name}", $"delfrac", $"{name}");
+                Loggings.Admin($"{player.Name}", $"delfrac", $"{name}");
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы сняли фракцию с {name}", 3000);
             }
             catch (Exception e) { Log.Write("offdelfrac: " + e.Message, Nlogs.Type.Error); }
@@ -684,7 +684,7 @@ namespace iTeffa.Commands
 
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сняли варн у игрока {target.Name}, у него {Main.Players[target].Warns} варнов", 3000);
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"У вас сняли варн, осталось {Main.Players[target].Warns} варнов", 3000);
-                GameLog.Admin($"{player.Name}", $"unwarn", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"unwarn", $"{target.Name}");
             }
             catch (Exception e) { Log.Write("unwarn: " + e.Message, Nlogs.Type.Error); }
         }
@@ -722,7 +722,7 @@ namespace iTeffa.Commands
                 }
 
                 warns--;
-                GameLog.Admin($"{player.Name}", $"offUnwarn", $"{target}");
+                Loggings.Admin($"{player.Name}", $"offUnwarn", $"{target}");
                 Connect.Query($"UPDATE characters SET warns={warns} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сняли варн у игрока {target}, у него {warns} варнов", 3000);
             }
@@ -749,7 +749,7 @@ namespace iTeffa.Commands
                 else if (vehicle.GetData<string>("ACCESS") == "GANGDELIVERY" || vehicle.GetData<string>("ACCESS") == "MAFIADELIVERY")
                     NAPI.Entity.DeleteEntity(vehicle);
 
-                GameLog.Admin($"{player.Name}", $"rescar", $"");
+                Loggings.Admin($"{player.Name}", $"rescar", $"");
             }
             catch (Exception e) { Log.Write("ResCar: " + e.Message, Nlogs.Type.Error); }
         }
@@ -789,7 +789,7 @@ namespace iTeffa.Commands
                 Fractions.GangsCapture.gangPoints[terrid].GangOwner = gangid;
                 Main.ClientEventToAll("setZoneColor", Fractions.GangsCapture.gangPoints[terrid].ID, Fractions.GangsCapture.gangPointsColor[gangid]);
                 Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Теперь территорией №{terrid} владеет {Fractions.Manager.FractionNames[gangid]}", 3000);
-                GameLog.Admin($"{player.Name}", $"setColour({terrid},{gangid})", $"");
+                Loggings.Admin($"{player.Name}", $"setColour({terrid},{gangid})", $"");
             }
             catch (Exception e) { Log.Write("CMD_SetColour: " + e.Message, Nlogs.Type.Error); }
         }
@@ -991,7 +991,7 @@ namespace iTeffa.Commands
             player.SendChatMessage("~r~drugs - наркотики");
             player.SendChatMessage("~r~medkits - мед. аптечки");
             player.SendChatMessage("~r~money - деньги");
-            GameLog.Admin($"{player.Name}", $"changeStock({item},{amount})", $"");
+            Loggings.Admin($"{player.Name}", $"changeStock({item},{amount})", $"");
         }
         [Command("tpc")]
         public static void CMD_tpCoord(Player player, double x, double y, double z)
@@ -1030,7 +1030,7 @@ namespace iTeffa.Commands
                 return;
             }
             Customization.SendToCreator(target);
-            GameLog.Admin($"{player.Name}", $"sendCreator", $"{target.Name}");
+            Loggings.Admin($"{player.Name}", $"sendCreator", $"{target.Name}");
         }
         [Command("afuel")]
         public static void CMD_setVehiclePetrol(Player player, int fuel)
@@ -1040,7 +1040,7 @@ namespace iTeffa.Commands
                 if (!Globals.Group.CanUseCmd(player, "afuel")) return;
                 if (!player.IsInVehicle) return;
                 player.Vehicle.SetSharedData("PETROL", fuel);
-                GameLog.Admin($"{player.Name}", $"afuel({fuel})", $"");
+                Loggings.Admin($"{player.Name}", $"afuel({fuel})", $"");
             }
             catch (Exception e) { Log.Write("afuel: " + e.Message, Nlogs.Type.Error); }
         }
@@ -1084,7 +1084,7 @@ namespace iTeffa.Commands
                 }
 
                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Ник изменен!", 3000);
-                GameLog.Admin($"{client.Name}", $"changeName({newName})", $"{curient}");
+                Loggings.Admin($"{client.Name}", $"changeName({newName})", $"{curient}");
 
             }
             catch (Exception e)
@@ -1105,7 +1105,7 @@ namespace iTeffa.Commands
                 }
                 Fractions.MatsWar.startMatWarTimer();
                 player.SendChatMessage("~r~Начата война за маты");
-                GameLog.Admin($"{player.Name}", $"startMatwars", $"");
+                Loggings.Admin($"{player.Name}", $"startMatwars", $"");
             }
             catch (Exception e) { Log.Write("startmatwars: " + e.Message, Nlogs.Type.Error); }
         }
@@ -1123,7 +1123,7 @@ namespace iTeffa.Commands
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данный social club не найден в white list!", 3000);
                 }
-                GameLog.Admin($"{player.Name}", $"whitelistdel", $"");
+                Loggings.Admin($"{player.Name}", $"whitelistdel", $"");
             }
             catch (Exception e) { Log.Write("whitelistdel: " + e.Message, Nlogs.Type.Error); }
         }
@@ -1160,7 +1160,7 @@ namespace iTeffa.Commands
                 {
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данный social club не найден!", 3000);
                 }
-                GameLog.Admin($"{player.Name}", $"whitelistadd", $"");
+                Loggings.Admin($"{player.Name}", $"whitelistadd", $"");
             }
             catch (Exception e) { Log.Write("whitelistadd: " + e.Message, Nlogs.Type.Error); }
         }
@@ -1199,7 +1199,7 @@ namespace iTeffa.Commands
                     }
                 }
                 Dashboard.sendStats(target);
-                GameLog.Admin($"{player.Name}", $"giveExp({exp})", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"giveExp({exp})", $"{target.Name}");
             }
             catch (Exception e) { Log.Write("giveexp" + e.Message, Nlogs.Type.Error); }
         }
@@ -1231,7 +1231,7 @@ namespace iTeffa.Commands
             house.SetOwner(null);
             house.UpdateLabel();
             house.Save();
-            GameLog.Admin($"{player.Name}", $"delHouseOwner({house.ID})", $"");
+            Loggings.Admin($"{player.Name}", $"delHouseOwner({house.ID})", $"");
         }
         [Command("stt")]
         public static void CMD_SetTurboTorque(Player player, float power, float torque)
@@ -1328,7 +1328,7 @@ namespace iTeffa.Commands
         public static void payDay(Player player, string text = null)
         {
             if (!Globals.Group.CanUseCmd(player, "payday")) return;
-            GameLog.Admin($"{player.Name}", $"payDay", "");
+            Loggings.Admin($"{player.Name}", $"payDay", "");
             Main.payDayTrigger();
         }
         [Command("giveitem")]
@@ -1620,7 +1620,7 @@ namespace iTeffa.Commands
                 // CLEAR ITEMS
                 if (tuuid != 0) Connect.Query($"UPDATE `inventory` SET `items`='[]' WHERE `uuid`={tuuid}");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы забрали у игрока все вещи, деньги с рук и банковского счёта у {target}", 3000);
-                GameLog.Admin($"{player.Name}", $"aClear", $"{target}");
+                Loggings.Admin($"{player.Name}", $"aClear", $"{target}");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT aclear\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -1820,7 +1820,7 @@ namespace iTeffa.Commands
                 }
                 NAPI.Entity.SetEntityPosition(target.Vehicle, target.Vehicle.Position + new Vector3(0, 0, 2.5f));
                 NAPI.Entity.SetEntityRotation(target.Vehicle, new Vector3(0, 0, target.Vehicle.Rotation.Z));
-                GameLog.Admin($"{player.Name}", $"flipVeh", $"{target.Name}");
+                Loggings.Admin($"{player.Name}", $"flipVeh", $"{target.Name}");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -1890,7 +1890,7 @@ namespace iTeffa.Commands
                 var split = target.Split('_');
                 Connect.QueryRead($"UPDATE `characters` SET `demorgan`={firstTime},`arrest`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 NAPI.Chat.SendChatMessageToAll($"~r~{player.Name} посадил игрока {target} в спец. тюрьму на {time}{deTimeMsg} ({reason})");
-                GameLog.Admin($"{player.Name}", $"demorgan({time}{deTimeMsg},{reason})", $"{target}");
+                Loggings.Admin($"{player.Name}", $"demorgan({time}{deTimeMsg},{reason})", $"{target}");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -1940,7 +1940,7 @@ namespace iTeffa.Commands
                     Connect.Query($"UPDATE `characters` SET `unwarn`='{Connect.ConvertTime(DateTime.Now.AddDays(14))}',`warns`={warns},`fraction`=0,`fractionlvl`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
 
                 NAPI.Chat.SendChatMessageToAll($"~r~{player.Name} выдал предупреждение игроку {target} ({warns}/3 | {reason})");
-                GameLog.Admin($"{player.Name}", $"warn({time},{reason})", $"{target}");
+                Loggings.Admin($"{player.Name}", $"warn({time},{reason})", $"{target}");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }

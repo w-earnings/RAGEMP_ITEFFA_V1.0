@@ -144,7 +144,7 @@ namespace iTeffa.Globals
 
             Finance.Wallet.Change(player, -prod.Price);
 
-            GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", prod.Price, $"buyCar({vName})");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", prod.Price, $"buyCar({vName})");
 
             vNumber = VehicleManager.Create(player.Name, vName, carColors[color], carColors[color], new Color(0, 0, 0));
 

@@ -208,7 +208,7 @@ namespace iTeffa.Interface
 
                                             VehicleInventory.Add(veh, new nItem(item.Type, 1, item.Data));
                                             nInventory.Remove(player, item);
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"vehicle({veh.NumberPlate})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             return;
                                         }
                                     case 3:
@@ -236,7 +236,7 @@ namespace iTeffa.Interface
                                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                                 return;
                                             }
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"itemSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"itemSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             nInventory.Remove(player, item.Type, 1);
                                             sendItems(player);
                                             Houses.FurnitureManager.Add(houseID, furnID, new nItem(item.Type));
@@ -259,7 +259,7 @@ namespace iTeffa.Interface
                                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                                 return;
                                             }
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"clothSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"clothSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             nInventory.Items[acc.UUID].Remove(item);
                                             sendItems(player);
                                             Houses.FurnitureManager.Add(houseID, furnID, new nItem(item.Type, 1, item.Data));
@@ -330,7 +330,7 @@ namespace iTeffa.Interface
 
                                             nInventory.Add(target, item);
                                             nInventory.Remove(player, item);
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             return;
                                         }
                                     case 6:
@@ -356,10 +356,10 @@ namespace iTeffa.Interface
                                             }
 
                                             string serial = (nInventory.WeaponsItems.Contains(item.Type)) ? $"({(string)item.Data})" : "";
-                                            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}{serial}", 1, false);
+                                            Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}{serial}", 1, false);
                                             Fractions.Stocks.Add(onFraction, item);
                                             nInventory.Remove(player, item);
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"fracstock({onFraction})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             return;
                                         }
                                     case 7:
@@ -416,7 +416,7 @@ namespace iTeffa.Interface
                                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                                 return;
                                             }
-                                            GameLog.Items($"player({Main.Players[player].UUID})", $"weapSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                                            Loggings.Items($"player({Main.Players[player].UUID})", $"weapSafe({furnID} | house: {houseID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                                             nInventory.Items[acc.UUID].Remove(item);
                                             sendItems(player);
                                             Houses.FurnitureManager.Add(houseID, furnID, new nItem(item.Type, 1, item.Data));
@@ -497,7 +497,7 @@ namespace iTeffa.Interface
 
                             VehicleInventory.Remove(veh, item);
                             nInventory.Add(player, new nItem(item.Type, 1, item.Data));
-                            GameLog.Items($"vehicle({veh.NumberPlate})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                            Loggings.Items($"vehicle({veh.NumberPlate})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                             break;
                         }
                     case 3: // Взять
@@ -523,7 +523,7 @@ namespace iTeffa.Interface
                                 Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromsafe");
                                 return;
                             }
-                            GameLog.Items($"itemSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                            Loggings.Items($"itemSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                             items.RemoveAt(index);
                             Houses.FurnitureManager.FurnituresItems[houseID][furnID] = items;
                             nInventory.Add(player, new nItem(item.Type, 1, item.Data));
@@ -557,7 +557,7 @@ namespace iTeffa.Interface
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
-                            GameLog.Items($"clothSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                            Loggings.Items($"clothSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                             nInventory.Items[Main.Players[player].UUID].Add(item);
                             sendItems(player);
 
@@ -597,8 +597,8 @@ namespace iTeffa.Interface
                             nInventory.Add(player, item);
                             Fractions.Stocks.Remove(onFrac, item);
                             string serial = (nInventory.WeaponsItems.Contains(item.Type)) ? $"({(string)item.Data})" : "";
-                            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}{serial}", 1, true);
-                            GameLog.Items($"fracstock({onFrac})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                            Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{nInventory.ItemsNames[(int)item.Type]}{serial}", 1, true);
+                            Loggings.Items($"fracstock({onFrac})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                             break;
                         }
                     case 7:
@@ -653,7 +653,7 @@ namespace iTeffa.Interface
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
-                            GameLog.Items($"weapSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
+                            Loggings.Items($"weapSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                             nInventory.Items[Main.Players[player].UUID].Add(item);
                             sendItems(player);
 
@@ -713,7 +713,7 @@ namespace iTeffa.Interface
                                 nInventory.Add(player, item);
                                 nInventory.Remove(target, item);
                                 Close(player);
-                                GameLog.Admin(player.Name, $"takeItem({item.Type} | {item.Data})", target.Name);
+                                Loggings.Admin(player.Name, $"takeItem({item.Type} | {item.Data})", target.Name);
                                 return;
                             }
                             break;

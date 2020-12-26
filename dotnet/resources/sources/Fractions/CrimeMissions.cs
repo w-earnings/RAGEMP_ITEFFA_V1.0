@@ -218,7 +218,7 @@ namespace iTeffa.Fractions
                         NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                         e.Vehicle.Delete();
                         Finance.Wallet.Change(e, 250);
-                        GameLog.Money($"server", $"player({Main.Players[e].UUID})", 250, $"arrestCar");
+                        Loggings.Money($"server", $"player({Main.Players[e].UUID})", 250, $"arrestCar");
                         Notify.Send(e, NotifyType.Success, NotifyPosition.TopCenter, "Вы арестовали машину", 3000);
                     }
                     catch (Exception ex) { Log.Write("OnEntityEnterDropDelivery: " + ex.Message); }
@@ -248,7 +248,7 @@ namespace iTeffa.Fractions
                             NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                             e.Vehicle.Delete();
                             Stocks.fracStocks[Main.Players[e].FractionID].Money += 500;
-                            GameLog.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
+                            Loggings.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
                             e.SendChatMessage("Сдача машины: !{#00FF00}500$ ~w~были отправлены в общак банды. (" + $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}" + ")");
                         }
                         catch (Exception ex) { Log.Write("GangDropDelivery: " + ex.Message); }
@@ -281,7 +281,7 @@ namespace iTeffa.Fractions
                             NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                             e.Vehicle.Delete();
                             Stocks.fracStocks[Main.Players[e].FractionID].Money += 500;
-                            GameLog.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
+                            Loggings.Money($"server", $"frac({Main.Players[e].FractionID})", 500, "dropCar");
                             e.SendChatMessage("Сдача фургона: !{#00FF00}500$ ~w~были отправлены в общак мафии. (" + $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()})");
                         }
                         catch (Exception ex) { Log.Write("MafiaDropDelivery: " + ex.Message); }

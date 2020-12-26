@@ -358,7 +358,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                GameLog.EventLogAdd(AdminEvent.Admin.Name, AdminEvent.Name, AdminEvent.MembersLimit, Connect.ConvertTime(AdminEvent.Started));
+                Loggings.EventLogAdd(AdminEvent.Admin.Name, AdminEvent.Name, AdminEvent.MembersLimit, Connect.ConvertTime(AdminEvent.Started));
             }
             catch (Exception e)
             {
@@ -370,7 +370,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                GameLog.EventLogUpdate(AdminEvent.Admin.Name,AdminEvent.EventMembers.Count,AdminEvent.Winner.Name,AdminEvent.Reward,Connect.ConvertTime(DateTime.Now),AdminEvent.RewardLimit, AdminEvent.MembersLimit, AdminEvent.Name);
+                Loggings.EventLogUpdate(AdminEvent.Admin.Name,AdminEvent.EventMembers.Count,AdminEvent.Winner.Name,AdminEvent.Reward,Connect.ConvertTime(DateTime.Now),AdminEvent.RewardLimit, AdminEvent.MembersLimit, AdminEvent.Name);
             }
             catch (Exception e)
             {

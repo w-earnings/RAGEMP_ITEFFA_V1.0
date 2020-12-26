@@ -78,7 +78,7 @@ namespace iTeffa.Working
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали рабочий транспорт. Ожидайте заказ", 3000);
             Finance.Wallet.Change(player, -mechanicRentCost);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"server", mechanicRentCost, $"mechanicRent");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"server", mechanicRentCost, $"mechanicRent");
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
             Globals.VehicleStreaming.SetEngineState(vehicle, false);
@@ -106,7 +106,7 @@ namespace iTeffa.Working
             var driver = NAPI.Data.GetEntityData(player, "MECHANIC");
             Finance.Wallet.Change(player, -price);
             Finance.Wallet.Change(driver, price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price, $"mechanicRepair");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price, $"mechanicRepair");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт Вашего транспортного средства", 3000);
             Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил ремонт", 3000);
             Commands.Controller.RPChat("me", driver, $"починил автомобиль");
@@ -440,7 +440,7 @@ namespace iTeffa.Working
                 return;
             }
             Finance.Wallet.Change(player, -biz.Products[0].Price * fuel);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price * fuel, $"mechanicBuyFuel");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price * fuel, $"mechanicBuyFuel");
             player.Vehicle.SetSharedData("FUELTANK", player.Vehicle.GetSharedData<int>("FUELTANK") + fuel);
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы пополнили бак в вашей рабочей машине до {player.Vehicle.GetSharedData<int>("FUELTANK")}л", 3000);
         }
@@ -523,7 +523,7 @@ namespace iTeffa.Working
 
             Finance.Wallet.Change(player, -price * fuel);
             Finance.Wallet.Change(driver, price * fuel);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price * fuel, $"mechanicFuel");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price * fuel, $"mechanicFuel");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт заправку транспортного средства", 3000);
             Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил заправку транспорта", 3000);
             Commands.Controller.RPChat("me", driver, $"заправил транспортное средство");

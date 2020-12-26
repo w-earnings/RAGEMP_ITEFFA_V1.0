@@ -800,7 +800,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "WORKCHECK", check);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                     Finance.Wallet.Change(player, payment);
-                    GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
+                    Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
                 }
                 else
                 {
@@ -829,7 +829,7 @@ namespace iTeffa.Working
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Можете ехать дальше", 3000);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                     Finance.Wallet.Change(player, payment);
-                    GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
+                    Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
                     if (check + 1 != BusWays[way].Count) check++;
                     else check = 0;
 
@@ -969,7 +969,7 @@ namespace iTeffa.Working
                             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы заплатили за проезд {price}$", 3000);
                             Finance.Wallet.Change(player, -price);
                             Fractions.Stocks.fracStocks[6].Money += price;
-                            GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"busPay");
+                            Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"busPay");
                         }
                         else
                         {
@@ -1029,7 +1029,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
                 NAPI.Data.SetEntityData(player, "ON_WORK", true);
                 Finance.Wallet.Change(player, -BusRentCost);
-                GameLog.Money($"player({Main.Players[player].UUID})", $"server", BusRentCost, $"busRent");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"server", BusRentCost, $"busRent");
                 Globals.VehicleStreaming.SetEngineState(vehicle, true);
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
                 NAPI.Data.SetEntityData(vehicle, "ON_WORK", true);

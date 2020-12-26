@@ -251,7 +251,7 @@ namespace iTeffa.Fractions
             {
                 question = Main.BlockSymbols(question);
 
-                GameLog.Money($"bank({Main.Players[player].Bank})", $"server", price, "ad");
+                Loggings.Money($"bank({Main.Players[player].Bank})", $"server", price, "ad");
                 player.SetData("NEXT_AD", DateTime.Now.AddMinutes(45));
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы подали объявление. Ожидайте модерации", 3000);
 
@@ -330,7 +330,7 @@ namespace iTeffa.Fractions
                 }
                 else
                 {
-                    if (Main.Players[player].AdminLVL != 0) GameLog.Admin($"{player.Name}", $"delAd", $"{Adverts[repID].Author}");
+                    if (Main.Players[player].AdminLVL != 0) Loggings.Admin($"{player.Name}", $"delAd", $"{Adverts[repID].Author}");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы удалили объявление игрока {Adverts[repID].Author}", 3000);
                     Player target = NAPI.Player.GetPlayerFromName(Adverts[repID].Author);
                     if (target != null) Notify.Send(target, NotifyType.Error, NotifyPosition.TopCenter, $"{player.Name} удалил Ваше объявление по причине: {response}.", 3000);

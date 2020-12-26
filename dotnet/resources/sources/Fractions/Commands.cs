@@ -504,7 +504,7 @@ namespace iTeffa.Fractions
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"{target.Name} оплатил штраф в размере {sum}$ за {reason}", 3000);
                 Commands.Controller.RPChat("me", player, " выписал штраф для {name}", target);
                 Manager.sendFractionMessage(7, $"{player.Name} оштрафовал {target.Name} на {sum}$ ({reason})", true);
-                GameLog.Ticket(Main.Players[player].UUID, Main.Players[target].UUID, sum, reason, player.Name, target.Name);
+                Loggings.Ticket(Main.Players[player].UUID, Main.Players[target].UUID, sum, reason, player.Name, target.Name);
             }
             else
             {
@@ -562,7 +562,7 @@ namespace iTeffa.Fractions
             Manager.sendFractionMessage(7, $"{player.Name} посадил в КПЗ {target.Name} ({Main.Players[target].WantedLVL.Reason})", true);
             Manager.sendFractionMessage(9, $"{player.Name} посадил в КПЗ {target.Name} ({Main.Players[target].WantedLVL.Reason})", true);
             Main.Players[target].ArrestTime = Main.Players[target].WantedLVL.Level * 20 * 60;
-            GameLog.Arrest(Main.Players[player].UUID, Main.Players[target].UUID, Main.Players[target].WantedLVL.Reason, Main.Players[target].WantedLVL.Level, player.Name, target.Name);
+            Loggings.Arrest(Main.Players[player].UUID, Main.Players[target].UUID, Main.Players[target].WantedLVL.Reason, Main.Players[target].WantedLVL.Level, player.Name, target.Name);
             arrestPlayer(target);
         }
 
@@ -992,8 +992,8 @@ namespace iTeffa.Fractions
 
             Finance.Wallet.Change(seller, price / 20);
             Stocks.fracStocks[6].Money += Convert.ToInt32(price * 0.95);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"buyGunlic({Main.Players[seller].UUID})");
-            GameLog.Money($"frac(6)", $"player({Main.Players[seller].UUID})", price / 20, $"sellGunlic({Main.Players[player].UUID})");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"buyGunlic({Main.Players[seller].UUID})");
+            Loggings.Money($"frac(6)", $"player({Main.Players[seller].UUID})", price / 20, $"sellGunlic({Main.Players[player].UUID})");
 
             Main.Players[player].Licenses[6] = true;
             Dashboard.sendStats(player);
@@ -1054,7 +1054,7 @@ namespace iTeffa.Fractions
             var found = Main.rnd.Next(min, max + 1);
             Finance.Wallet.Change(target, -found);
             Finance.Wallet.Change(player, found);
-            GameLog.Money($"player({Main.Players[target].UUID})", $"player({Main.Players[player].UUID})", found, $"robbery");
+            Loggings.Money($"player({Main.Players[target].UUID})", $"player({Main.Players[player].UUID})", found, $"robbery");
             target.SetData("NEXT_ROB", DateTime.Now.AddMinutes(60));
 
             Commands.Controller.RPChat("me", player, "хорошенько обшарив {name}" + $", нашёл ${found}", target);

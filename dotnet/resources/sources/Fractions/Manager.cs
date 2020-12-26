@@ -1287,7 +1287,7 @@ namespace iTeffa.Fractions
             if (Main.Players[player].FractionID == 18) minutes = 10;
             player.SetData($"GET_{gun}", DateTime.Now.AddMinutes(minutes));
 
-            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{gun}({serial})", 1, false);
+            Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{gun}({serial})", 1, false);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {wType}", 3000);
             return;
         }
@@ -1313,7 +1313,7 @@ namespace iTeffa.Fractions
             Stocks.fracStocks[Main.Players[player].FractionID].UpdateLabel();
 
             nInventory.Add(player, new nItem(ammoType, ammo));
-            GameLog.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, ammoType.ToString(), 1, false);
+            Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, ammoType.ToString(), 1, false);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {nInventory.ItemsNames[(int)ammoType]} x{ammo}", 3000);
             return;
         }

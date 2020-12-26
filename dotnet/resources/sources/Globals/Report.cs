@@ -203,7 +203,7 @@ namespace iTeffa.Globals
                                 p.SendChatMessage($"~y~[ANSWER] {player.Name}({player.Value})->{target.Name}({target.Value}): {response}");
                             }
                         }
-                        GameLog.Admin(player.Name, $"answer({response})", target.Name);
+                        Loggings.Admin(player.Name, $"answer({response})", target.Name);
                     }
                 }
                 catch (Exception ex)

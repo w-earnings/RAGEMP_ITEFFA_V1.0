@@ -478,7 +478,7 @@ namespace iTeffa.Fractions
                         player.ResetData("HEIST_DRILL");
                     }
                     Finance.Wallet.Change(player, 200);
-                    GameLog.Money($"server", $"player({Main.Players[player].UUID})", 200, $"sheriffAward");
+                    Loggings.Money($"server", $"player({Main.Players[player].UUID})", 200, $"sheriffAward");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили вознаграждение в 200$", 3000);
                     return;
                 case 440:
@@ -672,7 +672,7 @@ namespace iTeffa.Fractions
                         Stocks.fracStocks[18].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
-                        GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
+                        Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                         return;
                     case 6:
                         if (!Manager.canGetWeapon(client, "Medkits")) return;
@@ -690,7 +690,7 @@ namespace iTeffa.Fractions
                         Stocks.fracStocks[18].Medkits--;
                         Stocks.fracStocks[18].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
-                        GameLog.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
+                        Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
                         Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
                         return;
                     case 7:

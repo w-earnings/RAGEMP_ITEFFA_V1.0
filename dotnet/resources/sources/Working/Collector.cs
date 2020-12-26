@@ -255,7 +255,7 @@ namespace iTeffa.Working
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы начали работу инкассатором. Развезите деньги по банкоматам.", 3000);
             Finance.Wallet.Change(player, -100);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"server", 100, $"collectorRent");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"server", 100, $"collectorRent");
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
             player.SetData("ON_WORK", true);
@@ -341,7 +341,7 @@ namespace iTeffa.Working
                 player.SetData("W_LASTPOS", player.Position);
                 player.SetData("W_LASTTIME", DateTime.Now);
                 Finance.Wallet.Change(player, payment);
-                GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"collectorCheck");
+                Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"collectorCheck");
 
                 if (player.HasData("WORKOBJECT"))
                 {

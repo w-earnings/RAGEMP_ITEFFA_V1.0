@@ -99,7 +99,7 @@ namespace iTeffa.Finance
                 return false;
             }
             Change(lastAccID, amount);
-            GameLog.Money($"bank({firstAccID})", $"bank({lastAccID})", amount, "bankTransfer");
+            Loggings.Money($"bank({firstAccID})", $"bank({lastAccID})", amount, "bankTransfer");
             return true;
         }
         #endregion Transfer money from 1-Acc to 2-Acc

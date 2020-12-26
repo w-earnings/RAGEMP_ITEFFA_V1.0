@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using GTANetworkAPI;
+using MySqlConnector;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -8,13 +9,21 @@ namespace iTeffa.Settings
 {
     public static class Connect
     {
+        private static readonly Config config = new Config("MySQL");
         private static readonly Nlogs Log = new Nlogs("MySQL");
-        private static readonly string Connection = "SERVER=localhost;PORT=3306;DATABASE=iteffa;UID=root;PASSWORD=8Bvx4Tt7G2;SSL Mode=None;pooling = false;convert zero datetime=True";
-        public const string ExportSiteDonat = "SERVER=localhost;PORT=;DATABASE=;UID=;PASSWORD=;SSL Mode=;pooling =;convert zero datetime=";
+        private static string Connection = null;
         public static bool Debug = false;
+
         public static void Init()
         {
             if (Connection is string) return;
+            Connection =
+                $"Host={config.TryGet<string>("Server", "localhost")};" +
+                $"Port={config.TryGet<string>("Port", 3306)};" +
+                $"User={config.TryGet<string>("User", "root")};" +
+                $"Password={config.TryGet<string>("Password", "8Bvx4Tt7G2")};" +
+                $"Database={config.TryGet<string>("DataBase", "iteffa")};" +
+                $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }
 
         public static void Query(MySqlCommand command)

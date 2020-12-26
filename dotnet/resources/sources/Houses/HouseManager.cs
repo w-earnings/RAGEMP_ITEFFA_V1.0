@@ -383,7 +383,7 @@ namespace iTeffa.Houses
             Finance.Bank.Accounts[house.BankID].Balance = Convert.ToInt32(house.Price / 100 * 0.02) * 2;
 
             Finance.Wallet.Change(player, -house.Price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"server", house.Price, $"houseBuy({house.ID})");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"server", house.Price, $"houseBuy({house.ID})");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
             return;
         }
@@ -549,7 +549,7 @@ namespace iTeffa.Houses
                     break;
             }
             Finance.Wallet.Change(player, price);
-            GameLog.Money($"server", $"player({Main.Players[player].UUID})", Convert.ToInt32(house.Price * 0.6), $"houseSell({house.ID})");
+            Loggings.Money($"server", $"player({Main.Players[player].UUID})", Convert.ToInt32(house.Price * 0.6), $"houseSell({house.ID})");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали свой дом государству за {price}$", 3000);
         }
         public static void OpenCarsSellMenu(Player player)
@@ -602,7 +602,7 @@ namespace iTeffa.Houses
             var vData = VehicleManager.Vehicles[item.ID];
             var price = (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model)) ? Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5) : 0;
             Finance.Wallet.Change(player, price);
-            GameLog.Money($"server", $"player({Main.Players[player].UUID})", price, $"carSell({vData.Model})");
+            Loggings.Money($"server", $"player({Main.Players[player].UUID})", price, $"carSell({vData.Model})");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {vData.Model} ({item.ID}) за {price}$", 3000);
             VehicleManager.Remove(item.ID);
             MenuManager.Close(player);
@@ -818,7 +818,7 @@ namespace iTeffa.Houses
                 }
                 Finance.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Оружейный сейф");
-                GameLog.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Оружейный сейф)");
+                Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Оружейный сейф)");
             }
             else if (item.ID == "buy2")
             {
@@ -829,7 +829,7 @@ namespace iTeffa.Houses
                 }
                 Finance.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Шкаф с одеждой");
-                GameLog.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с одеждой)");
+                Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с одеждой)");
             }
             else if (item.ID == "buy3")
             {
@@ -840,7 +840,7 @@ namespace iTeffa.Houses
                 }
                 Finance.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Шкаф с предметами");
-                GameLog.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с предметами)");
+                Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с предметами)");
             }
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Поздравляем с успешной покупкой мебели!", 3000);
             MenuManager.Close(player);
@@ -892,7 +892,7 @@ namespace iTeffa.Houses
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Уберите мебель перед продажей.", 3000);
                     return;
                 }
-                GameLog.Money($"player({Main.Players[player].UUID})", "server", 7500, $"sellFurn({house.ID} | {f.Name})");
+                Loggings.Money($"player({Main.Players[player].UUID})", "server", 7500, $"sellFurn({house.ID} | {f.Name})");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно продали {f.Name} за 7500$", 3000);
                 house.DestroyFurniture(f.ID);
                 FurnitureManager.HouseFurnitures[house.ID].Remove(id);
@@ -1192,7 +1192,7 @@ namespace iTeffa.Houses
                         return;
                     }
                     vData.Items = new List<nItem>();
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"server", VehicleManager.VehicleRepairPrice[vClass], $"carRepair({vData.Model})");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"server", VehicleManager.VehicleRepairPrice[vClass], $"carRepair({vData.Model})");
                     vData.Health = 1000;
                     var garage = GarageManager.Garages[GetHouse(player).GarageID];
                     garage.SendVehicleIntoGarage(menu.Items[0].Text);
@@ -1222,7 +1222,7 @@ namespace iTeffa.Houses
                     garage.SendVehicleIntoGarage(number);
 
                     Finance.Wallet.Change(player, -200);
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ваша машина была отогнана в гараж", 3000);
                     return;
                 case "spawnmycar":
@@ -1467,7 +1467,7 @@ namespace iTeffa.Houses
             }
             CheckAndKick(player);
             Finance.Wallet.Change(seller, price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"houseSell({house.ID})");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"houseSell({house.ID})");
             seller.TriggerEvent("deleteCheckpoint", 333);
             seller.TriggerEvent("deleteGarageBlip");
             house.SetOwner(player);

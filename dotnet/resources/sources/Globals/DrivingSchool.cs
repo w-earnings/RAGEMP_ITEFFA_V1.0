@@ -160,7 +160,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[0]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -182,7 +182,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[1]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -204,7 +204,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[2]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -217,7 +217,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[3] = true;
                     Finance.Wallet.Change(player, -LicPrices[3]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[3];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
@@ -231,7 +231,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[4] = true;
                     Finance.Wallet.Change(player, -LicPrices[4]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[4];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
@@ -244,7 +244,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[5] = true;
                     Finance.Wallet.Change(player, -LicPrices[5]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[5];
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
                     Dashboard.sendStats(player);
                     return;

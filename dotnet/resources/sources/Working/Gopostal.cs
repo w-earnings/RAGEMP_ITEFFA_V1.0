@@ -109,7 +109,7 @@ namespace iTeffa.Working
                         }
 
                         Finance.Wallet.Change(player, payment);
-                        GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
+                        Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
                         BasicSync.DetachObject(player);
 
@@ -142,7 +142,7 @@ namespace iTeffa.Working
                         }
 
                         Finance.Wallet.Change(player, payment);
-                        GameLog.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
+                        Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
                         Trigger.ClientEvent(player, "deleteWorkBlip");
                         Trigger.ClientEvent(player, "createWaypoint", 105.4633f, -1568.843f);

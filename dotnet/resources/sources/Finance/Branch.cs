@@ -117,7 +117,7 @@ namespace iTeffa.Finance
                         if (Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, +Math.Abs(amount));
-                            GameLog.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"branchIn");
+                            Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"branchIn");
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
@@ -125,7 +125,7 @@ namespace iTeffa.Finance
                         if (Bank.Change(acc.Bank, -Math.Abs(amount)))
                         {
                             Wallet.Change(player, +Math.Abs(amount));
-                            GameLog.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"branchOut");
+                            Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"branchOut");
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
@@ -145,7 +145,7 @@ namespace iTeffa.Finance
                             return;
                         }
                         Bank.Change(house.BankID, +Math.Abs(amount));
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"branchHouse");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"branchHouse");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         Trigger.ClientEvent(player,
                                 "branchOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
@@ -167,7 +167,7 @@ namespace iTeffa.Finance
                             return;
                         }
                         Bank.Change(biz.BankID, +Math.Abs(amount));
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"branchBiz");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"branchBiz");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         Trigger.ClientEvent(player, "branchOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
                         break;
@@ -333,7 +333,7 @@ namespace iTeffa.Finance
                         if (Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, amount);
-                            GameLog.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"branchIn");
+                            Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"branchIn");
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
@@ -341,7 +341,7 @@ namespace iTeffa.Finance
                         if (Bank.Change(acc.Bank, -Math.Abs(amount)))
                         {
                             Wallet.Change(player, amount);
-                            GameLog.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"branchOut");
+                            Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"branchOut");
                             Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
@@ -361,7 +361,7 @@ namespace iTeffa.Finance
                             return;
                         }
                         Bank.Change(house.BankID, Math.Abs(amount));
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"branchHouse");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"branchHouse");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
                     case 3:
@@ -393,7 +393,7 @@ namespace iTeffa.Finance
                             return;
                         }
                         Bank.Change(biz.BankID, Math.Abs(amount));
-                        GameLog.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"branchBiz");
+                        Loggings.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"branchBiz");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Успешный перевод.", 3000);
                         break;
                     case 4:

@@ -254,7 +254,7 @@ namespace iTeffa.Fractions
                                             VotedFor = Name
                                         });
 
-                                        GameLog.Votes(ElectionList[l].Election, Main.Accounts[player].Login, Name);
+                                        Loggings.Votes(ElectionList[l].Election, Main.Accounts[player].Login, Name);
                                         player.SendChatMessage($"Вы сделали свой голос на выборах № {ElectionList[l].Election} в пользу {Name}");
 
                                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter,

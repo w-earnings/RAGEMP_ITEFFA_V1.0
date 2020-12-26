@@ -257,9 +257,9 @@ namespace iTeffa.Commands
                 Finance.Bank.Accounts[biz.BankID].Balance = 0;
                 biz.Owner = "Государство";
                 biz.UpdateLabel();
-                Globals.GameLog.Money($"server", $"player({Main.PlayerUUIDs[owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"takeoffBiz({biz.ID})");
+                Globals.Loggings.Money($"server", $"player({Main.PlayerUUIDs[owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"takeoffBiz({biz.ID})");
                 Notify.Send(admin, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отобрали бизнес у {owner}", 3000);
-                if (!byaclear) Globals.GameLog.Admin($"{player.Name}", $"takeoffBiz({biz.ID})", $"");
+                if (!byaclear) Globals.Loggings.Admin($"{player.Name}", $"takeoffBiz({biz.ID})", $"");
             }
             catch (Exception e) { Log.Write("takeoffbiz: " + e.Message, Nlogs.Type.Error); }
         }
@@ -746,7 +746,7 @@ namespace iTeffa.Commands
                 veh.SetData("BY", player.Name);
                 Globals.VehicleStreaming.SetEngineState(veh, true);
                 Log.Debug($"vehc {name} {r} {g} {b}");
-                Globals.GameLog.Admin($"{player.Name}", $"vehCreate({name})", $"");
+                Globals.Loggings.Admin($"{player.Name}", $"vehCreate({name})", $"");
             }
             catch { }
         }
@@ -814,7 +814,7 @@ namespace iTeffa.Commands
                     veh.SetData("BY", player.Name);
                     Globals.VehicleStreaming.SetEngineState(veh, true);
                 }
-                Globals.GameLog.Admin($"{player.Name}", $"vehsCreate({name})", $"");
+                Globals.Loggings.Admin($"{player.Name}", $"vehsCreate({name})", $"");
             }
             catch { }
         }
@@ -839,7 +839,7 @@ namespace iTeffa.Commands
                     Globals.VehicleStreaming.SetEngineState(veh, true);
                     Log.Debug($"vehc {name} {r} {g} {b}");
                 }
-                Globals.GameLog.Admin($"{player.Name}", $"vehsCreate({name})", $"");
+                Globals.Loggings.Admin($"{player.Name}", $"vehsCreate({name})", $"");
             }
             catch { }
         }
@@ -877,7 +877,7 @@ namespace iTeffa.Commands
                             if (v.HasData("ACCESS") && v.GetData<string>("ACCESS") == "ADMIN")
                                 v.Delete();
                         }
-                        Globals.GameLog.Admin($"{player.Name}", $"delacars", $"");
+                        Globals.Loggings.Admin($"{player.Name}", $"delacars", $"");
                     }
                     catch { }
                 });
@@ -892,7 +892,7 @@ namespace iTeffa.Commands
             Vehicle veh = client.Vehicle;
             if (veh.HasData("ACCESS") && veh.GetData<string>("ACCESS") == "ADMIN")
                 veh.Delete();
-            Globals.GameLog.Admin($"{client.Name}", $"delacar", $"");
+            Globals.Loggings.Admin($"{client.Name}", $"delacar", $"");
         }
         [Command("delmycars", "dmcs")]
         public static void CMD_delMyCars(Player client)
@@ -912,7 +912,7 @@ namespace iTeffa.Commands
                                     v.Delete();
                             }
                         }
-                        Globals.GameLog.Admin($"{client.Name}", $"delmycars", $"");
+                        Globals.Loggings.Admin($"{client.Name}", $"delmycars", $"");
                     }
                     catch { }
                 });
@@ -1295,7 +1295,7 @@ namespace iTeffa.Commands
         {
             if (!Globals.Group.CanUseCmd(player, "sw")) return;
             Main.changeWeather(weather);
-            Globals.GameLog.Admin($"{player.Name}", $"setWeather({weather})", $"");
+            Globals.Loggings.Admin($"{player.Name}", $"setWeather({weather})", $"");
         }
         [Command("starteffect")]
         public static void CMD_StartEffect(Player player, string effect, int dur = 0, bool loop = false)

@@ -374,7 +374,7 @@ namespace iTeffa.Fractions
                     if (Main.Players[m].FractionID == region.GangOwner)
                     {
                         Finance.Wallet.Change(m, 300);
-                        GameLog.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winCapture");
+                        Loggings.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winCapture");
                     }
                 }
             }
@@ -388,7 +388,7 @@ namespace iTeffa.Fractions
                     if (Main.Players[m].FractionID == attackersFracID)
                     {
                         Finance.Wallet.Change(m, 300);
-                        GameLog.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winCapture");
+                        Loggings.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winCapture");
                     }
                 }
             }

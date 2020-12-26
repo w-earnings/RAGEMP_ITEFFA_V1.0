@@ -1640,7 +1640,7 @@ namespace iTeffa.Globals
                 nInventory.Remove(client, RodManager.GetSellingItemType(prod.Name), 1);
                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {prod.Name}", 3000);
                 Finance.Wallet.Change(client, +prices);
-                GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prices, $"sellShop");
+                Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prices, $"sellShop");
             }
             catch (Exception e) { Log.Write($"SellShop: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
         }
@@ -1668,7 +1668,7 @@ namespace iTeffa.Globals
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
                                 return;
                             }
-                            GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price, "carwash");
+                            Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price, "carwash");
                             Finance.Wallet.Change(player, -biz.Products[0].Price);
 
                             VehicleStreaming.SetVehicleDirt(player.Vehicle, 0.0f);
@@ -1820,7 +1820,7 @@ namespace iTeffa.Globals
                     return;
                 }
 
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, $"buyTuning({player.Vehicle.NumberPlate},{cat},{id})");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, $"buyTuning({player.Vehicle.NumberPlate},{cat},{id})");
                 Finance.Wallet.Change(player, -price);
                 Trigger.ClientEvent(player, "tunBuySuccess", id);
 
@@ -1931,7 +1931,7 @@ namespace iTeffa.Globals
                         Log.Write($"TakeProd error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", Nlogs.Type.Error);
                         return false;
                     }
-                    GameLog.Money($"biz({bizid})", $"bank({bData.ID})", addMoney, "bizProfit");
+                    Loggings.Money($"biz({bizid})", $"bank({bData.ID})", addMoney, "bizProfit");
                     Log.Write($"{biz.Owner}'s business get {addMoney}$ for '{prodname}'", Nlogs.Type.Success);
                     break;
                 }
@@ -2017,7 +2017,7 @@ namespace iTeffa.Globals
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
                     return;
                 }
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyMask");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyMask");
                 Finance.Wallet.Change(player, -price);
 
                 Customization.AddClothes(player, ItemType.Mask, variation, texture);
@@ -2099,7 +2099,7 @@ namespace iTeffa.Globals
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
                     return;
                 }
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyClothes");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyClothes");
                 Finance.Wallet.Change(player, -price);
 
                 switch (type)
@@ -2175,7 +2175,7 @@ namespace iTeffa.Globals
 
                 var amount = Convert.ToInt32(price * 0.75 / 100);
                 if (amount <= 0) amount = 1;
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyTattoo");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyTattoo");
                 Finance.Wallet.Change(player, -Convert.ToInt32(price));
 
                 var tattooHash = (Main.Players[player].Gender) ? tattoo.MaleHash : tattoo.FemaleHash;
@@ -2386,7 +2386,7 @@ namespace iTeffa.Globals
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этот барбер-шоп не может оказать эту услугу в данный момент", 3000);
                     return;
                 }
-                GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyBarber");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyBarber");
                 Finance.Wallet.Change(player, -Convert.ToInt32(price));
 
                 switch (id)
@@ -2510,13 +2510,13 @@ namespace iTeffa.Globals
                 }
                 if (isGov)
                 {
-                    GameLog.Money($"frac(6)", $"biz({biz.ID})", lvl * biz.Products[0].Price, "buyPetrol");
+                    Loggings.Money($"frac(6)", $"biz({biz.ID})", lvl * biz.Products[0].Price, "buyPetrol");
                     Fractions.Stocks.fracStocks[6].Money -= lvl * biz.Products[0].Price;
                     Fractions.Stocks.fracStocks[Main.Players[player].FractionID].FuelLeft -= lvl * biz.Products[0].Price;
                 }
                 else
                 {
-                    GameLog.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", lvl * biz.Products[0].Price, "buyPetrol");
+                    Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", lvl * biz.Products[0].Price, "buyPetrol");
                     Finance.Wallet.Change(player, -lvl * biz.Products[0].Price);
                 }
 
@@ -2602,7 +2602,7 @@ namespace iTeffa.Globals
                         Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств на счету", 3000);
                         return;
                     }
-                    GameLog.Money($"bank({Main.Players[player].Bank})", $"server", amount * price, "bizOrder");
+                    Loggings.Money($"bank({Main.Players[player].Bank})", $"server", amount * price, "bizOrder");
                     var order = new Order(p.Name, amount);
                     p.Ordered = true;
 
@@ -2642,7 +2642,7 @@ namespace iTeffa.Globals
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает средств", 3000);
                     return;
                 }
-                GameLog.Money($"player({Main.Players[player].UUID})", $"server", biz.SellPrice, $"buyBiz({biz.ID})");
+                Loggings.Money($"player({Main.Players[player].UUID})", $"server", biz.SellPrice, $"buyBiz({biz.ID})");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поздравляем! Вы купили {BusinessManager.BusinessTypeNames[biz.Type]}, не забудьте внести налог за него в банкомате", 3000);
                 biz.Owner = player.Name.ToString();
             }
@@ -2824,7 +2824,7 @@ namespace iTeffa.Globals
 
             Finance.Wallet.Change(player, -price);
             Finance.Wallet.Change(seller, price);
-            GameLog.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"buyBiz({biz.ID})");
+            Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"buyBiz({biz.ID})");
 
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили у {seller.Name.Replace('_', ' ')} {BusinessTypeNames[biz.Type]} за {price}$", 3000);
             Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name.Replace('_', ' ')} купил у Вас {BusinessTypeNames[biz.Type]} за {price}$", 3000);
@@ -2995,7 +2995,7 @@ namespace iTeffa.Globals
                 case "govsell":
                     var price = biz.SellPrice / 100 * 70;
                     Finance.Wallet.Change(client, price);
-                    GameLog.Money($"server", $"player({Main.Players[client].UUID})", price, $"sellBiz({biz.ID})");
+                    Loggings.Money($"server", $"player({Main.Players[client].UUID})", price, $"sellBiz({biz.ID})");
 
                     Main.Players[client].BizIDs.Remove(bizID);
                     biz.Owner = "Государство";
@@ -3187,7 +3187,7 @@ namespace iTeffa.Globals
                             p.Ordered = false;
 
                             Finance.Wallet.Change(client, order.Amount * ProductsOrderPrice[prodName]);
-                            GameLog.Money($"server", $"player({Main.Players[client].UUID})", order.Amount * ProductsOrderPrice[prodName], $"orderCancel");
+                            Loggings.Money($"server", $"player({Main.Players[client].UUID})", order.Amount * ProductsOrderPrice[prodName], $"orderCancel");
                             Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили заказ на {prodName}", 3000);
                         }
                         else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не заказывали этот товар", 3000);
@@ -3273,7 +3273,7 @@ namespace iTeffa.Globals
                     }
                 }
                 Finance.Wallet.Change(client, -prod.Price);
-                GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyShop");
+                Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyShop");
             }
             catch (Exception e) { Log.Write($"BuyShop: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
         }
@@ -3373,7 +3373,7 @@ namespace iTeffa.Globals
                 }
 
                 Finance.Wallet.Change(client, -totalPrice);
-                GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", totalPrice, $"buyWShop(ammo)");
+                Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", totalPrice, $"buyWShop(ammo)");
                 nInventory.Add(client, new nItem(AmmoTypes[category], ammo));
                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo} за {totalPrice}$", 3000);
                 return;
@@ -3420,7 +3420,7 @@ namespace iTeffa.Globals
                 }
 
                 Finance.Wallet.Change(client, -prod.Price);
-                GameLog.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyWShop({prod.Name})");
+                Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyWShop({prod.Name})");
                 Weapons.GiveWeapon(client, wType, Weapons.GetSerial(false, biz.ID));
 
                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {prod.Name} за {prod.Price}$", 3000);
