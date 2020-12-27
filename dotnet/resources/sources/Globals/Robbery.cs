@@ -406,7 +406,7 @@ namespace iTeffa.Globals
                 if (player.HasSharedData("IS_MASK") && !player.GetSharedData<bool>("IS_MASK"))
                 {
                     var wantedLevel = new WantedLevel(4, "Полиция", DateTime.Now, "Ограбление сейфа");
-                    Police.setPlayerWantedLevel(player, wantedLevel);
+                    Fractions.Realm.Police.setPlayerWantedLevel(player, wantedLevel);
                 }
             }
         }
@@ -695,7 +695,7 @@ namespace iTeffa.Globals
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 800, $"buyMavr(wanted)");
                         Main.Players[player].WantedLVL.Level--;
                         if (Main.Players[player].WantedLVL.Level == 0) Main.Players[player].WantedLVL = null;
-                        Police.setPlayerWantedLevel(player, Main.Players[player].WantedLVL);
+                        Fractions.Realm.Police.setPlayerWantedLevel(player, Main.Players[player].WantedLVL);
                         return;
                 }
             }

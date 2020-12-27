@@ -21,7 +21,7 @@ namespace iTeffa.Settings
                 $"Host={config.TryGet<string>("Server", "localhost")};" +
                 $"Port={config.TryGet<string>("Port", 3306)};" +
                 $"User={config.TryGet<string>("User", "root")};" +
-                $"Password={config.TryGet<string>("Password", "8Bvx4Tt7G2")};" +
+                $"Password={config.TryGet<string>("Password", "@iTeffa2021")};" +
                 $"Database={config.TryGet<string>("DataBase", "iteffa")};" +
                 $"{config.TryGet<string>("SSL", "SslMode=None;")}";
         }

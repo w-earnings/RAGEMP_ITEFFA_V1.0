@@ -5,7 +5,7 @@ using iTeffa.Settings;
 using System;
 using System.Linq;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class Fbi : Script
     {

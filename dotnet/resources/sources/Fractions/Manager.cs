@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System;
-using GTANetworkAPI;
+﻿using GTANetworkAPI;
 using iTeffa.Globals;
-using iTeffa.Settings;
-using iTeffa.Interface;
 using iTeffa.Globals.Character;
-using System.Linq;
+using iTeffa.Interface;
+using iTeffa.Settings;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace iTeffa.Fractions
 {
@@ -34,8 +34,8 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(78, FractionSpawns[11], 0.75F, 4, Main.StringToU16("Русская мафия"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[12], 0.75F, 76, Main.StringToU16("Якудза"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(78, FractionSpawns[13], 0.75F, 40, Main.StringToU16("Армянская мафия"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(184, LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
-                NAPI.Blip.CreateBlip(85, Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(184, Realm.LSNews.LSNewsCoords[0], 0.75F, 1, Main.StringToU16("Новости"), 255, 0, true, 0, 0);
+                NAPI.Blip.CreateBlip(85, Realm.Army.ArmyCheckpoints[2], 0.75F, 28, Main.StringToU16("Доки"), 255, 0, true, 0, 0);
                 NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
                 NAPI.Blip.CreateBlip(675, new Vector3(-1304.6462, -560.2332, 33.25491), 0.85F, 14, Main.StringToU16("CityHall"), 255, 0, true, 0);
 

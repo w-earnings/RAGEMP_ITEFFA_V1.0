@@ -5,7 +5,7 @@ using iTeffa.Settings;
 using iTeffa.Interface;
 using System;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class Army : Script
     {

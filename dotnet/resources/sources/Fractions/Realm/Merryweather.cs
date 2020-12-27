@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GTANetworkAPI;
 using iTeffa.Settings;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class Merryweather : Script
     {

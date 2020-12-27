@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using MySqlConnector;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class LSNews : Script
     {

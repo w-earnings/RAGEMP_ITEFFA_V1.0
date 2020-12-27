@@ -4,7 +4,7 @@ using GTANetworkAPI;
 using iTeffa.Globals;
 using iTeffa.Settings;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class Cityhall : Script
     {

@@ -123,7 +123,7 @@ namespace iTeffa.Fractions
                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
                 return;
             }
-            player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Army.loadMaterialsTimer(player)));
+            player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Fractions.Realm.Army.loadMaterialsTimer(player)));
             player.Vehicle.SetData("loaderMats", player);
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
             Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);

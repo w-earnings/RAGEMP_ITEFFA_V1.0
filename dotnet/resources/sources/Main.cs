@@ -344,10 +344,10 @@ namespace iTeffa
                     Log.Debug("STAGE 5 (JOBS)");
                     try
                     {
-                        Fractions.Army.onPlayerDisconnected(player, type, reason);
-                        Fractions.Ems.onPlayerDisconnectedhandler(player, type, reason);
-                        Fractions.Police.onPlayerDisconnectedhandler(player, type, reason);
-                        Fractions.Sheriff.onPlayerDisconnectedhandler(player, type, reason);
+                        Fractions.Realm.Army.onPlayerDisconnected(player, type, reason);
+                        Fractions.Realm.Ems.onPlayerDisconnectedhandler(player, type, reason);
+                        Fractions.Realm.Police.onPlayerDisconnectedhandler(player, type, reason);
+                        Fractions.Realm.Sheriff.onPlayerDisconnectedhandler(player, type, reason);
                         Fractions.CarDelivery.Event_PlayerDisconnected(player);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.fractions\":\n" + e.ToString()); }
@@ -513,8 +513,8 @@ namespace iTeffa
                     if (!player.HasData("ARREST_TIMER"))
                     {
                         player.SetData("ARREST_TIMER", Timers.StartTask(1000, () => Fractions.FractionCommands.arrestTimer(player)));
-                        NAPI.Entity.SetEntityPosition(player, Fractions.Police.policeCheckpoints[4]);
-                        NAPI.Entity.SetEntityPosition(player, Fractions.Sheriff.sheriffCheckpoints[4]);
+                        NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Police.policeCheckpoints[4]);
+                        NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Sheriff.sheriffCheckpoints[4]);
                     }
                     else Log.Write($"ClientSpawn ArrestTime (KPZ) worked avoid", Nlogs.Type.Warn);
                 }
@@ -733,7 +733,7 @@ namespace iTeffa
                         }
                         if (amount <= 0) return;
 
-                        Fractions.Gangs.BuyDrugs(player, amount);
+                        Fractions.Gangs.Gangs.BuyDrugs(player, amount);
                         return;
                     case "mayor_take":
                         if (!Fractions.Manager.isLeader(player, 6)) return;
@@ -746,9 +746,9 @@ namespace iTeffa
                         }
                         catch { return; }
 
-                        if (amount > Fractions.Cityhall.canGetMoney)
+                        if (amount > Fractions.Realm.Cityhall.canGetMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете получить больше {Fractions.Cityhall.canGetMoney}$ сегодня", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете получить больше {Fractions.Realm.Cityhall.canGetMoney}$ сегодня", 3000);
                             return;
                         }
 
@@ -786,7 +786,7 @@ namespace iTeffa
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите причину", 3000);
                             return;
                         }
-                        Fractions.Police.callPolice(player, text);
+                        Fractions.Realm.Police.callPolice(player, text);
                         break;
                     case "call_sheriff":
                         if (text.Length == 0)
@@ -794,7 +794,7 @@ namespace iTeffa
                             Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите причину", 3000);
                             return;
                         }
-                        Fractions.Sheriff.callSheriff(player, text);
+                        Fractions.Realm.Sheriff.callSheriff(player, text);
                         break;
                     case "loadmats":
                     case "unloadmats":
@@ -1360,7 +1360,7 @@ namespace iTeffa
                                 return;
                             }
 
-                            if (Fractions.LSNews.AdvertNames.Contains(player.Name))
+                            if (Fractions.Realm.LSNews.AdvertNames.Contains(player.Name))
                             {
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть одно объявление в очереди", 3000);
                                 return;
@@ -1378,7 +1378,7 @@ namespace iTeffa
                                 Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас не хватает денежных средств в банке", 3000);
                                 return;
                             }
-                            Fractions.LSNews.AddAdvert(player, text, adPrice);
+                            Fractions.Realm.LSNews.AddAdvert(player, text, adPrice);
                         }
                         break;
                     case "player_ticketsum":
@@ -1731,7 +1731,7 @@ namespace iTeffa
                 switch (id)
                 {
                     case 1:
-                        Fractions.Cityhall.beginWorkDay(player);
+                        Fractions.Realm.Cityhall.beginWorkDay(player);
                         return;
 
                     case 506:
@@ -1743,7 +1743,7 @@ namespace iTeffa
                     case 4:
                     case 5:
                     case 62:
-                        Fractions.Cityhall.interactPressed(player, id);
+                        Fractions.Realm.Cityhall.interactPressed(player, id);
                         return;
                     #endregion
                     #region ems interact
@@ -1755,14 +1755,14 @@ namespace iTeffa
                     case 51:
                     case 58:
                     case 63:
-                        Fractions.Ems.interactPressed(player, id);
+                        Fractions.Realm.Ems.interactPressed(player, id);
                         return;
                     #endregion
                     case 8:
                         Working.Electrician.StartWorkDay(player);
                         return;
                     case 9:
-                        Fractions.Cityhall.OpenCityhallGunMenu(player);
+                        Fractions.Realm.Cityhall.OpenCityhallGunMenu(player);
                         return;
                     #region police interact
                     case 10:
@@ -1772,7 +1772,7 @@ namespace iTeffa
                     case 44:
                     case 59:
                     case 66:
-                        Fractions.Police.interactPressed(player, id);
+                        Fractions.Realm.Police.interactPressed(player, id);
                         return;
                     #endregion
                     #region sheriff interact
@@ -1783,7 +1783,7 @@ namespace iTeffa
                     case 440:
                     case 590:
                     case 660:
-                        Fractions.Sheriff.interactPressed(player, id);
+                        Fractions.Realm.Sheriff.interactPressed(player, id);
                         return;
                     #endregion
                     case 13:
@@ -1802,7 +1802,7 @@ namespace iTeffa
                     case 24:
                     case 46:
                     case 61:
-                        Fractions.Fbi.interactPressed(player, id);
+                        Fractions.Realm.Fbi.interactPressed(player, id);
                         return;
                     #endregion
                     case 28:
@@ -1826,7 +1826,7 @@ namespace iTeffa
                     case 36:
                     case 25:
                     case 60:
-                        Fractions.Army.interactPressed(player, id);
+                        Fractions.Realm.Army.interactPressed(player, id);
                         return;
                     case 37:
                         Fractions.MatsWar.interact(player);
@@ -1852,7 +1852,7 @@ namespace iTeffa
                         Working.Collector.CollectorTakeMoney(player);
                         return;
                     case 47:
-                        Fractions.Gangs.InteractPressed(player);
+                        Fractions.Gangs.Gangs.InteractPressed(player);
                         return;
                     case 48:
                     case 49:
@@ -1871,13 +1871,13 @@ namespace iTeffa
                         return;
                     case 80:
                     case 81:
-                        Fractions.LSNews.interactPressed(player, id);
+                        Fractions.Realm.LSNews.interactPressed(player, id);
                         return;
                     case 82:
                     case 83:
                     case 84:
                     case 85:
-                        Fractions.Merryweather.interactPressed(player, id);
+                        Fractions.Realm.Merryweather.interactPressed(player, id);
                         return;
                     case 500:
                         if (!Players[player].Achievements[0])
@@ -2028,10 +2028,10 @@ namespace iTeffa
                             Working.Collector.rentCar(player);
                             return;
                         case "PAY_MEDKIT":
-                            Fractions.Ems.payMedkit(player);
+                            Fractions.Realm.Ems.payMedkit(player);
                             return;
                         case "PAY_HEAL":
-                            Fractions.Ems.payHeal(player);
+                            Fractions.Realm.Ems.payHeal(player);
                             return;
                         case "BUY_CAR":
                             {
@@ -2131,7 +2131,7 @@ namespace iTeffa
                                 if (fracid == 15)
                                 {
                                     Trigger.ClientEvent(player, "enableadvert", true);
-                                    Fractions.LSNews.onLSNPlayerLoad(player); // Загрузка всех объявлений в F7
+                                    Fractions.Realm.LSNews.onLSNPlayerLoad(player); // Загрузка всех объявлений в F7
                                 }
                                 Dashboard.sendStats(player);
                                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы вступили в {Fractions.Manager.FractionNames[fracid]}", 3000);
@@ -2200,7 +2200,7 @@ namespace iTeffa
                             Rentcar.RentCar(player);
                             return;
                         case "DEATH_CONFIRM":
-                            Fractions.Ems.DeathConfirm(player, true);
+                            Fractions.Realm.Ems.DeathConfirm(player, true);
                             return;
                         case "TICKET":
                             Fractions.FractionCommands.ticketConfirm(player, true);
@@ -2236,7 +2236,7 @@ namespace iTeffa
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                             return;
                         case "DEATH_CONFIRM":
-                            Fractions.Ems.DeathConfirm(player, false);
+                            Fractions.Realm.Ems.DeathConfirm(player, false);
                             return;
                         case "TICKET":
                             Fractions.FractionCommands.ticketConfirm(player, false);
@@ -2336,7 +2336,7 @@ namespace iTeffa
             Timers.Init();
             Loggings.Start();
             ReportSys.Init();
-            Fractions.LSNews.Init();
+            Fractions.Realm.LSNews.Init();
             EventSys.Init();
             Fractions.ElectionsSystem.OnResourceStart();
             _ = new List<string>()
@@ -2555,8 +2555,8 @@ namespace iTeffa
                         }
                     }
 
-                    Fractions.Cityhall.lastHourTax = 0;
-                    Fractions.Ems.HumanMedkitsLefts = 100;
+                    Fractions.Realm.Cityhall.lastHourTax = 0;
+                    Fractions.Realm.Ems.HumanMedkitsLefts = 100;
                     Plugins.Forbes.SyncMajors();
                     Working.FarmerJob.Market.marketmultiplier = rnd.Next(15, 30);
                     var rndt = new Random();
@@ -2697,7 +2697,7 @@ namespace iTeffa
                             int tax = Convert.ToInt32(biz.SellPrice / 100 * 0.013);
                             Finance.Bank.Accounts[biz.BankID].Balance -= tax;
                             Fractions.Stocks.fracStocks[6].Money += tax;
-                            Fractions.Cityhall.lastHourTax += tax;
+                            Fractions.Realm.Cityhall.lastHourTax += tax;
 
                             Loggings.Money($"biz({biz.ID})", "frac(6)", tax, "bizTaxHour");
 
@@ -2750,7 +2750,7 @@ namespace iTeffa
                             int tax = Convert.ToInt32(h.Price / 100 * 0.013);
                             Finance.Bank.Accounts[h.BankID].Balance -= tax;
                             Fractions.Stocks.fracStocks[6].Money += tax;
-                            Fractions.Cityhall.lastHourTax += tax;
+                            Fractions.Realm.Cityhall.lastHourTax += tax;
 
                             Loggings.Money($"house({h.ID})", "frac(6)", tax, "houseTaxHour");
 
@@ -3626,7 +3626,7 @@ namespace iTeffa
                     return;
                 case "ems":
                     MenuManager.Close(player);
-                    Fractions.Ems.callEms(player);
+                    Fractions.Realm.Ems.callEms(player);
                     return;
                 case "back":
                     _ = OpenPlayerMenu(player);
@@ -3654,7 +3654,7 @@ namespace iTeffa
 
             menuItem = new Menu.Item("info2", Menu.MenuItem.Card)
             {
-                Text = $"Собрано за последний час: {Fractions.Cityhall.lastHourTax}$"
+                Text = $"Собрано за последний час: {Fractions.Realm.Cityhall.lastHourTax}$"
             };
             menu.Add(menuItem);
 

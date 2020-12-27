@@ -139,7 +139,7 @@ namespace iTeffa.Globals.Character
                 if (FractionID == 15)
                 {
                     Trigger.ClientEvent(player, "enableadvert", true);
-                    Fractions.LSNews.onLSNPlayerLoad(player);
+                    Fractions.Realm.LSNews.onLSNPlayerLoad(player);
                 }
                 if (AdminLVL > 0)
                 {
@@ -293,7 +293,7 @@ namespace iTeffa.Globals.Character
                 {
                     if (IsSpawned && !IsAlive)
                     {
-                        pos = JsonConvert.SerializeObject(Fractions.Ems.emsCheckpoints[0]);
+                        pos = JsonConvert.SerializeObject(Fractions.Realm.Ems.emsCheckpoints[0]);
                         Health = 10;
                         Armor = 0;
                     }

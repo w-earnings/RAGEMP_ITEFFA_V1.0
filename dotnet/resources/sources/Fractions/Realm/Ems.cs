@@ -5,7 +5,7 @@ using iTeffa.Settings;
 using System;
 using System.Collections.Generic;
 
-namespace iTeffa.Fractions
+namespace iTeffa.Fractions.Realm
 {
     class Ems : Script
     {

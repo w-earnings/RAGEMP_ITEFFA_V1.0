@@ -18,7 +18,7 @@ namespace iTeffa.Commands
                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
-                Fractions.Sheriff.acceptCall(player, Main.GetPlayerByID(id));
+                Fractions.Realm.Sheriff.acceptCall(player, Main.GetPlayerByID(id));
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }

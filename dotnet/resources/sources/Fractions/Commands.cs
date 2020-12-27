@@ -248,9 +248,9 @@ namespace iTeffa.Fractions
                 if (Main.Players[player].FractionID == 15)
                 {
                     if (!Manager.canUseCommand(player, "delad")) return;
-                    LSNews.AddAnswer(player, AdID, reason, true);
+                    Fractions.Realm.LSNews.AddAnswer(player, AdID, reason, true);
                 }
-                else if (Group.CanUseCmd(player, "delad")) LSNews.AddAnswer(player, AdID, reason, true);
+                else if (Group.CanUseCmd(player, "delad")) Fractions.Realm.LSNews.AddAnswer(player, AdID, reason, true);
             }
             catch (Exception e) { Log.Write("delad: " + e.Message, Nlogs.Type.Error); }
         }
@@ -629,9 +629,9 @@ namespace iTeffa.Fractions
                     if (!player.HasData("ARREST_TIMER")) return;
                     Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
                     NAPI.Data.ResetEntityData(player, "ARREST_TIMER");
-                    Police.setPlayerWantedLevel(player, null);
-                    NAPI.Entity.SetEntityPosition(player, Police.policeCheckpoints[5]);
-                    NAPI.Entity.SetEntityPosition(player, Sheriff.sheriffCheckpoints[5]);
+                    Fractions.Realm.Police.setPlayerWantedLevel(player, null);
+                    NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Police.policeCheckpoints[5]);
+                    NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Sheriff.sheriffCheckpoints[5]);
                     NAPI.Entity.SetEntityDimension(player, 0);
                     Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы были освобождены из тюрьмы", 3000);
                 }
@@ -641,10 +641,10 @@ namespace iTeffa.Fractions
 
         public static void arrestPlayer(Player target)
         {
-            NAPI.Entity.SetEntityPosition(target, Police.policeCheckpoints[4]);
-            Police.setPlayerWantedLevel(target, null);
-            NAPI.Entity.SetEntityPosition(target, Sheriff.sheriffCheckpoints[4]);
-            Sheriff.setPlayerWantedLevel(target, null);
+            NAPI.Entity.SetEntityPosition(target, Fractions.Realm.Police.policeCheckpoints[4]);
+            Fractions.Realm.Police.setPlayerWantedLevel(target, null);
+            NAPI.Entity.SetEntityPosition(target, Fractions.Realm.Sheriff.sheriffCheckpoints[4]);
+            Fractions.Realm.Sheriff.setPlayerWantedLevel(target, null);
             NAPI.Data.SetEntityData(target, "ARREST_TIMER", Timers.Start(1000, () => arrestTimer(target)));
             Weapons.RemoveAll(target, true);
         }
@@ -794,8 +794,8 @@ namespace iTeffa.Fractions
                     Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"{player.Name.Replace('_', ' ')} объявил Вас в розыск ({reason})", 3000);
                     var oldStars = (Main.Players[target].WantedLVL == null) ? 0 : Main.Players[target].WantedLVL.Level;
                     var wantedLevel = new WantedLevel(oldStars + stars, player.Name, DateTime.Now, reason);
-                    Police.setPlayerWantedLevel(target, wantedLevel);
-                    Sheriff.setPlayerWantedLevel(target, wantedLevel);
+                    Fractions.Realm.Police.setPlayerWantedLevel(target, wantedLevel);
+                    Fractions.Realm.Sheriff.setPlayerWantedLevel(target, wantedLevel);
                     return;
                 }
                 else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете выдать такое кол-во звёзд", 3000);
@@ -896,25 +896,25 @@ namespace iTeffa.Fractions
             }
             if (Main.Players[player].FractionID == 18)
             {
-                Police.is_warg = !Police.is_warg;
+                Fractions.Realm.Police.is_warg = !Fractions.Realm.Police.is_warg;
                 string message;
-                if (Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
+                if (Fractions.Realm.Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(7, message);
             }
             if (Main.Players[player].FractionID == 7)
             {
-                Police.is_warg = !Police.is_warg;
+                Fractions.Realm.Police.is_warg = !Fractions.Realm.Police.is_warg;
                 string message;
-                if (Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
+                if (Fractions.Realm.Police.is_warg) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(7, message);
             }
             else if (Main.Players[player].FractionID == 9)
             {
-                Fbi.warg_mode = !Fbi.warg_mode;
+                Fractions.Realm.Fbi.warg_mode = !Fractions.Realm.Fbi.warg_mode;
                 string message;
-                if (Fbi.warg_mode) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
+                if (Fractions.Realm.Fbi.warg_mode) message = $"{NAPI.Player.GetPlayerName(player)} объявил режим ЧП!!!";
                 else message = $"{NAPI.Player.GetPlayerName(player)} отключил режим ЧП.";
                 Manager.sendFractionMessage(9, message);
             }

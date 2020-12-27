@@ -284,7 +284,7 @@ namespace iTeffa.Globals
                 if (fracid == 15)
                 {
                     Trigger.ClientEvent(target, "enableadvert", true);
-                    Fractions.LSNews.onLSNPlayerLoad(target);
+                    Fractions.Realm.LSNews.onLSNPlayerLoad(target);
                 }
                 Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Вы стали лидером фракции {Fractions.Manager.getName(fracid)}", 3000);
                 Notify.Send(sender, NotifyType.Info, NotifyPosition.TopCenter, $"Вы поставили {target.Name} на лидерство {Fractions.Manager.getName(fracid)}", 3000);
