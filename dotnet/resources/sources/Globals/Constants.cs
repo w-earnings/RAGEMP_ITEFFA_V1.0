@@ -1,8 +1,8 @@
-﻿namespace iTeffa.Globals
+﻿namespace ragemp.Globals
 {
-    public class Constants
+    class Constants
     {
-        // Версия игрового режима
+        // Gamemode version
         public const string GM_VERSION = "iTeffa v1.0.0 Beta";
     }
 }

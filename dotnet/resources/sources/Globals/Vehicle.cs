@@ -194,21 +194,21 @@ namespace iTeffa.Globals
                             {
                                 if (DateTime.Now.Hour < 10)
                                 {
-                                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Невозможно сесть в машину с 00:00 до 10:00", 3000);
+                                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_IMPOSSIBLE_SIT, 3000);
                                     return;
                                 }
-                                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести двигатель, нажмите B", 3000);
+                                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_START_ENGINE, 3000);
                                 return;
                             }
                             else if (fracid == 14)
                             {
                                 if (Main.Players[player].FractionLVL < NAPI.Data.GetEntityData(vehicle, "MINRANK"))
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не имеете доступа к этому транспорту", 3000);
+                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NOT_HAVE_ACCESS, 3000);
                                     WarpPlayerOutOfVehicle(player);
                                     return;
                                 }
-                                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести двигатель, нажмите B", 3000);
+                                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_START_ENGINE, 3000);
                                 return;
                             }
                             else
@@ -218,21 +218,21 @@ namespace iTeffa.Globals
                         {
                             if (Main.Players[player].FractionLVL < NAPI.Data.GetEntityData(vehicle, "MINRANK"))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не имеете доступа к этому транспорту", 3000);
+                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NOT_HAVE_ACCESS, 3000);
                                 WarpPlayerOutOfVehicle(player);
                                 return;
                             }
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести двигатель, нажмите B", 3000);
+                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_START_ENGINE, 3000);
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не имеете доступа к этому транспорту", 3000);
+                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NOT_HAVE_ACCESS, 3000);
                             WarpPlayerOutOfVehicle(player);
                             return;
                         }
                     }
                     else if (NAPI.Data.GetEntityData(vehicle, "ACCESS") == "WORK" && player.GetData<Vehicle>("WORK") == vehicle)
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести двигатель, нажмите B", 3000);
+                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_START_ENGINE, 3000);
                 }
             }
             catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
@@ -657,52 +657,52 @@ namespace iTeffa.Globals
                 case "HOTEL":
                     if (NAPI.Data.GetEntityData(vehicle, "OWNER") != player && Main.Players[player].AdminLVL < 3)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                     }
                     break;
                 case "RENT":
                     if (NAPI.Data.GetEntityData(vehicle, "DRIVER") != player && Main.Players[player].AdminLVL < 3)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                     }
                     break;
                 case "WORK":
                     if (NAPI.Data.GetEntityData(player, "WORK") != vehicle && Main.Players[player].AdminLVL < 3)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                     }
                     break;
                 case "PERSONAL":
@@ -710,20 +710,20 @@ namespace iTeffa.Globals
                     bool access = canAccessByNumber(player, vehicle.NumberPlate);
                     if (!access && Main.Players[player].AdminLVL < 3)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
 
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                         return;
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                         return;
                     }
                 case "GARAGE":
@@ -731,39 +731,39 @@ namespace iTeffa.Globals
                     access = canAccessByNumber(player, vehicle.NumberPlate);
                     if (!access && Main.Players[player].AdminLVL < 3)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
 
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                         return;
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                         return;
                     }
                 case "ADMIN":
                     if (Main.Players[player].AdminLVL == 0)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                         return;
                     }
 
                     if (VehicleStreaming.GetLockState(vehicle))
                     {
                         VehicleStreaming.SetLockStatus(vehicle, false);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_OPENED_DOORS, 3000);
                         return;
                     }
                     else
                     {
                         VehicleStreaming.SetLockStatus(vehicle, true);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли двери машины", 3000);
+                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_CLOSED_DOORS, 3000);
                         return;
                     }
                 default:
@@ -796,7 +796,7 @@ namespace iTeffa.Globals
                     if (!NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
                     if (sender.VehicleSeat != 0)
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны быть в водительском месте", 3000);
+                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_DRIVERS_SEAT, 3000);
                         return;
                     }
                     Vehicle vehicle = sender.Vehicle;
@@ -805,7 +805,7 @@ namespace iTeffa.Globals
                     int fuel = vehicle.GetSharedData<int>("PETROL");
                     if (fuel <= 0)
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Топливный бак пуст, невозможно завести машину", 3000);
+                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_FUEL_TANK_EMPTY, 3000);
                         return;
                     }
                     switch (NAPI.Data.GetEntityData(vehicle, "ACCESS"))
@@ -813,156 +813,156 @@ namespace iTeffa.Globals
                         case "HOTEL":
                             if (NAPI.Data.GetEntityData(vehicle, "OWNER") != sender && Main.Players[sender].AdminLVL < 3)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
                         case "SCHOOL":
                             if (NAPI.Data.GetEntityData(vehicle, "DRIVER") != sender && Main.Players[sender].AdminLVL < 3)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
                         case "beltCarPressed":
                             if (!NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
                             bool beltstate = Convert.ToBoolean(args[0]);
-                            if (!beltstate) Commands.Controller.RPChat("me", sender, "пристегнул(а) ремень безопасности");
-                            else Commands.Controller.RPChat("me", sender, "отслегнул(а) ремень безопасности");
+                            if (!beltstate) Commands.Controller.RPChat("me", sender, Messages.GEN_VEHICLE_FASTENED_THE_BELT);
+                            else Commands.Controller.RPChat("me", sender, Messages.GEN_VEHICLE_UNFASTENED_THE_BELT);
                             break;
                         case "RENT":
                             if (NAPI.Data.GetEntityData(vehicle, "DRIVER") != sender && Main.Players[sender].AdminLVL < 3)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
                         case "WORK":
                             if (NAPI.Data.GetEntityData(sender, "WORK") != vehicle && Main.Players[sender].AdminLVL < 3)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
                         case "FRACTION":
                             if (Main.Players[sender].FractionID != NAPI.Data.GetEntityData(vehicle, "FRACTION"))
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
@@ -971,31 +971,31 @@ namespace iTeffa.Globals
                             bool access = canAccessByNumber(sender, vehicle.NumberPlate);
                             if (!access && Main.Players[sender].AdminLVL < 3)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
 
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
@@ -1014,54 +1014,54 @@ namespace iTeffa.Globals
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;
                         case "ADMIN":
                             if (Main.Players[sender].AdminLVL == 0)
                             {
-                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ключей от этого транспорта", 3000);
+                                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_NO_KEY, 3000);
                                 return;
                             }
                             if (VehicleStreaming.GetEngineState(vehicle))
                             {
                                 VehicleStreaming.SetEngineState(vehicle, false);
-                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заглушили двигатель машины", 3000);
+                                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_OFF_ENGINE, 3000);
                             }
                             else
                             {
                                 if (NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_low") || NAPI.Data.HasEntityData(sender.Vehicle, "vehicle_colision_high"))
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Попытка завести автомобиль ...", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_ATTEMPT_TO_START, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health < 350)
                                 {
-                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, "Автомобиль сильно поврежден, вы должны позвонить механику", 1000);
+                                    Notify.Send(sender, NotifyType.Warning, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_BADLY_DAMAGED, 1000);
                                     return;
                                 }
                                 else if (sender.Vehicle.Health > 350)
                                 {
                                     VehicleStreaming.SetEngineState(vehicle, true);
-                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы завели машину", 3000);
+                                    Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, Messages.GEN_VEHICLE_TURNED_ONN_ENGINE, 3000);
                                 }
                             }
                             break;

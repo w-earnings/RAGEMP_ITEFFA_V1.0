@@ -1,5 +1,4 @@
-﻿using GTANetworkAPI;
-using MySqlConnector;
+﻿using MySqlConnector;
 using System;
 using System.Data;
 using System.Data.Common;
