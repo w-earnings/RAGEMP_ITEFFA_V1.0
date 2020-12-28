@@ -84,7 +84,7 @@ namespace iTeffa.Globals
             Safe new_safe = new Safe(i, position, rotation, minamount, maxamount, address);
             Safes.Add(new_safe);
             var string_pos = JsonConvert.SerializeObject(position);
-            Connect.Query($"INSERT INTO safes (minamount, maxamount, pos, address, rotation, idkey) VALUES ({minamount}, {maxamount}, '{string_pos}', '{address}', {rotation})");
+            Database.Query($"INSERT INTO safes (minamount, maxamount, pos, address, rotation, idkey) VALUES ({minamount}, {maxamount}, '{string_pos}', '{address}', {rotation})");
             new_safe.Create();
         }
 
@@ -98,7 +98,7 @@ namespace iTeffa.Globals
             safe.Destroy(true);
             Safes.Remove(safe);
 
-            Connect.Query($"DELETE FROM safes WHERE id={ID}");
+            Database.Query($"DELETE FROM safes WHERE id={ID}");
         }
         #endregion
 
@@ -213,7 +213,7 @@ namespace iTeffa.Globals
                     NAPI.TextLabel.CreateTextLabel(Main.StringToU16($"Нажмите Е\n~b~{moneyFlowers[b]}"), moneyFlowPoints[b] + new Vector3(0, 0, 1.125), 5F, 0.8F, 0, new Color(255, 255, 255));
                 }
 
-                var result = Connect.QueryRead($"SELECT * FROM safes");
+                var result = Database.QueryRead($"SELECT * FROM safes");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB return null result.", Nlogs.Type.Warn);

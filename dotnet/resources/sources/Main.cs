@@ -93,7 +93,7 @@ namespace iTeffa
 
                 Timers.StartOnceTask(10000, () => Plugins.Forbes.SyncMajors());
 
-                DataTable result = Connect.QueryRead("SELECT `uuid`, `personsid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
+                DataTable result = Database.QueryRead("SELECT `uuid`, `personsid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -122,7 +122,7 @@ namespace iTeffa
 
                             if (adminlvl > 0)
                             {
-                                DataTable result2 = Connect.QueryRead($"SELECT `socialclub` FROM `accounts` WHERE `character1`={uuid} OR `character2`={uuid} OR `character3`={uuid}");
+                                DataTable result2 = Database.QueryRead($"SELECT `socialclub` FROM `accounts` WHERE `character1`={uuid} OR `character2`={uuid} OR `character3`={uuid}");
                                 if (result2 == null || result2.Rows.Count == 0) continue;
                                 string socialclub = Convert.ToString(result2.Rows[0]["socialclub"]);
                             }
@@ -132,7 +132,7 @@ namespace iTeffa
                 }
                 else Log.Write("DB `characters` return null result", Nlogs.Type.Warn);
 
-                result = Connect.QueryRead("SELECT `login`,`socialclub`,`email`,`hwid` FROM `accounts`");
+                result = Database.QueryRead("SELECT `login`,`socialclub`,`email`,`hwid` FROM `accounts`");
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -152,7 +152,7 @@ namespace iTeffa
                 }
                 else Log.Write("DB `accounts` return null result", Nlogs.Type.Warn);
 
-                result = Connect.QueryRead("SELECT `name`,`type`,`count`,`owner` FROM `promocodes`");
+                result = Database.QueryRead("SELECT `name`,`type`,`count`,`owner` FROM `promocodes`");
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -173,7 +173,7 @@ namespace iTeffa
                 Timers.StartTask("savedb", 180000, () => saveDatabase());
                 Timers.StartTask("playedMins", 60000, () => playedMinutesTrigger());
                 Timers.StartTask("envTimer", 1000, () => enviromentChangeTrigger());
-                result = Connect.QueryRead($"SELECT * FROM `othervehicles`");
+                result = Database.QueryRead($"SELECT * FROM `othervehicles`");
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -1506,7 +1506,7 @@ namespace iTeffa
                 {
                     if (Emails.ContainsKey(loginorcode)) loginorcode = Emails[loginorcode];
                     else loginorcode = loginorcode.ToLower();
-                    DataTable result = Connect.QueryRead($"SELECT email, socialclub FROM `accounts` WHERE `login`='{loginorcode}'");
+                    DataTable result = Database.QueryRead($"SELECT email, socialclub FROM `accounts` WHERE `login`='{loginorcode}'");
                     if (result == null || result.Rows.Count == 0)
                     {
                         Log.Debug($"Ошибка при попытке восстановить пароль от аккаунта!", Nlogs.Type.Warn);
@@ -1543,7 +1543,7 @@ namespace iTeffa
                                     PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
                                 });
                                 Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
-                                Connect.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{RestorePass[client].Item2}' AND `socialclub`='{RestorePass[client].Item3}'");
+                                Database.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{RestorePass[client].Item2}' AND `socialclub`='{RestorePass[client].Item3}'");
                                 SignInOnTimer(client, RestorePass[client].Item2, newpas.ToString());
 
                                 RestorePass.Remove(client);
@@ -2095,7 +2095,7 @@ namespace iTeffa
                                 }
                                 VehicleManager.VehicleData vData = VehicleManager.Vehicles[number];
                                 VehicleManager.Vehicles[number].Holder = player.Name;
-                                Connect.Query($"UPDATE vehicles SET holder='{player.Name}' WHERE number='{number}'");
+                                Database.Query($"UPDATE vehicles SET holder='{player.Name}' WHERE number='{number}'");
 
                                 Finance.Wallet.Change(seller, price);
                                 Loggings.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
@@ -2310,7 +2310,7 @@ namespace iTeffa
         {
             Thread.CurrentThread.Name = "Main";
 
-            Connect.Init();
+            Database.Init();
 
             try
             {
@@ -2640,7 +2640,7 @@ namespace iTeffa
                                                     break;
                                                 }
                                             }
-                                            if (!isGiven) Connect.Query($"UPDATE characters SET money=money+2000 WHERE uuid={PromoCodes[promo].Item3}");
+                                            if (!isGiven) Database.Query($"UPDATE characters SET money=money+2000 WHERE uuid={PromoCodes[promo].Item3}");
                                         }
                                         catch { }
                                     }
@@ -2717,7 +2717,7 @@ namespace iTeffa
                                 else
                                 {
                                     string[] split = owner.Split('_');
-                                    DataTable data = Connect.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                                    DataTable data = Database.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                                     if (data != null)
                                     {
                                         List<int> ownerBizs = new List<int>();
@@ -2728,7 +2728,7 @@ namespace iTeffa
                                         }
 
                                         ownerBizs.Remove(biz.ID);
-                                        Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money=money+{Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                                        Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money=money+{Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                                     }
                                 }
                                 Loggings.Money($"server", $"player({PlayerUUIDs[biz.Owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"bizTax");
@@ -2769,7 +2769,7 @@ namespace iTeffa
                             else
                             {
                                 string[] split = owner.Split('_');
-                                Connect.Query($"UPDATE characters SET money=money+{Convert.ToInt32(h.Price / 2.0)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                                Database.Query($"UPDATE characters SET money=money+{Convert.ToInt32(h.Price / 2.0)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                             }
                             h.SetOwner(null);
                             Loggings.Money($"server", $"player({PlayerUUIDs[owner]})", Convert.ToInt32(h.Price / 2.0), $"houseTax");

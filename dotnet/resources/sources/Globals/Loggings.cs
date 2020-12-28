@@ -117,7 +117,7 @@ namespace iTeffa.Globals
                 {
                     if (queue.Count < 1) continue;
                     else
-                        Connect.Query(queue.Dequeue());
+                        Database.Query(queue.Dequeue());
                 }
             }
             catch (Exception e)

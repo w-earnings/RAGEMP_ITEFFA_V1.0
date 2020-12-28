@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace iTeffa.Settings
 {
-    public static class Connect
+    public static class Database
     {
         private static readonly Config config = new Config("MySQL");
         private static readonly Nlogs Log = new Nlogs("MySQL");
-        private static string Connection = null;
+        private static string Connection;
         public static bool Debug = false;
-
         public static void Init()
         {
             if (Connection is string) return;

@@ -127,7 +127,7 @@ namespace iTeffa.Fractions
 
             try
             {
-                DataTable result = Connect.QueryRead("SELECT * FROM e_candidates");
+                DataTable result = Database.QueryRead("SELECT * FROM e_candidates");
                 if (result != null && result.Rows.Count != 0)
                 {
                     foreach (DataRow row in result.Rows)
@@ -142,7 +142,7 @@ namespace iTeffa.Fractions
                     }
                 }
 
-                result = Connect.QueryRead("SELECT * FROM e_points");
+                result = Database.QueryRead("SELECT * FROM e_points");
                 if (result != null && result.Rows.Count != 0)
                 {
                     foreach (DataRow row in result.Rows)
@@ -164,7 +164,7 @@ namespace iTeffa.Fractions
                     }
                 }
 
-                result = Connect.QueryRead("SELECT * FROM e_voters");
+                result = Database.QueryRead("SELECT * FROM e_voters");
                 if (result != null && result.Rows.Count != 0)
                 {
                     foreach (DataRow row in result.Rows)
@@ -235,7 +235,7 @@ namespace iTeffa.Fractions
                                         };
                                         cmd.Parameters.AddWithValue("@vot", ElectionList[l].Votes);
                                         cmd.Parameters.AddWithValue("@nam", Name);
-                                        Connect.Query(cmd);
+                                        Database.Query(cmd);
 
                                         cmd = new MySqlCommand
                                         {
@@ -245,7 +245,7 @@ namespace iTeffa.Fractions
                                         cmd.Parameters.AddWithValue("@log", Main.Accounts[player].Login);
                                         cmd.Parameters.AddWithValue("@voted", DateTime.Now.ToString("s"));
                                         cmd.Parameters.AddWithValue("@name", Name);
-                                        Connect.Query(cmd);
+                                        Database.Query(cmd);
 
                                         Voters.Add(new Voter
                                         {
@@ -320,7 +320,7 @@ namespace iTeffa.Fractions
             cmd.Parameters.AddWithValue("@z", pos.Z);
             cmd.Parameters.AddWithValue("@dim", client.Dimension);
             cmd.Parameters.AddWithValue("@opn", isOpened);
-            Connect.Query(cmd);
+            Database.Query(cmd);
 
             ElectionReload(client);
         }

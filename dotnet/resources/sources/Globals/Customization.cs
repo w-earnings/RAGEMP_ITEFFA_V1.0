@@ -14,7 +14,7 @@ namespace iTeffa.Globals
     {
         public Customization()
         {
-            var result = Connect.QueryRead($"SELECT * FROM customization");
+            var result = Database.QueryRead($"SELECT * FROM customization");
             if (result == null || result.Rows.Count == 0)
             {
                 Log.Write("DB return null result.", Nlogs.Type.Warn);
@@ -1806,7 +1806,7 @@ namespace iTeffa.Globals
             var ChestHairColor = data.ChestHairColor;
             var IsCreated = data.IsCreated;
 
-            Connect.Query($"UPDATE customization SET gender={Gender},parents='{Parents}',features='{Features}',appearance='{Appearance}',hair='{Hair}',clothes='{Clothes}'," +
+            Database.Query($"UPDATE customization SET gender={Gender},parents='{Parents}',features='{Features}',appearance='{Appearance}',hair='{Hair}',clothes='{Clothes}'," +
                     $"accessory='{Accessory}',tattoos='{Tattoos}',eyebrowc={EyebrowColor},beardc={BeardColor},eyec={EyeColor},blushc={BlushColor}," +
                     $"lipstickc={LipstickColor},chesthairc={ChestHairColor},iscreated={IsCreated} WHERE uuid={Main.Players[player].UUID}");
         }
@@ -1837,7 +1837,7 @@ namespace iTeffa.Globals
                 var ChestHairColor = data.ChestHairColor;
                 var IsCreated = data.IsCreated;
 
-                Connect.Query($"INSERT INTO `customization` (`uuid`,`gender`,`parents`,`features`,`appearance`,`hair`,`clothes`,`accessory`,`tattoos`,`eyebrowc`,`beardc`,`eyec`,`blushc`,`lipstickc`,`chesthairc`,`iscreated`) " +
+                Database.Query($"INSERT INTO `customization` (`uuid`,`gender`,`parents`,`features`,`appearance`,`hair`,`clothes`,`accessory`,`tattoos`,`eyebrowc`,`beardc`,`eyec`,`blushc`,`lipstickc`,`chesthairc`,`iscreated`) " +
                         $"VALUES ({Main.Players[player].UUID},{Gender},'{Parents}','{Features}','{Appearance}','{Hair}','{Clothes}','{Accessory}','{Tattoos}',{EyebrowColor},{BeardColor},{EyeColor},{BlushColor},{LipstickColor},{ChestHairColor},{IsCreated})");
             }
 

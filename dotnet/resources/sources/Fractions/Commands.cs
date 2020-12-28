@@ -307,7 +307,7 @@ namespace iTeffa.Fractions
                 string message = "Все члены организации: ";
                 NAPI.Chat.SendChatMessageToPlayer(sender, message);
                 int fracid = Main.Players[sender].FractionID;
-                var result = Connect.QueryRead($"SELECT * FROM `characters` WHERE `fraction`='{fracid}'");
+                var result = Database.QueryRead($"SELECT * FROM `characters` WHERE `fraction`='{fracid}'");
                 foreach (DataRow Row in result.Rows)
                 {
                     var fraclvl = Convert.ToInt32(Row["fractionlvl"]);

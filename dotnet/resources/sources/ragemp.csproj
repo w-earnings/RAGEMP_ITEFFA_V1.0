@@ -18,7 +18,7 @@
 	  <OutputPath>..\ragemp\</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-	  <OutputPath>..\ragemp\</OutputPath>
+	  <OutputPath></OutputPath>
 	</PropertyGroup>
 
   <ItemGroup>

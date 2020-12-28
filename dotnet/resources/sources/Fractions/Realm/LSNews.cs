@@ -146,7 +146,7 @@ namespace iTeffa.Fractions.Realm
 
                 string cmd = @"SELECT * FROM advertised;";
 
-                DataTable result = Connect.QueryRead(cmd);
+                DataTable result = Database.QueryRead(cmd);
                 if (result is null) return;
                 foreach (DataRow row in result.Rows)
                 {
@@ -262,10 +262,10 @@ namespace iTeffa.Fractions.Realm
                 cmd.Parameters.AddWithValue("@pn", player.Name);
                 cmd.Parameters.AddWithValue("@sim", Main.Players[player].Sim);
                 cmd.Parameters.AddWithValue("@ques", question);
-                cmd.Parameters.AddWithValue("@time", Connect.ConvertTime(DateTime.Now));
-                cmd.Parameters.AddWithValue("@ntime", Connect.ConvertTime(DateTime.MinValue));
+                cmd.Parameters.AddWithValue("@time", Database.ConvertTime(DateTime.Now));
+                cmd.Parameters.AddWithValue("@ntime", Database.ConvertTime(DateTime.MinValue));
 
-                DataTable dt = Connect.QueryRead(cmd);
+                DataTable dt = Database.QueryRead(cmd);
 
                 int id = Convert.ToInt32(dt.Rows[0][0]);
                 Advert advert = new Advert
@@ -344,9 +344,9 @@ namespace iTeffa.Fractions.Realm
                 cmd.Parameters.AddWithValue("@resp", player.Name);
                 cmd.Parameters.AddWithValue("@res", response);
                 cmd.Parameters.AddWithValue("@st", true);
-                cmd.Parameters.AddWithValue("@time", Connect.ConvertTime(now));
+                cmd.Parameters.AddWithValue("@time", Database.ConvertTime(now));
                 cmd.Parameters.AddWithValue("@repid", repID);
-                Connect.Query(cmd);
+                Database.Query(cmd);
 
                 AdvertNames.Remove(Adverts[repID].Author);
 

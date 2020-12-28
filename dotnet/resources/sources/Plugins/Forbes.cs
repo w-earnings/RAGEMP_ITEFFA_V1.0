@@ -25,7 +25,7 @@ namespace iTeffa.Plugins
                 try
                 {
 
-                    var database = Connect.QueryRead($"SELECT * FROM `characters`");
+                    var database = Database.QueryRead($"SELECT * FROM `characters`");
                     Dictionary<string, int> nosync = new Dictionary<string, int> { };
                     Majors = new Dictionary<string, int> { };
                     foreach (DataRow Row in database.Rows)

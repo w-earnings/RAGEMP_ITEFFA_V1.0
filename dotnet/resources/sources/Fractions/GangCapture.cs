@@ -178,7 +178,7 @@ namespace iTeffa.Fractions
         {
             try
             {
-                var result = Connect.QueryRead("SELECT * FROM gangspoints");
+                var result = Database.QueryRead("SELECT * FROM gangspoints");
                 if (result == null || result.Rows.Count == 0) return;
                 foreach (DataRow Row in result.Rows)
                 {
@@ -445,7 +445,7 @@ namespace iTeffa.Fractions
         public static void SavingRegions()
         {
             foreach (var region in gangPoints.Values)
-                Connect.Query($"UPDATE gangspoints SET gangid={region.GangOwner} WHERE id={region.ID}");
+                Database.Query($"UPDATE gangspoints SET gangid={region.GangOwner} WHERE id={region.ID}");
             Log.Write("Gang Regions has been saved to DB", Nlogs.Type.Success);
         }
 

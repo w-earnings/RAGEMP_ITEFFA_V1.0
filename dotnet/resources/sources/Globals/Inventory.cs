@@ -908,7 +908,7 @@ namespace iTeffa.Globals
             {
                 Log.Write("Loading player items...", Nlogs.Type.Info);
                 // // //
-                var result = Connect.QueryRead($"SELECT * FROM `inventory`");
+                var result = Database.QueryRead($"SELECT * FROM `inventory`");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB return null result", Nlogs.Type.Warn);
@@ -1110,7 +1110,7 @@ namespace iTeffa.Globals
                 {
                     int UUID = kvp.Key;
                     string json = JsonConvert.SerializeObject(kvp.Value);
-                    Connect.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
+                    Database.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
                 }
                 Log.Write("Items has been saved to DB.", Nlogs.Type.Success);
             }
@@ -1126,7 +1126,7 @@ namespace iTeffa.Globals
                 if (!Items.ContainsKey(UUID)) return;
                 Log.Write($"Saving items for {UUID}", Nlogs.Type.Info);
                 string json = JsonConvert.SerializeObject(Items[UUID]);
-                Connect.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
+                Database.Query($"UPDATE `inventory` SET items='{json}' WHERE uuid={UUID}");
                 Log.Write("Items has been saved to DB.", Nlogs.Type.Success);
             }
             catch (Exception e)
@@ -1161,7 +1161,7 @@ namespace iTeffa.Globals
             if (!Items.ContainsKey(uuid))
             {
                 Items.Add(uuid, new List<nItem>());
-                Connect.Query($"INSERT INTO `inventory`(`uuid`,`items`) VALUES ({uuid},'{JsonConvert.SerializeObject(new List<nItem>())}')");
+                Database.Query($"INSERT INTO `inventory`(`uuid`,`items`) VALUES ({uuid},'{JsonConvert.SerializeObject(new List<nItem>())}')");
                 Log.Debug("Player added");
             }
         }

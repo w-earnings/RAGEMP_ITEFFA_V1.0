@@ -159,7 +159,7 @@ namespace iTeffa.Globals.Character
                 if (Main.Players.ContainsKey(player))
                     Main.Players.Remove(player);
 
-                DataTable result = await Connect.QueryReadAsync($"SELECT * FROM `characters` WHERE uuid={uuid}");
+                DataTable result = await Database.QueryReadAsync($"SELECT * FROM `characters` WHERE uuid={uuid}");
                 if (result == null || result.Rows.Count == 0) return;
 
                 NAPI.Task.Run(() =>
@@ -326,10 +326,10 @@ namespace iTeffa.Globals.Character
 
                 Main.PlayerSlotsInfo[UUID] = new Tuple<int, int, int, long>(LVL, EXP, FractionID, Money);
 
-                await Connect.QueryAsync($"UPDATE `characters` SET `pos`='{pos}',`gender`={Gender},`health`={Health},`armor`={Armor},`lvl`={LVL},`exp`={EXP}," +
+                await Database.QueryAsync($"UPDATE `characters` SET `pos`='{pos}',`gender`={Gender},`health`={Health},`armor`={Armor},`lvl`={LVL},`exp`={EXP}," +
                     $"`money`={Money},`bank`={Bank},`work`={WorkID},`fraction`={FractionID},`fractionlvl`={FractionLVL},`arrest`={ArrestTime}," +
                     $"`wanted`='{JsonConvert.SerializeObject(WantedLVL)}',`biz`='{JsonConvert.SerializeObject(BizIDs)}',`adminlvl`={AdminLVL}," +
-                    $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Connect.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
+                    $"`licenses`='{JsonConvert.SerializeObject(Licenses)}',`unwarn`='{Database.ConvertTime(Unwarn)}',`unmute`='{Unmute}'," +
                     $"`warns`={Warns},`hotel`={HotelID},`hotelleft`={HotelLeft},`lastveh`='{LastVeh}',`onduty`={OnDuty},`lasthour`={LastHourMin},`lastbonus`={LastBonus},`isbonused`={IsBonused}," +
                     $"`demorgan`={DemorganTime},`contacts`='{JsonConvert.SerializeObject(Contacts)}',`achiev`='{JsonConvert.SerializeObject(Achievements)}',`sim`={Sim},`personsid`='{PersonSID}',`eat`='{Eat}',`water`='{Water}' WHERE `uuid`={UUID}");
 
@@ -387,12 +387,12 @@ namespace iTeffa.Globals.Character
                 Main.PlayerUUIDs.Add($"{firstName}_{lastName}", UUID);
                 Main.PlayerNames.Add(UUID, $"{firstName}_{lastName}");
 
-                await Connect.QueryAsync($"INSERT INTO `characters`(`uuid`,`personsid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
+                await Database.QueryAsync($"INSERT INTO `characters`(`uuid`,`personsid`,`firstname`,`lastname`,`gender`,`health`,`armor`,`lvl`,`exp`,`money`,`bank`,`work`,`fraction`,`fractionlvl`,`arrest`,`demorgan`,`wanted`," +
                     $"`biz`,`adminlvl`,`licenses`,`unwarn`,`unmute`,`warns`,`lastveh`,`onduty`,`lasthour`,`lastbonus`,`isbonused`,`hotel`,`hotelleft`,`contacts`,`achiev`,`sim`,`pos`,`createdate`,`eat`,`water`) " +
                     $"VALUES({UUID},'{PersonSID}','{FirstName}','{LastName}',{Gender},{Health},{Armor},{LVL},{EXP},{Money},{Bank},{WorkID},{FractionID},{FractionLVL},{ArrestTime},{DemorganTime}," +
-                    $"'{JsonConvert.SerializeObject(WantedLVL)}','{JsonConvert.SerializeObject(BizIDs)}',{AdminLVL},'{JsonConvert.SerializeObject(Licenses)}','{Connect.ConvertTime(Unwarn)}'," +
+                    $"'{JsonConvert.SerializeObject(WantedLVL)}','{JsonConvert.SerializeObject(BizIDs)}',{AdminLVL},'{JsonConvert.SerializeObject(Licenses)}','{Database.ConvertTime(Unwarn)}'," +
                     $"'{Unmute}',{Warns},'{LastVeh}',{OnDuty},{LastHourMin},{LastBonus},{IsBonused},{HotelID},{HotelLeft},'{JsonConvert.SerializeObject(Contacts)}','{JsonConvert.SerializeObject(Achievements)}',{Sim}," +
-                    $"'{JsonConvert.SerializeObject(SpawnPos)}','{Connect.ConvertTime(CreateDate)}','{Eat}','{Water}')");
+                    $"'{JsonConvert.SerializeObject(SpawnPos)}','{Database.ConvertTime(CreateDate)}','{Eat}','{Water}')");
                 NAPI.Task.Run(() => { player.Name = FirstName + "_" + LastName; });
                 nInventory.Check(UUID);
                 Main.Players.Add(player, this);
@@ -429,7 +429,7 @@ namespace iTeffa.Globals.Character
             Main.PersonSIDs.Add(result);
             if (save)
             {
-                Connect.Query($"UPDATE `characters` SET `personsid`='{result}' WHERE `uuid`={uuid}");
+                Database.Query($"UPDATE `characters` SET `personsid`='{result}' WHERE `uuid`={uuid}");
             }
             return result;
         }
@@ -480,7 +480,7 @@ namespace iTeffa.Globals.Character
                 cmd.Parameters.AddWithValue("@fn", split[0]);
                 cmd.Parameters.AddWithValue("@ln", split[1]);
                 cmd.Parameters.AddWithValue("@uuid", Uuid);
-                await Connect.QueryAsync(cmd);
+                await Database.QueryAsync(cmd);
 
                 NAPI.Task.Run(() =>
                 {

@@ -22,7 +22,7 @@ namespace iTeffa.Globals
         public static void SetEat(Player player, int change)
         {
             Main.Players[player].Eat = change;
-            Connect.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
+            Database.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
             Interface.Dashboard.sendStats(player);
             Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
         }
@@ -36,14 +36,14 @@ namespace iTeffa.Globals
             {
                 Main.Players[player].Eat += change;
             }
-            Connect.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
+            Database.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
             Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }
         public static void SetWater(Player player, int change)
         {
             Main.Players[player].Water = change;
-            Connect.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
+            Database.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
             Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }
@@ -57,7 +57,7 @@ namespace iTeffa.Globals
             {
                 Main.Players[player].Water += change;
             }
-            Connect.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
+            Database.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
             Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }

@@ -177,7 +177,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                var result = Connect.QueryRead($"SELECT * FROM rodings");
+                var result = Database.QueryRead($"SELECT * FROM rodings");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB rod return null result.", Nlogs.Type.Warn);
@@ -209,7 +209,7 @@ namespace iTeffa.Globals
             ++lastRodID;
             Roding biz = new Roding(lastRodID, pos, radius);
 
-            Connect.Query($"INSERT INTO rodings (id, pos, radius) " + $"VALUES ({lastRodID}, '{JsonConvert.SerializeObject(pos)}', {radius})");
+            Database.Query($"INSERT INTO rodings (id, pos, radius) " + $"VALUES ({lastRodID}, '{JsonConvert.SerializeObject(pos)}', {radius})");
 
         }
 

@@ -12,7 +12,7 @@ namespace iTeffa.Globals
         public static List<GroupCommand> GroupCommands = new List<GroupCommand>();
         public static void LoadCommandsConfigs()
         {
-            DataTable result = Connect.QueryRead($"SELECT * FROM adminaccess");
+            DataTable result = Database.QueryRead($"SELECT * FROM adminaccess");
             if (result == null || result.Rows.Count == 0) return;
             List<GroupCommand> groupCmds = new List<GroupCommand>();
             foreach (DataRow Row in result.Rows)
@@ -93,7 +93,7 @@ namespace iTeffa.Globals
             }
             else
             {
-                Connect.Query($"INSERT INTO `adminaccess`(`command`, `isadmin`, `minrank`) VALUES ('{cmd}',1,7)");
+                Database.Query($"INSERT INTO `adminaccess`(`command`, `isadmin`, `minrank`) VALUES ('{cmd}',1,7)");
                 GroupCommand newGcmd = new GroupCommand(cmd, true, 7);
                 command = newGcmd;
                 GroupCommands.Add(newGcmd);

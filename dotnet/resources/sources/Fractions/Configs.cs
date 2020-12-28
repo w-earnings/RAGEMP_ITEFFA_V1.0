@@ -126,7 +126,7 @@ namespace iTeffa.Fractions
                 FractionWeapons.Add(i, new Dictionary<string, int>());
 
             // loading fraction vehicle configs and spawn
-            DataTable result = Connect.QueryRead("SELECT * FROM `fractionvehicles`");
+            DataTable result = Database.QueryRead("SELECT * FROM `fractionvehicles`");
             if (result == null || result.Rows.Count == 0) return;
             foreach (DataRow Row in result.Rows)
             {
@@ -147,7 +147,7 @@ namespace iTeffa.Fractions
                 SpawnFractionCars(fraction);
 
             // load fraction ranks configs
-            result = Connect.QueryRead("SELECT * FROM `fractionranks`");
+            result = Database.QueryRead("SELECT * FROM `fractionranks`");
             if (result == null || result.Rows.Count == 0) return;
             foreach (DataRow Row in result.Rows)
             {
@@ -161,7 +161,7 @@ namespace iTeffa.Fractions
                 FractionRanks[fraction].Add(rank, new Tuple<string, string, string, int>(name, clothesm, clothesf, payday));
             }
 
-            result = Connect.QueryRead("SELECT * FROM `fractionaccess`");
+            result = Database.QueryRead("SELECT * FROM `fractionaccess`");
             if (result == null || result.Rows.Count == 0) return;
             foreach (DataRow Row in result.Rows)
             {

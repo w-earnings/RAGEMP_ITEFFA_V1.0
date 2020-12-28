@@ -21,7 +21,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                var result = Connect.QueryRead($"SELECT * FROM businesses");
+                var result = Database.QueryRead($"SELECT * FROM businesses");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB biz return null result.", Nlogs.Type.Warn);
@@ -2673,15 +2673,15 @@ namespace iTeffa.Globals
             Finance.Bank.Accounts[biz.BankID].Balance = tax * 2;
 
             var split = biz.Owner.Split('_');
-            Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[player].BizIDs)}' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
-            Connect.Query($"UPDATE businesses SET owner='{biz.Owner}' WHERE id='{biz.ID}'");
+            Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[player].BizIDs)}' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+            Database.Query($"UPDATE businesses SET owner='{biz.Owner}' WHERE id='{biz.ID}'");
         }
         public static void createBusinessUnloadpoint(Player player, int bizid)
         {
             if (!Group.CanUseCmd(player, "createunloadpoint")) return;
             var pos = player.Position;
             BizList[bizid].UnloadPoint = pos;
-            Connect.Query($"UPDATE businesses SET unloadpoint='{JsonConvert.SerializeObject(pos)}' WHERE id={bizid}");
+            Database.Query($"UPDATE businesses SET unloadpoint='{JsonConvert.SerializeObject(pos)}' WHERE id={bizid}");
             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Успешно создана точка разгрузки для бизнеса ID: {bizid}", 3000);
         }
         public static void createBusinessCommand(Player player, int govPrice, int type)
@@ -2695,7 +2695,7 @@ namespace iTeffa.Globals
             lastBizID++;
 
             var bankID = Finance.Bank.Create("", 3, 1000);
-            Connect.Query($"INSERT INTO businesses (id, owner, sellprice, type, products, enterpoint, unloadpoint, money, mafia, orders) " +
+            Database.Query($"INSERT INTO businesses (id, owner, sellprice, type, products, enterpoint, unloadpoint, money, mafia, orders) " +
                 $"VALUES ({lastBizID}, 'Государство', {govPrice}, {type}, '{productlist}', '{JsonConvert.SerializeObject(pos)}', '{JsonConvert.SerializeObject(new Vector3())}', {bankID}, -1, '{JsonConvert.SerializeObject(new List<Order>())}')");
 
             Business biz = new Business(lastBizID, "Государство", govPrice, type, products_list, pos, new Vector3(), bankID, -1, new List<Order>());
@@ -2704,7 +2704,7 @@ namespace iTeffa.Globals
 
             if (type == 7)
             {
-                Connect.Query($"INSERT INTO `weapons`(`id`,`lastserial`) VALUES({biz.ID},0)");
+                Database.Query($"INSERT INTO `weapons`(`id`,`lastserial`) VALUES({biz.ID},0)");
             }
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы создали бизнес {BusinessManager.BusinessTypeNames[type]}", 3000);
         }
@@ -2713,22 +2713,22 @@ namespace iTeffa.Globals
             if (!Group.CanUseCmd(player, "deletebusiness")) return;
 
 
-            Connect.Query($"DELETE FROM businesses WHERE id={id}");
+            Database.Query($"DELETE FROM businesses WHERE id={id}");
             Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы удалили бизнес", 3000);
             Business biz = BizList.FirstOrDefault(b => b.Value.ID == id).Value;
             if (biz.Type == 7)
             {
-                Connect.Query($"DELETE FROM `weapons` WHERE id={id}");
+                Database.Query($"DELETE FROM `weapons` WHERE id={id}");
             }
             var owner = NAPI.Player.GetPlayerFromName(biz.Owner);
             if (owner == null)
             {
                 var split = biz.Owner.Split('_');
                 List<int> ownerBizs = new List<int>();
-                var data = Connect.QueryRead($"SELECT biz FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                var data = Database.QueryRead($"SELECT biz FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 foreach (DataRow Row in data.Rows) ownerBizs = JsonConvert.DeserializeObject<List<int>>(Row["biz"].ToString());
                 ownerBizs.Remove(biz.ID);
-                Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}' WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
             }
             else
             {
@@ -2817,9 +2817,9 @@ namespace iTeffa.Globals
             biz.Owner = player.Name.ToString();
             var split1 = seller.Name.Split('_');
             var split2 = player.Name.Split('_');
-            Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[seller].BizIDs)}' WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
-            Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[player].BizIDs)}' WHERE firstname='{split2[0]}' AND lastname='{split2[1]}'");
-            Connect.Query($"UPDATE businesses SET owner='{biz.Owner}' WHERE id='{biz.ID}'");
+            Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[seller].BizIDs)}' WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
+            Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(Main.Players[player].BizIDs)}' WHERE firstname='{split2[0]}' AND lastname='{split2[1]}'");
+            Database.Query($"UPDATE businesses SET owner='{biz.Owner}' WHERE id='{biz.ID}'");
             biz.UpdateLabel();
 
             Finance.Wallet.Change(player, -price);

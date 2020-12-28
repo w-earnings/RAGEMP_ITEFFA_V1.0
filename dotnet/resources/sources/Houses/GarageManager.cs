@@ -113,7 +113,7 @@ namespace iTeffa.Houses
         {
             try
             {
-                var result = Connect.QueryRead($"SELECT * FROM `garages`");
+                var result = Database.QueryRead($"SELECT * FROM `garages`");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB return null result.", Nlogs.Type.Warn);

@@ -40,7 +40,7 @@ namespace iTeffa.Houses
         public static Dictionary<int, Dictionary<int, List<nItem>>> FurnituresItems = new Dictionary<int, Dictionary<int, List<nItem>>>();
         public FurnitureManager()
         {
-            var result = Connect.QueryRead($"SELECT * FROM `furniture`");
+            var result = Database.QueryRead($"SELECT * FROM `furniture`");
             if (result == null || result.Rows.Count == 0)
             {
                 Log.Write("DB return null result.", Nlogs.Type.Warn);
@@ -68,7 +68,7 @@ namespace iTeffa.Houses
             {
                 string furniture = JsonConvert.SerializeObject(data.Value);
                 string items = JsonConvert.SerializeObject(FurnituresItems[data.Key]);
-                Connect.Query($"UPDATE `furniture` SET `furniture`='{furniture}',`data`='{items}' WHERE `uuid`='{data.Key}'");
+                Database.Query($"UPDATE `furniture` SET `furniture`='{furniture}',`data`='{items}' WHERE `uuid`='{data.Key}'");
             }
             Log.Write("Furnitures has been saved to DB", Nlogs.Type.Success);
         }
@@ -78,7 +78,7 @@ namespace iTeffa.Houses
             {
                 HouseFurnitures.Add(id, new Dictionary<int, HouseFurniture>());
                 FurnituresItems.Add(id, new Dictionary<int, List<nItem>>());
-                Connect.Query($"INSERT INTO `furniture`(`uuid`,`furniture`,`data`) VALUES ({id},'{JsonConvert.SerializeObject(new Dictionary<int, HouseFurniture>())}','{JsonConvert.SerializeObject(new Dictionary<int, List<nItem>>())}')");
+                Database.Query($"INSERT INTO `furniture`(`uuid`,`furniture`,`data`) VALUES ({id},'{JsonConvert.SerializeObject(new Dictionary<int, HouseFurniture>())}','{JsonConvert.SerializeObject(new Dictionary<int, List<nItem>>())}')");
             }
         }
         public static void newFurniture(int id, string name)

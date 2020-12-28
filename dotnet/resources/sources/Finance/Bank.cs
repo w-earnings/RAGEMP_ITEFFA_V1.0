@@ -26,7 +26,7 @@ namespace iTeffa.Finance
         public Bank()
         {
             Log.Write("Loading Bank Accounts...");
-            var result = Connect.QueryRead("SELECT * FROM `money`");
+            var result = Database.QueryRead("SELECT * FROM `money`");
             if (result == null || result.Rows.Count == 0)
             {
                 Log.Write("DB return null result.", Nlogs.Type.Warn);
@@ -52,7 +52,7 @@ namespace iTeffa.Finance
                 if (!Accounts.ContainsKey(accountID)) return false;
                 if (Accounts[accountID].Balance + amount < 0) return false;
                 Accounts[accountID].Balance += amount;
-                if (Accounts[accountID].Type == 1 || amount >= 10000) Connect.Query($"UPDATE `money` SET balance={Accounts[accountID].Balance} WHERE id={accountID}");
+                if (Accounts[accountID].Type == 1 || amount >= 10000) Database.Query($"UPDATE `money` SET balance={Accounts[accountID].Balance} WHERE id={accountID}");
                 if (Accounts[accountID].Type == 1 && NAPI.Player.GetPlayerFromName(Accounts[accountID].Holder) != null)
                 {
                     NAPI.Task.Run(() =>
@@ -108,7 +108,7 @@ namespace iTeffa.Finance
         {
             if (!Accounts.ContainsKey(AccID)) return;
             Data acc = Accounts[AccID];
-            Connect.Query($"UPDATE `money` SET `balance`={acc.Balance}, `holder`='{acc.Holder}' WHERE id={AccID}");
+            Database.Query($"UPDATE `money` SET `balance`={acc.Balance}, `holder`='{acc.Holder}' WHERE id={AccID}");
         }
         #endregion Save Acc
         public static void BankNotify(Player player, BankNotifyType type, string info)
@@ -140,7 +140,7 @@ namespace iTeffa.Finance
                 Balance = balance
             };
             Accounts.Add(id, data);
-            Connect.Query($"INSERT INTO `money`(`id`, `type`, `holder`, `balance`) VALUES ({id},{type},'{holder}',{balance})");
+            Database.Query($"INSERT INTO `money`(`id`, `type`, `holder`, `balance`) VALUES ({id},{type},'{holder}',{balance})");
             Log.Write("Created new Bank Account! ID:" + id.ToString(), Nlogs.Type.Success);
             return id;
         }
@@ -153,7 +153,7 @@ namespace iTeffa.Finance
                 CommandText = "DELETE FROM `money` WHERE holder=@pn"
             };
             cmd.Parameters.AddWithValue("@pn", holder);
-            Connect.Query(cmd);
+            Database.Query(cmd);
             Log.Write("Bank account deleted! ID:" + id, Nlogs.Type.Warn);
         }
         public static void RemoveByID(int id)
@@ -165,7 +165,7 @@ namespace iTeffa.Finance
                 CommandText = "DELETE FROM `money` WHERE id=@pn"
             };
             cmd.Parameters.AddWithValue("@pn", id);
-            Connect.Query(cmd);
+            Database.Query(cmd);
             Log.Write("Bank account deleted! ID:" + id, Nlogs.Type.Warn);
         }
         public static bool isAccExist(int id)

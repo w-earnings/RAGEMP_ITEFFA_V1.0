@@ -184,7 +184,7 @@ namespace iTeffa.Commands
                 if (type == 0)
                 {
                     Fractions.Configs.FractionVehicles[number] = new Dictionary<string, Tuple<VehicleHash, Vector3, Vector3, int, int, int, VehicleManager.VehicleCustomization>>();
-                    DataTable result = Connect.QueryRead($"SELECT * FROM `fractionvehicles` WHERE `fraction`={number}");
+                    DataTable result = Database.QueryRead($"SELECT * FROM `fractionvehicles` WHERE `fraction`={number}");
                     if (result == null || result.Rows.Count == 0) return;
                     foreach (DataRow Row in result.Rows)
                     {
@@ -218,7 +218,7 @@ namespace iTeffa.Commands
                 }
                 else // othervehicles
                 {
-                    var result = Connect.QueryRead($"SELECT * FROM `othervehicles` WHERE `type`={number}");
+                    var result = Database.QueryRead($"SELECT * FROM `othervehicles` WHERE `type`={number}");
                     if (result == null || result.Rows.Count == 0) return;
 
                     switch (number)
@@ -390,7 +390,7 @@ namespace iTeffa.Commands
                     garage.SpawnCar(newNum);
                 }
 
-                Connect.Query($"UPDATE vehicles SET number='{newNum}' WHERE number='{oldNum}'");
+                Database.Query($"UPDATE vehicles SET number='{newNum}' WHERE number='{oldNum}'");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Новый номер для {oldNum} = {newNum}", 3000);
             }
             catch (Exception e) { Log.Write("newvnum: " + e.Message, Nlogs.Type.Error); }
@@ -408,7 +408,7 @@ namespace iTeffa.Commands
                     Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок онлайн! {acc.Key.Name}:{acc.Key.Value}", 8000);
                     return;
                 }
-                Connect.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
+                Database.Query($"update `accounts` set `coins`=`coins`+{amount} where `login`='{name}'");
                 Loggings.Admin(client.Name, $"takecoins({amount})", name);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
@@ -633,7 +633,7 @@ namespace iTeffa.Commands
                 if (!Globals.Group.CanUseCmd(player, "offdelfrac")) return;
 
                 var split = name.Split('_');
-                Connect.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы уволили игрока {name} из Вашей фракции", 3000);
 
                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == name);
@@ -708,7 +708,7 @@ namespace iTeffa.Commands
                 }
 
                 var split = target.Split('_');
-                var data = Connect.QueryRead($"SELECT warns FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                var data = Database.QueryRead($"SELECT warns FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 var warns = 0;
                 foreach (System.Data.DataRow Row in data.Rows)
                 {
@@ -723,7 +723,7 @@ namespace iTeffa.Commands
 
                 warns--;
                 Loggings.Admin($"{player.Name}", $"offUnwarn", $"{target}");
-                Connect.Query($"UPDATE characters SET warns={warns} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.Query($"UPDATE characters SET warns={warns} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сняли варн у игрока {target}, у него {warns} варнов", 3000);
             }
             catch (Exception e) { Log.Write("offunwarn: " + e.Message, Nlogs.Type.Error); }
@@ -857,9 +857,9 @@ namespace iTeffa.Commands
                     if (biz.Type != 6) continue;
                     biz.Products = BusinessManager.fillProductList(6);
 
-                    var result = Connect.QueryRead($"SELECT * FROM `weapons` WHERE id={biz.ID}");
+                    var result = Database.QueryRead($"SELECT * FROM `weapons` WHERE id={biz.ID}");
                     if (result != null) continue;
-                    Connect.Query($"INSERT INTO weapons (id,lastserial) VALUES ({biz.ID},0)");
+                    Database.Query($"INSERT INTO weapons (id,lastserial) VALUES ({biz.ID},0)");
                     Log.Debug($"Insert into weapons new business ({biz.ID})");
                 }
             }
@@ -1116,7 +1116,7 @@ namespace iTeffa.Commands
             {
                 if (CheckSocialClubInWhiteList(socialClub))
                 {
-                    Connect.Query("DELETE FROM `whiteList` WHERE `socialclub` = '" + socialClub + "';");
+                    Database.Query("DELETE FROM `whiteList` WHERE `socialclub` = '" + socialClub + "';");
                     Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Social club успешно удален из white list!", 3000);
                 }
                 else
@@ -1129,7 +1129,7 @@ namespace iTeffa.Commands
         }
         public static bool CheckSocialClubInWhiteList(string SocialClub)
         {
-            DataTable data = Connect.QueryRead($"SELECT * FROM `whiteList` WHERE 1");
+            DataTable data = Database.QueryRead($"SELECT * FROM `whiteList` WHERE 1");
             foreach (DataRow Row in data.Rows)
             {
                 if (Row["socialclub"].ToString() == SocialClub)
@@ -1148,7 +1148,7 @@ namespace iTeffa.Commands
                 {
                     if (!CheckSocialClubInWhiteList(socialClub))
                     {
-                        Connect.Query("INSERT INTO `whiteList` (`socialclub`) VALUES ('" + socialClub + "');");
+                        Database.Query("INSERT INTO `whiteList` (`socialclub`) VALUES ('" + socialClub + "');");
                         Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Social club успешно добавлен в white list!", 3000);
                     }
                     else
@@ -1166,7 +1166,7 @@ namespace iTeffa.Commands
         }
         public static bool CheckSocialClubInAccounts(string SocialClub)
         {
-            DataTable data = Connect.QueryRead($"SELECT * FROM `accounts` WHERE 1");
+            DataTable data = Database.QueryRead($"SELECT * FROM `accounts` WHERE 1");
             foreach (DataRow Row in data.Rows)
             {
                 if (Row["socialclub"].ToString() == SocialClub)
@@ -1531,7 +1531,7 @@ namespace iTeffa.Commands
                 string[] split = target.Split('_');
                 int tuuid = 0;
                 // CLEAR BIZ
-                DataTable result = Connect.QueryRead($"SELECT uuid,adminlvl,biz FROM `characters` WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                DataTable result = Database.QueryRead($"SELECT uuid,adminlvl,biz FROM `characters` WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 if (result != null && result.Rows.Count != 0)
                 {
                     DataRow row = result.Rows[0];
@@ -1557,7 +1557,7 @@ namespace iTeffa.Commands
                         else
                         {
                             var split1 = biz.Owner.Split('_');
-                            var data = Connect.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
+                            var data = Database.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
                             List<int> ownerBizs = new List<int>();
                             var money = 0;
 
@@ -1568,7 +1568,7 @@ namespace iTeffa.Commands
                             }
 
                             ownerBizs.Remove(biz.ID);
-                            Connect.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money={money + Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
+                            Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money={money + Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
                         }
 
                         Finance.Bank.Accounts[biz.BankID].Balance = 0;
@@ -1583,7 +1583,7 @@ namespace iTeffa.Commands
                     return;
                 }
                 // CLEAR HOUSE
-                result = Connect.QueryRead($"SELECT id FROM `houses` WHERE `owner`='{target}'");
+                result = Database.QueryRead($"SELECT id FROM `houses` WHERE `owner`='{target}'");
                 if (result != null && result.Rows.Count != 0)
                 {
                     DataRow row = result.Rows[0];
@@ -1597,7 +1597,7 @@ namespace iTeffa.Commands
                     }
                 }
                 // CLEAR VEHICLES
-                result = Connect.QueryRead($"SELECT `number` FROM `vehicles` WHERE `holder`='{target}'");
+                result = Database.QueryRead($"SELECT `number` FROM `vehicles` WHERE `holder`='{target}'");
                 if (result != null && result.Rows.Count != 0)
                 {
                     DataRowCollection rows = result.Rows;
@@ -1609,16 +1609,16 @@ namespace iTeffa.Commands
                 }
 
                 // CLEAR MONEY, HOTEL, FRACTION, SIMCARD, PET
-                Connect.Query($"UPDATE `characters` SET `money`=0,`fraction`=0,`fractionlvl`=0,`hotel`=-1,`hotelleft`=0,`sim`=-1, WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.Query($"UPDATE `characters` SET `money`=0,`fraction`=0,`fractionlvl`=0,`hotel`=-1,`hotelleft`=0,`sim`=-1, WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 // CLEAR BANK MONEY
                 Bank.Data bankAcc = Bank.Accounts.FirstOrDefault(a => a.Value.Holder == target).Value;
                 if (bankAcc != null)
                 {
                     bankAcc.Balance = 0;
-                    Connect.Query($"UPDATE `money` SET `balance`=0 WHERE `holder`='{target}'");
+                    Database.Query($"UPDATE `money` SET `balance`=0 WHERE `holder`='{target}'");
                 }
                 // CLEAR ITEMS
-                if (tuuid != 0) Connect.Query($"UPDATE `inventory` SET `items`='[]' WHERE `uuid`={tuuid}");
+                if (tuuid != 0) Database.Query($"UPDATE `inventory` SET `items`='[]' WHERE `uuid`={tuuid}");
                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы забрали у игрока все вещи, деньги с рук и банковского счёта у {target}", 3000);
                 Loggings.Admin($"{player.Name}", $"aClear", $"{target}");
             }
@@ -1888,7 +1888,7 @@ namespace iTeffa.Commands
                 }
 
                 var split = target.Split('_');
-                Connect.QueryRead($"UPDATE `characters` SET `demorgan`={firstTime},`arrest`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.QueryRead($"UPDATE `characters` SET `demorgan`={firstTime},`arrest`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 NAPI.Chat.SendChatMessageToAll($"~r~{player.Name} посадил игрока {target} в спец. тюрьму на {time}{deTimeMsg} ({reason})");
                 Loggings.Admin($"{player.Name}", $"demorgan({time}{deTimeMsg},{reason})", $"{target}");
             }
@@ -1915,7 +1915,7 @@ namespace iTeffa.Commands
                 else
                 {
                     string[] split1 = target.Split('_');
-                    DataTable result = Connect.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
+                    DataTable result = Database.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split1[0]}' AND lastname='{split1[1]}'");
                     DataRow row = result.Rows[0];
                     int targetadminlvl = Convert.ToInt32(row[0]);
                     if (targetadminlvl >= Main.Players[player].AdminLVL)
@@ -1927,17 +1927,17 @@ namespace iTeffa.Commands
 
 
                 var split = target.Split('_');
-                var data = Connect.QueryRead($"SELECT warns FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                var data = Database.QueryRead($"SELECT warns FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 var warns = Convert.ToInt32(data.Rows[0]["warns"]);
                 warns++;
 
                 if (warns >= 3)
                 {
-                    Connect.Query($"UPDATE `characters` SET `warns`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                    Database.Query($"UPDATE `characters` SET `warns`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                     Ban.Offline(target, DateTime.Now.AddMinutes(43200), false, "Warns 3/3", "Server_Serverniy");
                 }
                 else
-                    Connect.Query($"UPDATE `characters` SET `unwarn`='{Connect.ConvertTime(DateTime.Now.AddDays(14))}',`warns`={warns},`fraction`=0,`fractionlvl`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                    Database.Query($"UPDATE `characters` SET `unwarn`='{Database.ConvertTime(DateTime.Now.AddDays(14))}',`warns`={warns},`fraction`=0,`fractionlvl`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
 
                 NAPI.Chat.SendChatMessageToAll($"~r~{player.Name} выдал предупреждение игроку {target} ({warns}/3 | {reason})");
                 Loggings.Admin($"{player.Name}", $"warn({time},{reason})", $"{target}");

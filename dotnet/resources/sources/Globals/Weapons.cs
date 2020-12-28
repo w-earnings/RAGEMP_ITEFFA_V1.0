@@ -255,7 +255,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                var result = Connect.QueryRead("SELECT * FROM `weapons`");
+                var result = Database.QueryRead("SELECT * FROM `weapons`");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("Table 'weapons' returns null result", Nlogs.Type.Warn);
@@ -371,7 +371,7 @@ namespace iTeffa.Globals
         public static void SaveWeaponsDB()
         {
             foreach (var dict in BusinessesLastSerial)
-                Connect.Query($"UPDATE `weapons` SET `lastserial`={dict.Value} WHERE `id`={dict.Key}");
+                Database.Query($"UPDATE `weapons` SET `lastserial`={dict.Value} WHERE `id`={dict.Key}");
         }
 
         [RemoteEvent("playerReload")]

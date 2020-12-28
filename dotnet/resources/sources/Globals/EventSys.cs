@@ -214,7 +214,7 @@ namespace iTeffa.Globals
                         AdminEvent.RewardLimit = newreward;
                         try
                         {
-                            Connect.Query($"UPDATE `eventcfg` SET `RewardLimit`={newreward}");
+                            Database.Query($"UPDATE `eventcfg` SET `RewardLimit`={newreward}");
                             Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы установили лимит на " + newreward, 3000);
                         }
                         catch (Exception e)
@@ -358,7 +358,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                Loggings.EventLogAdd(AdminEvent.Admin.Name, AdminEvent.Name, AdminEvent.MembersLimit, Connect.ConvertTime(AdminEvent.Started));
+                Loggings.EventLogAdd(AdminEvent.Admin.Name, AdminEvent.Name, AdminEvent.MembersLimit, Database.ConvertTime(AdminEvent.Started));
             }
             catch (Exception e)
             {
@@ -370,7 +370,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                Loggings.EventLogUpdate(AdminEvent.Admin.Name,AdminEvent.EventMembers.Count,AdminEvent.Winner.Name,AdminEvent.Reward,Connect.ConvertTime(DateTime.Now),AdminEvent.RewardLimit, AdminEvent.MembersLimit, AdminEvent.Name);
+                Loggings.EventLogUpdate(AdminEvent.Admin.Name,AdminEvent.EventMembers.Count,AdminEvent.Winner.Name,AdminEvent.Reward,Database.ConvertTime(DateTime.Now),AdminEvent.RewardLimit, AdminEvent.MembersLimit, AdminEvent.Name);
             }
             catch (Exception e)
             {

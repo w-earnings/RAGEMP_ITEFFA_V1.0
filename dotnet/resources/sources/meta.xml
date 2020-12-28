@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<meta>
+	<info name="source" author="iTeffa" type="gamemode"/>
+	<!-- Gamemode library -->
+	<script src="bin/x64/Debug/netcoreapp3.1/ragemp.dll" />
+</meta>

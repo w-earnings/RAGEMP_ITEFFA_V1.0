@@ -23,7 +23,7 @@ namespace iTeffa.Globals
             lock (Banned)
             {
                 Banned.Clear();
-                DataTable result = Connect.QueryRead("select * from banned");
+                DataTable result = Database.QueryRead("select * from banned");
                 if (result == null || result.Rows.Count == 0) return;
                 foreach (DataRow row in result.Rows)
                 {
@@ -82,7 +82,7 @@ namespace iTeffa.Globals
             }
             else
             {
-                Connect.Query($"DELETE FROM banned WHERE uuid={this.UUID}");
+                Database.Query($"DELETE FROM banned WHERE uuid={this.UUID}");
                 lock (Banned)
                 {
                     Banned.Remove(this);
@@ -114,8 +114,8 @@ namespace iTeffa.Globals
                 Reason = reason,
                 ByAdmin = admin
             };
-            Connect.Query("INSERT INTO `banned`(`uuid`,`name`,`account`,`time`,`until`,`ishard`,`ip`,`socialclub`,`hwid`,`reason`,`byadmin`) " +
-                $"VALUES ({ban.UUID},'{ban.Name}','{ban.Account}','{Connect.ConvertTime(ban.Time)}','{Connect.ConvertTime(ban.Until)}',{ban.isHard},'{ban.IP}','{ban.SocialClub}','{ban.HWID}','{ban.Reason}','{ban.ByAdmin}')");
+            Database.Query("INSERT INTO `banned`(`uuid`,`name`,`account`,`time`,`until`,`ishard`,`ip`,`socialclub`,`hwid`,`reason`,`byadmin`) " +
+                $"VALUES ({ban.UUID},'{ban.Name}','{ban.Account}','{Database.ConvertTime(ban.Time)}','{Database.ConvertTime(ban.Until)}',{ban.isHard},'{ban.IP}','{ban.SocialClub}','{ban.HWID}','{ban.Reason}','{ban.ByAdmin}')");
             Banned.Add(ban);
         }
 
@@ -124,7 +124,7 @@ namespace iTeffa.Globals
             var ban = Banned.FirstOrDefault(b => b.UUID == uuid);
             if (ban == null) return;
 
-            Connect.Query($"UPDATE `banned` SET `account`='{ban.Account}',`hwid`='{ban.HWID}' WHERE `uuid`={uuid}");
+            Database.Query($"UPDATE `banned` SET `account`='{ban.Account}',`hwid`='{ban.HWID}' WHERE `uuid`={uuid}");
         }
         public static bool Offline(string nickname, DateTime until, bool ishard, string reason, string admin)
         {
@@ -142,7 +142,7 @@ namespace iTeffa.Globals
 
             if (ishard)
             {
-                DataTable result = Connect.QueryRead($"SELECT `hwid`,`socialclub`,`ip`,`login` FROM `accounts` WHERE `character1`={uuid} OR `character2`={uuid} OR `character3`={uuid}");
+                DataTable result = Database.QueryRead($"SELECT `hwid`,`socialclub`,`ip`,`login` FROM `accounts` WHERE `character1`={uuid} OR `character2`={uuid} OR `character3`={uuid}");
                 var row = result.Rows[0];
                 if (result == null || result.Rows.Count == 0) return false;
                 ip = row["ip"].ToString();
@@ -165,8 +165,8 @@ namespace iTeffa.Globals
                 Reason = reason,
                 ByAdmin = admin
             };
-            Connect.Query("INSERT INTO `banned`(`uuid`,`name`,`account`,`time`,`until`,`ishard`,`ip`,`socialclub`,`hwid`,`reason`,`byadmin`) " +
-                $"VALUES ({ban.UUID},'{ban.Name}','{ban.Account}','{Connect.ConvertTime(ban.Time)}','{Connect.ConvertTime(ban.Until)}',{ban.isHard},'{ban.IP}','{ban.SocialClub}','{ban.HWID}','{ban.Reason}','{ban.ByAdmin}')");
+            Database.Query("INSERT INTO `banned`(`uuid`,`name`,`account`,`time`,`until`,`ishard`,`ip`,`socialclub`,`hwid`,`reason`,`byadmin`) " +
+                $"VALUES ({ban.UUID},'{ban.Name}','{ban.Account}','{Database.ConvertTime(ban.Time)}','{Database.ConvertTime(ban.Until)}',{ban.isHard},'{ban.IP}','{ban.SocialClub}','{ban.HWID}','{ban.Reason}','{ban.ByAdmin}')");
             Banned.Add(ban);
             return true;
         }
@@ -181,7 +181,7 @@ namespace iTeffa.Globals
                 if (index < 1) return false;
 
                 Banned[index].isHard = false;
-                Connect.Query($"UPDATE banned SET ishard={false} WHERE name='{nickname}'");
+                Database.Query($"UPDATE banned SET ishard={false} WHERE name='{nickname}'");
                 return true;
             }
         }
@@ -193,7 +193,7 @@ namespace iTeffa.Globals
                 if (index < 1) return false;
 
                 Banned[index].isHard = false;
-                Connect.Query($"UPDATE banned SET ishard={false} WHERE uuid={uuid}");
+                Database.Query($"UPDATE banned SET ishard={false} WHERE uuid={uuid}");
                 return true;
             }
         }
@@ -207,7 +207,7 @@ namespace iTeffa.Globals
                 if (index < 0) return false;
 
                 Banned.RemoveAt(index);
-                Connect.Query($"DELETE FROM banned WHERE name='{nickname}'");
+                Database.Query($"DELETE FROM banned WHERE name='{nickname}'");
                 return true;
             }
         }
@@ -219,7 +219,7 @@ namespace iTeffa.Globals
                 if (index < 0) return false;
 
                 Banned.RemoveAt(index);
-                Connect.Query($"DELETE FROM banned WHERE uuid={uuid}");
+                Database.Query($"DELETE FROM banned WHERE uuid={uuid}");
                 return true;
             }
         }

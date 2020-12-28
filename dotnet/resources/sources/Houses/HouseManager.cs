@@ -39,7 +39,7 @@ namespace iTeffa.Houses
             try
             {
                 foreach (HouseType house_type in HouseTypeList) house_type.Create();
-                var result = Connect.QueryRead($"SELECT * FROM `houses`");
+                var result = Database.QueryRead($"SELECT * FROM `houses`");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB return null result.", Nlogs.Type.Warn);

@@ -265,10 +265,10 @@ namespace iTeffa.Working.FarmerJob
                 if (player.HasData($"job_{workname}")) return;
                 int lvl = 1, exp = 0, allpoints = 0;
                 CharacterData acc = Main.Players[player];
-                DataTable result = Connect.QueryRead($"SELECT * FROM `{workname}` WHERE uuid={acc.UUID}");
+                DataTable result = Database.QueryRead($"SELECT * FROM `{workname}` WHERE uuid={acc.UUID}");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Connect.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {lvl}, {exp}, {allpoints})");
+                    Database.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {lvl}, {exp}, {allpoints})");
                     Log.Write($"Я зарегал игрока {player.Name}", Nlogs.Type.Warn);
                 }
                 else
@@ -295,15 +295,15 @@ namespace iTeffa.Working.FarmerJob
                 int[] data = player.GetData<int[]>($"job_{workname}");
                 if (data == null) return;
                 CharacterData acc = Main.Players[player];
-                DataTable result = Connect.QueryRead($"SELECT * FROM `{workname}` WHERE uuid={acc.UUID}");
+                DataTable result = Database.QueryRead($"SELECT * FROM `{workname}` WHERE uuid={acc.UUID}");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Connect.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {data[0]}, {data[1]}, {data[2]})");
+                    Database.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {data[0]}, {data[1]}, {data[2]})");
                     Log.Write("Пользователь внесен в базу", Nlogs.Type.Warn);
                 }
                 else
                 {
-                    Connect.Query($"UPDATE `{workname}` SET `level`={data[0]}, `exp`={data[1]}, `allpoints`={data[2]} WHERE uuid={acc.UUID}");
+                    Database.Query($"UPDATE `{workname}` SET `level`={data[0]}, `exp`={data[1]}, `allpoints`={data[2]} WHERE uuid={acc.UUID}");
                     Log.Write($"Я обновил данные игрока {player.Name}", Nlogs.Type.Warn);
                 }
             }

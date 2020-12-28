@@ -24,7 +24,7 @@ namespace iTeffa.Plugins
             {
                 Blip portblip = NAPI.Blip.CreateBlip(50, new Vector3(1210, -2987, 0), 0.91f, 6, Main.StringToU16("Система контейнеров"), 254, 0, true, 0, 0);
 
-                var table = Connect.QueryRead($"SELECT * FROM `containers`");
+                var table = Database.QueryRead($"SELECT * FROM `containers`");
                 if (table == null || table.Rows.Count == 0)
                 {
                     Log.Write("Containers return null result.", Nlogs.Type.Warn);

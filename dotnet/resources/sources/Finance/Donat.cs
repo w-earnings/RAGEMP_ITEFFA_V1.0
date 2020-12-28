@@ -91,7 +91,7 @@ namespace iTeffa.Finance
                         var client = Main.Accounts.FirstOrDefault(a => a.Value.Login == name).Key;
                         if (client == null || client.IsNull || !Main.Accounts.ContainsKey(client))
                         {
-                            Connect.Query($"update `accounts` set `coins`=`coins`+{reds} where `login`='{name}'");
+                            Database.Query($"update `accounts` set `coins`=`coins`+{reds} where `login`='{name}'");
                         }
                         else
                         {
@@ -534,7 +534,7 @@ namespace iTeffa.Finance
 
                             Main.Accounts[client].Characters[2] = -1;
                             Trigger.ClientEvent(client, "unlockSlot", Main.Accounts[client].Coins);
-                            Connect.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
+                            Database.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                             return;
                         }
                     case Type.Money1:
@@ -703,7 +703,7 @@ namespace iTeffa.Finance
                             break;
                         }
                 }
-                Connect.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
+                Database.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                 Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
             }
             catch (Exception e) { Log.Write("donate: " + e.Message, Nlogs.Type.Error); }

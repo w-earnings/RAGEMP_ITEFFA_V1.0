@@ -73,7 +73,7 @@ namespace iTeffa.Fractions
         {
             try
             {
-                var result = Connect.QueryRead("SELECT * FROM fractions");
+                var result = Database.QueryRead("SELECT * FROM fractions");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("Table 'fractions' returns null result", Nlogs.Type.Warn);
@@ -682,7 +682,7 @@ namespace iTeffa.Fractions
             foreach (var key in fracStocks.Keys)
             {
                 var data = fracStocks[key];
-                Connect.Query($"UPDATE fractions SET drugs={data.Drugs},money={data.Money},mats={data.Materials},medkits={data.Medkits},lastserial={Weapons.FractionsLastSerial[key]}," +
+                Database.Query($"UPDATE fractions SET drugs={data.Drugs},money={data.Money},mats={data.Materials},medkits={data.Medkits},lastserial={Weapons.FractionsLastSerial[key]}," +
                     $"weapons='{JsonConvert.SerializeObject(data.Weapons)}',isopen={data.IsOpen},fuellimit={data.FuelLimit},fuelleft={data.FuelLeft} WHERE id={key}");
             }
             Log.Write("Stocks has been saved to DB", Nlogs.Type.Success);

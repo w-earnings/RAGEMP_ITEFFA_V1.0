@@ -237,7 +237,7 @@ namespace iTeffa.Fractions.Realm
                 }
 
                 var split = target.Split('_');
-                Connect.Query($"UPDATE characters SET wanted=null WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.Query($"UPDATE characters SET wanted=null WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 try
                 {
                     setPlayerWantedLevel(player, null);
@@ -313,7 +313,7 @@ namespace iTeffa.Fractions.Realm
                 catch
                 {
                     var split = target.Split('_');
-                    var result = Connect.QueryRead($"SELECT * FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                    var result = Database.QueryRead($"SELECT * FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                     foreach (DataRow Row in result.Rows)
                     {
                         var firstName = Convert.ToString(Row["firstname"]);

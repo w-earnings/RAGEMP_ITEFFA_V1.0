@@ -133,7 +133,7 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(136, new Vector3(-564.5512, 275.6993, 81.98249), 0.75F, 0, "Tequi-la-la", 255, 0, true);
                 NAPI.Blip.CreateBlip(205, new Vector3(-430.1028, 261.2774, 81.88689), 0.75F, 0, "Split Sides West Comedy Club", 255, 0, true);
 
-                var result = Connect.QueryRead("SELECT * FROM alcoclubs");
+                var result = Database.QueryRead("SELECT * FROM alcoclubs");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB alcoclubs return null result.", Nlogs.Type.Warn);
@@ -333,7 +333,7 @@ namespace iTeffa.Fractions
             {
                 foreach (var club in ClubsStocks)
                 {
-                    Connect.Query($"UPDATE alcoclubs SET alco1={club.Value.Alco1},alco2={club.Value.Alco2},alco3={club.Value.Alco3}," +
+                    Database.Query($"UPDATE alcoclubs SET alco1={club.Value.Alco1},alco2={club.Value.Alco2},alco3={club.Value.Alco3}," +
                         $"pricemod={Convert.ToInt32(club.Value.PriceModifier * 100)},mats={club.Value.Materials} WHERE id={club.Key}");
                 }
             }

@@ -39,7 +39,7 @@ namespace iTeffa.Fractions
                 NAPI.Blip.CreateBlip(668, new Vector3(-1123.202, 4929.628, 217.7096), 0.75F, 75, Main.StringToU16("Redneck"), 255, 0, true, 0);
                 NAPI.Blip.CreateBlip(675, new Vector3(-1304.6462, -560.2332, 33.25491), 0.85F, 14, Main.StringToU16("CityHall"), 255, 0, true, 0);
 
-                var result = Connect.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`fraction`,`fractionlvl` FROM `characters`");
+                var result = Database.QueryRead("SELECT `uuid`,`firstname`,`lastname`,`fraction`,`fractionlvl` FROM `characters`");
                 if (result != null)
                 {
                     foreach (DataRow Row in result.Rows)
@@ -1579,7 +1579,7 @@ namespace iTeffa.Fractions
                                 int targetFrac = 0;
 
                                 var split = data1.Split('_');
-                                var result = Connect.QueryRead($"SELECT fraction,fractionlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                                var result = Database.QueryRead($"SELECT fraction,fractionlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                                 if (result == null || result.Rows.Count == 0) return;
                                 foreach (DataRow Row in result.Rows)
                                 {
@@ -1597,7 +1597,7 @@ namespace iTeffa.Fractions
                                     Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете уволить этого игрока", 3000);
                                     return;
                                 }
-                                Connect.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                                Database.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                                 Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы уволили игрока {data1} из Вашей фракции", 3000);
 
                                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == data1);

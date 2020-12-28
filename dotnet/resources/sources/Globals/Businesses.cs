@@ -128,7 +128,7 @@ namespace iTeffa.Globals
 
         public void Save()
         {
-            Connect.Query($"UPDATE businesses SET owner='{this.Owner}',sellprice={this.SellPrice}," +
+            Database.Query($"UPDATE businesses SET owner='{this.Owner}',sellprice={this.SellPrice}," +
                     $"products='{JsonConvert.SerializeObject(this.Products)}',money={this.BankID},mafia={this.Mafia},orders='{JsonConvert.SerializeObject(this.Orders)}' WHERE id={this.ID}");
             Finance.Bank.Save(this.BankID);
         }

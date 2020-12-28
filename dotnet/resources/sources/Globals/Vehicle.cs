@@ -100,7 +100,7 @@ namespace iTeffa.Globals
                 Timers.StartTask("fuel", 30000, () => FuelControl());
 
                 Log.Write("Loading Vehicles...");
-                DataTable result = Connect.QueryRead("SELECT * FROM `vehicles`");
+                DataTable result = Database.QueryRead("SELECT * FROM `vehicles`");
                 if (result == null || result.Rows.Count == 0)
                 {
                     Log.Write("DB return null result.", Nlogs.Type.Warn);
@@ -330,7 +330,7 @@ namespace iTeffa.Globals
 
             string Number = GenerateNumber();
             Vehicles.Add(Number, data);
-            Connect.Query("INSERT INTO `vehicles`(`number`, `holder`, `model`, `health`, `fuel`, `price`, `components`, `items`)" +
+            Database.Query("INSERT INTO `vehicles`(`number`, `holder`, `model`, `health`, `fuel`, `price`, `components`, `items`)" +
                 $" VALUES ('{Number}','{Holder}','{Model}',{Health},{Fuel},{Price},'{JsonConvert.SerializeObject(data.Components)}','{JsonConvert.SerializeObject(data.Items)}')");
             Log.Write("Created new vehicle with number: " + Number);
             return Number;
@@ -349,7 +349,7 @@ namespace iTeffa.Globals
             }
             catch { }
             Vehicles.Remove(Number);
-            Connect.Query($"DELETE FROM `vehicles` WHERE number='{Number}'");
+            Database.Query($"DELETE FROM `vehicles` WHERE number='{Number}'");
         }
         public static void Spawn(string Number, Vector3 Pos, float Rot, Player owner)
         {
@@ -397,7 +397,7 @@ namespace iTeffa.Globals
             cmd.Parameters.AddWithValue("@keyn", data.KeyNum);
             cmd.Parameters.AddWithValue("@dirt", (byte)data.Dirt);
             cmd.Parameters.AddWithValue("@numb", Number);
-            Connect.Query(cmd);
+            Database.Query(cmd);
 
             return true;
         }
@@ -1227,7 +1227,7 @@ namespace iTeffa.Globals
                     if (Vehicles.ContainsKey(num)) Vehicles[num].Holder = newName;
                 }
 
-                Connect.Query($"UPDATE `vehicles` SET `holder`='{newName}' WHERE `holder`='{oldName}'");
+                Database.Query($"UPDATE `vehicles` SET `holder`='{newName}' WHERE `holder`='{oldName}'");
             }
         }
     }

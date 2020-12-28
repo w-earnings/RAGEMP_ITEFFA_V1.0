@@ -414,7 +414,7 @@ namespace iTeffa.Globals
                     return;
                 }
                 var split = target.Split('_');
-                Connect.QueryRead($"UPDATE `characters` SET `unmute`={time * 60} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                Database.QueryRead($"UPDATE `characters` SET `unmute`={time * 60} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}{player.Name} выдал мут игроку {target} на {time} минут");
                 NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}Причина: {reason}");
                 Loggings.Admin($"{player.Name}", $"mutePlayer({time}, {reason})", $"{target}");
@@ -551,7 +551,7 @@ namespace iTeffa.Globals
             else
             {
                 string[] split = name.Split('_');
-                DataTable result = Connect.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                DataTable result = Database.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 DataRow row = result.Rows[0];
                 int targetadminlvl = Convert.ToInt32(row[0]);
                 if (targetadminlvl >= Main.Players[player].AdminLVL)
@@ -616,7 +616,7 @@ namespace iTeffa.Globals
             else
             {
                 string[] split = name.Split('_');
-                DataTable result = Connect.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                DataTable result = Database.QueryRead($"SELECT adminlvl FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 DataRow row = result.Rows[0];
                 int targetadminlvl = Convert.ToInt32(row[0]);
                 if (targetadminlvl >= Main.Players[player].AdminLVL)

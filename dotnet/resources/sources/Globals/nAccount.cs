@@ -42,7 +42,7 @@ namespace iTeffa.Globals.nAccount
                     if (string.IsNullOrEmpty(promo_) || !Main.PromoCodes.ContainsKey(promo_))
                         promo_ = "noref";
                     else
-                        await Connect.QueryAsync($"UPDATE promocodes SET count=count+1 WHERE name='{promo_}'");
+                        await Database.QueryAsync($"UPDATE promocodes SET count=count+1 WHERE name='{promo_}'");
                 }
                 PromoCodes.Add(promo_);
 
@@ -52,8 +52,8 @@ namespace iTeffa.Globals.nAccount
                 if(client.Address.Equals("80.235.53.64")) IP = "31.13.190.88";
                 else IP = client.Address;
                 SocialClub = client.SocialClubName;
-                await Connect.QueryAsync($"INSERT INTO `accounts` (`login`,`email`,`password`,`hwid`,`ip`,`socialclub`,`coins`,`viplvl`,`vipdate`,`promocodes`,`character1`,`character2`,`character3`) " +
-                    $"VALUES ('{Login}','{Email}','{Password}','{HWID}','{IP}','{SocialClub}',0,{VipLvl},'{Connect.ConvertTime(VipDate)}','{JsonConvert.SerializeObject(PromoCodes)}',-1,-1,-2)");
+                await Database.QueryAsync($"INSERT INTO `accounts` (`login`,`email`,`password`,`hwid`,`ip`,`socialclub`,`coins`,`viplvl`,`vipdate`,`promocodes`,`character1`,`character2`,`character3`) " +
+                    $"VALUES ('{Login}','{Email}','{Password}','{HWID}','{IP}','{SocialClub}',0,{VipLvl},'{Database.ConvertTime(VipDate)}','{JsonConvert.SerializeObject(PromoCodes)}',-1,-1,-2)");
                 Main.SocialClubs.Add(SocialClub);
                 Main.Usernames.Add(Login);
                 Main.Emails.Add(Email, Login);
@@ -79,7 +79,7 @@ namespace iTeffa.Globals.nAccount
                 login_ = login_.ToLower();
 
                 pass_ = GetSha256(pass_);
-                DataTable result = await Connect.QueryReadAsync($"SELECT * FROM `accounts` WHERE `login`='{login_}' AND password='{pass_}'");
+                DataTable result = await Database.QueryReadAsync($"SELECT * FROM `accounts` WHERE `login`='{login_}' AND password='{pass_}'");
 
                 //Если база не вернула таблицу, то отправляем сброс
                 if (result == null || result.Rows.Count == 0) return LoginEvent.Refused;
@@ -141,13 +141,13 @@ namespace iTeffa.Globals.nAccount
                 cmd.Parameters.AddWithValue("@vipl", VipLvl);
                 cmd.Parameters.AddWithValue("@hwid", HWID);
                 cmd.Parameters.AddWithValue("@ip", IP);
-                cmd.Parameters.AddWithValue("@vipd", Connect.ConvertTime(VipDate));
+                cmd.Parameters.AddWithValue("@vipd", Database.ConvertTime(VipDate));
                 cmd.Parameters.AddWithValue("@charf", Characters[0]);
                 cmd.Parameters.AddWithValue("@charn", Characters[1]);
                 cmd.Parameters.AddWithValue("@charm", Characters[2]);
                 cmd.Parameters.AddWithValue("@pres", PresentGet);
                 cmd.Parameters.AddWithValue("@login", Login);
-                await Connect.QueryAsync(cmd);
+                await Database.QueryAsync(cmd);
 
                 return true;
             }
@@ -222,7 +222,7 @@ namespace iTeffa.Globals.nAccount
             if (result == -1) return;
 
             Characters[slot - 1] = result;
-            await Connect.QueryAsync($"UPDATE `accounts` SET `character{slot}`={result} WHERE `login`='{Login}'");
+            await Database.QueryAsync($"UPDATE `accounts` SET `character{slot}`={result} WHERE `login`='{Login}'");
 
             Main.Players[player].Spawn(player);
         }
@@ -230,7 +230,7 @@ namespace iTeffa.Globals.nAccount
         {
             if (Characters[slot - 1] == -1 || Characters[slot - 1] == -2) return;
             
-            var result = await Connect.QueryReadAsync($"SELECT `firstname`,`lastname`,`biz`,`sim`,`bank` FROM `characters` WHERE uuid={Characters[slot - 1]}");
+            var result = await Database.QueryReadAsync($"SELECT `firstname`,`lastname`,`biz`,`sim`,`bank` FROM `characters` WHERE uuid={Characters[slot - 1]}");
             if (result == null || result.Rows.Count == 0) return;
             Ban ban = Ban.Get2(Characters[slot - 1]);
             if (ban != null && ban.CheckDate()) {
@@ -261,10 +261,10 @@ namespace iTeffa.Globals.nAccount
             foreach (var b in biz)
                 BusinessManager.changeOwner($"{firstName}_{lastName}", "Государство");
 
-            await Connect.QueryAsync("DELETE FROM `customization` WHERE uuid=" + uuid);
+            await Database.QueryAsync("DELETE FROM `customization` WHERE uuid=" + uuid);
 
             nInventory.Items.Remove(uuid);
-            await Connect.QueryAsync("DELETE FROM `inventory` WHERE uuid=" + uuid);
+            await Database.QueryAsync("DELETE FROM `inventory` WHERE uuid=" + uuid);
 
             Finance.Bank.Remove(bank, $"{firstName}_{lastName}");
 
@@ -272,7 +272,7 @@ namespace iTeffa.Globals.nAccount
             foreach (var v in vehicles)
                 VehicleManager.Remove(v);
 
-            await Connect.QueryAsync("DELETE FROM `characters` WHERE uuid=" + uuid);
+            await Database.QueryAsync("DELETE FROM `characters` WHERE uuid=" + uuid);
 
             Main.UUIDs.Remove(uuid);
             Main.PlayerNames.Remove(uuid);
@@ -283,7 +283,7 @@ namespace iTeffa.Globals.nAccount
             Customization.CustomPlayerData.Remove(uuid);
 
             Characters[slot - 1] = -1;
-            await Connect.QueryAsync($"UPDATE accounts SET character{slot}=-1 WHERE login='{Login}'");
+            await Database.QueryAsync($"UPDATE accounts SET character{slot}=-1 WHERE login='{Login}'");
 
             Loggings.CharacterDelete($"{firstName}_{lastName}", uuid, Login);
 
