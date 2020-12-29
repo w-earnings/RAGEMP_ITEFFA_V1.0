@@ -17,7 +17,7 @@ namespace iTeffa.Modules
             {
                 try
                 {
-                    Trigger.ClientEvent(entity, "JobsEinfo");
+                    Plugins.Trigger.ClientEvent(entity, "JobsEinfo");
                     entity.SetData("INTERACTIONCHECK", 571);
                 }
                 catch (Exception e) { Console.WriteLine("shape.OnEntityEnterColshape: " + e.Message); }
@@ -26,7 +26,7 @@ namespace iTeffa.Modules
             {
                 try
                 {
-                    Trigger.ClientEvent(entity, "JobsEinfo2");
+                    Plugins.Trigger.ClientEvent(entity, "JobsEinfo2");
                     entity.SetData("INTERACTIONCHECK", 0);
                 }
                 catch (Exception e) { Console.WriteLine("shape.OnEntityEnterColshape: " + e.Message); }
@@ -34,7 +34,7 @@ namespace iTeffa.Modules
         }
         public static void Interact1(Player player)
         {
-            Trigger.ClientEvent(player, "openInfoMenu");
+            Plugins.Trigger.ClientEvent(player, "openInfoMenu");
         }
     }
 }

@@ -186,11 +186,11 @@ namespace iTeffa.Fractions
                 Main.OnAntiAnim(player);
                 NAPI.Player.PlayPlayerAnimation(target, 49, "mp_arresting", "idle");
                 BasicSync.AttachObjectToPlayer(target, NAPI.Util.GetHashKey("p_cs_cuffs_02_s"), 6286, new Vector3(-0.02f, 0.063f, 0.0f), new Vector3(75.0f, 0.0f, 76.0f));
-                Trigger.ClientEvent(target, "CUFFED", true);
+                Plugins.Trigger.ClientEvent(target, "CUFFED", true);
                 if (fracid == 6 || fracid == 7 || fracid == 9) target.SetData("CUFFED_BY_COP", true);
                 else target.SetData("CUFFED_BY_MAFIA", true);
                 Dashboard.Close(target);
-                Trigger.ClientEvent(target, "blockMove", true);
+                Plugins.Trigger.ClientEvent(target, "blockMove", true);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, cuffmesp, 3000);
                 Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, cuffmest, 3000);
                 Commands.Controller.RPChat("me", player, cuffme, target);
@@ -229,7 +229,7 @@ namespace iTeffa.Fractions
                     player.ClearAccessory(1);
                     player.SetClothes(1, 0, 0);
 
-                    Trigger.ClientEvent(player, "setPocketEnabled", false);
+                    Plugins.Trigger.ClientEvent(player, "setPocketEnabled", false);
                     player.ResetData("HEAD_POCKET");
                 }
             }
@@ -389,7 +389,7 @@ namespace iTeffa.Fractions
 
                 target.SetData("INVITEFRACTION", Main.Players[sender].FractionID);
                 target.SetData("SENDERFRAC", sender);
-                Trigger.ClientEvent(target, "openDialog", "INVITED", $"{sender.Name} пригласил Вас в {Manager.FractionNames[Main.Players[sender].FractionID]}");
+                Plugins.Trigger.ClientEvent(target, "openDialog", "INVITED", $"{sender.Name} пригласил Вас в {Manager.FractionNames[Main.Players[sender].FractionID]}");
 
                 Plugins.Notice.Send(sender, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы пригласили во фракцию {target.Name}", 3000);
                 Dashboard.sendStats(target);
@@ -437,7 +437,7 @@ namespace iTeffa.Fractions
             int index = Manager.AllMembers.FindIndex(m => m.Name == target.Name);
             if (index > -1) Manager.AllMembers.RemoveAt(index);
 
-            if (Main.Players[target].FractionID == 15) Trigger.ClientEvent(target, "enableadvert", false);
+            if (Main.Players[target].FractionID == 15) Plugins.Trigger.ClientEvent(target, "enableadvert", false);
 
             Main.Players[target].OnDuty = false;
             Main.Players[target].FractionID = 0;
@@ -479,7 +479,7 @@ namespace iTeffa.Fractions
             target.SetData("TICKETER", player);
             target.SetData("TICKETSUM", sum);
             target.SetData("TICKETREASON", reason);
-            Trigger.ClientEvent(target, "openDialog", "TICKET", $"{player.Name} выписал Вам штраф в размере {sum}$ за {reason}. Оплатить?");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "TICKET", $"{player.Name} выписал Вам штраф в размере {sum}$ за {reason}. Оплатить?");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы выписали штраф для {target.Name} в размере {sum}$ за {reason}", 3000);
         }
         public static void ticketConfirm(Player target, bool confirm)
@@ -650,11 +650,11 @@ namespace iTeffa.Fractions
 
         public static void unCuffPlayer(Player player)
         {
-            Trigger.ClientEvent(player, "CUFFED", false);
+            Plugins.Trigger.ClientEvent(player, "CUFFED", false);
             NAPI.Data.SetEntityData(player, "CUFFED", false);
             NAPI.Player.StopPlayerAnimation(player);
             BasicSync.DetachObject(player);
-            Trigger.ClientEvent(player, "blockMove", false);
+            Plugins.Trigger.ClientEvent(player, "blockMove", false);
             Main.OffAntiAnim(player);
         }
 
@@ -685,7 +685,7 @@ namespace iTeffa.Fractions
         {
             NAPI.Data.ResetEntityData(cop, "FOLLOWER");
             NAPI.Data.ResetEntityData(suspect, "FOLLOWING");
-            Trigger.ClientEvent(suspect, "setFollow", false);
+            Plugins.Trigger.ClientEvent(suspect, "setFollow", false);
         }
 
         public static void targetFollowPlayer(Player player, Player target)
@@ -734,7 +734,7 @@ namespace iTeffa.Fractions
 
             NAPI.Data.SetEntityData(player, "FOLLOWER", target);
             NAPI.Data.SetEntityData(target, "FOLLOWING", player);
-            Trigger.ClientEvent(target, "setFollow", true, player);
+            Plugins.Trigger.ClientEvent(target, "setFollow", true, player);
             Commands.Controller.RPChat("me", player, "потащил(а) {name} за собой", target);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы потащили за собой игрока ({target.Value})", 3000);
             Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) потащил Вас за собой", 3000);
@@ -965,7 +965,7 @@ namespace iTeffa.Fractions
             }
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили купить лицензию на оружие игроку ({target.Value}) за ${price}", 3000);
 
-            Trigger.ClientEvent(target, "openDialog", "GUN_LIC", $"Игрок ({player.Value}) предложил Вам купить лицензию на оружие за ${price}");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "GUN_LIC", $"Игрок ({player.Value}) предложил Вам купить лицензию на оружие за ${price}");
             target.SetData("SELLER", player);
             target.SetData("GUN_PRICE", price);
         }
@@ -1070,7 +1070,7 @@ namespace iTeffa.Fractions
                 target.ClearAccessory(1);
                 target.SetClothes(1, 0, 0);
 
-                Trigger.ClientEvent(target, "setPocketEnabled", false);
+                Plugins.Trigger.ClientEvent(target, "setPocketEnabled", false);
                 target.ResetData("HEAD_POCKET");
 
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы сняли мешок с игрока ({target.Value})", 3000);
@@ -1088,7 +1088,7 @@ namespace iTeffa.Fractions
                 target.SetAccessories(1, 24, 2);
                 target.SetClothes(1, 56, 1);
 
-                Trigger.ClientEvent(target, "setPocketEnabled", true);
+                Plugins.Trigger.ClientEvent(target, "setPocketEnabled", true);
                 target.SetData("HEAD_POCKET", true);
 
                 nInventory.Remove(player, ItemType.Pocket, 1);
@@ -1146,7 +1146,7 @@ namespace iTeffa.Fractions
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока нет столько денег", 3000);
                     return;
                 }
-                Trigger.ClientEvent(target, "openDialog", "PAY_MEDKIT", $"Медик ({player.Value}) предложил купить Вам аптечку за ${price}.");
+                Plugins.Trigger.ClientEvent(target, "openDialog", "PAY_MEDKIT", $"Медик ({player.Value}) предложил купить Вам аптечку за ${price}.");
                 target.SetData("SELLER", player);
                 target.SetData("PRICE", price);
 
@@ -1168,7 +1168,7 @@ namespace iTeffa.Fractions
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не вызывал скорую", 3000);
                     return;
                 }
-                Trigger.ClientEvent(player, "createWaypoint", target.Position.X, target.Position.Y);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", target.Position.X, target.Position.Y);
                 Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Медик ({player.Value}) принял Ваш вызов", 3000);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
                 target.ResetData("IS_CALL_EMS");
@@ -1208,7 +1208,7 @@ namespace iTeffa.Fractions
                     }
                     target.SetData("SELLER", player);
                     target.SetData("PRICE", price);
-                    Trigger.ClientEvent(target, "openDialog", "PAY_HEAL", $"Медик ({player.Value}) предложил лечение за ${price}");
+                    Plugins.Trigger.ClientEvent(target, "openDialog", "PAY_HEAL", $"Медик ({player.Value}) предложил лечение за ${price}");
 
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили лечение игроку ({target.Value}) за {price}$", 3000);
                     return;
@@ -1217,7 +1217,7 @@ namespace iTeffa.Fractions
                 {
                     target.SetData("SELLER", player);
                     target.SetData("PRICE", price);
-                    Trigger.ClientEvent(target, "openDialog", "PAY_HEAL", $"Медик ({player.Value}) предложил лечение за ${price}");
+                    Plugins.Trigger.ClientEvent(target, "openDialog", "PAY_HEAL", $"Медик ({player.Value}) предложил лечение за ${price}");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили лечение игроку ({target.Value}) за {price}$", 3000);
                     return;
                 }

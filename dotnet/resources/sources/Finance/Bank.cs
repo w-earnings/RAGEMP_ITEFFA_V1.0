@@ -184,7 +184,7 @@ namespace iTeffa.Finance
         {
             NAPI.Task.Run(() =>
             {
-                Trigger.ClientEvent(client, "UpdateBank", Get(client.Name).Balance);
+                Plugins.Trigger.ClientEvent(client, "UpdateBank", Get(client.Name).Balance);
             });
         }
         private static int GenerateUUID()

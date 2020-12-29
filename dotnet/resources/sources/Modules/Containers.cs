@@ -74,7 +74,7 @@ namespace iTeffa.Modules
             if (!player.HasData("ContainerID")) return;
             Container container = containers[player.GetData<int>("ContainerID")];
             if (!container.State) return;
-            Trigger.ClientEvent(player, "openContainerMenu", container);
+            Plugins.Trigger.ClientEvent(player, "openContainerMenu", container);
         }
 
         [RemoteEvent("openContainer")]

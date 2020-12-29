@@ -115,7 +115,7 @@ namespace iTeffa.Fractions.Realm
             foreach (var p in NAPI.Pools.GetAllPlayers())
             {
                 if (!Main.Players.ContainsKey(p) || Main.Players[p].FractionID != 8) continue;
-                Trigger.ClientEvent(p, "changeBlipAlpha", Blip, 255);
+                Plugins.Trigger.ClientEvent(p, "changeBlipAlpha", Blip, 255);
             }
             player.SetData("CALLEMS_BLIP", Blip);
 
@@ -168,9 +168,9 @@ namespace iTeffa.Fractions.Realm
                 Blip blip = target.GetData<Blip>("CALLEMS_BLIP");
 
                 where = 4;
-                Trigger.ClientEvent(player, "changeBlipColor", blip, 38);
+                Plugins.Trigger.ClientEvent(player, "changeBlipColor", blip, 38);
                 where = 5;
-                Trigger.ClientEvent(player, "createWaypoint", blip.Position.X, blip.Position.Y);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", blip.Position.X, blip.Position.Y);
                 where = 6;
 
                 ColShape colshape = target.GetData<ColShape>("CALLEMS_COL");
@@ -268,7 +268,7 @@ namespace iTeffa.Fractions.Realm
                     player.SetSkin((Main.Players[player].Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                     Customization.ApplyCharacter(player);
                 }
-                Trigger.ClientEvent(player, "screenFadeOut", 2000);
+                Plugins.Trigger.ClientEvent(player, "screenFadeOut", 2000);
 
                 var dimension = player.Dimension;
 
@@ -288,7 +288,7 @@ namespace iTeffa.Fractions.Realm
                         player.SetSharedData("InDeath", true);
                         var medics = 0;
                         foreach (var m in Manager.Members) if (m.Value.FractionID == 8) medics++;
-                        Trigger.ClientEvent(player, "openDialog", "DEATH_CONFIRM", $"Вы хотите вызвать медиков ({medics} в сети)?");
+                        Plugins.Trigger.ClientEvent(player, "openDialog", "DEATH_CONFIRM", $"Вы хотите вызвать медиков ({medics} в сети)?");
                     }
                 }
                 else
@@ -317,7 +317,7 @@ namespace iTeffa.Fractions.Realm
                                 player.ResetData("CALLEMS_COL");
                             }
 
-                            Trigger.ClientEvent(player, "DeathTimer", false);
+                            Plugins.Trigger.ClientEvent(player, "DeathTimer", false);
                             player.SetSharedData("InDeath", false);
                             var spawnPos = new Vector3();
 
@@ -364,7 +364,7 @@ namespace iTeffa.Fractions.Realm
 
             NAPI.Player.SetPlayerHealth(player, 10);
             var time = (call) ? 600000 : 180000;
-            Trigger.ClientEvent(player, "DeathTimer", time);
+            Plugins.Trigger.ClientEvent(player, "DeathTimer", time);
             var timeMsg = (call) ? "10 минут Вас не вылечит медик или кто-нибудь другой" : "3 минут Вас никто не вылечит";
             player.SetData("DYING_TIMER", Timers.StartOnce(time, () => DeathTimer(player)));
             var deadAnimName = deadAnims[Main.rnd.Next(deadAnims.Count)];
@@ -452,7 +452,7 @@ namespace iTeffa.Fractions.Realm
                 }
                 Plugins.Notice.Send(seller, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы вылечили игрока ({player.Value})", 3000);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Игрок ({seller.Value}) вылечил Вас", 3000);
-                Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 NAPI.Player.SetPlayerHealth(player, 100);
                 Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
                 Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
@@ -467,7 +467,7 @@ namespace iTeffa.Fractions.Realm
                 Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
                 Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
                 Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
-                Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 return;
             }
             else
@@ -584,7 +584,7 @@ namespace iTeffa.Fractions.Realm
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы отошли слишком далеко. Лечение не возможно", 3000);
                         Timers.Stop(player.GetData<string>("HEAL_TIMER"));
                         player.ResetData("HEAL_TIMER");
-                        Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         return;
                     }
                     else
@@ -594,7 +594,7 @@ namespace iTeffa.Fractions.Realm
                             Timers.Stop(player.GetData<string>("HEAL_TIMER"));
                             player.ResetData("HEAL_TIMER");
                             player.StopAnimation();
-                            Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                            Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Ваше лечение закончено", 3000);
                             return;
                         }
@@ -708,7 +708,7 @@ namespace iTeffa.Fractions.Realm
                     }
 
                     Weapons.GiveWeapon(client, ItemType.StunGun, Weapons.GetSerial(true, 8));
-                    Trigger.ClientEvent(client, "acguns");
+                    Plugins.Trigger.ClientEvent(client, "acguns");
                     return;
                 case "close":
                     MenuManager.Close(client);

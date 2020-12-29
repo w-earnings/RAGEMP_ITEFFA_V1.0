@@ -29,14 +29,14 @@ namespace iTeffa.Globals
                     {
                         if (!Main.Players.ContainsKey(target)) continue;
                         if (Main.Players[target].AdminLVL < adminLvL) continue;
-                        Trigger.ClientEvent(target, "addreport", ID, Author, Question);
+                        Plugins.Trigger.ClientEvent(target, "addreport", ID, Author, Question);
                     }
                 }
                 else
                 {
                     if (!Main.Players.ContainsKey(someone)) return;
                     if (Main.Players[someone].AdminLVL < adminLvL) return;
-                    Trigger.ClientEvent(someone, "addreport", ID, Author, Question);
+                    Plugins.Trigger.ClientEvent(someone, "addreport", ID, Author, Question);
                 }
             }
         }
@@ -113,8 +113,8 @@ namespace iTeffa.Globals
             {
                 if (!Main.Players.ContainsKey(target)) continue;
                 if (Main.Players[target].AdminLVL < adminLvL) continue;
-                if (retrn) Trigger.ClientEvent(target, "setreport", id, "");
-                else Trigger.ClientEvent(target, "setreport", id, client.Name);
+                if (retrn) Plugins.Trigger.ClientEvent(target, "setreport", id, "");
+                else Plugins.Trigger.ClientEvent(target, "setreport", id, client.Name);
             }
         }
         [RemoteEvent("sendreport")]
@@ -245,7 +245,7 @@ namespace iTeffa.Globals
                     {
                         if (!Main.Players.ContainsKey(target)) continue;
                         if (Main.Players[target].AdminLVL < adminLvL) continue;
-                        Trigger.ClientEvent(target, "delreport", ID_);
+                        Plugins.Trigger.ClientEvent(target, "delreport", ID_);
                     }
                 }
                 else
@@ -253,7 +253,7 @@ namespace iTeffa.Globals
                     if (!Main.Players.ContainsKey(someone)) return;
                     if (Main.Players[someone].AdminLVL < adminLvL) return;
 
-                    Trigger.ClientEvent(someone, "delreport", ID_);
+                    Plugins.Trigger.ClientEvent(someone, "delreport", ID_);
                 }
                 Reports.Remove(ID_);
             }

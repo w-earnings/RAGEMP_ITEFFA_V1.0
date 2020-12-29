@@ -332,8 +332,8 @@ namespace iTeffa.Globals
                                 Items = itemNames
                             };
 
-                            Trigger.ClientEvent(player, "newPassport", target, Main.Players[target].UUID);
-                            Trigger.ClientEvent(player, "bsearchOpen", JsonConvert.SerializeObject(data));
+                            Plugins.Trigger.ClientEvent(player, "newPassport", target, Main.Players[target].UUID);
+                            Plugins.Trigger.ClientEvent(player, "bsearchOpen", JsonConvert.SerializeObject(data));
                             return;
                         }
                     case "Посмотреть паспорт":
@@ -360,8 +360,8 @@ namespace iTeffa.Globals
                                 work
                             };
                             string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                            Trigger.ClientEvent(player, "passport", json);
-                            Trigger.ClientEvent(player, "newPassport", target, acc.UUID);
+                            Plugins.Trigger.ClientEvent(player, "passport", json);
+                            Plugins.Trigger.ClientEvent(player, "newPassport", target, acc.UUID);
                         }
                         return;
                     case "Посмотреть лицензии":
@@ -391,7 +391,7 @@ namespace iTeffa.Globals
                             };
 
                             string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                            Trigger.ClientEvent(player, "licenses", json);
+                            Plugins.Trigger.ClientEvent(player, "licenses", json);
                         }
                         return;
                     case "Изъять оружие":
@@ -403,11 +403,11 @@ namespace iTeffa.Globals
                         playerTakeIlleagal(player, target);
                         return;
                     case "Продать аптечку":
-                        Trigger.ClientEvent(player, "openInput", "Продать аптечку", "Цена $$$", 4, "player_medkit");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Продать аптечку", "Цена $$$", 4, "player_medkit");
                         return;
                     case "Предложить лечение":
                         if (player.IsInVehicle) return;
-                        Trigger.ClientEvent(player, "openInput", "Предложить лечение", "Цена $$$", 4, "player_heal");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Предложить лечение", "Цена $$$", 4, "player_heal");
                         return;
                     case "Вылечить":
                         if (player.IsInVehicle) return;
@@ -423,7 +423,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет дома", 3000);
                             return;
                         }
-                        Trigger.ClientEvent(player, "openInput", "Продать дом", "Цена $$$", 8, "player_offerhousesell");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Продать дом", "Цена $$$", 8, "player_offerhousesell");
                         return;
                     case "Заселить в дом":
                         HouseManager.InviteToRoom(player, target);
@@ -437,7 +437,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Перевод денег доступен после первого уровня", 3000);
                             return;
                         }
-                        Trigger.ClientEvent(player, "openInput", "Передать деньги", "Сумма $$$", 4, "player_givemoney");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Передать деньги", "Сумма $$$", 4, "player_givemoney");
                         return;
                     case "Предложить обмен":
                         target.SetData("OFFER_MAKER", player);
@@ -457,7 +457,7 @@ namespace iTeffa.Globals
                     case "Выписать штраф":
                         if (player.IsInVehicle) return;
                         player.SetData("TICKETTARGET", target);
-                        Trigger.ClientEvent(player, "openInput", "Выписать штраф (сумма)", "Сумма от 0 до 7000$", 4, "player_ticketsum");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Выписать штраф (сумма)", "Сумма от 0 до 7000$", 4, "player_ticketsum");
                         return;
                 }
             }
@@ -561,7 +561,7 @@ namespace iTeffa.Globals
                             target.StopAnimation();
                             NAPI.Entity.SetEntityPosition(target, target.Position + new Vector3(0, 0, 0.5));
                             target.SetSharedData("InDeath", false);
-                            Trigger.ClientEvent(target, "DeathTimer", false);
+                            Plugins.Trigger.ClientEvent(target, "DeathTimer", false);
                             target.Health = 50;
                             target.ResetData("IS_DYING");
                             Main.Players[target].IsAlive = true;
@@ -682,8 +682,8 @@ namespace iTeffa.Globals
                     player.PlayAnimation("mp_ped_interaction", "handshake_guy_a", 39);
                     target.PlayAnimation("mp_ped_interaction", "handshake_guy_a", 39);
 
-                    Trigger.ClientEvent(player, "newFriend", target);
-                    Trigger.ClientEvent(target, "newFriend", player);
+                    Plugins.Trigger.ClientEvent(player, "newFriend", target);
+                    Plugins.Trigger.ClientEvent(target, "newFriend", player);
 
                     Main.OnAntiAnim(player);
                     Main.OnAntiAnim(target);

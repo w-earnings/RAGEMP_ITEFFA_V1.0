@@ -25,7 +25,7 @@ namespace iTeffa.Working
                     try
                     {
                         player.SetData("INTERACTIONCHECK", 510);
-                        Trigger.ClientEvent(player, "JobsEinfo");
+                        Plugins.Trigger.ClientEvent(player, "JobsEinfo");
                     }
                     catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                 };
@@ -33,7 +33,7 @@ namespace iTeffa.Working
                     try
                     {
                         player.SetData("INTERACTIONCHECK", 0);
-                        Trigger.ClientEvent(player, "JobsEinfo2");
+                        Plugins.Trigger.ClientEvent(player, "JobsEinfo2");
                     }
                     catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
                 };
@@ -86,8 +86,8 @@ namespace iTeffa.Working
                 return;
             }
 
-            Trigger.ClientEvent(player, "JobsEinfo2");
-            Trigger.ClientEvent(player, "OpenDiver", checkpointPayment, Main.Players[player].LVL, Main.Players[player].WorkID, NAPI.Data.GetEntityData(player, "ON_WORK2"));
+            Plugins.Trigger.ClientEvent(player, "JobsEinfo2");
+            Plugins.Trigger.ClientEvent(player, "OpenDiver", checkpointPayment, Main.Players[player].LVL, Main.Players[player].WorkID, NAPI.Data.GetEntityData(player, "ON_WORK2"));
 
         }
         #endregion
@@ -122,7 +122,7 @@ namespace iTeffa.Working
                 Main.Players[player].WorkID = 0;
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы уволились с работы", 3000);
                 var jobsid = Main.Players[player].WorkID;
-                Trigger.ClientEvent(player, "secusejobDiver", jobsid);
+                Plugins.Trigger.ClientEvent(player, "secusejobDiver", jobsid);
                 return;
             }
             else
@@ -143,7 +143,7 @@ namespace iTeffa.Working
             Main.Players[player].WorkID = JobWorkId;
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы устроились на работу", 3000);
             var jobsid = Main.Players[player].WorkID;
-            Trigger.ClientEvent(player, "secusejobDiver", jobsid);
+            Plugins.Trigger.ClientEvent(player, "secusejobDiver", jobsid);
             return;
         }
         #endregion
@@ -206,29 +206,29 @@ namespace iTeffa.Working
                 player.SetData("WORKCHECK_2", 0);
                 player.SetData("WORKCHECK_3", 0);
                 player.SetData("WORKCHECK_4", 0);
-                Trigger.ClientEvent(player, "deleteJobMenusBlip", 0);
-                Trigger.ClientEvent(player, "deleteJobMenusBlip", 1);
-                Trigger.ClientEvent(player, "deleteJobMenusBlip", 2);
-                Trigger.ClientEvent(player, "deleteJobMenusBlip", 3);
-                Trigger.ClientEvent(player, "deleteJobMenusBlip", 4);
-                Trigger.ClientEvent(player, "deleteObjectJobs", 0);
-                Trigger.ClientEvent(player, "deleteObjectJobs", 1);
-                Trigger.ClientEvent(player, "deleteObjectJobs", 2);
-                Trigger.ClientEvent(player, "deleteObjectJobs", 3);
-                Trigger.ClientEvent(player, "deleteObjectJobs", 4);
+                Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 0);
+                Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 1);
+                Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 2);
+                Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 3);
+                Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 4);
+                Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 0);
+                Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 1);
+                Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 2);
+                Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 3);
+                Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 4);
 
                 Customization.ApplyCharacter(player);
                 player.SetData("ON_WORK", false);
                 player.SetData("ON_WORK2", 0);
-                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                Trigger.ClientEvent(player, "deleteWorkBlip");
+                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                 player.SetData("PACKAGES", 0);
 
                 Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
-                Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
+                Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                 player.SetData("PAYMENT", 0);
-                Trigger.ClientEvent(player, "stopdiving");
+                Plugins.Trigger.ClientEvent(player, "stopdiving");
             }
             else
             {
@@ -275,25 +275,25 @@ namespace iTeffa.Working
             player.SetData("WORKCHECK_2", 2);
             player.SetData("WORKCHECK_3", 3);
             player.SetData("WORKCHECK_4", 4);
-            Trigger.ClientEvent(player, "JobMenusBlip", 0, 66, Checkpoints[0].Position, "Мусор", 0);
-            Trigger.ClientEvent(player, "JobMenusBlip", 1, 66, Checkpoints[1].Position, "Мусор", 0);
-            Trigger.ClientEvent(player, "JobMenusBlip", 2, 66, Checkpoints[2].Position, "Мусор", 0);
-            Trigger.ClientEvent(player, "JobMenusBlip", 3, 66, Checkpoints[3].Position, "Мусор", 0);
-            Trigger.ClientEvent(player, "JobMenusBlip", 4, 66, Checkpoints[4].Position, "Мусор", 0);
+            Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 0, 66, Checkpoints[0].Position, "Мусор", 0);
+            Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 1, 66, Checkpoints[1].Position, "Мусор", 0);
+            Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 2, 66, Checkpoints[2].Position, "Мусор", 0);
+            Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 3, 66, Checkpoints[3].Position, "Мусор", 0);
+            Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 4, 66, Checkpoints[4].Position, "Мусор", 0);
             // Объекты
-            Trigger.ClientEvent(player, "createObjectJobs", 0, Objects[0], Checkpoints[0].Position.X, Checkpoints[0].Position.Y, Checkpoints[0].Position.Z);
-            Trigger.ClientEvent(player, "createObjectJobs", 1, Objects[1], Checkpoints[1].Position.X, Checkpoints[1].Position.Y, Checkpoints[1].Position.Z);
-            Trigger.ClientEvent(player, "createObjectJobs", 2, Objects[2], Checkpoints[2].Position.X, Checkpoints[2].Position.Y, Checkpoints[2].Position.Z);
-            Trigger.ClientEvent(player, "createObjectJobs", 3, Objects[3], Checkpoints[3].Position.X, Checkpoints[3].Position.Y, Checkpoints[3].Position.Z);
-            Trigger.ClientEvent(player, "createObjectJobs", 4, Objects[4], Checkpoints[4].Position.X, Checkpoints[4].Position.Y, Checkpoints[4].Position.Z);
+            Plugins.Trigger.ClientEvent(player, "createObjectJobs", 0, Objects[0], Checkpoints[0].Position.X, Checkpoints[0].Position.Y, Checkpoints[0].Position.Z);
+            Plugins.Trigger.ClientEvent(player, "createObjectJobs", 1, Objects[1], Checkpoints[1].Position.X, Checkpoints[1].Position.Y, Checkpoints[1].Position.Z);
+            Plugins.Trigger.ClientEvent(player, "createObjectJobs", 2, Objects[2], Checkpoints[2].Position.X, Checkpoints[2].Position.Y, Checkpoints[2].Position.Z);
+            Plugins.Trigger.ClientEvent(player, "createObjectJobs", 3, Objects[3], Checkpoints[3].Position.X, Checkpoints[3].Position.Y, Checkpoints[3].Position.Z);
+            Plugins.Trigger.ClientEvent(player, "createObjectJobs", 4, Objects[4], Checkpoints[4].Position.X, Checkpoints[4].Position.Y, Checkpoints[4].Position.Z);
 
             player.SetData("PACKAGES", ColObjects);
             player.SetData("OBJECTSJOB", 0);
             player.SetData("ON_WORK", true);
             player.SetData("ON_WORK2", job);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы начали рабочий день! На карте отмечены места с мусором. Соберите этот мусор.", 3000);
-            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
-            Trigger.ClientEvent(player, "startdiving");
+            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+            Plugins.Trigger.ClientEvent(player, "startdiving");
         }
         #endregion
         #region Когда заходишь в чекпоинт
@@ -312,56 +312,56 @@ namespace iTeffa.Working
                         #region Нулевой чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_0"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_0")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_0")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_0")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_0")); // Удаляем блип
                             player.SetData("WORKCHECK_0", 10);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Первый чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_1"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_1")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_1")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_1")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_1")); // Удаляем блип
                             player.SetData("WORKCHECK_1", 11);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Второй чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_2"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_2")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_2")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_2")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_2")); // Удаляем блип
                             player.SetData("WORKCHECK_2", 12);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Третий чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_3"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_3")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_3")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_3")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_3")); // Удаляем блип
                             player.SetData("WORKCHECK_3", 13);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Четвёртый чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_4"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_4")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_4")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_4")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_4")); // Удаляем блип
                             player.SetData("WORKCHECK_4", 14);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                     }
@@ -372,64 +372,64 @@ namespace iTeffa.Working
                         #region Нулевой чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_0"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_0")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_0")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_0")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_0")); // Удаляем блип
                             player.SetData("WORKCHECK_0", 10);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Первый чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_1"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_1")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_1")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_1")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_1")); // Удаляем блип
                             player.SetData("WORKCHECK_1", 11);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Второй чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_2"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_2")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_2")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_2")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_2")); // Удаляем блип
                             player.SetData("WORKCHECK_2", 12);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Третий чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_3"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_3")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_3")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_3")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_3")); // Удаляем блип
                             player.SetData("WORKCHECK_3", 13);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
                         #region Четвёртый чекпоинт
                         if (shape.GetData<int>("NUMBER2") == player.GetData<int>("WORKCHECK_4"))
                         {
-                            Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_4")); // Удаляем объект
-                            Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_4")); // Удаляем блип
+                            Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", player.GetData<int>("WORKCHECK_4")); // Удаляем объект
+                            Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", player.GetData<int>("WORKCHECK_4")); // Удаляем блип
                             player.SetData("WORKCHECK_4", 14);
                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1); // Минусуем Пакет
                             player.SetData("OBJECTSJOB", player.GetData<int>("OBJECTSJOB") + 1); // Прибавляем объект
-                            Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                            Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
                         }
                         #endregion
 
                         if (player.GetData<int>("PACKAGES") == 0)
                         {
                             player.SetData("WORKCHECK", 0);
-                            Trigger.ClientEvent(player, "createCheckpoint", 9, 1, Checkpoints2[0].Position, 5, 0, 255, 0, 0);
-                            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[0].Position);
+                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 9, 1, Checkpoints2[0].Position, 5, 0, 255, 0, 0);
+                            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[0].Position);
                         }
                     }
                     #endregion
@@ -441,13 +441,13 @@ namespace iTeffa.Working
                     {
 
 
-                        Trigger.ClientEvent(player, "deleteCheckpoint", 9);
-                        Trigger.ClientEvent(player, "deleteWorkBlip");
+                        Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 9);
+                        Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                         player.SetData("PACKAGES", ColObjects);
                         player.SetData("OBJECTSJOB", 0);
                         var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                         player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
-                        Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
+                        Plugins.Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
 
                         // Чекпоинты
                         player.SetData("WORKCHECK_0", 0);
@@ -455,17 +455,17 @@ namespace iTeffa.Working
                         player.SetData("WORKCHECK_2", 2);
                         player.SetData("WORKCHECK_3", 3);
                         player.SetData("WORKCHECK_4", 4);
-                        Trigger.ClientEvent(player, "JobMenusBlip", 0, 66, Checkpoints[0].Position, "Мусор", 0);
-                        Trigger.ClientEvent(player, "JobMenusBlip", 1, 66, Checkpoints[1].Position, "Мусор", 0);
-                        Trigger.ClientEvent(player, "JobMenusBlip", 2, 66, Checkpoints[2].Position, "Мусор", 0);
-                        Trigger.ClientEvent(player, "JobMenusBlip", 3, 66, Checkpoints[3].Position, "Мусор", 0);
-                        Trigger.ClientEvent(player, "JobMenusBlip", 4, 66, Checkpoints[4].Position, "Мусор", 0);
+                        Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 0, 66, Checkpoints[0].Position, "Мусор", 0);
+                        Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 1, 66, Checkpoints[1].Position, "Мусор", 0);
+                        Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 2, 66, Checkpoints[2].Position, "Мусор", 0);
+                        Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 3, 66, Checkpoints[3].Position, "Мусор", 0);
+                        Plugins.Trigger.ClientEvent(player, "JobMenusBlip", 4, 66, Checkpoints[4].Position, "Мусор", 0);
                         // Объекты
-                        Trigger.ClientEvent(player, "createObjectJobs", 0, Objects[0], Checkpoints[0].Position.X, Checkpoints[0].Position.Y, Checkpoints[0].Position.Z);
-                        Trigger.ClientEvent(player, "createObjectJobs", 1, Objects[1], Checkpoints[1].Position.X, Checkpoints[1].Position.Y, Checkpoints[1].Position.Z);
-                        Trigger.ClientEvent(player, "createObjectJobs", 2, Objects[2], Checkpoints[2].Position.X, Checkpoints[2].Position.Y, Checkpoints[2].Position.Z);
-                        Trigger.ClientEvent(player, "createObjectJobs", 3, Objects[3], Checkpoints[3].Position.X, Checkpoints[3].Position.Y, Checkpoints[3].Position.Z);
-                        Trigger.ClientEvent(player, "createObjectJobs", 4, Objects[4], Checkpoints[4].Position.X, Checkpoints[4].Position.Y, Checkpoints[4].Position.Z);
+                        Plugins.Trigger.ClientEvent(player, "createObjectJobs", 0, Objects[0], Checkpoints[0].Position.X, Checkpoints[0].Position.Y, Checkpoints[0].Position.Z);
+                        Plugins.Trigger.ClientEvent(player, "createObjectJobs", 1, Objects[1], Checkpoints[1].Position.X, Checkpoints[1].Position.Y, Checkpoints[1].Position.Z);
+                        Plugins.Trigger.ClientEvent(player, "createObjectJobs", 2, Objects[2], Checkpoints[2].Position.X, Checkpoints[2].Position.Y, Checkpoints[2].Position.Z);
+                        Plugins.Trigger.ClientEvent(player, "createObjectJobs", 3, Objects[3], Checkpoints[3].Position.X, Checkpoints[3].Position.Y, Checkpoints[3].Position.Z);
+                        Plugins.Trigger.ClientEvent(player, "createObjectJobs", 4, Objects[4], Checkpoints[4].Position.X, Checkpoints[4].Position.Y, Checkpoints[4].Position.Z);
                     }
                     #endregion
                 }
@@ -486,22 +486,22 @@ namespace iTeffa.Working
                     player.SetData("WORKCHECK_2", 0);
                     player.SetData("WORKCHECK_3", 0);
                     player.SetData("WORKCHECK_4", 0);
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 0); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 1); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 2); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 3); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 4); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 0); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 1); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 2); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 3); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 4); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 0); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 1); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 2); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 3); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 4); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 0); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 1); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 2); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 3); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 4); // Удаляем объект
 
                     Customization.ApplyCharacter(player);
                     player.SetData("ON_WORK", false);
                     player.SetData("ON_WORK2", 0);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                     player.SetData("PACKAGES", 0);
 
                     player.StopAnimation();
@@ -509,7 +509,7 @@ namespace iTeffa.Working
                     BasicSync.DetachObject(player);
                     Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
 
-                    Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
+                    Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                     player.SetData("PAYMENT", 0);
                 }
@@ -529,22 +529,22 @@ namespace iTeffa.Working
                     player.SetData("WORKCHECK_2", 0);
                     player.SetData("WORKCHECK_3", 0);
                     player.SetData("WORKCHECK_4", 0);
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 0); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 1); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 2); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 3); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteJobMenusBlip", 4); // Удаляем блип
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 0); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 1); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 2); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 3); // Удаляем объект
-                    Trigger.ClientEvent(player, "deleteObjectJobs", 4); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 0); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 1); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 2); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 3); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteJobMenusBlip", 4); // Удаляем блип
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 0); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 1); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 2); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 3); // Удаляем объект
+                    Plugins.Trigger.ClientEvent(player, "deleteObjectJobs", 4); // Удаляем объект
 
                     Customization.ApplyCharacter(player);
                     player.SetData("ON_WORK", false);
                     player.SetData("ON_WORK2", 0);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                     player.SetData("PACKAGES", 0);
 
                     player.StopAnimation();

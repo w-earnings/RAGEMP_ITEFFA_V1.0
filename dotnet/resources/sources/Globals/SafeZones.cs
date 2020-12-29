@@ -16,7 +16,7 @@ namespace iTeffa.Globals
             {
                 try
                 {
-                    Trigger.ClientEvent(player, "safeZone", true);
+                    Plugins.Trigger.ClientEvent(player, "safeZone", true);
                 }
                 catch (Exception e) { Log.Write($"SafeZoneEnter: {e.Message}", Nlogs.Type.Error); }
                 
@@ -25,7 +25,7 @@ namespace iTeffa.Globals
             {
                 try
                 {
-                    Trigger.ClientEvent(player, "safeZone", false);
+                    Plugins.Trigger.ClientEvent(player, "safeZone", false);
                 }
                 catch (Exception e) { Log.Write($"SafeZoneExit: {e.Message}", Nlogs.Type.Error); }
             };

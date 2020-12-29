@@ -26,7 +26,7 @@ namespace iTeffa.Working
                     try
                     {
                         player.SetData("INTERACTIONCHECK", 509);
-                        Trigger.ClientEvent(player, "JobsEinfo");
+                        Plugins.Trigger.ClientEvent(player, "JobsEinfo");
                     }
                     catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                 };
@@ -34,7 +34,7 @@ namespace iTeffa.Working
                     try
                     {
                         player.SetData("INTERACTIONCHECK", 0);
-                        Trigger.ClientEvent(player, "JobsEinfo2");
+                        Plugins.Trigger.ClientEvent(player, "JobsEinfo2");
                     }
                     catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
                 };
@@ -89,8 +89,8 @@ namespace iTeffa.Working
                 return;
             }
 
-            Trigger.ClientEvent(player, "JobsEinfo2");
-            Trigger.ClientEvent(player, "OpenConstruction", checkpointPayment, Main.Players[player].LVL, Main.Players[player].WorkID, NAPI.Data.GetEntityData(player, "ON_WORK2"));
+            Plugins.Trigger.ClientEvent(player, "JobsEinfo2");
+            Plugins.Trigger.ClientEvent(player, "OpenConstruction", checkpointPayment, Main.Players[player].LVL, Main.Players[player].WorkID, NAPI.Data.GetEntityData(player, "ON_WORK2"));
 
         }
         #endregion
@@ -125,7 +125,7 @@ namespace iTeffa.Working
                 //Dashboard.sendStats(player);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы уволились с работы", 3000);
                 var jobsid = Main.Players[player].WorkID;
-                Trigger.ClientEvent(player, "secusejobConstruction", jobsid);
+                Plugins.Trigger.ClientEvent(player, "secusejobConstruction", jobsid);
                 return;
             }
             else
@@ -147,7 +147,7 @@ namespace iTeffa.Working
             //Dashboard.sendStats(player);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы устроились на работу", 3000);
             var jobsid = Main.Players[player].WorkID;
-            Trigger.ClientEvent(player, "secusejobConstruction", jobsid);
+            Plugins.Trigger.ClientEvent(player, "secusejobConstruction", jobsid);
             return;
         }
         #endregion
@@ -181,12 +181,12 @@ namespace iTeffa.Working
                 Customization.ApplyCharacter(player);
                 player.SetData("ON_WORK", false);
                 player.SetData("ON_WORK2", 0);
-                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                Trigger.ClientEvent(player, "deleteWorkBlip");
+                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                 player.SetData("PACKAGES", 0);
                 Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
 
-                Trigger.ClientEvent(player, "CloseJobStatsInfo", player.GetData<int>("PAYMENT"));
+                Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfo", player.GetData<int>("PAYMENT"));
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                 player.SetData("PAYMENT", 0);
             }
@@ -230,14 +230,14 @@ namespace iTeffa.Working
 
             var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
             player.SetData("WORKCHECK", check);
-            Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
-            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
+            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
             player.SetData("PACKAGES", 0);
 
             player.SetData("ON_WORK", true);
             player.SetData("ON_WORK2", job);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы начали рабочий день", 3000);
-            Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
+            Plugins.Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
 
         }
         #endregion
@@ -268,8 +268,8 @@ namespace iTeffa.Working
 
                                 var check = shape.GetData<int>("NUMBER2");
                                 player.SetData("WORKCHECK", check);
-                                Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
-                                Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
+                                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
+                                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
 
                                 NAPI.Task.Run(() =>
                                 {
@@ -293,8 +293,8 @@ namespace iTeffa.Working
 
                                 var check = shape.GetData<int>("NUMBER2");
                                 player.SetData("WORKCHECK", check);
-                                Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
-                                Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
+                                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
+                                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
 
                                 NAPI.Task.Run(() =>
                                 {
@@ -318,8 +318,8 @@ namespace iTeffa.Working
 
                                 var check = shape.GetData<int>("NUMBER2");
                                 player.SetData("WORKCHECK", check);
-                                Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
-                                Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
+                                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
+                                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
 
                                 NAPI.Task.Run(() =>
                                 {
@@ -344,8 +344,8 @@ namespace iTeffa.Working
 
                                 var check = shape.GetData<int>("NUMBER2");
                                 player.SetData("WORKCHECK", check);
-                                Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
-                                Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
+                                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints2[check].Position, 5, 0, 255, 0, 0);
+                                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints2[check].Position);
 
                                 NAPI.Task.Run(() =>
                                 {
@@ -369,8 +369,8 @@ namespace iTeffa.Working
                             {
                                 Main.OnAntiAnim(player);
                                 player.PlayAnimation("amb@prop_human_movie_studio_light@base", "base", 39);
-                                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                                Trigger.ClientEvent(player, "deleteWorkBlip");
+                                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
 
                                 NAPI.Task.Run(() => {
                                     try
@@ -379,7 +379,7 @@ namespace iTeffa.Working
                                         {
                                             var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                                             player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
-                                            Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
+                                            Plugins.Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
 
                                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1);
 
@@ -387,8 +387,8 @@ namespace iTeffa.Working
                                             Main.OffAntiAnim(player);
                                             var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                                             player.SetData("WORKCHECK", check);
-                                            Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
-                                            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+                                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
+                                            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
                                         }
                                     }
                                     catch { }
@@ -401,8 +401,8 @@ namespace iTeffa.Working
                                 Main.OnAntiAnim(player);
                                 player.PlayAnimation("amb@world_human_hammering@male@base", "base", 39);
                                 BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_tool_hammer"), 57005, new Vector3(0.1, 0.0, 0.0), new Vector3(-90, 0, 0));
-                                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                                Trigger.ClientEvent(player, "deleteWorkBlip");
+                                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
 
                                 NAPI.Task.Run(() => {
                                     try
@@ -411,7 +411,7 @@ namespace iTeffa.Working
                                         {
                                             var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                                             player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
-                                            Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
+                                            Plugins.Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
 
                                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1);
 
@@ -420,8 +420,8 @@ namespace iTeffa.Working
                                             Main.OffAntiAnim(player);
                                             var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                                             player.SetData("WORKCHECK", check);
-                                            Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
-                                            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+                                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
+                                            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
                                         }
                                     }
                                     catch { }
@@ -434,8 +434,8 @@ namespace iTeffa.Working
                                 Main.OnAntiAnim(player);
                                 player.PlayAnimation("amb@world_human_hammering@male@base", "base", 39);
                                 BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_tool_hammer"), 57005, new Vector3(0.1, 0.0, 0.0), new Vector3(-90, 0, 0));
-                                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                                Trigger.ClientEvent(player, "deleteWorkBlip");
+                                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
 
                                 NAPI.Task.Run(() => {
                                     try
@@ -444,7 +444,7 @@ namespace iTeffa.Working
                                         {
                                             var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                                             player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
-                                            Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
+                                            Plugins.Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
 
                                             player.SetData("PACKAGES", player.GetData<int>("PACKAGES") - 1);
 
@@ -453,8 +453,8 @@ namespace iTeffa.Working
                                             Main.OffAntiAnim(player);
                                             var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                                             player.SetData("WORKCHECK", check);
-                                            Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
-                                            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+                                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
+                                            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
                                         }
                                     }
                                     catch { }
@@ -476,8 +476,8 @@ namespace iTeffa.Working
                         player.SetData("WORKCHECK", -1);
                         var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                         player.SetData("WORKCHECK", check);
-                        Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
-                        Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+                        Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 2, 0, 255, 0, 0);
+                        Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
                         NAPI.Task.Run(() =>
                         {
                             try
@@ -486,7 +486,7 @@ namespace iTeffa.Working
                                 {
                                     var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                                     player.SetData("PAYMENT", player.GetData<int>("PAYMENT") + payment);
-                                    Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
+                                    Plugins.Trigger.ClientEvent(player, "JobStatsInfo", player.GetData<int>("PAYMENT"));
 
                                     BasicSync.DetachObject(player);
                                     player.StopAnimation();
@@ -513,14 +513,14 @@ namespace iTeffa.Working
                     Customization.ApplyCharacter(player);
                     player.SetData("ON_WORK", false);
                     player.SetData("ON_WORK2", 0);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                     player.SetData("PACKAGES", 0);
 
                     player.StopAnimation();
                     Main.OffAntiAnim(player);
                     BasicSync.DetachObject(player);
-                    Trigger.ClientEvent(player, "CloseJobStatsInfo", player.GetData<int>("PAYMENT"));
+                    Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfo", player.GetData<int>("PAYMENT"));
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                     player.SetData("PAYMENT", 0);
                 }
@@ -538,8 +538,8 @@ namespace iTeffa.Working
                     Customization.ApplyCharacter(player);
                     player.SetData("ON_WORK", false);
                     player.SetData("ON_WORK2", 0);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                     player.SetData("PACKAGES", 0);
 
                     player.StopAnimation();

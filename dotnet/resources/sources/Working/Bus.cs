@@ -793,9 +793,9 @@ namespace iTeffa.Working
 
                     var direction = (check + 1 != BusWays[way].Count) ? BusWays[way][check + 1].Pos - new Vector3(0, 0, 0.12) : BusWays[way][0].Pos - new Vector3(0, 0, 1.12);
                     var color = (BusWays[way][check].IsStop) ? new Color(255, 255, 255) : new Color(255, 0, 0);
-                    Trigger.ClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][check].Pos - new Vector3(0, 0, 1.12), 4, 0, color.Red, color.Green, color.Blue, direction);
-                    Trigger.ClientEvent(player, "createWaypoint", BusWays[way][check].Pos.X, BusWays[way][check].Pos.Y);
-                    Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][check].Pos);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][check].Pos - new Vector3(0, 0, 1.12), 4, 0, color.Red, color.Green, color.Blue, direction);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", BusWays[way][check].Pos.X, BusWays[way][check].Pos.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][check].Pos);
 
                     NAPI.Data.SetEntityData(player, "WORKCHECK", check);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
@@ -805,8 +805,8 @@ namespace iTeffa.Working
                 else
                 {
                     if (NAPI.Data.GetEntityData(player, "WORKCHECK") != check) return;
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
 
                     NAPI.Data.SetEntityData(player, "BUS_ONSTOP", true);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Остановка. Через 10 секунд Вы сможете продолжить маршрут", 3000);
@@ -893,8 +893,8 @@ namespace iTeffa.Working
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
-                        Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
-                        Trigger.ClientEvent(player, "deleteWorkBlip");
+                        Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
+                        Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         player.SetData("PAYMENT", 0);
@@ -931,7 +931,7 @@ namespace iTeffa.Working
                             {
                                 if (Main.Players[player].Money >= BusRentCost)
                                 {
-                                    Trigger.ClientEvent(player, "openDialog", "BUS_RENT", $"Арендовать автобус за ${BusRentCost}?");
+                                    Plugins.Trigger.ClientEvent(player, "openDialog", "BUS_RENT", $"Арендовать автобус за ${BusRentCost}?");
                                 }
                                 else
                                 {
@@ -1036,9 +1036,9 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
                 NAPI.Data.SetEntityData(player, "WORKWAY", way);
                 NAPI.Data.SetEntityData(player, "WORKCHECK", 0);
-                Trigger.ClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][0].Pos - new Vector3(0, 0, 1.12), 4, 0, 255, 0, 0, BusWays[way][1].Pos - new Vector3(0, 0, 1.12));
-                Trigger.ClientEvent(player, "createWaypoint", BusWays[way][0].Pos.X, BusWays[way][0].Pos.Y);
-                Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][0].Pos);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 3, 1, BusWays[way][0].Pos - new Vector3(0, 0, 1.12), 4, 0, 255, 0, 0, BusWays[way][1].Pos - new Vector3(0, 0, 1.12));
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", BusWays[way][0].Pos.X, BusWays[way][0].Pos.Y);
+                Plugins.Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][0].Pos);
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы арендовали автобус. Вас распределили на маршрут {BusWaysNames[way]}", 3000);
             }

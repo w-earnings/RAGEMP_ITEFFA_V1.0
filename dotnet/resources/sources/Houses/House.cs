@@ -71,7 +71,7 @@ namespace iTeffa.Houses
                     NAPI.Data.SetEntityData(ent, "HOUSEID", id);
                     NAPI.Data.SetEntityData(ent, "INTERACTIONCHECK", 6);
                     Working.Gopostal.GoPostal_onEntityEnterColShape(s, ent);
-                    Trigger.ClientEvent(ent, "JobsEinfo");
+                    Plugins.Trigger.ClientEvent(ent, "JobsEinfo");
                 }
                 catch (Exception ex) { Console.WriteLine("shape.OnEntityEnterColShape: " + ex.Message); }
             };
@@ -81,7 +81,7 @@ namespace iTeffa.Houses
                 {
                     NAPI.Data.SetEntityData(ent, "INTERACTIONCHECK", 0);
                     NAPI.Data.ResetEntityData(ent, "HOUSEID");
-                    Trigger.ClientEvent(ent, "JobsEinfo2");
+                    Plugins.Trigger.ClientEvent(ent, "JobsEinfo2");
                 }
                 catch (Exception ex) { Console.WriteLine("shape.OnEntityExitColShape: " + ex.Message); }
             };
@@ -210,9 +210,9 @@ namespace iTeffa.Houses
             UpdateLabel();
             if (player != null)
             {
-                Trigger.ClientEvent(player, "changeBlipColor", blip, 73);
-                Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
-                Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[GarageID].Position);
+                Plugins.Trigger.ClientEvent(player, "changeBlipColor", blip, 73);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
+                Plugins.Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[GarageID].Position);
                 Hotel.MoveOutPlayer(player);
 
                 var vehicles = VehicleManager.getAllPlayerVehicles(Owner);

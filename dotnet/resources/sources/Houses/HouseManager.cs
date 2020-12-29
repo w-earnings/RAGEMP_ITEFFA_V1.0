@@ -214,7 +214,7 @@ namespace iTeffa.Houses
                             MenuManager.Close(player);
                             return;
                         }
-                        Trigger.ClientEvent(player, "ExitHouseMenu");
+                        Plugins.Trigger.ClientEvent(player, "ExitHouseMenu");
                         return;
                     }
             }
@@ -292,7 +292,7 @@ namespace iTeffa.Houses
                     price = Convert.ToInt32(house.Price * 0.8);
                     break;
             }
-            Trigger.ClientEvent(player, "openSellHome", "HOUSE_SELL_TOGOV", $"${price}?");
+            Plugins.Trigger.ClientEvent(player, "openSellHome", "HOUSE_SELL_TOGOV", $"${price}?");
             return;
         }
         [RemoteEvent("ExitHouseMenuE")]
@@ -304,12 +304,12 @@ namespace iTeffa.Houses
         public static void OpenHouseBuyMenu(Player player, int id)
         {
             House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            Trigger.ClientEvent(player, "HouseMenuBuy", id, house.Owner, HouseTypeList[house.Type].Name, house.Locked, house.Price, GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars, MaxRoommates[house.Type]);
+            Plugins.Trigger.ClientEvent(player, "HouseMenuBuy", id, house.Owner, HouseTypeList[house.Type].Name, house.Locked, house.Price, GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars, MaxRoommates[house.Type]);
         }
         public static void OpenHouseMenuInform(Player player, int id)
         {
             House house = Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
-            Trigger.ClientEvent(player, "HouseMenu", id, house.Owner, HouseTypeList[house.Type].Name, house.Locked, house.Price, GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars, MaxRoommates[house.Type]);
+            Plugins.Trigger.ClientEvent(player, "HouseMenu", id, house.Owner, HouseTypeList[house.Type].Name, house.Locked, house.Price, GarageManager.GarageTypes[GarageManager.Garages[house.GarageID].Type].MaxCars, MaxRoommates[house.Type]);
 
         }
         [RemoteEvent("GoHouseInterS")]
@@ -396,7 +396,7 @@ namespace iTeffa.Houses
                 MenuManager.Close(player);
                 return;
             }
-            Trigger.ClientEvent(player, "MyyHouseMenu");
+            Plugins.Trigger.ClientEvent(player, "MyyHouseMenu");
 
             Menu menu = new Menu("housemanage", false, false)
             {
@@ -497,7 +497,7 @@ namespace iTeffa.Houses
                             price = Convert.ToInt32(house.Price * 0.8);
                             break;
                     }
-                    Trigger.ClientEvent(player, "openSellHome", "HOUSE_SELL_TOGOV", $"Вы действительно хотите продать дом за ${price}?");
+                    Plugins.Trigger.ClientEvent(player, "openSellHome", "HOUSE_SELL_TOGOV", $"Вы действительно хотите продать дом за ${price}?");
                     MenuManager.Close(player);
                     return;
                 case "cars":
@@ -527,8 +527,8 @@ namespace iTeffa.Houses
             }
             house.RemoveAllPlayers();
             house.SetOwner(null);
-            Trigger.ClientEvent(player, "deleteCheckpoint", 333);
-            Trigger.ClientEvent(player, "deleteGarageBlip");
+            Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 333);
+            Plugins.Trigger.ClientEvent(player, "deleteGarageBlip");
             int price = 0;
             switch (Main.Accounts[player].VipLvl)
             {
@@ -921,7 +921,7 @@ namespace iTeffa.Houses
                             }
                             player.SetData("IS_EDITING", true);
                             player.SetData("EDIT_ID", f.ID);
-                            Trigger.ClientEvent(player, "startEditing", f.Model);
+                            Plugins.Trigger.ClientEvent(player, "startEditing", f.Model);
                             MenuManager.Close(player);
                             return;
                     }
@@ -1175,7 +1175,7 @@ namespace iTeffa.Houses
                             _ => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
                         };
                     }
-                    Trigger.ClientEvent(player, "openDialog", "CAR_SELL_TOGOV", $"Вы действительно хотите продать государству {vData.Model} ({menu.Items[0].Text}) за ${price}?");
+                    Plugins.Trigger.ClientEvent(player, "openDialog", "CAR_SELL_TOGOV", $"Вы действительно хотите продать государству {vData.Model} ({menu.Items[0].Text}) за ${price}?");
                     MenuManager.Close(player);
                     return;
                 case "repair":
@@ -1283,7 +1283,7 @@ namespace iTeffa.Houses
                     veh = garage.GetOutsideCar(number);
                     if (veh == null) return;
 
-                    Trigger.ClientEvent(player, "createWaypoint", veh.Position.X, veh.Position.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", veh.Position.X, veh.Position.Y);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "В GPS было отмечено расположение Вашей машины", 3000);
                     return;
                 case "key":
@@ -1394,8 +1394,8 @@ namespace iTeffa.Houses
             }
 
             house.Roommates.Add(player.Name);
-            Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[house.GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
-            Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[house.GarageID].Position);
+            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[house.GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
+            Plugins.Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[house.GarageID].Position);
 
             Plugins.Notice.Send(owner, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) подселился к Вам", 3000);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы подселились к игроку ({owner.Value})", 3000);
@@ -1443,7 +1443,7 @@ namespace iTeffa.Houses
 
             target.SetData("HOUSE_SELLER", player);
             target.SetData("HOUSE_PRICE", price);
-            Trigger.ClientEvent(target, "openDialog", "HOUSE_SELL", $"Игрок ({player.Value}) предложил Вам купить свой дом за ${price}");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "HOUSE_SELL", $"Игрок ({player.Value}) предложил Вам купить свой дом за ${price}");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш дом за {price}$", 3000);
         }
         public static void acceptHouseSell(Player player)

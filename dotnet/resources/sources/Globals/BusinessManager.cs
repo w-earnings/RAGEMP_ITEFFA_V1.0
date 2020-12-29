@@ -1519,7 +1519,7 @@ namespace iTeffa.Globals
                         return;
                     }
                     player.SetData("CLOTHES_SHOP", biz.ID);
-                    Trigger.ClientEvent(player, "openClothes", biz.Products[0].Price);
+                    Plugins.Trigger.ClientEvent(player, "openClothes", biz.Products[0].Price);
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     NAPI.Entity.SetEntityDimension(player, Dimensions.RequestPrivateDimension(player));
                     return;
@@ -1538,7 +1538,7 @@ namespace iTeffa.Globals
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     Customization.ClearClothes(player, Main.Players[player].Gender);
 
-                    Trigger.ClientEvent(player, "openBody", false, biz.Products[1].Price);
+                    Plugins.Trigger.ClientEvent(player, "openBody", false, biz.Products[1].Price);
                     return;
                 case 10:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
@@ -1551,7 +1551,7 @@ namespace iTeffa.Globals
                     NAPI.Entity.SetEntityDimension(player, dim);
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     Customization.ClearClothes(player, Main.Players[player].Gender);
-                    Trigger.ClientEvent(player, "openBody", true, biz.Products[1].Price);
+                    Plugins.Trigger.ClientEvent(player, "openBody", true, biz.Products[1].Price);
                     return;
                 case 11:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
@@ -1560,7 +1560,7 @@ namespace iTeffa.Globals
                         return;
                     }
                     player.SetData("MASKS_SHOP", biz.ID);
-                    Trigger.ClientEvent(player, "openMasks", biz.Products[0].Price);
+                    Plugins.Trigger.ClientEvent(player, "openMasks", biz.Products[0].Price);
                     player.PlayAnimation("amb@world_human_guard_patrol@male@base", "base", 1);
                     Customization.ApplyMaskFace(player);
                     return;
@@ -1594,7 +1594,7 @@ namespace iTeffa.Globals
                             VehicleManager.WarpPlayerOutOfVehicle(p);
                     }
 
-                    Trigger.ClientEvent(player, "tuningSeatsCheck");
+                    Plugins.Trigger.ClientEvent(player, "tuningSeatsCheck");
                     return;
                 case 13:
                     if (!player.IsInVehicle)
@@ -1602,7 +1602,7 @@ namespace iTeffa.Globals
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                         return;
                     }
-                    Trigger.ClientEvent(player, "openDialog", "CARWASH_PAY", $"Вы хотите помыть машину за ${biz.Products[0].Price}$?");
+                    Plugins.Trigger.ClientEvent(player, "openDialog", "CARWASH_PAY", $"Вы хотите помыть машину за ${biz.Products[0].Price}$?");
                     return;
                 case 14:
                     OpenBizShopMenu(player);
@@ -1738,7 +1738,7 @@ namespace iTeffa.Globals
                 var modelPrice = ProductsOrderPrice[VehicleManager.Vehicles[player.Vehicle.NumberPlate].Model];
                 var modelPriceMod = (modelPrice < 150000) ? 1 : 2;
 
-                Trigger.ClientEvent(player, "openTun", biz.Products[0].Price, VehicleManager.Vehicles[player.Vehicle.NumberPlate].Model, modelPriceMod, JsonConvert.SerializeObject(VehicleManager.Vehicles[player.Vehicle.NumberPlate].Components));
+                Plugins.Trigger.ClientEvent(player, "openTun", biz.Products[0].Price, VehicleManager.Vehicles[player.Vehicle.NumberPlate].Model, modelPriceMod, JsonConvert.SerializeObject(VehicleManager.Vehicles[player.Vehicle.NumberPlate].Components));
             }
             catch (Exception e) { Log.Write("tuningSeatsCheck: " + e.Message, Nlogs.Type.Error); }
         }
@@ -1807,7 +1807,7 @@ namespace iTeffa.Globals
                 if (Main.Players[player].Money < price)
                 {
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вам не хватает ещё {price - Main.Players[player].Money}$ для покупки этой модификации", 3000);
-                    Trigger.ClientEvent(player, "tunBuySuccess", -2);
+                    Plugins.Trigger.ClientEvent(player, "tunBuySuccess", -2);
                     return;
                 }
 
@@ -1816,13 +1816,13 @@ namespace iTeffa.Globals
                 if (!takeProd(biz.ID, amount, "Запчасти", price))
                 {
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "В данной автомастерской закончились все запчасти", 3000);
-                    Trigger.ClientEvent(player, "tunBuySuccess", -2);
+                    Plugins.Trigger.ClientEvent(player, "tunBuySuccess", -2);
                     return;
                 }
 
                 Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, $"buyTuning({player.Vehicle.NumberPlate},{cat},{id})");
                 Finance.Wallet.Change(player, -price);
-                Trigger.ClientEvent(player, "tunBuySuccess", id);
+                Plugins.Trigger.ClientEvent(player, "tunBuySuccess", id);
 
                 var number = player.Vehicle.NumberPlate;
 
@@ -1882,7 +1882,7 @@ namespace iTeffa.Globals
                     case 17:
                         VehicleManager.Vehicles[number].Components.Headlights = id;
                         player.Vehicle.SetSharedData("hlcolor", id);
-                        Trigger.ClientEvent(player, "VehStream_SetVehicleHeadLightColor", player.Vehicle.Handle, id);
+                        Plugins.Trigger.ClientEvent(player, "VehStream_SetVehicleHeadLightColor", player.Vehicle.Handle, id);
                         break;
                     case 18:
                         VehicleManager.Vehicles[number].Components.NumberPlate = id;
@@ -1902,7 +1902,7 @@ namespace iTeffa.Globals
                 }
                 VehicleManager.Save(number);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили и установили данную модификацию", 3000);
-                Trigger.ClientEvent(player, "tuningUpd", JsonConvert.SerializeObject(VehicleManager.Vehicles[number].Components));
+                Plugins.Trigger.ClientEvent(player, "tuningUpd", JsonConvert.SerializeObject(VehicleManager.Vehicles[number].Components));
             }
             catch (Exception e) { Log.Write("buyTuning: " + e.Message, Nlogs.Type.Error); }
         }
@@ -2773,7 +2773,7 @@ namespace iTeffa.Globals
                 return;
             }
 
-            Trigger.ClientEvent(target, "openDialog", "BUSINESS_BUY", $"{player.Name} предложил Вам купить {BusinessTypeNames[biz.Type]} за ${price}");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "BUSINESS_BUY", $"{player.Name} предложил Вам купить {BusinessTypeNames[biz.Type]} за ${price}");
             target.SetData("SELLER", player);
             target.SetData("SELLPRICE", price);
             target.SetData("SELLBIZID", biz.ID);
@@ -3217,7 +3217,7 @@ namespace iTeffa.Globals
                 items.Add(item);
             }
             string json = JsonConvert.SerializeObject(items);
-            Trigger.ClientEvent(player, "shop", json);
+            Plugins.Trigger.ClientEvent(player, "shop", json);
         }
         [RemoteEvent("shop")]
         public static void Event_ShopCallback(Player client, int index)
@@ -3283,7 +3283,7 @@ namespace iTeffa.Globals
             Business biz = BizList[player.GetData<int>("BIZ_ID")];
             Product prod = biz.Products[0];
 
-            Trigger.ClientEvent(player, "openPetrol");
+            Plugins.Trigger.ClientEvent(player, "openPetrol");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Цена за литр: {prod.Price}$", 7000);
         }
         private static void callback_petrol(Player client, Menu menu, Menu.Item item, string eventName, dynamic data)
@@ -3325,7 +3325,7 @@ namespace iTeffa.Globals
 
             string json = JsonConvert.SerializeObject(prices);
             Log.Debug(json);
-            Trigger.ClientEvent(player, "openWShop", biz.ID, json);
+            Plugins.Trigger.ClientEvent(player, "openWShop", biz.ID, json);
         }
 
         [RemoteEvent("wshopammo")]

@@ -1,9 +1,9 @@
 ﻿using GTANetworkAPI;
 using System.Threading;
 
-namespace iTeffa.Settings
+namespace iTeffa.Plugins
 {
-    public static class Trigger
+    public class Trigger : Script
     {
         public static void ClientEvent(Player client, string eventName, params object[] args)
         {

@@ -124,7 +124,7 @@ namespace iTeffa.Working
                             }
                             if (Main.Players[player].Money >= taxiRentCost)
                             {
-                                Trigger.ClientEvent(player, "openDialog", "TAXI_RENT", $"Арендовать такси за ${taxiRentCost}?");
+                                Plugins.Trigger.ClientEvent(player, "openDialog", "TAXI_RENT", $"Арендовать такси за ${taxiRentCost}?");
                             }
                             else
                             {
@@ -317,7 +317,7 @@ namespace iTeffa.Working
                             return;
                         }
 
-                        Trigger.ClientEvent(target, "openDialog", "TAXI_PAY", $"Оплатить проезд за ${price}?");
+                        Plugins.Trigger.ClientEvent(target, "openDialog", "TAXI_PAY", $"Оплатить проезд за ${price}?");
                         target.SetData("TAXI_SELLER", player);
                         target.SetData("TAXI_PAY", price);
 
@@ -342,7 +342,7 @@ namespace iTeffa.Working
                 {
                     Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Таксист ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
-                    Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
 
                     target.SetData("TAXI_DRIVER", player);
                     player.SetData("PASSAGER", target);

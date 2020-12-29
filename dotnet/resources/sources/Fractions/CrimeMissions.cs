@@ -307,7 +307,7 @@ namespace iTeffa.Fractions
                     case "GANGDELIVERY":
                         if (fraction == 7 || fraction == 9)
                         {
-                            Trigger.ClientEvent(player, "createWaypoint", PoliceEndDelivery.X, PoliceEndDelivery.Y);
+                            Plugins.Trigger.ClientEvent(player, "createWaypoint", PoliceEndDelivery.X, PoliceEndDelivery.Y);
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Отвезите машину в полицейский участок", 3000);
                         }
                         else if (fraction != vehicle.GetData<int>("GANG"))
@@ -318,14 +318,14 @@ namespace iTeffa.Fractions
                         else
                         {
                             var end = (int)vehicle.GetData<int>("ENDPOINT");
-                            Trigger.ClientEvent(player, "createWaypoint", GangEndDelivery[end].X, GangEndDelivery[end].Y);
+                            Plugins.Trigger.ClientEvent(player, "createWaypoint", GangEndDelivery[end].X, GangEndDelivery[end].Y);
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Доставьте машину в точку, отмеченную на карте", 3000);
                         }
                         return;
                     case "MAFIADELIVERY":
                         if (fraction == 7 || fraction == 9)
                         {
-                            Trigger.ClientEvent(player, "createWaypoint", PoliceEndDelivery.X, PoliceEndDelivery.Y);
+                            Plugins.Trigger.ClientEvent(player, "createWaypoint", PoliceEndDelivery.X, PoliceEndDelivery.Y);
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Отвезите машину в полицейский участок", 3000);
                         }
                         else if (fraction != vehicle.GetData<int>("MAFIA"))
@@ -336,7 +336,7 @@ namespace iTeffa.Fractions
                         else
                         {
                             var end = (int)vehicle.GetData<int>("ENDPOINT");
-                            Trigger.ClientEvent(player, "createWaypoint", MafiaEndDelivery[end].X, MafiaEndDelivery[end].Y);
+                            Plugins.Trigger.ClientEvent(player, "createWaypoint", MafiaEndDelivery[end].X, MafiaEndDelivery[end].Y);
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Доставьте машину в точку, отмеченную на карте", 3000);
                         }
                         return;
@@ -363,11 +363,11 @@ namespace iTeffa.Fractions
             {
                 case 52:
                     if (Manager.FractionTypes[fraction] != 1) return;
-                    Trigger.ClientEvent(player, "gangmis");
+                    Plugins.Trigger.ClientEvent(player, "gangmis");
                     return;
                 case 53:
                     if (fraction != player.GetData<int>("ONMAFIAID")) return;
-                    Trigger.ClientEvent(player, "mafiamis");
+                    Plugins.Trigger.ClientEvent(player, "mafiamis");
                     return;
             }
         }
@@ -403,7 +403,7 @@ namespace iTeffa.Fractions
                         Random rnd = new Random();
                         var vehicleNum = rnd.Next(0, GangsVehiclesHashes.Count);
                         var vehicle = NAPI.Vehicle.CreateVehicle(GangsVehiclesHashes[vehicleNum], GangSpawnAutos[LastGangSpawn], GangSpawnAutosRot[LastGangSpawn], 0, 0);
-                        Trigger.ClientEvent(player, "createWaypoint", GangSpawnAutos[LastGangSpawn].X, GangSpawnAutos[LastGangSpawn].Y);
+                        Plugins.Trigger.ClientEvent(player, "createWaypoint", GangSpawnAutos[LastGangSpawn].X, GangSpawnAutos[LastGangSpawn].Y);
                         LastGangSpawn = (LastGangSpawn + 1 == GangSpawnAutos.Count) ? 0 : LastGangSpawn + 1;
                         vehicle.CustomPrimaryColor = GangsVehiclesColors[vehicleNum];
                         vehicle.CustomSecondaryColor = GangsVehiclesColors[vehicleNum];
@@ -485,7 +485,7 @@ namespace iTeffa.Fractions
 
                 NextDelivery[fraction] = DateTime.Now.AddMinutes(5);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили фургон с {text} для транспортировки. Отвезите его в указанное на карте место", 3000);
-                Trigger.ClientEvent(player, "createWaypoint", MafiaEndDelivery[end].X, MafiaEndDelivery[end].Y);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", MafiaEndDelivery[end].X, MafiaEndDelivery[end].Y);
                 player.SetIntoVehicle(vehicle, 0);
                 return;
             }

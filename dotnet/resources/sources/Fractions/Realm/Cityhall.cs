@@ -194,7 +194,7 @@ namespace iTeffa.Fractions.Realm
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                 return;
             }
-            Trigger.ClientEvent(player, "govguns");
+            Plugins.Trigger.ClientEvent(player, "govguns");
         }
         [RemoteEvent("govgun")]
         public static void callback_cityhallGuns(Player client, int index)

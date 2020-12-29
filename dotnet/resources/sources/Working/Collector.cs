@@ -96,7 +96,7 @@ namespace iTeffa.Working
                     {
                         if (NAPI.Data.GetEntityData(player, "WORK") == null)
                         {
-                            if (Main.Players[player].Money >= 100) Trigger.ClientEvent(player, "openDialog", "COLLECTOR_RENT", "Вы действительно хотите начать работу инкассатором и арендовать транспорт за $100?");
+                            if (Main.Players[player].Money >= 100) Plugins.Trigger.ClientEvent(player, "openDialog", "COLLECTOR_RENT", "Вы действительно хотите начать работу инкассатором и арендовать транспорт за $100?");
                             else {
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не хватает " + (100 - Main.Players[player].Money) + "$ на аренду автобуса", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
@@ -167,8 +167,8 @@ namespace iTeffa.Working
 
                     NAPI.Data.SetEntityData(player, "ON_WORK", false);
                     NAPI.Data.SetEntityData(player, "WORK", null);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 16, 0);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 16, 0);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                     Customization.ApplyCharacter(player);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
                     {
@@ -290,9 +290,9 @@ namespace iTeffa.Working
                 player.SetClothes(8, 159, 0);
                 player.SetClothes(3, Customization.CorrectTorso[false][129], 0);
             }
-            Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
-            Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
-            Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
+            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
+            Plugins.Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
+            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
         }
 
         public static void CollectorTakeMoney(Player player)
@@ -315,9 +315,9 @@ namespace iTeffa.Working
                 player.SetData("W_LASTPOS", player.Position);
                 player.SetData("W_LASTTIME", DateTime.Now);
                 player.SetData("WORKCHECK", x);
-                Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
-                Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
-                Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
+                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
             }
         }
         public static void CollectorEnterATM(Player player, ColShape shape)
@@ -352,9 +352,9 @@ namespace iTeffa.Working
                 if (player.GetData<int>("COLLECTOR_BAGS") == 0)
                 {
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, "Возвращайтесь на базу, чтобы взять новые мешки с деньгами", 3000);
-                    Trigger.ClientEvent(player, "deleteWorkBlip");
-                    Trigger.ClientEvent(player, "createWaypoint", TakeMoneyPos.X, TakeMoneyPos.Y);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 16);
+                    Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", TakeMoneyPos.X, TakeMoneyPos.Y);
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 16);
                     return;
                 }
                 else
@@ -363,9 +363,9 @@ namespace iTeffa.Working
                     while (x == 36 || x == player.GetData<int>("WORKCHECK") || Finance.ATM.ATMs[x].DistanceTo2D(player.Position) < 200)
                         x = WorkManager.rnd.Next(0, Finance.ATM.ATMs.Count - 1);
                     player.SetData("WORKCHECK", x);
-                    Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
-                    Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
-                    Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 16, 29, Finance.ATM.ATMs[x] + new Vector3(0, 0, 1.12), 1, 0, 220, 220, 0);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", Finance.ATM.ATMs[x].X, Finance.ATM.ATMs[x].Y);
+                    Plugins.Trigger.ClientEvent(player, "createWorkBlip", Finance.ATM.ATMs[x]);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Направляйтесь к следующему банкомату.", 3000);
                 }
             } catch { }

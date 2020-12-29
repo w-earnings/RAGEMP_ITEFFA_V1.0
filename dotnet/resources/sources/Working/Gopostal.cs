@@ -124,9 +124,9 @@ namespace iTeffa.Working
                         player.SetData("W_LASTTIME", DateTime.Now);
                         player.SetData("NEXTHOUSE", HouseManager.Houses[next].ID);
 
-                        Trigger.ClientEvent(player, "createCheckpoint", 1, 1, HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
-                        Trigger.ClientEvent(player, "createWaypoint", HouseManager.Houses[next].Position.X, HouseManager.Houses[next].Position.Y);
-                        Trigger.ClientEvent(player, "createWorkBlip", HouseManager.Houses[next].Position);
+                        Plugins.Trigger.ClientEvent(player, "createCheckpoint", 1, 1, HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
+                        Plugins.Trigger.ClientEvent(player, "createWaypoint", HouseManager.Houses[next].Position.X, HouseManager.Houses[next].Position.Y);
+                        Plugins.Trigger.ClientEvent(player, "createWorkBlip", HouseManager.Houses[next].Position);
                         NAPI.Player.PlayPlayerAnimation(player, -1, "anim@heists@narcotics@trash", "drop_side");
                     }
                     else
@@ -144,12 +144,12 @@ namespace iTeffa.Working
                         Finance.Wallet.Change(player, payment);
                         Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
-                        Trigger.ClientEvent(player, "deleteWorkBlip");
-                        Trigger.ClientEvent(player, "createWaypoint", 105.4633f, -1568.843f);
+                        Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
+                        Plugins.Trigger.ClientEvent(player, "createWaypoint", 105.4633f, -1568.843f);
 
                         BasicSync.DetachObject(player);
 
-                        Trigger.ClientEvent(player, "deleteCheckpoint", 1, 0);
+                        Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 1, 0);
                         NAPI.Player.PlayPlayerAnimation(player, -1, "anim@heists@narcotics@trash", "drop_side");
                         player.SetData("PACKAGES", 0);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"У Вас не осталось посылок, возьмите новые", 3000);

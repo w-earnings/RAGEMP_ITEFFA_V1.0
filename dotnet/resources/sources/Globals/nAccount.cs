@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using GTANetworkAPI;
-using iTeffa.Settings;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using Newtonsoft.Json;
-using MySqlConnector;
+﻿using GTANetworkAPI;
 using iTeffa.Infodata;
 using iTeffa.Plugins;
-using iTeffa.Models;
-using iTeffa.Globals;
+using iTeffa.Settings;
+using MySqlConnector;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace iTeffa.Globals.nAccount
 {
@@ -38,7 +36,8 @@ namespace iTeffa.Globals.nAccount
                 VipLvl = 0;
                 PromoCodes = new List<string>();
                 promo_ = promo_.ToLower();
-                if(!promo_.Equals("reborn")) {
+                if (!promo_.Equals("reborn"))
+                {
                     if (string.IsNullOrEmpty(promo_) || !Main.PromoCodes.ContainsKey(promo_))
                         promo_ = "noref";
                     else
@@ -49,7 +48,7 @@ namespace iTeffa.Globals.nAccount
                 Characters = new List<int>() { -1, -1, -2 }; // -1 - empty slot, -2 - non-purchased slot
 
                 HWID = client.Serial;
-                if(client.Address.Equals("80.235.53.64")) IP = "31.13.190.88";
+                if (client.Address.Equals("80.235.53.64")) IP = "31.13.190.88";
                 else IP = client.Address;
                 SocialClub = client.SocialClubName;
                 await Database.QueryAsync($"INSERT INTO `accounts` (`login`,`email`,`password`,`hwid`,`ip`,`socialclub`,`coins`,`viplvl`,`vipdate`,`promocodes`,`character1`,`character2`,`character3`) " +
@@ -89,12 +88,13 @@ namespace iTeffa.Globals.nAccount
                 Login = Convert.ToString(row["login"]);
                 Email = Convert.ToString(row["email"]);
                 Password = pass_;
-                
+
                 //Служебные данные
                 HWID = client.GetData<string>("RealHWID");
                 NAPI.Task.Run(() => IP = client.Address);
                 SocialClub = row["socialclub"].ToString();
-                if(Main.SCCheck) {
+                if (Main.SCCheck)
+                {
                     if (SocialClub != client.GetData<string>("RealSocialClub")) return LoginEvent.SclubError;
                 }
 
@@ -119,7 +119,7 @@ namespace iTeffa.Globals.nAccount
 
                 return LoginEvent.Authorized;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Log.WriteAsync(ex.ToString(), Nlogs.Type.Error);
                 return LoginEvent.Error;
@@ -168,7 +168,7 @@ namespace iTeffa.Globals.nAccount
                     {
                         List<object> subData = new List<object>();
 
-                        var ban = Ban.Get2(uuid);
+                        var ban = Modules.BanSystem.Get2(uuid);
                         if (ban != null && ban.CheckDate())
                         {
                             subData.Add("ban");
@@ -179,7 +179,8 @@ namespace iTeffa.Globals.nAccount
                         }
                         else
                         {
-                            if(Main.PlayerNames.ContainsKey(uuid) && Main.PlayerSlotsInfo.ContainsKey(uuid)) {
+                            if (Main.PlayerNames.ContainsKey(uuid) && Main.PlayerSlotsInfo.ContainsKey(uuid))
+                            {
                                 string name = Main.PlayerNames[uuid];
                                 string[] split = name.Split('_');
                                 Tuple<int, int, int, long> tuple = Main.PlayerSlotsInfo[uuid];
@@ -190,9 +191,11 @@ namespace iTeffa.Globals.nAccount
                                 subData.Add(tuple.Item2);
                                 subData.Add(Fractions.Manager.FractionNames[tuple.Item3]);
                                 subData.Add(tuple.Item4);
-                                if(Main.PlayerBankAccs.ContainsKey(name)) subData.Add(Finance.Bank.Get(Main.PlayerBankAccs[name]).Balance);
+                                if (Main.PlayerBankAccs.ContainsKey(name)) subData.Add(Finance.Bank.Get(Main.PlayerBankAccs[name]).Balance);
                                 else subData.Add("ERROR");
-                            } else {
+                            }
+                            else
+                            {
                                 if (Main.LoggedIn.ContainsKey(Login)) Main.LoggedIn.Remove(Login);
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"К сожалению, невозможно получить данные о персонаже с номером паспорта {uuid}, обратитесь в тех.раздел на форуме.", 5000);
                                 return;
@@ -204,7 +207,7 @@ namespace iTeffa.Globals.nAccount
                 }
                 data.Add(Coins);
                 data.Add(Login);
-                Trigger.ClientEvent(player, "toslots", JsonConvert.SerializeObject(data));
+                Plugins.Trigger.ClientEvent(player, "toslots", JsonConvert.SerializeObject(data));
             }
             catch (Exception e)
             {
@@ -229,11 +232,12 @@ namespace iTeffa.Globals.nAccount
         public async Task DeleteCharacter(Player player, int slot, string firstName_, string lastName_, string password_)
         {
             if (Characters[slot - 1] == -1 || Characters[slot - 1] == -2) return;
-            
+
             var result = await Database.QueryReadAsync($"SELECT `firstname`,`lastname`,`biz`,`sim`,`bank` FROM `characters` WHERE uuid={Characters[slot - 1]}");
             if (result == null || result.Rows.Count == 0) return;
-            Ban ban = Ban.Get2(Characters[slot - 1]);
-            if (ban != null && ban.CheckDate()) {
+            Modules.BanSystem ban = Modules.BanSystem.Get2(Characters[slot - 1]);
+            if (ban != null && ban.CheckDate())
+            {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно удалить персонажа, который находится в бане.", 3000);
                 return;
             }
@@ -288,7 +292,7 @@ namespace iTeffa.Globals.nAccount
             Loggings.CharacterDelete($"{firstName}_{lastName}", uuid, Login);
 
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Персонаж {firstName} {lastName} успешно удален", 3000);
-            NAPI.Task.Run(() => Trigger.ClientEvent(player, "delCharSuccess", slot));
+            NAPI.Task.Run(() => Plugins.Trigger.ClientEvent(player, "delCharSuccess", slot));
         }
         public void changePassword(string newPass)
         {

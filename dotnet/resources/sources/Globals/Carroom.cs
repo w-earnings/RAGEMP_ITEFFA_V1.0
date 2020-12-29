@@ -41,10 +41,10 @@ namespace iTeffa.Globals
             Main.Players[player].ExteriorPos = player.Position;
             NAPI.Entity.SetEntityPosition(player, new Vector3(CamPosition.X, CamPosition.Y - 2, CamPosition.Z));
             //player.FreezePosition = true;
-            Trigger.ClientEvent(player, "freeze", true);
+            Plugins.Trigger.ClientEvent(player, "freeze", true);
 
             player.SetData("INTERACTIONCHECK", 0);
-            Trigger.ClientEvent(player, "carRoom");
+            Plugins.Trigger.ClientEvent(player, "carRoom");
 
             OpenCarromMenu(player, BusinessManager.BizList[player.GetData<int>("CARROOMID")].Type);
         }
@@ -77,7 +77,7 @@ namespace iTeffa.Globals
             {
                 if (!player.HasData("CARROOMID")) return;
 
-                Trigger.ClientEvent(player, "destroyCamera");
+                Plugins.Trigger.ClientEvent(player, "destroyCamera");
 
                 var mydim = Dimensions.RequestPrivateDimension(player);
                 NAPI.Entity.SetEntityDimension(player, mydim);
@@ -121,7 +121,7 @@ namespace iTeffa.Globals
             foreach (var p in biz.Products)
                 prices.Add(p.Price);
 
-            Trigger.ClientEvent(player, "openAuto", JsonConvert.SerializeObject(BusinessManager.CarsNames[biztype]), JsonConvert.SerializeObject(prices));
+            Plugins.Trigger.ClientEvent(player, "openAuto", JsonConvert.SerializeObject(BusinessManager.CarsNames[biztype]), JsonConvert.SerializeObject(prices));
         }
 
         private static string BuyVehicle(Player player, Business biz, string vName, string color)
@@ -162,11 +162,11 @@ namespace iTeffa.Globals
             {
                 Business biz = BusinessManager.BizList[player.GetData<int>("CARROOMID")];
                 NAPI.Entity.SetEntityPosition(player, new Vector3(biz.EnterPoint.X, biz.EnterPoint.Y, biz.EnterPoint.Z + 1.5));
-                Trigger.ClientEvent(player, "freeze", false);
+                Plugins.Trigger.ClientEvent(player, "freeze", false);
                 //player.FreezePosition = false;
 
                 Main.Players[player].ExteriorPos = new Vector3();
-                Trigger.ClientEvent(player, "destroyCamera");
+                Plugins.Trigger.ClientEvent(player, "destroyCamera");
                 NAPI.Entity.SetEntityDimension(player, 0);
                 Dimensions.DismissPrivateDimension(player);
 
@@ -208,13 +208,13 @@ namespace iTeffa.Globals
                 var enterPoint = BusinessManager.BizList[player.GetData<int>("CARROOMID")].EnterPoint;
                 NAPI.Entity.SetEntityPosition(player, new Vector3(enterPoint.X, enterPoint.Y, enterPoint.Z + 1.5));
                 Main.Players[player].ExteriorPos = new Vector3();
-                Trigger.ClientEvent(player, "freeze", false);
+                Plugins.Trigger.ClientEvent(player, "freeze", false);
                 //player.FreezePosition = false;
                 NAPI.Entity.SetEntityDimension(player, 0);
                 Dimensions.DismissPrivateDimension(player);
                 player.ResetData("CARROOMID");
 
-                if (!player.HasData("CARROOMTEST")) Trigger.ClientEvent(player, "destroyCamera");
+                if (!player.HasData("CARROOMTEST")) Plugins.Trigger.ClientEvent(player, "destroyCamera");
             }
             catch (Exception e) { Log.Write("carroomCancel: " + e.Message, Nlogs.Type.Error); }
         }

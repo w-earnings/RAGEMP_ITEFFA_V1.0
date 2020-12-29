@@ -78,14 +78,14 @@ namespace iTeffa.Fractions
                                         if (ElectionList[l].Election == ElectionPointsList[i].Election)
                                         {
                                             Console.Write("Menu open");
-                                            Trigger.ClientEvent(player, "openelem", ElectionList[l].Name);
+                                            Plugins.Trigger.ClientEvent(player, "openelem", ElectionList[l].Name);
                                             second = l + 1;
                                             break;
                                         }
                                     }
                                     for (int l = second; l != ElectionList.Count; l++)
                                     {
-                                        if (ElectionList[l].Election == ElectionPointsList[i].Election) Trigger.ClientEvent(player, "addcandidate", ElectionList[l].Name);
+                                        if (ElectionList[l].Election == ElectionPointsList[i].Election) Plugins.Trigger.ClientEvent(player, "addcandidate", ElectionList[l].Name);
                                     }
                                 }
                                 else player.SendChatMessage("Вы уже голосовали с данного аккаунта в этих выборах.");

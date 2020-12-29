@@ -128,8 +128,8 @@ namespace iTeffa.Working
             {
                 Customization.ApplyCharacter(player);
                 player.SetData("ON_WORK", false);
-                Trigger.ClientEvent(player, "deleteCheckpoint", 15);
-                Trigger.ClientEvent(player, "deleteWorkBlip");
+                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
+                Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                 return;
             }
@@ -155,8 +155,8 @@ namespace iTeffa.Working
 
                 var check = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                 player.SetData("WORKCHECK", check);
-                Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 1, 0, 255, 0, 0);
-                Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[check].Position, 1, 0, 255, 0, 0);
+                Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
 
                 player.SetData("ON_WORK", true);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Вы начали рабочий день", 3000);
@@ -202,8 +202,8 @@ namespace iTeffa.Working
                             var nextCheck = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                             while (nextCheck == shape.GetData<int>("NUMBER")) nextCheck = WorkManager.rnd.Next(0, Checkpoints.Count - 1);
                             player.SetData("WORKCHECK", nextCheck);
-                            Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[nextCheck].Position, 1, 0, 255, 0, 0);
-                            Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[nextCheck].Position);
+                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 15, 1, Checkpoints[nextCheck].Position, 1, 0, 255, 0, 0);
+                            Plugins.Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[nextCheck].Position);
                         }
                     }
                     catch { }

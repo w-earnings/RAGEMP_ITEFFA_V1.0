@@ -78,7 +78,7 @@ namespace iTeffa.Globals
                     if (item.IsActive)
                     {
                         var wHash = Weapons.GetHash(item.Type.ToString());
-                        Trigger.ClientEvent(player, "takeOffWeapon", (int)wHash);
+                        Plugins.Trigger.ClientEvent(player, "takeOffWeapon", (int)wHash);
                         Commands.Controller.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)item.Type]}");
                     }
                     else
@@ -87,7 +87,7 @@ namespace iTeffa.Globals
                         if (oldwItem != null)
                         {
                             var oldwHash = Weapons.GetHash(oldwItem.Type.ToString());
-                            Trigger.ClientEvent(player, "serverTakeOffWeapon", (int)oldwHash);
+                            Plugins.Trigger.ClientEvent(player, "serverTakeOffWeapon", (int)oldwHash);
                             oldwItem.IsActive = false;
                             Interface.Dashboard.Update(player, oldwItem, nInventory.Items[UUID].IndexOf(oldwItem));
                             Commands.Controller.RPChat("me", player, $"убрал(а) {nInventory.ItemsNames[(int)oldwItem.Type]}");
@@ -100,11 +100,11 @@ namespace iTeffa.Globals
                             var ammo = (ammoItem == null) ? 0 : ammoItem.Count;
                             if (ammo > Weapons.WeaponsClipsMax[item.Type]) ammo = Weapons.WeaponsClipsMax[item.Type];
                             if (ammoItem != null) nInventory.Remove(player, ammoItem.Type, ammo);
-                            Trigger.ClientEvent(player, "wgive", (int)wHash, ammo, false, true);
+                            Plugins.Trigger.ClientEvent(player, "wgive", (int)wHash, ammo, false, true);
                         }
                         else
                         {
-                            Trigger.ClientEvent(player, "wgive", (int)wHash, 1, false, true);
+                            Plugins.Trigger.ClientEvent(player, "wgive", (int)wHash, 1, false, true);
                         }
 
                         Commands.Controller.RPChat("me", player, $"достал(а) {nInventory.ItemsNames[(int)item.Type]}");
@@ -148,7 +148,7 @@ namespace iTeffa.Globals
                     if (player.GetData<int>("RESIST_TIME") >= 1500)
                         player.SetData("RESIST_BAN", true);
 
-                    Trigger.ClientEvent(player, "setResistStage", player.GetData<int>("RESIST_STAGE"));
+                    Plugins.Trigger.ClientEvent(player, "setResistStage", player.GetData<int>("RESIST_STAGE"));
                     BasicSync.AttachObjectToPlayer(player, nInventory.ItemModels[item.Type], 57005, Fractions.AlcoFabrication.AlcoPosOffset[item.Type], Fractions.AlcoFabrication.AlcoRotOffset[item.Type]);
 
                     Main.OnAntiAnim(player);
@@ -161,7 +161,7 @@ namespace iTeffa.Globals
                                 if (!player.IsInVehicle) player.StopAnimation();
                                 else player.SetData("ToResetAnimPhone", true);
                                 Main.OffAntiAnim(player);
-                                Trigger.ClientEvent(player, "startScreenEffect", "PPFilter", player.GetData<int>("RESIST_TIME") * 1000, false);
+                                Plugins.Trigger.ClientEvent(player, "startScreenEffect", "PPFilter", player.GetData<int>("RESIST_TIME") * 1000, false);
                                 BasicSync.DetachObject(player);
                             }
                         } catch { }
@@ -692,7 +692,7 @@ namespace iTeffa.Globals
                         Interface.Dashboard.OpenOut(player, items, "Связка ключей", 7);
                         return;
                     case ItemType.Material:
-                        Trigger.ClientEvent(player, "board", "close");
+                        Plugins.Trigger.ClientEvent(player, "board", "close");
                         Interface.Dashboard.isopen[player] = false;
                         Interface.Dashboard.Close(player);
                         Fractions.Manager.OpenGunCraftMenu(player);
@@ -705,7 +705,7 @@ namespace iTeffa.Globals
                     case ItemType.Burger:
                         player.Health = (player.Health + 30 > 100) ? 100 : player.Health + 30;
                         Modules.Vitality.AddEat(player, 15);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.eCola:
@@ -716,31 +716,31 @@ namespace iTeffa.Globals
                     case ItemType.HotDog:
                         Modules.Vitality.AddWater(player, -10);
                         Modules.Vitality.AddEat(player, 14);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Pizza:
                         Modules.Vitality.AddWater(player, -10);
                         Modules.Vitality.AddEat(player, 30);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sandwich:
                         Modules.Vitality.AddWater(player, -5);
                         Modules.Vitality.AddEat(player, 8);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sprunk:
                         Modules.Vitality.AddWater(player, 25);
                         Modules.Vitality.AddEat(player, 2);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Сrisps:
                         Modules.Vitality.AddWater(player, -10);
                         Modules.Vitality.AddEat(player, 15);
-                        if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                        if (player.GetData<int>("RESIST_TIME") < 600) Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Rod:
@@ -756,7 +756,7 @@ namespace iTeffa.Globals
                         if (!player.HasData("USE_DRUGS") || DateTime.Now > player.GetData<DateTime>("USE_DRUGS"))
                         {
                             player.Health = (player.Health + 50 > 100) ? 100 : player.Health + 50;
-                            Trigger.ClientEvent(player, "startScreenEffect", "DrugsTrevorClownsFight", 300000, false);
+                            Plugins.Trigger.ClientEvent(player, "startScreenEffect", "DrugsTrevorClownsFight", 300000, false);
                             Commands.Controller.RPChat("me", player, $"закурил(а) косяк");
                             player.SetData("USE_DRUGS", DateTime.Now.AddMinutes(3));
                         }
@@ -805,7 +805,7 @@ namespace iTeffa.Globals
                                     if (!player.IsInVehicle) player.StopAnimation();
                                     else player.SetData("ToResetAnimPhone", true);
                                     Main.OffAntiAnim(player);
-                                    Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                                    Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                                 } catch { }
                             }, 5000);
                             Commands.Controller.RPChat("me", player, $"использовал(а) аптечку");
@@ -849,7 +849,7 @@ namespace iTeffa.Globals
                         //player.SetData("LOCK_TIMER", Main.StartT(10000, 999999, (o) => SafeMain.lockCrack(player, player.Name), "LOCK_TIMER"));
                         player.SetData("LOCK_TIMER", Timers.StartOnce(10000, () => SafeMain.lockCrack(player, player.Name)));
                         //player.FreezePosition = true;
-                        Trigger.ClientEvent(player, "showLoader", "Идёт взлом", 1);
+                        Plugins.Trigger.ClientEvent(player, "showLoader", "Идёт взлом", 1);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы начали взламывать дверь", 3000);
                         break;
                     case ItemType.ArmyLockpick:

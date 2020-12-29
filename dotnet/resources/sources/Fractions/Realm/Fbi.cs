@@ -249,7 +249,7 @@ namespace iTeffa.Fractions.Realm
         #region menus
         public static void OpenFbiLiftMenu(Player player)
         {
-            Trigger.ClientEvent(player, "openlift", 0, "fbilift");
+            Plugins.Trigger.ClientEvent(player, "openlift", 0, "fbilift");
         }
         [RemoteEvent("fbilift")]
         public static void callback_fbilift(Player client, int floor)
@@ -287,7 +287,7 @@ namespace iTeffa.Fractions.Realm
 
         public static void OpenFbiGunMenu(Player player)
         {
-            Trigger.ClientEvent(player, "fbiguns");
+            Plugins.Trigger.ClientEvent(player, "fbiguns");
         }
         [RemoteEvent("fbigun")]
         public static void callback_fbiguns(Player client, int index)

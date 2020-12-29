@@ -97,7 +97,7 @@ namespace iTeffa.Commands
                 if (player.HasData("TRAILER"))
                 {
                     Vehicle trailer = player.GetData<Vehicle>("TRAILER");
-                    Trigger.ClientEvent(player, "createWaypoint", trailer.Position.X, trailer.Position.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", trailer.Position.X, trailer.Position.Y);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно установили маркер на карту, там находится Ваш трейлер", 5000);
                 }
             }
@@ -760,7 +760,7 @@ namespace iTeffa.Commands
             {
                 if (!Globals.Group.CanUseCmd(client, "ban")) return;
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Начинаю процедуру синхронизации...", 4000);
-                Ban.Sync();
+                Modules.BanSystem.Sync();
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Процедура завершена!", 3000);
             }
             catch (Exception e) { Log.Write("bansync: " + e.Message, Nlogs.Type.Error); }
@@ -1195,7 +1195,7 @@ namespace iTeffa.Commands
                     Main.Players[target].LVL += 1;
                     if (Main.Players[target].LVL == 1)
                     {
-                        NAPI.Task.Run(() => { try { Trigger.ClientEvent(target, "disabledmg", false); } catch { } }, 5000);
+                        NAPI.Task.Run(() => { try { Plugins.Trigger.ClientEvent(target, "disabledmg", false); } catch { } }, 5000);
                     }
                 }
                 Dashboard.sendStats(target);
@@ -1240,7 +1240,7 @@ namespace iTeffa.Commands
             {
                 if (!Globals.Group.CanUseCmd(player, "stt")) return;
                 if (!player.IsInVehicle) return;
-                Trigger.ClientEvent(player, "svem", power, torque);
+                Plugins.Trigger.ClientEvent(player, "svem", power, torque);
             }
             catch (Exception e)
             {
@@ -1297,7 +1297,7 @@ namespace iTeffa.Commands
                 if (hlcolor >= 0 && hlcolor <= 12)
                 {
                     v.SetSharedData("hlcolor", hlcolor);
-                    Trigger.ClientEventInRange(v.Position, 250f, "VehStream_SetVehicleHeadLightColor", v.Handle, hlcolor);
+                    Plugins.Trigger.ClientEventInRange(v.Position, 250f, "VehStream_SetVehicleHeadLightColor", v.Handle, hlcolor);
                 }
                 else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Цвет фар может быть от 0 до 12.", 3000);
             }
@@ -1934,7 +1934,7 @@ namespace iTeffa.Commands
                 if (warns >= 3)
                 {
                     Database.Query($"UPDATE `characters` SET `warns`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
-                    Ban.Offline(target, DateTime.Now.AddMinutes(43200), false, "Warns 3/3", "Server_Serverniy");
+                    Modules.BanSystem.Offline(target, DateTime.Now.AddMinutes(43200), false, "Warns 3/3", "Server_Serverniy");
                 }
                 else
                     Database.Query($"UPDATE `characters` SET `unwarn`='{Database.ConvertTime(DateTime.Now.AddDays(14))}',`warns`={warns},`fraction`=0,`fractionlvl`=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
@@ -2075,7 +2075,7 @@ namespace iTeffa.Commands
 
                 if (!Globals.Group.CanUseCmd(player, "mute")) return;
                 player.SetSharedData("voice.muted", true);
-                Trigger.ClientEvent(player, "voice.mute");
+                Plugins.Trigger.ClientEvent(player, "voice.mute");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -2159,12 +2159,12 @@ namespace iTeffa.Commands
                 if (!Globals.Group.CanUseCmd(player, "agm")) return;
                 if (!player.HasSharedData("AGM"))
                 {
-                    Trigger.ClientEvent(player, "AGM", true);
+                    Plugins.Trigger.ClientEvent(player, "AGM", true);
                     player.SetSharedData("AGM", true);
                 }
                 else
                 {
-                    Trigger.ClientEvent(player, "AGM", false);
+                    Plugins.Trigger.ClientEvent(player, "AGM", false);
                     player.ResetSharedData("AGM");
                 }
             }
@@ -2425,7 +2425,7 @@ namespace iTeffa.Commands
         [Command("q")]
         public static void CMD_disconnect(Player player)
         {
-            Trigger.ClientEvent(player, "quitcmd");
+            Plugins.Trigger.ClientEvent(player, "quitcmd");
         }
         [Command("report", GreedyArg = true)]
         public static void CMD_report(Player player, string message)
@@ -2990,7 +2990,7 @@ namespace iTeffa.Commands
                 Player target = Main.GetPlayerByID(id);
                 target.SetData("DICE_PLAYER", player);
                 target.SetData("DICE_VALUE", money);
-                Trigger.ClientEvent(target, "openDialog", "DICE", $"Шпилер ({player.Value}) хочет сыграть с вами в бросок костей на {money}$. Вы принимаете?");
+                Plugins.Trigger.ClientEvent(target, "openDialog", "DICE", $"Шпилер ({player.Value}) хочет сыграть с вами в бросок костей на {money}$. Вы принимаете?");
 
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игровой запрос на кости был отправлен на ({target.Value}) за ${money}$.", 3000);
             }

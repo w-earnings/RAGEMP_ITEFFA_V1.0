@@ -164,7 +164,7 @@ namespace iTeffa.Globals
                 items.Add(item);
             }
             string json = JsonConvert.SerializeObject(items);
-            Trigger.ClientEvent(player, "fishshop", json);
+            Plugins.Trigger.ClientEvent(player, "fishshop", json);
         }
 
         private static readonly Nlogs Log = new Nlogs("RodManager");

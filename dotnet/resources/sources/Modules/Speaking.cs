@@ -1,10 +1,7 @@
 ﻿using GTANetworkAPI;
+using iTeffa.Settings;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using iTeffa.Interface;
-using iTeffa.Globals;
-using iTeffa.Settings;
 
 namespace iTeffa.Modules
 {
@@ -86,8 +83,8 @@ namespace iTeffa.Modules
                 Players.ForEach(_player => argsMe.Add(_player));
 
 
-                Trigger.ClientEvent(player, "voice.radioConnect", argsMe.ToArray());
-                Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioConnect", MetaData, player);
+                Plugins.Trigger.ClientEvent(player, "voice.radioConnect", argsMe.ToArray());
+                Plugins.Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioConnect", MetaData, player);
 
                 var tempPlayer = player.GetData<Models.VoiceMetaData>("Voip");
                 tempPlayer.RadioRoom = Name;
@@ -104,8 +101,8 @@ namespace iTeffa.Modules
                 var argsMe = new List<object> { MetaData };
                 Players.ForEach(_player => argsMe.Add(_player));
 
-                Trigger.ClientEvent(player, "voice.radioDisconnect", argsMe.ToArray());
-                Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData, player);
+                Plugins.Trigger.ClientEvent(player, "voice.radioDisconnect", argsMe.ToArray());
+                Plugins.Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData, player);
 
                 player.ResetData("Voip");
                 Players.Remove(player);
@@ -114,7 +111,7 @@ namespace iTeffa.Modules
 
         public void OnRemove()
         {
-            Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData);
+            Plugins.Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData);
             Players.Clear();
         }
     }
@@ -200,7 +197,7 @@ namespace iTeffa.Modules
 
                     Globals.BasicSync.DetachObject(target);
 
-                    Trigger.ClientEvent(target, "voice.phoneStop");
+                    Plugins.Trigger.ClientEvent(target, "voice.phoneStop");
 
                     target.SetData("PhoneVoip", targetPhoneMeta);
                 }
@@ -215,21 +212,21 @@ namespace iTeffa.Modules
         public void voiceDebugReload(Player player)
         {
             player.SendChatMessage("Вы успешно перезагрузили голосовой чат для себя (v1).");
-            Trigger.ClientEvent(player, "v_reload");
+            Plugins.Trigger.ClientEvent(player, "v_reload");
         }
 
         [Command("v_reload2")]
         public void voiceDebug2Reload(Player player)
         {
             player.SendChatMessage("Вы успешно перезагрузили голосовой чат для себя (v2).");
-            Trigger.ClientEvent(player, "v_reload2");
+            Plugins.Trigger.ClientEvent(player, "v_reload2");
         }
 
         [Command("v_reload3")]
         public void voiceDebug3Reload(Player player)
         {
             player.SendChatMessage("Вы успешно перезагрузили голосовой чат для себя (v3).");
-            Trigger.ClientEvent(player, "v_reload3");
+            Plugins.Trigger.ClientEvent(player, "v_reload3");
         }
 
         [RemoteEvent("add_voice_listener")]
@@ -312,7 +309,8 @@ namespace iTeffa.Modules
                     player.SetData("PhoneVoip", playerPhoneMeta);
                     target.SetData("PhoneVoip", targetPhoneMeta);
 
-                    NAPI.Task.Run(() => {
+                    NAPI.Task.Run(() =>
+                    {
                         try
                         {
                             if (!Main.Players.ContainsKey(player) || !Main.Players.ContainsKey(target)) return;
@@ -408,8 +406,8 @@ namespace iTeffa.Modules
                 player.PlayAnimation("anim@cellphone@in_car@ds", "cellphone_call_listen_base", 49);
                 Globals.BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_amb_phone"), 6286, new Vector3(0.06, 0.01, -0.02), new Vector3(80, -10, 110));
 
-                Trigger.ClientEvent(player, "voice.phoneCall", target, 1);
-                Trigger.ClientEvent(target, "voice.phoneCall", player, 1);
+                Plugins.Trigger.ClientEvent(player, "voice.phoneCall", target, 1);
+                Plugins.Trigger.ClientEvent(target, "voice.phoneCall", player, 1);
 
                 player.ResetData("ToResetAnimPhone");
                 target.ResetData("ToResetAnimPhone");
@@ -465,8 +463,8 @@ namespace iTeffa.Modules
                 Globals.BasicSync.DetachObject(player);
                 Globals.BasicSync.DetachObject(target);
 
-                Trigger.ClientEvent(player, "voice.phoneStop");
-                Trigger.ClientEvent(target, "voice.phoneStop");
+                Plugins.Trigger.ClientEvent(player, "voice.phoneStop");
+                Plugins.Trigger.ClientEvent(target, "voice.phoneStop");
 
                 player.SetData("PhoneVoip", playerPhoneMeta);
                 target.SetData("PhoneVoip", targetPhoneMeta);
@@ -634,7 +632,7 @@ namespace iTeffa.Modules
                 Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
                 voiceMeta.MicrophoneKey = microphoneKey;
 
-                Trigger.ClientEvent(player, "voice.changeMicrophoneActivationKey", microphoneKey);
+                Plugins.Trigger.ClientEvent(player, "voice.changeMicrophoneActivationKey", microphoneKey);
                 player.SetData("Voip", voiceMeta);
             }
             catch (Exception e)

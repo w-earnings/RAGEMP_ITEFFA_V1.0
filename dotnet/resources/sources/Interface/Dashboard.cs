@@ -114,7 +114,7 @@ namespace iTeffa.Interface
                                     Close(player);
                                     player.SetData("ITEMTYPE", item.Type);
                                     player.SetData("ITEMINDEX", index);
-                                    Trigger.ClientEvent(player, "openInput", "Выбросить предмет", "Введите количество", 3, "item_drop");
+                                    Plugins.Trigger.ClientEvent(player, "openInput", "Выбросить предмет", "Введите количество", 3, "item_drop");
                                     return;
                                 }
                                 nInventory.Remove(player, item.Type, 1);
@@ -193,7 +193,7 @@ namespace iTeffa.Interface
                                                 Close(player);
                                                 player.SetData("ITEMTYPE", item.Type);
                                                 player.SetData("ITEMINDEX", index);
-                                                Trigger.ClientEvent(player, "openInput", "Переложить предмет", "Введите количество", 3, "item_transfer_toveh");
+                                                Plugins.Trigger.ClientEvent(player, "openInput", "Переложить предмет", "Введите количество", 3, "item_transfer_toveh");
                                                 return;
                                             }
                                             if (item.Type == ItemType.Material)
@@ -226,7 +226,7 @@ namespace iTeffa.Interface
                                                 Close(player);
                                                 player.SetData("ITEMTYPE", item.Type);
                                                 player.SetData("ITEMINDEX", index);
-                                                Trigger.ClientEvent(player, "openInput", "Переложить предмет", "Введите количество", 3, "item_transfer_tosafe");
+                                                Plugins.Trigger.ClientEvent(player, "openInput", "Переложить предмет", "Введите количество", 3, "item_transfer_tosafe");
                                                 return;
                                             }
 
@@ -324,7 +324,7 @@ namespace iTeffa.Interface
                                                 Close(player, true);
                                                 player.SetData("ITEMTYPE", item.Type);
                                                 player.SetData("ITEMINDEX", index);
-                                                Trigger.ClientEvent(player, "openInput", "Передать предмет", "Введите количество", 3, "item_transfer_toplayer");
+                                                Plugins.Trigger.ClientEvent(player, "openInput", "Передать предмет", "Введите количество", 3, "item_transfer_toplayer");
                                                 return;
                                             }
 
@@ -351,7 +351,7 @@ namespace iTeffa.Interface
                                                 Close(player, true);
                                                 player.SetData("ITEMTYPE", item.Type);
                                                 player.SetData("ITEMINDEX", index);
-                                                Trigger.ClientEvent(player, "openInput", "Передать предмет", "Введите количество", 3, "item_transfer_tofracstock");
+                                                Plugins.Trigger.ClientEvent(player, "openInput", "Передать предмет", "Введите количество", 3, "item_transfer_tofracstock");
                                                 return;
                                             }
 
@@ -491,7 +491,7 @@ namespace iTeffa.Interface
                                 Close(player);
                                 player.SetData("ITEMTYPE", item.Type);
                                 player.SetData("ITEMINDEX", index);
-                                Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromveh");
+                                Plugins.Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromveh");
                                 return;
                             }
 
@@ -520,7 +520,7 @@ namespace iTeffa.Interface
                                 Close(player);
                                 player.SetData("ITEMTYPE", item.Type);
                                 player.SetData("ITEMINDEX", index);
-                                Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromsafe");
+                                Plugins.Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromsafe");
                                 return;
                             }
                             Loggings.Items($"itemSafe({furnID} | house: {houseID})", $"player({Main.Players[player].UUID})", Convert.ToInt32(item.Type), 1, $"{item.Data}");
@@ -590,7 +590,7 @@ namespace iTeffa.Interface
                                 Close(player);
                                 player.SetData("ITEMTYPE", item.Type);
                                 player.SetData("ITEMINDEX", index);
-                                Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromfracstock");
+                                Plugins.Trigger.ClientEvent(player, "openInput", "Взять предмет", "Введите количество", 3, "item_transfer_fromfracstock");
                                 return;
                             }
 
@@ -767,7 +767,7 @@ namespace iTeffa.Interface
         public static void Close(Player player, bool resetOpenOut = false)
         {
             int data = (resetOpenOut) ? 11 : 1;
-            Trigger.ClientEvent(player, "board", data);
+            Plugins.Trigger.ClientEvent(player, "board", data);
             player.ResetData("OPENOUT_TYPE");
         }
         public static void sendStats(Player player)
@@ -816,7 +816,7 @@ namespace iTeffa.Interface
 
                 string json = JsonConvert.SerializeObject(data);
                 Log.Debug("data is: " + json.ToString());
-                Trigger.ClientEvent(player, "board", 2, json);
+                Plugins.Trigger.ClientEvent(player, "board", 2, json);
 
                 data.Clear();
 
@@ -873,7 +873,7 @@ namespace iTeffa.Interface
 
                 string json = JsonConvert.SerializeObject(data);
                 Log.Debug("data is: " + json.ToString());
-                Trigger.ClientEvent(player, "board", 2, json);
+                Plugins.Trigger.ClientEvent(player, "board", 2, json);
 
                 data.Clear();
             }
@@ -910,7 +910,7 @@ namespace iTeffa.Interface
 
                 string json = JsonConvert.SerializeObject(data);
                 Log.Debug(json);
-                Trigger.ClientEvent(player, "board", 3, json);
+                Plugins.Trigger.ClientEvent(player, "board", 3, json);
 
                 items.Clear();
                 data.Clear();
@@ -945,7 +945,7 @@ namespace iTeffa.Interface
 
                 string json = JsonConvert.SerializeObject(data);
                 await Log.DebugAsync(json);
-                NAPI.Task.Run(() => Trigger.ClientEvent(player, "board", 3, json));
+                NAPI.Task.Run(() => Plugins.Trigger.ClientEvent(player, "board", 3, json));
 
                 items.Clear();
                 data.Clear();
@@ -957,7 +957,7 @@ namespace iTeffa.Interface
         }
         public static void Open(Player Player)
         {
-            Trigger.ClientEvent(Player, "board", 0);
+            Plugins.Trigger.ClientEvent(Player, "board", 0);
         }
         public static void OpenOut(Player Player, List<nItem> items, string title, int type = 1)
         {
@@ -986,9 +986,9 @@ namespace iTeffa.Interface
                 string json = JsonConvert.SerializeObject(data);
                 Log.Debug(json);
                 Player.SetData("OPENOUT_TYPE", type);
-                Trigger.ClientEvent(Player, "board", 4, json);
-                Trigger.ClientEvent(Player, "board", 5, true);
-                Trigger.ClientEvent(Player, "board", 0);
+                Plugins.Trigger.ClientEvent(Player, "board", 4, json);
+                Plugins.Trigger.ClientEvent(Player, "board", 5, true);
+                Plugins.Trigger.ClientEvent(Player, "board", 0);
             }
             catch (Exception e)
             {
@@ -1006,7 +1006,7 @@ namespace iTeffa.Interface
                         (nInventory.WeaponsItems.Contains(item.Type) || item.Type == ItemType.StunGun) ? "Serial: " + item.Data : (item.Type == ItemType.CarKey) ? $"{(string)item.Data.Split('_')[0]}" : ""
                     };
             string json = JsonConvert.SerializeObject(idata);
-            Trigger.ClientEvent(Player, "board", 6, json, index);
+            Plugins.Trigger.ClientEvent(Player, "board", 6, json, index);
         }
         public static Task UpdateAsync(Player Player, nItem item, int index)
         {
@@ -1020,7 +1020,7 @@ namespace iTeffa.Interface
                         nInventory.WeaponsItems.Contains(item.Type) || item.Type == ItemType.StunGun ? "Serial: " + item.Data : item.Type == ItemType.CarKey ? $"{(string)item.Data.Split('_')[0]}" : ""
                     };
                 string json = JsonConvert.SerializeObject(idata);
-                NAPI.Task.Run(() => Trigger.ClientEvent(Player, "board", 6, json, index));
+                NAPI.Task.Run(() => Plugins.Trigger.ClientEvent(Player, "board", 6, json, index));
             }
             catch (Exception e) { Log.Write("UpdateAsync: " + e.Message); }
 

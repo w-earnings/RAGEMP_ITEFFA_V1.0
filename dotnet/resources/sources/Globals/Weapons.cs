@@ -296,7 +296,7 @@ namespace iTeffa.Globals
 
                     Items.onDrop(player, new nItem(activeWeapon.Type, 1, activeWeapon.Data), 1);
                     nInventory.Remove(player, activeWeapon);
-                    Trigger.ClientEvent(player, "removeAllWeapons");
+                    Plugins.Trigger.ClientEvent(player, "removeAllWeapons");
                     NAPI.Task.Run(() => { try { player.RemoveAllWeapons(); } catch { } }, 100);
                 }
             }
@@ -363,7 +363,7 @@ namespace iTeffa.Globals
                     nInventory.MeleeWeaponsItems.Contains(nInventory.Items[UUID][i].Type) || (ammo && nInventory.AmmoItems.Contains(nInventory.Items[UUID][i].Type)))
                     nInventory.Items[UUID].RemoveAt(i);
             }
-            Trigger.ClientEvent(player, "removeAllWeapons");
+            Plugins.Trigger.ClientEvent(player, "removeAllWeapons");
             NAPI.Task.Run(() => { try { player.RemoveAllWeapons(); } catch { } }, 100);
             Interface.Dashboard.sendItems(player);
         }
@@ -394,7 +394,7 @@ namespace iTeffa.Globals
                 if (ammoInClip > WeaponsClipsMax[wItemType]) ammoInClip = WeaponsClipsMax[wItemType];
                 var ammo = (ammoLefts < WeaponsClipsMax[wItemType] - ammoInClip) ? ammoLefts : WeaponsClipsMax[wItemType] - ammoInClip;
                 nInventory.Remove(player, wAmmoType, ammo);
-                Trigger.ClientEvent(player, "wgive", hash, ammo, true, true);
+                Plugins.Trigger.ClientEvent(player, "wgive", hash, ammo, true, true);
             }
             catch (Exception e) { Log.Write("PlayeReloadWeapon: " + e.Message, Nlogs.Type.Error); }
         }

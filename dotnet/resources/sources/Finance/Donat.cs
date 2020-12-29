@@ -105,7 +105,7 @@ namespace iTeffa.Finance
                                 {
                                     if (!Main.Accounts.ContainsKey(client)) return;
                                     Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вам пришли {reds} Coins", 3000);
-                                    Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
+                                    Plugins.Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
                                 }
                                 catch { }
                             });
@@ -325,7 +325,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateChar");
-                            Trigger.ClientEvent(client, "WheelsRun");
+                            Plugins.Trigger.ClientEvent(client, "WheelsRun");
                             break;
                         }
                     case Type.Character:
@@ -533,7 +533,7 @@ namespace iTeffa.Finance
                             else Main.Accounts[client].VipDate = Main.Accounts[client].VipDate.AddDays(30);
 
                             Main.Accounts[client].Characters[2] = -1;
-                            Trigger.ClientEvent(client, "unlockSlot", Main.Accounts[client].Coins);
+                            Plugins.Trigger.ClientEvent(client, "unlockSlot", Main.Accounts[client].Coins);
                             Database.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                             return;
                         }
@@ -704,7 +704,7 @@ namespace iTeffa.Finance
                         }
                 }
                 Database.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
-                Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
+                Plugins.Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
             }
             catch (Exception e) { Log.Write("donate: " + e.Message, Nlogs.Type.Error); }
         }

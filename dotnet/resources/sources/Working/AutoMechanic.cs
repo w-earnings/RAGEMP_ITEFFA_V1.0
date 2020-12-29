@@ -67,7 +67,7 @@ namespace iTeffa.Working
             
             target.SetData("MECHANIC", player);
             target.SetData("MECHANIC_PRICE", price);
-            Trigger.ClientEvent(target, "openDialog", "REPAIR_CAR", $"Игрок ({player.Value}) предложил отремонтировать Ваш транспорт за ${price}");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "REPAIR_CAR", $"Игрок ({player.Value}) предложил отремонтировать Ваш транспорт за ${price}");
             
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) отремонтировать транспорт за {price}$", 3000);
         }
@@ -167,7 +167,7 @@ namespace iTeffa.Working
                             }
                             if (Main.Players[player].Money >= mechanicRentCost)
                             {
-                                Trigger.ClientEvent(player, "openDialog", "MECHANIC_RENT", $"Арендовать рабочий транспорт за ${mechanicRentCost}?");
+                                Plugins.Trigger.ClientEvent(player, "openDialog", "MECHANIC_RENT", $"Арендовать рабочий транспорт за ${mechanicRentCost}?");
                             }
                             else
                             {
@@ -327,7 +327,7 @@ namespace iTeffa.Working
                 {
                     Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
-                    Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
 
                     target.SetData("MECHANIC_DRIVER", player);
                     player.SetData("MECHANIC_CLIENT", target);
@@ -486,7 +486,7 @@ namespace iTeffa.Working
             target.SetData("MECHANIC", player);
             target.SetData("MECHANIC_PRICE", pricePerLitr);
             target.SetData("MECHANIC_FEUL", fuel);
-            Trigger.ClientEvent(target, "openDialog", "FUEL_CAR", $"Игрок ({player.Value}) предложил заправить Ваш транспорт на {fuel}л за ${fuel * pricePerLitr}");
+            Plugins.Trigger.ClientEvent(target, "openDialog", "FUEL_CAR", $"Игрок ({player.Value}) предложил заправить Ваш транспорт на {fuel}л за ${fuel * pricePerLitr}");
             
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) заправить транспорт на {fuel}л за {fuel * pricePerLitr}$.", 3000);
         }

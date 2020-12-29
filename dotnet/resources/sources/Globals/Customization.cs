@@ -1847,7 +1847,7 @@ namespace iTeffa.Globals
 
             var gender = Main.Players[player].Gender;
             SetDefaultFeatures(player, gender);
-            Trigger.ClientEvent(player, "CreatorCamera");
+            Plugins.Trigger.ClientEvent(player, "CreatorCamera");
             DimensionID++;
         }
 
@@ -1869,7 +1869,7 @@ namespace iTeffa.Globals
             player.SetData("CHANGING_TATTOOS", tattoos);
             SetCreatorClothes(player, gender);
 
-            Trigger.ClientEvent(player, "CreatorCamera");
+            Plugins.Trigger.ClientEvent(player, "CreatorCamera");
             DimensionID++;
         }
 
@@ -1885,7 +1885,7 @@ namespace iTeffa.Globals
             player.SetSkin((Main.Players[player].Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
 
             Main.Players[player].IsSpawned = true;
-            Trigger.ClientEvent(player, "DestroyCamera");
+            Plugins.Trigger.ClientEvent(player, "DestroyCamera");
         }
 
         public static void SetDefaultFeatures(Player player, bool gender, bool reset = false)
@@ -2210,7 +2210,7 @@ namespace iTeffa.Globals
                         Main.Accounts[player].VipDate = DateTime.Now.AddDays(3);
                         Interface.Dashboard.sendStats(player);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Добро пожаловать в штат! Вы получили первый уровень, Gold VIP на 3 дня и 5000$!", 6000);
-                        NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
+                        NAPI.Task.Run(() => { try { Plugins.Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
                     }
                 }
                 CustomPlayerData[Main.Players[player].UUID].IsCreated = true;
@@ -2218,7 +2218,7 @@ namespace iTeffa.Globals
                 SendBackToWorld(player);
                 ApplyCharacter(player);
                 SaveCharacter(player);
-                Trigger.ClientEvent(player, "stopAndStartScreenEffect", "MinigameTransitionIn", "MinigameTransitionOut", 0, false);
+                Plugins.Trigger.ClientEvent(player, "stopAndStartScreenEffect", "MinigameTransitionIn", "MinigameTransitionOut", 0, false);
                 return;
             }
             catch (Exception e) { Log.Write("SaveCharacter: " + e.Message, Nlogs.Type.Error); }

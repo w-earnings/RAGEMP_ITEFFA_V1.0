@@ -159,7 +159,7 @@ namespace iTeffa
                 }
                 else Log.Write("DB `promocodes` return null result", Nlogs.Type.Warn);
 
-                Ban.Sync();
+                Modules.BanSystem.Sync();
 
                 int time = 3600 - (DateTime.Now.Minute * 60) - DateTime.Now.Second;
                 Settings.Timers.StartOnceTask("paydayFirst", time * 1000, () =>
@@ -418,8 +418,8 @@ namespace iTeffa
                 player.Eval("let g_swapDate=Date.now();let g_triggersCount=0;mp._events.add('cefTrigger',(eventName)=>{if(++g_triggersCount>10){let currentDate=Date.now();if((currentDate-g_swapDate)>200){g_swapDate=currentDate;g_triggersCount=0}else{g_triggersCount=0;return!0}}})");
                 uint dimension = Dimensions.RequestPrivateDimension(player);
                 NAPI.Entity.SetEntityDimension(player, dimension);
-                Trigger.ClientEvent(player, "ServerNum", servernum);
-                Trigger.ClientEvent(player, "Enviroment_Start", Env_lastTime, Env_lastDate, Env_lastWeather);
+                Plugins.Trigger.ClientEvent(player, "ServerNum", servernum);
+                Plugins.Trigger.ClientEvent(player, "Enviroment_Start", Env_lastTime, Env_lastDate, Env_lastWeather);
                 Commands.PlayerCommands.CMD_BUILD(player);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"MAIN_OnPlayerConnected\":\n" + e.ToString(), Nlogs.Type.Error); }
@@ -441,13 +441,13 @@ namespace iTeffa
         {
             try
             {
-                Trigger.ClientEvent(player, "CUFFED", true);
+                Plugins.Trigger.ClientEvent(player, "CUFFED", true);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Голосовой чат и интерфейс перезагружен.", 3000);
                 Dashboard.Close(player);
-                Trigger.ClientEvent(player, "CUFFED", false);
+                Plugins.Trigger.ClientEvent(player, "CUFFED", false);
                 if (Players[player].FractionID == 7 || Players[player].FractionID == 9)
                 {
-                    Trigger.ClientEvent(player, "CUFFED", false);
+                    Plugins.Trigger.ClientEvent(player, "CUFFED", false);
                 }
                 player.StopAnimation();
                 return;
@@ -478,7 +478,7 @@ namespace iTeffa
                 Player driver = player.GetData<Player>("TAXI_DRIVER");
                 if (driver == player || driver == null) return;
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы передали водителю данные о своём маршруте!", 3000);
-                Trigger.ClientEvent(driver, "syncWP", X, Y);
+                Plugins.Trigger.ClientEvent(driver, "syncWP", X, Y);
             }
             catch (Exception e)
             {
@@ -503,7 +503,7 @@ namespace iTeffa
                     {
                         player.SetData("MUTE_TIMER", Settings.Timers.StartTask(1000, () => Admin.timer_mute(player)));
                         player.SetSharedData("voice.muted", true);
-                        Trigger.ClientEvent(player, "voice.mute");
+                        Plugins.Trigger.ClientEvent(player, "voice.mute");
                     }
                     else Log.Write($"ClientSpawn MuteTime (MUTE) worked avoid", Nlogs.Type.Warn);
                 }
@@ -605,9 +605,9 @@ namespace iTeffa
                             break;
                     }
                 }
-                Trigger.ClientEvent(player, "acpos");
-                Trigger.ClientEvent(player, "ready");
-                Trigger.ClientEvent(player, "redset", Accounts[player].Coins);
+                Plugins.Trigger.ClientEvent(player, "acpos");
+                Plugins.Trigger.ClientEvent(player, "ready");
+                Plugins.Trigger.ClientEvent(player, "redset", Accounts[player].Coins);
 
                 player.SetData("spmode", false);
                 player.SetSharedData("InDeath", false);
@@ -900,7 +900,7 @@ namespace iTeffa
                         string vName = VehicleManager.Vehicles[number].Model;
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили {target.Name} купить Ваш {vName} ({number}) за {price}$", 3000);
 
-                        Trigger.ClientEvent(target, "openDialog", "BUY_CAR", $"{player.Name} предложил Вам купить {vName} ({number}) за ${price}");
+                        Plugins.Trigger.ClientEvent(target, "openDialog", "BUY_CAR", $"{player.Name} предложил Вам купить {vName} ({number}) за ${price}");
                         target.SetData("SELLDATE", DateTime.Now);
                         target.SetData("CAR_SELLER", player);
                         target.SetData("CAR_NUMBER", number);
@@ -1388,7 +1388,7 @@ namespace iTeffa
                             return;
                         }
                         player.SetData("TICKETSUM", sum);
-                        Trigger.ClientEvent(player, "openInput", "Выписать штраф (причина)", "Причина", 50, "player_ticketreason");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Выписать штраф (причина)", "Причина", 50, "player_ticketreason");
                         break;
                     case "player_ticketreason":
                         Fractions.FractionCommands.ticketToTarget(player, player.GetData<Player>("TICKETTARGET"), player.GetData<int>("TICKETSUM"), text);
@@ -1451,7 +1451,7 @@ namespace iTeffa
                 if (player.Value != value) return;
                 if (!Accounts.ContainsKey(player)) return;
 
-                Ban ban = Ban.Get2(Accounts[player].Characters[slot - 1]);
+                Modules.BanSystem ban = Modules.BanSystem.Get2(Accounts[player].Characters[slot - 1]);
                 if (ban != null)
                 {
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Ты не пройдёшь!", 4000);
@@ -1524,7 +1524,7 @@ namespace iTeffa
                     RestorePass.Add(client, new Tuple<int, string, string, string>(mycode, loginorcode, client.GetData<string>("RealSocialClub"), email));
                     await Task.Run(() =>
                     {
-                        PasswordRestore.SendEmail(0, email, mycode);
+                        Modules.PassReset.SendEmail(0, email, mycode);
                     });
                 }
                 else
@@ -1539,7 +1539,7 @@ namespace iTeffa
                                 int newpas = rnd.Next(1000000, 9999999);
                                 await Task.Run(() =>
                                 {
-                                    PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
+                                    Modules.PassReset.SendEmail(1, RestorePass[client].Item4, newpas);
                                 });
                                 Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
                                 Database.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{RestorePass[client].Item2}' AND `socialclub`='{RestorePass[client].Item3}'");
@@ -1583,12 +1583,12 @@ namespace iTeffa
                 else
                     login = login.ToLower();
 
-                Ban ban = Ban.Get1(player);
+                Modules.BanSystem ban = Modules.BanSystem.Get1(player);
                 if (ban != null)
                 {
                     if (ban.isHard && ban.CheckDate())
                     {
-                        NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
+                        NAPI.Task.Run(() => Plugins.Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
                         return;
                     }
                 }
@@ -1641,12 +1641,12 @@ namespace iTeffa
                     string email = arguments[2].ToString();
                     string promo = arguments[3].ToString();
 
-                    Ban ban = Ban.Get1(player);
+                    Modules.BanSystem ban = Modules.BanSystem.Get1(player);
                     if (ban != null)
                     {
                         if (ban.isHard && ban.CheckDate())
                         {
-                            NAPI.Task.Run(() => Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
+                            NAPI.Task.Run(() => Plugins.Trigger.ClientEvent(player, "kick", $"Вы заблокированы до {ban.Until}. Причина: {ban.Reason} ({ban.ByAdmin})"));
                             return;
                         }
                     }
@@ -1882,16 +1882,16 @@ namespace iTeffa
                         if (!Players[player].Achievements[0])
                         {
                             Players[player].Achievements[0] = true;
-                            Trigger.ClientEvent(player, "ChatPyBed", 0, 0);
+                            Plugins.Trigger.ClientEvent(player, "ChatPyBed", 0, 0);
                         }
-                        else if (!Players[player].Achievements[1]) Trigger.ClientEvent(player, "ChatPyBed", 1, 0);
+                        else if (!Players[player].Achievements[1]) Plugins.Trigger.ClientEvent(player, "ChatPyBed", 1, 0);
                         else if (Players[player].Achievements[2])
                         {
                             if (!Players[player].Achievements[3])
                             {
                                 Players[player].Achievements[3] = true;
                                 Finance.Wallet.Change(player, 500);
-                                Trigger.ClientEvent(player, "ChatPyBed", 9, 0);
+                                Plugins.Trigger.ClientEvent(player, "ChatPyBed", 9, 0);
                             }
                         }
                         return;
@@ -1902,8 +1902,8 @@ namespace iTeffa
                             {
                                 player.SetData("CollectThings", 0);
                                 Players[player].Achievements[1] = true;
-                                if (Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 2, 0);
-                                else Trigger.ClientEvent(player, "ChatPyBed", 3, 0);
+                                if (Players[player].Gender) Plugins.Trigger.ClientEvent(player, "ChatPyBed", 2, 0);
+                                else Plugins.Trigger.ClientEvent(player, "ChatPyBed", 3, 0);
                             }
                             else if (!Players[player].Achievements[2])
                             {
@@ -1911,12 +1911,12 @@ namespace iTeffa
                                 {
                                     Players[player].Achievements[2] = true;
                                     Finance.Wallet.Change(player, 500);
-                                    Trigger.ClientEvent(player, "ChatPyBed", 7, 0);
+                                    Plugins.Trigger.ClientEvent(player, "ChatPyBed", 7, 0);
                                 }
                                 else
                                 {
-                                    if (Players[player].Gender) Trigger.ClientEvent(player, "ChatPyBed", 4, 0);
-                                    else Trigger.ClientEvent(player, "ChatPyBed", 5);
+                                    if (Players[player].Gender) Plugins.Trigger.ClientEvent(player, "ChatPyBed", 4, 0);
+                                    else Plugins.Trigger.ClientEvent(player, "ChatPyBed", 5);
                                 }
                             }
                         }
@@ -2129,7 +2129,7 @@ namespace iTeffa
                                 if (Fractions.Manager.FractionTypes[fracid] == 1) Fractions.GangsCapture.LoadBlips(player);
                                 if (fracid == 15)
                                 {
-                                    Trigger.ClientEvent(player, "enableadvert", true);
+                                    Plugins.Trigger.ClientEvent(player, "enableadvert", true);
                                     Fractions.Realm.LSNews.onLSNPlayerLoad(player); // Загрузка всех объявлений в F7
                                 }
                                 Dashboard.sendStats(player);
@@ -2514,13 +2514,13 @@ namespace iTeffa
                                 Players[p].LastBonus = 0;
                                 Players[p].IsBonused = true;
                                 Accounts[p].Coins += 20;
-                                Trigger.ClientEvent(p, "updlastbonus", $"следующий бонус можно получить только завтра");
+                                Plugins.Trigger.ClientEvent(p, "updlastbonus", $"следующий бонус можно получить только завтра");
                                 return;
                             }
                             DateTime date = new DateTime((new DateTime().AddMinutes(oldconfig.LastBonusMin - Players[p].LastBonus)).Ticks);
                             var hour = date.Hour;
                             var min = date.Minute;
-                            Trigger.ClientEvent(p, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
+                            Plugins.Trigger.ClientEvent(p, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
                         }
                         #endregion
 
@@ -2609,7 +2609,7 @@ namespace iTeffa
                                 Players[player].LVL += 1;
                                 if (Players[player].LVL == 1)
                                 {
-                                    NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
+                                    NAPI.Task.Run(() => { try { Plugins.Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
                                 }
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Поздравляем, у Вас новый уровень ({Players[player].LVL})!", 3000);
                                 if (Players[player].LVL == 1 && Accounts[player].PromoCodes[0] != "noref" && PromoCodes.ContainsKey(Accounts[player].PromoCodes[0]))
@@ -2762,8 +2762,8 @@ namespace iTeffa
                             {
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "У Вас отобрали дом за неуплату налогов", 3000);
                                 Finance.Wallet.Change(player, Convert.ToInt32(h.Price / 2.0));
-                                Trigger.ClientEvent(player, "deleteCheckpoint", 333);
-                                Trigger.ClientEvent(player, "deleteGarageBlip");
+                                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 333);
+                                Plugins.Trigger.ClientEvent(player, "deleteGarageBlip");
                             }
                             else
                             {
@@ -2852,13 +2852,13 @@ namespace iTeffa
                 if (item.ID == "add")
                 {
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", $"Новый контакт", "Номер игрока", 7, "smsadd");
+                    Plugins.Trigger.ClientEvent(player, "openInput", $"Новый контакт", "Номер игрока", 7, "smsadd");
                     return;
                 }
                 else if (item.ID == "call")
                 {
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", $"Позвонить", "Номер телефона", 7, "numcall");
+                    Plugins.Trigger.ClientEvent(player, "openInput", $"Позвонить", "Номер телефона", 7, "numcall");
                     return;
                 }
                 else if (item.ID == "back")
@@ -2937,7 +2937,7 @@ namespace iTeffa
             switch (item.ID)
             {
                 case "send":
-                    Trigger.ClientEvent(player, "openInput", $"SMS для {num}", "Введите сообщение", 100, "smssend");
+                    Plugins.Trigger.ClientEvent(player, "openInput", $"SMS для {num}", "Введите сообщение", 100, "smssend");
                     break;
                 case "call":
                     if (!SimCards.ContainsKey(num))
@@ -2949,7 +2949,7 @@ namespace iTeffa
                     Modules.Voice.PhoneCallCommand(player, target);
                     break;
                 case "rename":
-                    Trigger.ClientEvent(player, "openInput", "Переименование", $"Введите новое имя для {num}", 18, "smsname");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Переименование", $"Введите новое имя для {num}", 18, "smsname");
                     break;
                 case "remove":
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{num} удален из контактов.", 4000);
@@ -2982,7 +2982,7 @@ namespace iTeffa
             foreach (Player p in players)
             {
                 if (!Players.ContainsKey(p) || p == null) continue;
-                Trigger.ClientEvent(p, eventName, args);
+                Plugins.Trigger.ClientEvent(p, eventName, args);
             }
         }
         public static List<Player> GetPlayersInRadiusOfPosition(Vector3 position, float radius, uint dimension = 39999999)
@@ -3041,7 +3041,7 @@ namespace iTeffa
 
                 NAPI.Player.PlayPlayerAnimation(target, 49, "mp_arresting", "idle");
                 BasicSync.AttachObjectToPlayer(target, NAPI.Util.GetHashKey("p_cs_cuffs_02_s"), 6286, new Vector3(-0.02f, 0.063f, 0.0f), new Vector3(75.0f, 0.0f, 76.0f));
-                Trigger.ClientEvent(target, "setFollow", true, player);
+                Plugins.Trigger.ClientEvent(target, "setFollow", true, player);
             }
         }
         public static void OnAntiAnim(Player player)
@@ -3347,7 +3347,7 @@ namespace iTeffa
                     OpenContacts(player);
                     return;
                 case "ad":
-                    Trigger.ClientEvent(player, "openInput", "Объявление", "6$ за каждые 20 символов", 100, "make_ad");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Объявление", "6$ за каждые 20 символов", 100, "make_ad");
                     return;
                 case "openhouse":
                     {
@@ -3367,8 +3367,8 @@ namespace iTeffa
                             return;
                         }
                         if (house.Roommates.Contains(player.Name)) house.Roommates.Remove(player.Name);
-                        Trigger.ClientEvent(player, "deleteCheckpoint", 333);
-                        Trigger.ClientEvent(player, "deleteGarageBlip");
+                        Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 333);
+                        Plugins.Trigger.ClientEvent(player, "deleteGarageBlip");
                     }
                     return;
 
@@ -3377,7 +3377,7 @@ namespace iTeffa
                     return;
 
                 case "promo":
-                    Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
                     return;
                 case "acceptcall":
                     Modules.Voice.PhoneCallAcceptCommand(player);
@@ -3525,31 +3525,31 @@ namespace iTeffa
                 case "Русская мафия":
                 case "Yakuza":
                 case "Армянская мафия":
-                    Trigger.ClientEvent(player, "createWaypoint", Points[item.ID].X, Points[item.ID].Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", Points[item.ID].X, Points[item.ID].Y);
                     return;
                 case "Ближайший банк":
                     Vector3 waypoint = Finance.Branch.GetNearestBRANCH(player);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайший банкомат":
                     waypoint = Finance.ATM.GetNearestATM(player);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайшая заправка":
                     waypoint = BusinessManager.getNearestBiz(player, 1);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайший 24/7":
                     waypoint = BusinessManager.getNearestBiz(player, 0);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайшая аренда авто":
                     waypoint = Rentcar.GetNearestRentArea(player.Position);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
                 case "Ближайшая остановка":
                     waypoint = Working.Bus.GetNearestStation(player.Position);
-                    Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", waypoint.X, waypoint.Y);
                     return;
             }
         }
@@ -3617,11 +3617,11 @@ namespace iTeffa
                     return;
                 case "police":
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", "Вызвать полицию", "Что произошло?", 30, "call_police");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Вызвать полицию", "Что произошло?", 30, "call_police");
                     return;
                 case "sheriff":
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", "Вызвать Шерифа", "Что произошло?", 30, "call_sheriff");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Вызвать Шерифа", "Что произошло?", 30, "call_sheriff");
                     return;
                 case "ems":
                     MenuManager.Close(player);
@@ -3695,11 +3695,11 @@ namespace iTeffa
             {
                 case "take":
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", "Получить деньги из казны", "Количество", 6, "mayor_take");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Получить деньги из казны", "Количество", 6, "mayor_take");
                     return;
                 case "put":
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", "Положить деньги в казну", "Количество", 6, "mayor_put");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Положить деньги в казну", "Количество", 6, "mayor_put");
                     return;
                 case "fuelcontrol":
                     OpenFuelcontrolMenu(player);
@@ -3820,25 +3820,25 @@ namespace iTeffa
             switch (item.ID)
             {
                 case "set_city":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для мэрии в долларах", 5, "fuelcontrol_city");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для мэрии в долларах", 5, "fuelcontrol_city");
                     return;
                 case "set_police":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит полиции мэрии в долларах", 5, "fuelcontrol_police");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит полиции мэрии в долларах", 5, "fuelcontrol_police");
                     return;
                 case "set_sheriff":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит Шерифа мэрии в долларах", 5, "fuelcontrol_sheriff");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит Шерифа мэрии в долларах", 5, "fuelcontrol_sheriff");
                     return;
                 case "set_ems":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для EMS в долларах", 5, "fuelcontrol_ems");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для EMS в долларах", 5, "fuelcontrol_ems");
                     return;
                 case "set_fib":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для FIB в долларах", 5, "fuelcontrol_fib");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для FIB в долларах", 5, "fuelcontrol_fib");
                     return;
                 case "set_army":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для армии в долларах", 5, "fuelcontrol_army");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для армии в долларах", 5, "fuelcontrol_army");
                     return;
                 case "set_news":
-                    Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для News в долларах", 5, "fuelcontrol_news");
+                    Plugins.Trigger.ClientEvent(player, "openInput", "Установить лимит", "Введите топливный лимит для News в долларах", 5, "fuelcontrol_news");
                     return;
                 case "back":
                     OpenMayorMenu(player);

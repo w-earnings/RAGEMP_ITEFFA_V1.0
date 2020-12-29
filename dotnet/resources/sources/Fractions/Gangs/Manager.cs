@@ -61,7 +61,7 @@ namespace iTeffa.Fractions.Gangs
                 return;
             }
             if (!Manager.canUseCommand(player, "buydrugs")) return;
-            Trigger.ClientEvent(player, "openInput", "Закупить наркотики", $"Введите кол-во:", 4, "buy_drugs");
+            Plugins.Trigger.ClientEvent(player, "openInput", "Закупить наркотики", $"Введите кол-во:", 4, "buy_drugs");
         }
         public static void BuyDrugs(Player player, int amount)
         {

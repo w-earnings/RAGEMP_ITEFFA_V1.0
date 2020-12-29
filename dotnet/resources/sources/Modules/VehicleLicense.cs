@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System;
-using GTANetworkAPI;
+﻿using GTANetworkAPI;
 using iTeffa.Interface;
 using iTeffa.Settings;
+using System;
+using System.Collections.Generic;
 
 namespace iTeffa.Modules
 {
@@ -106,7 +106,7 @@ namespace iTeffa.Modules
                     if (!player.HasData("SCHOOLVEH")) return;
                     if (player.IsInVehicle && player.Vehicle == player.GetData<Vehicle>("SCHOOLVEH")) return;
                     NAPI.Entity.DeleteEntity(player.GetData<Vehicle>("SCHOOLVEH"));
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
                     player.ResetData("IS_DRIVING");
                     player.ResetData("SCHOOLVEH");
                     Timers.Stop(player.GetData<string>("SCHOOL_TIMER"));
@@ -155,8 +155,8 @@ namespace iTeffa.Modules
                     vehicle.SetData("DRIVER", player);
                     player.SetData("IS_DRIVING", true);
                     player.SetData("LICENSE", 0);
-                    Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
-                    Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[0]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
@@ -177,8 +177,8 @@ namespace iTeffa.Modules
                     vehicle.SetData("DRIVER", player);
                     player.SetData("IS_DRIVING", true);
                     player.SetData("LICENSE", 1);
-                    Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
-                    Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[1]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
@@ -199,8 +199,8 @@ namespace iTeffa.Modules
                     vehicle.SetData("DRIVER", player);
                     player.SetData("IS_DRIVING", true);
                     player.SetData("LICENSE", 2);
-                    Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
-                    Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[2]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
@@ -293,16 +293,16 @@ namespace iTeffa.Modules
                     Main.Players[player].Licenses[player.GetData<int>("LICENSE")] = true;
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно сдали экзамен", 3000);
                     Dashboard.sendStats(player);
-                    Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
+                    Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
                     return;
                 }
 
                 player.SetData("CHECK", check + 1);
                 if (check + 2 < drivingCoords.Count)
-                    Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[check + 1] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0, drivingCoords[check + 2] - new Vector3(0, 0, 1.12));
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[check + 1] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0, drivingCoords[check + 2] - new Vector3(0, 0, 1.12));
                 else
-                    Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[check + 1] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
-                Trigger.ClientEvent(player, "createWaypoint", drivingCoords[check + 1].X, drivingCoords[check + 1].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[check + 1] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[check + 1].X, drivingCoords[check + 1].Y);
             }
             catch (Exception e)
             {

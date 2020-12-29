@@ -55,7 +55,7 @@ namespace iTeffa.Globals
             if (data == default(VehicleSyncData))
                 data = new VehicleSyncData();
             UpdateVehicleSyncData(veh, data);
-            Trigger.ClientEvent(player, "VehStream_PlayerExitVehicleAttempt", veh, data.Engine);
+            Plugins.Trigger.ClientEvent(player, "VehStream_PlayerExitVehicleAttempt", veh, data.Engine);
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -65,7 +65,7 @@ namespace iTeffa.Globals
             if (data == default(VehicleSyncData))
                 data = new VehicleSyncData();
             UpdateVehicleSyncData(veh, data);
-            Trigger.ClientEvent(player, "VehStream_PlayerEnterVehicle", veh, seat, data.Engine);
+            Plugins.Trigger.ClientEvent(player, "VehStream_PlayerEnterVehicle", veh, seat, data.Engine);
         }
 
         [ServerEvent(Event.VehicleDamage)]
@@ -203,7 +203,7 @@ namespace iTeffa.Globals
 
             data.Door[(int)door] = (int)state;
             UpdateVehicleSyncData(veh, data);
-            Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetVehicleDoorStatus_Single", veh, (int)door, (int)state);
+            Plugins.Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetVehicleDoorStatus_Single", veh, (int)door, (int)state);
         }
 
         public static DoorState GetDoorState(Vehicle veh, DoorID door)
@@ -231,7 +231,7 @@ namespace iTeffa.Globals
             veh.SetSharedData("leftlight", false);
             UpdateVehicleSyncData(veh, data);
             NAPI.Vehicle.SetVehicleEngineStatus(veh, status);
-            Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetEngineStatus", veh, status, true, data.LeftIL, data.RightIL);
+            Plugins.Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetEngineStatus", veh, status, true, data.LeftIL, data.RightIL);
         }
 
         public static bool GetEngineState(Vehicle veh)
@@ -287,7 +287,7 @@ namespace iTeffa.Globals
             veh.SetSharedData("LOCKED", status);
             data.Locked = status;
             UpdateVehicleSyncData(veh, data);
-            Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetLockStatus", veh, status);
+            Plugins.Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetLockStatus", veh, status);
         }
 
         public static bool GetLockState(Vehicle veh)
@@ -324,7 +324,7 @@ namespace iTeffa.Globals
                         vData.Add(VehicleManager.Vehicles[veh.NumberPlate].Components);
                         vData.Add(VehicleManager.Vehicles[veh.NumberPlate].Dirt);
                     }
-                    Trigger.ClientEvent(player, "VehStream_FixStreamIn", veh.Handle, JsonConvert.SerializeObject(vData));
+                    Plugins.Trigger.ClientEvent(player, "VehStream_FixStreamIn", veh.Handle, JsonConvert.SerializeObject(vData));
                 }
                 return;
             }
@@ -447,7 +447,7 @@ namespace iTeffa.Globals
                 veh.SetSharedData("rightlight", rightstate);
                 veh.SetSharedData("leftlight", leftstate);
                 UpdateVehicleSyncData(veh, data);
-                Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetVehicleIndicatorLights", veh.Handle, leftstate, rightstate);
+                Plugins.Trigger.ClientEventInRange(veh.Position, 250, "VehStream_SetVehicleIndicatorLights", veh.Handle, leftstate, rightstate);
             }
         }
 
@@ -475,7 +475,7 @@ namespace iTeffa.Globals
                 VehicleManager.Vehicles[veh.NumberPlate].Dirt = dirt;
             }
 
-            Trigger.ClientEventInDimension(veh.Dimension, "VehStream_SetVehicleDirtLevel", veh.Handle, dirt);
+            Plugins.Trigger.ClientEventInDimension(veh.Dimension, "VehStream_SetVehicleDirtLevel", veh.Handle, dirt);
         }
 
         public static float GetVehicleDirt(Vehicle veh)

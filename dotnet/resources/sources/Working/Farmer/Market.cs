@@ -101,15 +101,15 @@ namespace iTeffa.Working.FarmerJob
             {
                 case 0:
                     json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                    Trigger.ClientEvent(player, "loadPage", 0, json);
+                    Plugins.Trigger.ClientEvent(player, "loadPage", 0, json);
                     break;
                 case 1:
                     json = Newtonsoft.Json.JsonConvert.SerializeObject(BuyItems);
-                    Trigger.ClientEvent(player, "loadPage", 1, json);
+                    Plugins.Trigger.ClientEvent(player, "loadPage", 1, json);
                     break;
                 case 2:
                     json = Newtonsoft.Json.JsonConvert.SerializeObject(SellItems);
-                    Trigger.ClientEvent(player, "loadPage", 2, json);
+                    Plugins.Trigger.ClientEvent(player, "loadPage", 2, json);
                     break;
             }
         }

@@ -81,8 +81,8 @@ namespace iTeffa.Interface
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({from.Value}) показал Вам паспорт", 5000);
             Plugins.Notice.Send(from, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы показали паспорт игроку ({player.Value})", 5000);
             Log.Debug(json);
-            Trigger.ClientEvent(player, "passport", json);
-            Trigger.ClientEvent(player, "newPassport", from, acc.UUID);
+            Plugins.Trigger.ClientEvent(player, "passport", json);
+            Plugins.Trigger.ClientEvent(player, "newPassport", from, acc.UUID);
         }
         public static void AcceptLicenses(Player player)
         {
@@ -107,7 +107,7 @@ namespace iTeffa.Interface
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({from.Value}) показал Вам лицензии", 5000);
             Plugins.Notice.Send(from, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы показали лицензии игроку ({player.Value})", 5000);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-            Trigger.ClientEvent(player, "licenses", json);
+            Plugins.Trigger.ClientEvent(player, "licenses", json);
         }
     }
 }

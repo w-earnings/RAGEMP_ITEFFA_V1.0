@@ -13,7 +13,7 @@ namespace iTeffa.Finance
             int temp = (int)Main.Players[player].Money + Amount;
             if (temp < 0) return false;
             Main.Players[player].Money = temp;
-            Trigger.ClientEvent(player, "UpdateMoney", temp, Convert.ToString(Amount));
+            Plugins.Trigger.ClientEvent(player, "UpdateMoney", temp, Convert.ToString(Amount));
             Globals.Database.Query($"UPDATE characters SET money={Main.Players[player].Money} WHERE uuid={Main.Players[player].UUID}");
             return true;
         }
@@ -22,7 +22,7 @@ namespace iTeffa.Finance
             var data = Main.Players[player];
             if (data == null) return;
             data.Money = Amount;
-            Trigger.ClientEvent(player, "UpdateMoney", data.Money);
+            Plugins.Trigger.ClientEvent(player, "UpdateMoney", data.Money);
         }
 
         public static bool ChangeDonateBalance(Player player, int Amount)

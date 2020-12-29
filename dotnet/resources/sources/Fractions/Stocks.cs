@@ -708,7 +708,7 @@ namespace iTeffa.Fractions
         {
             bool isArmy = !player.Vehicle.HasData("CANDRUGS");
             bool isMed = player.Vehicle.HasData("CANMEDKITS");
-            Trigger.ClientEvent(player, "matsOpen", isArmy, isMed);
+            Plugins.Trigger.ClientEvent(player, "matsOpen", isArmy, isMed);
         }
         public static void fracgarage(Player player, string eventName, string data)
         {
@@ -783,7 +783,7 @@ namespace iTeffa.Fractions
             };
             string json = JsonConvert.SerializeObject(counter);
             Log.Debug(json);
-            Trigger.ClientEvent(player, "openStock", json);
+            Plugins.Trigger.ClientEvent(player, "openStock", json);
         }
         private static void callback_fracstock(Player player, Menu menu, Menu.Item item, string eventName, dynamic data)
         {

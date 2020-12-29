@@ -72,7 +72,7 @@ namespace iTeffa.Commands
                 target.StopAnimation();
                 NAPI.Entity.SetEntityPosition(target, target.Position + new Vector3(0, 0, 0.5));
                 target.SetSharedData("InDeath", false);
-                Trigger.ClientEvent(target, "DeathTimer", false);
+                Plugins.Trigger.ClientEvent(target, "DeathTimer", false);
                 target.Health = 100;
                 target.ResetData("IS_DYING");
                 Main.Players[target].IsAlive = true;
@@ -1269,7 +1269,7 @@ namespace iTeffa.Commands
             try
             {
                 if (!Globals.Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "loadProp", x, y, z, prop);
+                Plugins.Trigger.ClientEvent(player, "loadProp", x, y, z, prop);
                 player.SendChatMessage("Вы подгрузили Interior Prop: " + prop);
             }
             catch
@@ -1282,7 +1282,7 @@ namespace iTeffa.Commands
             try
             {
                 if (!Globals.Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "UnloadProp", x, y, z, prop);
+                Plugins.Trigger.ClientEvent(player, "UnloadProp", x, y, z, prop);
                 player.SendChatMessage("Вы выгрузили Interior Prop: " + prop);
             }
             catch
@@ -1304,7 +1304,7 @@ namespace iTeffa.Commands
             try
             {
                 if (!Globals.Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "startScreenEffect", effect, dur, loop);
+                Plugins.Trigger.ClientEvent(player, "startScreenEffect", effect, dur, loop);
                 player.SendChatMessage("Вы включили Effect: " + effect);
             }
             catch
@@ -1317,7 +1317,7 @@ namespace iTeffa.Commands
             try
             {
                 if (!Globals.Group.CanUseCmd(player, "setvehdirt")) return;
-                Trigger.ClientEvent(player, "stopScreenEffect", effect);
+                Plugins.Trigger.ClientEvent(player, "stopScreenEffect", effect);
                 player.SendChatMessage("Вы выключили Effect: " + effect);
             }
             catch

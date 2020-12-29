@@ -30,25 +30,25 @@ namespace iTeffa.Globals.Character
                         player.SetSharedData("IS_MASK", false);
 
                         // Logged in state, money, phone init
-                        Trigger.ClientEvent(player, "loggedIn");
+                        Plugins.Trigger.ClientEvent(player, "loggedIn");
                         player.SetData("LOGGED_IN", true);
 
-                        Trigger.ClientEvent(player, "UpdateMoney", Money);
-                        Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat);
-                        Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water);
-                        Trigger.ClientEvent(player, "UpdateBank", Finance.Bank.Accounts[Bank].Balance);
-                        Trigger.ClientEvent(player, "initPhone");
+                        Plugins.Trigger.ClientEvent(player, "UpdateMoney", Money);
+                        Plugins.Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat);
+                        Plugins.Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water);
+                        Plugins.Trigger.ClientEvent(player, "UpdateBank", Finance.Bank.Accounts[Bank].Balance);
+                        Plugins.Trigger.ClientEvent(player, "initPhone");
                         Working.WorkManager.load(player);
                         if (IsBonused)
                         {
-                            Trigger.ClientEvent(player, "updlastbonus", $"~w~Бонус получен!");
+                            Plugins.Trigger.ClientEvent(player, "updlastbonus", $"~w~Бонус получен!");
                         }
                         else
                         {
                             DateTime date = new DateTime((new DateTime().AddMinutes(Main.oldconfig.LastBonusMin - LastBonus)).Ticks);
                             var hour = date.Hour;
                             var min = date.Minute;
-                            Trigger.ClientEvent(player, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
+                            Plugins.Trigger.ClientEvent(player, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
                         }
                         player.SetSkin((Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                         player.Health = (Health > 5) ? Health : 5;
@@ -59,7 +59,7 @@ namespace iTeffa.Globals.Character
                         player.SetSharedData("voipmode", -1);
 
                         if (Fractions.Manager.FractionTypes[FractionID] == 1 || AdminLVL > 0) Fractions.GangsCapture.LoadBlips(player);
-                        if (WantedLVL != null) Trigger.ClientEvent(player, "setWanted", WantedLVL.Level);
+                        if (WantedLVL != null) Plugins.Trigger.ClientEvent(player, "setWanted", WantedLVL.Level);
 
                         player.SetData("RESIST_STAGE", 0);
                         player.SetData("RESIST_TIME", 0);
@@ -69,7 +69,7 @@ namespace iTeffa.Globals.Character
                         Dashboard.sendItems(player);
                         if (Main.Players[player].LVL == 0)
                         {
-                            NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", true); } catch { } }, 5000);
+                            NAPI.Task.Run(() => { try { Plugins.Trigger.ClientEvent(player, "disabledmg", true); } catch { } }, 5000);
                         }
 
                         House house = HouseManager.GetHouse(player);
@@ -77,15 +77,15 @@ namespace iTeffa.Globals.Character
                         {
 
 
-                            Trigger.ClientEvent(player, "changeBlipColor", house.blip, 73);
+                            Plugins.Trigger.ClientEvent(player, "changeBlipColor", house.blip, 73);
 
-                            Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[house.GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
-                            Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[house.GarageID].Position);
+                            Plugins.Trigger.ClientEvent(player, "createCheckpoint", 333, 1, GarageManager.Garages[house.GarageID].Position - new Vector3(0, 0, 1.12), 1, NAPI.GlobalDimension, 220, 220, 0);
+                            Plugins.Trigger.ClientEvent(player, "createGarageBlip", GarageManager.Garages[house.GarageID].Position);
                         }
 
                         if (!Customization.CustomPlayerData.ContainsKey(UUID) || !Customization.CustomPlayerData[UUID].IsCreated)
                         {
-                            Trigger.ClientEvent(player, "spawnShow", false);
+                            Plugins.Trigger.ClientEvent(player, "spawnShow", false);
                             Customization.CreateCharacter(player);
                         }
                         else
@@ -99,7 +99,7 @@ namespace iTeffa.Globals.Character
                                     (FractionID > 0),
                                     (house != null || HotelID != -1),
                                 };
-                                Trigger.ClientEvent(player, "spawnShow", JsonConvert.SerializeObject(prepData));
+                                Plugins.Trigger.ClientEvent(player, "spawnShow", JsonConvert.SerializeObject(prepData));
                                 Customization.ApplyCharacter(player);
                             }
                             catch { }
@@ -131,7 +131,7 @@ namespace iTeffa.Globals.Character
 
                 if (FractionID == 15)
                 {
-                    Trigger.ClientEvent(player, "enableadvert", true);
+                    Plugins.Trigger.ClientEvent(player, "enableadvert", true);
                     Fractions.Realm.LSNews.onLSNPlayerLoad(player);
                 }
                 if (AdminLVL > 0)
@@ -235,7 +235,7 @@ namespace iTeffa.Globals.Character
             try
             {
                 if (Main.Players[player].Achievements[1] && !Main.Players[player].Achievements[2]) player.SetData("CollectThings", 0);
-                else if (Main.Players[player].Achievements[2] && !Main.Players[player].Achievements[4] && !Main.Players[player].Achievements[5]) Trigger.ClientEvent(player, "createWaypoint", 1924.4f, 4922.0f);
+                else if (Main.Players[player].Achievements[2] && !Main.Players[player].Achievements[4] && !Main.Players[player].Achievements[5]) Plugins.Trigger.ClientEvent(player, "createWaypoint", 1924.4f, 4922.0f);
             }
             catch (Exception e)
             {

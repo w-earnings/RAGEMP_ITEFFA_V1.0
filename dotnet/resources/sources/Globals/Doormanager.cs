@@ -104,7 +104,7 @@ namespace iTeffa.Globals
             {
                 if (NAPI.Entity.GetEntityType(entity) != EntityType.Player) return;
                 var door = allDoors[shape.GetData<int>("DoorID")];
-                Trigger.ClientEvent(entity, "setDoorLocked", door.Model, door.Position.X, door.Position.Y, door.Position.Z, door.Locked, door.Angle);
+                Plugins.Trigger.ClientEvent(entity, "setDoorLocked", door.Model, door.Position.X, door.Position.Y, door.Position.Z, door.Locked, door.Angle);
             }
             catch (Exception e) { Log.Write("Door_onEntityEnterColshape: " + e.ToString(), Nlogs.Type.Error); }
         }

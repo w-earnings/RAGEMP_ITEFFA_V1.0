@@ -1,7 +1,7 @@
 ﻿using GTANetworkAPI;
+using iTeffa.Settings;
 using System;
 using System.Linq;
-using iTeffa.Settings;
 
 namespace iTeffa.Modules
 {
@@ -21,7 +21,7 @@ namespace iTeffa.Modules
             Main.Players[player].Eat = change;
             Globals.Database.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
             Interface.Dashboard.sendStats(player);
-            Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
+            Plugins.Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
         }
         public static void AddEat(Player player, int change)
         {
@@ -34,14 +34,14 @@ namespace iTeffa.Modules
                 Main.Players[player].Eat += change;
             }
             Globals.Database.Query($"UPDATE characters SET eat={Main.Players[player].Eat} WHERE uuid={Main.Players[player].UUID}");
-            Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
+            Plugins.Trigger.ClientEvent(player, "UpdateEat", Main.Players[player].Eat, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }
         public static void SetWater(Player player, int change)
         {
             Main.Players[player].Water = change;
             Globals.Database.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
-            Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
+            Plugins.Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }
         public static void AddWater(Player player, int change)
@@ -55,7 +55,7 @@ namespace iTeffa.Modules
                 Main.Players[player].Water += change;
             }
             Globals.Database.Query($"UPDATE characters SET water={Main.Players[player].Water} WHERE uuid={Main.Players[player].UUID}");
-            Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
+            Plugins.Trigger.ClientEvent(player, "UpdateWater", Main.Players[player].Water, Convert.ToString(change));
             Interface.Dashboard.sendStats(player);
         }
 

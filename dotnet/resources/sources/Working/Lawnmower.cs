@@ -226,7 +226,7 @@ namespace iTeffa.Working
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
-                        Trigger.ClientEvent(player, "deleteCheckpoint", 4, 0);
+                        Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 4, 0);
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         Customization.ApplyCharacter(player);
@@ -251,7 +251,7 @@ namespace iTeffa.Working
                     {
                         if (NAPI.Data.GetEntityData(player, "WORK") == null)
                         {
-                            Trigger.ClientEvent(player, "openDialog", "MOWER_RENT", $"Начать работу газонокосильщиком?");
+                            Plugins.Trigger.ClientEvent(player, "openDialog", "MOWER_RENT", $"Начать работу газонокосильщиком?");
                         }
                         else if (NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                             NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
@@ -309,8 +309,8 @@ namespace iTeffa.Working
                     player.SetClothes(11, Globals.Customization.CorrectTorso[gender][14], 0);
                 }
 
-                Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[way][0] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, MowerWays[way][1] - new Vector3(0, 0, 1.12));
-                Trigger.ClientEvent(player, "createWaypoint", MowerWays[way][0].X, MowerWays[way][0].Y);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[way][0] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, MowerWays[way][1] - new Vector3(0, 0, 1.12));
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", MowerWays[way][0].X, MowerWays[way][0].Y);
             }
             else
             {
@@ -338,16 +338,16 @@ namespace iTeffa.Working
                 if (check + 1 != MowerWays[way].Count)
                 {
                     var direction = (check + 2 != MowerWays[way].Count) ? MowerWays[way][check + 2] : MowerWays[way][0] - new Vector3(0, 0, 1.12);
-                    Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[way][check + 1] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, direction);
-                    Trigger.ClientEvent(player, "createWaypoint", MowerWays[way][check + 1].X, MowerWays[way][check + 1].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[way][check + 1] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, direction);
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", MowerWays[way][check + 1].X, MowerWays[way][check + 1].Y);
                     NAPI.Data.SetEntityData(player, "WORKCHECK", check + 1);
                     //NAPI.Data.SetEntityData(player, "PAYMENT", NAPI.Data.GetEntityData(player, "PAYMENT") + payment);
                 }
                 else
                 {
                     var next_way = 0;
-                    Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[next_way][0] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, MowerWays[next_way][1] - new Vector3(0, 0, 1.12));
-                    Trigger.ClientEvent(player, "createWaypoint", MowerWays[next_way][0].X, MowerWays[next_way][0].Y);
+                    Plugins.Trigger.ClientEvent(player, "createCheckpoint", 4, 1, MowerWays[next_way][0] - new Vector3(0, 0, 1.12), 2, 0, 255, 0, 0, MowerWays[next_way][1] - new Vector3(0, 0, 1.12));
+                    Plugins.Trigger.ClientEvent(player, "createWaypoint", MowerWays[next_way][0].X, MowerWays[next_way][0].Y);
                     NAPI.Data.SetEntityData(player, "WORKCHECK", 0);
                     NAPI.Data.SetEntityData(player, "WORKWAY", next_way);
                     //NAPI.Data.SetEntityData(player, "PAYMENT", NAPI.Data.GetEntityData(player, "PAYMENT") + payment);

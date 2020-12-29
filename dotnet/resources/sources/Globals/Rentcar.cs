@@ -109,7 +109,7 @@ namespace iTeffa.Globals
                         4 => Convert.ToInt32(CarInfos[number].Price * 0.8),
                         _ => CarInfos[number].Price,
                     };
-                    Trigger.ClientEvent(player, "openDialog", "RENT_CAR", $"Вы хотите арендовать этот транспорт за ${price}?");
+                    Plugins.Trigger.ClientEvent(player, "openDialog", "RENT_CAR", $"Вы хотите арендовать этот транспорт за ${price}?");
                 }
                 else
                 {

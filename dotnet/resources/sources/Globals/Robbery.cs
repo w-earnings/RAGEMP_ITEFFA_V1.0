@@ -1,19 +1,15 @@
 ﻿using GTANetworkAPI;
+using iTeffa.Finance;
+using iTeffa.Fractions;
+using iTeffa.Interface;
+using iTeffa.Models;
+using iTeffa.Plugins;
+using iTeffa.Settings;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Timers;
-using iTeffa.Finance;
-using iTeffa.Fractions;
-using iTeffa.Interface;
-using iTeffa.Settings;
-using iTeffa.Globals.Character;
-
-using iTeffa.Plugins;
-using iTeffa.Models;
-using iTeffa.Globals;
 
 namespace iTeffa.Globals
 {
@@ -143,7 +139,7 @@ namespace iTeffa.Globals
                 {
                     if (player == null) return;
                     Doormanager.SetDoorLocked(player.GetData<int>("DOOR"), false, 0);
-                    Trigger.ClientEvent(player, "hideLoader");
+                    Plugins.Trigger.ClientEvent(player, "hideLoader");
                     player.ResetData("LOCK_TIMER");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы успешно взломали дверь", 3000);
                 }
@@ -268,13 +264,13 @@ namespace iTeffa.Globals
 
                 if (!player.HasData("CURRENT_STAGE"))
                 {
-                    Trigger.ClientEvent(player, "dial", "close");
+                    Plugins.Trigger.ClientEvent(player, "dial", "close");
                     return;
                 }
 
                 if (!(bool)arguments[0])
                 {
-                    Trigger.ClientEvent(player, "dial", "close");
+                    Plugins.Trigger.ClientEvent(player, "dial", "close");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Неправильный пароль", 2000);
                     nInventory.Remove(player, ItemType.Lockpick, 1);
                     safe.Occupier = null;
@@ -288,14 +284,14 @@ namespace iTeffa.Globals
                         safe.SetDoorOpen(true);
                         safe.Occupier = null;
                         nInventory.Remove(player, ItemType.Lockpick, 1);
-                        Trigger.ClientEvent(player, "dial", "close");
+                        Plugins.Trigger.ClientEvent(player, "dial", "close");
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы успешно взломали сейф", 2000);
                     }
                     else
                     {
                         stage++;
                         player.SetData("CURRENT_STAGE", stage);
-                        Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[stage], true);
+                        Plugins.Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[stage], true);
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы подобрали {stage} из 3 паролей", 2000);
                     }
                 }
@@ -370,7 +366,7 @@ namespace iTeffa.Globals
 
                 safe.Occupier = player;
                 player.SetData("CURRENT_STAGE", 0);
-                Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[0]);
+                Plugins.Trigger.ClientEvent(player, "dial", "open", safe.LockAngles[0]);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, PositionNotice.TopCenter, $"С минуты на минуту сюда прибудут копы", 3000);
                 Manager.sendFractionMessage(7, $"Сейф по адресу {safe.Address} пытаются взломать");
                 Manager.sendFractionMessage(9, $"Сейф по адресу {safe.Address} пытаются взломать");
@@ -390,11 +386,12 @@ namespace iTeffa.Globals
                         if (!Main.Players.ContainsKey(p)) continue;
                         if (Main.Players[p].FractionID != 7 && Main.Players[p].FractionID != 9) continue;
 
-                        Trigger.ClientEvent(p, "changeBlipAlpha", safe.Blip, 255);
-                        Trigger.ClientEvent(p, "createWaypoint", safe.Position.X, safe.Position.Y);
+                        Plugins.Trigger.ClientEvent(p, "changeBlipAlpha", safe.Blip, 255);
+                        Plugins.Trigger.ClientEvent(p, "createWaypoint", safe.Position.X, safe.Position.Y);
                     }
                     safe.BlipSet = DateTime.Now.AddMinutes(15);
-                    NAPI.Task.Run(() => {
+                    NAPI.Task.Run(() =>
+                    {
                         try
                         {
                             if (safe.Blip != null) safe.Blip.Delete();
@@ -582,7 +579,7 @@ namespace iTeffa.Globals
         #region Menus
         public static void OpenMoneyFlowMenu(Player player)
         {
-            Trigger.ClientEvent(player, "mavrshop");
+            Plugins.Trigger.ClientEvent(player, "mavrshop");
             //player.SendChatMessage("Вызов");
         }
         [RemoteEvent("mavrbuy")]

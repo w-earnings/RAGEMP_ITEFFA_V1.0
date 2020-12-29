@@ -54,7 +54,7 @@ namespace iTeffa.Globals
                 }
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(cmds);
                 string json2 = Newtonsoft.Json.JsonConvert.SerializeObject(players);
-                Trigger.ClientEvent(player, "openAdminPanel", json, json2);
+                Plugins.Trigger.ClientEvent(player, "openAdminPanel", json, json2);
             }
             cmds.Clear();
             players.Clear();
@@ -85,7 +85,7 @@ namespace iTeffa.Globals
                 }
             };
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-            Trigger.ClientEvent(player, "loadPlayerInfo", json);
+            Plugins.Trigger.ClientEvent(player, "loadPlayerInfo", json);
         }
 
         public static void sendCoins(Player player, Player target, int amount)
@@ -94,7 +94,7 @@ namespace iTeffa.Globals
 
             if (Main.Accounts[target].Coins + amount < 0) amount = 0;
             Main.Accounts[target].Coins += amount;
-            Trigger.ClientEvent(target, "starset", Main.Accounts[target].Coins);
+            Plugins.Trigger.ClientEvent(target, "starset", Main.Accounts[target].Coins);
 
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы отправили {target.Name} {amount} coins", 3000);
             Plugins.Notice.Send(target, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+{amount} coins", 3000);
@@ -283,7 +283,7 @@ namespace iTeffa.Globals
                 Main.Players[target].WorkID = 0;
                 if (fracid == 15)
                 {
-                    Trigger.ClientEvent(target, "enableadvert", true);
+                    Plugins.Trigger.ClientEvent(target, "enableadvert", true);
                     Fractions.Realm.LSNews.onLSNPlayerLoad(target);
                 }
                 Plugins.Notice.Send(target, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы стали лидером фракции {Fractions.Manager.getName(fracid)}", 3000);
@@ -308,7 +308,7 @@ namespace iTeffa.Globals
                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == target.Name);
                 if (index > -1) Fractions.Manager.AllMembers.RemoveAt(index);
 
-                if (Main.Players[target].FractionID == 15) Trigger.ClientEvent(target, "enableadvert", false);
+                if (Main.Players[target].FractionID == 15) Plugins.Trigger.ClientEvent(target, "enableadvert", false);
 
                 Main.Players[target].OnDuty = false;
                 Main.Players[target].FractionID = 0;
@@ -357,7 +357,7 @@ namespace iTeffa.Globals
                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == target.Name);
                 if (index > -1) Fractions.Manager.AllMembers.RemoveAt(index);
 
-                if (Main.Players[target].FractionID == 15) Trigger.ClientEvent(target, "enableadvert", false);
+                if (Main.Players[target].FractionID == 15) Plugins.Trigger.ClientEvent(target, "enableadvert", false);
 
                 Main.Players[target].OnDuty = false;
                 Main.Players[target].FractionID = 0;
@@ -436,7 +436,7 @@ namespace iTeffa.Globals
             if (target.HasData("MUTE_TIMER")) Timers.Stop(target.GetData<string>("MUTE_TIMER"));
             NAPI.Data.SetEntityData(target, "MUTE_TIMER", Timers.StartTask(1000, () => timer_mute(target)));
             target.SetSharedData("voice.muted", true);
-            Trigger.ClientEvent(target, "voice.mute");
+            Plugins.Trigger.ClientEvent(target, "voice.mute");
             NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}{player.Name} выдал мут игроку {target.Name} на {time} минут");
             NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}Причина: {reason}");
             Loggings.Admin($"{player.Name}", $"mutePlayer({time}, {reason})", $"{target.Name}");
@@ -479,7 +479,7 @@ namespace iTeffa.Globals
                 NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}{player.Name} забанил игрока {target.Name} на {time}{banTimeMsg}");
             NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}Причина: {reason}");
 
-            Ban.Online(target, unbanTime, false, reason, player.Name);
+            Modules.BanSystem.Online(target, unbanTime, false, reason, player.Name);
 
             Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Вы заблокированы до {unbanTime}", 30000);
             Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Причина: {reason}", 30000);
@@ -515,7 +515,7 @@ namespace iTeffa.Globals
             NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}{player.Name} ударил банхаммером игрока {target.Name} на {time}{banTimeMsg}");
             NAPI.Chat.SendChatMessageToAll($"!{{#f25c49}}Причина: {reason}");
 
-            Ban.Online(target, unbanTime, true, reason, player.Name);
+            Modules.BanSystem.Online(target, unbanTime, true, reason, player.Name);
 
             Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Ты словил банхаммер до {unbanTime}", 30000);
             Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Причина: {reason}", 30000);
@@ -564,7 +564,7 @@ namespace iTeffa.Globals
             int AUUID = Main.Players[player].UUID;
             int TUUID = Main.PlayerUUIDs[name];
 
-            Ban ban = Ban.Get2(TUUID);
+            Modules.BanSystem ban = Modules.BanSystem.Get2(TUUID);
             if (ban != null)
             {
                 string hard = (ban.isHard) ? "хард " : "";
@@ -585,7 +585,7 @@ namespace iTeffa.Globals
                 }
             }
 
-            Ban.Offline(name, unbanTime, false, reason, player.Name);
+            Modules.BanSystem.Offline(name, unbanTime, false, reason, player.Name);
 
             Loggings.Ban(AUUID, TUUID, unbanTime, reason, false);
 
@@ -629,7 +629,7 @@ namespace iTeffa.Globals
             int AUUID = Main.Players[player].UUID;
             int TUUID = Main.PlayerUUIDs[name];
 
-            Ban ban = Ban.Get2(TUUID);
+            Modules.BanSystem ban = Modules.BanSystem.Get2(TUUID);
             if (ban != null)
             {
                 string hard = (ban.isHard) ? "хард " : "";
@@ -650,7 +650,7 @@ namespace iTeffa.Globals
                 }
             }
 
-            Ban.Offline(name, unbanTime, true, reason, player.Name);
+            Modules.BanSystem.Offline(name, unbanTime, true, reason, player.Name);
 
             Loggings.Ban(AUUID, TUUID, unbanTime, reason, true);
 
@@ -664,7 +664,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Такого имени нет!", 3000);
                 return;
             }
-            if (!Ban.Pardon(name))
+            if (!Modules.BanSystem.Pardon(name))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"{name} не находится в бане!", 3000);
                 return;
@@ -679,7 +679,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Такого имени нет!", 3000);
                 return;
             }
-            if (!Ban.PardonHard(name))
+            if (!Modules.BanSystem.PardonHard(name))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"{name} не находится в бане!", 3000);
                 return;
@@ -737,7 +737,7 @@ namespace iTeffa.Globals
             {
                 DateTime unbanTime = DateTime.Now.AddMinutes(43200);
                 Main.Players[target].Warns = 0;
-                Ban.Online(target, unbanTime, false, "Warns 3/3", "Server_Serverniy");
+                Modules.BanSystem.Online(target, unbanTime, false, "Warns 3/3", "Server_Serverniy");
             }
 
             Loggings.Admin($"{player.Name}", $"warnPlayer({reason})", $"{target.Name}");
@@ -820,14 +820,14 @@ namespace iTeffa.Globals
         public static void freezeTarget(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "fz")) return;
-            Trigger.ClientEvent(target, "freeze", true);
+            Plugins.Trigger.ClientEvent(target, "freeze", true);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы заморозили игрока {target.Name}", 3000);
             Loggings.Admin($"{player.Name}", $"freeze", $"{target.Name}");
         }
         public static void unFreezeTarget(Player player, Player target)
         {
             if (!Group.CanUseCmd(player, "ufz")) return;
-            Trigger.ClientEvent(target, "freeze", false);
+            Plugins.Trigger.ClientEvent(target, "freeze", false);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы разморозили игрока {target.Name}", 3000);
             Loggings.Admin($"{player.Name}", $"unfreeze", $"{target.Name}");
         }
@@ -1114,7 +1114,7 @@ namespace iTeffa.Globals
             if (NAPI.Data.HasEntityData(vehicle, "loaderMats"))
             {
                 Player loader = NAPI.Data.GetEntityData(vehicle, "loaderMats");
-                Trigger.ClientEvent(loader, "hideLoader");
+                Plugins.Trigger.ClientEvent(loader, "hideLoader");
                 Plugins.Notice.Send(loader, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                 if (loader.HasData("loadMatsTimer"))
                 {

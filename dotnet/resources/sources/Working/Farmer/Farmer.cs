@@ -84,7 +84,7 @@ namespace iTeffa.Working.FarmerJob
                     maxlvl
                 };
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                Trigger.ClientEvent(player, "openJobsMenu", json);
+                Plugins.Trigger.ClientEvent(player, "openJobsMenu", json);
             }
             catch (Exception e)
             {
@@ -104,7 +104,7 @@ namespace iTeffa.Working.FarmerJob
                 }
                 for (int i = 0; i < Checkpoints.Count; i++)
                 {
-                    Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{i}"), "Плантация", 1, Checkpoints[i], 1, 0, 255, 0, 0);
+                    Plugins.Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{i}"), "Плантация", 1, Checkpoints[i], 1, 0, 255, 0, 0);
                     player.SetData($"seedplant{i}", false);
                     player.ResetData($"regenplant{i}");
                 }
@@ -122,7 +122,7 @@ namespace iTeffa.Working.FarmerJob
                     Farmers.Remove(Main.Players[player]);
                     for (int i = 0; i < Checkpoints.Count; i++)
                     {
-                        Trigger.ClientEvent(player, "deletePlant", Convert.ToInt32($"10{i}"));
+                        Plugins.Trigger.ClientEvent(player, "deletePlant", Convert.ToInt32($"10{i}"));
                         Timers.Stop($"{player.Name}farmer{i}");
                         player.SetData($"seedplant{i}", false);
                         player.ResetData($"regenplant{i}");
@@ -197,7 +197,7 @@ namespace iTeffa.Working.FarmerJob
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Урожай собран", 2000);
                     }, 5000);
                 }
-                Trigger.ClientEvent(player, "deletePlant", Convert.ToInt32($"10{colID}"));
+                Plugins.Trigger.ClientEvent(player, "deletePlant", Convert.ToInt32($"10{colID}"));
                 PlayFarmerAnimation(player);
                 NAPI.Task.Run(() => { player.SetData($"regenplant{colID}", sec); UpdateCheckpointState(colShape, player); }, 5000);
             }
@@ -220,7 +220,7 @@ namespace iTeffa.Working.FarmerJob
                         {
                             player.ResetData($"regenplant{colID}");
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Плантация готова для посадки", 2000);
-                            Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 255, 0, 0);
+                            Plugins.Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 255, 0, 0);
                             Timers.Stop($"{player.Name}farmer{colID}");
                         }
                         else
@@ -228,7 +228,7 @@ namespace iTeffa.Working.FarmerJob
                             player.ResetData($"regenplant{colID}");
                             player.SetData($"seedplant{colID}", true);
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Соберите урожай", 2000);
-                            Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 0, 255, 0);
+                            Plugins.Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 0, 255, 0);
                             Timers.Stop($"{player.Name}farmer{colID}");
                         }
                     }

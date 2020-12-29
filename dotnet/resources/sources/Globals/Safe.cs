@@ -90,7 +90,7 @@ namespace iTeffa.Globals
                 {
                     if (player == Occupier) Occupier = null;
                     player.SetData("INTERACTIONCHECK", 0);
-                    Trigger.ClientEvent(player, "dial", "close");
+                    Plugins.Trigger.ClientEvent(player, "dial", "close");
                     player.ResetData("temp_SafeID");
                 }
                 catch (Exception e) { Console.WriteLine("colShape.OnEntityExitColShape: " + e.ToString()); }
@@ -195,7 +195,7 @@ namespace iTeffa.Globals
                     if (!Main.Players.ContainsKey(player)) continue;
                     if (player.Position.DistanceTo(colShape.Position) > 1.5f) continue;
 
-                    Trigger.ClientEvent(player, "SetSafeNearby", false);
+                    Plugins.Trigger.ClientEvent(player, "SetSafeNearby", false);
                     player.ResetData("temp_SafeID");
                 }
             }

@@ -129,7 +129,7 @@ namespace iTeffa.Working
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы уволились с работы", 3000);
                 Main.Players[player].WorkID = 0;
                 Dashboard.sendStats(player);
-                Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
+                Plugins.Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
             }
             else
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы никем не работаете", 3000);
@@ -168,9 +168,9 @@ namespace iTeffa.Working
                 }
                 Main.Players[player].WorkID = job;
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы устроились работать {JobList[job]}. Доберитесь до точки начала работы", 3000);
-                Trigger.ClientEvent(player, "createWaypoint", Points[job].X, Points[job].Y);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", Points[job].X, Points[job].Y);
                 Dashboard.sendStats(player);
-                Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
+                Plugins.Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
             }
         }
         // REQUIRED REFACTOR //
@@ -207,7 +207,7 @@ namespace iTeffa.Working
         #region Jobs Selecting
         public static void openJobsSelecting(Player player)
         {
-            Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
+            Plugins.Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
         }
         [RemoteEvent("jobjoin")]
         public static void callback_jobsSelecting(Player client, int act)
@@ -294,9 +294,9 @@ namespace iTeffa.Working
                                 next = rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
 
                             client.SetData("NEXTHOUSE", Houses.HouseManager.Houses[next].ID);
-                            Trigger.ClientEvent(client, "createCheckpoint", 1, 1, Houses.HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
-                            Trigger.ClientEvent(client, "createWaypoint", Houses.HouseManager.Houses[next].Position.X, Houses.HouseManager.Houses[next].Position.Y);
-                            Trigger.ClientEvent(client, "createWorkBlip", Houses.HouseManager.Houses[next].Position);
+                            Plugins.Trigger.ClientEvent(client, "createCheckpoint", 1, 1, Houses.HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
+                            Plugins.Trigger.ClientEvent(client, "createWaypoint", Houses.HouseManager.Houses[next].Position.X, Houses.HouseManager.Houses[next].Position.Y);
+                            Plugins.Trigger.ClientEvent(client, "createWorkBlip", Houses.HouseManager.Houses[next].Position);
 
                             var gender = Main.Players[client].Gender;
                             Customization.ClearClothes(client, gender);
@@ -352,9 +352,9 @@ namespace iTeffa.Working
                             next = Working.WorkManager.rnd.Next(0, Houses.HouseManager.Houses.Count - 1);
                         client.SetData("NEXTHOUSE", Houses.HouseManager.Houses[next].ID);
 
-                        Trigger.ClientEvent(client, "createCheckpoint", 1, 1, Houses.HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
-                        Trigger.ClientEvent(client, "createWaypoint", Houses.HouseManager.Houses[next].Position.X, Houses.HouseManager.Houses[next].Position.Y);
-                        Trigger.ClientEvent(client, "createWorkBlip", Houses.HouseManager.Houses[next].Position);
+                        Plugins.Trigger.ClientEvent(client, "createCheckpoint", 1, 1, Houses.HouseManager.Houses[next].Position, 1, 0, 255, 0, 0);
+                        Plugins.Trigger.ClientEvent(client, "createWaypoint", Houses.HouseManager.Houses[next].Position.X, Houses.HouseManager.Houses[next].Position.Y);
+                        Plugins.Trigger.ClientEvent(client, "createWorkBlip", Houses.HouseManager.Houses[next].Position);
 
                         int y = Working.WorkManager.rnd.Next(0, Working.Gopostal.GoPostalObjects.Count);
                         BasicSync.AttachObjectToPlayer(client, Working.Gopostal.GoPostalObjects[y], 60309, new Vector3(0.03, 0, 0.02), new Vector3(0, 0, 50));
@@ -365,11 +365,11 @@ namespace iTeffa.Working
                     {
                         if (NAPI.Data.GetEntityData(client, "ON_WORK"))
                         {
-                            Trigger.ClientEvent(client, "deleteCheckpoint", 1, 0);
+                            Plugins.Trigger.ClientEvent(client, "deleteCheckpoint", 1, 0);
                             BasicSync.DetachObject(client);
 
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
-                            Trigger.ClientEvent(client, "deleteWorkBlip");
+                            Plugins.Trigger.ClientEvent(client, "deleteWorkBlip");
 
                             client.SetData("PAYMENT", 0);
                             Customization.ApplyCharacter(client);
@@ -539,7 +539,7 @@ namespace iTeffa.Working
 
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы взяли заказ по доставке {order.Name} в {BusinessManager.BusinessTypeNames[biz.Type]}. Сначала закупите товар", 3000);
                             var pos = getProduct[biz.Type];
-                            Trigger.ClientEvent(client, "createWaypoint", pos.X, pos.Y);
+                            Plugins.Trigger.ClientEvent(client, "createWaypoint", pos.X, pos.Y);
                             client.SetData("ORDER", uid);
                             MenuManager.Close(client);
                         }

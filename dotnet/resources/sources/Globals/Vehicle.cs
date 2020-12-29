@@ -530,7 +530,7 @@ namespace iTeffa.Globals
             MenuManager.Close(player);
             if (item.ID == "close") return;
             player.SetData("SELLCARNUMBER", item.ID);
-            Trigger.ClientEvent(player, "openInput", "Продать машину", "Введите цену", 7, "sellcar");
+            Plugins.Trigger.ClientEvent(player, "openInput", "Продать машину", "Введите цену", 7, "sellcar");
         }
         #endregion
 
@@ -575,7 +575,7 @@ namespace iTeffa.Globals
                     {
                         veh.SetMod(22, 0);
                         veh.SetSharedData("hlcolor", data.Headlights);
-                        Trigger.ClientEventInRange(veh.Position, 250f, "VehStream_SetVehicleHeadLightColor", veh.Handle, data.Headlights);
+                        Plugins.Trigger.ClientEventInRange(veh.Position, 250f, "VehStream_SetVehicleHeadLightColor", veh.Handle, data.Headlights);
                     }
                     else
                     {
@@ -630,7 +630,7 @@ namespace iTeffa.Globals
                     {
                         veh.SetMod(22, 0);
                         veh.SetSharedData("hlcolor", data.Headlights);
-                        Trigger.ClientEventInRange(veh.Position, 250f, "VehStream_SetVehicleHeadLightColor", veh.Handle, data.Headlights);
+                        Plugins.Trigger.ClientEventInRange(veh.Position, 250f, "VehStream_SetVehicleHeadLightColor", veh.Handle, data.Headlights);
                     }
                     else
                     {

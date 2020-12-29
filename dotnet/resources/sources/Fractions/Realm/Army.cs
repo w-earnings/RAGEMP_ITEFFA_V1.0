@@ -152,7 +152,7 @@ namespace iTeffa.Fractions.Realm
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
-                    Trigger.ClientEvent(player, "armyguns");
+                    Plugins.Trigger.ClientEvent(player, "armyguns");
                     return;
                 case 35:
                     if (Main.Players[player].FractionID != 14)
@@ -193,7 +193,7 @@ namespace iTeffa.Fractions.Realm
                     player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => loadMaterialsTimer(player)));
                     player.Vehicle.SetData("loaderMats", player);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
-                    Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
+                    Plugins.Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
                     player.SetData("vehicleMats", player.Vehicle);
                     player.SetData("whereLoad", "ARMY");
                     return;
@@ -243,7 +243,7 @@ namespace iTeffa.Fractions.Realm
             try
             {
                 NAPI.Data.SetEntityData(player, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
-                if (shape.GetData<int>("INTERACT") == 36) Trigger.ClientEvent(player, "interactHint", true);
+                if (shape.GetData<int>("INTERACT") == 36) Plugins.Trigger.ClientEvent(player, "interactHint", true);
             }
             catch (Exception e) { Log.Write("onEntityEnterColshape: " + e.Message, Nlogs.Type.Error); }
         }
@@ -260,12 +260,12 @@ namespace iTeffa.Fractions.Realm
         private static void onEntityExitArmyMats(ColShape shape, Player player)
         {
             NAPI.Data.SetEntityData(player, "INTERACTIONCHECK", 0);
-            Trigger.ClientEvent(player, "interactHint", false);
+            Plugins.Trigger.ClientEvent(player, "interactHint", false);
             if (NAPI.Data.HasEntityData(player, "loadMatsTimer"))
             {
                 Timers.Stop(player.GetData<string>("loadMatsTimer"));
                 player.ResetData("loadMatsTimer");
-                Trigger.ClientEvent(player, "hideLoader");
+                Plugins.Trigger.ClientEvent(player, "hideLoader");
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
             }
         }
@@ -329,7 +329,7 @@ namespace iTeffa.Fractions.Realm
             {
                 if (player.HasData("loadMatsTimer"))
                 {
-                    Trigger.ClientEvent(player, "hideLoader");
+                    Plugins.Trigger.ClientEvent(player, "hideLoader");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как Вы умерли", 3000);
                     Timers.Stop(player.GetData<string>("loadMatsTimer"));
                     var vehicle = player.GetData<Vehicle>("vehicleMats");
@@ -365,7 +365,7 @@ namespace iTeffa.Fractions.Realm
                     Timers.Stop(player.GetData<string>("loadMatsTimer"));
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
                     player.ResetData("loadMatsTimer");
-                    Trigger.ClientEvent(player, "hideLoader");
+                    Plugins.Trigger.ClientEvent(player, "hideLoader");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                 }
             }

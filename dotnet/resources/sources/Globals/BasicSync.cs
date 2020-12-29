@@ -18,12 +18,12 @@ namespace iTeffa.Globals
                 case EntityType.Player:
                     var player = NAPI.Entity.GetEntityFromHandle<Player>(obj);
                     player.SetSharedData("attachedLabel", JsonConvert.SerializeObject(attachedLabel));
-                    Trigger.ClientEventInRange(player.Position, 550, "attachLabel", player);
+                    Plugins.Trigger.ClientEventInRange(player.Position, 550, "attachLabel", player);
                     break;
                 case EntityType.Vehicle:
                     var vehicle = NAPI.Entity.GetEntityFromHandle<Vehicle>(obj);
                     vehicle.SetSharedData("attachedLabel", JsonConvert.SerializeObject(attachedLabel));
-                    Trigger.ClientEventInRange(vehicle.Position, 550, "attachLabel", vehicle);
+                    Plugins.Trigger.ClientEventInRange(vehicle.Position, 550, "attachLabel", vehicle);
                     break;
             }
         }
@@ -35,12 +35,12 @@ namespace iTeffa.Globals
                 case EntityType.Player:
                     var player = NAPI.Entity.GetEntityFromHandle<Player>(obj);
                     player.ResetSharedData("attachedLabel");
-                    Trigger.ClientEventInRange(player.Position, 550, "detachLabel");
+                    Plugins.Trigger.ClientEventInRange(player.Position, 550, "detachLabel");
                     break;
                 case EntityType.Vehicle:
                     var vehicle = NAPI.Entity.GetEntityFromHandle<Vehicle>(obj);
                     vehicle.ResetSharedData("attachedLabel");
-                    Trigger.ClientEventInRange(vehicle.Position, 550, "detachLabel");
+                    Plugins.Trigger.ClientEventInRange(vehicle.Position, 550, "detachLabel");
                     break;
             }
         }
@@ -49,13 +49,13 @@ namespace iTeffa.Globals
         {
             var attObj = new AttachedObject(model, bone, posOffset, rotOffset);
             player.SetSharedData("attachedObject", JsonConvert.SerializeObject(attObj));
-            Trigger.ClientEventInRange(player.Position, 550, "attachObject", player);
+            Plugins.Trigger.ClientEventInRange(player.Position, 550, "attachObject", player);
         }
 
         public static void DetachObject(Player player)
         {
             player.ResetSharedData("attachedObject");
-            Trigger.ClientEventInRange(player.Position, 550, "detachObject", player);
+            Plugins.Trigger.ClientEventInRange(player.Position, 550, "detachObject", player);
         }
         /* Для теста: iTeffa.com
         private static string SerializeAttachments(List<uint> attachments)
@@ -74,7 +74,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.start", player);
+                Plugins.Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.start", player);
                 player.SetSharedData("fingerPointerActive", true);
             }
             catch (Exception e)
@@ -88,7 +88,7 @@ namespace iTeffa.Globals
         {
             try
             {
-                Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.stop", player);
+                Plugins.Trigger.ClientEventInRange(player.Position, 100, "fingerPointer.client.stop", player);
                 player.SetSharedData("fingerPointerActive", false);
             }
             catch (Exception e)
@@ -113,7 +113,7 @@ namespace iTeffa.Globals
 
                 Array.ForEach(playersIds, action);
 
-                Trigger.ClientEventToPlayers(Players.ToArray(), "fingerPointer.client.updateData", player, camPitch, camHeading, fingerIsBlocked, fingerIsFirstPerson);
+                Plugins.Trigger.ClientEventToPlayers(Players.ToArray(), "fingerPointer.client.updateData", player, camPitch, camHeading, fingerIsBlocked, fingerIsFirstPerson);
             }
             catch (Exception e)
             {
@@ -128,7 +128,7 @@ namespace iTeffa.Globals
             {
                 if (Main.Players[player].AdminLVL == 0) return;
                 player.SetSharedData("INVISIBLE", toggle);
-                Trigger.ClientEventInRange(player.Position, 550, "toggleInvisible", player, toggle);
+                Plugins.Trigger.ClientEventInRange(player.Position, 550, "toggleInvisible", player, toggle);
             }
             catch (Exception e) { Log.Write("InvisibleEvent: " + e.Message, Nlogs.Type.Error); }
         }

@@ -249,7 +249,7 @@ namespace iTeffa.Working
                     }
                     var veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Trailers2, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
-                    Trigger.ClientEvent(player, "SetOrderTruck", veh);
+                    Plugins.Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
@@ -261,7 +261,7 @@ namespace iTeffa.Working
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Tanker, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
-                    Trigger.ClientEvent(player, "SetOrderTruck", veh);
+                    Plugins.Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
@@ -273,7 +273,7 @@ namespace iTeffa.Working
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Tr4, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
-                    Trigger.ClientEvent(player, "SetOrderTruck", veh);
+                    Plugins.Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
@@ -285,7 +285,7 @@ namespace iTeffa.Working
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Trailers, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
-                    Trigger.ClientEvent(player, "SetOrderTruck", veh);
+                    Plugins.Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
@@ -352,7 +352,7 @@ namespace iTeffa.Working
                         {
                             if (NAPI.Data.GetEntityData(player, "WORK") == null)
                             {
-                                Trigger.ClientEvent(player, "openDialog", "TRUCKER_RENT", $"Вы действительно хотите начать работу?");
+                                Plugins.Trigger.ClientEvent(player, "openDialog", "TRUCKER_RENT", $"Вы действительно хотите начать работу?");
                             }
                             else if (NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                             {
@@ -418,14 +418,14 @@ namespace iTeffa.Working
                         NAPI.Data.ResetEntityData(player, "WORK_CAR_EXIT_TIMER");
                         if(player.HasData("WayPointBiz")) {
                             Business biz = player.GetData<Business>("WayPointBiz");
-                            Trigger.ClientEvent(player, "createWaypoint", biz.UnloadPoint.X, biz.UnloadPoint.Y);
+                            Plugins.Trigger.ClientEvent(player, "createWaypoint", biz.UnloadPoint.X, biz.UnloadPoint.Y);
                         }
                         return;
                     }
                     if (NAPI.Data.GetEntityData(player, "CAR_EXIT_TIMER_COUNT") > 300)
                     {
                         respawnCar(vehicle);
-                        Trigger.ClientEvent(player, "SetOrderTruck", null);
+                        Plugins.Trigger.ClientEvent(player, "SetOrderTruck", null);
                         player.ResetData("WayPointBiz");
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
@@ -470,8 +470,8 @@ namespace iTeffa.Working
 
                 player.SetData("GOTPRODUCT", true);
                 player.SetData("WayPointBiz", biz);
-                Trigger.ClientEvent(player, "createWaypoint", biz.UnloadPoint.X, biz.UnloadPoint.Y);
-                Trigger.ClientEvent(player, "createCheckpoint", 10, 1, biz.UnloadPoint, 7, 0, 255, 0, 0);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", biz.UnloadPoint.X, biz.UnloadPoint.Y);
+                Plugins.Trigger.ClientEvent(player, "createCheckpoint", 10, 1, biz.UnloadPoint, 7, 0, 255, 0, 0);
             }
             catch (Exception ex)
             {
@@ -512,7 +512,7 @@ namespace iTeffa.Working
                 Finance.Wallet.Change(player, payment);
                 Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"truckerCheck");
                 var ow = NAPI.Player.GetPlayerFromName(biz.Owner);
-                Trigger.ClientEvent(player, "SetOrderTruck", null);
+                Plugins.Trigger.ClientEvent(player, "SetOrderTruck", null);
                 player.ResetData("WayPointBiz");
                 if (ow != null) Plugins.Notice.Send(ow, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Ваш заказ на {order.Name} был доставлен", 3000);
                 foreach (var p in biz.Products)
@@ -524,8 +524,8 @@ namespace iTeffa.Working
                 }
                 biz.Orders.Remove(order);
                 BusinessManager.Orders.Remove(uid);
-                
-                Trigger.ClientEvent(player, "deleteCheckpoint", 10);
+
+                Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 10);
                 player.ResetData("GOTPRODUCT");
                 player.ResetData("ORDER");
                 NAPI.Task.Run(() =>

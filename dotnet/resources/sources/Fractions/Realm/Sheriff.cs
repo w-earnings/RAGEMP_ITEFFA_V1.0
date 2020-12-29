@@ -91,7 +91,7 @@ namespace iTeffa.Fractions.Realm
                 if (!Main.Players.ContainsKey(player)) return;
                 if (player.VehicleSeat != -1 || player.VehicleSeat != 0) return;
                 if (Main.Players[player].FractionID != 18 || Main.Players[player].FractionID != 9) return;
-                Trigger.ClientEvent(player, "closePc");
+                Plugins.Trigger.ClientEvent(player, "closePc");
             }
             catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
         }
@@ -173,8 +173,8 @@ namespace iTeffa.Fractions.Realm
                 }
                 Blip blip = target.GetData<Blip>("CALLSHERIFF_BLIP");
 
-                Trigger.ClientEvent(player, "changeBlipColor", blip, 38);
-                Trigger.ClientEvent(player, "createWaypoint", blip.Position.X, blip.Position.Y);
+                Plugins.Trigger.ClientEvent(player, "changeBlipColor", blip, 38);
+                Plugins.Trigger.ClientEvent(player, "createWaypoint", blip.Position.X, blip.Position.Y);
 
                 ColShape colshape = target.GetData<ColShape>("CALLSHERIFF_COL");
                 colshape.OnEntityEnterColShape += (s, e) =>
@@ -264,7 +264,7 @@ namespace iTeffa.Fractions.Realm
                     Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Машины с таким номером не найдено", 3000);
                     return;
                 }
-                Trigger.ClientEvent(sender, "executeCarInfo", Convert.ToString(vehicle.Model), vehicle.Holder.Replace('_', ' '));
+                Plugins.Trigger.ClientEvent(sender, "executeCarInfo", Convert.ToString(vehicle.Model), vehicle.Holder.Replace('_', ' '));
             }
             catch (Exception e) { Log.Write("checkNumber1: " + e.Message, Nlogs.Type.Error); }
         }
@@ -308,7 +308,7 @@ namespace iTeffa.Fractions.Realm
                         if (acc.Licenses[i]) lic += $"{Main.LicWords[i]} / ";
                     if (lic == "") lic = "Отсутствуют";
 
-                    Trigger.ClientEvent(sender, "executePersonInfo", $"{acc.FirstName}", $"{acc.LastName}", $"{acc.UUID}", $"{gender}", $"{wantedLvl}", $"{lic}");
+                    Plugins.Trigger.ClientEvent(sender, "executePersonInfo", $"{acc.FirstName}", $"{acc.LastName}", $"{acc.UUID}", $"{gender}", $"{wantedLvl}", $"{lic}");
                 }
                 catch
                 {
@@ -329,7 +329,7 @@ namespace iTeffa.Fractions.Realm
                             if (licenses[i]) lic += $"{Main.LicWords[i]} / ";
                         if (lic == "") lic = "Отсутствуют";
 
-                        Trigger.ClientEvent(sender, "executePersonInfo", $"{firstName}", $"{lastName}", $"{uuid}", $"{gender}", $"{wantedLvl}", $"{lic}", "Лицензия на оружие", "Водительские права");
+                        Plugins.Trigger.ClientEvent(sender, "executePersonInfo", $"{firstName}", $"{lastName}", $"{uuid}", $"{gender}", $"{wantedLvl}", $"{lic}", "Лицензия на оружие", "Водительские права");
                     }
                 }
             }
@@ -351,7 +351,7 @@ namespace iTeffa.Fractions.Realm
                 }
                 var json = JsonConvert.SerializeObject(list);
                 Log.Debug(json);
-                Trigger.ClientEvent(sender, "executeWantedList1", json);
+                Plugins.Trigger.ClientEvent(sender, "executeWantedList1", json);
             }
             catch (Exception e) { Log.Write("checkWantedList1: " + e.Message, Nlogs.Type.Error); }
         }
@@ -370,7 +370,7 @@ namespace iTeffa.Fractions.Realm
                     MenuManager.Close(sender);
                     if (Main.Players[sender].FractionID == 18 || Main.Players[sender].FractionID == 9)
                     {
-                        Trigger.ClientEvent(sender, "openPc");
+                        Plugins.Trigger.ClientEvent(sender, "openPc");
                         Commands.Controller.RPChat("me", sender, "включил(а) бортовой компьютер");
                     }
                 }
@@ -533,7 +533,7 @@ namespace iTeffa.Fractions.Realm
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в рабочей машине", 3000);
                         return;
                     }
-                    Trigger.ClientEvent(player, "svem", 20, 20);
+                    Plugins.Trigger.ClientEvent(player, "svem", 20, 20);
                     player.Vehicle.SetSharedData("BOOST", 20);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Пробущено", 3000);
                     return;
@@ -601,7 +601,7 @@ namespace iTeffa.Fractions.Realm
                 {
                     Player target = NAPI.Data.GetEntityData(player, "FOLLOWER");
                     NAPI.Data.ResetEntityData(target, "FOLLOWING");
-                    Trigger.ClientEvent(target, "follow", false);
+                    Plugins.Trigger.ClientEvent(target, "follow", false);
                 }
 
                 if (player.HasData("CALLSHERIFF_BLIP"))
@@ -622,8 +622,8 @@ namespace iTeffa.Fractions.Realm
         public static void setPlayerWantedLevel(Player player, WantedLevel wantedlevel)
         {
             Main.Players[player].WantedLVL = wantedlevel;
-            if (wantedlevel != null) Trigger.ClientEvent(player, "setWanted", wantedlevel.Level);
-            else Trigger.ClientEvent(player, "setWanted", 0);
+            if (wantedlevel != null) Plugins.Trigger.ClientEvent(player, "setWanted", wantedlevel.Level);
+            else Plugins.Trigger.ClientEvent(player, "setWanted", 0);
         }
 
         public static bool is_warg = false;
@@ -631,7 +631,7 @@ namespace iTeffa.Fractions.Realm
         #region menus
         public static void OpenSheriffGunMenu(Player player)
         {
-            Trigger.ClientEvent(player, "sheriffg");
+            Plugins.Trigger.ClientEvent(player, "sheriffg");
         }
         [RemoteEvent("sheriffgun")]
         public static void callback_sheriffGuns(Player client, int index)

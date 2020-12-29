@@ -1,10 +1,10 @@
 ﻿using GTANetworkAPI;
-using System;
-using System.Collections.Generic;
 using iTeffa.Globals;
 using iTeffa.Settings;
-using System.Linq;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace iTeffa.Finance
 {
@@ -153,7 +153,8 @@ namespace iTeffa.Finance
                 {
                     ATMCols.Add(i, NAPI.ColShape.CreateCylinderColShape(ATMs[i], 1, 2, 0));
                     ATMCols[i].SetData("NUMBER", i);
-                    ATMCols[i].OnEntityEnterColShape += (s, e) => {
+                    ATMCols[i].OnEntityEnterColShape += (s, e) =>
+                    {
                         try
                         {
                             e.SetData("INTERACTIONCHECK", 13);
@@ -161,7 +162,8 @@ namespace iTeffa.Finance
                         }
                         catch (Exception ex) { Log.Write("ATMCols.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
                     };
-                    ATMCols[i].OnEntityExitColShape += (s, e) => {
+                    ATMCols[i].OnEntityExitColShape += (s, e) =>
+                    {
                         try
                         {
                             e.SetData("INTERACTIONCHECK", 0);
@@ -192,8 +194,8 @@ namespace iTeffa.Finance
                 return;
             }
             long balance = Bank.Accounts[acc.Bank].Balance;
-            Trigger.ClientEvent(player, "setatm", acc.Bank.ToString(), player.Name, balance.ToString(), "");
-            Trigger.ClientEvent(player, "openatm");
+            Plugins.Trigger.ClientEvent(player, "setatm", acc.Bank.ToString(), player.Name, balance.ToString(), "");
+            Plugins.Trigger.ClientEvent(player, "openatm");
             return;
         }
         public static void AtmBizGen(Player player)
@@ -209,11 +211,11 @@ namespace iTeffa.Finance
                     string name = BusinessManager.BusinessTypeNames[biz.Type];
                     data.Add($"{name}");
                 }
-                Trigger.ClientEvent(player, "atmOpenBiz", JsonConvert.SerializeObject(data), "");
+                Plugins.Trigger.ClientEvent(player, "atmOpenBiz", JsonConvert.SerializeObject(data), "");
             }
             else
             {
-                Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
+                Plugins.Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас нет бизнеса!", 3000);
             }
         }
@@ -235,12 +237,12 @@ namespace iTeffa.Finance
                 switch (type)
                 {
                     case 0:
-                        Trigger.ClientEvent(player, "atmClose");
+                        Plugins.Trigger.ClientEvent(player, "atmClose");
                         if (Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, +Math.Abs(amount));
                             Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"atmIn");
-                            Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
+                            Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
                     case 1:
@@ -248,7 +250,7 @@ namespace iTeffa.Finance
                         {
                             Wallet.Change(player, +Math.Abs(amount));
                             Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"atmOut");
-                            Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
+                            Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
                     case 2:
@@ -269,7 +271,7 @@ namespace iTeffa.Finance
                         Bank.Change(house.BankID, +Math.Abs(amount));
                         Loggings.Money($"player({Main.Players[player].UUID})", $"bank({house.BankID})", Math.Abs(amount), $"atmHouse");
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Успешный перевод.", 3000);
-                        Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
+                        Plugins.Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
                         break;
                     case 3:
                         int bid = NAPI.Data.GetEntityData(player, "ATMBIZ");
@@ -290,17 +292,17 @@ namespace iTeffa.Finance
                         Bank.Change(biz.BankID, +Math.Abs(amount));
                         Loggings.Money($"player({Main.Players[player].UUID})", $"bank({biz.BankID})", Math.Abs(amount), $"atmBiz");
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Успешный перевод.", 3000);
-                        Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
+                        Plugins.Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
                         break;
                     case 4:
                         if (!Bank.Accounts.ContainsKey(amount) || amount <= 0)
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Счет не найден!", 3000);
-                            Trigger.ClientEvent(player, "closeatm");
+                            Plugins.Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         NAPI.Data.SetEntityData(player, "ATM2ACC", amount);
-                        Trigger.ClientEvent(player,
+                        Plugins.Trigger.ClientEvent(player,
                                 "atmOpen", "[2,0,'Сумма для перевода']");
                         NAPI.Data.SetEntityData(player, "ATMTYPE", 44);
                         break;
@@ -319,23 +321,23 @@ namespace iTeffa.Finance
                         if (!Bank.Accounts.ContainsKey(bank) || bank <= 0)
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Счет не найден!", 3000);
-                            Trigger.ClientEvent(player, "closeatm");
+                            Plugins.Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         if (Bank.Accounts[bank].Type != 1 && Main.Players[player].AdminLVL == 0)
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Счет не найден!", 3000);
-                            Trigger.ClientEvent(player, "closeatm");
+                            Plugins.Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         if (acc.Bank == bank)
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Операция отменена.", 3000);
-                            Trigger.ClientEvent(player, "closeatm");
+                            Plugins.Trigger.ClientEvent(player, "closeatm");
                             return;
                         }
                         Bank.Transfer(acc.Bank, bank, Math.Abs(amount));
-                        Trigger.ClientEvent(player, "closeatm");
+                        Plugins.Trigger.ClientEvent(player, "closeatm");
                         if (Main.Players[player].AdminLVL == 0) player.SetData("NEXT_BANK_TRANSFER", DateTime.Now.AddMinutes(1));
                         break;
                 }
@@ -367,7 +369,7 @@ namespace iTeffa.Finance
                 int index = Convert.ToInt32(args[1]);
                 if (index == -1)
                 {
-                    Trigger.ClientEvent(player, "closeatm");
+                    Plugins.Trigger.ClientEvent(player, "closeatm");
                     return;
                 }
                 switch (type)
@@ -376,12 +378,12 @@ namespace iTeffa.Finance
                         switch (index)
                         {
                             case 0:
-                                Trigger.ClientEvent(player,
+                                Plugins.Trigger.ClientEvent(player,
                                     "atmOpen", "[2,0,'Сумма внесения наличных']");
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
                             case 1:
-                                Trigger.ClientEvent(player,
+                                Plugins.Trigger.ClientEvent(player,
                                     "atmOpen", "[2,0,'Сумма для снятия']");
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
@@ -392,9 +394,9 @@ namespace iTeffa.Finance
                                     return;
                                 }
                                 var house = Houses.HouseManager.GetHouse(player, true);
-                                Trigger.ClientEvent(player,
+                                Plugins.Trigger.ClientEvent(player,
                                     "atmOpen", $"[2,'{Bank.Accounts[house.BankID].Balance}/{Convert.ToInt32(house.Price / 100 * 0.013) * 24 * 7}$','Сумма внесения наличных']");
-                                Trigger.ClientEvent(player, "setatm", "Дом", $"Дом #{house.ID}", Bank.Accounts[house.BankID].Balance, "");
+                                Plugins.Trigger.ClientEvent(player, "setatm", "Дом", $"Дом #{house.ID}", Bank.Accounts[house.BankID].Balance, "");
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
                             case 3:
@@ -402,7 +404,7 @@ namespace iTeffa.Finance
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
                             case 4:
-                                Trigger.ClientEvent(player,
+                                Plugins.Trigger.ClientEvent(player,
                                     "atmOpen", "[2,0,'Счет зачисления']");
                                 NAPI.Data.SetEntityData(player, "ATMTYPE", index);
                                 break;
@@ -411,20 +413,20 @@ namespace iTeffa.Finance
                         }
                         break;
                     case 2:
-                        Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
-                        Trigger.ClientEvent(player, "setatm", acc.Bank, player.Name, Bank.Accounts[acc.Bank].Balance, "");
+                        Plugins.Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
+                        Plugins.Trigger.ClientEvent(player, "setatm", acc.Bank, player.Name, Bank.Accounts[acc.Bank].Balance, "");
                         break;
                     case 3:
                         if (index == -1)
                         {
-                            Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
-                            Trigger.ClientEvent(player, "setatm", acc.Bank, player.Name, Bank.Accounts[acc.Bank].Balance, "");
+                            Plugins.Trigger.ClientEvent(player, "atmOpen", "[1,0,0]");
+                            Plugins.Trigger.ClientEvent(player, "setatm", acc.Bank, player.Name, Bank.Accounts[acc.Bank].Balance, "");
                             return;
                         }
                         Business biz = BusinessManager.BizList[acc.BizIDs[index]];
                         NAPI.Data.SetEntityData(player, "ATMBIZ", index);
-                        Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
-                        Trigger.ClientEvent(player, "setatm",
+                        Plugins.Trigger.ClientEvent(player, "atmOpen", $"[2,'{Bank.Accounts[biz.BankID].Balance}/{Convert.ToInt32(biz.SellPrice / 100 * 0.013) * 24 * 7}$','Сумма зачисления']");
+                        Plugins.Trigger.ClientEvent(player, "setatm",
                             "Бизнес",
                             BusinessManager.BusinessTypeNames[biz.Type],
                             Bank.Accounts[biz.BankID].Balance, "");
@@ -457,7 +459,7 @@ namespace iTeffa.Finance
                         {
                             Bank.Change(acc.Bank, amount);
                             Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"atmIn");
-                            Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
+                            Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
                     case 1:
@@ -465,7 +467,7 @@ namespace iTeffa.Finance
                         {
                             Wallet.Change(player, amount);
                             Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"atmOut");
-                            Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
+                            Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
                         break;
                     case 2:

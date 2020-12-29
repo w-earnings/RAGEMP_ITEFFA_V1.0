@@ -318,8 +318,8 @@ namespace iTeffa.Fractions
 
             if (player.GetData<int>("RESIST_TIME") == 0)
             {
-                Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
-                Trigger.ClientEvent(player, "setResistStage", 0);
+                Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
+                Plugins.Trigger.ClientEvent(player, "setResistStage", 0);
                 player.ResetData("RESIST_BAN");
                 Timers.Stop(player.GetData<string>("RESIST_TIMER"));
             }
@@ -352,7 +352,7 @@ namespace iTeffa.Fractions
                 ClubsStocks[club].Alco2,
                 ClubsStocks[club].Alco3,
             };
-            Trigger.ClientEvent(player, "openAlco", club, ClubsStocks[club].PriceModifier, isOwner, stock);
+            Plugins.Trigger.ClientEvent(player, "openAlco", club, ClubsStocks[club].PriceModifier, isOwner, stock);
         }
         [RemoteEvent("menu_alco")]
         public static void RemoteEvent_alcoMenu(Player player, int action, int index)
@@ -465,7 +465,7 @@ namespace iTeffa.Fractions
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы скрафтили {nInventory.ItemsNames[(int)invItem]}. На складе {alcoCounts[index] + 1}шт", 3000);
                         return;
                     case 3:
-                        Trigger.ClientEvent(player, "openInput", "Установить цену", "Введите цену для алкоголя в процентах", 3, "club_setprice");
+                        Plugins.Trigger.ClientEvent(player, "openInput", "Установить цену", "Введите цену для алкоголя в процентах", 3, "club_setprice");
                         return;
                 }
             }

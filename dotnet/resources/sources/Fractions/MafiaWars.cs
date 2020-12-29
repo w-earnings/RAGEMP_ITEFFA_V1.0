@@ -176,8 +176,8 @@ namespace iTeffa.Fractions
                 if (!Main.Players.ContainsKey(p) || !p.HasData("WARZONE") || p.GetData<int>("WARZONE") != whereWarIsGoing) continue;
                 if (Main.Players[p].FractionID == biz.Mafia || Main.Players[p].FractionID == attackersFracID)
                 {
-                    Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, 0, 0);
-                    Trigger.ClientEvent(p, "captureHud", true);
+                    Plugins.Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, 0, 0);
+                    Plugins.Trigger.ClientEvent(p, "captureHud", true);
                 }
             }
 
@@ -220,7 +220,7 @@ namespace iTeffa.Fractions
                     if (!Main.Players.ContainsKey(p) || !p.HasData("WARZONE") || p.GetData<int>("WARZONE") != whereWarIsGoing) continue;
                     if (Main.Players[p].FractionID == biz.Mafia || Main.Players[p].FractionID == attackersFracID)
                     {
-                        Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, minutes, seconds);
+                        Plugins.Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, minutes, seconds);
                     }
                 }
             }
@@ -283,8 +283,8 @@ namespace iTeffa.Fractions
                     {
                         int minutes = timerCount / 60;
                         int seconds = timerCount % 60;
-                        Trigger.ClientEvent(player, "sendCaptureInformation", attackersSt, defendersSt, minutes, seconds);
-                        Trigger.ClientEvent(player, "captureHud", true);
+                        Plugins.Trigger.ClientEvent(player, "sendCaptureInformation", attackersSt, defendersSt, minutes, seconds);
+                        Plugins.Trigger.ClientEvent(player, "captureHud", true);
                     }
                 }
             }
@@ -299,7 +299,7 @@ namespace iTeffa.Fractions
                 if (Main.Players[player].FractionID >= 10 && Main.Players[player].FractionID <= 13)
                 {
                     player.SetData("WARZONE", -1);
-                    Trigger.ClientEvent(player, "captureHud", false);
+                    Plugins.Trigger.ClientEvent(player, "captureHud", false);
                 }
             }
             catch (Exception ex) { Log.Write("onPlayerExitBizWar: " + ex.Message, Nlogs.Type.Error); }

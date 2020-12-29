@@ -126,7 +126,7 @@ namespace iTeffa.Fractions
             player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Fractions.Realm.Army.loadMaterialsTimer(player)));
             player.Vehicle.SetData("loaderMats", player);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
-            Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
+            Plugins.Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
             player.SetData("vehicleMats", player.Vehicle);
             player.SetData("whereLoad", "WAR");
             return;
@@ -156,7 +156,7 @@ namespace iTeffa.Fractions
                         Timers.Stop(player.GetData<string>("loadMatsTimer"));
                         NAPI.Data.ResetEntityData(entity.Vehicle, "loaderMats");
                         player.ResetData("loadMatsTimer");
-                        Trigger.ClientEvent(player, "hideLoader");
+                        Plugins.Trigger.ClientEvent(player, "hideLoader");
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                     }
                 }

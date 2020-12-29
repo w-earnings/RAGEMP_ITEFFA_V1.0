@@ -84,10 +84,10 @@ namespace iTeffa.Interface
 
                 if (!client.HasData("Phone"))
                 {
-                    Trigger.ClientEvent(client, "phoneShow");
+                    Plugins.Trigger.ClientEvent(client, "phoneShow");
                     client.SetData("Phone", true);
                 }
-                Trigger.ClientEvent(client, "phoneOpen", data);
+                Plugins.Trigger.ClientEvent(client, "phoneOpen", data);
             }
             catch (Exception e)
             {
@@ -112,10 +112,10 @@ namespace iTeffa.Interface
 
                 if (!client.HasData("Phone"))
                 {
-                    Trigger.ClientEvent(client, "phoneShow");
+                    Plugins.Trigger.ClientEvent(client, "phoneShow");
                     client.SetData("Phone", true);
                 }
-                Trigger.ClientEvent(client, "phoneOpen", data);
+                Plugins.Trigger.ClientEvent(client, "phoneOpen", data);
             }
             catch (Exception e)
             {
@@ -132,10 +132,10 @@ namespace iTeffa.Interface
                     Menus.Remove(client);
                 if (hidePhone)
                 {
-                    Trigger.ClientEvent(client, "phoneHide");
+                    Plugins.Trigger.ClientEvent(client, "phoneHide");
                     client.ResetData("Phone");
                 }
-                Trigger.ClientEvent(client, "phoneClose");
+                Plugins.Trigger.ClientEvent(client, "phoneClose");
             }
             catch (Exception e)
             {
@@ -153,10 +153,10 @@ namespace iTeffa.Interface
                 }
                 if (hidePhone)
                 {
-                    Trigger.ClientEvent(client, "phoneHide");
+                    Plugins.Trigger.ClientEvent(client, "phoneHide");
                     client.ResetData("Phone");
                 }
-                Trigger.ClientEvent(client, "phoneClose");
+                Plugins.Trigger.ClientEvent(client, "phoneClose");
             }
             catch (Exception e)
             {

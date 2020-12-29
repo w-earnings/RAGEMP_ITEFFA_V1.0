@@ -284,8 +284,8 @@ namespace iTeffa.Fractions
                 if (!Main.Players.ContainsKey(p) || !p.HasData("GANGPOINT") || p.GetData<int>("GANGPOINT") != region.ID) continue;
                 if (Main.Players[p].FractionID == region.GangOwner || Main.Players[p].FractionID == attackersFracID)
                 {
-                    Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, 0, 0);
-                    Trigger.ClientEvent(p, "captureHud", true);
+                    Plugins.Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, 0, 0);
+                    Plugins.Trigger.ClientEvent(p, "captureHud", true);
                 }
             }
 
@@ -352,7 +352,7 @@ namespace iTeffa.Fractions
                     {
                         int minutes = timerCount / 60;
                         int seconds = timerCount % 60;
-                        Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, minutes, seconds);
+                        Plugins.Trigger.ClientEvent(p, "sendCaptureInformation", attackers, defenders, minutes, seconds);
                     }
                 }
             }
@@ -416,8 +416,8 @@ namespace iTeffa.Fractions
                     {
                         int minutes = timerCount / 60;
                         int seconds = timerCount % 60;
-                        Trigger.ClientEvent(player, "sendCaptureInformation", attackersSt, defendersSt, minutes, seconds);
-                        Trigger.ClientEvent(player, "captureHud", true);
+                        Plugins.Trigger.ClientEvent(player, "sendCaptureInformation", attackersSt, defendersSt, minutes, seconds);
+                        Plugins.Trigger.ClientEvent(player, "captureHud", true);
                     }
                 }
             }
@@ -436,7 +436,7 @@ namespace iTeffa.Fractions
 
                     GangPoint region = gangPoints[(int)shape.GetData<int>("ID")];
                     if (region.IsCapture && (Main.Players[player].FractionID == attackersFracID || Main.Players[player].FractionID == region.GangOwner))
-                        Trigger.ClientEvent(player, "captureHud", false);
+                        Plugins.Trigger.ClientEvent(player, "captureHud", false);
                 }
             }
             catch (Exception ex) { Log.Write("onPlayerExitGangPoint: " + ex.Message, Nlogs.Type.Error); }
@@ -455,9 +455,9 @@ namespace iTeffa.Fractions
             foreach (var g in gangPoints.Values)
                 colors.Add(gangPointsColor[g.GangOwner]);
 
-            Trigger.ClientEvent(player, "loadCaptureBlips", Newtonsoft.Json.JsonConvert.SerializeObject(colors));
+            Plugins.Trigger.ClientEvent(player, "loadCaptureBlips", Newtonsoft.Json.JsonConvert.SerializeObject(colors));
 
-            if (captureIsGoing || captureStarting) Trigger.ClientEvent(player, "setZoneFlash", gangPoints.FirstOrDefault(g => g.Value.IsCapture == true).Value.ID, true);
+            if (captureIsGoing || captureStarting) Plugins.Trigger.ClientEvent(player, "setZoneFlash", gangPoints.FirstOrDefault(g => g.Value.IsCapture == true).Value.ID, true);
         }
 
         [ServerEvent(Event.ResourceStop)]

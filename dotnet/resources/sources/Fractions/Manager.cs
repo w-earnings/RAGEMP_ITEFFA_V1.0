@@ -325,7 +325,7 @@ namespace iTeffa.Fractions
                 AllMembers[index].FractionLVL = data.FractionLVL;
                 AllMembers[index].inFracName = data.inFracName;
             }
-            Trigger.ClientEvent(player, "fractionChange", fractionID);
+            Plugins.Trigger.ClientEvent(player, "fractionChange", fractionID);
             player.SetSharedData("fraction", fractionID);
             Log.Write($"Member {player.Name} loaded. ", Nlogs.Type.Success);
         }
@@ -335,12 +335,12 @@ namespace iTeffa.Fractions
             {
                 if (!Members.ContainsKey(player)) return;
                 Members.Remove(player);
-                Trigger.ClientEvent(player, "fractionChange", 0);
+                Plugins.Trigger.ClientEvent(player, "fractionChange", 0);
                 player.SetSharedData("fraction", 0);
-                Trigger.ClientEvent(player, "closePc");
+                Plugins.Trigger.ClientEvent(player, "closePc");
                 player.SetData("ON_DUTY", false);
                 MenuManager.Close(player);
-                Trigger.ClientEvent(player, "deleteFracBlips");
+                Plugins.Trigger.ClientEvent(player, "deleteFracBlips");
 
                 if (Main.Players[player].FractionID == 9)
                 {
@@ -1352,7 +1352,7 @@ namespace iTeffa.Fractions
             }
             string json = JsonConvert.SerializeObject(prices);
             Log.Debug(json);
-            Trigger.ClientEvent(player, "openWCraft", fracid, json);
+            Plugins.Trigger.ClientEvent(player, "openWCraft", fracid, json);
         }
         [RemoteEvent("wcraft")]
         public static void Event_WCraft(Player client, int frac, int cat, int index)
@@ -1504,7 +1504,7 @@ namespace iTeffa.Fractions
                     people.Add(data);
                 }
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(people);
-                Trigger.ClientEvent(player, "setmem", json, count, on, off);
+                Plugins.Trigger.ClientEvent(player, "setmem", json, count, on, off);
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"SETMEMBERS\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -1514,7 +1514,7 @@ namespace iTeffa.Fractions
             try
             {
                 SetMembersToMenu(player);
-                Trigger.ClientEvent(player, "openfm");
+                Plugins.Trigger.ClientEvent(player, "openfm");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"OPENFMENU\":\n" + e.ToString(), Nlogs.Type.Error); }
         }

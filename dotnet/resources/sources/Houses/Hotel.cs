@@ -310,7 +310,7 @@ namespace iTeffa.Houses
             {
                 case "extend":
                     MenuManager.Close(player);
-                    Trigger.ClientEvent(player, "openInput", $"Продлить аренду ({HotelRent}$/ч)", "Введите количество часов", 1, "extend_hotel_rent");
+                    Plugins.Trigger.ClientEvent(player, "openInput", $"Продлить аренду ({HotelRent}$/ч)", "Введите количество часов", 1, "extend_hotel_rent");
                     return;
                 case "moveout":
                     MoveOutPlayer(player);

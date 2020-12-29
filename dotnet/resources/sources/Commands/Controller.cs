@@ -72,7 +72,7 @@ namespace iTeffa.Commands
                         int[] id = new int[] { sender.Value };
                         foreach (Player c in players)
                         {
-                            Trigger.ClientEvent(c, "sendRPMessage", "chat", "{name}: " + message, id);
+                            Plugins.Trigger.ClientEvent(c, "sendRPMessage", "chat", "{name}: " + message, id);
                         }
 
                         if (!sender.HasData("PhoneVoip")) return;
@@ -101,11 +101,11 @@ namespace iTeffa.Commands
                 {
                     case 3:
                         foreach (Player player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#277C6B}" + " удачно", new int[] { sender.Value });
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#277C6B}" + " удачно", new int[] { sender.Value });
                         return;
                     default:
                         foreach (Player player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#FF0707}" + " неудачно", new int[] { sender.Value });
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "try", "!{#BF11B7}{name} " + message + " | !{#FF0707}" + " неудачно", new int[] { sender.Value });
                         return;
                 }
             }
@@ -124,7 +124,7 @@ namespace iTeffa.Commands
                 {
                     case "me":
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#ffe666}{name} " + message, names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#ffe666}{name} " + message, names);
                         return;
                     case "todo":
                         var args = message.Split('*');
@@ -132,19 +132,19 @@ namespace iTeffa.Commands
                         var action = args[1];
                         var genderCh = (Main.Players[sender].Gender) ? "" : "а";
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#ffe666} - сказал" + genderCh + " {name}, " + action, names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#ffe666} - сказал" + genderCh + " {name}, " + action, names);
                         return;
                     case "do":
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#ffe666}" + message + " ({name})", names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#ffe666}" + message + " ({name})", names);
                         return;
                     case "s":
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 30f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
                         return;
                     case "b":
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
                         return;
                     case "m":
                         if (Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9 || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
@@ -152,7 +152,7 @@ namespace iTeffa.Commands
                         if (vehicle.GetData<string>("ACCESS") != "FRACTION") return;
                         if (vehicle.GetData<int>("FRACTION") != 7 && vehicle.GetData<int>("FRACTION") != 9) return;
                         foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 120f, sender.Dimension))
-                            Trigger.ClientEvent(player, "sendRPMessage", "m", "~r~[Мегафон] {name}: " + message, names);
+                            Plugins.Trigger.ClientEvent(player, "sendRPMessage", "m", "~r~[Мегафон] {name}: " + message, names);
                         return;
                     case "t":
                         if (!Main.Players.ContainsKey(sender) || Main.Players[sender].WorkID != 6) return;
@@ -183,7 +183,7 @@ namespace iTeffa.Commands
                     {
                         case "me":
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#E066FF}{name} " + message, names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "me", "!{#E066FF}{name} " + message, names);
                             return;
                         case "todo":
                             var args = message.Split('*');
@@ -191,19 +191,19 @@ namespace iTeffa.Commands
                             var action = args[1];
                             var genderCh = Main.Players[sender].Gender ? "" : "а";
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#E066FF} - сказал" + genderCh + " {name}, " + action, names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "todo", msg + ",!{#E066FF} - сказал" + genderCh + " {name}, " + action, names);
                             return;
                         case "do":
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#E066FF}" + message + " ({name})", names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "do", "!{#E066FF}" + message + " ({name})", names);
                             return;
                         case "s":
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 30f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "s", "{name} кричит: " + message, names);
                             return;
                         case "b":
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 10f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "b", "(( {name}: " + message + " ))", names);
                             return;
                         case "m":
                             if ((Main.Players[sender].FractionID != 7 && Main.Players[sender].FractionID != 9) || !NAPI.Player.IsPlayerInAnyVehicle(sender)) return;
@@ -211,7 +211,7 @@ namespace iTeffa.Commands
                             if (vehicle.GetData<string>("ACCESS") != "FRACTION") return;
                             if (vehicle.GetData<int>("FRACTION") != 7 && vehicle.GetData<int>("FRACTION") != 9) return;
                             foreach (var player in Main.GetPlayersInRadiusOfPosition(sender.Position, 120f, sender.Dimension))
-                                Trigger.ClientEvent(player, "sendRPMessage", "m", "!{#FF4D4D}[Мегафон] {name}: " + message, names);
+                                Plugins.Trigger.ClientEvent(player, "sendRPMessage", "m", "!{#FF4D4D}[Мегафон] {name}: " + message, names);
                             return;
                         case "t":
                             if (!Main.Players.ContainsKey(sender) || Main.Players[sender].WorkID != 6) return;

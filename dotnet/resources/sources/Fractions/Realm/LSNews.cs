@@ -35,7 +35,7 @@ namespace iTeffa.Fractions.Realm
                         if (!Main.Players.ContainsKey(target)) continue;
                         if (Main.Players[target].FractionID != 15) continue;
 
-                        Trigger.ClientEvent(target, "addadvert", ID, Author, AD);
+                        Plugins.Trigger.ClientEvent(target, "addadvert", ID, Author, AD);
                     }
                 }
                 else
@@ -43,7 +43,7 @@ namespace iTeffa.Fractions.Realm
                     if (!Main.Players.ContainsKey(someone)) return;
                     if (Main.Players[someone].FractionID != 15) return;
 
-                    Trigger.ClientEvent(someone, "addadvert", ID, Author, AD);
+                    Plugins.Trigger.ClientEvent(someone, "addadvert", ID, Author, AD);
                 }
             }
         }
@@ -214,8 +214,8 @@ namespace iTeffa.Fractions.Realm
                     if (!Main.Players.ContainsKey(target)) continue;
                     if (Main.Players[target].FractionID != 15) continue;
 
-                    if (retrn) Trigger.ClientEvent(target, "setadvert", id, "");
-                    else Trigger.ClientEvent(target, "setadvert", id, client.Name);
+                    if (retrn) Plugins.Trigger.ClientEvent(target, "setadvert", id, "");
+                    else Plugins.Trigger.ClientEvent(target, "setadvert", id, client.Name);
                 }
             }
             catch
@@ -374,7 +374,7 @@ namespace iTeffa.Fractions.Realm
                         if (!Main.Players.ContainsKey(target)) continue;
                         if (Main.Players[target].FractionID != 15) continue;
 
-                        Trigger.ClientEvent(target, "deladvert", ID_);
+                        Plugins.Trigger.ClientEvent(target, "deladvert", ID_);
                     }
                 }
                 else
@@ -382,7 +382,7 @@ namespace iTeffa.Fractions.Realm
                     if (!Main.Players.ContainsKey(someone)) return;
                     if (Main.Players[someone].FractionID != 15) return;
 
-                    Trigger.ClientEvent(someone, "deladvert", ID_);
+                    Plugins.Trigger.ClientEvent(someone, "deladvert", ID_);
                 }
                 Adverts.Remove(ID_);
             }

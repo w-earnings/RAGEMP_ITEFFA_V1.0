@@ -1,13 +1,12 @@
-﻿using System;
+﻿using iTeffa.Settings;
+using System;
 using System.Net;
-using iTeffa.Settings;
 using System.Net.Mail;
 
-namespace iTeffa
+namespace iTeffa.Modules
 {
-    public static class PasswordRestore
+    public static class PassReset
     {
-
         private static readonly Nlogs Log = new Nlogs("PassRestore");
         private static readonly Config config = new Config("PassRestore");
         private static readonly string mailFrom = config.TryGet<string>("From", "noreply@iteffa.com");
@@ -18,7 +17,6 @@ namespace iTeffa
         private static readonly string Server = config.TryGet<string>("SMTP", "smtp.iteffa.com");
         private static readonly string Password = config.TryGet<string>("Pass", "Password");
         private static readonly int Port = config.TryGet<int>("Port", 587);
-
         public static void SendEmail(byte type, string email, int textcode)
         {
             try

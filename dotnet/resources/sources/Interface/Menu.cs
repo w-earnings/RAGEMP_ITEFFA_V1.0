@@ -50,7 +50,7 @@ namespace iTeffa.Interface
         public void Change(Player client, int index, Item newData)
         {
             string data = JsonConvert.SerializeObject(newData.getJsonArr());
-            Trigger.ClientEvent(client, "phoneChange", index, data);
+            Plugins.Trigger.ClientEvent(client, "phoneChange", index, data);
         }
 
         public string getJsonStr()
