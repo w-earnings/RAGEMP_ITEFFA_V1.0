@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace iTeffa.Plugins
+namespace iTeffa.Modules
 {
     class Forbes : Script
     {

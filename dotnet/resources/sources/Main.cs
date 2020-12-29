@@ -91,7 +91,7 @@ namespace iTeffa
                     NAPI.World.SetTime(DateTime.Now.Hour, 0, 0);
                 });
 
-                Settings.Timers.StartOnceTask(10000, () => Plugins.Forbes.SyncMajors());
+                Settings.Timers.StartOnceTask(10000, () => Modules.Forbes.SyncMajors());
 
                 DataTable result = Database.QueryRead("SELECT `uuid`, `personsid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
                 if (result != null)
@@ -319,7 +319,7 @@ namespace iTeffa
                         SafeMain.SafeCracker_Disconnect(player, type, reason);
                         VehicleManager.API_onPlayerDisconnected(player, type, reason);
                         CarRoom.onPlayerDissonnectedHandler(player, type, reason);
-                        DrivingSchool.onPlayerDisconnected(player, type, reason);
+                        Modules.VehicleLicense.onPlayerDisconnected(player, type, reason);
                         Rentcar.Event_OnPlayerDisconnected(player);
                     }
                     catch (Exception e) { Log.Write("EXCEPTION AT \"UnLoad:Unloading Neptune.core\":\n" + e.ToString()); }
@@ -1835,7 +1835,7 @@ namespace iTeffa
                         Customization.SendToCreator(player);
                         return;
                     case 39:
-                        DrivingSchool.OpenDriveSchoolMenu(player);
+                        Modules.VehicleLicense.OpenDriveSchoolMenu(player);
                         return;
                     case 6:
                     case 7:
@@ -1941,7 +1941,7 @@ namespace iTeffa
                         Working.FarmerJob.Market.OpenMarketMenu(player, 0);
                         return;
                     case 571:
-                        Plugins.InfoPed.Interact1(player);
+                        Modules.InfoPed.Interact1(player);
                         return;
                     case 814:
                         Modules.Containers.OpenMenuContainer(player);
@@ -2557,7 +2557,7 @@ namespace iTeffa
 
                     Fractions.Realm.Cityhall.lastHourTax = 0;
                     Fractions.Realm.Ems.HumanMedkitsLefts = 100;
-                    Plugins.Forbes.SyncMajors();
+                    Modules.Forbes.SyncMajors();
                     Working.FarmerJob.Market.marketmultiplier = rnd.Next(15, 30);
                     var rndt = new Random();
                     pluscost = rndt.Next(10, 20);
@@ -3374,7 +3374,7 @@ namespace iTeffa
                     return;
 
                 case "forb":
-                    Plugins.Forbes.OpenForbes(player);
+                    Modules.Forbes.OpenForbes(player);
                     return;
 
                 case "promo":

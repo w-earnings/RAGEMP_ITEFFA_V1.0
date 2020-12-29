@@ -202,7 +202,7 @@ namespace iTeffa.Modules
                 {
                     DoorState = false;
                     NAPI.Task.Run(() => { veh.Delete(); });
-                    Timers.Stop($"closeDoorContainer{ID}"); //timerstop
+                    Timers.Stop($"closeDoorContainer{ID}");
                 }
                 Door_l.Rotation += new Vector3(0, 0, 1);
                 Door_R.Rotation += new Vector3(0, 0, -1);

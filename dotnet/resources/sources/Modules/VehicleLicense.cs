@@ -4,9 +4,9 @@ using GTANetworkAPI;
 using iTeffa.Interface;
 using iTeffa.Settings;
 
-namespace iTeffa.Globals
+namespace iTeffa.Modules
 {
-    class DrivingSchool : Script
+    class VehicleLicense : Script
     {
         // мотоциклы, легковые машины, грузовые, водный, вертолёты, самолёты
         private static readonly List<int> LicPrices = new List<int>() { 600, 1000, 3000, 6000, 10000, 10000 };
@@ -160,7 +160,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[0]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -182,7 +182,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[1]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -204,7 +204,7 @@ namespace iTeffa.Globals
                     player.SetData("CHECK", 0);
                     Finance.Wallet.Change(player, -LicPrices[2]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
@@ -217,7 +217,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[3] = true;
                     Finance.Wallet.Change(player, -LicPrices[3]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[3];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
@@ -231,7 +231,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[4] = true;
                     Finance.Wallet.Change(player, -LicPrices[4]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[4];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
@@ -244,7 +244,7 @@ namespace iTeffa.Globals
                     Main.Players[player].Licenses[5] = true;
                     Finance.Wallet.Change(player, -LicPrices[5]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[5];
-                    Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
+                    Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
