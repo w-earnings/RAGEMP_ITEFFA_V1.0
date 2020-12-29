@@ -591,7 +591,7 @@ namespace iTeffa.Fractions.Realm
             {
                 if (NAPI.Data.HasEntityData(player, "ARREST_TIMER"))
                 {
-                    Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
+                    Settings.Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
                 }
 
                 if (NAPI.Data.HasEntityData(player, "FOLLOWING"))

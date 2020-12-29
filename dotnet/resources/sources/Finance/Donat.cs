@@ -26,7 +26,7 @@ namespace iTeffa.Finance
 
         public static void LoadDonations()
         {
-            Connection ="SERVER=localhost;PORT=;DATABASE=;UID=;PASSWORD=;SSL Mode=;pooling =;convert zero datetime=";
+            Connection = "SERVER=localhost;PORT=;DATABASE=;UID=;PASSWORD=;SSL Mode=;pooling =;convert zero datetime=";
             SYNCSTR = string.Format("select * from completed where srv={0}", Main.oldconfig.ServerNumber);
             CHNGSTR = "update nicknames SET name='{0}' WHERE name='{1}' and srv={2}";
             NEWNSTR = "insert into nicknames(srv, name) VALUES ({0}, '{1}')";

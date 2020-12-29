@@ -1,33 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace iTeffa.Settings
+namespace iTeffa.Models
 {
-    public class NTimer
+    public class Timers
     {
         public string ID { get; }
         public int MS { get; set; }
         public DateTime Next { get; private set; }
-
         public Action action { get; set; }
-
         public bool isOnce { get; set; }
         public bool isTask { get; set; }
         public bool isFinished { get; set; }
-
-        public NTimer(Action action_, string id_, int ms_, bool isonce_ = false, bool istask_ = false)
+        public Timers(Action action_, string id_, int ms_, bool isonce_ = false, bool istask_ = false)
         {
             action = action_;
-
             ID = id_;
             MS = ms_;
             Next = DateTime.Now.AddMilliseconds(MS);
-
             isOnce = isonce_;
             isTask = istask_;
             isFinished = false;
         }
-
         public void Elapsed()
         {
             try
@@ -38,21 +32,16 @@ namespace iTeffa.Settings
                 {
                     if (isOnce) isFinished = true;
                     Next = DateTime.Now.AddMilliseconds(MS);
-
-                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Invoke");
-
+                    Settings.Timers.Log.Debug($"Timer.Elapsed.{ID}.Invoke");
                     if (isTask) Task.Run(() => action.Invoke());
                     else action.Invoke();
-
-                    Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", Nlogs.Type.Success);
+                    Settings.Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", Settings.Nlogs.Type.Success);
                 }
-
             }
             catch (Exception e)
             {
-                Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", Nlogs.Type.Error);
+                Settings.Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", Settings.Nlogs.Type.Error);
             }
         }
-
     }
 }

@@ -91,7 +91,7 @@ namespace iTeffa
                     NAPI.World.SetTime(DateTime.Now.Hour, 0, 0);
                 });
 
-                Timers.StartOnceTask(10000, () => Plugins.Forbes.SyncMajors());
+                Settings.Timers.StartOnceTask(10000, () => Plugins.Forbes.SyncMajors());
 
                 DataTable result = Database.QueryRead("SELECT `uuid`, `personsid`,`firstname`,`lastname`,`sim`,`lvl`,`exp`,`fraction`,`money`,`bank`,`adminlvl` FROM `characters`");
                 if (result != null)
@@ -163,16 +163,16 @@ namespace iTeffa
                 Ban.Sync();
 
                 int time = 3600 - (DateTime.Now.Minute * 60) - DateTime.Now.Second;
-                Timers.StartOnceTask("paydayFirst", time * 1000, () =>
+                Settings.Timers.StartOnceTask("paydayFirst", time * 1000, () =>
                 {
 
-                    Timers.StartTask("payday", 3600000, () => payDayTrigger());
+                    Settings.Timers.StartTask("payday", 3600000, () => payDayTrigger());
                     payDayTrigger();
 
                 });
-                Timers.StartTask("savedb", 180000, () => saveDatabase());
-                Timers.StartTask("playedMins", 60000, () => playedMinutesTrigger());
-                Timers.StartTask("envTimer", 1000, () => enviromentChangeTrigger());
+                Settings.Timers.StartTask("savedb", 180000, () => saveDatabase());
+                Settings.Timers.StartTask("playedMins", 60000, () => playedMinutesTrigger());
+                Settings.Timers.StartTask("envTimer", 1000, () => enviromentChangeTrigger());
                 result = Database.QueryRead($"SELECT * FROM `othervehicles`");
                 if (result != null)
                 {
@@ -502,7 +502,7 @@ namespace iTeffa
                 {
                     if (!player.HasData("MUTE_TIMER"))
                     {
-                        player.SetData("MUTE_TIMER", Timers.StartTask(1000, () => Admin.timer_mute(player)));
+                        player.SetData("MUTE_TIMER", Settings.Timers.StartTask(1000, () => Admin.timer_mute(player)));
                         player.SetSharedData("voice.muted", true);
                         Trigger.ClientEvent(player, "voice.mute");
                     }
@@ -512,7 +512,7 @@ namespace iTeffa
                 {
                     if (!player.HasData("ARREST_TIMER"))
                     {
-                        player.SetData("ARREST_TIMER", Timers.StartTask(1000, () => Fractions.FractionCommands.arrestTimer(player)));
+                        player.SetData("ARREST_TIMER", Settings.Timers.StartTask(1000, () => Fractions.FractionCommands.arrestTimer(player)));
                         NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Police.policeCheckpoints[4]);
                         NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Sheriff.sheriffCheckpoints[4]);
                     }
@@ -522,7 +522,7 @@ namespace iTeffa
                 {
                     if (!player.HasData("ARREST_TIMER"))
                     {
-                        player.SetData("ARREST_TIMER", Timers.StartTask(1000, () => Admin.timer_demorgan(player)));
+                        player.SetData("ARREST_TIMER", Settings.Timers.StartTask(1000, () => Admin.timer_demorgan(player)));
                         Weapons.RemoveAll(player, true);
                         NAPI.Entity.SetEntityPosition(player, Admin.DemorganPosition + new Vector3(0, 0, 1.5));
                         NAPI.Entity.SetEntityDimension(player, 1337);
@@ -2333,7 +2333,7 @@ namespace iTeffa
                 Environment.Exit(0);
             }
 
-            Timers.Init();
+            Settings.Timers.Init();
             Loggings.Start();
             ReportSys.Init();
             Fractions.Realm.LSNews.Init();

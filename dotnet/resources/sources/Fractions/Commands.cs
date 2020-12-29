@@ -626,7 +626,7 @@ namespace iTeffa.Fractions
                 try
                 {
                     if (!player.HasData("ARREST_TIMER")) return;
-                    Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
+                    Settings.Timers.Stop(NAPI.Data.GetEntityData(player, "ARREST_TIMER"));
                     NAPI.Data.ResetEntityData(player, "ARREST_TIMER");
                     Fractions.Realm.Police.setPlayerWantedLevel(player, null);
                     NAPI.Entity.SetEntityPosition(player, Fractions.Realm.Police.policeCheckpoints[5]);
@@ -644,7 +644,7 @@ namespace iTeffa.Fractions
             Fractions.Realm.Police.setPlayerWantedLevel(target, null);
             NAPI.Entity.SetEntityPosition(target, Fractions.Realm.Sheriff.sheriffCheckpoints[4]);
             Fractions.Realm.Sheriff.setPlayerWantedLevel(target, null);
-            NAPI.Data.SetEntityData(target, "ARREST_TIMER", Timers.Start(1000, () => arrestTimer(target)));
+            NAPI.Data.SetEntityData(target, "ARREST_TIMER", Settings.Timers.Start(1000, () => arrestTimer(target)));
             Weapons.RemoveAll(target, true);
         }
 

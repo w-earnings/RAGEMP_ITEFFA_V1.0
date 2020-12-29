@@ -6,11 +6,10 @@ namespace iTeffa.Settings
 {
     public static class Timers
     {
-        public static Dictionary<string, NTimer> timers = new Dictionary<string, NTimer>();
+        public static Dictionary<string, Models.Timers > timers = new Dictionary<string, Models.Timers>();
         public static Nlogs Log = new Nlogs("nTimer", false);
         private static readonly Config config = new Config("Timers");
         private static Thread thread;
-
         private static int delay;
         private static int clearDelay;
 
@@ -30,8 +29,8 @@ namespace iTeffa.Settings
             {
                 lock (Timers.timers)
                 {
-                    List<NTimer> timers_ = new List<NTimer>(Timers.timers.Values);
-                    foreach (NTimer t in timers_)
+                    List<Models.Timers> timers_ = new List<Models.Timers>(Timers.timers.Values);
+                    foreach (Models.Timers t in timers_)
                     {
                         if (t.isFinished) Timers.timers.Remove(t.ID);
                     }
@@ -46,9 +45,9 @@ namespace iTeffa.Settings
                 {
                     if (timers.Count < 1) continue;
 
-                    List<NTimer> timers_ = new List<NTimer>(timers.Values);
+                    List<Models.Timers> timers_ = new List<Models.Timers>(timers.Values);
 
-                    foreach (NTimer timer in timers_)
+                    foreach (Models.Timers timer in timers_)
                     {
                         timer.Elapsed();
                     }
@@ -62,30 +61,19 @@ namespace iTeffa.Settings
             }
         }
 
-        /// <summary>
-        /// Находит и возвращает объект таймера
-        /// </summary>
-        /// <param name="id">Уникальный идентификатор таймера</param>
-        /// <returns>Объект таймера</returns>
-        public static NTimer Get(string id)
+        public static Models.Timers Get(string id)
         {
             if (timers.ContainsKey(id))
                 return timers[id];
             return null;
         }
 
-        /// <summary>
-        /// Start() запускает таймер и возвращает случайный ID
-        /// </summary>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
         public static string Start(int interval, Action action)
         {
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new NTimer(action, id, interval));
+                timers.Add(id, new Models.Timers(action, id, interval));
                 return id;
             }
             catch (Exception e)
@@ -94,16 +82,7 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// Start() запускает таймер с уникальным ID
-        /// </summary>
-        /// <exception>
-        /// Exception возникает при передаче уже существующего ID или значения null
-        /// </exception>
-        /// <param name="id">Уникальный идентификатор таймера</param>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string Start(string id, int interval, Action action)
         {
             try
@@ -111,7 +90,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new NTimer(action, id, interval));
+                timers.Add(id, new Models.Timers(action, id, interval));
                 return id;
             }
             catch (Exception e)
@@ -120,18 +99,13 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartOnce() запускает таймер один раз и возвращает случайный ID
-        /// </summary>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartOnce(int interval, Action action)
         {
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new NTimer(action, id, interval, true));
+                timers.Add(id, new Models.Timers(action, id, interval, true));
                 return id;
             }
             catch (Exception e)
@@ -140,16 +114,7 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartOnce() запускает таймер один раз и возвращает ID
-        /// </summary>
-        /// <exception>
-        /// Exception возникает при передаче уже существующего ID или значения null
-        /// </exception>
-        /// <param name="id">Уникальный идентификатор таймера</param>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartOnce(string id, int interval, Action action)
         {
             try
@@ -157,7 +122,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new NTimer(action, id, interval, true));
+                timers.Add(id, new Models.Timers(action, id, interval, true));
                 return id;
             }
             catch (Exception e)
@@ -166,18 +131,13 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartTask() запускает таймер отдельной задачей и возвращает случайный ID
-        /// </summary>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartTask(int interval, Action action)
         {
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new NTimer(action, id, interval, false, true));
+                timers.Add(id, new Models.Timers(action, id, interval, false, true));
                 return id;
             }
             catch (Exception e)
@@ -186,16 +146,7 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartTask() запускает таймер отдельной задачей и возвращает ID
-        /// </summary>
-        /// <exception>
-        /// Exception возникает при передаче уже существующего ID или значения null
-        /// </exception>
-        /// <param name="id">Уникальный идентификатор таймера</param>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartTask(string id, int interval, Action action)
         {
             try
@@ -203,7 +154,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new NTimer(action, id, interval, false, true));
+                timers.Add(id, new Models.Timers(action, id, interval, false, true));
                 return id;
             }
             catch (Exception e)
@@ -212,18 +163,13 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartOnceTask() запускает таймер один раз отдельной задачей и возвращает случайный ID
-        /// </summary>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartOnceTask(int interval, Action action)
         {
             string id = Guid.NewGuid().ToString();
             try
             {
-                timers.Add(id, new NTimer(action, id, interval, true, true));
+                timers.Add(id, new Models.Timers(action, id, interval, true, true));
                 return id;
             }
             catch (Exception e)
@@ -232,16 +178,7 @@ namespace iTeffa.Settings
                 return null;
             }
         }
-        /// <summary>
-        /// StartOnceTask() запускает таймер один раз отдельной задачей и возвращает ID
-        /// </summary>
-        /// <exception>
-        /// Exception возникает при передаче уже существующего ID или значения null
-        /// </exception>
-        /// <param name="id">Уникальный идентификатор таймера</param>
-        /// <param name="interval">Интервал срабатывания действия</param>
-        /// <param name="action">Лямбда-выражение с действием</param>
-        /// <returns>Уникальный ID таймера</returns>
+
         public static string StartOnceTask(string id, int interval, Action action)
         {
             try
@@ -249,7 +186,7 @@ namespace iTeffa.Settings
                 if (timers.ContainsKey(id)) throw new Exception("This id is already in use!");
                 if (id is null) throw new Exception("Id cannot be null");
 
-                timers.Add(id, new NTimer(action, id, interval, true, true));
+                timers.Add(id, new Models.Timers(action, id, interval, true, true));
                 return id;
             }
             catch (Exception e)
@@ -272,7 +209,7 @@ namespace iTeffa.Settings
         public static void Stats()
         {
             string timers_ = "";
-            foreach (NTimer t in timers.Values)
+            foreach (Models.Timers t in timers.Values)
             {
                 string state = (t.isFinished) ? "stopped" : "active";
                 timers_ += $"{t.ID}:{state} ";
