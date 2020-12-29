@@ -169,7 +169,7 @@ namespace iTeffa.Working
         {
             if (NAPI.Player.IsPlayerInAnyVehicle(player) && player.VehicleSeat == 0 && player.Vehicle.GetData<string>("TYPE") == "TRUCKER")
             {
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы начали работу дальнобойщиком. Открыть заказы /orders", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы начали работу дальнобойщиком. Открыть заказы /orders", 3000);
                 var vehicle = player.Vehicle;
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
                 player.ResetData("WayPointBiz");
@@ -181,30 +181,30 @@ namespace iTeffa.Working
             }
             else
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в транспорте", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в транспорте", 3000);
             }
         }
         public static void getOrderTrailer(Player player)
         {
             if (Main.Players[player].WorkID != 6)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете дальнобойщиком", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете дальнобойщиком", 3000);
                 return;
             }
             if (player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны выйти из машины", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны выйти из машины", 3000);
                 return;
             }
             if (!player.HasData("ORDER"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет заказа", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет заказа", 3000);
                 return;
             }
             int prod = player.GetData<int>("PROD");
             if (player.HasData("TRAILER"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже получили продукты", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже получили продукты", 3000);
                 return;
             }
             int uid = player.GetData<int>("ORDER");
@@ -231,7 +231,7 @@ namespace iTeffa.Working
                 DateTime g = new DateTime((date - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Товар всё ещё подготавливается. Ждите {min}:{sec}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Товар всё ещё подготавливается. Ждите {min}:{sec}", 3000);
                 return;
             }
 
@@ -244,50 +244,50 @@ namespace iTeffa.Working
                 case 0:
                     if (biz.Type != 0 && biz.Type != 8 && biz.Type != 7 && biz.Type != 9 && biz.Type != 10 && biz.Type != 11 && biz.Type != 12 && biz.Type != 13 && biz.Type != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не брали заказ на этот тип товара", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не брали заказ на этот тип товара", 3000);
                         return;
                     }
                     var veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Trailers2, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
                     Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
                 case 1:
                     if (biz.Type != 1)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не брали заказ на бензин", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не брали заказ на бензин", 3000);
                         return;
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Tanker, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
                     Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
                 case 2:
                     if (biz.Type < 2 || biz.Type > 5)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не брали заказ на автомобили", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не брали заказ на автомобили", 3000);
                         return;
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Tr4, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
                     Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
                 case 3:
                     if (biz.Type != 6)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не брали заказ на оружие", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не брали заказ на оружие", 3000);
                         return;
                     }
                     veh = NAPI.Vehicle.CreateVehicle(VehicleHash.Trailers, SpawnTrailers[prod][spawnI], SpawnTrailersRot[prod][spawnI].Z, 0, 0);
                     player.SetData("TRAILER", veh);
                     Trigger.ClientEvent(player, "SetOrderTruck", veh);
                     player.SendChatMessage("Если вдруг Вы потеряете свой трейлер, то напишите в чат /findtrailer");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили трейлер с товаром, подойдите к нему и увидите 'Ваш Заказ'", 3000);
                     return;
             }
         }
@@ -336,7 +336,7 @@ namespace iTeffa.Working
                 {
                     if (!Main.Players[player].Licenses[2])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории C", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии категории C", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -344,7 +344,7 @@ namespace iTeffa.Working
                     {
                         if (Main.Players[player].BizIDs.Count > 0)
                         {
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы не можете начать работу", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы не можете начать работу", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                             return;
                         }
@@ -364,7 +364,7 @@ namespace iTeffa.Working
                         {
                             if (NAPI.Data.GetEntityData(player, "WORK") != vehicle)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине есть водитель", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине есть водитель", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
                             }
                             else
@@ -379,7 +379,7 @@ namespace iTeffa.Working
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете дальнобойщиком. Устроиться можно в мэрии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете дальнобойщиком. Устроиться можно в мэрии", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -396,7 +396,7 @@ namespace iTeffa.Working
                 NAPI.Data.GetEntityData(player, "ON_WORK") &&
                 NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER")) Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
@@ -427,7 +427,7 @@ namespace iTeffa.Working
                         respawnCar(vehicle);
                         Trigger.ClientEvent(player, "SetOrderTruck", null);
                         player.ResetData("WayPointBiz");
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
@@ -466,7 +466,7 @@ namespace iTeffa.Working
                     cancelOrder(player);
                     return;
                 }
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Довезите товар до {BusinessManager.BusinessTypeNames[biz.Type]}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Довезите товар до {BusinessManager.BusinessTypeNames[biz.Type]}", 3000);
 
                 player.SetData("GOTPRODUCT", true);
                 player.SetData("WayPointBiz", biz);
@@ -501,7 +501,7 @@ namespace iTeffa.Working
                 Vehicle trailer = player.GetData<Vehicle>("TRAILER");
                 if (player.Position.DistanceTo(trailer.Position) > 20)
                 {
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Трейлер должен находиться по-близости", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Трейлер должен находиться по-близости", 3000);
                     return;
                 }
                 var payment = Convert.ToInt32(order.Amount * BusinessManager.ProductsOrderPrice[order.Name] * 0.1 * Main.oldconfig.PaydayMultiplier);
@@ -514,8 +514,7 @@ namespace iTeffa.Working
                 var ow = NAPI.Player.GetPlayerFromName(biz.Owner);
                 Trigger.ClientEvent(player, "SetOrderTruck", null);
                 player.ResetData("WayPointBiz");
-                if (ow != null)
-                    Notify.Send(ow, NotifyType.Warning, NotifyPosition.TopCenter, $"Ваш заказ на {order.Name} был доставлен", 3000);
+                if (ow != null) Plugins.Notice.Send(ow, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Ваш заказ на {order.Name} был доставлен", 3000);
                 foreach (var p in biz.Products)
                 {
                     if (p.Name != order.Name) continue;
@@ -540,7 +539,7 @@ namespace iTeffa.Working
                         }
                     } catch { }
                 });
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы доставили трейлер", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы доставили трейлер", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("onEntityDropTrailer_ATTENTION: " + e.Message, Nlogs.Type.Error); }
@@ -550,12 +549,12 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].WorkID != 6)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете дальнобойщиком", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете дальнобойщиком", 3000);
                 return;
             }
             if (!player.GetData<bool>("ON_WORK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете в данный момент", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете в данный момент", 3000);
                 return;
             }
             WorkManager.OpenTruckersOrders(player);

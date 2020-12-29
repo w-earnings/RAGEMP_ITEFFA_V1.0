@@ -102,13 +102,13 @@ namespace iTeffa.Globals
 
             if (player.HasData("HEIST_DRILL"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть сумка", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть сумка", 3000);
                 return;
             }
 
             if (SafeLoot == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В сейфе больше нет денег", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В сейфе больше нет денег", 3000);
                 return;
             }
 
@@ -119,7 +119,7 @@ namespace iTeffa.Globals
                 var lefts = (item == null) ? 0 : Convert.ToInt32(item.Data.ToString());
                 if (lefts == SafeMain.MaxMoneyInBag)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Ваша сумка полностью забита деньгами", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Ваша сумка полностью забита деньгами", 3000);
                     return;
                 }
                 if (money + lefts > SafeMain.MaxMoneyInBag)
@@ -127,14 +127,14 @@ namespace iTeffa.Globals
                 lefts += money;
                 item.Data = $"{lefts}";
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Теперь в Вашей сумке {lefts}$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Теперь в Вашей сумке {lefts}$", 3000);
             }
             else
             {
                 var item = new nItem(ItemType.BagWithMoney, 1, $"{money}");
                 nInventory.Items[Main.Players[player].UUID].Add(item);
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы взяли сумку с {money}$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы взяли сумку с {money}$", 3000);
             }
             Dashboard.sendItems(player);
 

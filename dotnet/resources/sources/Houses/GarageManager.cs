@@ -183,7 +183,7 @@ namespace iTeffa.Houses
                         var vehicles = VehicleManager.getAllPlayerVehicles(house.Owner);
                         if (player.IsInVehicle && !vehicles.Contains(player.Vehicle.NumberPlate))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du kannst mit diesem Auto nicht in die Garage fahren", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Du kannst mit diesem Auto nicht in die Garage fahren", 3000);
                             return;
                         }
                         else if (player.IsInVehicle && vehicles.Contains(player.Vehicle.NumberPlate))
@@ -204,14 +204,14 @@ namespace iTeffa.Houses
                             if (vehicles.Count == 0) return;
                             if (garage.CheckCar(false, vehicles[0]))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ihr Auto ist jetzt irgendwo im Staat, Sie können evakuieren", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Ihr Auto ist jetzt irgendwo im Staat, Sie können evakuieren", 3000);
                                 return;
                             }
                             if (player.IsInVehicle) return;
 
                             if (VehicleManager.Vehicles[vehicles[0]].Health < 1)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Sie müssen das Auto wiederherstellen", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Sie müssen das Auto wiederherstellen", 3000);
                                 return;
                             }
                             garage.GetVehicleFromGarage(player, vehicles[0]);

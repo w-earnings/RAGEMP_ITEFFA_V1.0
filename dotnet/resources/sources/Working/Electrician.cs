@@ -121,7 +121,7 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].WorkID != 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не работаете электриком. Устроиться можно в мэрии", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не работаете электриком. Устроиться можно в мэрии", 3000);
                 return;
             }
             if (player.GetData<bool>("ON_WORK"))
@@ -130,7 +130,7 @@ namespace iTeffa.Working
                 player.SetData("ON_WORK", false);
                 Trigger.ClientEvent(player, "deleteCheckpoint", 15);
                 Trigger.ClientEvent(player, "deleteWorkBlip");
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                 return;
             }
             else
@@ -159,7 +159,7 @@ namespace iTeffa.Working
                 Trigger.ClientEvent(player, "createWorkBlip", Checkpoints[check].Position);
 
                 player.SetData("ON_WORK", true);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, "Вы начали рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Вы начали рабочий день", 3000);
                 return;
             }
         }

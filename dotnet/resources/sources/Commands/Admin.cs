@@ -43,17 +43,17 @@ namespace iTeffa.Commands
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 if (lic < 0 || lic >= Main.Players[target].Licenses.Count)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"lic = от 0 до {Main.Players[target].Licenses.Count - 1}", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"lic = от 0 до {Main.Players[target].Licenses.Count - 1}", 3000);
                     return;
                 }
                 Main.Players[target].Licenses[lic] = true;
                 Dashboard.sendStats(target);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Успешно выдано", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Успешно выдано", 3000);
             }
             catch { }
         }
@@ -66,7 +66,7 @@ namespace iTeffa.Commands
                 Player target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Игрок с таким ID не найден", 3000);
                     return;
                 }
                 target.StopAnimation();
@@ -82,8 +82,8 @@ namespace iTeffa.Commands
                     Timers.Stop(target.GetData<string>("DYING_TIMER"));
                     target.ResetData("DYING_TIMER");
                 }
-                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
-                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
+                Plugins.Notice.Send(target, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({client.Value}) реанимировал Вас", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы реанимировали игрока ({target.Value})", 3000);
 
                 if (target.HasData("CALLEMS_BLIP"))
                 {
@@ -110,7 +110,7 @@ namespace iTeffa.Commands
                 queryCommand.Parameters.AddWithValue("@COUNT", 0);
                 queryCommand.Parameters.AddWithValue("@OWNER", uuid);
                 Database.Query(queryCommand);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Промокод успешно создан...", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Промокод успешно создан...", 3000);
             }
             catch { }
         }
@@ -141,7 +141,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.setPlayerAdminGroup(player, Main.GetPlayerByID(id));
@@ -155,7 +155,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.delPlayerAdminGroup(player, Main.GetPlayerByID(id));
@@ -169,7 +169,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.setPlayerAdminRank(player, Main.GetPlayerByID(id), rank);
@@ -185,7 +185,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.delFracLeader(player, Main.GetPlayerByID(id));
@@ -233,7 +233,7 @@ namespace iTeffa.Commands
 
                 if (player != null && Main.Players.ContainsKey(player))
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Администратор отобрал у Вас бизнес", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Администратор отобрал у Вас бизнес", 3000);
                     Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
                     Main.Players[player].BizIDs.Remove(biz.ID);
                 }
@@ -258,7 +258,7 @@ namespace iTeffa.Commands
                 biz.Owner = "Государство";
                 biz.UpdateLabel();
                 Globals.Loggings.Money($"server", $"player({Main.PlayerUUIDs[owner]})", Convert.ToInt32(biz.SellPrice * 0.8), $"takeoffBiz({biz.ID})");
-                Notify.Send(admin, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отобрали бизнес у {owner}", 3000);
+                Plugins.Notice.Send(admin, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы отобрали бизнес у {owner}", 3000);
                 if (!byaclear) Globals.Loggings.Admin($"{player.Name}", $"takeoffBiz({biz.ID})", $"");
             }
             catch (Exception e) { Log.Write("takeoffbiz: " + e.Message, Nlogs.Type.Error); }
@@ -290,7 +290,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.giveMoney(player, Main.GetPlayerByID(id), money);
@@ -305,7 +305,7 @@ namespace iTeffa.Commands
                 var target = Main.GetPlayerByID(id);
                 if (target == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.sendCoins(player, target, amount);
@@ -550,7 +550,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.sendPlayerToDemorgan(player, Main.GetPlayerByID(id), time, reason);
@@ -564,7 +564,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.releasePlayerFromDemorgan(player, Main.GetPlayerByID(id));
@@ -615,7 +615,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.healTarget(player, Main.GetPlayerByID(id), hp);
@@ -629,7 +629,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.armorTarget(player, Main.GetPlayerByID(id), ar);
@@ -663,7 +663,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.teleportTargetToPlayer(player, Main.GetPlayerByID(id), false);
@@ -677,7 +677,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.teleportTargetToPlayer(player, Main.GetPlayerByID(id), true);
@@ -691,7 +691,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.killTarget(player, Main.GetPlayerByID(id));
@@ -705,7 +705,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.freezeTarget(player, Main.GetPlayerByID(id));
@@ -719,7 +719,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Globals.Admin.unFreezeTarget(player, Main.GetPlayerByID(id));
@@ -1044,7 +1044,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "save")) return;
             if (type < 0 || type >= HouseManager.HouseTypeList.Count)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Неправильный тип", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Неправильный тип", 3000);
                 return;
             }
 
@@ -1076,7 +1076,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
             House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
@@ -1090,7 +1090,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
             House house = HouseManager.Houses.FirstOrDefault(h => h.ID == player.GetData<int>("HOUSEID"));
@@ -1105,7 +1105,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "save")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на маркере дома", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться на маркере дома", 3000);
                 return;
             }
 
@@ -1121,12 +1121,12 @@ namespace iTeffa.Commands
             var guest = Main.GetPlayerByID(id);
             if (guest == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не найден", 3000);
                 return;
             }
             if (player.Position.DistanceTo(guest.Position) > 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы находитесь слишком далеко", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы находитесь слишком далеко", 3000);
                 return;
             }
             HouseManager.InvitePlayerToHouse(player, guest);
@@ -1137,7 +1137,7 @@ namespace iTeffa.Commands
             var target = Main.GetPlayerByID(id);
             if (target == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не найден", 3000);
                 return;
             }
             HouseManager.OfferHouseSell(player, target, price);
@@ -1148,7 +1148,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "ban")) return;
             if (!player.HasData("HOUSEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Sie müssen auf der Hausmarkierung stehen", 3000);
                 return;
             }
 
@@ -1164,7 +1164,7 @@ namespace iTeffa.Commands
         {
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Du musst im Auto sitzen!", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Du musst im Auto sitzen!", 3000);
                 return;
             }
 
@@ -1193,7 +1193,7 @@ namespace iTeffa.Commands
             if (!Globals.Group.CanUseCmd(player, "allspawncar")) return;
             if (!player.HasData("GARAGEID"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны быть на гаражном маркере", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны быть на гаражном маркере", 3000);
                 return;
             }
             if (!GarageManager.Garages.ContainsKey(player.GetData<int>("GARAGEID"))) return;
@@ -1220,7 +1220,8 @@ namespace iTeffa.Commands
             Controller.SendToAdmins(8, $"!{{#d35400}} {restart.Name}, пытается перезагрузить сервер.");
             if (Main.Players[restart].AdminLVL < 8)
             {
-                Notify.Send(restart, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока нет админ. прав", 3000);
+                Plugins.Notice.Send(restart, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока нет админ. прав", 3000);
+                Plugins.Notice.Send(restart, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока нет админ. прав", 3000);
                 return;
             }
             foreach (Player c in NAPI.Pools.GetAllPlayers())

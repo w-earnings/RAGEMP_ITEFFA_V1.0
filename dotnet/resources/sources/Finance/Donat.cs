@@ -104,7 +104,7 @@ namespace iTeffa.Finance
                                 try
                                 {
                                     if (!Main.Accounts.ContainsKey(client)) return;
-                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вам пришли {reds} Coins", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вам пришли {reds} Coins", 3000);
                                     Trigger.ClientEvent(client, "starset", Main.Accounts[client].Coins);
                                 }
                                 catch { }
@@ -197,7 +197,7 @@ namespace iTeffa.Finance
                                 if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                                 {
                                     garage.SpawnCar(vNumber);
-                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"", 3000);
                                 }
                             }
                         }
@@ -216,7 +216,7 @@ namespace iTeffa.Finance
                                 if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                                 {
                                     garage.SpawnCar(vNumber);
-                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"", 3000);
                                 }
                             }
                         }
@@ -235,7 +235,7 @@ namespace iTeffa.Finance
                                 if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                                 {
                                     garage.SpawnCar(vNumber);
-                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"", 3000);
                                 }
                             }
                         }
@@ -254,7 +254,7 @@ namespace iTeffa.Finance
                                 if (VehicleManager.getAllPlayerVehicles(client.Name).Count < Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                                 {
                                     garage.SpawnCar(vNumber);
-                                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"", 3000);
                                 }
                             }
                         }
@@ -320,7 +320,7 @@ namespace iTeffa.Finance
                         {
                             if (Main.Accounts[client].Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
@@ -332,7 +332,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 100)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 100;
@@ -344,7 +344,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 25)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
@@ -356,12 +356,12 @@ namespace iTeffa.Finance
 
                                 if (split[0] == "null" || string.IsNullOrEmpty(split[0]))
                                 {
-                                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Вы не указали имя!", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не указали имя!", 3000);
                                     return;
                                 }
                                 else if (split[1] == "null" || string.IsNullOrEmpty(split[1]))
                                 {
-                                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Вы не указали фамилию!", 3000);
+                                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не указали фамилию!", 3000);
                                     return;
                                 }
                             }
@@ -373,7 +373,7 @@ namespace iTeffa.Finance
 
                             if (Main.PlayerNames.ContainsValue(data))
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Такое имя уже существует!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Такое имя уже существует!", 3000);
                                 return;
                             }
 
@@ -393,25 +393,25 @@ namespace iTeffa.Finance
                         {
                             if (!int.TryParse(data, out int amount))
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Возникла ошибка, попоробуйте еще раз", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Возникла ошибка, попоробуйте еще раз", 3000);
                                 return;
                             }
                             amount = Math.Abs(amount);
                             if (amount <= 0)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Введите количество, равное 1 или больше.", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите количество, равное 1 или больше.", 3000);
                                 return;
                             }
                             if (Main.Accounts[client].Coins < amount)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= amount;
                             Loggings.Money(acc.Login, "server", amount, "donateConvert");
                             amount *= 100;
                             Wallet.Change(client, +amount);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно перевели RF в {amount}", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно перевели RF в {amount}", 3000);
                             Loggings.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
                             break;
                         }
@@ -419,12 +419,12 @@ namespace iTeffa.Finance
                         {
                             if (Main.Accounts[client].VipLvl >= 1)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У вас уже куплен VIP статус!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
                             if (acc.Coins < 300)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 300;
@@ -438,12 +438,12 @@ namespace iTeffa.Finance
                         {
                             if (acc.VipLvl >= 1)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У вас уже куплен VIP статус!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
                             if (acc.Coins < 600)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 600;
@@ -457,12 +457,12 @@ namespace iTeffa.Finance
                         {
                             if (Main.Accounts[client].VipLvl >= 1)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У вас уже куплен VIP статус!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
                             if (acc.Coins < 800)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 800;
@@ -476,12 +476,12 @@ namespace iTeffa.Finance
                         {
                             if (Main.Accounts[client].VipLvl >= 1)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У вас уже куплен VIP статус!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас уже куплен VIP статус!", 3000);
                                 return;
                             }
                             if (acc.Coins < 1000)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 1000;
@@ -495,12 +495,12 @@ namespace iTeffa.Finance
                         {
                             if (Main.Players[client].Warns <= 0)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет Warn'a!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас нет Warn'a!", 3000);
                                 return;
                             }
                             if (acc.Coins < 250)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 250;
@@ -514,7 +514,7 @@ namespace iTeffa.Finance
                             Log.Debug("Unlock slot");
                             if (acc.Coins < 1000)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 1000;
@@ -541,13 +541,13 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 2500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 100000);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $100 000", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $100 000", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -555,13 +555,13 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 2500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 300000);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $300 000", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $300 000", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -569,13 +569,13 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 2500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 500000);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $500 000", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $500 000", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -583,13 +583,13 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 2500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
                             Wallet.Change(client, 1000000);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели $1 000 000", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $1 000 000", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -597,7 +597,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
 
@@ -608,7 +608,7 @@ namespace iTeffa.Finance
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 10;
                             VehicleManager.Create(client.Name, CarNameS[1], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели Старт для начала набор", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели Старт для начала набор", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -616,7 +616,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
@@ -625,7 +625,7 @@ namespace iTeffa.Finance
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 15;
                             VehicleManager.Create(client.Name, CarNameS[2], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели Солидненько набор", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели Солидненько набор", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -633,7 +633,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
@@ -642,7 +642,7 @@ namespace iTeffa.Finance
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 20;
                             VehicleManager.Create(client.Name, CarNameS[3], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели Солидненько набор", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели Солидненько набор", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -650,7 +650,7 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 500;
@@ -659,7 +659,7 @@ namespace iTeffa.Finance
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 25;
                             VehicleManager.Create(client.Name, CarNameS[4], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели Золотые запасы набор", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели Золотые запасы набор", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -667,19 +667,19 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 500)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             if (Main.Players[client].Licenses[2])
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть легковая лицензия", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть легковая лицензия", 3000);
                                 return;
                             }
 
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateBox1");
                             Main.Players[client].Licenses[1] = true;
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели легковую лицензию", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели легковую лицензию", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }
@@ -687,18 +687,18 @@ namespace iTeffa.Finance
                         {
                             if (acc.Coins < 600)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно Coins!", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно Coins!", 3000);
                                 return;
                             }
                             if (Main.Players[client].Licenses[2])
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть грузовая лицензия", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть грузовая лицензия", 3000);
                                 return;
                             }
                             Main.Accounts[client].Coins -= 600;
                             Loggings.Money(acc.Login, "server", 600, "donateBox1");
                             Main.Players[client].Licenses[2] = true;
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Вы успешно приобрели грузовую лицензию", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели грузовую лицензию", 3000);
                             Dashboard.sendStats(client);
                             break;
                         }

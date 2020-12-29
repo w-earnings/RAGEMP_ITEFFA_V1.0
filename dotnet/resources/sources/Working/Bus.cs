@@ -809,7 +809,7 @@ namespace iTeffa.Working
                     Trigger.ClientEvent(player, "deleteWorkBlip");
 
                     NAPI.Data.SetEntityData(player, "BUS_ONSTOP", true);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Остановка. Через 10 секунд Вы сможете продолжить маршрут", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Остановка. Через 10 секунд Вы сможете продолжить маршрут", 3000);
                     player.SetData("BUS_TIMER", Timers.StartOnce(10000, () => timer_busStop(player, way, check)));
 
                     foreach (var p in Main.GetPlayersInRadiusOfPosition(player.Position, 30))
@@ -826,7 +826,7 @@ namespace iTeffa.Working
                 try
                 {
                     NAPI.Data.SetEntityData(player, "BUS_ONSTOP", false);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Можете ехать дальше", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Можете ехать дальше", 3000);
                     var payment = Convert.ToInt32(BuswaysPayments[way] * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                     Finance.Wallet.Change(player, payment);
                     Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"busCheck");
@@ -863,7 +863,7 @@ namespace iTeffa.Working
                     NAPI.Data.GetEntityData(player, "ON_WORK") &&
                     NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Если Вы не сядете в транспорт через 60 секунд, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
                     Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
@@ -892,7 +892,7 @@ namespace iTeffa.Working
 
                         NAPI.Data.SetEntityData(player, "ON_WORK", false);
                         NAPI.Data.SetEntityData(player, "WORK", null);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                         Trigger.ClientEvent(player, "deleteCheckpoint", 3, 0);
                         Trigger.ClientEvent(player, "deleteWorkBlip");
                         Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
@@ -919,7 +919,7 @@ namespace iTeffa.Working
                 {
                     if (!Main.Players[player].Licenses[2])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории C", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии категории C", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -935,18 +935,18 @@ namespace iTeffa.Working
                                 }
                                 else
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает " + (BusRentCost - Main.Players[player].Money) + "$ на аренду автобуса", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не хватает " + (BusRentCost - Main.Players[player].Money) + "$ на аренду автобуса", 3000);
                                     VehicleManager.WarpPlayerOutOfVehicle(player);
                                 }
                             }
                             else
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть арендованный автобус", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть арендованный автобус", 3000);
                         }
                         else
                         {
                             if (NAPI.Data.GetEntityData(player, "WORK") != vehicle)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У автобуса уже есть водитель", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У автобуса уже есть водитель", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
                             }
                             else
@@ -955,7 +955,7 @@ namespace iTeffa.Working
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете водителем автобуса. Устроиться можно в мэрии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете водителем автобуса. Устроиться можно в мэрии", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -966,20 +966,20 @@ namespace iTeffa.Working
                         var price = 30;
                         if (Main.Players[player].Money >= price)
                         {
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы заплатили за проезд {price}$", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы заплатили за проезд {price}$", 3000);
                             Finance.Wallet.Change(player, -price);
                             Fractions.Stocks.fracStocks[6].Money += price;
                             Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"busPay");
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно средств для оплаты проезда", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно средств для оплаты проезда", 3000);
                             VehicleManager.WarpPlayerOutOfVehicle(player);
                         }
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В автобусе сейчас нет водителя", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В автобусе сейчас нет водителя", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -1040,11 +1040,11 @@ namespace iTeffa.Working
                 Trigger.ClientEvent(player, "createWaypoint", BusWays[way][0].Pos.X, BusWays[way][0].Pos.Y);
                 Trigger.ClientEvent(player, "createWorkBlip", BusWays[way][0].Pos);
                 NAPI.Data.SetEntityData(player, "WORK", vehicle);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали автобус. Вас распределили на маршрут {BusWaysNames[way]}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы арендовали автобус. Вас распределили на маршрут {BusWaysNames[way]}", 3000);
             }
             else
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в автобусе", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в автобусе", 3000);
             }
         }
 

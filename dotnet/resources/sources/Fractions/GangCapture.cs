@@ -211,18 +211,18 @@ namespace iTeffa.Fractions
             if (!Manager.canUseCommand(player, "capture")) return;
             if (player.GetData<int>("GANGPOINT") == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не находитесь ни на одном из регионов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не находитесь ни на одном из регионов", 3000);
                 return;
             }
             GangPoint region = gangPoints[player.GetData<int>("GANGPOINT")];
             if (region.GangOwner == Main.Players[player].FractionID)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете напасть на свою территорию", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете напасть на свою территорию", 3000);
                 return;
             }
             if (DateTime.Now.Hour < 13 || DateTime.Now.Hour > 23)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы можете напасть только с 13:00 до 23:00", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы можете напасть только с 13:00 до 23:00", 3000);
                 return;
             }
             if (DateTime.Now < nextCaptDate[Main.Players[player].FractionID])
@@ -230,7 +230,7 @@ namespace iTeffa.Fractions
                 DateTime g = new DateTime((nextCaptDate[Main.Players[player].FractionID] - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете начать захват только через {min}:{sec}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы сможете начать захват только через {min}:{sec}", 3000);
                 return;
             }
             if (DateTime.Now < protectDate[region.GangOwner])
@@ -238,19 +238,19 @@ namespace iTeffa.Fractions
                 DateTime g = new DateTime((protectDate[region.GangOwner] - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете начать захват территории этой банды только через {min}:{sec}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы сможете начать захват территории этой банды только через {min}:{sec}", 3000);
                 return;
             }
             if (Manager.countOfFractionMembers(region.GangOwner) < 3)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточный онлайн в банде противников", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточный онлайн в банде противников", 3000);
                 return;
             }
             if (smbTryCapture) return;
             smbTryCapture = true;
             if (captureStarting || captureIsGoing)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Захват территории уже идёт", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Захват территории уже идёт", 3000);
                 smbTryCapture = false;
                 return;
             }

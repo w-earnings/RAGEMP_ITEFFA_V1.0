@@ -31,7 +31,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             msg = Controller.RainbowExploit(player, msg);
@@ -42,7 +42,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             msg = Controller.RainbowExploit(player, msg);
@@ -53,7 +53,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("todo", player, msg);
@@ -63,7 +63,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("s", player, msg);
@@ -73,7 +73,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("b", player, msg);
@@ -83,7 +83,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("vh", player, msg);
@@ -93,7 +93,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("m", player, msg);
@@ -103,7 +103,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             await Controller.RPChatAsync("t", player, msg);
@@ -113,7 +113,7 @@ namespace iTeffa.Commands
         {
             if (Main.Players[player].Unmute > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[player].Unmute / 60} минут", 3000);
                 return;
             }
             Controller.Try(player, msg);

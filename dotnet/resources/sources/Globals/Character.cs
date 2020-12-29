@@ -124,7 +124,7 @@ namespace iTeffa.Globals.Character
 
                     if (Warns > 0)
                         Unwarn = DateTime.Now.AddDays(14);
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Одно предупреждение было снято. У Вас осталось {Warns}", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Одно предупреждение было снято. У Вас осталось {Warns}", 3000);
                 }
 
                 if (!Dashboard.isopen.ContainsKey(player))
@@ -356,12 +356,12 @@ namespace iTeffa.Globals.Character
 
                 if (firstName.Length < 1 || lastName.Length < 1)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка в длине имени/фамилии", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Ошибка в длине имени/фамилии", 3000);
                     return -1;
                 }
                 if (Main.PlayerNames.ContainsValue($"{firstName}_{lastName}"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данное имя уже занято", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Данное имя уже занято", 3000);
                     return -1;
                 }
 

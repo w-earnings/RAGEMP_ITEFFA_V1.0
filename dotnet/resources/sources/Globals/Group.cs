@@ -100,7 +100,7 @@ namespace iTeffa.Globals
                 goto check;
             }
 
-            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно прав", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно прав", 3000);
             return false;
         }
 

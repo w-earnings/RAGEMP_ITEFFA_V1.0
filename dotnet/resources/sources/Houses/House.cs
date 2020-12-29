@@ -224,7 +224,7 @@ namespace iTeffa.Houses
                 var roommate = NAPI.Player.GetPlayerFromName(r);
                 if (roommate != null)
                 {
-                    Notify.Send(roommate, NotifyType.Warning, NotifyPosition.TopCenter, "Вы были выселены из дома", 3000);
+                    Plugins.Notice.Send(roommate, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Вы были выселены из дома", 3000);
                     roommate.TriggerEvent("deleteCheckpoint", 333);
                     roommate.TriggerEvent("deleteGarageBlip");
                 }

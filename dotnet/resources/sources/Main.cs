@@ -443,7 +443,7 @@ namespace iTeffa
             try
             {
                 Trigger.ClientEvent(player, "CUFFED", true);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Голосовой чат и интерфейс перезагружен.", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Голосовой чат и интерфейс перезагружен.", 3000);
                 Dashboard.Close(player);
                 Trigger.ClientEvent(player, "CUFFED", false);
                 if (Players[player].FractionID == 7 || Players[player].FractionID == 9)
@@ -478,7 +478,7 @@ namespace iTeffa
                 if (player.Vehicle == null || !player.HasData("TAXI_DRIVER")) return;
                 Player driver = player.GetData<Player>("TAXI_DRIVER");
                 if (driver == player || driver == null) return;
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы передали водителю данные о своём маршруте!", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы передали водителю данные о своём маршруте!", 3000);
                 Trigger.ClientEvent(driver, "syncWP", X, Y);
             }
             catch (Exception e)
@@ -645,7 +645,7 @@ namespace iTeffa
                         int limit = 0;
                         if (!int.TryParse(text, out limit) || limit <= 0)
                         {
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
 
@@ -688,7 +688,7 @@ namespace iTeffa
                         }
 
                         Fractions.Stocks.fracStocks[fracID].FuelLimit = limit;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы установили дневной лимит топлива в ${limit} для {fracName}", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы установили дневной лимит топлива в ${limit} для {fracName}", 3000);
                         return;
                     case "club_setprice":
                         try
@@ -697,12 +697,12 @@ namespace iTeffa
                         }
                         catch
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         if (Convert.ToInt32(text) < 1)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         Fractions.AlcoFabrication.SetAlcoholPrice(player, Convert.ToInt32(text));
@@ -711,14 +711,14 @@ namespace iTeffa
                         int price = 0;
                         if (!int.TryParse(text, out price) || price <= 0)
                         {
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
 
                         Player target = player.GetData<Player>("SELECTEDPLAYER");
                         if (!Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 2)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко от Вас", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок слишком далеко от Вас", 3000);
                             return;
                         }
 
@@ -728,7 +728,7 @@ namespace iTeffa
                         int amount = 0;
                         if (!int.TryParse(text, out amount))
                         {
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         if (amount <= 0) return;
@@ -748,13 +748,13 @@ namespace iTeffa
 
                         if (amount > Fractions.Realm.Cityhall.canGetMoney)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете получить больше {Fractions.Realm.Cityhall.canGetMoney}$ сегодня", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете получить больше {Fractions.Realm.Cityhall.canGetMoney}$ сегодня", 3000);
                             return;
                         }
 
                         if (Fractions.Stocks.fracStocks[6].Money < amount)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств в казне", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств в казне", 3000);
                             return;
                         }
                         Finance.Bank.Change(Players[player].Bank, amount);
@@ -774,7 +774,7 @@ namespace iTeffa
 
                         if (!Finance.Bank.Change(Players[player].Bank, -amount))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                             return;
                         }
                         Fractions.Stocks.fracStocks[6].Money += amount;
@@ -783,7 +783,7 @@ namespace iTeffa
                     case "call_police":
                         if (text.Length == 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите причину", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите причину", 3000);
                             return;
                         }
                         Fractions.Realm.Police.callPolice(player, text);
@@ -791,7 +791,7 @@ namespace iTeffa
                     case "call_sheriff":
                         if (text.Length == 0)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите причину", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите причину", 3000);
                             return;
                         }
                         Fractions.Realm.Sheriff.callSheriff(player, text);
@@ -814,7 +814,7 @@ namespace iTeffa
                         }
                         catch
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                             return;
                         }
                         if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
@@ -827,7 +827,7 @@ namespace iTeffa
                         }
                         catch
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                             return;
                         }
                         if (!player.HasData("SELECTEDPLAYER") || player.GetData<Player>("SELECTEDPLAYER") == null || !Players.ContainsKey(player.GetData<Player>("SELECTEDPLAYER"))) return;
@@ -841,17 +841,17 @@ namespace iTeffa
                         }
                         catch
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         if (Convert.ToInt32(text) < 1)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         if (Admin.IsServerStoping)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Сервер сейчас не может принять это действие", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Сервер сейчас не может принять это действие", 3000);
                             return;
                         }
                         Fractions.Stocks.inputStocks(player, 0, callback, Convert.ToInt32(text));
@@ -861,7 +861,7 @@ namespace iTeffa
                         target = player.GetData<Player>("SELLCARFOR");
                         if (!Players.ContainsKey(target) || player.Position.DistanceTo(target.Position) > 3)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
                             return;
                         }
                         try
@@ -870,36 +870,36 @@ namespace iTeffa
                         }
                         catch
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
                         price = Convert.ToInt32(text);
                         if (price < 1 || price > 100000000)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                             return;
                         }
 
                         if (Players[target].Money < price)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно средств", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно средств", 3000);
                             return;
                         }
 
                         string number = player.GetData<string>("SELLCARNUMBER");
                         if (!VehicleManager.Vehicles.ContainsKey(number))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Такой машины больше не существует", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Такой машины больше не существует", 3000);
                             return;
                         }
                         if (PublicGarage.spawnedVehiclesNumber.Contains(number))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Припаркуйте свой автомобиль перед продажей", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Припаркуйте свой автомобиль перед продажей", 3000);
                             return;
                         }
 
                         string vName = VehicleManager.Vehicles[number].Model;
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили {target.Name} купить Ваш {vName} ({number}) за {price}$", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили {target.Name} купить Ваш {vName} ({number}) за {price}$", 3000);
 
                         Trigger.ClientEvent(target, "openDialog", "BUY_CAR", $"{player.Name} предложил Вам купить {vName} ({number}) за ${price}");
                         target.SetData("SELLDATE", DateTime.Now);
@@ -921,7 +921,7 @@ namespace iTeffa
                                 if (dropAmount <= 0) return;
                                 if (item.Count < dropAmount)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                     return;
                                 }
                                 nInventory.Remove(player, item.Type, dropAmount);
@@ -929,7 +929,7 @@ namespace iTeffa
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Некорректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Некорректные данные", 3000);
                                 return;
                             }
                         }
@@ -949,7 +949,7 @@ namespace iTeffa
                                 if (transferAmount <= 0) return;
                                 if (item.Count < transferAmount)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                     return;
                                 }
 
@@ -971,7 +971,7 @@ namespace iTeffa
                                     int maxMats = (Fractions.Stocks.maxMats.ContainsKey(veh.DisplayName)) ? Fractions.Stocks.maxMats[veh.DisplayName] : 600;
                                     if (VehicleInventory.GetCountOfType(veh, ItemType.Material) + transferAmount > maxMats)
                                     {
-                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно загрузить такое кол-во матов", 3000);
                                         return;
                                     }
                                 }
@@ -979,7 +979,7 @@ namespace iTeffa
                                 int tryAdd = VehicleInventory.TryAdd(veh, new nItem(item.Type, transferAmount));
                                 if (tryAdd == -1 || tryAdd > 0)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "В машине недостаточно места", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "В машине недостаточно места", 3000);
                                     return;
                                 }
 
@@ -989,7 +989,7 @@ namespace iTeffa
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Некорретные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Некорретные данные", 3000);
                                 return;
                             }
                         }
@@ -1008,7 +1008,7 @@ namespace iTeffa
                             if (transferAmount <= 0) return;
                             if (item.Count < transferAmount)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                 return;
                             }
 
@@ -1019,7 +1019,7 @@ namespace iTeffa
                             int tryAdd = FurnitureManager.TryAdd(houseID, furnID, item);
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в сейфе", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в сейфе", 3000);
                                 return;
                             }
 
@@ -1041,7 +1041,7 @@ namespace iTeffa
                             if (transferAmount <= 0) return;
                             if (item.Count < transferAmount)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                 return;
                             }
 
@@ -1052,7 +1052,7 @@ namespace iTeffa
                             int tryAdd = Fractions.Stocks.TryAdd(onFraction, item);
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места на складе", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места на складе", 3000);
                                 return;
                             }
 
@@ -1085,7 +1085,7 @@ namespace iTeffa
                             if (transferAmount <= 0) return;
                             if (item.Count < transferAmount)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                 Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                                 return;
                             }
@@ -1094,7 +1094,7 @@ namespace iTeffa
                             int tryAdd = nInventory.TryAdd(changeTarget, new nItem(item.Type, transferAmount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно места", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно места", 3000);
                                 Dashboard.OpenOut(player, new List<nItem>(), changeTarget.Name, 5);
                                 return;
                             }
@@ -1123,14 +1123,14 @@ namespace iTeffa
                                 if (transferAmount <= 0) return;
                                 if (count < transferAmount)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                     return;
                                 }
 
                                 int tryAdd = nInventory.TryAdd(player, new nItem(item.Type, transferAmount));
                                 if (tryAdd == -1 || tryAdd > 0)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                     return;
                                 }
                                 VehicleInventory.Remove(veh, item.Type, transferAmount);
@@ -1139,7 +1139,7 @@ namespace iTeffa
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Некорретные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Некорретные данные", 3000);
                                 return;
                             }
                         }
@@ -1164,13 +1164,13 @@ namespace iTeffa
                             if (transferAmount <= 0) return;
                             if (count < transferAmount)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В ящике нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В ящике нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                 return;
                             }
                             int tryAdd = nInventory.TryAdd(player, new nItem(item.Type, transferAmount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
                             nInventory.Add(player, new nItem(item.Type, transferAmount));
@@ -1196,13 +1196,13 @@ namespace iTeffa
                             if (transferAmount <= 0) return;
                             if (count < transferAmount)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На складе нет столько {nInventory.ItemsNames[(int)item.Type]}", 3000);
                                 return;
                             }
                             int tryAdd = nInventory.TryAdd(player, new nItem(item.Type, transferAmount));
                             if (tryAdd == -1 || tryAdd > 0)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                                 return;
                             }
                             nInventory.Add(player, new nItem(item.Type, transferAmount));
@@ -1215,7 +1215,7 @@ namespace iTeffa
                         {
                             if (!int.TryParse(text, out int ammo))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             if (ammo <= 0) return;
@@ -1226,12 +1226,12 @@ namespace iTeffa
                         {
                             if (!int.TryParse(text, out int hours))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             if (hours <= 0)
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             Hotel.ExtendHotelRent(player, hours);
@@ -1241,27 +1241,27 @@ namespace iTeffa
                         {
                             if (string.IsNullOrEmpty(text) || text.Contains("'"))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             if (int.TryParse(text, out int num))
                             {
                                 if (Players[player].Contacts.Count >= Group.GroupMaxContacts[Accounts[player].VipLvl])
                                 {
-                                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "У Вас записано максимальное кол-во контактов", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "У Вас записано максимальное кол-во контактов", 3000);
                                     return;
                                 }
                                 if (Players[player].Contacts.ContainsKey(num))
                                 {
-                                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Контакт уже записан", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Контакт уже записан", 3000);
                                     return;
                                 }
                                 Players[player].Contacts.Add(num, num.ToString());
-                                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы добавили новый контакт {num}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы добавили новый контакт {num}", 3000);
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Некорректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Некорректные данные", 3000);
                                 return;
                             }
 
@@ -1271,14 +1271,14 @@ namespace iTeffa
                         {
                             if (string.IsNullOrEmpty(text))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             if (int.TryParse(text, out int num))
                             {
                                 if (!SimCards.ContainsKey(num))
                                 {
-                                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрока с таким номером не найдено", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Игрока с таким номером не найдено", 3000);
                                     return;
                                 }
                                 Player t = GetPlayerByUUID(SimCards[num]);
@@ -1286,7 +1286,7 @@ namespace iTeffa
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                         }
@@ -1295,24 +1295,24 @@ namespace iTeffa
                         {
                             if (string.IsNullOrEmpty(text))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             int num = player.GetData<int>("SMSNUM");
                             if (!SimCards.ContainsKey(num))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрока с таким номером не найдено", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Игрока с таким номером не найдено", 3000);
                                 return;
                             }
                             Player t = GetPlayerByUUID(SimCards[num]);
                             if (t == null)
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрок оффлайн", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Игрок оффлайн", 3000);
                                 return;
                             }
                             if (!Finance.Bank.Change(Players[player].Bank, -10, false))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Недостаточно средств на банковском счете", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Недостаточно средств на банковском счете", 3000);
                                 return;
                             }
 
@@ -1321,61 +1321,61 @@ namespace iTeffa
                             string senderName = (Players[t].Contacts.ContainsKey(senderNum)) ? Players[t].Contacts[senderNum] : senderNum.ToString();
                             string msg = $"Сообщение от {senderName}: {text}";
                             t.SendChatMessage("~o~" + msg);
-                            Notify.Send(t, NotifyType.Info, NotifyPosition.TopCenter, msg, 2000 + msg.Length * 70);
+                            Plugins.Notice.Send(t, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, msg, 2000 + msg.Length * 70);
 
                             string notif = $"Сообщение для {Players[player].Contacts[num]}: {text}";
                             player.SendChatMessage("~o~" + notif);
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, notif, 2000 + msg.Length * 50);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, notif, 2000 + msg.Length * 50);
                         }
                         break;
                     case "smsname":
                         {
                             if (string.IsNullOrEmpty(text))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
                             if (text.Contains('"'.ToString()) || text.Contains("'") || text.Contains("[") || text.Contains("]") || text.Contains(":") || text.Contains("|") || text.Contains("\"") || text.Contains("`") || text.Contains("$") || text.Contains("%") || text.Contains("@") || text.Contains("{") || text.Contains("}") || text.Contains("(") || text.Contains(")"))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Имя содержит запрещенный символ.", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Имя содержит запрещенный символ.", 3000);
                                 return;
                             }
                             int num = player.GetData<int>("SMSNUM");
                             string oldName = Players[player].Contacts[num];
                             Players[player].Contacts[num] = text;
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы переименовали {oldName} в {text}", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы переименовали {oldName} в {text}", 3000);
                         }
                         break;
                     case "make_ad":
                         {
                             if (string.IsNullOrEmpty(text))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                                 return;
                             }
 
                             if (player.HasData("NEXT_AD") && DateTime.Now < player.GetData<DateTime>("NEXT_AD"))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете подать объявление в данный момент", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не можете подать объявление в данный момент", 3000);
                                 return;
                             }
 
                             if (Fractions.Realm.LSNews.AdvertNames.Contains(player.Name))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть одно объявление в очереди", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас уже есть одно объявление в очереди", 3000);
                                 return;
                             }
 
                             if (text.Length < 15)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Слишком короткое объявление", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Слишком короткое объявление", 3000);
                                 return;
                             }
 
                             int adPrice = text.Length / 15 * 6;
                             if (!Finance.Bank.Change(Players[player].Bank, -adPrice, false))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас не хватает денежных средств в банке", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас не хватает денежных средств в банке", 3000);
                                 return;
                             }
                             Fractions.Realm.LSNews.AddAdvert(player, text, adPrice);
@@ -1385,7 +1385,7 @@ namespace iTeffa
                         int sum = 0;
                         if (!Int32.TryParse(text, out sum))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Некорректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Некорректные данные", 3000);
                             return;
                         }
                         player.SetData("TICKETSUM", sum);
@@ -1455,7 +1455,7 @@ namespace iTeffa
                 Ban ban = Ban.Get2(Accounts[player].Characters[slot - 1]);
                 if (ban != null)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Ты не пройдёшь!", 4000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Ты не пройдёшь!", 4000);
                     return;
                 }
 
@@ -1542,7 +1542,7 @@ namespace iTeffa
                                 {
                                     PasswordRestore.SendEmail(1, RestorePass[client].Item4, newpas);
                                 });
-                                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Ваш пароль был сброшен, новый пароль должен прийти в сообщении на почту, смените его сразу же после входа через команду /password", 10000);
                                 Database.Query($"UPDATE `accounts` SET `password`='{Account.GetSha256(newpas.ToString())}' WHERE `login`='{RestorePass[client].Item2}' AND `socialclub`='{RestorePass[client].Item3}'");
                                 SignInOnTimer(client, RestorePass[client].Item2, newpas.ToString());
 
@@ -1602,15 +1602,15 @@ namespace iTeffa
                 }
                 else if (result == LoginEvent.Already)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Аккаунт уже авторизован.", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Аккаунт уже авторизован.", 3000);
                 }
                 else if (result == LoginEvent.Refused)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данные введены неверно", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Данные введены неверно", 3000);
                 }
                 if (result == LoginEvent.SclubError)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "SocialClub, с которого Вы подключены, не совпадает с тем, который привязан к аккаунту.", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "SocialClub, с которого Вы подключены, не совпадает с тем, который привязан к аккаунту.", 3000);
                 }
                 Log.Write($"{nickname} try to signin step 3");
                 return;
@@ -1629,7 +1629,7 @@ namespace iTeffa
                         int cheatCode = player.GetData<int>("CheatTrigger");
                         if (cheatCode > 1)
                         {
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Непредвиденная ошибка! Попробуйте перезайти.", 10000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Непредвиденная ошибка! Попробуйте перезайти.", 10000);
                             player.Kick();
                             return;
                         }
@@ -1656,15 +1656,15 @@ namespace iTeffa
                     Account user = new Account();
                     RegisterEvent result = await user.Register(player, login, pass, email, promo);
                     if (result == RegisterEvent.Error)
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Непредвиденная ошибка!", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Непредвиденная ошибка!", 3000);
                     else if (result == RegisterEvent.SocialReg)
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "На этот SocialClub уже зарегистрирован игровой аккаунт!", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "На этот SocialClub уже зарегистрирован игровой аккаунт!", 3000);
                     else if (result == RegisterEvent.UserReg)
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данное имя пользователя уже занято!", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Данное имя пользователя уже занято!", 3000);
                     else if (result == RegisterEvent.EmailReg)
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Данный email уже занят!", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Данный email уже занят!", 3000);
                     else if (result == RegisterEvent.DataError)
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка в заполнении полей!", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Ошибка в заполнении полей!", 3000);
                     Log.Write($"{player.Name} try to signup step 3");
                     return;
                 }
@@ -1992,7 +1992,7 @@ namespace iTeffa
             {
                 if (!Players.ContainsKey(player) || !player.GetData<bool>("IS_REQUESTED")) return;
                 player.SetData("IS_REQUESTED", false);
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Отмена", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Отмена", 3000);
             }
             catch (Exception e) { Log.Write("cancelPressed: " + e.Message, Nlogs.Type.Error); }
         }
@@ -2038,20 +2038,20 @@ namespace iTeffa
                                 Houses.House house = Houses.HouseManager.GetHouse(player, true);
                                 if (house == null && VehicleManager.getAllPlayerVehicles(player.Name.ToString()).Count > 1)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет личного дома", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет личного дома", 3000);
                                     break;
                                 }
                                 if (house != null)
                                 {
                                     if (house.GarageID == 0 && VehicleManager.getAllPlayerVehicles(player.Name.ToString()).Count > 1)
                                     {
-                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет гаража", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет гаража", 3000);
                                         break;
                                     }
                                     Houses.Garage garage = Houses.GarageManager.Garages[house.GarageID];
                                     if (VehicleManager.getAllPlayerVehicles(player.Name).Count >= Houses.GarageManager.GarageTypes[garage.Type].MaxCars)
                                     {
-                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас максимальное кол-во машин", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас максимальное кол-во машин", 3000);
                                         break;
                                     }
                                 }
@@ -2065,13 +2065,13 @@ namespace iTeffa
                                 }
                                 if (!Main.Players.ContainsKey(seller) || player.Position.DistanceTo(seller.Position) > 3)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Игрок находится слишком далеко от Вас", 3000);
                                     break;
                                 }
                                 string number = player.GetData<string>("CAR_NUMBER");
                                 if (!VehicleManager.Vehicles.ContainsKey(number))
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этой машины больше не существует", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Этой машины больше не существует", 3000);
                                     break;
                                 }
                                 if (VehicleManager.Vehicles[number].Holder != seller.Name)
@@ -2083,14 +2083,14 @@ namespace iTeffa
                                 // Public garage
                                 if (PublicGarage.spawnedVehiclesNumber.Contains(number))
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Продавец должен припарковать автомобиль перед продажей", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Продавец должен припарковать автомобиль перед продажей", 3000);
                                     break;
                                 }
 
                                 int price = player.GetData<int>("CAR_PRICE");
                                 if (!Finance.Wallet.Change(player, -price))
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно средств", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно средств", 3000);
                                     break;
                                 }
                                 VehicleManager.VehicleData vData = VehicleManager.Vehicles[number];
@@ -2114,8 +2114,8 @@ namespace iTeffa
                                     Garage.SpawnCar(number);
                                 }
 
-                                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {vData.Model} ({number}) за {price}$ у {seller.Name}", 3000);
-                                Notify.Send(seller, NotifyType.Success, NotifyPosition.TopCenter, $"{player.Name} купил у Вас {vData.Model} ({number}) за {price}$", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {vData.Model} ({number}) за {price}$ у {seller.Name}", 3000);
+                                Plugins.Notice.Send(seller, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"{player.Name} купил у Вас {vData.Model} ({number}) за {price}$", 3000);
                                 break;
                             }
                         case "INVITED":
@@ -2134,10 +2134,10 @@ namespace iTeffa
                                     Fractions.Realm.LSNews.onLSNPlayerLoad(player); // Загрузка всех объявлений в F7
                                 }
                                 Dashboard.sendStats(player);
-                                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы вступили в {Fractions.Manager.FractionNames[fracid]}", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы вступили в {Fractions.Manager.FractionNames[fracid]}", 3000);
                                 try
                                 {
-                                    Notify.Send(player.GetData<Player>("SENDERFRAC"), NotifyType.Success, NotifyPosition.TopCenter, $"{player.Name} принял приглашение вступить в Вашу фракцию", 3000);
+                                    Plugins.Notice.Send(player.GetData<Player>("SENDERFRAC"), Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"{player.Name} принял приглашение вступить в Вашу фракцию", 3000);
                                 }
                                 catch { }
                                 return;
@@ -2183,7 +2183,7 @@ namespace iTeffa
                                 }
                                 Finance.Wallet.Change(player, price);
                                 Loggings.Money($"server", $"player({Players[player].UUID})", price, $"carSell({vData.Model})");
-                                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {vData.Model} ({vnumber}) за {price}$", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали {vData.Model} ({vnumber}) за {price}$", 3000);
                                 VehicleManager.Remove(vnumber, player);
                             }
                             return;
@@ -2511,7 +2511,7 @@ namespace iTeffa
                                 Random rnd = new Random();
                                 int type = rnd.Next(0, nInventory.PresentsTypes.Count);
                                 nInventory.Add(p, new nItem(ItemType.Present, 1, type));
-                                Notify.Send(p, NotifyType.Info, NotifyPosition.TopCenter, "Вы получили 20 донат валюты и подарок, за 2 часа онлайна сегодня", 3000);
+                                Plugins.Notice.Send(p, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, "Вы получили 20 донат валюты и подарок, за 2 часа онлайна сегодня", 3000);
                                 Players[p].LastBonus = 0;
                                 Players[p].IsBonused = true;
                                 Accounts[p].Coins += 20;
@@ -2574,13 +2574,13 @@ namespace iTeffa
                                 if (Players[player].HotelLeft <= 0)
                                 {
                                     Hotel.MoveOutPlayer(player);
-                                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Вас выселили из отеля за неуплату", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Вас выселили из отеля за неуплату", 3000);
                                 }
                             }
 
                             if (Players[player].LastHourMin < 15)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны наиграть хотя бы 15 минут, чтобы получить пейдей", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны наиграть хотя бы 15 минут, чтобы получить пейдей", 3000);
                                 continue;
                             }
 
@@ -2591,13 +2591,13 @@ namespace iTeffa
                                 case 1:
                                     if (Players[player].WorkID != 0) break;
                                     int payment = Convert.ToInt32((100 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
-                                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили пособие по безработице {payment}$", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили пособие по безработице {payment}$", 3000);
                                     Finance.Wallet.Change(player, payment);
                                     Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"allowance");
                                     break;
                                 case 2:
                                     payment = Convert.ToInt32((Fractions.Configs.FractionRanks[Players[player].FractionID][Players[player].FractionLVL].Item4 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
-                                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили зарплату в {payment}$", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили зарплату в {payment}$", 3000);
                                     Finance.Wallet.Change(player, payment);
                                     Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"payday");
                                     break;
@@ -2612,7 +2612,7 @@ namespace iTeffa
                                 {
                                     NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
                                 }
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Поздравляем, у Вас новый уровень ({Players[player].LVL})!", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Поздравляем, у Вас новый уровень ({Players[player].LVL})!", 3000);
                                 if (Players[player].LVL == 1 && Accounts[player].PromoCodes[0] != "noref" && PromoCodes.ContainsKey(Accounts[player].PromoCodes[0]))
                                 {
                                     if (!Accounts[player].PresentGet)
@@ -2625,7 +2625,7 @@ namespace iTeffa
                                         nInventory.Add(player, new nItem(ItemType.Sprunk, 3));
                                         nInventory.Add(player, new nItem(ItemType.Сrisps, 3));
 
-                                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поздравляем, Вы получили награду за достижение 1 уровня по промокоду {promo}!", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Поздравляем, Вы получили награду за достижение 1 уровня по промокоду {promo}!", 3000);
 
                                         try
                                         {
@@ -2635,7 +2635,7 @@ namespace iTeffa
                                                 if (Players.ContainsKey(pl) && Players[pl].UUID == PromoCodes[promo].Item3)
                                                 {
                                                     Finance.Wallet.Change(pl, 2000);
-                                                    Notify.Send(pl, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили $2000 за достижение 1 уровня игроком {player.Name}", 2000);
+                                                    Plugins.Notice.Send(pl, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили $2000 за достижение 1 уровня игроком {player.Name}", 2000);
                                                     isGiven = true;
                                                     break;
                                                 }
@@ -2644,7 +2644,7 @@ namespace iTeffa
                                         }
                                         catch { }
                                     }
-                                    else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этот аккаунт уже получал подарок за активацию промокода", 5000);
+                                    else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Этот аккаунт уже получал подарок за активацию промокода", 5000);
                                 }
                             }
 
@@ -2653,7 +2653,7 @@ namespace iTeffa
                             if (Accounts[player].VipLvl > 0 && Accounts[player].VipDate <= DateTime.Now)
                             {
                                 Accounts[player].VipLvl = 0;
-                                Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, "С вас снят VIP статус", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, "С вас снят VIP статус", 3000);
                             }
 
                             Dashboard.sendStats(player);
@@ -2710,7 +2710,7 @@ namespace iTeffa
 
                                 if (player != null && Players.ContainsKey(player))
                                 {
-                                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Государство отобрало у Вас бизнес за неуплату налогов", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Государство отобрало у Вас бизнес за неуплату налогов", 3000);
                                     Finance.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
                                     Players[player].BizIDs.Remove(biz.ID);
                                 }
@@ -2761,7 +2761,7 @@ namespace iTeffa
 
                             if (player != null && Players.ContainsKey(player))
                             {
-                                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "У Вас отобрали дом за неуплату налогов", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "У Вас отобрали дом за неуплату налогов", 3000);
                                 Finance.Wallet.Change(player, Convert.ToInt32(h.Price / 2.0));
                                 Trigger.ClientEvent(player, "deleteCheckpoint", 333);
                                 Trigger.ClientEvent(player, "deleteGarageBlip");
@@ -2943,7 +2943,7 @@ namespace iTeffa
                 case "call":
                     if (!SimCards.ContainsKey(num))
                     {
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, "Игрока с таким номером не найдено", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "Игрока с таким номером не найдено", 3000);
                         return;
                     }
                     Player target = GetPlayerByUUID(SimCards[num]);
@@ -2953,7 +2953,7 @@ namespace iTeffa
                     Trigger.ClientEvent(player, "openInput", "Переименование", $"Введите новое имя для {num}", 18, "smsname");
                     break;
                 case "remove":
-                    Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, $"{num} удален из контактов.", 4000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{num} удален из контактов.", 4000);
                     lock (Players)
                     {
                         Players[player].Contacts.Remove(num);
@@ -3105,7 +3105,7 @@ namespace iTeffa
                     }
                     catch
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                         BusinessManager.OpenBizProductsMenu(player);
                         return;
                     }
@@ -3118,7 +3118,7 @@ namespace iTeffa
                     }
                     catch
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                         BusinessManager.OpenBizProductsMenu(player);
                         return;
                     }
@@ -3131,7 +3131,7 @@ namespace iTeffa
                     }
                     catch
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                         return;
                     }
                     BusinessManager.fillCar(player, Convert.ToInt32(text));
@@ -3145,12 +3145,12 @@ namespace iTeffa
                     }
                     catch
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                         return;
                     }
                     if (Convert.ToInt32(text) < 1)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Введите корректные данные", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Введите корректные данные", 3000);
                         return;
                     }
                     Fractions.Stocks.inputStocks(player, 0, func, Convert.ToInt32(text));
@@ -3342,7 +3342,7 @@ namespace iTeffa
                 case "contacts":
                     if (Players[player].Sim == -1)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет сим-карты", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет сим-карты", 3000);
                         return;
                     }
                     OpenContacts(player);
@@ -3354,8 +3354,8 @@ namespace iTeffa
                     {
                         House house = HouseManager.GetHouse(player);
                         house.SetLock(!house.Locked);
-                        if (house.Locked) Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закрыли дом", 3000);
-                        else Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли дом", 3000);
+                        if (house.Locked) Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы закрыли дом", 3000);
+                        else Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы открыли дом", 3000);
                         return;
                     }
                 case "leavehouse":
@@ -3363,7 +3363,7 @@ namespace iTeffa
                         House house = HouseManager.GetHouse(player);
                         if (house == null)
                         {
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы не живете в доме", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы не живете в доме", 3000);
                             MenuManager.Close(player);
                             return;
                         }

@@ -183,7 +183,7 @@ namespace iTeffa.Globals
                             }
                             else
                             {
-                                Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
+                                Plugins.Notice.Send(c, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter,
                                     $"У тебя есть дом. иди и припаркуйся в своем гараже!",
                                 3000);
                             }
@@ -208,7 +208,7 @@ namespace iTeffa.Globals
             {
                 if (spawnedVehiclesNumber.Contains(vNumber))
                 {
-                    Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
+                    Plugins.Notice.Send(c, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter,
                         $"Машины нет в гараже!",
                     3000);
                     return;
@@ -222,7 +222,7 @@ namespace iTeffa.Globals
                     {
                         Log.Write("Кто-то пытался создать не его транспортное средство!");
                         Commands.Controller.SendToAdmins(3, $"!{{#d35400}}[CAR-GARAGE-EXPLOIT] {c.Name} ({c.Value})");
-                        Notify.Send(c, NotifyType.Warning, NotifyPosition.TopCenter,
+                        Plugins.Notice.Send(c, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter,
                             $"Это не твоя машина!",
                         3000);
                         return;
@@ -230,7 +230,7 @@ namespace iTeffa.Globals
                     var access = VehicleManager.canAccessByNumber(c, vNumber);
                     if (! access)
                     {
-                        Notify.Send(c, NotifyType.Info, NotifyPosition.TopCenter,
+                        Plugins.Notice.Send(c, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter,
                             $"Кажется, вы потеряли ключи от машины. Возьми новую!",
                         3000);
                         nInventory.Add(c, new nItem(ItemType.CarKey, 1, $"{vNumber}_{VehicleManager.Vehicles[vNumber].KeyNum}"));
@@ -250,7 +250,7 @@ namespace iTeffa.Globals
                     }
                     else
                     {
-                        Notify.Send(c, NotifyType.Error, NotifyPosition.TopCenter,
+                        Plugins.Notice.Send(c, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter,
                             $"Машины нет в открытом гараже!",
                         3000);
                         return;
@@ -289,7 +289,7 @@ namespace iTeffa.Globals
                 {
                     try
                     {
-                        Notify.Send(entity, NotifyType.Info, NotifyPosition.TopCenter,
+                        Plugins.Notice.Send(entity, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter,
                             $"Нажмите E, чтобы открыть меню!",
                         3000);
                     }

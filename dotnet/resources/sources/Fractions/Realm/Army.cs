@@ -98,27 +98,27 @@ namespace iTeffa.Fractions.Realm
                             Stocks.fracStocks[14].Materials -= Manager.matsForArmor;
                             Stocks.fracStocks[14].UpdateLabel();
                             Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
-                            Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили бронежилет", 3000);
                         }
                         return;
                     case 4:
                         if (!Manager.canGetWeapon(client, "Medkits")) return;
                         if (Stocks.fracStocks[14].Medkits == 0)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе нет аптечек", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "На складе нет аптечек", 3000);
                             return;
                         }
                         var hItem = nInventory.Find(Main.Players[client].UUID, ItemType.HealthKit);
                         if (hItem != null)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть аптечка", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас уже есть аптечка", 3000);
                             return;
                         }
                         Stocks.fracStocks[14].Medkits--;
                         Stocks.fracStocks[14].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
                         Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили аптечку", 3000);
                         return;
                     case 5:
                         if (!Manager.canGetWeapon(client, "PistolAmmo")) return;
@@ -144,12 +144,12 @@ namespace iTeffa.Fractions.Realm
                 case 34:
                     if (Main.Players[player].FractionID != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не служите в армии", 3000);
                         return;
                     }
                     if (!Stocks.fracStocks[14].IsOpen)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
                     Trigger.ClientEvent(player, "armyguns");
@@ -157,7 +157,7 @@ namespace iTeffa.Fractions.Realm
                 case 35:
                     if (Main.Players[player].FractionID != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не служите в армии", 3000);
                         return;
                     }
                     OpenArmyClothesMenu(player);
@@ -165,34 +165,34 @@ namespace iTeffa.Fractions.Realm
                 case 36:
                     if (Main.Players[player].FractionID != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не служите в армии", 3000);
                         return;
                     }
                     if (!player.IsInVehicle)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                         return;
                     }
                     if (!player.Vehicle.HasData("CANMATS"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На этой машине нельзя перевозить маты", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На этой машине нельзя перевозить маты", 3000);
                         return;
                     }
                     if (player.HasData("loadMatsTimer"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже загружаете материалы в машину", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже загружаете материалы в машину", 3000);
                         return;
                     }
                     if (!Stocks.maxMats.ContainsKey(player.Vehicle.DisplayName)) return;
                     var count = VehicleInventory.GetCountOfType(player.Vehicle, ItemType.Material);
                     if (count >= Stocks.maxMats[player.Vehicle.DisplayName])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине максимальное кол-во материала", 3000);
                         return;
                     }
                     player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => loadMaterialsTimer(player)));
                     player.Vehicle.SetData("loaderMats", player);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
                     Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
                     player.SetData("vehicleMats", player.Vehicle);
                     player.SetData("whereLoad", "ARMY");
@@ -201,7 +201,7 @@ namespace iTeffa.Fractions.Realm
                     if (player.IsInVehicle) return;
                     if (player.HasData("FOLLOWING"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вас кто-то тащит за собой", 3000);
                         return;
                     }
                     if (player.Position.Z > 50)
@@ -218,17 +218,17 @@ namespace iTeffa.Fractions.Realm
                 case 60:
                     if (Main.Players[player].FractionID != 14)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не служите в армии", 3000);
                         return;
                     }
                     if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
                     if (!Stocks.fracStocks[14].IsOpen)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
                     player.SetData("ONFRACSTOCK", 14);
@@ -266,7 +266,7 @@ namespace iTeffa.Fractions.Realm
                 Timers.Stop(player.GetData<string>("loadMatsTimer"));
                 player.ResetData("loadMatsTimer");
                 Trigger.ClientEvent(player, "hideLoader");
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
             }
         }
 
@@ -287,12 +287,12 @@ namespace iTeffa.Fractions.Realm
                     {
                         player.SetData("INTERACTIONCHECK", 0);
                         player.ResetData("loadMatsTimer");
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Корабль уже уехал", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Корабль уже уехал", 3000);
                         return;
                     }
                     if (itemCount >= Stocks.maxMats[vehicle.DisplayName])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине максимальное кол-во материала", 3000);
                         player.ResetData("loadMatsTimer");
                         return;
                     }
@@ -317,7 +317,7 @@ namespace iTeffa.Fractions.Realm
                     VehicleInventory.Add(vehicle, data);
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
                     player.ResetData("loadMatsTimer");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы загрузили материалы в машину", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы загрузили материалы в машину", 3000);
                 }
                 catch (Exception e) { Log.Write("LoadMatsTimer: " + e.Message, Nlogs.Type.Error); }
             });
@@ -330,7 +330,7 @@ namespace iTeffa.Fractions.Realm
                 if (player.HasData("loadMatsTimer"))
                 {
                     Trigger.ClientEvent(player, "hideLoader");
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как Вы умерли", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как Вы умерли", 3000);
                     Timers.Stop(player.GetData<string>("loadMatsTimer"));
                     var vehicle = player.GetData<Vehicle>("vehicleMats");
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
@@ -366,7 +366,7 @@ namespace iTeffa.Fractions.Realm
                     NAPI.Data.ResetEntityData(vehicle, "loaderMats");
                     player.ResetData("loadMatsTimer");
                     Trigger.ClientEvent(player, "hideLoader");
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                 }
             }
             catch (Exception e) { Log.Write("VehicleDeath: " + e.Message, Nlogs.Type.Error); }
@@ -413,18 +413,18 @@ namespace iTeffa.Fractions.Realm
                 case "change":
                     if (Main.Players[client].FractionLVL < 6)
                     {
-                        Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете переодеться/раздеться", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете переодеться/раздеться", 3000);
                         return;
                     }
                     if (!client.GetData<bool>("ON_DUTY"))
                     {
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы переоделись в служебную форму", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы переоделись в служебную форму", 3000);
                         Manager.setSkin(client, 14, Main.Players[client].FractionLVL);
                         client.SetData("ON_DUTY", true);
                     }
                     else
                     {
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы переоделись в повседневную одежду", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы переоделись в повседневную одежду", 3000);
                         Customization.ApplyCharacter(client);
                         if (client.HasData("HAND_MONEY")) client.SetClothes(5, 45, 0);
                         else if (client.HasData("HEIST_DRILL")) client.SetClothes(5, 41, 0);
@@ -514,12 +514,12 @@ namespace iTeffa.Fractions.Realm
             }
             if (Main.Players[client].FractionID != 14)
             {
-                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не служите в армии", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не служите в армии", 3000);
                 return;
             }
             if (!client.GetData<bool>("ON_DUTY"))
             {
-                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать службу", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать службу", 3000);
                 return;
             }
             client.SetData("IN_CP_MODE", true);

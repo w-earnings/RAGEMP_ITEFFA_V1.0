@@ -233,7 +233,7 @@ namespace iTeffa.Fractions
 
                 if (Main.Players[sender].Unmute > 0)
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
+                    Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
                     return;
                 }
 
@@ -279,7 +279,7 @@ namespace iTeffa.Fractions
             if (!canUseCommand(sender, "dep")) return;
             if (Main.Players[sender].Unmute > 0)
             {
-                Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
+                Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
                 return;
             }
             int Fraction = Main.Players[sender].FractionID;
@@ -409,7 +409,7 @@ namespace iTeffa.Fractions
                     if (p == null) continue;
                     if (!Main.Players.ContainsKey(p)) continue;
                     if (Main.Players[p].FractionID == fracid)
-                        Notify.Send(p, NotifyType.Warning, NotifyPosition.TopCenter, message, 3000);
+                        Plugins.Notice.Send(p, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, message, 3000);
                 }
             }
             else
@@ -419,7 +419,7 @@ namespace iTeffa.Fractions
                     if (p == null) continue;
                     if (!Main.Players.ContainsKey(p)) continue;
                     if (Main.Players[p].FractionID == fracid)
-                        Notify.Send(p, NotifyType.Warning, NotifyPosition.TopCenter, message, 3000);
+                        Plugins.Notice.Send(p, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, message, 3000);
                 }
             }
         }
@@ -449,7 +449,7 @@ namespace iTeffa.Fractions
             if (fraclvl < minrank)
             {
                 if (notify)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Нет доступа", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Нет доступа", 3000);
                 return false;
             }
             else return true;
@@ -470,7 +470,7 @@ namespace iTeffa.Fractions
             if (fraclvl < minrank)
             {
                 if (notify)
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Нет доступа", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Нет доступа", 3000);
                 return false;
             }
             else return true;
@@ -1253,26 +1253,26 @@ namespace iTeffa.Fractions
                 DateTime g = new DateTime((date - DateTime.Now).Ticks);
                 var min = g.Minute;
                 var sec = g.Second;
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы сможете взять {gun} через {min}:{sec}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы сможете взять {gun} через {min}:{sec}", 3000);
                 return;
             }
 
             var frac = Main.Players[player].FractionID;
             if (Configs.FractionWeapons[frac].ContainsKey(weaponstr) && Main.Players[player].FractionLVL < Configs.FractionWeapons[frac][weaponstr])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не имеете доступа к данному виду оружия", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не имеете доступа к данному виду оружия", 3000);
                 return;
             }
             if (Stocks.fracStocks[Main.Players[player].FractionID].Materials < matsForGun[gun])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе недостаточно материала", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На складе недостаточно материала", 3000);
                 return;
             }
 
             var wType = (ItemType)Enum.Parse(typeof(ItemType), gun.ToString());
             if (nInventory.TryAdd(player, new nItem(wType)) == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                 return;
             }
 
@@ -1288,7 +1288,7 @@ namespace iTeffa.Fractions
             player.SetData($"GET_{gun}", DateTime.Now.AddMinutes(minutes));
 
             Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, $"{gun}({serial})", 1, false);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {wType}", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили {wType}", 3000);
             return;
         }
 
@@ -1298,14 +1298,14 @@ namespace iTeffa.Fractions
 
             if (Stocks.fracStocks[Main.Players[player].FractionID].Materials < MatsForAmmoType[ammoType] * ammo)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На складе недостаточно материала", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На складе недостаточно материала", 3000);
                 return;
             }
 
             var tryAdd = nInventory.TryAdd(player, new nItem(ammoType, ammo));
             if (tryAdd == -1 || tryAdd > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                 return;
             }
 
@@ -1314,7 +1314,7 @@ namespace iTeffa.Fractions
 
             nInventory.Add(player, new nItem(ammoType, ammo));
             Loggings.Stock(Main.Players[player].FractionID, Main.Players[player].UUID, ammoType.ToString(), 1, false);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили {nInventory.ItemsNames[(int)ammoType]} x{ammo}", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили {nInventory.ItemsNames[(int)ammoType]} x{ammo}", 3000);
             return;
         }
 
@@ -1334,7 +1334,7 @@ namespace iTeffa.Fractions
 
             if (FractionTypes[fracid] == -1 || FractionTypes[fracid] == 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не умеете крафтить оружие", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не умеете крафтить оружие", 3000);
                 return;
             }
             else if (FractionTypes[fracid] == 1) list = gangGuns;
@@ -1369,14 +1369,14 @@ namespace iTeffa.Fractions
                 string selected = list[cat][index];
                 if (FractionTypes[frac] == -1 || FractionTypes[frac] == 2)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Вы не умеете крафтить оружие", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не умеете крафтить оружие", 3000);
                     return;
                 }
                 var mItem = nInventory.Find(Main.Players[client].UUID, ItemType.Material);
                 var count = (mItem == null) ? 0 : mItem.Count;
                 if (count < matsForGun[Weapons.GetHash(selected)])
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас недостаточно материала", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно материала", 3000);
                     return;
                 }
 
@@ -1384,7 +1384,7 @@ namespace iTeffa.Fractions
                 var tryAdd = nInventory.TryAdd(client, new nItem(wType, 1));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно места в инвентаре", 3000);
                     return;
                 }
 
@@ -1393,7 +1393,7 @@ namespace iTeffa.Fractions
                     nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, $"50"));
                 else
                     Weapons.GiveWeapon(client, wType, Weapons.GetSerial(true, frac));
-                Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы скрафтили {selected} за {matsForGun[Weapons.GetHash(selected)]} матов", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы скрафтили {selected} за {matsForGun[Weapons.GetHash(selected)]} матов", 3000);
             }
             catch (Exception e)
             {
@@ -1415,7 +1415,7 @@ namespace iTeffa.Fractions
 
                 if (ammo == 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не указали количество патрон", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не указали количество патрон", 3000);
                     return;
                 }
 
@@ -1423,20 +1423,20 @@ namespace iTeffa.Fractions
                 var matsCount = (matsItem == null) ? 0 : matsItem.Count;
                 if (matsCount < MatsForAmmo[category] * ammo)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно материалов", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно материалов", 3000);
                     return;
                 }
 
                 var tryAdd = nInventory.TryAdd(player, new nItem(AmmoTypes[category], ammo));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                     return;
                 }
 
                 nInventory.Remove(player, ItemType.Material, MatsForAmmo[category] * ammo);
                 nInventory.Add(player, new nItem(AmmoTypes[category], ammo));
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно скрафтили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно скрафтили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo}", 3000);
             }
             catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
         }
@@ -1536,7 +1536,7 @@ namespace iTeffa.Fractions
                             Player target = Main.GetPlayerByID(id);
                             if (target == null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                                 return;
                             }
                             FractionCommands.InviteToFraction(player, target);
@@ -1546,7 +1546,7 @@ namespace iTeffa.Fractions
                             Player target = NAPI.Player.GetPlayerFromName(data1);
                             if (target == null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким именем не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким именем не найден", 3000);
                                 return;
                             }
                             FractionCommands.InviteToFraction(player, target);
@@ -1558,7 +1558,7 @@ namespace iTeffa.Fractions
                             Player target = Main.GetPlayerByID(id);
                             if (target == null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                                 return;
                             }
                             FractionCommands.UnInviteFromFraction(player, target);
@@ -1567,7 +1567,7 @@ namespace iTeffa.Fractions
                         {
                             if (!Main.PlayerNames.ContainsValue(data1))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким именем не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким именем не найден", 3000);
                                 return;
                             }
                             Player target = NAPI.Player.GetPlayerFromName(data1);
@@ -1589,16 +1589,16 @@ namespace iTeffa.Fractions
 
                                 if (targetFrac != Main.Players[player].FractionID)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не состоит в Вашей фракции", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не состоит в Вашей фракции", 3000);
                                     return;
                                 }
                                 if (targetLvl >= Main.Players[player].FractionLVL)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете уволить этого игрока", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете уволить этого игрока", 3000);
                                     return;
                                 }
                                 Database.Query($"UPDATE `characters` SET fraction=0,fractionlvl=0 WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
-                                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы уволили игрока {data1} из Вашей фракции", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы уволили игрока {data1} из Вашей фракции", 3000);
 
                                 int index = Fractions.Manager.AllMembers.FindIndex(m => m.Name == data1);
                                 if (index > -1) Manager.AllMembers.RemoveAt(index);
@@ -1611,7 +1611,7 @@ namespace iTeffa.Fractions
                     case 4: //change
                         if (!Int32.TryParse(data2, out rank))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                             return;
                         }
                         if (Int32.TryParse(data1, out id))
@@ -1619,7 +1619,7 @@ namespace iTeffa.Fractions
                             Player target = Main.GetPlayerByID(id);
                             if (target == null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                                 return;
                             }
                             FractionCommands.SetFracRank(player, target, rank);
@@ -1629,7 +1629,7 @@ namespace iTeffa.Fractions
                             Player target = NAPI.Player.GetPlayerFromName(data1);
                             if (target == null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким именем не найден", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким именем не найден", 3000);
                                 return;
                             }
                             FractionCommands.SetFracRank(player, target, rank);

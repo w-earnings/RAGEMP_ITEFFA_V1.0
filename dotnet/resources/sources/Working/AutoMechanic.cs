@@ -36,32 +36,32 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].WorkID != 8 || !player.GetData<bool>("ON_WORK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работает автомехаником", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работает автомехаником", 3000);
                 return;
             }
             if (!player.IsInVehicle || !player.Vehicle.HasData("TYPE") || player.Vehicle.GetData<string>("TYPE") != "MECHANIC")
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в рабочем транспорте", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в рабочем транспорте", 3000);
                 return;
             }
             if (!target.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок должен находиться в транспортном средстве", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок должен находиться в транспортном средстве", 3000);
                 return;
             }
             if (player.Vehicle.Position.DistanceTo(target.Vehicle.Position) > 5)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко от Вас", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок слишком далеко от Вас", 3000);
                 return;
             }
             if (price < 50 || price > 300)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы можете установить цену от 50$ до 300$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы можете установить цену от 50$ до 300$", 3000);
                 return;
             }
             if (Main.Players[target].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно денег", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно денег", 3000);
                 return;
             }
             
@@ -69,14 +69,14 @@ namespace iTeffa.Working
             target.SetData("MECHANIC_PRICE", price);
             Trigger.ClientEvent(target, "openDialog", "REPAIR_CAR", $"Игрок ({player.Value}) предложил отремонтировать Ваш транспорт за ${price}");
             
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) отремонтировать транспорт за {price}$", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) отремонтировать транспорт за {price}$", 3000);
         }
 
         public static void mechanicRent(Player player)
         {
             if (!NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != 0 || player.Vehicle.GetData<string>("TYPE") != "MECHANIC") return;
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы арендовали рабочий транспорт. Ожидайте заказ", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы арендовали рабочий транспорт. Ожидайте заказ", 3000);
             Finance.Wallet.Change(player, -mechanicRentCost);
             Loggings.Money($"player({Main.Players[player].UUID})", $"server", mechanicRentCost, $"mechanicRent");
             var vehicle = player.Vehicle;
@@ -91,14 +91,14 @@ namespace iTeffa.Working
         {
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в транспортном средстве", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в транспортном средстве", 3000);
                 return;
             }
 
             var price = NAPI.Data.GetEntityData(player, "MECHANIC_PRICE");
             if (Main.Players[player].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно средств", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно средств", 3000);
                 return;
             }
 
@@ -107,8 +107,8 @@ namespace iTeffa.Working
             Finance.Wallet.Change(player, -price);
             Finance.Wallet.Change(driver, price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price, $"mechanicRepair");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт Вашего транспортного средства", 3000);
-            Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил ремонт", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили ремонт Вашего транспортного средства", 3000);
+            Plugins.Notice.Send(driver, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) оплатил ремонт", 3000);
             Commands.Controller.RPChat("me", driver, $"починил автомобиль");
 
             player.ResetData("MECHANIC_DRIVER");
@@ -131,8 +131,8 @@ namespace iTeffa.Working
                 driver.ResetData("MECHANIC_CLIENT");
                 player.ResetData("MECHANIC_DRIVER");
                 player.SetData("IS_CALL_MECHANIC", false);
-                Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Клиент отменил заказ", 3000);
-                Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы покинули место вызова автомеханика", 3000);
+                Plugins.Notice.Send(driver, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Клиент отменил заказ", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Вы покинули место вызова автомеханика", 3000);
                 try
                 {
                     NAPI.ColShape.DeleteColShape(orderCols[player]);
@@ -152,7 +152,7 @@ namespace iTeffa.Working
                 {
                     if (!Main.Players[player].Licenses[1])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории B", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии категории B", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                         return;
                     }
@@ -162,7 +162,7 @@ namespace iTeffa.Working
                         {
                             if (vehicle.GetData<Player>("DRIVER") != null)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Этот рабочий транспорт уже занят", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Этот рабочий транспорт уже занят", 3000);
                                 return;
                             }
                             if (Main.Players[player].Money >= mechanicRentCost)
@@ -171,16 +171,16 @@ namespace iTeffa.Working
                             }
                             else
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает " + (mechanicRentCost - Main.Players[player].Money) + "$ на аренду рабочего транспорта", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не хватает " + (mechanicRentCost - Main.Players[player].Money) + "$ на аренду рабочего транспорта", 3000);
                                 VehicleManager.WarpPlayerOutOfVehicle(player);
                             }
                         }
                         else if (NAPI.Data.GetEntityData(player, "WORK") == vehicle) NAPI.Data.SetEntityData(player, "IN_WORK_CAR", true);
-                        else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже работаете", 3000);
+                        else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже работаете", 3000);
                     }
                     else
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете автомехаником. Устроиться можно в мэрии", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете автомехаником. Устроиться можно в мэрии", 3000);
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
@@ -219,7 +219,7 @@ namespace iTeffa.Working
                 {
                     Player driver = player.GetData<Player>("MECHANIC_DRIVER");
                     driver.ResetData("MECHANIC_CLIENT");
-                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Клиент отменил заказ", 3000);
+                    Plugins.Notice.Send(driver, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Клиент отменил заказ", 3000);
                     try
                     {
                         NAPI.ColShape.DeleteColShape(orderCols[player]);
@@ -236,7 +236,7 @@ namespace iTeffa.Working
                         Player client = player.GetData<Player>("MECHANIC_CLIENT");
                         client.ResetData("MECHANIC_DRIVER");
                         client.SetData("IS_CALL_MECHANIC", false);
-                        Notify.Send(client, NotifyType.Warning, NotifyPosition.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
                         try
                         {
                             NAPI.ColShape.DeleteColShape(orderCols[client]);
@@ -258,7 +258,7 @@ namespace iTeffa.Working
                 Main.Players[player].WorkID == 8 &&
                 NAPI.Data.GetEntityData(player, "WORK") == vehicle)
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Если Вы не сядете в транспорт через 5 минут, то рабочий день закончится", 3000);
                     NAPI.Data.SetEntityData(player, "IN_WORK_CAR", false);
                     if (player.HasData("WORK_CAR_EXIT_TIMER"))
                     Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
@@ -283,7 +283,7 @@ namespace iTeffa.Working
                     }
                     if (NAPI.Data.GetEntityData(player, "CAR_EXIT_TIMER_COUNT") > 300)
                     {
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                         respawnCar(vehicle);
                         player.SetData<bool>("ON_WORK", false);
                         player.SetData<Vehicle>("WORK", null);
@@ -294,7 +294,7 @@ namespace iTeffa.Working
                             Player client = player.GetData<Player>("MECHANIC_CLIENT");
                             client.ResetData("MECHANIC_DRIVER");
                             client.SetData("IS_CALL_MECHANIC", false);
-                            Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
                             player.ResetData("MECHANIC_CLIENT");
                             try
                             {
@@ -320,13 +320,13 @@ namespace iTeffa.Working
             {
                 if (player.HasData("MECHANIC_CLIENT"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже взяли заказ", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже взяли заказ", 3000);
                     return;
                 }
                 if (NAPI.Data.GetEntityData(target, "IS_CALL_MECHANIC") && !target.HasData("MECHANIC_DRIVER"))
                 {
-                    Notify.Send(target, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
+                    Plugins.Notice.Send(target, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов. Оставайтесь на мест", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы приняли вызов игрока ({target.Value})", 3000);
                     Trigger.ClientEvent(player, "createWaypoint", NAPI.Entity.GetEntityPosition(target).X, NAPI.Entity.GetEntityPosition(target).Y);
 
                     target.SetData("MECHANIC_DRIVER", player);
@@ -336,9 +336,9 @@ namespace iTeffa.Working
                     orderCols[target].SetData("MECHANIC_CLIENT", target);
                     orderCols[target].OnEntityExitColShape += order_onEntityExit;
                 }
-                else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не вызывал автомеханика", 3000);
+                else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не вызывал автомеханика", 3000);
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете автомехаником в данный момент", 3000);
+            else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете автомехаником в данный момент", 3000);
         }
 
         public static void cancelMechanic(Player player)
@@ -349,8 +349,8 @@ namespace iTeffa.Working
                 client.ResetData("MECHANIC_DRIVER");
                 client.SetData("IS_CALL_MECHANIC", false);
                 player.ResetData("MECHANIC_CLIENT");
-                Notify.Send(client, NotifyType.Warning, NotifyPosition.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили выезд к клиенту", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Автомеханик покинул рабочее место, сделайте новый заказ", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы отменили выезд к клиенту", 3000);
                 try
                 {
                     NAPI.ColShape.DeleteColShape(orderCols[client]);
@@ -362,13 +362,13 @@ namespace iTeffa.Working
             if (NAPI.Data.GetEntityData(player, "IS_CALL_MECHANIC"))
             {
                 NAPI.Data.SetEntityData(player, "IS_CALL_MECHANIC", false);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили вызов автомеханика", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы отменили вызов автомеханика", 3000);
                 if (player.HasData("MECHANIC_DRIVER"))
                 {
                     Player driver = player.GetData<Player>("MECHANIC_DRIVER");
                     driver.ResetData("MECHANIC_CLIENT");
                     player.ResetData("MECHANIC_DRIVER");
-                    Notify.Send(driver, NotifyType.Warning, NotifyPosition.TopCenter, $"Клиент отменил заказ", 3000);
+                    Plugins.Notice.Send(driver, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Клиент отменил заказ", 3000);
                     try
                     {
                         NAPI.ColShape.DeleteColShape(orderCols[player]);
@@ -377,7 +377,7 @@ namespace iTeffa.Working
                     catch { }
                 }
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не вызывали автомеханика.", 3000);
+            else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не вызывали автомеханика.", 3000);
         }
 
         public static void callMechanic(Player player)
@@ -398,11 +398,11 @@ namespace iTeffa.Working
                 if (i > 0)
                 {
                     NAPI.Data.SetEntityData(player, "IS_CALL_MECHANIC", true);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Ожидайте принятия вызова. В Вашем районе сейчас {i} автомехаников. Для отмены вызова используйте /cmechanic", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Ожидайте принятия вызова. В Вашем районе сейчас {i} автомехаников. Для отмены вызова используйте /cmechanic", 3000);
                 }
-                else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В Вашем районе сейчас нет автомехаников. Попробуйте в другой раз", 3000);
+                else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В Вашем районе сейчас нет автомехаников. Попробуйте в другой раз", 3000);
             }
-            else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже вызвали автомеханика. Для отмены напишите /cmechanic", 3000);
+            else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже вызвали автомеханика. Для отмены напишите /cmechanic", 3000);
         }
 
         public static void buyFuel(Player player, int fuel)
@@ -410,76 +410,76 @@ namespace iTeffa.Working
             if (!Main.Players.ContainsKey(player)) return;
             if (Main.Players[player].WorkID != 8 || !player.GetData<bool>("ON_WORK") || !player.IsInVehicle || player.GetData<Vehicle>("WORK") != player.Vehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны работать автомехаником и находиться в рабочей машине", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны работать автомехаником и находиться в рабочей машине", 3000);
                 return;
             }
             if (player.GetData<int>("BIZ_ID") == -1 || BusinessManager.BizList[player.GetData<int>("BIZ_ID")].Type != 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться на заправке", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться на заправке", 3000);
                 return;
             }
             if (fuel <= 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                 return;
             }
             Business biz = BusinessManager.BizList[player.GetData<int>("BIZ_ID")];
             if (Main.Players[player].Money < biz.Products[0].Price * fuel)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                 return;
             }
             if (player.Vehicle.GetSharedData<int>("FUELTANK") + fuel > 1000)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Бак с бензином полон", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Бак с бензином полон", 3000);
                 return;
             }
             if (!BusinessManager.takeProd(biz.ID, fuel, biz.Products[0].Name, biz.Products[0].Price * fuel))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно топлива на заправке", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно топлива на заправке", 3000);
                 return;
             }
             Finance.Wallet.Change(player, -biz.Products[0].Price * fuel);
             Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price * fuel, $"mechanicBuyFuel");
             player.Vehicle.SetSharedData("FUELTANK", player.Vehicle.GetSharedData<int>("FUELTANK") + fuel);
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы пополнили бак в вашей рабочей машине до {player.Vehicle.GetSharedData<int>("FUELTANK")}л", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы пополнили бак в вашей рабочей машине до {player.Vehicle.GetSharedData<int>("FUELTANK")}л", 3000);
         }
 
         public static void mechanicFuel(Player player, Player target, int fuel, int pricePerLitr)
         {
             if (Main.Players[player].WorkID != 8 || !player.GetData<bool>("ON_WORK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работает автомехаником", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работает автомехаником", 3000);
                 return;
             }
             if (!player.IsInVehicle || !player.Vehicle.HasData("TYPE") || player.Vehicle.GetData<string>("TYPE") != "MECHANIC")
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в рабочем транспорте", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в рабочем транспорте", 3000);
                 return;
             }
             if (!target.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок должен находиться в транспортном средстве", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок должен находиться в транспортном средстве", 3000);
                 return;
             }
             if (player.Vehicle.Position.DistanceTo(target.Vehicle.Position) > 5)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко от Вас", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок слишком далеко от Вас", 3000);
                 return;
             }
             if (fuel < 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете продать меньше литра", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете продать меньше литра", 3000);
                 return;
             }
             if (pricePerLitr < 2 || pricePerLitr > 10)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы можете установить цену от 2$ до 10$ за литр", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы можете установить цену от 2$ до 10$ за литр", 3000);
                 return;
             }
             if (Main.Players[target].Money < pricePerLitr * fuel)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно денег", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно денег", 3000);
                 return;
             }
             
@@ -488,14 +488,14 @@ namespace iTeffa.Working
             target.SetData("MECHANIC_FEUL", fuel);
             Trigger.ClientEvent(target, "openDialog", "FUEL_CAR", $"Игрок ({player.Value}) предложил заправить Ваш транспорт на {fuel}л за ${fuel * pricePerLitr}");
             
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) заправить транспорт на {fuel}л за {fuel * pricePerLitr}$.", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) заправить транспорт на {fuel}л за {fuel * pricePerLitr}$.", 3000);
         }
 
         public static void mechanicPayFuel(Player player)
         {
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в транспортном средстве", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в транспортном средстве", 3000);
                 return;
             }
 
@@ -503,7 +503,7 @@ namespace iTeffa.Working
             var fuel = NAPI.Data.GetEntityData(player, "MECHANIC_FEUL");
             if (Main.Players[player].Money < price * fuel)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно средств", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно средств", 3000);
                 return;
             }
 
@@ -511,21 +511,21 @@ namespace iTeffa.Working
 
             if (!driver.IsInVehicle || !driver.Vehicle.HasData("TYPE") || driver.Vehicle.GetData<string>("TYPE") != "MECHANIC")
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Механик должен находиться в транспортном средстве", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Механик должен находиться в транспортном средстве", 3000);
                 return;
             }
 
             if (driver.Vehicle.GetSharedData<object>("FUELTANK") < fuel)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У механика недостаточно топлива, чтобы заправить Вас", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У механика недостаточно топлива, чтобы заправить Вас", 3000);
                 return;
             }
 
             Finance.Wallet.Change(player, -price * fuel);
             Finance.Wallet.Change(driver, price * fuel);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price * fuel, $"mechanicFuel");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили ремонт заправку транспортного средства", 3000);
-            Notify.Send(driver, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) оплатил заправку транспорта", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили ремонт заправку транспортного средства", 3000);
+            Plugins.Notice.Send(driver, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) оплатил заправку транспорта", 3000);
             Commands.Controller.RPChat("me", driver, $"заправил транспортное средство");
 
             var carFuel = (player.Vehicle.GetSharedData<object>("PETROL") + fuel > player.Vehicle.GetSharedData<object>("MAXPETROL")) ? player.Vehicle.GetSharedData<object>("MAXPETROL") : player.Vehicle.GetSharedData<object>("PETROL") + fuel;

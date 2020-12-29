@@ -89,7 +89,7 @@ namespace iTeffa.Globals
                 {
                     player.SetData("SCHOOL_TIMER", Timers.StartOnce(60000, () => timer_exitVehicle(player)));
 
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Если вы не сядете в машину в течение 60 секунд, то провалите экзамен", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Если вы не сядете в машину в течение 60 секунд, то провалите экзамен", 3000);
                     return;
                 }
             }
@@ -111,7 +111,7 @@ namespace iTeffa.Globals
                     player.ResetData("SCHOOLVEH");
                     Timers.Stop(player.GetData<string>("SCHOOL_TIMER"));
                     player.ResetData("SCHOOL_TIMER");
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Вы провалили экзмен", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Вы провалили экзмен", 3000);
                 }
                 catch (Exception e) { Log.Write("TimerDrivingSchool: " + e.Message, Nlogs.Type.Error); }
             });
@@ -132,12 +132,12 @@ namespace iTeffa.Globals
         {
             if (player.HasData("IS_DRIVING") || player.GetData<bool>("ON_WORK"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это сейчас", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете сделать это сейчас", 3000);
                 return;
             }
             if (Main.Players[player].Licenses[index])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть эта лицензия", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть эта лицензия", 3000);
                 return;
             }
             switch (index)
@@ -145,7 +145,7 @@ namespace iTeffa.Globals
                 case 0:
                     if (Main.Players[player].Money < LicPrices[0])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     var vehicle = NAPI.Vehicle.CreateVehicle(VehicleHash.Bagger, startCourseCoord[0], startCourseRot[0], 30, 30);
@@ -162,12 +162,12 @@ namespace iTeffa.Globals
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
                 case 1:
                     if (Main.Players[player].Money < LicPrices[1])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     vehicle = NAPI.Vehicle.CreateVehicle(VehicleHash.Dilettante, startCourseCoord[0], startCourseRot[0], 30, 30);
@@ -184,12 +184,12 @@ namespace iTeffa.Globals
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
                 case 2:
                     if (Main.Players[player].Money < LicPrices[2])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     vehicle = NAPI.Vehicle.CreateVehicle(VehicleHash.Flatbed, startCourseCoord[0], startCourseRot[0], 30, 30);
@@ -206,46 +206,46 @@ namespace iTeffa.Globals
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Чтобы завести транспорт, нажмите B", 3000);
                     return;
                 case 3:
                     if (Main.Players[player].Money < LicPrices[3])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[3] = true;
                     Finance.Wallet.Change(player, -LicPrices[3]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[3];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 4:
                     if (Main.Players[player].Money < LicPrices[4])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"", 3000);
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[4] = true;
                     Finance.Wallet.Change(player, -LicPrices[4]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[4];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
                 case 5:
                     if (Main.Players[player].Money < LicPrices[5])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег, чтобы купить эту лицензию", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[5] = true;
                     Finance.Wallet.Change(player, -LicPrices[5]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[5];
                     Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);
                     Dashboard.sendStats(player);
                     return;
             }
@@ -287,11 +287,11 @@ namespace iTeffa.Globals
                     player.ResetData("SCHOOLVEH");
                     if (vehHP < 500)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы провалили экзамен", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы провалили экзамен", 3000);
                         return;
                     }
                     Main.Players[player].Licenses[player.GetData<int>("LICENSE")] = true;
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы успешно сдали экзамен", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно сдали экзамен", 3000);
                     Dashboard.sendStats(player);
                     Trigger.ClientEvent(player, "deleteCheckpoint", 12, 0);
                     return;

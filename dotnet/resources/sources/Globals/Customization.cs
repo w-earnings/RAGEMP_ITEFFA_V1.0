@@ -2209,7 +2209,7 @@ namespace iTeffa.Globals
                         Main.Accounts[player].VipLvl = 3;
                         Main.Accounts[player].VipDate = DateTime.Now.AddDays(3);
                         Interface.Dashboard.sendStats(player);
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Добро пожаловать в штат! Вы получили первый уровень, Gold VIP на 3 дня и 5000$!", 6000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Добро пожаловать в штат! Вы получили первый уровень, Gold VIP на 3 дня и 5000$!", 6000);
                         NAPI.Task.Run(() => { try { Trigger.ClientEvent(player, "disabledmg", false); } catch { } }, 5000);
                     }
                 }

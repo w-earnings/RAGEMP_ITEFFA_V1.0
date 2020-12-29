@@ -106,12 +106,12 @@ namespace iTeffa.Fractions.Realm
                 {
                     if (Manager.countOfFractionMembers(7) == 0 && Manager.countOfFractionMembers(9) == 0)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Нет полицейских в Вашем районе. Попробуйте позже", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Нет полицейских в Вашем районе. Попробуйте позже", 3000);
                         return;
                     }
                     if (player.HasData("NEXTCALL_POLICE") && DateTime.Now < player.GetData<DateTime>("NEXTCALL_POLICE"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы уже вызвали полицию, попробуйте позже", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы уже вызвали полицию, попробуйте позже", 3000);
                         return;
                     }
                     player.SetData("NEXTCALL_POLICE", DateTime.Now.AddMinutes(7));
@@ -170,7 +170,7 @@ namespace iTeffa.Fractions.Realm
                 if (target == null || !NAPI.Entity.DoesEntityExist(target)) return;
                 if (!target.HasData("IS_CALLPOLICE"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Игрок не вызывал полицию или этот вызов уже кто-то принял", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Игрок не вызывал полицию или этот вызов уже кто-то принял", 3000);
                     return;
                 }
                 Blip blip = target.GetData<Blip>("CALLPOLICE_BLIP");
@@ -202,7 +202,7 @@ namespace iTeffa.Fractions.Realm
 
                 Manager.sendFractionMessage(7, $"{player.Name.Replace('_', ' ')} принял вызов от игрока ({target.Value})");
                 Manager.sendFractionMessage(7, $"~b~{player.Name.Replace('_', ' ')} принял вызов от игрока ({target.Value})", true);
-                Notify.Send(target, NotifyType.Info, NotifyPosition.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов", 3000);
+                Plugins.Notice.Send(target, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) принял Ваш вызов", 3000);
             }
             catch
             {
@@ -221,7 +221,7 @@ namespace iTeffa.Fractions.Realm
                     var pasport = Convert.ToInt32(target);
                     if (!Main.PlayerNames.ContainsKey(pasport))
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Паспорта с таким номером не существует", 3000);
+                        Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Паспорта с таким номером не существует", 3000);
                         return;
                     }
                     player = NAPI.Player.GetPlayerFromName(Main.PlayerNames[pasport]);
@@ -232,7 +232,7 @@ namespace iTeffa.Fractions.Realm
                     target.Replace(' ', '_');
                     if (!Main.PlayerNames.ContainsValue(target))
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                        Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не найден", 3000);
                         return;
                     }
                     player = NAPI.Player.GetPlayerFromName(target);
@@ -245,7 +245,7 @@ namespace iTeffa.Fractions.Realm
                     setPlayerWantedLevel(player, null);
                 }
                 catch { }
-                Notify.Send(sender, NotifyType.Success, NotifyPosition.TopCenter, $"Вы сняли розыск с владельца паспорта {target}", 3000);
+                Plugins.Notice.Send(sender, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы сняли розыск с владельца паспорта {target}", 3000);
             }
             catch (Exception e) { Log.Write("ClearWantedLvl: " + e.Message, Nlogs.Type.Error); }
         }
@@ -263,7 +263,7 @@ namespace iTeffa.Fractions.Realm
                 }
                 catch
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Машины с таким номером не найдено", 3000);
+                    Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Машины с таким номером не найдено", 3000);
                     return;
                 }
                 Trigger.ClientEvent(sender, "executeCarInfo", Convert.ToString(vehicle.Model), vehicle.Holder.Replace('_', ' '));
@@ -283,7 +283,7 @@ namespace iTeffa.Fractions.Realm
                     var pasport = Convert.ToInt32(target);
                     if (!Main.PlayerNames.ContainsKey(pasport))
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Паспорта с таким номером не существует", 3000);
+                        Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Паспорта с таким номером не существует", 3000);
                         return;
                     }
                     player = NAPI.Player.GetPlayerFromName(Main.PlayerNames[pasport]);
@@ -294,7 +294,7 @@ namespace iTeffa.Fractions.Realm
                     target.Replace(' ', '_');
                     if (!Main.PlayerNames.ContainsValue(target))
                     {
-                        Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок не найден", 3000);
+                        Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок не найден", 3000);
                         return;
                     }
                     player = NAPI.Player.GetPlayerFromName(target);
@@ -406,17 +406,17 @@ namespace iTeffa.Fractions.Realm
                 case 10:
                     if (Main.Players[player].FractionID != 7)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник полиции", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не сотрудник полиции", 3000);
                         return;
                     }
                     if (!Stocks.fracStocks[7].IsOpen)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
                     if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
                     OpenPoliceGunMenu(player);
@@ -426,14 +426,14 @@ namespace iTeffa.Fractions.Realm
                     {
                         if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                         {
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы начали рабочий день", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы начали рабочий день", 3000);
                             Manager.setSkin(player, 7, Main.Players[player].FractionLVL);
                             NAPI.Data.SetEntityData(player, "ON_DUTY", true);
                             break;
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000); ;
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000); ;
                             Customization.ApplyCharacter(player);
                             if (player.HasData("HAND_MONEY")) player.SetClothes(5, 45, 0);
                             else if (player.HasData("HEIST_DRILL")) player.SetClothes(5, 41, 0);
@@ -441,22 +441,22 @@ namespace iTeffa.Fractions.Realm
                             break;
                         }
                     }
-                    else Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник полиции", 3000);
+                    else Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не сотрудник полиции", 3000);
                     return;
                 case 12:
                     if (Main.Players[player].FractionID != 7)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник полиции", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не сотрудник полиции", 3000);
                         return;
                     }
                     if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
                     if (!is_warg)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Не включен режим ЧП", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Не включен режим ЧП", 3000);
                         return;
                     }
                     OpenSpecialPoliceMenu(player);
@@ -464,7 +464,7 @@ namespace iTeffa.Fractions.Realm
                 case 42:
                     if (!player.HasData("HAND_MONEY") && !player.HasData("HEIST_DRILL"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ни сумки с деньгами, ни сумки с дрелью", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет ни сумки с деньгами, ни сумки с дрелью", 3000);
                         return;
                     }
                     if (player.HasData("HAND_MONEY"))
@@ -481,37 +481,37 @@ namespace iTeffa.Fractions.Realm
                     }
                     Finance.Wallet.Change(player, 200);
                     Loggings.Money($"server", $"player({Main.Players[player].UUID})", 200, $"policeAward");
-                    Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили вознаграждение в 200$", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили вознаграждение в 200$", 3000);
                     return;
                 case 44:
                     if (Main.Players[player].Licenses[6])
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас уже есть лицензия на оружие", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть лицензия на оружие", 3000);
                         return;
                     }
                     if (!Finance.Wallet.Change(player, -30000))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно средств.", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно средств.", 3000);
                         return;
                     }
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили лицензию на оружие", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили лицензию на оружие", 3000);
                     Main.Players[player].Licenses[6] = true;
                     Dashboard.sendStats(player);
                     return;
                 case 59:
                     if (Main.Players[player].FractionID != 7)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник полиции", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не сотрудник полиции", 3000);
                         return;
                     }
                     if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
                     if (!Stocks.fracStocks[7].IsOpen)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Склад закрыт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Склад закрыт", 3000);
                         return;
                     }
                     if (!Manager.canUseCommand(player, "openweaponstock")) return;
@@ -521,23 +521,23 @@ namespace iTeffa.Fractions.Realm
                 case 66:
                     if (Main.Players[player].FractionID != 7)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не сотрудник полиции", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не сотрудник полиции", 3000);
                         return;
                     }
                     if (!NAPI.Data.GetEntityData(player, "ON_DUTY"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны начать рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны начать рабочий день", 3000);
                         return;
                     }
                     if (!player.IsInVehicle || (player.Vehicle.Model != NAPI.Util.GetHashKey("police") &&
                         player.Vehicle.Model != NAPI.Util.GetHashKey("police2") && player.Vehicle.Model != NAPI.Util.GetHashKey("police3") && player.Vehicle.Model != NAPI.Util.GetHashKey("police4")))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в рабочей машине", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в рабочей машине", 3000);
                         return;
                     }
                     Trigger.ClientEvent(player, "svem", 20, 20);
                     player.Vehicle.SetSharedData("BOOST", 20);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Пробущено", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Пробущено", 3000);
                     return;
             }
         }
@@ -661,39 +661,39 @@ namespace iTeffa.Fractions.Realm
                         if (!Manager.canGetWeapon(client, "armor")) return;
                         if (Stocks.fracStocks[7].Materials < Manager.matsForArmor)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе недостаточно материала", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "На складе недостаточно материала", 3000);
                             return;
                         }
                         var aItem = nInventory.Find(Main.Players[client].UUID, ItemType.BodyArmor);
                         if (aItem != null)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть бронежилет", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас уже есть бронежилет", 3000);
                             return;
                         }
                         Stocks.fracStocks[7].Materials -= Manager.matsForArmor;
                         Stocks.fracStocks[7].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.BodyArmor, 1, 100.ToString()));
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили бронежилет", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили бронежилет", 3000);
                         Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "armor", 1, false);
                         return;
                     case 6:
                         if (!Manager.canGetWeapon(client, "Medkits")) return;
                         if (Stocks.fracStocks[7].Medkits == 0)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "На складе нет аптечек", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "На складе нет аптечек", 3000);
                             return;
                         }
                         var hItem = nInventory.Find(Main.Players[client].UUID, ItemType.HealthKit);
                         if (hItem != null)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "У Вас уже есть аптечка", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас уже есть аптечка", 3000);
                             return;
                         }
                         Stocks.fracStocks[7].Medkits--;
                         Stocks.fracStocks[7].UpdateLabel();
                         nInventory.Add(client, new nItem(ItemType.HealthKit, 1));
                         Loggings.Stock(Main.Players[client].FractionID, Main.Players[client].UUID, "medkit", 1, false);
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы получили аптечку", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы получили аптечку", 3000);
                         return;
                     case 7:
                         if (!Manager.canGetWeapon(client, "PistolAmmo")) return;

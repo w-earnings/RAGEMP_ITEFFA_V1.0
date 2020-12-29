@@ -1472,14 +1472,14 @@ namespace iTeffa.Globals
             if (player.GetData<int>("BIZ_ID") == -1) return;
             if (player.HasData("FOLLOWING"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вас кто-то тащит за собой", 3000);
                 return;
             }
             Business biz = BizList[player.GetData<int>("BIZ_ID")];
 
             if (biz.Owner != "Государство" && !Main.PlayerNames.ContainsValue(biz.Owner))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Данный {BusinessTypeNames[biz.Type]} в данный момент не работает", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Данный {BusinessTypeNames[biz.Type]} в данный момент не работает", 3000);
                 return;
             }
 
@@ -1502,7 +1502,7 @@ namespace iTeffa.Globals
                 case 6:
                     if (player.HasData("FOLLOWER"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Отпустите человека", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Отпустите человека", 3000);
                         return;
                     }
                     player.SetData("CARROOMID", biz.ID);
@@ -1515,7 +1515,7 @@ namespace iTeffa.Globals
                 case 8:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны закончить рабочий день", 3000);
                         return;
                     }
                     player.SetData("CLOTHES_SHOP", biz.ID);
@@ -1526,7 +1526,7 @@ namespace iTeffa.Globals
                 case 9:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны закончить рабочий день", 3000);
                         return;
                     }
                     player.SetData("BODY_SHOP", biz.ID);
@@ -1543,7 +1543,7 @@ namespace iTeffa.Globals
                 case 10:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны закончить рабочий день", 3000);
                         return;
                     }
                     player.SetData("BODY_SHOP", biz.ID);
@@ -1556,7 +1556,7 @@ namespace iTeffa.Globals
                 case 11:
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2) || player.GetData<bool>("ON_WORK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны закончить рабочий день", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны закончить рабочий день", 3000);
                         return;
                     }
                     player.SetData("MASKS_SHOP", biz.ID);
@@ -1567,23 +1567,23 @@ namespace iTeffa.Globals
                 case 12:
                     if (!player.IsInVehicle || !player.Vehicle.HasData("ACCESS") || player.Vehicle.GetData<string>("ACCESS") != "PERSONAL")
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в личной машине", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в личной машине", 3000);
                         return;
                     }
                     if (player.Vehicle.Class == 13)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Велосипед не может быть затюнингован", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Велосипед не может быть затюнингован", 3000);
                         return;
                     }
                     if (player.Vehicle.Class == 8)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Тюнинг пока что недоступен для мотоциклов :( Скоро исправим", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Тюнинг пока что недоступен для мотоциклов :( Скоро исправим", 3000);
                         return;
                     }
                     var vdata = VehicleManager.Vehicles[player.Vehicle.NumberPlate];
                     if (!Tuning.ContainsKey(vdata.Model))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В данный момент для Вашего т/с тюнинг не доступен", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В данный момент для Вашего т/с тюнинг не доступен", 3000);
                         return;
                     }
 
@@ -1599,7 +1599,7 @@ namespace iTeffa.Globals
                 case 13:
                     if (!player.IsInVehicle)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                         return;
                     }
                     Trigger.ClientEvent(player, "openDialog", "CARWASH_PAY", $"Вы хотите помыть машину за ${biz.Products[0].Price}$?");
@@ -1631,14 +1631,14 @@ namespace iTeffa.Globals
                 var aItem = nInventory.Find(Main.Players[client].UUID, RodManager.GetSellingItemType(prod.Name));
                 if (aItem == null)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет {prod.Name}", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет {prod.Name}", 3000);
                     return;
                 }
 
                 var prices = prod.Price * Main.pluscost;
 
                 nInventory.Remove(client, RodManager.GetSellingItemType(prod.Name), 1);
-                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали {prod.Name}", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали {prod.Name}", 3000);
                 Finance.Wallet.Change(client, +prices);
                 Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prices, $"sellShop");
             }
@@ -1659,26 +1659,26 @@ namespace iTeffa.Globals
                         {
                             if (Main.Players[player].Money < biz.Products[0].Price)
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                                 return;
                             }
 
                             if (!takeProd(biz.ID, 1, "Средство для мытья", biz.Products[0].Price))
                             {
-                                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
+                                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно товара на складе", 3000);
                                 return;
                             }
                             Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price, "carwash");
                             Finance.Wallet.Change(player, -biz.Products[0].Price);
 
                             VehicleStreaming.SetVehicleDirt(player.Vehicle, 0.0f);
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Ваш транспорт был помыт.", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Ваш транспорт был помыт.", 3000);
                         }
                         else
-                            Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, "Ваш транспорт не грязный.", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, "Ваш транспорт не грязный.", 3000);
                     }
                     else
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Мыть транспорт может только водитель.", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Мыть транспорт может только водитель.", 3000);
                 }
                 return;
             }
@@ -1695,30 +1695,30 @@ namespace iTeffa.Globals
             {
                 if (!player.IsInVehicle || !player.Vehicle.HasData("ACCESS") || player.Vehicle.GetData<string>("ACCESS") != "PERSONAL")
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в личной машине", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в личной машине", 3000);
                     return;
                 }
                 if (player.Vehicle.Class == 13)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Велосипед не может быть затюнингован", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Велосипед не может быть затюнингован", 3000);
                     return;
                 }
                 if (player.Vehicle.Class == 8)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Тюнинг пока что недоступен для мотоциклов :( Скоро исправим", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Тюнинг пока что недоступен для мотоциклов :( Скоро исправим", 3000);
                     return;
                 }
                 var vdata = VehicleManager.Vehicles[player.Vehicle.NumberPlate];
                 if (!Tuning.ContainsKey(vdata.Model))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В данный момент для Вашего т/с тюнинг не доступен", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В данный момент для Вашего т/с тюнинг не доступен", 3000);
                     return;
                 }
 
                 if (player.GetData<int>("BIZ_ID") == -1) return;
                 if (player.HasData("FOLLOWING"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вас кто-то тащит за собой", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вас кто-то тащит за собой", 3000);
                     return;
                 }
                 Business biz = BizList[player.GetData<int>("BIZ_ID")];
@@ -1806,7 +1806,7 @@ namespace iTeffa.Globals
 
                 if (Main.Players[player].Money < price)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вам не хватает ещё {price - Main.Players[player].Money}$ для покупки этой модификации", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вам не хватает ещё {price - Main.Players[player].Money}$ для покупки этой модификации", 3000);
                     Trigger.ClientEvent(player, "tunBuySuccess", -2);
                     return;
                 }
@@ -1815,7 +1815,7 @@ namespace iTeffa.Globals
                 if (amount <= 0) amount = 1;
                 if (!takeProd(biz.ID, amount, "Запчасти", price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "В данной автомастерской закончились все запчасти", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "В данной автомастерской закончились все запчасти", 3000);
                     Trigger.ClientEvent(player, "tunBuySuccess", -2);
                     return;
                 }
@@ -1901,7 +1901,7 @@ namespace iTeffa.Globals
                         break;
                 }
                 VehicleManager.Save(number);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы купили и установили данную модификацию", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили и установили данную модификацию", 3000);
                 Trigger.ClientEvent(player, "tuningUpd", JsonConvert.SerializeObject(VehicleManager.Vehicles[number].Components));
             }
             catch (Exception e) { Log.Write("buyTuning: " + e.Message, Nlogs.Type.Error); }
@@ -2003,18 +2003,18 @@ namespace iTeffa.Globals
                 var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Top));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно места в инвентаре", 3000);
                     return;
                 }
                 if (Main.Players[player].Money < price)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                     return;
                 }
 
                 if (!takeProd(biz.ID, 1, "Маски", price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно товара на складе", 3000);
                     return;
                 }
                 Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyMask");
@@ -2022,7 +2022,7 @@ namespace iTeffa.Globals
 
                 Customization.AddClothes(player, ItemType.Mask, variation, texture);
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы купили новую маску. Она была добавлена в Ваш инвентарь.", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили новую маску. Она была добавлена в Ваш инвентарь.", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("buyMasks: " + e.Message, Nlogs.Type.Error); }
@@ -2083,12 +2083,12 @@ namespace iTeffa.Globals
                 var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Top));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно места в инвентаре", 3000);
                     return;
                 }
                 if (Main.Players[player].Money < price)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                     return;
                 }
 
@@ -2096,7 +2096,7 @@ namespace iTeffa.Globals
                 if (amount <= 0) amount = 1;
                 if (!takeProd(biz.ID, amount, "Одежда", price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно товара на складе", 3000);
                     return;
                 }
                 Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", price, "buyClothes");
@@ -2134,7 +2134,7 @@ namespace iTeffa.Globals
                         break;
                 }
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы купили новую одежду. Она была добавлена в Ваш инвентарь.", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили новую одежду. Она была добавлена в Ваш инвентарь.", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("BuyClothes: " + e.Message, Nlogs.Type.Error); }
@@ -2169,7 +2169,7 @@ namespace iTeffa.Globals
                 double price = tattoo.Price / 100.0 * prod.Price;
                 if (Main.Players[player].Money < Convert.ToInt32(price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                     return;
                 }
 
@@ -2199,7 +2199,7 @@ namespace iTeffa.Globals
 
                 player.SetSharedData("TATTOOS", JsonConvert.SerializeObject(Customization.CustomPlayerData[Main.Players[player].UUID].Tattoos));
 
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вам набили татуировку {tattoo.Name} за {Convert.ToInt32(price)}$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вам набили татуировку {tattoo.Name} за {Convert.ToInt32(price)}$", 3000);
             }
             catch (Exception e) { Log.Write("BuyTattoo: " + e.Message, Nlogs.Type.Error); }
         }
@@ -2364,7 +2364,7 @@ namespace iTeffa.Globals
 
                 if ((id == "lipstick" || id == "blush" || id == "makeup") && Main.Players[player].Gender && style != 255)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Доступно только для персонажей женского пола", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Доступно только для персонажей женского пола", 3000);
                     return;
                 }
 
@@ -2378,12 +2378,12 @@ namespace iTeffa.Globals
                 else price = (style == 255) ? BarberPrices[id][0] / 100.0 * prod.Price : BarberPrices[id][style] / 100.0 * prod.Price;
                 if (Main.Players[player].Money < Convert.ToInt32(price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                     return;
                 }
                 if (!takeProd(biz.ID, 1, "Расходники", Convert.ToInt32(price)))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Этот барбер-шоп не может оказать эту услугу в данный момент", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Этот барбер-шоп не может оказать эту услугу в данный момент", 3000);
                     return;
                 }
                 Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", Convert.ToInt32(price), "buyBarber");
@@ -2422,7 +2422,7 @@ namespace iTeffa.Globals
                         break;
                 }
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы оплатили услугу Барбер-Шопа ({Convert.ToInt32(price)}$)", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили услугу Барбер-Шопа ({Convert.ToInt32(price)}$)", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("BuyBarber: " + e.Message, Nlogs.Type.Error); }
@@ -2438,23 +2438,23 @@ namespace iTeffa.Globals
                 if (player.VehicleSeat != 0) return;
                 if (lvl <= 0)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                     return;
                 }
                 if (!vehicle.HasSharedData("PETROL"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно заправить эту машину", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно заправить эту машину", 3000);
                     return;
                 }
                 if (Globals.VehicleStreaming.GetEngineState(vehicle))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Чтобы начать заправляться - заглушите транспорт.", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Чтобы начать заправляться - заглушите транспорт.", 3000);
                     return;
                 }
                 int fuel = vehicle.GetSharedData<int>("PETROL");
                 if (fuel >= VehicleManager.VehicleTank[vehicle.Class])
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У транспорта полный бак", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У транспорта полный бак", 3000);
                     return;
                 }
 
@@ -2472,7 +2472,7 @@ namespace iTeffa.Globals
                 int tfuel = fuel + lvl;
                 if (tfuel > VehicleManager.VehicleTank[vehicle.Class])
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Введите корректные данные", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Введите корректные данные", 3000);
                     return;
                 }
                 Business biz = BizList[player.GetData<int>("BIZ_ID")];
@@ -2481,17 +2481,17 @@ namespace iTeffa.Globals
                     int frac = Main.Players[player].FractionID;
                     if (Fractions.Manager.FractionTypes[frac] != 2)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Чтобы заправить транспорт за гос. счет, Вы должны состоять в гос. организации", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Чтобы заправить транспорт за гос. счет, Вы должны состоять в гос. организации", 3000);
                         return;
                     }
                     if (!vehicle.HasData("ACCESS") || vehicle.GetData<string>("ACCESS") != "FRACTION" || vehicle.GetData<int>("FRACTION") != frac)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете заправить за государственный счет не государственный транспорт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете заправить за государственный счет не государственный транспорт", 3000);
                         return;
                     }
                     if (Fractions.Stocks.fracStocks[frac].FuelLeft < lvl * biz.Products[0].Price)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Лимит на заправку гос. транспорта за день исчерпан", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Лимит на заправку гос. транспорта за день исчерпан", 3000);
                         return;
                     }
                 }
@@ -2499,13 +2499,13 @@ namespace iTeffa.Globals
                 {
                     if (Main.Players[player].Money < lvl * biz.Products[0].Price)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств (не хватает {lvl * biz.Products[0].Price - Main.Players[player].Money}$)", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств (не хватает {lvl * biz.Products[0].Price - Main.Players[player].Money}$)", 3000);
                         return;
                     }
                 }
                 if (!takeProd(biz.ID, lvl, "Бензин", lvl * biz.Products[0].Price))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На заправке осталось {biz.Products[0].Lefts}л", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На заправке осталось {biz.Products[0].Lefts}л", 3000);
                     return;
                 }
                 if (isGov)
@@ -2527,7 +2527,7 @@ namespace iTeffa.Globals
                     var number = NAPI.Vehicle.GetVehicleNumberPlate(vehicle);
                     VehicleManager.Vehicles[number].Fuel += lvl;
                 }
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Транспорт заправлен", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Транспорт заправлен", 3000);
                 Commands.Controller.RPChat("me", player, $"заправил(а) транспортное средство");
             }
             catch (Exception e) { Log.Write("Petrol: " + e.Message, Nlogs.Type.Error); }
@@ -2545,7 +2545,7 @@ namespace iTeffa.Globals
 
             if (price < minPrice || price > maxPrice)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно установить такую цену", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно установить такую цену", 3000);
                 OpenBizProductsMenu(player);
                 return;
             }
@@ -2556,7 +2556,7 @@ namespace iTeffa.Globals
                     p.Price = price;
                     string ch = (biz.Type == 8 || biz.Type == 11 || biz.Type == 12 || p.Name == "Татуировки" || p.Name == "Парики") ? "%" : "$";
 
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Теперь {p.Name} стоит {p.Price}{ch}", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Теперь {p.Name} стоит {p.Price}{ch}", 3000);
                     if (p.Name == "Бензин") biz.UpdateLabel();
                     OpenBizProductsMenu(player);
                     return;
@@ -2570,7 +2570,7 @@ namespace iTeffa.Globals
 
             if (amount < 1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Неверное значение", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Неверное значение", 3000);
                 OpenBizProductsMenu(player);
                 return;
             }
@@ -2581,7 +2581,7 @@ namespace iTeffa.Globals
                 {
                     if (p.Ordered)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже заказали этот товар", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже заказали этот товар", 3000);
                         OpenBizProductsMenu(player);
                         return;
                     }
@@ -2590,7 +2590,7 @@ namespace iTeffa.Globals
                     {
                         if (amount > 3)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Укажите значение от 1 до 3", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Укажите значение от 1 до 3", 3000);
                             OpenBizProductsMenu(player);
                             return;
                         }
@@ -2599,7 +2599,7 @@ namespace iTeffa.Globals
                     var price = (p.Name == "Патроны") ? 4 : ProductsOrderPrice[p.Name];
                     if (!Bank.Change(Main.Players[player].Bank, -amount * price))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств на счету", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств на счету", 3000);
                         return;
                     }
                     Loggings.Money($"bank({Main.Players[player].Bank})", $"server", amount * price, "bizOrder");
@@ -2615,7 +2615,7 @@ namespace iTeffa.Globals
 
                     biz.Orders.Add(order);
 
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы заказали {p.Name} в количестве {amount}. №{order.UID}", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы заказали {p.Name} в количестве {amount}. №{order.UID}", 3000);
                     player.SendChatMessage($"Номер Вашего заказа: {order.UID}");
                     return;
                 }
@@ -2625,35 +2625,35 @@ namespace iTeffa.Globals
         {
             if (!player.HasData("BIZ_ID") || player.GetData<int>("BIZ_ID") == -1)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться около бизнеса", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться около бизнеса", 3000);
                 return;
             }
             int id = player.GetData<int>("BIZ_ID");
             Business biz = BusinessManager.BizList[id];
             if (Main.Players[player].BizIDs.Count >= Group.GroupMaxBusinesses[Main.Accounts[player].VipLvl])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете приобрести больше {Group.GroupMaxBusinesses[Main.Accounts[player].VipLvl]} бизнесов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете приобрести больше {Group.GroupMaxBusinesses[Main.Accounts[player].VipLvl]} бизнесов", 3000);
                 return;
             }
             if (biz.Owner == "Государство")
             {
                 if (!Finance.Wallet.Change(player, -biz.SellPrice))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не хватает средств", 3000);
                     return;
                 }
                 Loggings.Money($"player({Main.Players[player].UUID})", $"server", biz.SellPrice, $"buyBiz({biz.ID})");
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поздравляем! Вы купили {BusinessManager.BusinessTypeNames[biz.Type]}, не забудьте внести налог за него в банкомате", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Поздравляем! Вы купили {BusinessManager.BusinessTypeNames[biz.Type]}, не забудьте внести налог за него в банкомате", 3000);
                 biz.Owner = player.Name.ToString();
             }
             else if (biz.Owner == player.Name.ToString())
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Этот бизнес принадлежит Вам", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Этот бизнес принадлежит Вам", 3000);
                 return;
             }
             else if (biz.Owner != player.Name.ToString())
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Этот бизнес принадлежит другому игроку", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Этот бизнес принадлежит другому игроку", 3000);
                 return;
             }
 
@@ -2682,7 +2682,7 @@ namespace iTeffa.Globals
             var pos = player.Position;
             BizList[bizid].UnloadPoint = pos;
             Database.Query($"UPDATE businesses SET unloadpoint='{JsonConvert.SerializeObject(pos)}' WHERE id={bizid}");
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Успешно создана точка разгрузки для бизнеса ID: {bizid}", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Успешно создана точка разгрузки для бизнеса ID: {bizid}", 3000);
         }
         public static void createBusinessCommand(Player player, int govPrice, int type)
         {
@@ -2706,7 +2706,7 @@ namespace iTeffa.Globals
             {
                 Database.Query($"INSERT INTO `weapons`(`id`,`lastserial`) VALUES({biz.ID},0)");
             }
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы создали бизнес {BusinessManager.BusinessTypeNames[type]}", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы создали бизнес {BusinessManager.BusinessTypeNames[type]}", 3000);
         }
         public static void deleteBusinessCommand(Player player, int id)
         {
@@ -2714,7 +2714,7 @@ namespace iTeffa.Globals
 
 
             Database.Query($"DELETE FROM businesses WHERE id={id}");
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы удалили бизнес", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы удалили бизнес", 3000);
             Business biz = BizList.FirstOrDefault(b => b.Value.ID == id).Value;
             if (biz.Type == 7)
             {
@@ -2744,32 +2744,32 @@ namespace iTeffa.Globals
 
             if (player.Position.DistanceTo(target.Position) > 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок слишком далеко", 3000);
                 return;
             }
 
             if (Main.Players[player].BizIDs.Count == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет бизнеса", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет бизнеса", 3000);
                 return;
             }
 
             if (Main.Players[target].BizIDs.Count >= Group.GroupMaxBusinesses[Main.Accounts[target].VipLvl])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок купил максимум бизнесов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок купил максимум бизнесов", 3000);
                 return;
             }
 
             var biz = BizList[Main.Players[player].BizIDs[0]];
             if (price < biz.SellPrice / 2 || price > biz.SellPrice * 3)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно продать бизнес за такую цену. Укажите цену от {biz.SellPrice / 2}$ до {biz.SellPrice * 3}$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно продать бизнес за такую цену. Укажите цену от {biz.SellPrice / 2}$ до {biz.SellPrice * 3}$", 3000);
                 return;
             }
 
             if (Main.Players[target].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У игрока недостаточно денег", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно денег", 3000);
                 return;
             }
 
@@ -2778,7 +2778,7 @@ namespace iTeffa.Globals
             target.SetData("SELLPRICE", price);
             target.SetData("SELLBIZID", biz.ID);
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш бизнес за {price}$", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы предложили игроку ({target.Value}) купить Ваш бизнес за {price}$", 3000);
         }
         public static void acceptBuyBusiness(Player player)
         {
@@ -2787,27 +2787,27 @@ namespace iTeffa.Globals
 
             if (player.Position.DistanceTo(seller.Position) > 2)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок слишком далеко", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок слишком далеко", 3000);
                 return;
             }
 
             var price = player.GetData<int>("SELLPRICE");
             if (Main.Players[player].Money < price)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас недостаточно денег", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно денег", 3000);
                 return;
             }
 
             Business biz = BizList[player.GetData<int>("SELLBIZID")];
             if (!Main.Players[seller].BizIDs.Contains(biz.ID))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Бизнес больше не принадлежит игроку", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Бизнес больше не принадлежит игроку", 3000);
                 return;
             }
 
             if (Main.Players[player].BizIDs.Count >= Group.GroupMaxBusinesses[Main.Accounts[player].VipLvl])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас максимальное кол-во бизнесов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас максимальное кол-во бизнесов", 3000);
                 return;
             }
 
@@ -2826,8 +2826,8 @@ namespace iTeffa.Globals
             Finance.Wallet.Change(seller, price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"buyBiz({biz.ID})");
 
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы купили у {seller.Name.Replace('_', ' ')} {BusinessTypeNames[biz.Type]} за {price}$", 3000);
-            Notify.Send(seller, NotifyType.Info, NotifyPosition.TopCenter, $"{player.Name.Replace('_', ' ')} купил у Вас {BusinessTypeNames[biz.Type]} за {price}$", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы купили у {seller.Name.Replace('_', ' ')} {BusinessTypeNames[biz.Type]} за {price}$", 3000);
+            Plugins.Notice.Send(seller, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"{player.Name.Replace('_', ' ')} купил у Вас {BusinessTypeNames[biz.Type]} за {price}$", 3000);
         }
         #region Menus
         #region manage biz
@@ -2835,7 +2835,7 @@ namespace iTeffa.Globals
         {
             if (Main.Players[player].BizIDs.Count == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет ни одного бизнеса", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет ни одного бизнеса", 3000);
                 return;
             }
 
@@ -2884,7 +2884,7 @@ namespace iTeffa.Globals
         {
             if (!Main.Players[player].BizIDs.Contains(id))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас больше нет этого бизнеса", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас больше нет этого бизнеса", 3000);
                 return;
             }
 
@@ -3001,7 +3001,7 @@ namespace iTeffa.Globals
                     biz.Owner = "Государство";
                     biz.UpdateLabel();
 
-                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы продали бизнес государству за {price}$", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали бизнес государству за {price}$", 3000);
                     MenuManager.Close(client);
                     return;
                 case "back":
@@ -3149,7 +3149,7 @@ namespace iTeffa.Globals
                     MenuManager.Close(client);
                     if (client.GetData<string>("SELECTPROD") == "Расходники")
                     {
-                        Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно установить цену на этот товар", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно установить цену на этот товар", 3000);
                         return;
                     }
                     Main.OpenInputMenu(client, "Введите новую цену:", "biznewprice");
@@ -3158,7 +3158,7 @@ namespace iTeffa.Globals
                     MenuManager.Close(client);
                     if (client.GetData<string>("SELECTPROD") == "Татуировки" || client.GetData<string>("SELECTPROD") == "Парики")
                     {
-                        Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Если хотите возобновить продажу услуг, то закажите расходные материалы", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Если хотите возобновить продажу услуг, то закажите расходные материалы", 3000);
                         return;
                     }
                     Main.OpenInputMenu(client, "Введите кол-во:", "bizorder");
@@ -3180,7 +3180,7 @@ namespace iTeffa.Globals
                             }
                             if (order.Taked)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете отменить заказ, пока его доставляют", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете отменить заказ, пока его доставляют", 3000);
                                 return;
                             }
                             biz.Orders.Remove(order);
@@ -3188,9 +3188,9 @@ namespace iTeffa.Globals
 
                             Finance.Wallet.Change(client, order.Amount * ProductsOrderPrice[prodName]);
                             Loggings.Money($"server", $"player({Main.Players[client].UUID})", order.Amount * ProductsOrderPrice[prodName], $"orderCancel");
-                            Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы отменили заказ на {prodName}", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы отменили заказ на {prodName}", 3000);
                         }
-                        else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не заказывали этот товар", 3000);
+                        else Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не заказывали этот товар", 3000);
                         return;
                     }
                     return;
@@ -3231,7 +3231,7 @@ namespace iTeffa.Globals
                 var prod = biz.Products[index];
                 if (Main.Players[client].Money < prod.Price)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно средств", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                     return;
                 }
 
@@ -3239,13 +3239,13 @@ namespace iTeffa.Globals
                 {
                     if (!takeProd(biz.ID, 1, prod.Name, prod.Price))
                     {
-                        Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно товара на складе", 3000);
                         return;
                     }
 
                     if (Main.Players[client].Sim != -1) Main.SimCards.Remove(Main.Players[client].Sim);
                     Main.Players[client].Sim = Main.GenerateSimcard(Main.Players[client].UUID);
-                    Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили сим-карту с номером {Main.Players[client].Sim}", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили сим-карту с номером {Main.Players[client].Sim}", 3000);
                     Interface.Dashboard.sendStats(client);
                 }
                 else
@@ -3256,20 +3256,20 @@ namespace iTeffa.Globals
                         var tryAdd = nInventory.TryAdd(client, new nItem((ItemType)type));
                         if (tryAdd == -1 || tryAdd > 0)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Ваш инвентарь больше не может вместить {prod.Name}", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Ваш инвентарь больше не может вместить {prod.Name}", 3000);
                             return;
                         }
                         else
                         {
                             if (!takeProd(biz.ID, 1, prod.Name, prod.Price))
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно товара на складе", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно товара на складе", 3000);
                                 return;
                             }
                             nItem item = ((ItemType)type == ItemType.KeyRing) ? new nItem(ItemType.KeyRing, 1, "") : new nItem((ItemType)type);
                             nInventory.Add(client, item);
                         }
-                        Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {prod.Name}", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {prod.Name}", 3000);
                     }
                 }
                 Finance.Wallet.Change(client, -prod.Price);
@@ -3284,7 +3284,7 @@ namespace iTeffa.Globals
             Product prod = biz.Products[0];
 
             Trigger.ClientEvent(player, "openPetrol");
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Цена за литр: {prod.Price}$", 7000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Цена за литр: {prod.Price}$", 7000);
         }
         private static void callback_petrol(Player client, Menu menu, Menu.Item item, string eventName, dynamic data)
         {
@@ -3339,20 +3339,20 @@ namespace iTeffa.Globals
                 var bizid = client.GetData<int>("GUNSHOP");
                 if (!Main.Players[client].Licenses[6])
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии на оружие", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии на оружие", 3000);
                     return;
                 }
 
                 if (ammo == 0)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не указали количество патрон", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не указали количество патрон", 3000);
                     return;
                 }
 
                 var tryAdd = nInventory.TryAdd(client, new nItem(AmmoTypes[category], ammo));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                     return;
                 }
 
@@ -3362,20 +3362,20 @@ namespace iTeffa.Globals
 
                 if (Main.Players[client].Money < totalPrice)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                     return;
                 }
 
                 if (!takeProd(bizid, Convert.ToInt32(AmmoPrices[category] / 10.0 * ammo), prod.Name, totalPrice))
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно товара на складе", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно товара на складе", 3000);
                     return;
                 }
 
                 Finance.Wallet.Change(client, -totalPrice);
                 Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", totalPrice, $"buyWShop(ammo)");
                 nInventory.Add(client, new nItem(AmmoTypes[category], ammo));
-                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo} за {totalPrice}$", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo} за {totalPrice}$", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Nlogs.Type.Error); }
@@ -3392,7 +3392,7 @@ namespace iTeffa.Globals
                 var bizid = client.GetData<int>("GUNSHOP");
                 if (!Main.Players[client].Licenses[6])
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии на оружие", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии на оружие", 3000);
                     return;
                 }
                 Business biz = BizList[bizid];
@@ -3400,7 +3400,7 @@ namespace iTeffa.Globals
 
                 if (Main.Players[client].Money < prod.Price)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно средств", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                     return;
                 }
 
@@ -3409,13 +3409,13 @@ namespace iTeffa.Globals
                 var tryAdd = nInventory.TryAdd(client, new nItem(wType));
                 if (tryAdd == -1 || tryAdd > 0)
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                     return;
                 }
 
                 if (!takeProd(bizid, 1, prod.Name, prod.Price))
                 {
-                    Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно товара на складе", 3000);
+                    Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно товара на складе", 3000);
                     return;
                 }
 
@@ -3423,7 +3423,7 @@ namespace iTeffa.Globals
                 Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyWShop({prod.Name})");
                 Weapons.GiveWeapon(client, wType, Weapons.GetSerial(false, biz.ID));
 
-                Notify.Send(client, NotifyType.Success, NotifyPosition.TopCenter, $"Вы купили {prod.Name} за {prod.Price}$", 3000);
+                Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {prod.Name} за {prod.Price}$", 3000);
                 return;
             }
             catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Nlogs.Type.Error); }

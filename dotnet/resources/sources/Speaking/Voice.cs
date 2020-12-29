@@ -79,7 +79,7 @@ namespace iTeffa.Speaking
                     var pSim = Main.Players[player].Sim;
                     var playerName = (Main.Players[target].Contacts.ContainsKey(pSim)) ? Main.Players[target].Contacts[pSim] : pSim.ToString();
 
-                    Notify.Send(target, NotifyType.Alert, NotifyPosition.TopCenter, $"{playerName} завершил вызов", 3000);
+                    Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} завершил вызов", 3000);
                     targetPhoneMeta.Target = null;
                     targetPhoneMeta.CallingState = "nothing";
 
@@ -161,7 +161,7 @@ namespace iTeffa.Speaking
             {
                 if (player.HasData("AntiAnimDown"))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Невозможно достать мобильный телефон", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно достать мобильный телефон", 3000);
                     return;
                 }
                 if (target != null && Main.Players.ContainsKey(target))
@@ -171,7 +171,7 @@ namespace iTeffa.Speaking
 
                     if (playerPhoneMeta.Target != null)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "В данный момент Вы уже разговариваете", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "В данный момент Вы уже разговариваете", 3000);
                         return;
                     }
 
@@ -183,8 +183,8 @@ namespace iTeffa.Speaking
 
                     if (targetPhoneMeta.Target != null)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В данный момент {targetName} занят", 3000);
-                        Notify.Send(target, NotifyType.Alert, NotifyPosition.TopCenter, $"{playerName} пытался Вам дозвониться", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В данный момент {targetName} занят", 3000);
+                        Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} пытался Вам дозвониться", 3000);
                         return;
                     }
 
@@ -228,19 +228,19 @@ namespace iTeffa.Speaking
 
                             player.ResetData("AntiAnimDown");
 
-                            Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, $"{targetName} не отвечает", 3000);
-                            Notify.Send(target, NotifyType.Alert, NotifyPosition.TopCenter, $"{playerName} завершил вызов", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{targetName} не отвечает", 3000);
+                            Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} завершил вызов", 3000);
                         }
                         catch { }
                         
                     }, 20000);
 
-                    Notify.Send(target, NotifyType.Alert, NotifyPosition.TopCenter, $"{playerName} звонит Вам. Откройте телефон, чтобы принять/отклонить вызов", 3000);
-                    Notify.Send(player, NotifyType.Alert, NotifyPosition.TopCenter, $"Вы звоните {targetName}", 3000);
+                    Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} звонит Вам. Откройте телефон, чтобы принять/отклонить вызов", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"Вы звоните {targetName}", 3000);
                 }
                 else
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Абонент вне зоны действия сети", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Абонент вне зоны действия сети", 3000);
                 }
 
             }
@@ -273,7 +273,7 @@ namespace iTeffa.Speaking
 
                 if (playerPhoneMeta.Target == null || playerPhoneMeta.CallingState == "callTo" || !Main.Players.ContainsKey(playerPhoneMeta.Target))
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В данный момент Вам никто не звонит", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В данный момент Вам никто не звонит", 3000);
                     return;
                 }
 
@@ -290,8 +290,8 @@ namespace iTeffa.Speaking
                 var playerName = (Main.Players[target].Contacts.ContainsKey(pSim)) ? Main.Players[target].Contacts[pSim] : pSim.ToString();
                 var targetName = (Main.Players[player].Contacts.ContainsKey(tSim)) ? Main.Players[player].Contacts[tSim] : tSim.ToString();
 
-                Notify.Send(target, NotifyType.Success, NotifyPosition.TopCenter, $"{playerName} принял Ваш вызов", 3000);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы приняли вызов от {targetName}", 3000);
+                Plugins.Notice.Send(target, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"{playerName} принял Ваш вызов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы приняли вызов от {targetName}", 3000);
 
                 Main.OnAntiAnim(player);
                 player.PlayAnimation("anim@cellphone@in_car@ds", "cellphone_call_listen_base", 49);
@@ -321,7 +321,7 @@ namespace iTeffa.Speaking
 
                 if (playerPhoneMeta.Target == null || !Main.Players.ContainsKey(playerPhoneMeta.Target))
                 {
-                    if (!player.HasData("IS_DYING") && !player.GetData<bool>("CUFFED")) Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В данный момент Вы не говорите по телефону", 3000);
+                    if (!player.HasData("IS_DYING") && !player.GetData<bool>("CUFFED")) Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В данный момент Вы не говорите по телефону", 3000);
                     return;
                 }
 
@@ -334,8 +334,8 @@ namespace iTeffa.Speaking
                 var playerName = (Main.Players[target].Contacts.ContainsKey(pSim)) ? Main.Players[target].Contacts[pSim] : pSim.ToString();
                 var targetName = (Main.Players[player].Contacts.ContainsKey(tSim)) ? Main.Players[player].Contacts[tSim] : tSim.ToString();
 
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Звонок завершен", 3000);
-                Notify.Send(target, NotifyType.Success, NotifyPosition.TopCenter, $"{playerName} завершил звонок", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Звонок завершен", 3000);
+                Plugins.Notice.Send(target, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"{playerName} завершил звонок", 3000);
 
                 playerPhoneMeta.Target = null;
                 targetPhoneMeta.Target = null;

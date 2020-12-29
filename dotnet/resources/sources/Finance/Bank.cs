@@ -116,16 +116,16 @@ namespace iTeffa.Finance
             switch (type)
             {
                 case BankNotifyType.InputError:
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка ввода", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Ошибка ввода", 3000);
                     return;
                 case BankNotifyType.PayError:
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Ошибка списания средств", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Ошибка списания средств", 3000);
                     return;
                 case BankNotifyType.PayIn:
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поступление средств ({info}$)", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Поступление средств ({info}$)", 3000);
                     return;
                 case BankNotifyType.PayOut:
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Списание средств ({info}$)", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Списание средств ({info}$)", 3000);
                     return;
             }
         }

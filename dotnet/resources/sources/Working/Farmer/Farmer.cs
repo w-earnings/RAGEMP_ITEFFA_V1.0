@@ -99,7 +99,7 @@ namespace iTeffa.Working.FarmerJob
                 var item = nInventory.Find(Main.Players[player].UUID, ItemType.Seed);
                 if (item == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет семян", 2000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас нет семян", 2000);
                     return;
                 }
                 for (int i = 0; i < Checkpoints.Count; i++)
@@ -113,7 +113,7 @@ namespace iTeffa.Working.FarmerJob
                 BasicSync.AttachObjectToPlayer(player, NAPI.Util.GetHashKey("prop_cs_trowel"), 57005, new Vector3(0.1, 0, 0), new Vector3(90, 50, -30));
                 player.SetData("jobname", "farmer");
                 player.SetData("ON_WORK", true);
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы устроились работать фермером", 2000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы устроились работать фермером", 2000);
             }
             else
             {
@@ -133,7 +133,7 @@ namespace iTeffa.Working.FarmerJob
                     player.ResetData("job_farmer");
                     player.ResetData("jobname");
                     player.SetData("ON_WORK", false);
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы уволились с работы фермера", 2000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы уволились с работы фермера", 2000);
                 }
                 catch (Exception e)
                 {
@@ -152,7 +152,7 @@ namespace iTeffa.Working.FarmerJob
                 int lvl = jobinfo[0], exp = jobinfo[1], allpoints = jobinfo[2], sec = Convert.ToInt32(rnd.Next(minsec, maxsec) - lvl * 2);
                 if (player.HasData($"regenplant{colID}"))
                 {
-                    Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"{player.GetData<bool>($"regenplant{colID}")}", 2000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"{player.GetData<bool>($"regenplant{colID}")}", 2000);
                     return;
                 }
                 var item = nInventory.Find(Main.Players[player].UUID, ItemType.Seed);
@@ -161,13 +161,13 @@ namespace iTeffa.Working.FarmerJob
                 {
                     if (item == null)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У вас нет семян", 2000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У вас нет семян", 2000);
                         return;
                     }
 
                     player.SetData($"seedplant{colID}", true);
                     nInventory.Remove(player, item.Type, 1);
-                    NAPI.Task.Run(() => { Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Семена посажены", 2000); }, 5000);
+                    NAPI.Task.Run(() => { Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Семена посажены", 2000); }, 5000);
                 }
                 else if (player.GetData<bool>($"seedplant{colID}"))
                 {
@@ -176,7 +176,7 @@ namespace iTeffa.Working.FarmerJob
                     if (exp == 100 && lvl < maxlvl)
                     {
                         player.SetData("job_farmer", new int[] { ++lvl, ++exp - 100, ++allpoints });
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Поздравляем с новым уровнем фермера: {lvl}", 2000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Поздравляем с новым уровнем фермера: {lvl}", 2000);
                     }
                     else
                     {
@@ -187,14 +187,14 @@ namespace iTeffa.Working.FarmerJob
                     var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Hay));
                     if (tryAdd == -1 || tryAdd > 0)
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Недостаточно места в инвентаре", 2000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 2000);
                         return;
                     }
                     player.SetData($"seedplant{colID}", false);
                     NAPI.Task.Run(() =>
                     {
                         nInventory.Add(player, new nItem(ItemType.Hay, 1));
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Урожай собран", 2000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Урожай собран", 2000);
                     }, 5000);
                 }
                 Trigger.ClientEvent(player, "deletePlant", Convert.ToInt32($"10{colID}"));
@@ -219,7 +219,7 @@ namespace iTeffa.Working.FarmerJob
                         if (!player.GetData<bool>($"seedplant{colID}"))
                         {
                             player.ResetData($"regenplant{colID}");
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Плантация готова для посадки", 2000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Плантация готова для посадки", 2000);
                             Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 255, 0, 0);
                             Timers.Stop($"{player.Name}farmer{colID}");
                         }
@@ -227,7 +227,7 @@ namespace iTeffa.Working.FarmerJob
                         {
                             player.ResetData($"regenplant{colID}");
                             player.SetData($"seedplant{colID}", true);
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Соберите урожай", 2000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Соберите урожай", 2000);
                             Trigger.ClientEvent(player, "createPlant", Convert.ToInt32($"10{colID}"), "Плантация", 1, Checkpoints[colID], 1, 0, 0, 255, 0);
                             Timers.Stop($"{player.Name}farmer{colID}");
                         }

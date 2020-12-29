@@ -215,7 +215,7 @@ namespace iTeffa.Globals
                         try
                         {
                             Database.Query($"UPDATE `eventcfg` SET `RewardLimit`={newreward}");
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы установили лимит на " + newreward, 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы установили лимит на " + newreward, 3000);
                         }
                         catch (Exception e)
                         {

@@ -48,7 +48,7 @@ namespace iTeffa.Commands
                 if (!Main.Players.ContainsKey(sender)) return;
                 if (Main.Players[sender].Unmute > 0)
                 {
-                    Notify.Send(sender, NotifyType.Error, NotifyPosition.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
+                    Plugins.Notice.Send(sender, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы замучены еще на {Main.Players[sender].Unmute / 60} минут", 3000);
                     return;
                 }
                 else if (Main.Players[sender].VoiceMuted)
@@ -244,8 +244,8 @@ namespace iTeffa.Commands
 
                 if (money <= 0)
                 {
-                    Notify.Send(playerTwo, NotifyType.Error, NotifyPosition.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
-                    Notify.Send(originPlayer, NotifyType.Error, NotifyPosition.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
+                    Plugins.Notice.Send(playerTwo, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
+                    Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Денежная ценность должна быть выше 0", 3000);
 
                     return 0;
                 }
@@ -255,27 +255,27 @@ namespace iTeffa.Commands
 
                 while (playerOneResult == playerTwoResult)
                 {
-                    Notify.Send(playerTwo, NotifyType.Warning, NotifyPosition.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
-                    Notify.Send(originPlayer, NotifyType.Warning, NotifyPosition.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
+                    Plugins.Notice.Send(playerTwo, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
+                    Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Играем снова, потому что у вас тот же кубик ${playerTwoResult}, что и у противника", 3000);
 
                     playerOneResult = new Random().Next(1, 6);
                     playerTwoResult = new Random().Next(1, 6);
                 }
 
 
-                Notify.Send(originPlayer, NotifyType.Info, NotifyPosition.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
-                Notify.Send(playerTwo, NotifyType.Info, NotifyPosition.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
+                Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
+                Plugins.Notice.Send(playerTwo, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"У вас ${playerOneResult}, а у вашего оппонента ${playerTwoResult}", 3000);
 
                 if (playerOneResult > playerTwoResult)
                 {
-                    Notify.Send(originPlayer, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
+                    Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
                     Finance.Wallet.Change(originPlayer, money);
                     Finance.Wallet.Change(playerTwo, -money);
                     return 1;
                 }
                 else
                 {
-                    Notify.Send(playerTwo, NotifyType.Success, NotifyPosition.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
+                    Plugins.Notice.Send(playerTwo, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
                     Finance.Wallet.Change(originPlayer, -money);
                     Finance.Wallet.Change(playerTwo, money);
                     return 2;
@@ -289,7 +289,7 @@ namespace iTeffa.Commands
         {
             Player originPlayer = playerTwo.GetData<Player>("DICE_PLAYER");
 
-            Notify.Send(originPlayer, NotifyType.Warning, NotifyPosition.TopCenter, $"Игрок (${playerTwo.Value}) отклонил игру", 3000);
+            Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Игрок (${playerTwo.Value}) отклонил игру", 3000);
 
             playerTwo.ResetData("DICE_PLAYER");
             playerTwo.ResetData("DICE_VALUE");

@@ -61,13 +61,13 @@ namespace iTeffa.Globals
                     if (clothesGender != Main.Players[player].Gender)
                     {
                         var error_gender = (clothesGender) ? "мужская" : "женская";
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Это {error_gender} одежда", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Это {error_gender} одежда", 3000);
                         Interface.Dashboard.Close(player);
                         return;
                     }
                     if ((player.GetData<bool>("ON_DUTY") && Fractions.Manager.FractionTypes[Main.Players[player].FractionID] == 2 && Main.Players[player].FractionID != 9) || player.GetData<bool>("ON_WORK"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете использовать это сейчас", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не можете использовать это сейчас", 3000);
                         Interface.Dashboard.Close(player);
                         return;
                     }
@@ -125,7 +125,7 @@ namespace iTeffa.Globals
 
                     if (player.HasData("RESIST_BAN"))
                     {
-                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы пьяны до такой степени, что не можете открыть бутылку", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы пьяны до такой степени, что не можете открыть бутылку", 3000);
                         return;
                     }
 
@@ -193,7 +193,7 @@ namespace iTeffa.Globals
                                 var mask = Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask.Variation;
                                 if (Customization.MaskTypes.ContainsKey(mask) && Customization.MaskTypes[mask].Item3)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете надеть эти очки с маской", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не можете надеть эти очки с маской", 3000);
                                     return;
                                 }
                                 var itemData = (string)item.Data;
@@ -222,7 +222,7 @@ namespace iTeffa.Globals
                                 var mask = Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask.Variation;
                                 if (Customization.MaskTypes.ContainsKey(mask) && Customization.MaskTypes[mask].Item2)
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Вы не можете надеть этот головной убор с маской", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Вы не можете надеть этот головной убор с маской", 3000);
                                     return;
                                 }
                                 var itemData = (string)item.Data;
@@ -446,13 +446,13 @@ namespace iTeffa.Globals
                                     }
                                     else
                                     {
-                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Заняты обе руки", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Заняты обе руки", 3000);
                                         return;
                                     }
                                 }
                                 else 
                                 {
-                                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Левая рука занята, а на правой никто часы не носит", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Левая рука занята, а на правой никто часы не носит", 3000);
                                     return;
                                 }
                             }
@@ -479,7 +479,7 @@ namespace iTeffa.Globals
                                 {
                                     if (underwear.Top == -1)
                                     {
-                                        Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эту одежду можно одеть только под низ верхней", 3000);
+                                        Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Эту одежду можно одеть только под низ верхней", 3000);
                                         return;
                                     }
                                     Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Top = new ComponentItem(underwear.Top, texture);
@@ -496,7 +496,7 @@ namespace iTeffa.Globals
                                         var topType = nowTop.Type;
                                         if (!underwear.UndershirtIDs.ContainsKey(topType))
                                         {
-                                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эта одежда несовместима с Вашей верхней одеждой", 3000);
+                                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Эта одежда несовместима с Вашей верхней одеждой", 3000);
                                             return;
                                         }
                                         Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Undershit = new ComponentItem(underwear.UndershirtIDs[topType], texture);
@@ -509,7 +509,7 @@ namespace iTeffa.Globals
                                     {
                                         if (underwear.Top == -1)
                                         {
-                                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Эту одежду можно одеть только под низ верхней", 3000);
+                                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Эту одежду можно одеть только под низ верхней", 3000);
                                             return;
                                         }
                                         Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Top = new ComponentItem(underwear.Top, texture);
@@ -762,14 +762,14 @@ namespace iTeffa.Globals
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Попробуйте использовать позже", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Попробуйте использовать позже", 3000);
                             return;
                         }
                         break;
                     case ItemType.GasCan:
                         if (!player.IsInVehicle)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                             Interface.Dashboard.Close(player);
                             return;
                         }
@@ -778,7 +778,7 @@ namespace iTeffa.Globals
                         var fuel = veh.GetSharedData<int>("PETROL");
                         if (fuel == VehicleManager.VehicleTank[veh.Class])
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине полный бак", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине полный бак", 3000);
                             Interface.Dashboard.Close(player);
                             return;
                         }
@@ -812,7 +812,7 @@ namespace iTeffa.Globals
                         }
                         else
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Попробуйте использовать позже", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Попробуйте использовать позже", 3000);
                             return;
                         }
                         break;
@@ -822,7 +822,7 @@ namespace iTeffa.Globals
 
                         if (!player.IsInVehicle)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                             return;
                         }
                         {
@@ -832,7 +832,7 @@ namespace iTeffa.Globals
                                 {
 
                                     VehicleManager.RepairCar(player.Vehicle);
-                                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, "Вы отремонтировали транспорт", 3000);
+                                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы отремонтировали транспорт", 3000);
                                 }
 
                             }
@@ -842,7 +842,7 @@ namespace iTeffa.Globals
                     case ItemType.Lockpick:
                         if (player.GetData<int>("INTERACTIONCHECK") != 3)
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Невозможно использовать в данный момент", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Невозможно использовать в данный момент", 3000);
                             Interface.Dashboard.Close(player);
                             return;
                         }
@@ -850,33 +850,33 @@ namespace iTeffa.Globals
                         player.SetData("LOCK_TIMER", Timers.StartOnce(10000, () => SafeMain.lockCrack(player, player.Name)));
                         //player.FreezePosition = true;
                         Trigger.ClientEvent(player, "showLoader", "Идёт взлом", 1);
-                        Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы начали взламывать дверь", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы начали взламывать дверь", 3000);
                         break;
                     case ItemType.ArmyLockpick:
                         if (!player.IsInVehicle || player.Vehicle.DisplayName != "Barracks")
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в военном перевозчике материалов", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в военном перевозчике материалов", 3000);
                             return;
                         }
                         if (VehicleStreaming.GetEngineState(player.Vehicle))
                         {
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Машину уже заведена", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Машину уже заведена", 3000);
                             return;
                         }
                         var lucky = new Random().Next(0, 5);
                         Log.Debug(lucky.ToString());
                         if (lucky == 5)
-                            Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не получилось завести машину. Попробуйте ещё раз", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не получилось завести машину. Попробуйте ещё раз", 3000);
                         else
                         {
                             VehicleStreaming.SetEngineState(player.Vehicle, true);
-                            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"У Вас получилось завести машину", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"У Вас получилось завести машину", 3000);
                         }
                         break;
 
                     case ItemType.Present:
                         player.Health = (player.Health + 10 > 100) ? 100 : player.Health + 10;
-                        Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы открыли подарок, в нём были:", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы открыли подарок, в нём были:", 3000);
 
                         Tuple<int, int> types = nInventory.PresentsTypes[Convert.ToInt32(item.Data)];
                         if (types.Item1 <= 2)
@@ -888,17 +888,17 @@ namespace iTeffa.Globals
                                 Main.Players[player].LVL += 1;
                             }
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
 
                             Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item2]);
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
                         }
                         else
                         {
                             Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item1]);
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
 
                             Main.Players[player].EXP += nInventory.TypesCounts[types.Item2];
                             if (Main.Players[player].EXP >= 3 + Main.Players[player].LVL * 3)
@@ -907,7 +907,7 @@ namespace iTeffa.Globals
                                 Main.Players[player].LVL += 1;
                             }
 
-                            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
+                            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"{nInventory.TypesCounts[types.Item2]} EXP", 3000);
                         }
 
                         Commands.Controller.RPChat("me", player, $"открыл(а) подарок {types.Item1} + {types.Item2}");
@@ -916,7 +916,7 @@ namespace iTeffa.Globals
 
                 }
                 nInventory.Remove(player, item.Type, 1);
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы использовали {nInventory.ItemsNames[item.ID]}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы использовали {nInventory.ItemsNames[item.ID]}", 3000);
                 Loggings.Items($"player({Main.Players[player].UUID})", "use", Convert.ToInt32(item.Type), 1, $"{item.Data}");
                 Interface.Dashboard.Close(player);
             }

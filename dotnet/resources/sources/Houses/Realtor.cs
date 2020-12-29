@@ -64,11 +64,11 @@ namespace iTeffa.Houses
 
             if (PriceToInfo[hclass] > Main.Players[player].Money)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас не хватает средств для покупки информации", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас не хватает средств для покупки информации", 3000);
             }
             else
             {
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Маршрут установлен", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Маршрут установлен", 3000);
                 Trigger.ClientEvent(player, "createWaypoint", x, y);
                 Finance.Wallet.Change(player, -PriceToInfo[hclass]);
             }

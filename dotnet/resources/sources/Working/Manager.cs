@@ -121,53 +121,53 @@ namespace iTeffa.Working
         {
             if (NAPI.Data.GetEntityData(player, "ON_WORK") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
                 return;
             }
             if (Main.Players[player].WorkID != 0)
             {
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы уволились с работы", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы уволились с работы", 3000);
                 Main.Players[player].WorkID = 0;
                 Dashboard.sendStats(player);
                 Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
             }
             else
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы никем не работаете", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы никем не работаете", 3000);
         }
         public static void JobJoin(Player player, int job)
         {
             if (Main.Players[player].WorkID != 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Для начала увольтесь с предыдущей работы.", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Для начала увольтесь с предыдущей работы.", 3000);
                 return;
             }
             if (NAPI.Data.GetEntityData(player, "ON_WORK") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
                 return;
             }
 
             if (Main.Players[player].WorkID == job)
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже работаете {JobList[job]}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже работаете {JobList[job]}", 3000);
             else
             {
                 if (Main.Players[player].LVL < JobsMinLVL[job])
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Необходим как минимум {JobsMinLVL[job]} уровень", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Необходим как минимум {JobsMinLVL[job]} уровень", 3000);
                     return;
                 }
                 if ((job == 3 || job == 8) && !Main.Players[player].Licenses[1])
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории B", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии категории B", 3000);
                     return;
                 }
                 if ((job == 4 || job == 6 || job == 7) && !Main.Players[player].Licenses[2])
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"У Вас нет лицензии категории C", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас нет лицензии категории C", 3000);
                     return;
                 }
                 Main.Players[player].WorkID = job;
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы устроились работать {JobList[job]}. Доберитесь до точки начала работы", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы устроились работать {JobList[job]}. Доберитесь до точки начала работы", 3000);
                 Trigger.ClientEvent(player, "createWaypoint", Points[job].X, Points[job].Y);
                 Dashboard.sendStats(player);
                 Trigger.ClientEvent(player, "showJobMenu", Main.Players[player].LVL, Main.Players[player].WorkID);
@@ -284,7 +284,7 @@ namespace iTeffa.Working
                         {
                             if (Houses.HouseManager.Houses.Count == 0) return;
                             client.SetData("PACKAGES", 10);
-                            Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили 10 посылок, развезите их по домам", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили 10 посылок, развезите их по домам", 3000);
                             client.SetData("ON_WORK", true);
 
                             client.SetData("W_LASTPOS", client.Position);
@@ -320,30 +320,30 @@ namespace iTeffa.Working
                             int x = rnd.Next(0, Gopostal.GoPostalObjects.Count);
                             BasicSync.AttachObjectToPlayer(client, Gopostal.GoPostalObjects[x], 60309, new Vector3(0.03, 0, 0.02), new Vector3(0, 0, 50));
                         }
-                        else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже начали рабочий день", 3000);
+                        else Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже начали рабочий день", 3000);
                     }
-                    else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете курьером. Устроиться можно в мэрии", 3000);
+                    else Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете курьером. Устроиться можно в мэрии", 3000);
                     return;
                 case "get":
                     {
                         if (Main.Players[client].WorkID != 2)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете курьером", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете курьером", 3000);
                             return;
                         }
                         if (!client.GetData<bool>("ON_WORK"))
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не начали рабочий день", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не начали рабочий день", 3000);
                             return;
                         }
                         if (client.GetData<int>("PACKAGES") != 0)
                         {
-                            Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не раздали все посылки. У Вас осталось ещё {client.GetData<int>("PACKAGES")} штук", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не раздали все посылки. У Вас осталось ещё {client.GetData<int>("PACKAGES")} штук", 3000);
                             return;
                         }
                         if (Houses.HouseManager.Houses.Count == 0) return;
                         client.SetData("PACKAGES", 10);
-                        Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы получили 10 посылок. Развезите их по домам", 3000);
+                        Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили 10 посылок. Развезите их по домам", 3000);
 
                         client.SetData("W_LASTPOS", client.Position);
                         client.SetData("W_LASTTIME", DateTime.Now);
@@ -368,7 +368,7 @@ namespace iTeffa.Working
                             Trigger.ClientEvent(client, "deleteCheckpoint", 1, 0);
                             BasicSync.DetachObject(client);
 
-                            Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы закончили рабочий день", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы закончили рабочий день", 3000);
                             Trigger.ClientEvent(client, "deleteWorkBlip");
 
                             client.SetData("PAYMENT", 0);
@@ -385,10 +385,10 @@ namespace iTeffa.Working
                                 client.SetData<Vehicle>("WORK", null);
                             }
                         }
-                        else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете", 3000);
+                        else Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете", 3000);
 
                     }
-                    else Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете курьером", 3000);
+                    else Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете курьером", 3000);
                     return;
                 case "close":
                     MenuManager.Close(client);
@@ -421,7 +421,7 @@ namespace iTeffa.Working
 
             if (ordersIDs.Count == 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Нет свободных заказов", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Нет свободных заказов", 3000);
                 return;
             }
 
@@ -515,13 +515,13 @@ namespace iTeffa.Working
                         {
                             if (client.HasData("ORDER"))
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже взяли заказ", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже взяли заказ", 3000);
                                 return;
                             }
                             var uid = Convert.ToInt32(data["1"]["Value"].ToString());
                             if (!BusinessManager.Orders.ContainsKey(uid))
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Такого заказа больше не существует", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Такого заказа больше не существует", 3000);
                                 return;
                             };
 
@@ -529,7 +529,7 @@ namespace iTeffa.Working
                             var order = biz.Orders.FirstOrDefault(o => o.UID == uid);
                             if (order == null || order.Taked)
                             {
-                                Notify.Send(client, NotifyType.Error, NotifyPosition.TopCenter, $"Этот заказ уже взял кто-то другой", 3000);
+                                Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Этот заказ уже взял кто-то другой", 3000);
                                 return;
                             }
 
@@ -537,7 +537,7 @@ namespace iTeffa.Working
 
                             client.SetData("ORDERDATE", DateTime.Now.AddMinutes(6));
 
-                            Notify.Send(client, NotifyType.Info, NotifyPosition.TopCenter, $"Вы взяли заказ по доставке {order.Name} в {BusinessManager.BusinessTypeNames[biz.Type]}. Сначала закупите товар", 3000);
+                            Plugins.Notice.Send(client, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы взяли заказ по доставке {order.Name} в {BusinessManager.BusinessTypeNames[biz.Type]}. Сначала закупите товар", 3000);
                             var pos = getProduct[biz.Type];
                             Trigger.ClientEvent(client, "createWaypoint", pos.X, pos.Y);
                             client.SetData("ORDER", uid);

@@ -2,8 +2,6 @@
 {
     class Messages
     {
-        // General messages
-
         #region Vehicle
         public const string GEN_VEHICLE_NO_KEY = "У Вас нет ключей от этого транспорта";
         public const string GEN_VEHICLE_OPENED_DOORS = "Вы открыли двери машины";
@@ -19,25 +17,8 @@
         public const string GEN_VEHICLE_FASTENED_THE_BELT = "пристегнул(а) ремень безопасности";
         public const string GEN_VEHICLE_UNFASTENED_THE_BELT = "отслегнул(а) ремень безопасности";
         public const string GEN_VEHICLE_BADLY_DAMAGED = "Автомобиль сильно поврежден, вы должны позвонить механику";
+        public const string GEN_VEHICLE_GOT_SALARY = "Вы получили зарплату в"; // - 
+        public const string GEN_VEHICLE_WAS_DESTROYED = "Ваш рабочий транспорт был уничтожен.";
         #endregion
-
-        // Admin messages
-
-        // Success messages
-
-        // Error messages
-
-        // Descriptive commands
-
-        // Command names
-
-        // Command arguments
-
-        // Faction ranks
-
-        // Job descriptions
-
-        // Information messages
-
     }
 }

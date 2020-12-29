@@ -15,7 +15,7 @@ namespace iTeffa.Commands
             {
                 if (Main.GetPlayerByID(id) == null)
                 {
-                    Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Игрок с таким ID не найден", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Игрок с таким ID не найден", 3000);
                     return;
                 }
                 Fractions.Realm.Sheriff.acceptCall(player, Main.GetPlayerByID(id));

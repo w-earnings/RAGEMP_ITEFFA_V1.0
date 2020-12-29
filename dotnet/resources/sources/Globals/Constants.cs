@@ -1,4 +1,4 @@
-﻿namespace ragemp.Globals
+﻿namespace iTeffa.Globals
 {
     class Constants
     {

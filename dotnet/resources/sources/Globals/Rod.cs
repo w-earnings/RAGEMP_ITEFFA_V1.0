@@ -243,7 +243,7 @@ namespace iTeffa.Globals
         public static void allowfish(Player player)
         {
             player.PlayAnimation("amb@world_human_stand_fishing@idle_a", "idle_c", 31);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Что-то клюнуло", 1000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Что-то клюнуло", 1000);
 
             player.TriggerEvent("fishingBaitTaken");
 
@@ -263,7 +263,7 @@ namespace iTeffa.Globals
             var tryAdd = nInventory.TryAdd(player, new nItem(ItemType.Ocetr));
             if (tryAdd == -1 || tryAdd > 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "Недостаточно места в инвентаре", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно места в инвентаре", 3000);
                 crashpros(player);
                 return;
             }
@@ -272,21 +272,21 @@ namespace iTeffa.Globals
                 var rnd = new Random();
                 int fishco = rnd.Next(1, FishItems1.Count);
                 nInventory.Add(player, new nItem(FishItems1[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems1[fishco])}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems1[fishco])}", 3000);
             }
             if (player.GetData<int>("FISHLEVEL") == 2)
             {
                 var rnd = new Random();
                 int fishco = rnd.Next(1, FishItems2.Count);
                 nInventory.Add(player, new nItem(FishItems2[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems2[fishco])}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems2[fishco])}", 3000);
             }
             if (player.GetData<int>("FISHLEVEL") == 3)
             {
                 var rnd = new Random();
                 int fishco = rnd.Next(1, FishItems3.Count);
                 nInventory.Add(player, new nItem(FishItems3[fishco], 1));
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems3[fishco])}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы поймали рыбу {GetNameByItemType(FishItems3[fishco])}", 3000);
             }
             crashpros(player);
         }
@@ -294,7 +294,7 @@ namespace iTeffa.Globals
         [RemoteEvent("stopFishDrop")]
         public static void stopFishDrop(Player player)
         {
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Рыба сошла с крючка!", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Рыба сошла с крючка!", 3000);
             crashpros(player);
         }
 
@@ -303,24 +303,24 @@ namespace iTeffa.Globals
             nInventory.Add(player, new nItem(TypeRod[level], 1));
             if (player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не должны находится в машине!", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не должны находится в машине!", 3000);
                 Interface.Dashboard.Close(player);
                 return;
             }
             if (player.GetData<bool>("FISHING") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже рыбачите!", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже рыбачите!", 3000);
                 return;
             }
             var aItem = nInventory.Find(Main.Players[player].UUID, ItemType.Naz);
             if (aItem == null)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "У Вас нет наживки", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас нет наживки", 3000);
                 return;
             }
             if (player.GetData<bool>("ALLOWFISHING") == false || player.GetData<bool>("ALLOWFISHING") == false)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, "В данном месте нельзя рыбачить", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "В данном месте нельзя рыбачить", 3000);
                 return;
             }
             var rndf = new Random();

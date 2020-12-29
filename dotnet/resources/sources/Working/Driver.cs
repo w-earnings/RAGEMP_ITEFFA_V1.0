@@ -82,7 +82,7 @@ namespace iTeffa.Working
         {
             if (Main.Players[player].LVL < JobsMinLVL)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Необходим как минимум {JobsMinLVL} уровень", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Необходим как минимум {JobsMinLVL} уровень", 3000);
                 return;
             }
 
@@ -114,34 +114,34 @@ namespace iTeffa.Working
         {
             if (NAPI.Data.GetEntityData(player, "ON_WORK") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
                 return;
             }
             if (Main.Players[player].WorkID != 0)
             {
                 Main.Players[player].WorkID = 0;
-                Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Вы уволились с работы", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы уволились с работы", 3000);
                 var jobsid = Main.Players[player].WorkID;
                 Trigger.ClientEvent(player, "secusejobDiver", jobsid);
                 return;
             }
             else
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы никем не работаете", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы никем не работаете", 3000);
         }
         public static void JobJoin(Player player)
         {
             if (NAPI.Data.GetEntityData(player, "ON_WORK") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
                 return;
             }
             if (Main.Players[player].WorkID != 0)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже работаете: {WorkManager.JobStats[Main.Players[player].WorkID - 1]}", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже работаете: {WorkManager.JobStats[Main.Players[player].WorkID - 1]}", 3000);
                 return;
             }
             Main.Players[player].WorkID = JobWorkId;
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы устроились на работу", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы устроились на работу", 3000);
             var jobsid = Main.Players[player].WorkID;
             Trigger.ClientEvent(player, "secusejobDiver", jobsid);
             return;
@@ -226,25 +226,25 @@ namespace iTeffa.Working
 
                 Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
                 Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
-                Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                 player.SetData("PAYMENT", 0);
                 Trigger.ClientEvent(player, "stopdiving");
             }
             else
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже не работаете", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже не работаете", 3000);
             }
         }
         public static void JobJoin2(Player player, int job)
         {
             if (Main.Players[player].WorkID != JobWorkId)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не работаете на этой работе.", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не работаете на этой работе.", 3000);
                 return;
             }
             if (NAPI.Data.GetEntityData(player, "ON_WORK") == true)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны сначала закончить рабочий день", 3000);
                 return;
             }
             // Одежда
@@ -291,7 +291,7 @@ namespace iTeffa.Working
             player.SetData("OBJECTSJOB", 0);
             player.SetData("ON_WORK", true);
             player.SetData("ON_WORK2", job);
-            Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"Вы начали рабочий день! На карте отмечены места с мусором. Соберите этот мусор.", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы начали рабочий день! На карте отмечены места с мусором. Соберите этот мусор.", 3000);
             Trigger.ClientEvent(player, "JobStatsInfoDiver", player.GetData<int>("PAYMENT"), player.GetData<int>("OBJECTSJOB"), ColObjects);
             Trigger.ClientEvent(player, "startdiving");
         }
@@ -510,7 +510,7 @@ namespace iTeffa.Working
                     Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
 
                     Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
-                    Notify.Send(player, NotifyType.Success, NotifyPosition.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                     player.SetData("PAYMENT", 0);
                 }
             }

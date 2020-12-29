@@ -99,33 +99,33 @@ namespace iTeffa.Fractions
             var fracid = Main.Players[player].FractionID;
             if (!((fracid >= 1 && fracid <= 5) || (fracid >= 10 && fracid <= 13)))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы не можете сделать это", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы не можете сделать это", 3000);
                 return;
             }
             if (!player.IsInVehicle)
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы должны находиться в машине", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы должны находиться в машине", 3000);
                 return;
             }
             if (!player.Vehicle.HasData("CANMATS"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"На этой машине нельзя перевозить маты", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"На этой машине нельзя перевозить маты", 3000);
                 return;
             }
             if (player.HasData("loadMatsTimer"))
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"Вы уже загружаете материалы в машину", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Вы уже загружаете материалы в машину", 3000);
                 return;
             }
             var count = VehicleInventory.GetCountOfType(player.Vehicle, ItemType.Material);
             if (count >= Stocks.maxMats[player.Vehicle.DisplayName])
             {
-                Notify.Send(player, NotifyType.Error, NotifyPosition.TopCenter, $"В машине максимальное кол-во материала", 3000);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"В машине максимальное кол-во материала", 3000);
                 return;
             }
             player.SetData("loadMatsTimer", Timers.StartOnce(20000, () => Fractions.Realm.Army.loadMaterialsTimer(player)));
             player.Vehicle.SetData("loaderMats", player);
-            Notify.Send(player, NotifyType.Info, NotifyPosition.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
+            Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Загрузка материалов началась (20 секунд)", 3000);
             Trigger.ClientEvent(player, "showLoader", "Загрузка материалов", 1);
             player.SetData("vehicleMats", player.Vehicle);
             player.SetData("whereLoad", "WAR");
@@ -157,7 +157,7 @@ namespace iTeffa.Fractions
                         NAPI.Data.ResetEntityData(entity.Vehicle, "loaderMats");
                         player.ResetData("loadMatsTimer");
                         Trigger.ClientEvent(player, "hideLoader");
-                        Notify.Send(player, NotifyType.Warning, NotifyPosition.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
+                        Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Загрузка материалов отменена, так как машина покинула чекпоинт", 3000);
                     }
                 }
             }
