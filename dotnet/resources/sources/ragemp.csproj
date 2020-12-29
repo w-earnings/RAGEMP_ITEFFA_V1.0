@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="Fractions\Realm\" />
     <Folder Include="Fractions\Mafia\" />
-    <Folder Include="Modules\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

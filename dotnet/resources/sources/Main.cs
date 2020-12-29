@@ -1944,7 +1944,7 @@ namespace iTeffa
                         Plugins.InfoPed.Interact1(player);
                         return;
                     case 814:
-                        Plugins.ContainerSystem.OpenMenuContainer(player);
+                        Modules.Containers.OpenMenuContainer(player);
                         break;
 
 
@@ -2543,7 +2543,7 @@ namespace iTeffa
                     {
                         try
                         {
-                            foreach (var item in Plugins.ContainerSystem.containers)
+                            foreach (var item in Modules.Containers.containers)
                             {
                                 item.Visible(true);
                             }

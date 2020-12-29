@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GTANetworkAPI;
-using iTeffa.Settings;
+﻿using GTANetworkAPI;
 using iTeffa.Globals;
-using System.Data;
+using iTeffa.Settings;
 using Newtonsoft.Json;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
-namespace iTeffa.Plugins
+namespace iTeffa.Modules
 {
-    class ContainerSystem : Script
+    class Containers : Script
     {
         private static readonly Nlogs Log = new Nlogs("SysContainers");
-
         public static List<Container> containers = new List<Container>();
 
-        #region #TX1 MainLoad
         [ServerEvent(Event.ResourceStart)]
         public static void OnResourceStart()
         {
@@ -60,9 +56,7 @@ namespace iTeffa.Plugins
                 Log.Write($"Контейнеры: {e.Message}", Nlogs.Type.Error);
             }
         }
-        #endregion
 
-        #region #TX1 Change state containers
         [Command("boxstate")] //команда для вручной активации контейнеров
         public void ChangeStateContainers(Player player, bool state)
         {
@@ -74,9 +68,7 @@ namespace iTeffa.Plugins
             if (state)
                 NAPI.Chat.SendChatMessageToAll("!{#fc4122} [Порт]: !{#ffffff}" + "В штат привезли новую партию контейнеров!");
         }
-        #endregion
 
-        #region #TX1 Open menu container
         public static void OpenMenuContainer(Player player)
         {
             if (!player.HasData("ContainerID")) return;
@@ -84,9 +76,7 @@ namespace iTeffa.Plugins
             if (!container.State) return;
             Trigger.ClientEvent(player, "openContainerMenu", container);
         }
-        #endregion
 
-        #region #TX1 Open container
         [RemoteEvent("openContainer")]
         public static void OpenContainer(Player player)
         {
@@ -123,7 +113,6 @@ namespace iTeffa.Plugins
                 Log.Write(e.Message, Nlogs.Type.Error);
             }
         }
-        #endregion
     }
 
     public class Container
@@ -174,8 +163,6 @@ namespace iTeffa.Plugins
                 NAPI.Data.ResetEntityData(player, "ContainerID");
             };
         }
-
-        #region #TX1 active or diActive
         public void Visible(bool state)
         {
             if (state)
@@ -190,9 +177,6 @@ namespace iTeffa.Plugins
             }
             State = state;
         }
-        #endregion
-
-        #region #TX1 Open door
         public void OpenDoor()
         {
             int i = 0;
@@ -208,9 +192,6 @@ namespace iTeffa.Plugins
                 Door_R.Rotation -= new Vector3(0, 0, -1);
             });
         }
-        #endregion
-
-        #region #TX1 Close door
         public void CloseDoor(Vehicle veh)
         {
             int i = 0;
@@ -227,9 +208,6 @@ namespace iTeffa.Plugins
                 Door_R.Rotation += new Vector3(0, 0, -1);
             });
         }
-        #endregion
-
-        #region #TX1 Moving items
         public void Moveloots()
         {
             for (int i = 0; i < Loots.Count; i++)
@@ -241,9 +219,6 @@ namespace iTeffa.Plugins
                 Loots.Add(item);
             }
         }
-        #endregion
-
-        #region #TX1 Generate loot
         public void GenerateLoot(Player player)
         {
             Moveloots();
@@ -261,18 +236,17 @@ namespace iTeffa.Plugins
             vNumber = VehicleManager.Create(player.Name, vName, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
             var house = Houses.HouseManager.GetHouse(player, true);
             if (house == null || house.GarageID == 0)
-                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Ваш приз - {vName}", 2500);
+                Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Ваш приз - {vName}", 2500);
             else
             {
                 var garage = Houses.GarageManager.Garages[house.GarageID];
                 if (vNumber != "no")
                 {
                     garage.SpawnCar(vNumber);
-                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Ваш приз - {vName} будет доставлен в гараж", 2500);
+                    Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Ваш приз - {vName} будет доставлен в гараж", 2500);
                 }
             }
             NAPI.Task.Run(() => { CloseDoor(veh); }, 12600);
         }
-        #endregion
     }
 }
