@@ -14,7 +14,7 @@ namespace iTeffa.Finance
             if (temp < 0) return false;
             Main.Players[player].Money = temp;
             Trigger.ClientEvent(player, "UpdateMoney", temp, Convert.ToString(Amount));
-            Database.Query($"UPDATE characters SET money={Main.Players[player].Money} WHERE uuid={Main.Players[player].UUID}");
+            Globals.Database.Query($"UPDATE characters SET money={Main.Players[player].Money} WHERE uuid={Main.Players[player].UUID}");
             return true;
         }
         public static void Set(Player player, long Amount)
@@ -35,7 +35,7 @@ namespace iTeffa.Finance
             else
             {
                 Main.Accounts[player].Coins = temp;
-                Database.Query($"UPDATE `accounts` SET `coins`={temp} WHERE login='{Main.Accounts[player].Login}'");
+                Globals.Database.Query($"UPDATE `accounts` SET `coins`={temp} WHERE login='{Main.Accounts[player].Login}'");
                 return true;
             }
         }

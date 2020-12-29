@@ -182,7 +182,7 @@ namespace iTeffa.Fractions
                 if (NAPI.Data.HasEntityData(target, "HAND_MONEY")) SafeMain.dropMoneyBag(target);
                 if (NAPI.Data.HasEntityData(target, "HEIST_DRILL")) SafeMain.dropDrillBag(target);
                 NAPI.Data.SetEntityData(target, "CUFFED", true);
-                Speaking.Voice.PhoneHCommand(target);
+                Modules.Voice.PhoneHCommand(target);
                 Main.OnAntiAnim(player);
                 NAPI.Player.PlayPlayerAnimation(target, 49, "mp_arresting", "idle");
                 BasicSync.AttachObjectToPlayer(target, NAPI.Util.GetHashKey("p_cs_cuffs_02_s"), 6286, new Vector3(-0.02f, 0.063f, 0.0f), new Vector3(75.0f, 0.0f, 76.0f));

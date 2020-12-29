@@ -15,7 +15,6 @@ namespace iTeffa.Infodata
         public ComponentItem Bodyarmor { get; set; }
         public ComponentItem Decals { get; set; }
         public ComponentItem Top { get; set; }
-
         public ClothesData()
         {
             Mask = new ComponentItem(0, 0);

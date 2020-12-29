@@ -1,6 +1,5 @@
 ﻿using GTANetworkAPI;
 using iTeffa.Settings;
-using iTeffa.Speaking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +76,7 @@ namespace iTeffa.Commands
                         }
 
                         if (!sender.HasData("PhoneVoip")) return;
-                        Speaking.VoicePhoneMetaData phoneMeta = sender.GetData<VoicePhoneMetaData>("PhoneVoip");
+                        Models.VoicePhoneMetaData phoneMeta = sender.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
                         if (phoneMeta.CallingState == "talk" && Main.Players.ContainsKey(phoneMeta.Target))
                         {
                             var pSim = Main.Players[sender].Sim;

@@ -4,12 +4,12 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace iTeffa.Settings
+namespace iTeffa.Globals
 {
     public static class Database
     {
-        private static readonly Config config = new Config("MySQL");
-        private static readonly Nlogs Log = new Nlogs("MySQL");
+        private static readonly Settings.Config config = new Settings.Config("MySQL");
+        private static readonly Settings.Nlogs Log = new Settings.Nlogs("MySQL");
         private static string Connection;
         public static bool Debug = false;
         public static void Init()
@@ -34,7 +34,7 @@ namespace iTeffa.Settings
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             }
-            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Settings.Nlogs.Type.Error); }
         }
 
         public static void Query(string command)
@@ -53,7 +53,7 @@ namespace iTeffa.Settings
                 command.Connection = connection;
                 await command.ExecuteNonQueryAsync();
             }
-            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Settings.Nlogs.Type.Error); }
         }
         public static async Task QueryAsync(string command)
         {
@@ -69,7 +69,7 @@ namespace iTeffa.Settings
                 };
                 await cmd.ExecuteNonQueryAsync();
             }
-            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Settings.Nlogs.Type.Error); }
         }
         public static DataTable QueryRead(MySqlCommand command)
         {

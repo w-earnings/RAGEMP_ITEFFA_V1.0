@@ -109,7 +109,7 @@ namespace iTeffa.Commands
                 queryCommand.Parameters.AddWithValue("@TYPE", 1);
                 queryCommand.Parameters.AddWithValue("@COUNT", 0);
                 queryCommand.Parameters.AddWithValue("@OWNER", uuid);
-                Database.Query(queryCommand);
+                Globals.Database.Query(queryCommand);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Промокод успешно создан...", 3000);
             }
             catch { }
@@ -240,7 +240,7 @@ namespace iTeffa.Commands
                 else
                 {
                     var split = biz.Owner.Split('_');
-                    var data = Database.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                    var data = Globals.Database.QueryRead($"SELECT biz,money FROM characters WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                     List<int> ownerBizs = new List<int>();
                     var money = 0;
 
@@ -251,7 +251,7 @@ namespace iTeffa.Commands
                     }
 
                     ownerBizs.Remove(biz.ID);
-                    Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money={money + Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
+                    Globals.Database.Query($"UPDATE characters SET biz='{JsonConvert.SerializeObject(ownerBizs)}',money={money + Convert.ToInt32(biz.SellPrice * 0.8)} WHERE firstname='{split[0]}' AND lastname='{split[1]}'");
                 }
 
                 Finance.Bank.Accounts[biz.BankID].Balance = 0;
@@ -361,7 +361,7 @@ namespace iTeffa.Commands
                     cmd.Parameters.AddWithValue("@sec", c2);
                     cmd.Parameters.AddWithValue("@com", JsonConvert.SerializeObject(data));
                     cmd.Parameters.AddWithValue("@num", vehicle.NumberPlate);
-                    Database.Query(cmd);
+                    Globals.Database.Query(cmd);
                     vehicle.PrimaryColor = c1;
                     vehicle.SecondaryColor = c2;
                     NAPI.Entity.SetEntityModel(vehicle, (uint)vh);
@@ -377,7 +377,7 @@ namespace iTeffa.Commands
         {
             try
             {
-                Database.Query($"INSERT INTO fractions (id,drugs,mats,medkits,money) VALUES ({frac},{drugs},{mats},{medkits},{money})");
+                Globals.Database.Query($"INSERT INTO fractions (id,drugs,mats,medkits,money) VALUES ({frac},{drugs},{mats},{medkits},{money})");
             }
             catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
         }
@@ -403,7 +403,7 @@ namespace iTeffa.Commands
                 cmd.Parameters.AddWithValue("@c2", c2);
                 cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
                 cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Database.Query(cmd);
+                Globals.Database.Query(cmd);
                 veh.PrimaryColor = c1;
                 veh.SecondaryColor = c2;
                 veh.NumberPlate = number;
@@ -533,7 +533,7 @@ namespace iTeffa.Commands
                     };
                     cmd.Parameters.AddWithValue("@com", JsonConvert.SerializeObject(oldvehdata));
                     cmd.Parameters.AddWithValue("@num", player.Vehicle.NumberPlate);
-                    Database.Query(cmd);
+                    Globals.Database.Query(cmd);
                     Globals.VehicleManager.FracApplyCustomization(player.Vehicle, fractionid);
                     player.SendChatMessage("Вы изменили тюнинг этой машины для фракции.");
                 }
@@ -944,7 +944,7 @@ namespace iTeffa.Commands
                 cmd.Parameters.AddWithValue("@c2", c2);
                 cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
                 cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Database.Query(cmd);
+                Globals.Database.Query(cmd);
                 veh.PrimaryColor = c1;
                 veh.SecondaryColor = c2;
                 veh.NumberPlate = number;
@@ -1007,7 +1007,7 @@ namespace iTeffa.Commands
                 cmd.Parameters.AddWithValue("@c2", c2);
                 cmd.Parameters.AddWithValue("@pos", JsonConvert.SerializeObject(player.Position));
                 cmd.Parameters.AddWithValue("@rot", JsonConvert.SerializeObject(player.Rotation));
-                Database.Query(cmd);
+                Globals.Database.Query(cmd);
                 veh.PrimaryColor = c1;
                 veh.SecondaryColor = c2;
                 veh.NumberPlate = number;
@@ -1035,7 +1035,7 @@ namespace iTeffa.Commands
             foreach (var id in list)
             {
                 GarageManager.Garages.Remove(id);
-                Database.Query($"DELETE FROM `garages` WHERE `id`={id}");
+                Globals.Database.Query($"DELETE FROM `garages` WHERE `id`={id}");
             }
         }
         [Command("createhouse")]
@@ -1068,7 +1068,7 @@ namespace iTeffa.Commands
 
             house.Destroy();
             HouseManager.Houses.Remove(house);
-            Database.Query($"DELETE FROM `houses` WHERE `id`='{house.ID}'");
+            Globals.Database.Query($"DELETE FROM `houses` WHERE `id`='{house.ID}'");
         }
         [Command("houseis")]
         public static void CMD_HouseIs(Player player)
@@ -1200,7 +1200,7 @@ namespace iTeffa.Commands
             Garage garage = GarageManager.Garages[player.GetData<int>("GARAGEID")];
             garage.Destroy();
             GarageManager.Garages.Remove(player.GetData<int>("GARAGEID"));
-            Database.Query($"DELETE FROM `garages` WHERE `id`='{garage.ID}'");
+            Globals.Database.Query($"DELETE FROM `garages` WHERE `id`='{garage.ID}'");
         }
         #endregion
         #region Сервер

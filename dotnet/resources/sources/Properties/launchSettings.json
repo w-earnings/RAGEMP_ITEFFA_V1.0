@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "RAGEMP": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Project\\RAGEMP-ITEFFA\\ragemp-server.exe",
-      "workingDirectory": "C:\\Project\\RAGEMP-ITEFFA"
-    }
-  }
-}

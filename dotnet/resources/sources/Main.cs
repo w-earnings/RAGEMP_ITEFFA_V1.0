@@ -6,7 +6,6 @@ using iTeffa.Houses;
 using iTeffa.Interface;
 using iTeffa.Models;
 using iTeffa.Settings;
-using iTeffa.Speaking;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -367,7 +366,7 @@ namespace iTeffa
                     Log.Debug("STAGE 7 (HOUSES)");
 
 
-                    Voice.PlayerQuit(player, reason);
+                    Modules.Voice.PlayerQuit(player, reason);
                     Players[player].Save(player).Wait();
                     Accounts[player].Save(player).Wait();
                     nInventory.Save(Players[player].UUID);
@@ -1282,7 +1281,7 @@ namespace iTeffa
                                     return;
                                 }
                                 Player t = GetPlayerByUUID(SimCards[num]);
-                                Voice.PhoneCallCommand(player, t);
+                                Modules.Voice.PhoneCallCommand(player, t);
                             }
                             else
                             {
@@ -2947,7 +2946,7 @@ namespace iTeffa
                         return;
                     }
                     Player target = GetPlayerByUUID(SimCards[num]);
-                    Voice.PhoneCallCommand(player, target);
+                    Modules.Voice.PhoneCallCommand(player, target);
                     break;
                 case "rename":
                     Trigger.ClientEvent(player, "openInput", "Переименование", $"Введите новое имя для {num}", 18, "smsname");
@@ -3381,10 +3380,10 @@ namespace iTeffa
                     Trigger.ClientEvent(player, "openInput", "Промокод", "Введите промокод", 10, "enter_promocode");
                     return;
                 case "acceptcall":
-                    Voice.PhoneCallAcceptCommand(player);
+                    Modules.Voice.PhoneCallAcceptCommand(player);
                     return;
                 case "endcall":
-                    Voice.PhoneHCommand(player);
+                    Modules.Voice.PhoneHCommand(player);
                     return;
             }
         }

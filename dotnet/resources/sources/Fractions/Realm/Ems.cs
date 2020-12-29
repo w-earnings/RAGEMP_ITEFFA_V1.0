@@ -360,7 +360,7 @@ namespace iTeffa.Fractions.Realm
             player.SetData("DYING_POS", player.Position);
 
             if (call) callEms(player, true);
-            Speaking.Voice.PhoneHCommand(player);
+            Modules.Voice.PhoneHCommand(player);
 
             NAPI.Player.SetPlayerHealth(player, 10);
             var time = (call) ? 600000 : 180000;

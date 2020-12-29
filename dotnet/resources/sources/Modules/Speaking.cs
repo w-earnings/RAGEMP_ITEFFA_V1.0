@@ -1,12 +1,123 @@
 ﻿using GTANetworkAPI;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using iTeffa.Interface;
 using iTeffa.Globals;
 using iTeffa.Settings;
 
-namespace iTeffa.Speaking
+namespace iTeffa.Modules
 {
+    class RoomController
+    {
+        public Dictionary<string, Room> Rooms;
+        private static RoomController instance;
+        private RoomController()
+        {
+            Rooms = new Dictionary<string, Room>();
+        }
+        public static RoomController getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new RoomController();
+            }
+            return instance;
+        }
+        public void CreateRoom(string name)
+        {
+            if (!Rooms.ContainsKey(name))
+            {
+                Rooms.Add(name, new Room(name));
+                Console.WriteLine("Room " + name + " created");
+            }
+        }
+        public void RemoveRoom(string name)
+        {
+            if (Rooms.ContainsKey(name))
+            {
+                Room room = Rooms[name];
+                room.OnRemove();
+                Rooms.Remove(name);
+
+                Console.WriteLine("Room " + name + " removed");
+            }
+        }
+        public bool HasRoom(string name)
+        {
+            return Rooms.ContainsKey(name);
+        }
+        public void OnJoin(string name, Player player)
+        {
+            if (Rooms.ContainsKey(name))
+            {
+                Room room = Rooms[name];
+                room.OnJoin(player);
+            }
+        }
+        public void OnQuit(string name, Player player)
+        {
+            if (Rooms.ContainsKey(name))
+            {
+                Room room = Rooms[name];
+                room.OnQuit(player);
+            }
+        }
+    }
+    class Room
+    {
+        public string Name;
+        public List<Player> Players;
+
+        public Dictionary<string, object> MetaData { get { return new Dictionary<string, object> { { "name", Name } }; } }
+
+        public Room(string Name)
+        {
+            this.Name = Name;
+
+            this.Players = new List<Player>();
+        }
+
+        public void OnJoin(Player player)
+        {
+            if (Players.Contains(player))
+            {
+                var argsMe = new List<object> { MetaData };
+                Players.ForEach(_player => argsMe.Add(_player));
+
+
+                Trigger.ClientEvent(player, "voice.radioConnect", argsMe.ToArray());
+                Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioConnect", MetaData, player);
+
+                var tempPlayer = player.GetData<Models.VoiceMetaData>("Voip");
+                tempPlayer.RadioRoom = Name;
+
+                player.SetData<Models.VoiceMetaData>("Voip", tempPlayer);
+                Players.Add(player);
+            }
+        }
+
+        public void OnQuit(Player player)
+        {
+            if (Players.Contains(player))
+            {
+                var argsMe = new List<object> { MetaData };
+                Players.ForEach(_player => argsMe.Add(_player));
+
+                Trigger.ClientEvent(player, "voice.radioDisconnect", argsMe.ToArray());
+                Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData, player);
+
+                player.ResetData("Voip");
+                Players.Remove(player);
+            }
+        }
+
+        public void OnRemove()
+        {
+            Trigger.ClientEventToPlayers(Players.ToArray(), "voice.radioDisconnect", MetaData);
+            Players.Clear();
+        }
+    }
     public class Voice : Script
     {
         private static readonly Nlogs Log = new Nlogs("Voice");
@@ -28,12 +139,12 @@ namespace iTeffa.Speaking
             }
             return target;
         }
-        
+
         public static void PlayerJoin(Player player)
         {
             try
             {
-                VoiceMetaData DefaultVoiceMeta = new VoiceMetaData
+                Models.VoiceMetaData DefaultVoiceMeta = new Models.VoiceMetaData
                 {
                     IsEnabledMicrophone = false,
                     RadioRoom = "",
@@ -41,7 +152,7 @@ namespace iTeffa.Speaking
                     MicrophoneKey = 78 // N
                 };
 
-                VoicePhoneMetaData DefaultVoicePhoneMeta = new VoicePhoneMetaData
+                Models.VoicePhoneMetaData DefaultVoicePhoneMeta = new Models.VoicePhoneMetaData
                 {
                     CallingState = "nothing",
                     Target = null
@@ -56,25 +167,25 @@ namespace iTeffa.Speaking
                 Console.WriteLine(e.ToString());
             }
         }
-        
+
         public static void PlayerQuit(Player player, string reson)
         {
             try
             {
                 RoomController controller = RoomController.getInstance();
-                VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+                Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
 
                 if (controller.HasRoom(voiceMeta.RadioRoom))
                 {
                     controller.OnQuit(voiceMeta.RadioRoom, player);
                 }
 
-                VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                Models.VoicePhoneMetaData playerPhoneMeta = player.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                 if (playerPhoneMeta.Target != null)
                 {
                     Player target = playerPhoneMeta.Target;
-                    VoicePhoneMetaData targetPhoneMeta = target.GetData<VoicePhoneMetaData>("PhoneVoip");
+                    Models.VoicePhoneMetaData targetPhoneMeta = target.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                     var pSim = Main.Players[player].Sim;
                     var playerName = (Main.Players[target].Contacts.ContainsKey(pSim)) ? Main.Players[target].Contacts[pSim] : pSim.ToString();
@@ -154,7 +265,7 @@ namespace iTeffa.Speaking
         }
 
         // METHODS //
-        
+
         public static void PhoneCallCommand(Player player, Player target)
         {
             try
@@ -166,8 +277,8 @@ namespace iTeffa.Speaking
                 }
                 if (target != null && Main.Players.ContainsKey(target))
                 {
-                    VoicePhoneMetaData targetPhoneMeta = target.GetData<VoicePhoneMetaData>("PhoneVoip");
-                    VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                    Models.VoicePhoneMetaData targetPhoneMeta = target.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
+                    Models.VoicePhoneMetaData playerPhoneMeta = player.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                     if (playerPhoneMeta.Target != null)
                     {
@@ -206,8 +317,8 @@ namespace iTeffa.Speaking
                         {
                             if (!Main.Players.ContainsKey(player) || !Main.Players.ContainsKey(target)) return;
 
-                            VoicePhoneMetaData tPhoneMeta = target.GetData<VoicePhoneMetaData>("PhoneVoip");
-                            VoicePhoneMetaData pPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                            Models.VoicePhoneMetaData tPhoneMeta = target.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
+                            Models.VoicePhoneMetaData pPhoneMeta = player.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                             if (pPhoneMeta.Target == null || pPhoneMeta.Target != target || pPhoneMeta.CallingState == "talk") return;
 
@@ -232,7 +343,7 @@ namespace iTeffa.Speaking
                             Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} завершил вызов", 3000);
                         }
                         catch { }
-                        
+
                     }, 20000);
 
                     Plugins.Notice.Send(target, Plugins.TypeNotice.Alert, Plugins.PositionNotice.TopCenter, $"{playerName} звонит Вам. Откройте телефон, чтобы принять/отклонить вызов", 3000);
@@ -269,7 +380,7 @@ namespace iTeffa.Speaking
         {
             try
             {
-                VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                Models.VoicePhoneMetaData playerPhoneMeta = player.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                 if (playerPhoneMeta.Target == null || playerPhoneMeta.CallingState == "callTo" || !Main.Players.ContainsKey(playerPhoneMeta.Target))
                 {
@@ -279,7 +390,7 @@ namespace iTeffa.Speaking
 
                 Player target = playerPhoneMeta.Target;
 
-                VoicePhoneMetaData targetPhoneMeta = target.GetData<VoicePhoneMetaData>("PhoneVoip");
+                Models.VoicePhoneMetaData targetPhoneMeta = target.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                 playerPhoneMeta.CallingState = "talk";
                 targetPhoneMeta.CallingState = "talk";
@@ -317,7 +428,7 @@ namespace iTeffa.Speaking
         {
             try
             {
-                VoicePhoneMetaData playerPhoneMeta = player.GetData<VoicePhoneMetaData>("PhoneVoip");
+                Models.VoicePhoneMetaData playerPhoneMeta = player.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                 if (playerPhoneMeta.Target == null || !Main.Players.ContainsKey(playerPhoneMeta.Target))
                 {
@@ -326,7 +437,7 @@ namespace iTeffa.Speaking
                 }
 
                 Player target = playerPhoneMeta.Target;
-                VoicePhoneMetaData targetPhoneMeta = target.GetData<VoicePhoneMetaData>("PhoneVoip");
+                Models.VoicePhoneMetaData targetPhoneMeta = target.GetData<Models.VoicePhoneMetaData>("PhoneVoip");
 
                 var tSim = Main.Players[target].Sim;
                 var pSim = Main.Players[player].Sim;
@@ -376,7 +487,7 @@ namespace iTeffa.Speaking
                 if (name.Length != 0)
                 {
                     RoomController controller = RoomController.getInstance();
-                    VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+                    Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
 
                     if (controller.HasRoom(name))
                     {
@@ -471,7 +582,7 @@ namespace iTeffa.Speaking
 
                     if (controller.HasRoom(name))
                     {
-                        VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+                        Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
 
                         if (name.Equals(voiceMeta.RadioRoom))
                         {
@@ -501,7 +612,7 @@ namespace iTeffa.Speaking
 
         public bool IsMicrophoneEnabled(Player player)
         {
-            VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+            Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
 
             return voiceMeta.IsEnabledMicrophone;
         }
@@ -520,7 +631,7 @@ namespace iTeffa.Speaking
         {
             try
             {
-                VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+                Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
                 voiceMeta.MicrophoneKey = microphoneKey;
 
                 Trigger.ClientEvent(player, "voice.changeMicrophoneActivationKey", microphoneKey);
@@ -534,7 +645,7 @@ namespace iTeffa.Speaking
 
         public int GetMicrophoneKey(Player player)
         {
-            VoiceMetaData voiceMeta = player.GetData<VoiceMetaData>("Voip");
+            Models.VoiceMetaData voiceMeta = player.GetData<Models.VoiceMetaData>("Voip");
             return voiceMeta.MicrophoneKey;
         }
     }

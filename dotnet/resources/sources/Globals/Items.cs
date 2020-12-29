@@ -698,48 +698,48 @@ namespace iTeffa.Globals
                         Fractions.Manager.OpenGunCraftMenu(player);
                         return;
                     case ItemType.Beer:
-                        EatManager.AddWater(player, 12);
-                        EatManager.AddEat(player, 2);
+                        Modules.Vitality.AddWater(player, 12);
+                        Modules.Vitality.AddEat(player, 2);
                         Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Burger:
                         player.Health = (player.Health + 30 > 100) ? 100 : player.Health + 30;
-                        EatManager.AddEat(player, 15);
+                        Modules.Vitality.AddEat(player, 15);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.eCola:
-                        EatManager.AddWater(player, 15);
-                        EatManager.AddEat(player, 2);
+                        Modules.Vitality.AddWater(player, 15);
+                        Modules.Vitality.AddEat(player, 2);
                         Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.HotDog:
-                        EatManager.AddWater(player, -10);
-                        EatManager.AddEat(player, 14);
+                        Modules.Vitality.AddWater(player, -10);
+                        Modules.Vitality.AddEat(player, 14);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Pizza:
-                        EatManager.AddWater(player, -10);
-                        EatManager.AddEat(player, 30);
+                        Modules.Vitality.AddWater(player, -10);
+                        Modules.Vitality.AddEat(player, 30);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sandwich:
-                        EatManager.AddWater(player, -5);
-                        EatManager.AddEat(player, 8);
+                        Modules.Vitality.AddWater(player, -5);
+                        Modules.Vitality.AddEat(player, 8);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Sprunk:
-                        EatManager.AddWater(player, 25);
-                        EatManager.AddEat(player, 2);
+                        Modules.Vitality.AddWater(player, 25);
+                        Modules.Vitality.AddEat(player, 2);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"выпил(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;
                     case ItemType.Сrisps:
-                        EatManager.AddWater(player, -10);
-                        EatManager.AddEat(player, 15);
+                        Modules.Vitality.AddWater(player, -10);
+                        Modules.Vitality.AddEat(player, 15);
                         if (player.GetData<int>("RESIST_TIME") < 600) Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                         Commands.Controller.RPChat("me", player, $"съел(а) {nInventory.ItemsNames[(int)item.Type]}");
                         break;

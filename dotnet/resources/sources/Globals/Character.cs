@@ -39,7 +39,6 @@ namespace iTeffa.Globals.Character
                         Trigger.ClientEvent(player, "UpdateBank", Finance.Bank.Accounts[Bank].Balance);
                         Trigger.ClientEvent(player, "initPhone");
                         Working.WorkManager.load(player);
-                        #region D2U LastBonus
                         if (IsBonused)
                         {
                             Trigger.ClientEvent(player, "updlastbonus", $"~w~Бонус получен!");
@@ -51,18 +50,12 @@ namespace iTeffa.Globals.Character
                             var min = date.Minute;
                             Trigger.ClientEvent(player, "updlastbonus", $"Eжедневный подарок: Через {hour}ч. {min}м.");
                         }
-                        #endregion
-
-                        // Skin, Health, Armor, RemoteID
                         player.SetSkin((Gender) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                         player.Health = (Health > 5) ? Health : 5;
                         player.Armor = Armor;
-
                         player.SetSharedData("REMOTE_ID", player.Value);
                         player.SetSharedData("PERSON_SID", PersonSID);
-
-                        Speaking.Voice.PlayerJoin(player);
-
+                        Modules.Voice.PlayerJoin(player);
                         player.SetSharedData("voipmode", -1);
 
                         if (Fractions.Manager.FractionTypes[FractionID] == 1 || AdminLVL > 0) Fractions.GangsCapture.LoadBlips(player);
