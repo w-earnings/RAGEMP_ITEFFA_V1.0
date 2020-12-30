@@ -11,7 +11,7 @@ namespace iTeffa.Finance
 {
     class Bank : Script
     {
-        private static readonly Nlogs Log = new Nlogs("BankSystem");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("BankSystem");
         private static readonly Random Rnd = new Random();
         public static Dictionary<int, Data> Accounts = new Dictionary<int, Data>();
         public static ICollection<int> BankAccKeys = Accounts.Keys;
@@ -29,7 +29,7 @@ namespace iTeffa.Finance
             var result = Database.QueryRead("SELECT * FROM `money`");
             if (result == null || result.Rows.Count == 0)
             {
-                Log.Write("DB return null result.", Nlogs.Type.Warn);
+                Log.Write("DB return null result.", Plugins.Logs.Type.Warn);
                 return;
             }
             foreach (DataRow Row in result.Rows)
@@ -80,7 +80,7 @@ namespace iTeffa.Finance
         {
             if (firstAccID == 0 || lastAccID == 0)
             {
-                Log.Write($"Account ID error [{firstAccID}->{lastAccID}]", Nlogs.Type.Error);
+                Log.Write($"Account ID error [{firstAccID}->{lastAccID}]", Plugins.Logs.Type.Error);
                 return false;
             }
             Data firstAcc = Accounts[firstAccID];
@@ -88,14 +88,14 @@ namespace iTeffa.Finance
             {
                 if (firstAcc.Type == 1)
                     BankNotify(NAPI.Player.GetPlayerFromName(firstAcc.Holder), BankNotifyType.InputError, "Такого счета не существует!");
-                Log.Write($"Transfer with error. Account does not exist! [{firstAccID}->{lastAccID}:{amount}]", Nlogs.Type.Warn);
+                Log.Write($"Transfer with error. Account does not exist! [{firstAccID}->{lastAccID}:{amount}]", Plugins.Logs.Type.Warn);
                 return false;
             }
             if (!Change(firstAccID, -amount))
             {
                 if (firstAcc.Type == 1)
                     BankNotify(NAPI.Player.GetPlayerFromName(firstAcc.Holder), BankNotifyType.PayError, "Недостаточно средств!");
-                Log.Write($"Transfer with error. Insufficient funds! [{firstAccID}->{lastAccID}:{amount}]", Nlogs.Type.Warn);
+                Log.Write($"Transfer with error. Insufficient funds! [{firstAccID}->{lastAccID}:{amount}]", Plugins.Logs.Type.Warn);
                 return false;
             }
             Change(lastAccID, amount);
@@ -141,7 +141,7 @@ namespace iTeffa.Finance
             };
             Accounts.Add(id, data);
             Database.Query($"INSERT INTO `money`(`id`, `type`, `holder`, `balance`) VALUES ({id},{type},'{holder}',{balance})");
-            Log.Write("Created new Bank Account! ID:" + id.ToString(), Nlogs.Type.Success);
+            Log.Write("Created new Bank Account! ID:" + id.ToString(), Plugins.Logs.Type.Success);
             return id;
         }
         public static void Remove(int id, string holder)
@@ -154,7 +154,7 @@ namespace iTeffa.Finance
             };
             cmd.Parameters.AddWithValue("@pn", holder);
             Database.Query(cmd);
-            Log.Write("Bank account deleted! ID:" + id, Nlogs.Type.Warn);
+            Log.Write("Bank account deleted! ID:" + id, Plugins.Logs.Type.Warn);
         }
         public static void RemoveByID(int id)
         {
@@ -166,7 +166,7 @@ namespace iTeffa.Finance
             };
             cmd.Parameters.AddWithValue("@pn", id);
             Database.Query(cmd);
-            Log.Write("Bank account deleted! ID:" + id, Nlogs.Type.Warn);
+            Log.Write("Bank account deleted! ID:" + id, Plugins.Logs.Type.Warn);
         }
         public static bool isAccExist(int id)
         {

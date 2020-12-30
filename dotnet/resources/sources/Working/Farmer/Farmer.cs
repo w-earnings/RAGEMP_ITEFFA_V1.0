@@ -10,7 +10,7 @@ namespace iTeffa.Working.FarmerJob
 {
     public class Farmer : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Working Farmer");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Working Farmer");
         private static readonly List<CharacterData> Farmers = new List<CharacterData>();
         private static ColShape checkpoint;
         private static readonly Random rnd = new Random();
@@ -38,7 +38,7 @@ namespace iTeffa.Working.FarmerJob
                     }
                     catch (Exception e)
                     {
-                        Log.Write(e.ToString(), Nlogs.Type.Error);
+                        Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                     }
                 };
                 iTeffaShape.OnEntityExitColShape += (shape, player) =>
@@ -49,7 +49,7 @@ namespace iTeffa.Working.FarmerJob
                     }
                     catch (Exception e)
                     {
-                        Log.Write(e.ToString(), Nlogs.Type.Error);
+                        Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                     }
                 };
                 for (int i = 0; i < Checkpoints.Count; i++)
@@ -58,11 +58,11 @@ namespace iTeffa.Working.FarmerJob
                     checkpoint.SetData($"plantID", i);
                     checkpoint.OnEntityEnterColShape += PlayerEnterCheckpoint;
                 }
-                Log.Write("Loaded", Nlogs.Type.Success);
+                Log.Write("Loaded", Plugins.Logs.Type.Success);
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static void OpenFarmerMenu(Player player)
@@ -88,7 +88,7 @@ namespace iTeffa.Working.FarmerJob
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         [RemoteEvent("workstate")]
@@ -137,7 +137,7 @@ namespace iTeffa.Working.FarmerJob
                 }
                 catch (Exception e)
                 {
-                    Log.Write(e.ToString(), Nlogs.Type.Error);
+                    Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace iTeffa.Working.FarmerJob
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         private static void UpdateCheckpointState(ColShape colShape, Player player)
@@ -269,7 +269,7 @@ namespace iTeffa.Working.FarmerJob
                 if (result == null || result.Rows.Count == 0)
                 {
                     Database.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {lvl}, {exp}, {allpoints})");
-                    Log.Write($"Я зарегал игрока {player.Name}", Nlogs.Type.Warn);
+                    Log.Write($"Я зарегал игрока {player.Name}", Plugins.Logs.Type.Warn);
                 }
                 else
                 {
@@ -279,13 +279,13 @@ namespace iTeffa.Working.FarmerJob
                         exp = Convert.ToInt32(Row["exp"]);
                         allpoints = Convert.ToInt32(Row["allpoints"]);
                     }
-                    Log.Write($"Я загрузил игрока {player.Name}", Nlogs.Type.Warn);
+                    Log.Write($"Я загрузил игрока {player.Name}", Plugins.Logs.Type.Warn);
                 }
                 player.SetData($"job_{workname}", new int[] { lvl, exp, allpoints });
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static void SaveLvl(Player player, string workname)
@@ -299,17 +299,17 @@ namespace iTeffa.Working.FarmerJob
                 if (result == null || result.Rows.Count == 0)
                 {
                     Database.Query($"INSERT INTO `{workname}`(`uuid`, `level`, `exp`, `allpoints`) VALUES({acc.UUID}, {data[0]}, {data[1]}, {data[2]})");
-                    Log.Write("Пользователь внесен в базу", Nlogs.Type.Warn);
+                    Log.Write("Пользователь внесен в базу", Plugins.Logs.Type.Warn);
                 }
                 else
                 {
                     Database.Query($"UPDATE `{workname}` SET `level`={data[0]}, `exp`={data[1]}, `allpoints`={data[2]} WHERE uuid={acc.UUID}");
-                    Log.Write($"Я обновил данные игрока {player.Name}", Nlogs.Type.Warn);
+                    Log.Write($"Я обновил данные игрока {player.Name}", Plugins.Logs.Type.Warn);
                 }
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         private static void SetFarmerClothes(Player player)

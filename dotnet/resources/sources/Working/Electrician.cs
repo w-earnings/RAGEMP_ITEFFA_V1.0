@@ -10,7 +10,7 @@ namespace iTeffa.Working
     class Electrician : Script
     {
         private static readonly int checkpointPayment = 7;
-        private static readonly Nlogs Log = new Nlogs("Electrician");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Electrician");
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()
@@ -93,14 +93,14 @@ namespace iTeffa.Working
                     {
                         player.SetData("INTERACTIONCHECK", 8);
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 col.OnEntityExitColShape += (shape, player) => {
                     try
                     {
                         player.SetData("INTERACTIONCHECK", 0);
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E to start/end job"), new Vector3(724.9625, 133.9959, 80.95643), 30f, 0.4f, 0, new Color(255, 255, 255), true, 0);
                 NAPI.Marker.CreateMarker(1, new Vector3(724.9625, 133.9959, 79.83643) - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
@@ -114,7 +114,7 @@ namespace iTeffa.Working
                     i++;
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void StartWorkDay(Player player)
@@ -209,7 +209,7 @@ namespace iTeffa.Working
                     catch { }
                 }, 4000);
 
-            } catch (Exception e) { Log.Write("PlayerEnterCheckpoint: " + e.Message, Nlogs.Type.Error); }
+            } catch (Exception e) { Log.Write("PlayerEnterCheckpoint: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         internal class Checkpoint

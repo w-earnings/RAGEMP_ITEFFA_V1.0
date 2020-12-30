@@ -7,7 +7,7 @@ namespace iTeffa.Modules
 {
     public static class PassReset
     {
-        private static readonly Nlogs Log = new Nlogs("PassRestore");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("PassRestore");
         private static readonly Config config = new Config("PassRestore");
         private static readonly string mailFrom = config.TryGet<string>("From", "noreply@iteffa.com");
         private static readonly string mailTitle1 = config.TryGet<string>("Title1", "Password Restore");
@@ -33,12 +33,12 @@ namespace iTeffa.Modules
                     DeliveryMethod = SmtpDeliveryMethod.Network
                 };
                 smtpClient.Send(msg);
-                if (type == 0) Log.Debug($"Сообщение с кодом для восстановления пароля успешно отправлено на {email}!", Nlogs.Type.Success);
-                else Log.Debug($"Сообщение с новым паролем успешно отправлено на {email}!", Nlogs.Type.Success);
+                if (type == 0) Log.Debug($"Сообщение с кодом для восстановления пароля успешно отправлено на {email}!", Plugins.Logs.Type.Success);
+                else Log.Debug($"Сообщение с новым паролем успешно отправлено на {email}!", Plugins.Logs.Type.Success);
             }
             catch (Exception ex)
             {
-                Log.Write("EXCEPTION AT \"SendEmail\":\n" + ex.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"SendEmail\":\n" + ex.ToString(), Plugins.Logs.Type.Error);
             }
         }
 

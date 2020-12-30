@@ -8,7 +8,7 @@ namespace iTeffa.Fractions.Gangs
 {
     class Gangs : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Gangs");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Gangs");
         public static List<Vector3> DrugPoints = new List<Vector3>()
         {
             new Vector3(8.621573, 3701.914, 39.51624),
@@ -33,7 +33,7 @@ namespace iTeffa.Fractions.Gangs
                         {
                             e.SetData("INTERACTIONCHECK", 47);
                         }
-                        catch (Exception ex) { Log.Write("OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     col.OnEntityExitColShape += (s, e) =>
                     {
@@ -41,11 +41,11 @@ namespace iTeffa.Fractions.Gangs
                         {
                             e.SetData("INTERACTIONCHECK", -1);
                         }
-                        catch (Exception ex) { Log.Write("OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void InteractPressed(Player player)
         {

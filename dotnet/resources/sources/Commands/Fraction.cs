@@ -6,7 +6,7 @@ namespace iTeffa.Commands
 {
     public class FractionCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Fraction Commands");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Fraction Commands");
         #region Шерифи
         [Command("sh1")]
         public static void CMD_sheriffAccept(Player player, int id)
@@ -20,7 +20,7 @@ namespace iTeffa.Commands
                 }
                 Fractions.Realm.Sheriff.acceptCall(player, Main.GetPlayerByID(id));
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         #endregion
     }

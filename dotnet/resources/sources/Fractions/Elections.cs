@@ -11,7 +11,7 @@ namespace iTeffa.Fractions
 {
     class ElectionsSystem : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Elections");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Elections");
         private static readonly Config config = new Config("Elections");
 
         private class ElectionPoints
@@ -98,7 +98,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -206,7 +206,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -270,7 +270,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -289,7 +289,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
             return true;
         }

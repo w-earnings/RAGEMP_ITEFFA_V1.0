@@ -11,7 +11,7 @@ namespace iTeffa.Working
 {
     class Truckers : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Truckers");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Truckers");
 
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -27,7 +27,7 @@ namespace iTeffa.Working
                     NAPI.Marker.CreateMarker(1, getProduct[i] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255));
                     NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E to take products"), new Vector3(getProduct[i].X, getProduct[i].Y, getProduct[i].Z + 0.7), 30f, 0.5f, 0, new Color(255, 255, 255));
                 }
-            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }   
+            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }   
         }
 
         public static List<CarInfo> CarInfos = new List<CarInfo>();
@@ -143,7 +143,7 @@ namespace iTeffa.Working
                 
                 player.ResetData("ORDERDATE");
             }
-            catch (Exception e) { Log.Write("CancelOrder: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("CancelOrder: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void respawnCar(Vehicle veh)
         {
@@ -163,7 +163,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
-            catch (Exception e) { Log.Write("respawnCar: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("respawnCar: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void truckerRent(Player player)
         {
@@ -305,7 +305,7 @@ namespace iTeffa.Working
                     return;
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void onEntityEnterGetProduct(ColShape shape, Player entity)
@@ -315,7 +315,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 31);
                 NAPI.Data.SetEntityData(entity, "PROD", shape.GetData<int>("PROD"));
             }
-            catch (Exception ex) { Log.Write("onEntityEnterGetProduct: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityEnterGetProduct: " + ex.Message, Plugins.Logs.Type.Error); }
         }
         private void onEntityExitGetProduct(ColShape shape, Player entity)
         {
@@ -323,7 +323,7 @@ namespace iTeffa.Working
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception ex) { Log.Write("onEntityExitGetProduct: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityExitGetProduct: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -383,7 +383,7 @@ namespace iTeffa.Working
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
-            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }   
+            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }   
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -402,7 +402,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.Start(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
-            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }   
+            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error); }   
         }
 
         private void timer_playerExitWorkVehicle(Player player, Vehicle vehicle)
@@ -439,7 +439,7 @@ namespace iTeffa.Working
 
                 } catch(Exception e)
                 {
-                    Log.Write("Timer_PlayerExitWorkVehicle_Truckers: \n" + e.ToString(), Nlogs.Type.Error);
+                    Log.Write("Timer_PlayerExitWorkVehicle_Truckers: \n" + e.ToString(), Plugins.Logs.Type.Error);
                 }
             });
         }
@@ -475,7 +475,7 @@ namespace iTeffa.Working
             }
             catch (Exception ex)
             {
-                Log.Write($"Error: {ex.Message} ", Nlogs.Type.Error);
+                Log.Write($"Error: {ex.Message} ", Plugins.Logs.Type.Error);
             }
         }
 
@@ -542,7 +542,7 @@ namespace iTeffa.Working
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы доставили трейлер", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("onEntityDropTrailer_ATTENTION: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("onEntityDropTrailer_ATTENTION: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void truckerOrders(Player player)

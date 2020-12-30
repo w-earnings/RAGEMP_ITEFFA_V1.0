@@ -9,7 +9,7 @@ namespace iTeffa.Fractions
 {
     class AlcoFabrication : Script
     {
-        private static readonly Nlogs Log = new Nlogs("AlcoFabrication");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("AlcoFabrication");
         private static readonly Dictionary<int, Vector3> EnterAlcoShop = new Dictionary<int, Vector3>()
         {
             { 10, new Vector3(-1388.761, -586.3921, 29.09945) },
@@ -136,7 +136,7 @@ namespace iTeffa.Fractions
                 var result = Database.QueryRead("SELECT * FROM alcoclubs");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB alcoclubs return null result.", Nlogs.Type.Warn);
+                    Log.Write("DB alcoclubs return null result.", Plugins.Logs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -159,7 +159,7 @@ namespace iTeffa.Fractions
                             e.SetData("CLUB", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 54);
                         }
-                        catch (Exception ex) { Log.Write("EnterAlco_OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("EnterAlco_OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     colShape.OnEntityExitColShape += (s, e) =>
                     {
@@ -168,7 +168,7 @@ namespace iTeffa.Fractions
                             e.SetData("INTERACTIONCHECK", 0);
                             e.SetData("CLUB", -1);
                         }
-                        catch (Exception ex) { Log.Write("EnterAlco_OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("EnterAlco_OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pair.Value - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, NAPI.GlobalDimension);
@@ -187,7 +187,7 @@ namespace iTeffa.Fractions
                             e.SetData("CLUB", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 55);
                         }
-                        catch (Exception ex) { Log.Write("ExitAlco_OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("ExitAlco_OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     colShape.OnEntityExitColShape += (s, e) =>
                     {
@@ -195,7 +195,7 @@ namespace iTeffa.Fractions
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("ExitAlco_OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("ExitAlco_OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pair.Value - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, NAPI.GlobalDimension);
@@ -214,7 +214,7 @@ namespace iTeffa.Fractions
                             e.SetData("CLUB", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 56);
                         }
-                        catch (Exception ex) { Log.Write("Unloadpoints_OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("Unloadpoints_OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     colShape.OnEntityExitColShape += (s, e) =>
                     {
@@ -222,7 +222,7 @@ namespace iTeffa.Fractions
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("Unloadpoints_OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("Unloadpoints_OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pair.Value - new Vector3(0, 0, 4.5), new Vector3(), new Vector3(), 5, new Color(255, 0, 0, 220), false, NAPI.GlobalDimension);
@@ -241,7 +241,7 @@ namespace iTeffa.Fractions
                             e.SetData("CLUB", s.GetData<int>("ID"));
                             e.SetData("INTERACTIONCHECK", 57);
                         }
-                        catch (Exception ex) { Log.Write("BuyPoints_OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("BuyPoints_OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     colShape.OnEntityExitColShape += (s, e) =>
                     {
@@ -249,7 +249,7 @@ namespace iTeffa.Fractions
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("BuyPoints_OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("BuyPoints_OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pair.Value - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, NAPI.GlobalDimension);
@@ -257,7 +257,7 @@ namespace iTeffa.Fractions
                 }
                 #endregion
             }
-            catch (Exception e) { Log.Write("ServerStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ServerStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Event_InteractPressed(Player player, int id)
@@ -337,7 +337,7 @@ namespace iTeffa.Fractions
                         $"pricemod={Convert.ToInt32(club.Value.PriceModifier * 100)},mats={club.Value.Materials} WHERE id={club.Key}");
                 }
             }
-            catch (Exception e) { Log.Write("SaveAlco: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("SaveAlco: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         #region Buy Menu
@@ -469,7 +469,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("menu_alco: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("menu_alco: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void SetAlcoholPrice(Player player, int price)
         {

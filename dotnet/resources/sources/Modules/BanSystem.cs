@@ -10,7 +10,7 @@ namespace iTeffa.Modules
     class BanSystem : Models.BanData
     {
         private static readonly List<BanSystem> Banned = new List<BanSystem>();
-        private static readonly Nlogs Log = new Nlogs("BanSystem");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("BanSystem");
         public static void Sync()
         {
             lock (Banned)
@@ -83,7 +83,7 @@ namespace iTeffa.Modules
             var acc = Main.Players[client];
             if (acc == null)
             {
-                Log.Write($"Can't ban player {client.Name}", Nlogs.Type.Error);
+                Log.Write($"Can't ban player {client.Name}", Plugins.Logs.Type.Error);
                 return;
             }
             BanSystem ban = new BanSystem()

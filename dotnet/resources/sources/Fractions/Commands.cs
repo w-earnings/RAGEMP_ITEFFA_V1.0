@@ -12,7 +12,7 @@ namespace iTeffa.Fractions
 {
     class FractionCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("FractionCommangs");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("FractionCommangs");
 
         [ServerEvent(Event.PlayerEnterVehicle)]
         public void onPlayerEnterVehicleHandler(Player player, Vehicle vehicle, sbyte seatid)
@@ -32,7 +32,7 @@ namespace iTeffa.Fractions
                     return;
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
         private static readonly Dictionary<int, DateTime> NextCarRespawn = new Dictionary<int, DateTime>()
         {
@@ -233,7 +233,7 @@ namespace iTeffa.Fractions
                     player.ResetData("HEAD_POCKET");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         #region every fraction commands
@@ -251,7 +251,7 @@ namespace iTeffa.Fractions
                 }
                 else if (Group.CanUseCmd(player, "delad")) Fractions.Realm.LSNews.AddAnswer(player, AdID, reason, true);
             }
-            catch (Exception e) { Log.Write("delad: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("delad: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [Command("openstock")]
@@ -614,7 +614,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("ARRESTTIMER: " + e.ToString(), Nlogs.Type.Error);
+                Log.Write("ARRESTTIMER: " + e.ToString(), Plugins.Logs.Type.Error);
             }
 
         }
@@ -678,7 +678,7 @@ namespace iTeffa.Fractions
                     targetFollowPlayer(player, target);
                 }
             }
-            catch (Exception e) { Log.Write($"PlayerPressFollow: {e} // {e.TargetSite} // ", Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write($"PlayerPressFollow: {e} // {e.TargetSite} // ", Plugins.Logs.Type.Error); }
         }
 
         public static void unFollow(Player cop, Player suspect)

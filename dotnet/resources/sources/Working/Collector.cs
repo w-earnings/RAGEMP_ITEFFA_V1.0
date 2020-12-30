@@ -9,7 +9,7 @@ namespace iTeffa.Working
 {
     class Collector : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Collector");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Collector");
         private static readonly int checkpointPayment = 7;
 
         private static readonly Vector3 TakeMoneyPos = new Vector3(915.9069, -1265.255, 24.50912);
@@ -25,19 +25,19 @@ namespace iTeffa.Working
                     {
                         e.SetData("INTERACTIONCHECK", 45);
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 col.OnEntityExitColShape += (s, e) => {
                     try
                     {
                         e.SetData("INTERACTIONCHECK", 0);
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 NAPI.Marker.CreateMarker(1, TakeMoneyPos - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(0, 255, 255), false, 0);
                 NAPI.TextLabel.CreateTextLabel(Main.StringToU16("~g~Press E to take money bags"), TakeMoneyPos + new Vector3(0, 0, 0.3), 30f, 0.4f, 0, new Color(255, 255, 255), true, 0);
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static List<CarInfo> CarInfos = new List<CarInfo>();
@@ -76,7 +76,7 @@ namespace iTeffa.Working
                 Globals.VehicleStreaming.SetLockStatus(veh, false);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
-            catch (Exception e) { Log.Write("respawnCar: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("respawnCar: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -121,7 +121,7 @@ namespace iTeffa.Working
                     VehicleManager.WarpPlayerOutOfVehicle(player);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -148,7 +148,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.StartTask(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
         
         public static void Event_PlayerDeath(Player player, Player entityKiller, uint weapon)
@@ -182,7 +182,7 @@ namespace iTeffa.Working
                     player.ResetData("WORKOBJECT");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Event_PlayerDisconnected(Player player, DisconnectionType type, string reason)
@@ -201,7 +201,7 @@ namespace iTeffa.Working
                     player.ResetData("WORKOBJECT");
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void timer_playerExitWorkVehicle(Player player, Vehicle vehicle)
@@ -244,7 +244,7 @@ namespace iTeffa.Working
 
                 } catch(Exception e)
                 {
-                    Log.Write("Timer_PlayerExitWorkVehicle_Collector:\n" + e.ToString(), Nlogs.Type.Error);
+                    Log.Write("Timer_PlayerExitWorkVehicle_Collector:\n" + e.ToString(), Plugins.Logs.Type.Error);
                 }
             });
         }

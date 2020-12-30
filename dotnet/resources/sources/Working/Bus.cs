@@ -13,7 +13,7 @@ namespace iTeffa.Working
         {
             3, 4, 3, 4, 4, 8
         };
-        private static readonly Nlogs Log = new Nlogs("Bus");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Bus");
         
         private static readonly int BusRentCost = 150;
         private static readonly List<String> BusWaysNames = new List<String>
@@ -700,7 +700,7 @@ namespace iTeffa.Working
                     }
                 }
 
-            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            } catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static List<CarInfo> CarInfos = new List<CarInfo>();
@@ -733,7 +733,7 @@ namespace iTeffa.Working
                     respawnBusCar(vehicle);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void respawnBusCar(Vehicle veh)
@@ -755,7 +755,7 @@ namespace iTeffa.Working
                 NAPI.Data.SetEntityData(veh, "DRIVER", null);
                 veh.SetSharedData("PETROL", VehicleManager.VehicleTank[veh.Class]);
             }
-            catch (Exception e) { Log.Write("respawnBusCar: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("respawnBusCar: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static Vector3 GetNearestStation(Vector3 position)
@@ -816,7 +816,7 @@ namespace iTeffa.Working
                         p.SendChatMessage("!{#3ADF00}Через 10 секунд отходит автобус, следующий по маршруту " + BusWaysNames[way]);
                 }
             }
-            catch (Exception ex) { Log.Write("busCheckpointEnterWay: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("busCheckpointEnterWay: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void timer_busStop(Player player, int way, int check)
@@ -847,7 +847,7 @@ namespace iTeffa.Working
                 }
                 catch (Exception e)
                 {
-                    Log.Write("EXCEPTION AT \"TIMER_BUS_STOP\":\n" + e.ToString(), Nlogs.Type.Error);
+                    Log.Write("EXCEPTION AT \"TIMER_BUS_STOP\":\n" + e.ToString(), Plugins.Logs.Type.Error);
                 }
             });
         }
@@ -870,7 +870,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(player, "CAR_EXIT_TIMER_COUNT", 0);
                     NAPI.Data.SetEntityData(player, "WORK_CAR_EXIT_TIMER", Timers.Start(1000, () => timer_playerExitWorkVehicle(player, vehicle)));
                 }
-            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
+            } catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void timer_playerExitWorkVehicle(Player player, Vehicle vehicle)
@@ -904,7 +904,7 @@ namespace iTeffa.Working
 
                 } catch(Exception e)
                 {
-                    Log.Write("Timer_PlayerExitWorkVehicle:\n" + e.ToString(), Nlogs.Type.Error);
+                    Log.Write("Timer_PlayerExitWorkVehicle:\n" + e.ToString(), Plugins.Logs.Type.Error);
                 }
             });
         }
@@ -983,7 +983,7 @@ namespace iTeffa.Working
                         VehicleManager.WarpPlayerOutOfVehicle(player);
                     }
                 }
-            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            } catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
             
         }
 

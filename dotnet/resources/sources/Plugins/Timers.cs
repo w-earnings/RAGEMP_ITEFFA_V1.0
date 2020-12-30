@@ -7,7 +7,7 @@ namespace iTeffa.Settings
     public static class Timers
     {
         public static Dictionary<string, Models.Timers > timers = new Dictionary<string, Models.Timers>();
-        public static Nlogs Log = new Nlogs("nTimer", false);
+        public static Plugins.Logs Log = new Plugins.Logs("nTimer", false);
         private static readonly Config config = new Config("Timers");
         private static Thread thread;
         private static int delay;
@@ -56,7 +56,7 @@ namespace iTeffa.Settings
                 }
                 catch (Exception e)
                 {
-                    Log.Write($"Timers.Logic: {e.ToString()}", Nlogs.Type.Error);
+                    Log.Write($"Timers.Logic: {e.ToString()}", Plugins.Logs.Type.Error);
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -95,7 +95,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -110,7 +110,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -127,7 +127,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -142,7 +142,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -159,7 +159,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -174,7 +174,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }
@@ -191,7 +191,7 @@ namespace iTeffa.Settings
             }
             catch (Exception e)
             {
-                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Timer.Start.{id}.Error: {e.Message}", Plugins.Logs.Type.Error);
                 return null;
             }
         }

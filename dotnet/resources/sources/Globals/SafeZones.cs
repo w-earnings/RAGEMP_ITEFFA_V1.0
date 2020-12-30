@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class SafeZones : Script
     {
-        private static readonly Nlogs Log = new Nlogs("SafeZones");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("SafeZones");
         public static void CreateSafeZone(Vector3 position, int height, int width)
         {
             var colShape = NAPI.ColShape.Create2DColShape(position.X, position.Y, height, width, 0);
@@ -18,7 +18,7 @@ namespace iTeffa.Globals
                 {
                     Plugins.Trigger.ClientEvent(player, "safeZone", true);
                 }
-                catch (Exception e) { Log.Write($"SafeZoneEnter: {e.Message}", Nlogs.Type.Error); }
+                catch (Exception e) { Log.Write($"SafeZoneEnter: {e.Message}", Plugins.Logs.Type.Error); }
                 
             };
             colShape.OnEntityExitColShape += (shape, player) =>
@@ -27,7 +27,7 @@ namespace iTeffa.Globals
                 {
                     Plugins.Trigger.ClientEvent(player, "safeZone", false);
                 }
-                catch (Exception e) { Log.Write($"SafeZoneExit: {e.Message}", Nlogs.Type.Error); }
+                catch (Exception e) { Log.Write($"SafeZoneExit: {e.Message}", Plugins.Logs.Type.Error); }
             };
         }
 

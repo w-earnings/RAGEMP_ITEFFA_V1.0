@@ -7,7 +7,7 @@ namespace iTeffa.Commands
 {
     public class СhatCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Сhat Commands");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Сhat Commands");
         [Command("global", GreedyArg = true)]
         public static void CMD_adminGlobalChat(Player player, string message)
         {
@@ -15,7 +15,7 @@ namespace iTeffa.Commands
             {
                 Globals.Admin.adminGlobal(player, message);
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         [Command("a", GreedyArg = true)]
         public static void CMD_adminChat(Player player, string message)
@@ -24,7 +24,7 @@ namespace iTeffa.Commands
             {
                 Globals.Admin.adminChat(player, message);
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         [Command("me", GreedyArg = true)]
         public static async Task CMD_chatMe(Player player, string msg)

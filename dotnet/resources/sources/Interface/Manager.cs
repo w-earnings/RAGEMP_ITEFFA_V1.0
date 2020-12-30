@@ -11,7 +11,7 @@ namespace iTeffa.Interface
     class MenuManager : Script
     {
         public static Dictionary<Entity, Menu> Menus = new Dictionary<Entity, Menu>();
-        private static readonly Nlogs Log = new Nlogs("MenuControl");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("MenuControl");
 
         public static void Event_OnPlayerDisconnected(Player client, DisconnectionType type, string reason)
         {
@@ -20,7 +20,7 @@ namespace iTeffa.Interface
                 if (Menus.ContainsKey(client))
                     Menus.Remove(client);
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #region PhoneCallback
         [RemoteEvent("Phone")]
@@ -62,7 +62,7 @@ namespace iTeffa.Interface
             catch (Exception e)
             {
                 Menu menu = Menus[client];
-                Log.Write($"EXCEPTION AT /{menu.ID}/\"PHONE_CALLBACK\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write($"EXCEPTION AT /{menu.ID}/\"PHONE_CALLBACK\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
             return Task.CompletedTask;
         }
@@ -74,7 +74,7 @@ namespace iTeffa.Interface
             {
                 if (Menus.ContainsKey(client))
                 {
-                    Log.Debug($"Player already have opened Menu! id:{Menus[client].ID}", Nlogs.Type.Warn);
+                    Log.Debug($"Player already have opened Menu! id:{Menus[client].ID}", Plugins.Logs.Type.Warn);
                     if (!force) return;
                     Menus.Remove(client);
                 }
@@ -91,7 +91,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"MENUCONTROL_OPEN\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"MENUCONTROL_OPEN\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static async Task OpenAsync(Player client, Menu menu, bool force = false)
@@ -119,7 +119,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"MENUCONTROL_OPEN\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"MENUCONTROL_OPEN\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         #endregion
@@ -139,7 +139,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static Task CloseAsync(Player client, bool hidePhone = true)
@@ -160,7 +160,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"MENUCONTROL_CLOSE\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
             return Task.CompletedTask;
         }

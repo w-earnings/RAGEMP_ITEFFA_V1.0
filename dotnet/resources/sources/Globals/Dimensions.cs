@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class Dimensions : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Dimensions");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Dimensions");
 
         private static readonly Dictionary<int, Entity> DimensionsInUse = new Dictionary<int, Entity>();
         private static readonly ICollection<int> Keys = DimensionsInUse.Keys;
@@ -38,7 +38,7 @@ namespace iTeffa.Globals
                     break;
                 }
             }
-            catch (Exception e) { Log.Write("DismissPrivateDimension: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("DismissPrivateDimension: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static uint GetPlayerDimension(Player player)
         {

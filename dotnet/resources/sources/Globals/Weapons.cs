@@ -9,7 +9,7 @@ namespace iTeffa.Globals
 {
     class Weapons : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Weapons");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Weapons");
         
         internal enum Hash : int
         {
@@ -258,7 +258,7 @@ namespace iTeffa.Globals
                 var result = Database.QueryRead("SELECT * FROM `weapons`");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("Table 'weapons' returns null result", Nlogs.Type.Warn);
+                    Log.Write("Table 'weapons' returns null result", Plugins.Logs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -269,7 +269,7 @@ namespace iTeffa.Globals
                     BusinessesLastSerial.Add(id, lastserial);
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
         
         public static void Event_PlayerDeath(Player player, Player killer, uint reason)
@@ -300,7 +300,7 @@ namespace iTeffa.Globals
                     NAPI.Task.Run(() => { try { player.RemoveAllWeapons(); } catch { } }, 100);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Event_OnPlayerDisconnected(Player player)
@@ -396,7 +396,7 @@ namespace iTeffa.Globals
                 nInventory.Remove(player, wAmmoType, ammo);
                 Plugins.Trigger.ClientEvent(player, "wgive", hash, ammo, true, true);
             }
-            catch (Exception e) { Log.Write("PlayeReloadWeapon: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayeReloadWeapon: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("playerTakeoffWeapon")]
@@ -431,7 +431,7 @@ namespace iTeffa.Globals
                     Items.onDrop(player, new nItem(aType, tryAdd), 1);
                 }
             }
-            catch (Exception e) { Log.Write("PlayeTakeoffWeapon: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayeTakeoffWeapon: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("takeoffWeapon")]
@@ -461,7 +461,7 @@ namespace iTeffa.Globals
                     Items.onDrop(player, new nItem(aType, tryAdd), 1);
                 }
             }
-            catch (Exception e) { Log.Write("takeoffWeapon: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("takeoffWeapon: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("changeweap")]
@@ -493,7 +493,7 @@ namespace iTeffa.Globals
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("changeweap: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("changeweap: " + e.Message, Plugins.Logs.Type.Error); }
         }
     }
 }

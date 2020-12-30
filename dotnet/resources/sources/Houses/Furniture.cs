@@ -35,7 +35,7 @@ namespace iTeffa.Houses
     }
     class FurnitureManager : Script
     {
-        private static readonly Nlogs Log = new Nlogs("HouseFurniture");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("HouseFurniture");
         public static Dictionary<int, Dictionary<int, HouseFurniture>> HouseFurnitures = new Dictionary<int, Dictionary<int, HouseFurniture>>();
         public static Dictionary<int, Dictionary<int, List<nItem>>> FurnituresItems = new Dictionary<int, Dictionary<int, List<nItem>>>();
         public FurnitureManager()
@@ -43,7 +43,7 @@ namespace iTeffa.Houses
             var result = Database.QueryRead($"SELECT * FROM `furniture`");
             if (result == null || result.Rows.Count == 0)
             {
-                Log.Write("DB return null result.", Nlogs.Type.Warn);
+                Log.Write("DB return null result.", Plugins.Logs.Type.Warn);
                 return;
             }
             foreach (DataRow Row in result.Rows)
@@ -54,7 +54,7 @@ namespace iTeffa.Houses
                 HouseFurnitures.Add(id, furnitures);
                 FurnituresItems.Add(id, items);
             }
-            Log.Write($"Loaded {HouseFurnitures.Count} players furnitures.", Nlogs.Type.Success);
+            Log.Write($"Loaded {HouseFurnitures.Count} players furnitures.", Plugins.Logs.Type.Success);
         }
         public static Dictionary<string, string> NameModels = new Dictionary<string, string>()
         {
@@ -70,7 +70,7 @@ namespace iTeffa.Houses
                 string items = JsonConvert.SerializeObject(FurnituresItems[data.Key]);
                 Database.Query($"UPDATE `furniture` SET `furniture`='{furniture}',`data`='{items}' WHERE `uuid`='{data.Key}'");
             }
-            Log.Write("Furnitures has been saved to DB", Nlogs.Type.Success);
+            Log.Write("Furnitures has been saved to DB", Plugins.Logs.Type.Success);
         }
         public static void Create(int id)
         {
@@ -115,7 +115,7 @@ namespace iTeffa.Houses
                 player.ResetData("IS_EDITING");
                 return;
             }
-            catch (Exception e) { Log.Write("acceptEdit: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("acceptEdit: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("cancelEdit")]
         public void ClientEvent_cancelEdit(Player player, params object[] arguments)
@@ -125,7 +125,7 @@ namespace iTeffa.Houses
                 player.ResetData("IS_EDITING");
                 return;
             }
-            catch (Exception e) { Log.Write("cancelEdit: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("cancelEdit: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #region Safes Inventory
         public static Dictionary<string, int> SafesType = new Dictionary<string, int>()

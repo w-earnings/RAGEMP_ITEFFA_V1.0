@@ -7,14 +7,14 @@ namespace iTeffa.Modules
 {
     class Vitality : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Vitality");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Vitality");
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
         {
-            Log.Write("Staring timers.", Nlogs.Type.Info);
+            Log.Write("Staring timers.", Plugins.Logs.Type.Info);
             Timers.StartTask("checkwater", 180000, () => CheckWater());
             Timers.StartTask("checkeat", 300000, () => CheckEat());
-            Log.Write("Timers started.", Nlogs.Type.Success);
+            Log.Write("Timers started.", Plugins.Logs.Type.Success);
         }
         public static void SetEat(Player player, int change)
         {
@@ -69,7 +69,7 @@ namespace iTeffa.Modules
         {
             NAPI.Task.Run(() =>
             {
-                Log.Write("Check Eat.", Nlogs.Type.Info);
+                Log.Write("Check Eat.", Plugins.Logs.Type.Info);
                 foreach (Player player in Main.Players.Keys.ToList())
                 {
                     try
@@ -122,7 +122,7 @@ namespace iTeffa.Modules
         {
             NAPI.Task.Run(() =>
             {
-                Log.Write("Check Water.", Nlogs.Type.Info);
+                Log.Write("Check Water.", Plugins.Logs.Type.Info);
                 foreach (Player player in Main.Players.Keys.ToList())
                 {
                     try

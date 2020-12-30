@@ -13,7 +13,7 @@ namespace iTeffa.Globals
 {
     class Admin : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Admin");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Admin");
         public static bool IsServerStoping = false;
 
         [ServerEvent(Event.ResourceStart)]
@@ -107,7 +107,7 @@ namespace iTeffa.Globals
             IsServerStoping = true;
             Loggings.Admin($"{sender.Name}", $"stopServer({reason})", "");
 
-            Log.Write("Force saving database...", Nlogs.Type.Warn);
+            Log.Write("Force saving database...", Plugins.Logs.Type.Warn);
             BusinessManager.SavingBusiness();
             Fractions.GangsCapture.SavingRegions();
             Houses.HouseManager.SavingHouses();
@@ -115,12 +115,12 @@ namespace iTeffa.Globals
             nInventory.SaveAll();
             Fractions.Stocks.saveStocksDic();
             Weapons.SaveWeaponsDB();
-            Log.Write("All data has been saved!", Nlogs.Type.Success);
+            Log.Write("All data has been saved!", Plugins.Logs.Type.Success);
 
-            Log.Write("Force kicking players...", Nlogs.Type.Warn);
+            Log.Write("Force kicking players...", Plugins.Logs.Type.Warn);
             foreach (Player player in NAPI.Pools.GetAllPlayers())
                 NAPI.Task.Run(() => NAPI.Player.KickPlayer(player, reason));
-            Log.Write("All players has kicked!", Nlogs.Type.Success);
+            Log.Write("All players has kicked!", Plugins.Logs.Type.Success);
 
             NAPI.Task.Run(() =>
             {
@@ -132,7 +132,7 @@ namespace iTeffa.Globals
             IsServerStoping = true;
             Loggings.Admin("server", $"stopServer({reason})", "");
 
-            Log.Write("Force saving database...", Nlogs.Type.Warn);
+            Log.Write("Force saving database...", Plugins.Logs.Type.Warn);
             BusinessManager.SavingBusiness();
             Fractions.GangsCapture.SavingRegions();
             Houses.HouseManager.SavingHouses();
@@ -140,12 +140,12 @@ namespace iTeffa.Globals
             nInventory.SaveAll();
             Fractions.Stocks.saveStocksDic();
             Weapons.SaveWeaponsDB();
-            Log.Write("All data has been saved!", Nlogs.Type.Success);
+            Log.Write("All data has been saved!", Plugins.Logs.Type.Success);
 
-            Log.Write("Force kicking players...", Nlogs.Type.Warn);
+            Log.Write("Force kicking players...", Plugins.Logs.Type.Warn);
             foreach (Player player in NAPI.Pools.GetAllPlayers())
                 NAPI.Player.KickPlayer(player, reason);
-            Log.Write("All players has kicked!", Nlogs.Type.Success);
+            Log.Write("All players has kicked!", Plugins.Logs.Type.Success);
 
             NAPI.Task.Run(() =>
             {
@@ -794,7 +794,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"У {target.Name} {Main.Players[target].Money}$ | Bank: {bankMoney}", 3000);
                 Loggings.Admin($"{player.Name}", $"checkMoney", $"{target.Name}");
             }
-            catch (Exception e) { Log.Write("CheckMoney: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("CheckMoney: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void teleportTargetToPlayer(Player player, Player target, bool withveh = false)
@@ -1021,7 +1021,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("DEMORGAN_TIMER: " + e.ToString(), Nlogs.Type.Error);
+                Log.Write("DEMORGAN_TIMER: " + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static void timer_mute(Player player)
@@ -1043,7 +1043,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("MUTE_TIMER: " + e.ToString(), Nlogs.Type.Error);
+                Log.Write("MUTE_TIMER: " + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         #endregion

@@ -8,7 +8,7 @@ namespace iTeffa.Globals
 {
     class BasicSync : Script
     {
-        private static readonly Nlogs Log = new Nlogs("BasicSync");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("BasicSync");
 
         public static void AttachLabelToObject(string text, Vector3 posOffset, NetHandle obj)
         {
@@ -79,7 +79,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("FingerPointerStart.Event: " + e.Message + "\n playerIdsStr: ", Nlogs.Type.Error);
+                Log.Write("FingerPointerStart.Event: " + e.Message + "\n playerIdsStr: ", Plugins.Logs.Type.Error);
             }
         }
 
@@ -93,7 +93,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("FingerPointerStop.Event: " + e.Message + "\n playerIdsStr: ", Nlogs.Type.Error);
+                Log.Write("FingerPointerStop.Event: " + e.Message + "\n playerIdsStr: ", Plugins.Logs.Type.Error);
             }
         }
 
@@ -117,7 +117,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("FingerPointerUpdateData.Event: " + e.Message, Nlogs.Type.Error);
+                Log.Write("FingerPointerUpdateData.Event: " + e.Message, Plugins.Logs.Type.Error);
             }
         }
 
@@ -130,7 +130,7 @@ namespace iTeffa.Globals
                 player.SetSharedData("INVISIBLE", toggle);
                 Plugins.Trigger.ClientEventInRange(player.Position, 550, "toggleInvisible", player, toggle);
             }
-            catch (Exception e) { Log.Write("InvisibleEvent: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("InvisibleEvent: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static bool GetInvisible(Player player)

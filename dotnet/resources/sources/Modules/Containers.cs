@@ -10,7 +10,7 @@ namespace iTeffa.Modules
 {
     class Containers : Script
     {
-        private static readonly Nlogs Log = new Nlogs("SysContainers");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("SysContainers");
         public static List<Container> containers = new List<Container>();
 
         [ServerEvent(Event.ResourceStart)]
@@ -23,7 +23,7 @@ namespace iTeffa.Modules
                 var table = Database.QueryRead($"SELECT * FROM `containers`");
                 if (table == null || table.Rows.Count == 0)
                 {
-                    Log.Write("Containers return null result.", Nlogs.Type.Warn);
+                    Log.Write("Containers return null result.", Plugins.Logs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in table.Rows)
@@ -53,7 +53,7 @@ namespace iTeffa.Modules
             }
             catch (Exception e)
             {
-                Log.Write($"Контейнеры: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"Контейнеры: {e.Message}", Plugins.Logs.Type.Error);
             }
         }
 
@@ -110,7 +110,7 @@ namespace iTeffa.Modules
             }
             catch (Exception e)
             {
-                Log.Write(e.Message, Nlogs.Type.Error);
+                Log.Write(e.Message, Plugins.Logs.Type.Error);
             }
         }
     }

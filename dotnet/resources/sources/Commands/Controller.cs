@@ -10,7 +10,7 @@ namespace iTeffa.Commands
 {
     public class Controller : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Controller Commands");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Controller Commands");
         private static readonly Random rnd = new Random();
         public static void SendToAdmins(ushort minLVL, string message)
         {
@@ -84,11 +84,11 @@ namespace iTeffa.Commands
                             phoneMeta.Target.SendChatMessage($"[В телефоне] {contactName}: {message}");
                         }
                     }
-                    catch (Exception e) { Log.Write("ChatMessage_TaskRun: " + e.Message, Nlogs.Type.Error); }
+                    catch (Exception e) { Log.Write("ChatMessage_TaskRun: " + e.Message, Plugins.Logs.Type.Error); }
                 });
                 return;
             }
-            catch (Exception e) { Log.Write("ChatMessage: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ChatMessage: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #region try
         public static void Try(Player sender, string message)
@@ -109,7 +109,7 @@ namespace iTeffa.Commands
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         #endregion
         #region RP Chat
@@ -169,7 +169,7 @@ namespace iTeffa.Commands
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         public static Task RPChatAsync(string cmd, Player sender, string message)
         {
@@ -228,7 +228,7 @@ namespace iTeffa.Commands
                             return;
                     }
                 }
-                catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+                catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
             });
             return Task.CompletedTask;
         }
@@ -280,7 +280,7 @@ namespace iTeffa.Commands
                     return 2;
                 }
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"CMD\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
 
             return 0;
         }

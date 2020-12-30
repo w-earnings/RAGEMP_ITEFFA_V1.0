@@ -12,7 +12,7 @@ namespace iTeffa.Fractions
 {
     class Stocks : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Stocks");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Stocks");
 
         public static Dictionary<int, FractionStock> fracStocks = new Dictionary<int, FractionStock>();
         private static readonly Dictionary<int, Vector3> stockCoords = new Dictionary<int, Vector3>()
@@ -76,7 +76,7 @@ namespace iTeffa.Fractions
                 var result = Database.QueryRead("SELECT * FROM fractions");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("Table 'fractions' returns null result", Nlogs.Type.Warn);
+                    Log.Write("Table 'fractions' returns null result", Plugins.Logs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -121,7 +121,7 @@ namespace iTeffa.Fractions
                     NAPI.Marker.CreateMarker(1, garageCoords[id], new Vector3(), new Vector3(), 3f, new Color(227, 252, 252));
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         #region stocks colshape
@@ -133,7 +133,7 @@ namespace iTeffa.Fractions
                 entity.SetData("ONFRACSTOCK", shape.GetData<object>("FRACID"));
                 entity.TriggerEvent("interactHint", true);
             }
-            catch (Exception ex) { Log.Write("enterGarageShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("enterGarageShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void exitGarageShape(ColShape shape, Player entity)
@@ -144,7 +144,7 @@ namespace iTeffa.Fractions
                 entity.SetData("ONFRACSTOCK", 0);
                 entity.TriggerEvent("interactHint", false);
             }
-            catch (Exception ex) { Log.Write("exitGarageShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("exitGarageShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void enterStockShape(ColShape shape, Player entity)
@@ -155,7 +155,7 @@ namespace iTeffa.Fractions
                 entity.SetData("ONFRACSTOCK", shape.GetData<object>("FRACID"));
                 entity.TriggerEvent("interactHint", true);
             }
-            catch (Exception ex) { Log.Write("enterStockShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("enterStockShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void exitStockShape(ColShape shape, Player entity)
@@ -166,7 +166,7 @@ namespace iTeffa.Fractions
                 entity.SetData("ONFRACSTOCK", 0);
                 entity.TriggerEvent("interactHint", false);
             }
-            catch (Exception ex) { Log.Write("exitStockShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("exitStockShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
 
@@ -685,7 +685,7 @@ namespace iTeffa.Fractions
                 Database.Query($"UPDATE fractions SET drugs={data.Drugs},money={data.Money},mats={data.Materials},medkits={data.Medkits},lastserial={Weapons.FractionsLastSerial[key]}," +
                     $"weapons='{JsonConvert.SerializeObject(data.Weapons)}',isopen={data.IsOpen},fuellimit={data.FuelLimit},fuelleft={data.FuelLeft} WHERE id={key}");
             }
-            Log.Write("Stocks has been saved to DB", Nlogs.Type.Success);
+            Log.Write("Stocks has been saved to DB", Plugins.Logs.Type.Success);
         }
 
         [RemoteEvent("openWeaponStock")]
@@ -700,7 +700,7 @@ namespace iTeffa.Fractions
 
                 Dashboard.OpenOut(player, fracStocks[(int)player.GetData<int>("ONFRACSTOCK")].Weapons, "Склад оружия", 6);
             }
-            catch (Exception e) { Log.Write("Openweaponstock: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("Openweaponstock: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         #region menus

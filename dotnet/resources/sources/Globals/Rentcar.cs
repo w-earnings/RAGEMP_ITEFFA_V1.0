@@ -9,7 +9,7 @@ namespace iTeffa.Globals
 {
     class Rentcar : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Rentcar");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Rentcar");
         public static List<CarInfo> CarInfos = new List<CarInfo>();
 
         private static readonly List<Vector3> RentAreas = new List<Vector3>()
@@ -116,7 +116,7 @@ namespace iTeffa.Globals
                     player.SetData("IN_RENT_CAR", true);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicle)]
@@ -131,7 +131,7 @@ namespace iTeffa.Globals
                 NAPI.Data.SetEntityData(player, "RENT_EXIT_TIMER_COUNT", 0);
                 NAPI.Data.SetEntityData(player, "RENT_CAR_EXIT_TIMER", Timers.Start(180, () => timer_playerExitRentVehicle(player, vehicle)));
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void timer_playerExitRentVehicle(Player player, Vehicle vehicle)
@@ -158,7 +158,7 @@ namespace iTeffa.Globals
                     }
                     NAPI.Data.SetEntityData(player, "RENT_EXIT_TIMER_COUNT", NAPI.Data.GetEntityData(player, "RENT_EXIT_TIMER_COUNT") + 1);
                 }
-                catch (Exception e) { Log.Write("timerExitRentVehicle: " + e.Message, Nlogs.Type.Error); }
+                catch (Exception e) { Log.Write("timerExitRentVehicle: " + e.Message, Plugins.Logs.Type.Error); }
             });
         }
 
@@ -171,7 +171,7 @@ namespace iTeffa.Globals
                 if (player.HasData("RENT_CAR_EXIT_TIMER"))
                     Timers.Stop(player.GetData<string>("RENT_CAR_EXIT_TIMER"));
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void RentCar(Player player)

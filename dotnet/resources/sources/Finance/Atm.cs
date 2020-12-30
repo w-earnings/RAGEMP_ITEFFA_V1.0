@@ -10,7 +10,7 @@ namespace iTeffa.Finance
 {
     class ATM : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Bank - ATMs");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Bank - ATMs");
         public static Dictionary<int, ColShape> ATMCols = new Dictionary<int, ColShape>();
         #region Координаты банкоматов
         public static List<Vector3> ATMs = new List<Vector3>
@@ -160,7 +160,7 @@ namespace iTeffa.Finance
                             e.SetData("INTERACTIONCHECK", 13);
                             Working.Collector.CollectorEnterATM(e, s);
                         }
-                        catch (Exception ex) { Log.Write("ATMCols.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("ATMCols.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     ATMCols[i].OnEntityExitColShape += (s, e) =>
                     {
@@ -168,11 +168,11 @@ namespace iTeffa.Finance
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("ATMCols.OnEntityExitrColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("ATMCols.OnEntityExitrColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                 }
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static Vector3 GetNearestATM(Player player)
         {
@@ -344,7 +344,7 @@ namespace iTeffa.Finance
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         [RemoteEvent("atmDP")]
@@ -434,7 +434,7 @@ namespace iTeffa.Finance
 
                 }
             }
-            catch (Exception e) { Log.Write("atmCB: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("atmCB: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("atm")]
         public static void ClientEvent_ATM(Player player, params object[] args)
@@ -527,7 +527,7 @@ namespace iTeffa.Finance
                         break;
                 }
             }
-            catch (Exception e) { Log.Write("atm: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("atm: " + e.Message, Plugins.Logs.Type.Error); }
         }
     }
 }

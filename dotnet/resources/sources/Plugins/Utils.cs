@@ -1,7 +1,7 @@
 ﻿using GTANetworkAPI;
 using iTeffa.Infodata;
 
-namespace iTeffa.Settings
+namespace iTeffa.Plugins
 {
     public class Utils
     {

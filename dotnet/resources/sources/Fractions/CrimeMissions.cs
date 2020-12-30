@@ -8,7 +8,7 @@ namespace iTeffa.Fractions
 {
     class CarDelivery : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Crime:CarDelivery");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Crime:CarDelivery");
 
         private static readonly List<VehicleHash> GangsVehiclesHashes = new List<VehicleHash>()
         {
@@ -168,14 +168,14 @@ namespace iTeffa.Fractions
                     {
                         e.SetData("INTERACTIONCHECK", 52);
                     }
-                    catch (Exception ex) { Log.Write("start_colShape.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("start_colShape.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 colShape.OnEntityExitColShape += (s, e) => {
                     try
                     {
                         e.SetData("INTERACTIONCHECK", 0);
                     }
-                    catch (Exception ex) { Log.Write("start_colShape.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("start_colShape.OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
 
                 NAPI.TextLabel.CreateTextLabel("~g~Jimmy Lishman", GangStartDelivery + new Vector3(0, 0, 2.5), 5f, 0.4f, 0, new Color(255, 255, 255), true, NAPI.GlobalDimension);
@@ -191,14 +191,14 @@ namespace iTeffa.Fractions
                         {
                             e.SetData("ONMAFIAID", s.GetData<int>("ID")); e.SetData("INTERACTIONCHECK", 53);
                         }
-                        catch (Exception ex) { Log.Write("Delivery_colShape.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("Delivery_colShape.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
                     colShape.OnEntityExitColShape += (s, e) => {
                         try
                         {
                             e.SetData("INTERACTIONCHECK", 0);
                         }
-                        catch (Exception ex) { Log.Write("Delivery_colShape.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                        catch (Exception ex) { Log.Write("Delivery_colShape.OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                     };
 
                     NAPI.Marker.CreateMarker(1, pos.Value - new Vector3(0, 0, 2.7), new Vector3(), new Vector3(), 3, new Color(255, 0, 0, 220), false, NAPI.GlobalDimension);
@@ -292,7 +292,7 @@ namespace iTeffa.Fractions
                 }
                 #endregion
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerEnterVehicle)]
@@ -342,7 +342,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("EnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Event_PlayerDisconnected(Player player)
@@ -423,7 +423,7 @@ namespace iTeffa.Fractions
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("GangMission: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("GangMission: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("mafiamis")]
@@ -489,7 +489,7 @@ namespace iTeffa.Fractions
                 player.SetIntoVehicle(vehicle, 0);
                 return;
             }
-            catch (Exception e) { Log.Write("GangMission: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("GangMission: " + e.Message, Plugins.Logs.Type.Error); }
         }
     }
 }

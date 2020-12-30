@@ -12,7 +12,7 @@ namespace iTeffa.Working
         private static readonly int JobWorkId = 13;
         private static readonly int JobsMinLVL = 3;
         private static readonly int ColObjects = 5;
-        private static readonly Nlogs Log = new Nlogs("Diver");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Diver");
 
         [ServerEvent(Event.ResourceStart)]
         public void Event_ResourceStart()
@@ -27,7 +27,7 @@ namespace iTeffa.Working
                         player.SetData("INTERACTIONCHECK", 510);
                         Plugins.Trigger.ClientEvent(player, "JobsEinfo");
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
                 col.OnEntityExitColShape += (shape, player) => {
                     try
@@ -35,7 +35,7 @@ namespace iTeffa.Working
                         player.SetData("INTERACTIONCHECK", 0);
                         Plugins.Trigger.ClientEvent(player, "JobsEinfo2");
                     }
-                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+                    catch (Exception ex) { Log.Write("col.OnEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
                 };
 
                 int i = 0;
@@ -56,7 +56,7 @@ namespace iTeffa.Working
                     ii++;
                 };
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private static readonly List<Checkpoint> Checkpoints = new List<Checkpoint>()
@@ -108,7 +108,7 @@ namespace iTeffa.Working
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("jobjoin: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("jobjoin: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void Layoff(Player player)
         {
@@ -195,7 +195,7 @@ namespace iTeffa.Working
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("jobjoin: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("jobjoin: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void Layoff2(Player player)
         {
@@ -470,7 +470,7 @@ namespace iTeffa.Working
                     #endregion
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterCheckpoint: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterCheckpoint: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
         #region Если игрок умер
@@ -514,7 +514,7 @@ namespace iTeffa.Working
                     player.SetData("PAYMENT", 0);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
         #region Если игрок вышел из игры или его кикнуло
@@ -553,7 +553,7 @@ namespace iTeffa.Working
                     player.SetData("PAYMENT", 0);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
         internal class Checkpoint

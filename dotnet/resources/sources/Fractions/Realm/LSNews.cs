@@ -11,7 +11,7 @@ namespace iTeffa.Fractions.Realm
 {
     class LSNews : Script
     {
-        private static readonly Nlogs Log = new Nlogs("News");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("News");
         private class Advert
         {
             public int ID { get; set; }
@@ -79,7 +79,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT\"FRACTIONS_LSNEWS\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT\"FRACTIONS_LSNEWS\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -89,7 +89,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception e) { Log.Write("lsnews_OnEntityEnterColShape: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("lsnews_OnEntityEnterColShape: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void lsnews_OnEntityExitColShape(ColShape shape, Player entity)
@@ -98,7 +98,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception e) { Log.Write("lsnews_OnEntityExitColShape: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("lsnews_OnEntityExitColShape: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void interactPressed(Player player, int interact)
@@ -171,7 +171,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write("Init: " + e.ToString(), Nlogs.Type.Error);
+                Log.Write("Init: " + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static void onLSNPlayerLoad(Player client)
@@ -186,7 +186,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write("onLSNPlayerLoad: " + e.ToString(), Nlogs.Type.Error);
+                Log.Write("onLSNPlayerLoad: " + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -291,7 +291,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -358,7 +358,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -388,7 +388,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace iTeffa.Working.FarmerJob
     class Market : Script
     {
         private static readonly Random rnd = new Random();
-        private static readonly Nlogs Log = new Nlogs("Market");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Market");
         private static readonly List<FarmerProduct> Products = new List<FarmerProduct>();
         public static int marketmultiplier = rnd.Next(15, 30);
         private static readonly List<Vector3> shape = new List<Vector3>()
@@ -33,7 +33,7 @@ namespace iTeffa.Working.FarmerJob
                     }
                     catch (Exception e)
                     {
-                        Log.Write(e.ToString(), Nlogs.Type.Error);
+                        Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                     }
                 };
                 melogShape.OnEntityExitColShape += (shape, player) =>
@@ -44,14 +44,14 @@ namespace iTeffa.Working.FarmerJob
                     }
                     catch (Exception e)
                     {
-                        Log.Write(e.ToString(), Nlogs.Type.Error);
+                        Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                     }
                 };
-                Log.Write("Loaded", Nlogs.Type.Success);
+                Log.Write("Loaded", Plugins.Logs.Type.Success);
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         private static object MarketItem(FarmerProduct prod)

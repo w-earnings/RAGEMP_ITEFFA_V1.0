@@ -20,10 +20,10 @@ namespace iTeffa.Interface
                 if (!isopen.ContainsKey(player)) return;
                 isopen.Remove(player);
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
-        private static readonly Nlogs Log = new Nlogs("Dashboard");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Dashboard");
         public static Dictionary<Player, bool> isopen = new Dictionary<Player, bool>();
         private static readonly Dictionary<int, string> Status = new Dictionary<int, string>
         {// Group id, Status
@@ -135,7 +135,7 @@ namespace iTeffa.Interface
                                 }
                                 catch (Exception e)
                                 {
-                                    Log.Write(e.ToString(), Nlogs.Type.Error);
+                                    Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                                 }
                             }
                             else if (data == "transfer")
@@ -720,7 +720,7 @@ namespace iTeffa.Interface
                         }
                 }
             }
-            catch (Exception e) { Log.Write("Inventory: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("Inventory: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("openInventory")]
@@ -736,7 +736,7 @@ namespace iTeffa.Interface
                 else
                     Open(player);
             }
-            catch (Exception e) { Log.Write("openInventory: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("openInventory: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("closeInventory")]
         public void ClientEvent_closeInventory(Player player, params object[] arguments)
@@ -761,7 +761,7 @@ namespace iTeffa.Interface
                     if (Main.Players[player].AdminLVL != 0) sendStats(player);
                 }
             }
-            catch (Exception e) { Log.Write($"CloseInventory: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write($"CloseInventory: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Close(Player player, bool resetOpenOut = false)
@@ -823,7 +823,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static Task SendStatsAsync(Player player)
@@ -879,7 +879,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"DASHBOARD_SENDSTATS\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
 
             return Task.CompletedTask;
@@ -917,7 +917,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"DASHBOARD_SENDITEMS\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"DASHBOARD_SENDITEMS\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static async Task SendItemsAsync(Player player)
@@ -952,7 +952,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"DASHBOARD_SENDITEMS\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"DASHBOARD_SENDITEMS\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         public static void Open(Player Player)
@@ -992,7 +992,7 @@ namespace iTeffa.Interface
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"DASHBOARD_OPENOUT\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"DASHBOARD_OPENOUT\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 

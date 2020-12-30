@@ -5,7 +5,7 @@ namespace iTeffa.Commands
 {
     public class VipCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Vip Commands");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Vip Commands");
         // ... 
     }
 }

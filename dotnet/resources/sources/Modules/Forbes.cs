@@ -11,7 +11,7 @@ namespace iTeffa.Modules
 {
     class Forbes : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Forbes");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Forbes");
         private static readonly bool SeeAdmins = true;
         private static readonly int AdminLVLToSee = 0;
         private static readonly int MaxForbes = 30;
@@ -48,7 +48,7 @@ namespace iTeffa.Modules
                         Majors.Add(pair.Key, pair.Value); i++;
                     }
                 }
-                catch (Exception e) { Log.Write("MAJORS: " + e.ToString(), Nlogs.Type.Error); }
+                catch (Exception e) { Log.Write("MAJORS: " + e.ToString(), Plugins.Logs.Type.Error); }
             }, 2000);
         }
 
@@ -79,7 +79,7 @@ namespace iTeffa.Modules
 
                 return result;
             }
-            catch (Exception e) { Log.Write("MAJORS: " + e.ToString(), Nlogs.Type.Error); return 0; }
+            catch (Exception e) { Log.Write("MAJORS: " + e.ToString(), Plugins.Logs.Type.Error); return 0; }
         }
 
 

@@ -5,7 +5,7 @@ namespace iTeffa.Commands
 {
     public class WorkingCommands : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Working Commands");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Working Commands");
         // ... 
     }
 }

@@ -12,7 +12,7 @@ namespace iTeffa.Fractions.Realm
 {
     class Sheriff : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Sheriff");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Sheriff");
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
         {
@@ -65,7 +65,7 @@ namespace iTeffa.Fractions.Realm
                 NAPI.Marker.CreateMarker(1, sheriffCheckpoints[8] - new Vector3(0, 0, 0.7), new Vector3(), new Vector3(), 1, new Color(255, 255, 255, 220));
                 NAPI.Marker.CreateMarker(1, sheriffCheckpoints[9] - new Vector3(0, 0, 3.7), new Vector3(), new Vector3(), 4, new Color(255, 0, 0, 220));
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private static readonly Dictionary<int, ColShape> Cols = new Dictionary<int, ColShape>();
@@ -93,7 +93,7 @@ namespace iTeffa.Fractions.Realm
                 if (Main.Players[player].FractionID != 18 || Main.Players[player].FractionID != 9) return;
                 Plugins.Trigger.ClientEvent(player, "closePc");
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void callSheriff(Player player, string reason)
@@ -245,7 +245,7 @@ namespace iTeffa.Fractions.Realm
                 catch { }
                 Plugins.Notice.Send(sender, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы сняли розыск с владельца паспорта {target}", 3000);
             }
-            catch (Exception e) { Log.Write("ClearWantedLvl1: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ClearWantedLvl1: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("checkNumber1")]
@@ -266,7 +266,7 @@ namespace iTeffa.Fractions.Realm
                 }
                 Plugins.Trigger.ClientEvent(sender, "executeCarInfo", Convert.ToString(vehicle.Model), vehicle.Holder.Replace('_', ' '));
             }
-            catch (Exception e) { Log.Write("checkNumber1: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("checkNumber1: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("checkPerson1")]
@@ -333,7 +333,7 @@ namespace iTeffa.Fractions.Realm
                     }
                 }
             }
-            catch (Exception e) { Log.Write("checkPerson1: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("checkPerson1: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("checkWantedList1")]
@@ -353,7 +353,7 @@ namespace iTeffa.Fractions.Realm
                 Log.Debug(json);
                 Plugins.Trigger.ClientEvent(sender, "executeWantedList1", json);
             }
-            catch (Exception e) { Log.Write("checkWantedList1: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("checkWantedList1: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("openCopCarMenu1")]
@@ -376,7 +376,7 @@ namespace iTeffa.Fractions.Realm
                 }
                 return;
             }
-            catch (Exception e) { Log.Write("openCopCarMenu1: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("openCopCarMenu1: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void Event_PlayerDeath(Player player, Player killer, uint reason)
@@ -393,7 +393,7 @@ namespace iTeffa.Fractions.Realm
                     }
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void interactPressed(Player player, int interact)
@@ -547,7 +547,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "IS_IN_ARREST_AREA", true);
             }
-            catch (Exception ex) { Log.Write("arrestShape_onEntityEnterColShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("arrestShape_onEntityEnterColShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private void arrestShape_onEntityExitColShape(ColShape shape, Player player)
@@ -561,7 +561,7 @@ namespace iTeffa.Fractions.Realm
                     NAPI.Entity.SetEntityPosition(player, Sheriff.sheriffCheckpoints[4]);
                 }
             }
-            catch (Exception ex) { Log.Write("arrestShape_onEntityExitColShape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("arrestShape_onEntityExitColShape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private void onEntityEnterColshape(ColShape shape, Player entity)
@@ -570,7 +570,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
             }
-            catch (Exception ex) { Log.Write("onEntityEnterColshape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityEnterColshape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private void onEntityExitColshape(ColShape shape, Player entity)
@@ -579,7 +579,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception ex) { Log.Write("onEntityExitColshape: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onEntityExitColshape: " + ex.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
 
@@ -616,7 +616,7 @@ namespace iTeffa.Fractions.Realm
                     NAPI.ColShape.DeleteColShape(player.GetData<ColShape>("CALLSHERIFF_COL"));
                 }
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void setPlayerWantedLevel(Player player, WantedLevel wantedlevel)
@@ -709,7 +709,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write($"Sheriffgun: " + e.Message, Nlogs.Type.Error);
+                Log.Write($"Sheriffgun: " + e.Message, Plugins.Logs.Type.Error);
             }
         }
 

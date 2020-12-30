@@ -117,7 +117,7 @@ namespace iTeffa.Modules
     }
     public class Voice : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Voice");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Voice");
         public Voice()
         {
             RoomController.getInstance().CreateRoom("VoiceRoom");
@@ -355,7 +355,7 @@ namespace iTeffa.Modules
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCall: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"PhoneCall: {e.Message}", Plugins.Logs.Type.Error);
             }
         }
 
@@ -417,7 +417,7 @@ namespace iTeffa.Modules
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCallAccept: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"PhoneCallAccept: {e.Message}", Plugins.Logs.Type.Error);
             }
         }
 
@@ -471,7 +471,7 @@ namespace iTeffa.Modules
             }
             catch (Exception e)
             {
-                Log.Write($"PhoneCallCancel: {e.Message}", Nlogs.Type.Error);
+                Log.Write($"PhoneCallCancel: {e.Message}", Plugins.Logs.Type.Error);
             }
         }
 

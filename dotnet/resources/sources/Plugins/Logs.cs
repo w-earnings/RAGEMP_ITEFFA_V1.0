@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iTeffa.Settings
+namespace iTeffa.Plugins
 {
-    public class Nlogs
+    public class Logs
     {
-        public Nlogs(string _reference = null, bool _canDebug = true)
+        public Logs(string _reference = null, bool _canDebug = true)
         {
             if (_reference == null) _reference = "Logger";
             Reference = _reference;

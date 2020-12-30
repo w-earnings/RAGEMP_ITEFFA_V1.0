@@ -17,7 +17,7 @@ namespace iTeffa.Finance
     {
         public static Queue<KeyValuePair<string, string>> toChange = new Queue<KeyValuePair<string, string>>();
         public static Queue<string> newNames = new Queue<string>();
-        private static readonly Nlogs Log = new Nlogs("Donations");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Donations");
         private static Timer scanTimer;
         private static string SYNCSTR;
         private static string CHNGSTR;
@@ -85,7 +85,7 @@ namespace iTeffa.Finance
                         }
                         if (!Main.Usernames.Contains(name))
                         {
-                            Log.Write($"Can't find registred name for {name}!", Nlogs.Type.Warn);
+                            Log.Write($"Can't find registred name for {name}!", Plugins.Logs.Type.Warn);
                             continue;
                         }
                         var client = Main.Accounts.FirstOrDefault(a => a.Value.Login == name).Key;
@@ -116,14 +116,14 @@ namespace iTeffa.Finance
                     }
                     catch (Exception e)
                     {
-                        Log.Write($"Exception At Tick_Donations on {name}:\n" + e.ToString(), Nlogs.Type.Error);
+                        Log.Write($"Exception At Tick_Donations on {name}:\n" + e.ToString(), Plugins.Logs.Type.Error);
                     }
                 }
                 connection.Close();
             }
             catch (Exception e)
             {
-                Log.Write("Exception At Tick_Donations:\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("Exception At Tick_Donations:\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         #endregion
@@ -174,15 +174,15 @@ namespace iTeffa.Finance
             {
                 case 0:
                     Wallet.Change(client, 50000);
-                    Log.Write("Деньги пришли в размере 50 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 50 000", Plugins.Logs.Type.Success);
                     break;
                 case 1:
                     Wallet.Change(client, 100000);
-                    Log.Write("Деньги пришли в размере 100 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 100 000", Plugins.Logs.Type.Success);
                     break;
                 case 2:
                     Wallet.Change(client, 150000);
-                    Log.Write("Деньги пришли в размере 150 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 150 000", Plugins.Logs.Type.Success);
                     break;
                 case 3:
                     if (add)
@@ -276,31 +276,31 @@ namespace iTeffa.Finance
                     break;
                 case 11:
                     Wallet.Change(client, 200000);
-                    Log.Write("Деньги пришли в размере 200 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 200 000", Plugins.Logs.Type.Success);
                     break;
                 case 12:
                     Wallet.Change(client, 250000);
-                    Log.Write("Деньги пришли в размере 250 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 250 000", Plugins.Logs.Type.Success);
                     break;
                 case 13:
                     Wallet.Change(client, 300000);
-                    Log.Write("Деньги пришли в размере 300 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 300 000", Plugins.Logs.Type.Success);
                     break;
                 case 14:
                     Wallet.Change(client, 350000);
-                    Log.Write("Деньги пришли в размере 350 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 350 000", Plugins.Logs.Type.Success);
                     break;
                 case 15:
                     Wallet.Change(client, 400000);
-                    Log.Write("Деньги пришли в размере 400 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 400 000", Plugins.Logs.Type.Success);
                     break;
                 case 16:
                     Wallet.Change(client, 450000);
-                    Log.Write("Деньги пришли в размере 450 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 450 000", Plugins.Logs.Type.Success);
                     break;
                 case 17:
                     Wallet.Change(client, 500000);
-                    Log.Write("Деньги пришли в размере 500 000", Nlogs.Type.Success);
+                    Log.Write("Деньги пришли в размере 500 000", Plugins.Logs.Type.Success);
                     break;
             }
         }
@@ -706,7 +706,7 @@ namespace iTeffa.Finance
                 Database.Query($"update `accounts` set `coins`={Main.Accounts[client].Coins} where `login`='{Main.Accounts[client].Login}'");
                 Plugins.Trigger.ClientEvent(client, "redset", Main.Accounts[client].Coins);
             }
-            catch (Exception e) { Log.Write("donate: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("donate: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion Действия в донат-меню
         public static long SaleEvent(long input)

@@ -24,7 +24,7 @@ namespace iTeffa.Globals
             public List<Vehicle> EventVehicles = new List<Vehicle>();
         }
         private static readonly CustomEvent AdminEvent = new CustomEvent(); // Одновременно можно будет создать только одно мероприятие.
-        private static readonly Nlogs Log = new Nlogs("EventSys");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("EventSys");
         private static readonly Config config = new Config("EventSys");
 
         public static void Init()
@@ -219,7 +219,7 @@ namespace iTeffa.Globals
                         }
                         catch (Exception e)
                         {
-                            Log.Write("EXCEPTION AT \"SetMPReward\":\n" + e.ToString(), Nlogs.Type.Error);
+                            Log.Write("EXCEPTION AT \"SetMPReward\":\n" + e.ToString(), Plugins.Logs.Type.Error);
                         }
                     }
                     else player.SendChatMessage("Вы ввели слишком большой лимит. Максимально возможный лимит: 999999");
@@ -362,7 +362,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"AddAdminEventLog\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"AddAdminEventLog\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -374,7 +374,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"UpdateLastAdminEventLog\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"UpdateLastAdminEventLog\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 

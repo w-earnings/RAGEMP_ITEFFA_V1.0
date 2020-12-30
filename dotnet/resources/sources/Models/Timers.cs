@@ -35,12 +35,12 @@ namespace iTeffa.Models
                     Settings.Timers.Log.Debug($"Timer.Elapsed.{ID}.Invoke");
                     if (isTask) Task.Run(() => action.Invoke());
                     else action.Invoke();
-                    Settings.Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", Settings.Nlogs.Type.Success);
+                    Settings.Timers.Log.Debug($"Timer.Elapsed.{ID}.Completed", Plugins.Logs.Type.Success);
                 }
             }
             catch (Exception e)
             {
-                Settings.Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", Settings.Nlogs.Type.Error);
+                Settings.Timers.Log.Write($"Timer.Elapsed.{ID}.Error: {e}", Plugins.Logs.Type.Error);
             }
         }
     }

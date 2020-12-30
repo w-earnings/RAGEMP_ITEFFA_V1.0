@@ -8,7 +8,7 @@ namespace iTeffa.Fractions.Realm
 {
     class Cityhall : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Cityhall");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Cityhall");
         public static int lastHourTax = 0;
         public static int canGetMoney = 999999;
 
@@ -62,7 +62,7 @@ namespace iTeffa.Fractions.Realm
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT\"FRACTIONS_CITYHALL\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT\"FRACTIONS_CITYHALL\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -85,7 +85,7 @@ namespace iTeffa.Fractions.Realm
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", shape.GetData<int>("INTERACT"));
                 if (shape.HasData("DOOR")) NAPI.Data.SetEntityData(entity, "DOOR", shape.GetData<int>("DOOR"));
             }
-            catch (Exception e) { Log.Write("city_OnEntityEnterColShape: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("city_OnEntityEnterColShape: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private void city_OnEntityExitColShape(ColShape shape, Player entity)
@@ -94,7 +94,7 @@ namespace iTeffa.Fractions.Realm
             {
                 NAPI.Data.SetEntityData(entity, "INTERACTIONCHECK", 0);
             }
-            catch (Exception e) { Log.Write("city_OnEntityExitColShape: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("city_OnEntityExitColShape: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void interactPressed(Player player, int interact)
@@ -262,7 +262,7 @@ namespace iTeffa.Fractions.Realm
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("Govgun: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("Govgun: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
     }

@@ -13,7 +13,7 @@ namespace iTeffa.Fractions
 {
     class Manager : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Fractions");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Fractions");
         public static void OnResourceStart()
         {
             try
@@ -59,7 +59,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"FRACTIONS_MANAGER\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"FRACTIONS_MANAGER\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -248,7 +248,7 @@ namespace iTeffa.Fractions
                         NAPI.Chat.SendChatMessageToPlayer(p, msgSender);
                 }
             }
-            catch (Exception e) { Log.Write($"FractionChat:\n {e}", Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write($"FractionChat:\n {e}", Plugins.Logs.Type.Error); }
         }
 
         public static Dictionary<int, int> GovIds = new Dictionary<int, int>
@@ -327,7 +327,7 @@ namespace iTeffa.Fractions
             }
             Plugins.Trigger.ClientEvent(player, "fractionChange", fractionID);
             player.SetSharedData("fraction", fractionID);
-            Log.Write($"Member {player.Name} loaded. ", Nlogs.Type.Success);
+            Log.Write($"Member {player.Name} loaded. ", Plugins.Logs.Type.Success);
         }
         public static void UNLoad(Player player)
         {
@@ -355,9 +355,9 @@ namespace iTeffa.Fractions
                         }
                     }
                 }
-                Log.Write($"Member {player.Name} unloaded.", Nlogs.Type.Success);
+                Log.Write($"Member {player.Name} unloaded.", Plugins.Logs.Type.Success);
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void Spawn(Player player)
         {
@@ -1397,7 +1397,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write($"Event_WCraft/{where}/{frac}/{cat}/{index}/: \n{e}", Nlogs.Type.Error);
+                Log.Write($"Event_WCraft/{where}/{frac}/{cat}/{index}/: \n{e}", Plugins.Logs.Type.Error);
             }
         }
         [RemoteEvent("wcraftammo")]
@@ -1438,7 +1438,7 @@ namespace iTeffa.Fractions
                 nInventory.Add(player, new nItem(AmmoTypes[category], ammo));
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно скрафтили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo}", 3000);
             }
-            catch (Exception e) { Log.Write(e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write(e.ToString(), Plugins.Logs.Type.Error); }
         }
         private static readonly Dictionary<ItemType, int> MatsForAmmoType = new Dictionary<ItemType, int>()
         {
@@ -1506,7 +1506,7 @@ namespace iTeffa.Fractions
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(people);
                 Plugins.Trigger.ClientEvent(player, "setmem", json, count, on, off);
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"SETMEMBERS\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"SETMEMBERS\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("openfmenu")]
         public static void OpenFractionMenu(Player player)
@@ -1516,7 +1516,7 @@ namespace iTeffa.Fractions
                 SetMembersToMenu(player);
                 Plugins.Trigger.ClientEvent(player, "openfm");
             }
-            catch (Exception e) { Log.Write("EXCEPTION AT \"OPENFMENU\":\n" + e.ToString(), Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("EXCEPTION AT \"OPENFMENU\":\n" + e.ToString(), Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("fmenu")]
         public static void callback_FracMenu(Player player, params object[] args)
@@ -1639,7 +1639,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"FRACMENU\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"FRACMENU\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace iTeffa.Interface
 {
     class Docs : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Docs");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Docs");
         [RemoteEvent("passport")]
         public static void Event_Passport(Player player, params object[] arguments)
         {
@@ -18,7 +18,7 @@ namespace iTeffa.Interface
                 Passport(player, to);
             } catch(Exception e)
             {
-                Log.Write("EXCEPTION AT \"EVENT_PASSPORT\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"EVENT_PASSPORT\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         [RemoteEvent("licenses")]
@@ -30,7 +30,7 @@ namespace iTeffa.Interface
                 Licenses(player, to);
             } catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"EVENT_LICENSES\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"EVENT_LICENSES\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 

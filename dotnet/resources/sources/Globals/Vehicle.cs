@@ -11,7 +11,7 @@ namespace iTeffa.Globals
 {
     class VehicleManager : Script
     {
-        private static readonly Nlogs Log = new Nlogs("Vehicle");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("Vehicle");
         private static readonly Random Rnd = new Random();
         public static SortedDictionary<string, VehicleData> Vehicles = new SortedDictionary<string, VehicleData>();
         public static SortedDictionary<int, int> VehicleTank = new SortedDictionary<int, int>()
@@ -103,7 +103,7 @@ namespace iTeffa.Globals
                 DataTable result = Database.QueryRead("SELECT * FROM `vehicles`");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB return null result.", Nlogs.Type.Warn);
+                    Log.Write("DB return null result.", Plugins.Logs.Type.Warn);
                     return;
                 }
                 int count = 0;
@@ -126,9 +126,9 @@ namespace iTeffa.Globals
                     };
                     Vehicles.Add(Convert.ToString(Row["number"]), data);
                 }
-                Log.Write($"Vehicles are loaded ({count})", Nlogs.Type.Success);
+                Log.Write($"Vehicles are loaded ({count})", Plugins.Logs.Type.Success);
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void FuelControl()
@@ -159,7 +159,7 @@ namespace iTeffa.Globals
                     }
                     catch (Exception e)
                     {
-                        Log.Write($"FUELCONTROL_TIMER: {veh.NumberPlate} {f.ToString()}\n{e.Message}", Nlogs.Type.Error);
+                        Log.Write($"FUELCONTROL_TIMER: {veh.NumberPlate} {f.ToString()}\n{e.Message}", Plugins.Logs.Type.Error);
                     }
                 }
             });
@@ -235,7 +235,7 @@ namespace iTeffa.Globals
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, Messages.GEN_VEHICLE_START_ENGINE, 3000);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerEnterVehicle: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [ServerEvent(Event.PlayerExitVehicleAttempt)]
@@ -253,7 +253,7 @@ namespace iTeffa.Globals
                     if (vehicle.GetData<List<Player>>("OCCUPANTS").Contains(player)) vehicle.GetData<List<Player>>("OCCUPANTS").Remove(player);
                 }
             }
-            catch (Exception e) { Log.Write("PlayerExitVehicleAttempt: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerExitVehicleAttempt: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void API_onPlayerDisconnected(Player player, DisconnectionType type, string reason)
@@ -277,7 +277,7 @@ namespace iTeffa.Globals
                 if (NAPI.Data.HasEntityData(player, "WORK_CAR_EXIT_TIMER"))
                     Timers.Stop(NAPI.Data.GetEntityData(player, "WORK_CAR_EXIT_TIMER"));
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void WarpPlayerOutOfVehicle(Player player)
@@ -587,7 +587,7 @@ namespace iTeffa.Globals
                     veh.SetMod(23, data.Wheels);
                 }
             }
-            catch (Exception e) { Log.Write("ApplyCustomization: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ApplyCustomization: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void ApplyCustomization(Vehicle veh)
@@ -647,7 +647,7 @@ namespace iTeffa.Globals
                     VehicleStreaming.SetVehicleDirt(veh, Vehicles[veh.NumberPlate].Dirt);
                 }
             }
-            catch (Exception e) { Log.Write("ApplyCustomization: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ApplyCustomization: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void ChangeVehicleDoors(Player player, Vehicle vehicle)
@@ -1146,7 +1146,7 @@ namespace iTeffa.Globals
                         return;
                 }
             }
-            catch (Exception e) { Log.Write("VehicleDeath: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("VehicleDeath: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private static string GenerateNumber()

@@ -9,7 +9,7 @@ namespace iTeffa.Globals
 {
     class CarRoom : Script
     {
-        private static readonly Nlogs Log = new Nlogs("CARROOM");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("CARROOM");
 
         public static Vector3 CamPosition = new Vector3(-42.3758, -1101.672, 26.42235); // Позиция камеры
         public static Vector3 CamRotation = new Vector3(0, 0, 1.701622); // Rotation камеры
@@ -30,7 +30,7 @@ namespace iTeffa.Globals
                 player.ResetData("CARROOMTEST");
 
             }
-            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("PlayerDisconnected: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void enterCarroom(Player player, string name)
@@ -66,7 +66,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("PlayerExitVehicle: " + e.Message, Nlogs.Type.Error);
+                Log.Write("PlayerExitVehicle: " + e.Message, Plugins.Logs.Type.Error);
             }
         }
 
@@ -94,7 +94,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("TestDrive: " + e.Message, Nlogs.Type.Error);
+                Log.Write("TestDrive: " + e.Message, Plugins.Logs.Type.Error);
             }
         }
 
@@ -196,7 +196,7 @@ namespace iTeffa.Globals
                     }
                 }
             }
-            catch (Exception e) { Log.Write("CarroomBuy: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("CarroomBuy: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         [RemoteEvent("carroomCancel")]
@@ -216,7 +216,7 @@ namespace iTeffa.Globals
 
                 if (!player.HasData("CARROOMTEST")) Plugins.Trigger.ClientEvent(player, "destroyCamera");
             }
-            catch (Exception e) { Log.Write("carroomCancel: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("carroomCancel: " + e.Message, Plugins.Logs.Type.Error); }
         }
         #endregion
     }

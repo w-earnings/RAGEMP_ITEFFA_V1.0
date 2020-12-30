@@ -12,7 +12,7 @@ namespace iTeffa.Fractions
 {
     class GangsCapture : Script
     {
-        private static readonly Nlogs Log = new Nlogs("GangCapture");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("GangCapture");
         private static readonly Config config = new Config("GangCapture");
         public static Dictionary<int, GangPoint> gangPoints = new Dictionary<int, GangPoint>();
         public static bool captureIsGoing = false;
@@ -202,7 +202,7 @@ namespace iTeffa.Fractions
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT\"FRACTIONS_CAPTURE\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT\"FRACTIONS_CAPTURE\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
 
@@ -356,7 +356,7 @@ namespace iTeffa.Fractions
                     }
                 }
             }
-            catch (Exception e) { Log.Write("GangCapture: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("GangCapture: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void endCapture(GangPoint region, int defenders, int attackers)
@@ -421,7 +421,7 @@ namespace iTeffa.Fractions
                     }
                 }
             }
-            catch (Exception ex) { Log.Write("onPlayerEnterGangPoint: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onPlayerEnterGangPoint: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         private static void onPlayerExitGangPoint(ColShape shape, Player player)
@@ -439,14 +439,14 @@ namespace iTeffa.Fractions
                         Plugins.Trigger.ClientEvent(player, "captureHud", false);
                 }
             }
-            catch (Exception ex) { Log.Write("onPlayerExitGangPoint: " + ex.Message, Nlogs.Type.Error); }
+            catch (Exception ex) { Log.Write("onPlayerExitGangPoint: " + ex.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void SavingRegions()
         {
             foreach (var region in gangPoints.Values)
                 Database.Query($"UPDATE gangspoints SET gangid={region.GangOwner} WHERE id={region.ID}");
-            Log.Write("Gang Regions has been saved to DB", Nlogs.Type.Success);
+            Log.Write("Gang Regions has been saved to DB", Plugins.Logs.Type.Success);
         }
 
         public static void LoadBlips(Player player)
@@ -467,7 +467,7 @@ namespace iTeffa.Fractions
             {
                 SavingRegions();
             }
-            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStop: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public class GangPoint

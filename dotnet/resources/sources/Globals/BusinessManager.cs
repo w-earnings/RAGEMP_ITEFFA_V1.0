@@ -14,7 +14,7 @@ namespace iTeffa.Globals
 {
     class BusinessManager : Script
     {
-        private static readonly Nlogs Log = new Nlogs("BusinessManager");
+        private static readonly Plugins.Logs Log = new Plugins.Logs("BusinessManager");
         private static int lastBizID = -1;
         [ServerEvent(Event.ResourceStart)]
         public void OnResourceStart()
@@ -24,7 +24,7 @@ namespace iTeffa.Globals
                 var result = Database.QueryRead($"SELECT * FROM businesses");
                 if (result == null || result.Rows.Count == 0)
                 {
-                    Log.Write("DB biz return null result.", Nlogs.Type.Warn);
+                    Log.Write("DB biz return null result.", Plugins.Logs.Type.Warn);
                     return;
                 }
                 foreach (DataRow Row in result.Rows)
@@ -52,7 +52,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write("EXCEPTION AT \"BUSINESSES\":\n" + e.ToString(), Nlogs.Type.Error);
+                Log.Write("EXCEPTION AT \"BUSINESSES\":\n" + e.ToString(), Plugins.Logs.Type.Error);
             }
         }
         [ServerEvent(Event.ResourceStop)]
@@ -62,7 +62,7 @@ namespace iTeffa.Globals
             {
                 SavingBusiness();
             }
-            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ResourceStart: " + e.Message, Plugins.Logs.Type.Error); }
         }
 
         public static void SavingBusiness()
@@ -72,7 +72,7 @@ namespace iTeffa.Globals
                 var biz = BizList[b.Key];
                 biz.Save();
             }
-            Log.Write("Businesses has been saved to DB", Nlogs.Type.Success);
+            Log.Write("Businesses has been saved to DB", Plugins.Logs.Type.Success);
         }
 
         public static Dictionary<int, Business> BizList = new Dictionary<int, Business>();
@@ -1642,7 +1642,7 @@ namespace iTeffa.Globals
                 Finance.Wallet.Change(client, +prices);
                 Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prices, $"sellShop");
             }
-            catch (Exception e) { Log.Write($"SellShop: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write($"SellShop: {e}\n{e.StackTrace}", Plugins.Logs.Type.Error); }
         }
         public static void Carwash_Pay(Player player)
         {
@@ -1684,7 +1684,7 @@ namespace iTeffa.Globals
             }
             catch (Exception e)
             {
-                Log.Write(e.ToString(), Nlogs.Type.Error);
+                Log.Write(e.ToString(), Plugins.Logs.Type.Error);
                 return;
             }
         }
@@ -1740,7 +1740,7 @@ namespace iTeffa.Globals
 
                 Plugins.Trigger.ClientEvent(player, "openTun", biz.Products[0].Price, VehicleManager.Vehicles[player.Vehicle.NumberPlate].Model, modelPriceMod, JsonConvert.SerializeObject(VehicleManager.Vehicles[player.Vehicle.NumberPlate].Components));
             }
-            catch (Exception e) { Log.Write("tuningSeatsCheck: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("tuningSeatsCheck: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("exitTuning")]
         public static void RemoteEvent_exitTuning(Player player)
@@ -1760,7 +1760,7 @@ namespace iTeffa.Globals
                 Dimensions.DismissPrivateDimension(player);
                 Main.Players[player].TuningShop = -1;
             }
-            catch (Exception e) { Log.Write("ExitTuning: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("ExitTuning: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("buyTuning")]
         public static void RemoteEvent_buyTuning(Player player, params object[] arguments)
@@ -1904,7 +1904,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили и установили данную модификацию", 3000);
                 Plugins.Trigger.ClientEvent(player, "tuningUpd", JsonConvert.SerializeObject(VehicleManager.Vehicles[number].Components));
             }
-            catch (Exception e) { Log.Write("buyTuning: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("buyTuning: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static bool takeProd(int bizid, int amount, string prodname, int addMoney)
         {
@@ -1923,16 +1923,16 @@ namespace iTeffa.Globals
                     Bank.Data bData = Bank.Get(Main.PlayerBankAccs[biz.Owner]);
                     if (bData.ID == 0)
                     {
-                        Log.Write($"TakeProd BankID error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", Nlogs.Type.Error);
+                        Log.Write($"TakeProd BankID error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", Plugins.Logs.Type.Error);
                         return false;
                     }
                     if (!Bank.Change(bData.ID, addMoney, false))
                     {
-                        Log.Write($"TakeProd error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", Nlogs.Type.Error);
+                        Log.Write($"TakeProd error: {bizid}({biz.Owner}) {amount} {prodname} {addMoney}", Plugins.Logs.Type.Error);
                         return false;
                     }
                     Loggings.Money($"biz({bizid})", $"bank({bData.ID})", addMoney, "bizProfit");
-                    Log.Write($"{biz.Owner}'s business get {addMoney}$ for '{prodname}'", Nlogs.Type.Success);
+                    Log.Write($"{biz.Owner}'s business get {addMoney}$ for '{prodname}'", Plugins.Logs.Type.Success);
                     break;
                 }
                 return true;
@@ -1986,7 +1986,7 @@ namespace iTeffa.Globals
                 Customization.ApplyCharacter(player);
                 Customization.SetMask(player, Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask.Variation, Customization.CustomPlayerData[Main.Players[player].UUID].Clothes.Mask.Texture);
             }
-            catch (Exception e) { Log.Write("cancelMasks: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("cancelMasks: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("buyMasks")]
         public static void RemoteEvent_buyMasks(Player player, int variation, int texture)
@@ -2025,7 +2025,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили новую маску. Она была добавлена в Ваш инвентарь.", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("buyMasks: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("buyMasks: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("cancelClothes")]
         public static void RemoteEvent_cancelClothes(Player player)
@@ -2037,7 +2037,7 @@ namespace iTeffa.Globals
                 NAPI.Entity.SetEntityDimension(player, 0);
                 Dimensions.DismissPrivateDimension(player);
             }
-            catch (Exception e) { Log.Write("cancelClothes: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("cancelClothes: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("buyClothes")]
         public static void RemoteEvent_buyClothes(Player player, int type, int variation, int texture)
@@ -2137,7 +2137,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы купили новую одежду. Она была добавлена в Ваш инвентарь.", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("BuyClothes: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("BuyClothes: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("cancelBody")]
         public static void RemoteEvent_cancelTattoo(Player player)
@@ -2150,7 +2150,7 @@ namespace iTeffa.Globals
                 Main.Players[player].ExteriorPos = new Vector3();
                 Customization.ApplyCharacter(player);
             }
-            catch (Exception e) { Log.Write("CancelBody: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("CancelBody: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("buyTattoo")]
         public static void RemoteEvent_buyTattoo(Player player, params object[] arguments)
@@ -2201,7 +2201,7 @@ namespace iTeffa.Globals
 
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вам набили татуировку {tattoo.Name} за {Convert.ToInt32(price)}$", 3000);
             }
-            catch (Exception e) { Log.Write("BuyTattoo: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("BuyTattoo: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static Dictionary<string, List<int>> BarberPrices = new Dictionary<string, List<int>>()
         {
@@ -2425,7 +2425,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили услугу Барбер-Шопа ({Convert.ToInt32(price)}$)", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("BuyBarber: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("BuyBarber: " + e.Message, Plugins.Logs.Type.Error); }
         }
         [RemoteEvent("petrol")]
         public static void fillCar(Player player, int lvl)
@@ -2530,7 +2530,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Транспорт заправлен", 3000);
                 Commands.Controller.RPChat("me", player, $"заправил(а) транспортное средство");
             }
-            catch (Exception e) { Log.Write("Petrol: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("Petrol: " + e.Message, Plugins.Logs.Type.Error); }
         }
         public static void bizNewPrice(Player player, int price, int BizID)
         {
@@ -3275,7 +3275,7 @@ namespace iTeffa.Globals
                 Finance.Wallet.Change(client, -prod.Price);
                 Loggings.Money($"player({Main.Players[client].UUID})", $"biz({biz.ID})", prod.Price, $"buyShop");
             }
-            catch (Exception e) { Log.Write($"BuyShop: {e}\n{e.StackTrace}", Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write($"BuyShop: {e}\n{e.StackTrace}", Plugins.Logs.Type.Error); }
         }
 
         public static void OpenPetrolMenu(Player player)
@@ -3378,7 +3378,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {nInventory.ItemsNames[(int)AmmoTypes[category]]} x{ammo} за {totalPrice}$", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Plugins.Logs.Type.Error); }
         }
         private static readonly List<int> AmmoPrices = new List<int>() { 4, 8, 15, 110, 8 };
         private static readonly List<ItemType> AmmoTypes = new List<ItemType>() { ItemType.PistolAmmo, ItemType.SMGAmmo, ItemType.RiflesAmmo, ItemType.SniperAmmo, ItemType.ShotgunsAmmo };
@@ -3426,7 +3426,7 @@ namespace iTeffa.Globals
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {prod.Name} за {prod.Price}$", 3000);
                 return;
             }
-            catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Nlogs.Type.Error); }
+            catch (Exception e) { Log.Write("BuyWeapons: " + e.Message, Plugins.Logs.Type.Error); }
         }
         private static readonly List<List<string>> gunsCat = new List<List<string>>()
         {
