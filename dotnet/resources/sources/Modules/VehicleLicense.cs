@@ -158,7 +158,7 @@ namespace iTeffa.Modules
                     Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
                     Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
-                    Finance.Wallet.Change(player, -LicPrices[0]);
+                    Modules.Wallet.Change(player, -LicPrices[0]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[0];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[0], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
@@ -180,7 +180,7 @@ namespace iTeffa.Modules
                     Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
                     Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
-                    Finance.Wallet.Change(player, -LicPrices[1]);
+                    Modules.Wallet.Change(player, -LicPrices[1]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[1];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[1], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
@@ -202,7 +202,7 @@ namespace iTeffa.Modules
                     Plugins.Trigger.ClientEvent(player, "createCheckpoint", 12, 1, drivingCoords[0] - new Vector3(0, 0, 2), 4, 0, 255, 0, 0);
                     Plugins.Trigger.ClientEvent(player, "createWaypoint", drivingCoords[0].X, drivingCoords[0].Y);
                     player.SetData("CHECK", 0);
-                    Finance.Wallet.Change(player, -LicPrices[2]);
+                    Modules.Wallet.Change(player, -LicPrices[2]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[2];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[2], $"buyLic");
                     Globals.VehicleStreaming.SetEngineState(vehicle, false);
@@ -215,7 +215,7 @@ namespace iTeffa.Modules
                         return;
                     }
                     Main.Players[player].Licenses[3] = true;
-                    Finance.Wallet.Change(player, -LicPrices[3]);
+                    Modules.Wallet.Change(player, -LicPrices[3]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[3];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[3], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию на водный транспорт", 3000);
@@ -229,7 +229,7 @@ namespace iTeffa.Modules
                         return;
                     }
                     Main.Players[player].Licenses[4] = true;
-                    Finance.Wallet.Change(player, -LicPrices[4]);
+                    Modules.Wallet.Change(player, -LicPrices[4]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[4];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[4], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление вертолётами", 3000);
@@ -242,7 +242,7 @@ namespace iTeffa.Modules
                         return;
                     }
                     Main.Players[player].Licenses[5] = true;
-                    Finance.Wallet.Change(player, -LicPrices[5]);
+                    Modules.Wallet.Change(player, -LicPrices[5]);
                     Fractions.Stocks.fracStocks[6].Money += LicPrices[5];
                     Globals.Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", LicPrices[5], $"buyLic");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы успешно купили лицензию управление самолётами", 3000);

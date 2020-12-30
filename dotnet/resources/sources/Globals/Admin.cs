@@ -393,7 +393,7 @@ namespace iTeffa.Globals
         {
             if (!Group.CanUseCmd(player, "givemoney")) return;
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", amount, "admin");
-            Finance.Wallet.Change(target, amount);
+            Modules.Wallet.Change(target, amount);
             Loggings.Admin($"{player.Name}", $"giveMoney({amount})", $"{target.Name}");
         }
         public static void OffMutePlayer(Player player, string target, int time, string reason)

@@ -179,7 +179,7 @@ namespace iTeffa.Houses
                 return;
             }
 
-            if (!Finance.Wallet.Change(player, -HotelRent * hours))
+            if (!Modules.Wallet.Change(player, -HotelRent * hours))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                 return;
@@ -248,7 +248,7 @@ namespace iTeffa.Houses
                         return;
                     }
 
-                    if (!Finance.Wallet.Change(player, -HotelRent))
+                    if (!Modules.Wallet.Change(player, -HotelRent))
                     {
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                         return;

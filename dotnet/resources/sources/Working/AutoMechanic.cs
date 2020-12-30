@@ -77,7 +77,7 @@ namespace iTeffa.Working
             if (!NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != 0 || player.Vehicle.GetData<string>("TYPE") != "MECHANIC") return;
 
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы арендовали рабочий транспорт. Ожидайте заказ", 3000);
-            Finance.Wallet.Change(player, -mechanicRentCost);
+            Modules.Wallet.Change(player, -mechanicRentCost);
             Loggings.Money($"player({Main.Players[player].UUID})", $"server", mechanicRentCost, $"mechanicRent");
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
@@ -104,8 +104,8 @@ namespace iTeffa.Working
 
             VehicleManager.RepairCar(player.Vehicle);
             var driver = NAPI.Data.GetEntityData(player, "MECHANIC");
-            Finance.Wallet.Change(player, -price);
-            Finance.Wallet.Change(driver, price);
+            Modules.Wallet.Change(player, -price);
+            Modules.Wallet.Change(driver, price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price, $"mechanicRepair");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили ремонт Вашего транспортного средства", 3000);
             Plugins.Notice.Send(driver, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) оплатил ремонт", 3000);
@@ -439,7 +439,7 @@ namespace iTeffa.Working
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно топлива на заправке", 3000);
                 return;
             }
-            Finance.Wallet.Change(player, -biz.Products[0].Price * fuel);
+            Modules.Wallet.Change(player, -biz.Products[0].Price * fuel);
             Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", biz.Products[0].Price * fuel, $"mechanicBuyFuel");
             player.Vehicle.SetSharedData("FUELTANK", player.Vehicle.GetSharedData<int>("FUELTANK") + fuel);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы пополнили бак в вашей рабочей машине до {player.Vehicle.GetSharedData<int>("FUELTANK")}л", 3000);
@@ -521,8 +521,8 @@ namespace iTeffa.Working
                 return;
             }
 
-            Finance.Wallet.Change(player, -price * fuel);
-            Finance.Wallet.Change(driver, price * fuel);
+            Modules.Wallet.Change(player, -price * fuel);
+            Modules.Wallet.Change(driver, price * fuel);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[driver].UUID})", price * fuel, $"mechanicFuel");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили ремонт заправку транспортного средства", 3000);
             Plugins.Notice.Send(driver, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) оплатил заправку транспорта", 3000);

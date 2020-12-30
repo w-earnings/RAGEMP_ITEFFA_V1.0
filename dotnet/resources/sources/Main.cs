@@ -325,7 +325,7 @@ namespace iTeffa
                     Log.Debug("STAGE 4 (SAFE-VEHICLES)");
                     try
                     {
-                        if (player.HasData("PAYMENT")) Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
+                        if (player.HasData("PAYMENT")) Modules.Wallet.Change(player, player.GetData<int>("PAYMENT"));
                         Working.Bus.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Lawnmower.onPlayerDissconnectedHandler(player, type, reason);
                         Working.Taxi.onPlayerDissconnectedHandler(player, type, reason);
@@ -1890,7 +1890,7 @@ namespace iTeffa
                             if (!Players[player].Achievements[3])
                             {
                                 Players[player].Achievements[3] = true;
-                                Finance.Wallet.Change(player, 500);
+                                Modules.Wallet.Change(player, 500);
                                 Plugins.Trigger.ClientEvent(player, "ChatPyBed", 9, 0);
                             }
                         }
@@ -1910,7 +1910,7 @@ namespace iTeffa
                                 if (player.HasData("CollectThings") && player.GetData<int>("CollectThings") >= 4)
                                 {
                                     Players[player].Achievements[2] = true;
-                                    Finance.Wallet.Change(player, 500);
+                                    Modules.Wallet.Change(player, 500);
                                     Plugins.Trigger.ClientEvent(player, "ChatPyBed", 7, 0);
                                 }
                                 else
@@ -2087,7 +2087,7 @@ namespace iTeffa
                                 }
 
                                 int price = player.GetData<int>("CAR_PRICE");
-                                if (!Finance.Wallet.Change(player, -price))
+                                if (!Modules.Wallet.Change(player, -price))
                                 {
                                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно средств", 3000);
                                     break;
@@ -2096,7 +2096,7 @@ namespace iTeffa
                                 VehicleManager.Vehicles[number].Holder = player.Name;
                                 Database.Query($"UPDATE vehicles SET holder='{player.Name}' WHERE number='{number}'");
 
-                                Finance.Wallet.Change(seller, price);
+                                Modules.Wallet.Change(seller, price);
                                 Loggings.Money($"player({Players[player].UUID})", $"player({Players[seller].UUID})", price, $"buyCar({number})");
 
                                 var houset = Houses.HouseManager.GetHouse(seller, true);
@@ -2180,7 +2180,7 @@ namespace iTeffa
                                         _ => Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5),
                                     };
                                 }
-                                Finance.Wallet.Change(player, price);
+                                Modules.Wallet.Change(player, price);
                                 Loggings.Money($"server", $"player({Players[player].UUID})", price, $"carSell({vData.Model})");
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали {vData.Model} ({vnumber}) за {price}$", 3000);
                                 VehicleManager.Remove(vnumber, player);
@@ -2591,13 +2591,13 @@ namespace iTeffa
                                     if (Players[player].WorkID != 0) break;
                                     int payment = Convert.ToInt32((100 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
                                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили пособие по безработице {payment}$", 3000);
-                                    Finance.Wallet.Change(player, payment);
+                                    Modules.Wallet.Change(player, payment);
                                     Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"allowance");
                                     break;
                                 case 2:
                                     payment = Convert.ToInt32((Fractions.Configs.FractionRanks[Players[player].FractionID][Players[player].FractionLVL].Item4 * oldconfig.PaydayMultiplier) + (Group.GroupAddPayment[Accounts[player].VipLvl] * oldconfig.PaydayMultiplier));
                                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили зарплату в {payment}$", 3000);
-                                    Finance.Wallet.Change(player, payment);
+                                    Modules.Wallet.Change(player, payment);
                                     Loggings.Money($"server", $"player({Players[player].UUID})", payment, $"payday");
                                     break;
                             }
@@ -2618,7 +2618,7 @@ namespace iTeffa
                                     {
                                         Accounts[player].PresentGet = true;
                                         string promo = Accounts[player].PromoCodes[0];
-                                        Finance.Wallet.Change(player, 2000);
+                                        Modules.Wallet.Change(player, 2000);
                                         Loggings.Money($"server", $"player({Players[player].UUID})", 2000, $"promo_{promo}");
                                         Customization.AddClothes(player, ItemType.Hat, 44, 3);
                                         nInventory.Add(player, new nItem(ItemType.Sprunk, 3));
@@ -2633,7 +2633,7 @@ namespace iTeffa
                                             {
                                                 if (Players.ContainsKey(pl) && Players[pl].UUID == PromoCodes[promo].Item3)
                                                 {
-                                                    Finance.Wallet.Change(pl, 2000);
+                                                    Modules.Wallet.Change(pl, 2000);
                                                     Plugins.Notice.Send(pl, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили $2000 за достижение 1 уровня игроком {player.Name}", 2000);
                                                     isGiven = true;
                                                     break;
@@ -2710,7 +2710,7 @@ namespace iTeffa
                                 if (player != null && Players.ContainsKey(player))
                                 {
                                     Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Государство отобрало у Вас бизнес за неуплату налогов", 3000);
-                                    Finance.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
+                                    Modules.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
                                     Players[player].BizIDs.Remove(biz.ID);
                                 }
                                 else
@@ -2761,7 +2761,7 @@ namespace iTeffa
                             if (player != null && Players.ContainsKey(player))
                             {
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, "У Вас отобрали дом за неуплату налогов", 3000);
-                                Finance.Wallet.Change(player, Convert.ToInt32(h.Price / 2.0));
+                                Modules.Wallet.Change(player, Convert.ToInt32(h.Price / 2.0));
                                 Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 333);
                                 Plugins.Trigger.ClientEvent(player, "deleteGarageBlip");
                             }

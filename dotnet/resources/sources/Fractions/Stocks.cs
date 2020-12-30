@@ -351,7 +351,7 @@ namespace iTeffa.Fractions
                         else if (item == "money")
                         {
                             data.Money += amount;
-                            Finance.Wallet.Change(player, -amount);
+                            Modules.Wallet.Change(player, -amount);
                             Loggings.Money($"player({Main.Players[player].UUID})", $"frac({Main.Players[player].FractionID})", amount, $"putStock");
                         }
                         else if (item == "medkits")
@@ -434,7 +434,7 @@ namespace iTeffa.Fractions
                         else if (item == "money")
                         {
                             data.Money -= amount;
-                            Finance.Wallet.Change(player, amount);
+                            Modules.Wallet.Change(player, amount);
                             Loggings.Money($"frac({Main.Players[player].FractionID})", $"player({Main.Players[player].UUID})", amount, $"takeStock");
                         }
                         else if (item == "medkits")

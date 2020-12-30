@@ -201,7 +201,7 @@ namespace iTeffa.Globals
             player.Vehicle.SetData("DRIVER", player);
             player.SetData("RENTED_CAR", player.Vehicle);
             player.SetData("IN_RENT_CAR", true);
-            Finance.Wallet.Change(player, -price);
+            Modules.Wallet.Change(player, -price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"server", price, $"rentCar");
         }
     }

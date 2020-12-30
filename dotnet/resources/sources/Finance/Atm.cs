@@ -238,7 +238,7 @@ namespace iTeffa.Finance
                 {
                     case 0:
                         Plugins.Trigger.ClientEvent(player, "atmClose");
-                        if (Wallet.Change(player, -Math.Abs(amount)))
+                        if (Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, +Math.Abs(amount));
                             Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"atmIn");
@@ -248,7 +248,7 @@ namespace iTeffa.Finance
                     case 1:
                         if (Bank.Change(acc.Bank, -Math.Abs(amount)))
                         {
-                            Wallet.Change(player, +Math.Abs(amount));
+                            Modules.Wallet.Change(player, +Math.Abs(amount));
                             Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"atmOut");
                             Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
@@ -263,7 +263,7 @@ namespace iTeffa.Finance
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно перевести столько средств на счет дома.", 3000);
                             return;
                         }
-                        if (!Wallet.Change(player, -Math.Abs(amount)))
+                        if (!Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств.", 3000);
                             return;
@@ -284,7 +284,7 @@ namespace iTeffa.Finance
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
                             return;
                         }
-                        if (!Wallet.Change(player, -Math.Abs(amount)))
+                        if (!Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств.", 3000);
                             return;
@@ -455,7 +455,7 @@ namespace iTeffa.Finance
                 switch (act)
                 {
                     case 0:
-                        if (Wallet.Change(player, -Math.Abs(amount)))
+                        if (Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Bank.Change(acc.Bank, amount);
                             Loggings.Money($"player({Main.Players[player].UUID})", $"bank({acc.Bank})", Math.Abs(amount), $"atmIn");
@@ -465,7 +465,7 @@ namespace iTeffa.Finance
                     case 1:
                         if (Bank.Change(acc.Bank, -Math.Abs(amount)))
                         {
-                            Wallet.Change(player, amount);
+                            Modules.Wallet.Change(player, amount);
                             Loggings.Money($"bank({acc.Bank})", $"player({Main.Players[player].UUID})", Math.Abs(amount), $"atmOut");
                             Plugins.Trigger.ClientEvent(player, "setbank", Bank.Accounts[acc.Bank].Balance.ToString(), "");
                         }
@@ -480,7 +480,7 @@ namespace iTeffa.Finance
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно перевести столько средств на счет дома.", 3000);
                             return;
                         }
-                        if (!Wallet.Change(player, -Math.Abs(amount)))
+                        if (!Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств.", 3000);
                             return;
@@ -510,7 +510,7 @@ namespace iTeffa.Finance
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Невозможно перевести столько средств на счет бизнеса.", 3000);
                             return;
                         }
-                        if (!Wallet.Change(player, -Math.Abs(amount)))
+                        if (!Modules.Wallet.Change(player, -Math.Abs(amount)))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств.", 3000);
                             return;

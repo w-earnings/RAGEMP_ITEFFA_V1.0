@@ -332,7 +332,7 @@ namespace iTeffa.Working
                 if (MowerWays[way][check].DistanceTo(player.Position) > 3) return;
 
                 var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
-                Finance.Wallet.Change(player, payment);
+                Modules.Wallet.Change(player, payment);
                 Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"lawnCheck");
 
                 if (check + 1 != MowerWays[way].Count)

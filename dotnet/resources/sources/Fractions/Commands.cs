@@ -491,14 +491,14 @@ namespace iTeffa.Fractions
 
             if (confirm)
             {
-                if (!Finance.Wallet.Change(target, -sum) && !Finance.Bank.Change(Main.Players[target].Bank, -sum, false))
+                if (!Modules.Wallet.Change(target, -sum) && !Finance.Bank.Change(Main.Players[target].Bank, -sum, false))
                 {
                     Plugins.Notice.Send(target, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У игрока недостаточно средств", 3000);
                 }
 
                 Stocks.fracStocks[6].Money += Convert.ToInt32(sum * 0.9);
-                Finance.Wallet.Change(player, Convert.ToInt32(sum * 0.1));
+                Modules.Wallet.Change(player, Convert.ToInt32(sum * 0.1));
                 Plugins.Notice.Send(target, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы оплатили штраф в размере {sum}$ за {reason}", 3000);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"{target.Name} оплатил штраф в размере {sum}$ за {reason}", 3000);
                 Commands.Controller.RPChat("me", player, " выписал штраф для {name}", target);
@@ -983,13 +983,13 @@ namespace iTeffa.Fractions
                 return;
             }
 
-            if (!Finance.Wallet.Change(player, -price))
+            if (!Modules.Wallet.Change(player, -price))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                 return;
             }
 
-            Finance.Wallet.Change(seller, price / 20);
+            Modules.Wallet.Change(seller, price / 20);
             Stocks.fracStocks[6].Money += Convert.ToInt32(price * 0.95);
             Loggings.Money($"player({Main.Players[player].UUID})", $"frac(6)", price, $"buyGunlic({Main.Players[seller].UUID})");
             Loggings.Money($"frac(6)", $"player({Main.Players[seller].UUID})", price / 20, $"sellGunlic({Main.Players[player].UUID})");
@@ -1051,8 +1051,8 @@ namespace iTeffa.Fractions
             var min = (max - 200 < 0) ? max : max - 200;
 
             var found = Main.rnd.Next(min, max + 1);
-            Finance.Wallet.Change(target, -found);
-            Finance.Wallet.Change(player, found);
+            Modules.Wallet.Change(target, -found);
+            Modules.Wallet.Change(player, found);
             Loggings.Money($"player({Main.Players[target].UUID})", $"player({Main.Players[player].UUID})", found, $"robbery");
             target.SetData("NEXT_ROB", DateTime.Now.AddMinutes(60));
 

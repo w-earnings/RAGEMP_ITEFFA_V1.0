@@ -224,7 +224,7 @@ namespace iTeffa.Working
                 Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                 player.SetData("PACKAGES", 0);
 
-                Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
+                Modules.Wallet.Change(player, player.GetData<int>("PAYMENT"));
                 Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);
                 player.SetData("PAYMENT", 0);
@@ -507,7 +507,7 @@ namespace iTeffa.Working
                     player.StopAnimation();
                     Main.OffAntiAnim(player);
                     BasicSync.DetachObject(player);
-                    Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
+                    Modules.Wallet.Change(player, player.GetData<int>("PAYMENT"));
 
                     Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfoDiver");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);

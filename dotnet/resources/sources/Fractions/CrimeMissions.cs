@@ -217,7 +217,7 @@ namespace iTeffa.Fractions
 
                         NAPI.Data.ResetEntityData(e.Vehicle.GetData<Player>("WHOS_VEH"), "DELIVERY_CAR");
                         e.Vehicle.Delete();
-                        Finance.Wallet.Change(e, 250);
+                        Modules.Wallet.Change(e, 250);
                         Loggings.Money($"server", $"player({Main.Players[e].UUID})", 250, $"arrestCar");
                         Plugins.Notice.Send(e, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы арестовали машину", 3000);
                     }

@@ -254,7 +254,7 @@ namespace iTeffa.Working
             if (!NAPI.Player.IsPlayerInAnyVehicle(player) || player.VehicleSeat != 0 || player.Vehicle.GetData<string>("TYPE") != "COLLECTOR") return;
 
             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы начали работу инкассатором. Развезите деньги по банкоматам.", 3000);
-            Finance.Wallet.Change(player, -100);
+            Modules.Wallet.Change(player, -100);
             Loggings.Money($"player({Main.Players[player].UUID})", $"server", 100, $"collectorRent");
             var vehicle = player.Vehicle;
             NAPI.Data.SetEntityData(player, "WORK", vehicle);
@@ -340,7 +340,7 @@ namespace iTeffa.Working
 
                 player.SetData("W_LASTPOS", player.Position);
                 player.SetData("W_LASTTIME", DateTime.Now);
-                Finance.Wallet.Change(player, payment);
+                Modules.Wallet.Change(player, payment);
                 Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"collectorCheck");
 
                 if (player.HasData("WORKOBJECT"))

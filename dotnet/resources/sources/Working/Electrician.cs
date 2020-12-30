@@ -184,7 +184,7 @@ namespace iTeffa.Working
                 if (Main.Players[player].WorkID != 1 || !player.GetData<bool>("ON_WORK") || shape.GetData<int>("NUMBER") != player.GetData<int>("WORKCHECK")) return;
                 if (Checkpoints[(int)shape.GetData<int>("NUMBER")].Position.DistanceTo(player.Position) > 3) return;
                 var payment = Convert.ToInt32(checkpointPayment * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
-                Finance.Wallet.Change(player, payment);
+                Modules.Wallet.Change(player, payment);
                 Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"electricianCheck");
 
                 NAPI.Entity.SetEntityPosition(player, Checkpoints[shape.GetData<int>("NUMBER")].Position + new Vector3(0, 0, 1.2));

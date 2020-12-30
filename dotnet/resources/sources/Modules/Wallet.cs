@@ -2,7 +2,7 @@
 using GTANetworkAPI;
 using iTeffa.Settings;
 
-namespace iTeffa.Finance
+namespace iTeffa.Modules
 {
     class Wallet : Script
     {

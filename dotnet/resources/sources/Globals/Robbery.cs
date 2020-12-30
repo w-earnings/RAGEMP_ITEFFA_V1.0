@@ -138,7 +138,7 @@ namespace iTeffa.Globals
                 try
                 {
                     if (player == null) return;
-                    Doormanager.SetDoorLocked(player.GetData<int>("DOOR"), false, 0);
+                    DoorControl.SetDoorLocked(player.GetData<int>("DOOR"), false, 0);
                     Plugins.Trigger.ClientEvent(player, "hideLoader");
                     player.ResetData("LOCK_TIMER");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы успешно взломали дверь", 3000);
@@ -166,7 +166,7 @@ namespace iTeffa.Globals
                 {
                     canBeClosed = true;
                 });
-                Doormanager.SetDoorLocked(2, true, 0.5f);
+                DoorControl.SetDoorLocked(2, true, 0.5f);
                 Settings.Timers.Stop(timer);
                 return;
             }
@@ -489,7 +489,7 @@ namespace iTeffa.Globals
             nInventory.Remove(player, ItemType.BagWithMoney, 1);
 
             player.ResetData("HAND_MONEY");
-            Wallet.Change(player, (int)(all_money * 0.97));
+            Modules.Wallet.Change(player, (int)(all_money * 0.97));
             Loggings.Money($"server", $"player({Main.Players[player].UUID})", (int)(all_money * 0.97), $"moneyFlow");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы отмыли {(int)(all_money * 0.97)}$. Мавроди забрал {(int)(all_money * 0.03)}$ за свои услуги", 3000);
         }
@@ -598,7 +598,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть дрель или деньги в руках", 3000);
                             return;
                         }
-                        if (!Wallet.Change(player, -20000))
+                        if (!Modules.Wallet.Change(player, -20000))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно денег", 3000);
                             return;
@@ -621,7 +621,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
-                        Wallet.Change(player, -200);
+                        Modules.Wallet.Change(player, -200);
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 200, $"buyMavr(lockpick)");
                         nInventory.Add(player, new nItem(ItemType.Lockpick, 1));
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы купили отмычку для замков", 3000);
@@ -638,7 +638,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
-                        Wallet.Change(player, -1200);
+                        Modules.Wallet.Change(player, -1200);
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 1200, $"buyMavr(armylockpick)");
                         nInventory.Add(player, new nItem(ItemType.ArmyLockpick, 1));
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы купили военную отмычку", 3000);
@@ -655,7 +655,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
-                        Wallet.Change(player, -600);
+                        Modules.Wallet.Change(player, -600);
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(cuffs)");
                         nInventory.Add(player, new nItem(ItemType.Cuffs, 1));
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы купили стяжки для рук", 3000);
@@ -672,7 +672,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно места в инвентаре", 3000);
                             return;
                         }
-                        Wallet.Change(player, -600);
+                        Modules.Wallet.Change(player, -600);
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 600, $"buyMavr(pocket)");
                         nInventory.Add(player, new nItem(ItemType.Pocket, 1));
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, PositionNotice.TopCenter, $"Вы купили мешок на голову", 3000);
@@ -688,7 +688,7 @@ namespace iTeffa.Globals
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                             return;
                         }
-                        Wallet.Change(player, -800);
+                        Modules.Wallet.Change(player, -800);
                         Loggings.Money($"player({Main.Players[player].UUID})", $"server", 800, $"buyMavr(wanted)");
                         Main.Players[player].WantedLVL.Level--;
                         if (Main.Players[player].WantedLVL.Level == 0) Main.Players[player].WantedLVL = null;
@@ -753,12 +753,12 @@ namespace iTeffa.Globals
                         if (isOpen)
                         {
                             isOpen = false;
-                            Doormanager.SetDoorLocked(2, true, 0);
+                            DoorControl.SetDoorLocked(2, true, 0);
                         }
                         else
                         {
                             isOpen = true;
-                            Doormanager.SetDoorLocked(2, true, 45f);
+                            DoorControl.SetDoorLocked(2, true, 45f);
                         }
                         string msg = "Вы закрыли дверь";
                         if (isOpen) msg = "Вы открыли дверь";

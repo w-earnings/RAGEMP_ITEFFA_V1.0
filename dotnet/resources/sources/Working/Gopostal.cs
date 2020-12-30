@@ -108,7 +108,7 @@ namespace iTeffa.Working
                             return;
                         }
 
-                        Finance.Wallet.Change(player, payment);
+                        Modules.Wallet.Change(player, payment);
                         Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
                         BasicSync.DetachObject(player);
@@ -141,7 +141,7 @@ namespace iTeffa.Working
                             return;
                         }
 
-                        Finance.Wallet.Change(player, payment);
+                        Modules.Wallet.Change(player, payment);
                         Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"postalCheck");
 
                         Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");

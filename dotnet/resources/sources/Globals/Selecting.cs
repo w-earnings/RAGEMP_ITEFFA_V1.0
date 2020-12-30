@@ -505,8 +505,8 @@ namespace iTeffa.Globals
             player.SetData("NEXT_TRANSFERM", DateTime.Now.AddMinutes(1));
             Plugins.Notice.Send(target, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) передал Вам {amount}$", 3000);
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы передали игроку ({target.Value}) {amount}$", 3000);
-            Finance.Wallet.Change(target, amount);
-            Finance.Wallet.Change(player, -amount);
+            Modules.Wallet.Change(target, amount);
+            Modules.Wallet.Change(player, -amount);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[target].UUID})", amount, $"transfer");
             Commands.Controller.RPChat("me", player, $"передал(а) {amount}$ " + "{name}", target);
         }
@@ -552,7 +552,7 @@ namespace iTeffa.Globals
                             {
                                 if (!target.HasData("NEXT_DEATH_MONEY") || DateTime.Now > target.GetData<DateTime>("NEXT_DEATH_MONEY"))
                                 {
-                                    Finance.Wallet.Change(player, 150);
+                                    Modules.Wallet.Change(player, 150);
                                     Loggings.Money($"server", $"player({Main.Players[player].UUID})", 150, $"revieve({Main.Players[target].UUID})");
                                     target.SetData("NEXT_DEATH_MONEY", DateTime.Now.AddMinutes(15));
                                 }

@@ -142,7 +142,7 @@ namespace iTeffa.Globals
                 return vNumber;
             }
 
-            Finance.Wallet.Change(player, -prod.Price);
+            Modules.Wallet.Change(player, -prod.Price);
 
             Loggings.Money($"player({Main.Players[player].UUID})", $"biz({biz.ID})", prod.Price, $"buyCar({vName})");
 

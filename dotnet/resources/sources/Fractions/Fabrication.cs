@@ -379,7 +379,7 @@ namespace iTeffa.Fractions
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно места в инвентаре", 3000);
                             return;
                         }
-                        if (!Finance.Wallet.Change(player, -Convert.ToInt32(DrinksPrices[index] * ClubsStocks[club].PriceModifier)))
+                        if (!Modules.Wallet.Change(player, -Convert.ToInt32(DrinksPrices[index] * ClubsStocks[club].PriceModifier)))
                         {
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно средств", 3000);
                             return;

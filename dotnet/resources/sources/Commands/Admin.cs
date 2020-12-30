@@ -234,7 +234,7 @@ namespace iTeffa.Commands
                 if (player != null && Main.Players.ContainsKey(player))
                 {
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Warning, Plugins.PositionNotice.TopCenter, $"Администратор отобрал у Вас бизнес", 3000);
-                    Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
+                    Modules.Wallet.Change(player, Convert.ToInt32(biz.SellPrice * 0.8));
                     Main.Players[player].BizIDs.Remove(biz.ID);
                 }
                 else

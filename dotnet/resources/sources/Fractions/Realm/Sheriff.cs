@@ -477,7 +477,7 @@ namespace iTeffa.Fractions.Realm
                         player.SetClothes(5, 0, 0);
                         player.ResetData("HEIST_DRILL");
                     }
-                    Finance.Wallet.Change(player, 200);
+                    Modules.Wallet.Change(player, 200);
                     Loggings.Money($"server", $"player({Main.Players[player].UUID})", 200, $"sheriffAward");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Вы получили вознаграждение в 200$", 3000);
                     return;
@@ -487,7 +487,7 @@ namespace iTeffa.Fractions.Realm
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас уже есть лицензия на оружие", 3000);
                         return;
                     }
-                    if (!Finance.Wallet.Change(player, -30000))
+                    if (!Modules.Wallet.Change(player, -30000))
                     {
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"У Вас недостаточно средств.", 3000);
                         return;

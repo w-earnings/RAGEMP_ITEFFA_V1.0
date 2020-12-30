@@ -1,12 +1,10 @@
-﻿using System;
+﻿using GTANetworkAPI;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using GTANetworkAPI;
-using iTeffa.Settings;
 
-namespace iTeffa.Globals
+namespace iTeffa.Plugins
 {
-    class Doormanager : Script
+    class DoorControl : Script
     {
         private static readonly Plugins.Logs Log = new Plugins.Logs("Doormanager");
 
@@ -17,30 +15,21 @@ namespace iTeffa.Globals
             {
                 RegisterDoor(-1246222793, new Vector3(0, 0, 0)); // pacific standart staff door
                 SetDoorLocked(0, true, 0);
-
                 RegisterDoor(1956494919, new Vector3(0, 0, 0)); // pacific standart staff door
                 SetDoorLocked(1, true, 0);
-
                 RegisterDoor(961976194, new Vector3(255.2283, 223.976, 102.3932)); // safe door 
                 SetDoorLocked(2, true, 0);
-
                 RegisterDoor(110411286, new Vector3(232.6054, 214.1584, 106.4049)); // pacific standart main door 1
                 SetDoorLocked(3, true, 0);
-
                 RegisterDoor(110411286, new Vector3(231.5123, 216.5177, 106.4049)); // pacific standart main door 2
                 SetDoorLocked(4, true, 0);
-
                 RegisterDoor(631614199, new Vector3(461.8065, -997.6583, 25.06443)); // police prison door
                 SetDoorLocked(5, true, 0);
-
                 RegisterDoor(1335309163, new Vector3(260.6518, 203.2292, 106.4328)); // pacific exit door
                 SetDoorLocked(6, true, 0);
-
                 RegisterDoor(1335309163, new Vector3(258.2093, 204.119, 106.4328)); // pacific exit door 2
                 SetDoorLocked(7, true, 0);
-
                 RegisterDoor(-1663022887, new Vector3(150.8389, -1008.352, -98.85)); // hotel
-
                 NAPI.World.DeleteWorldProp(-1148826190, new Vector3(82.38156, -1390.476, 29.52609), 30f);
                 NAPI.World.DeleteWorldProp(868499217, new Vector3(82.38156, -1390.752, 29.52609), 30f);
                 NAPI.World.DeleteWorldProp(-8873588, new Vector3(842.7685, -1024.539, 28.34478), 30f);

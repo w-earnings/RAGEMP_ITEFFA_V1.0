@@ -509,7 +509,7 @@ namespace iTeffa.Working
                 var min = Convert.ToInt32(500 * Group.GroupPayAdd[Main.Accounts[player].VipLvl] * Main.oldconfig.PaydayMultiplier);
                 if (payment > max) payment = max;
                 else if (payment < min) payment = min;
-                Finance.Wallet.Change(player, payment);
+                Modules.Wallet.Change(player, payment);
                 Loggings.Money($"server", $"player({Main.Players[player].UUID})", payment, $"truckerCheck");
                 var ow = NAPI.Player.GetPlayerFromName(biz.Owner);
                 Plugins.Trigger.ClientEvent(player, "SetOrderTruck", null);

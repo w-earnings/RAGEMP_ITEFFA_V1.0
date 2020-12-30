@@ -135,7 +135,7 @@ namespace iTeffa.Working.FarmerJob
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно денег", 2000);
                 return;
             }
-            Finance.Wallet.Change(player, -price);
+            Modules.Wallet.Change(player, -price);
             nInventory.Add(player, new nItem(aItem.Type, count));
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили {count} {name} за ${price}", 2000);
 
@@ -156,7 +156,7 @@ namespace iTeffa.Working.FarmerJob
                 price = item.Ordered ? item.Price * marketmultiplier * count : item.Price * count;
                 name = item.Name;
             }
-            Finance.Wallet.Change(player, price);
+            Modules.Wallet.Change(player, price);
             nInventory.Remove(player, new nItem(aItem.Type, count));
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали {count} {name} за ${price}", 2000);
 

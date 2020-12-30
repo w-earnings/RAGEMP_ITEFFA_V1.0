@@ -173,15 +173,15 @@ namespace iTeffa.Finance
             switch (id)
             {
                 case 0:
-                    Wallet.Change(client, 50000);
+                    Modules.Wallet.Change(client, 50000);
                     Log.Write("Деньги пришли в размере 50 000", Plugins.Logs.Type.Success);
                     break;
                 case 1:
-                    Wallet.Change(client, 100000);
+                    Modules.Wallet.Change(client, 100000);
                     Log.Write("Деньги пришли в размере 100 000", Plugins.Logs.Type.Success);
                     break;
                 case 2:
-                    Wallet.Change(client, 150000);
+                    Modules.Wallet.Change(client, 150000);
                     Log.Write("Деньги пришли в размере 150 000", Plugins.Logs.Type.Success);
                     break;
                 case 3:
@@ -275,31 +275,31 @@ namespace iTeffa.Finance
                     Customization.AddClothes(client, ItemType.Feet, 55, 0);
                     break;
                 case 11:
-                    Wallet.Change(client, 200000);
+                    Modules.Wallet.Change(client, 200000);
                     Log.Write("Деньги пришли в размере 200 000", Plugins.Logs.Type.Success);
                     break;
                 case 12:
-                    Wallet.Change(client, 250000);
+                    Modules.Wallet.Change(client, 250000);
                     Log.Write("Деньги пришли в размере 250 000", Plugins.Logs.Type.Success);
                     break;
                 case 13:
-                    Wallet.Change(client, 300000);
+                    Modules.Wallet.Change(client, 300000);
                     Log.Write("Деньги пришли в размере 300 000", Plugins.Logs.Type.Success);
                     break;
                 case 14:
-                    Wallet.Change(client, 350000);
+                    Modules.Wallet.Change(client, 350000);
                     Log.Write("Деньги пришли в размере 350 000", Plugins.Logs.Type.Success);
                     break;
                 case 15:
-                    Wallet.Change(client, 400000);
+                    Modules.Wallet.Change(client, 400000);
                     Log.Write("Деньги пришли в размере 400 000", Plugins.Logs.Type.Success);
                     break;
                 case 16:
-                    Wallet.Change(client, 450000);
+                    Modules.Wallet.Change(client, 450000);
                     Log.Write("Деньги пришли в размере 450 000", Plugins.Logs.Type.Success);
                     break;
                 case 17:
-                    Wallet.Change(client, 500000);
+                    Modules.Wallet.Change(client, 500000);
                     Log.Write("Деньги пришли в размере 500 000", Plugins.Logs.Type.Success);
                     break;
             }
@@ -410,7 +410,7 @@ namespace iTeffa.Finance
                             Main.Accounts[client].Coins -= amount;
                             Loggings.Money(acc.Login, "server", amount, "donateConvert");
                             amount *= 100;
-                            Wallet.Change(client, +amount);
+                            Modules.Wallet.Change(client, +amount);
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно перевели RF в {amount}", 3000);
                             Loggings.Money($"donate", $"player({Main.Players[client].UUID})", amount, $"donate");
                             break;
@@ -546,7 +546,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
-                            Wallet.Change(client, 100000);
+                            Modules.Wallet.Change(client, 100000);
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $100 000", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -560,7 +560,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
-                            Wallet.Change(client, 300000);
+                            Modules.Wallet.Change(client, 300000);
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $300 000", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -574,7 +574,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
-                            Wallet.Change(client, 500000);
+                            Modules.Wallet.Change(client, 500000);
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $500 000", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -588,7 +588,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 2500;
                             Loggings.Money(acc.Login, "server", 2500, "donateMoney");
-                            Wallet.Change(client, 1000000);
+                            Modules.Wallet.Change(client, 1000000);
                             Plugins.Notice.Send(client, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, "Вы успешно приобрели $1 000 000", 3000);
                             Dashboard.sendStats(client);
                             break;
@@ -604,7 +604,7 @@ namespace iTeffa.Finance
 
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateBox1");
-                            Wallet.Change(client, 150000000);
+                            Modules.Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 10;
                             VehicleManager.Create(client.Name, CarNameS[1], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
@@ -621,7 +621,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateBox1");
-                            Wallet.Change(client, 150000000);
+                            Modules.Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 15;
                             VehicleManager.Create(client.Name, CarNameS[2], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
@@ -638,7 +638,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateBox1");
-                            Wallet.Change(client, 150000000);
+                            Modules.Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 20;
                             VehicleManager.Create(client.Name, CarNameS[3], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));
@@ -655,7 +655,7 @@ namespace iTeffa.Finance
                             }
                             Main.Accounts[client].Coins -= 500;
                             Loggings.Money(acc.Login, "server", 500, "donateBox1");
-                            Wallet.Change(client, 150000000);
+                            Modules.Wallet.Change(client, 150000000);
                             Main.Players[client].Licenses[1] = true;
                             Main.Players[client].EXP += 25;
                             VehicleManager.Create(client.Name, CarNameS[4], new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0));

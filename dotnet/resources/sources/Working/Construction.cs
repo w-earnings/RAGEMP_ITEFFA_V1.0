@@ -184,7 +184,7 @@ namespace iTeffa.Working
                 Plugins.Trigger.ClientEvent(player, "deleteCheckpoint", 15);
                 Plugins.Trigger.ClientEvent(player, "deleteWorkBlip");
                 player.SetData("PACKAGES", 0);
-                Finance.Wallet.Change(player, player.GetData<int>("PAYMENT"));
+                Modules.Wallet.Change(player, player.GetData<int>("PAYMENT"));
 
                 Plugins.Trigger.ClientEvent(player, "CloseJobStatsInfo", player.GetData<int>("PAYMENT"));
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"+ {player.GetData<int>("PAYMENT")}$", 3000);

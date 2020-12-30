@@ -93,7 +93,7 @@ namespace iTeffa.Modules
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 2500);
                         return;
                     }
-                    Finance.Wallet.ChangeDonateBalance(player, -container.Price);
+                    Modules.Wallet.ChangeDonateBalance(player, -container.Price);
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace iTeffa.Modules
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 2500);
                         return;
                     }
-                    Finance.Wallet.Change(player, -container.Price);
+                    Modules.Wallet.Change(player, -container.Price);
                 }
                 container.OpenDoor();
                 container.GenerateLoot(player);

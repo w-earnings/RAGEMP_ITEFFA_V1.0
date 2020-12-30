@@ -67,7 +67,7 @@ namespace iTeffa.Houses
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Маршрут установлен", 3000);
                 Plugins.Trigger.ClientEvent(player, "createWaypoint", x, y);
-                Finance.Wallet.Change(player, -PriceToInfo[hclass]);
+                Modules.Wallet.Change(player, -PriceToInfo[hclass]);
             }
             NAPI.Task.Run(() =>
             {

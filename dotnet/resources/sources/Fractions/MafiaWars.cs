@@ -245,7 +245,7 @@ namespace iTeffa.Fractions
                     {
                         if (Main.Players[m].FractionID == biz.Mafia)
                         {
-                            Finance.Wallet.Change(m, 300);
+                            Modules.Wallet.Change(m, 300);
                             Loggings.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winBiz");
                         }
                     }
@@ -259,7 +259,7 @@ namespace iTeffa.Fractions
                     {
                         if (Main.Players[m].FractionID == attackersFracID)
                         {
-                            Finance.Wallet.Change(m, 300);
+                            Modules.Wallet.Change(m, 300);
                             Loggings.Money($"server", $"player({Main.Players[m].UUID})", 300, $"winBiz");
                         }
                     }

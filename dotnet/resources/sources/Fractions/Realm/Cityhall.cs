@@ -104,9 +104,9 @@ namespace iTeffa.Fractions.Realm
                 case 3:
                     if (Main.Players[player].FractionID == 6 && Main.Players[player].FractionLVL > 1)
                     {
-                        Doormanager.SetDoorLocked(player.GetData<int>("DOOR"), !Doormanager.GetDoorLocked(player.GetData<int>("DOOR")), 0);
+                        Plugins.DoorControl.SetDoorLocked(player.GetData<int>("DOOR"), !Plugins.DoorControl.GetDoorLocked(player.GetData<int>("DOOR")), 0);
                         string msg = "Вы открыли дверь";
-                        if (Doormanager.GetDoorLocked(player.GetData<int>("DOOR"))) msg = "Вы закрыли дверь";
+                        if (Plugins.DoorControl.GetDoorLocked(player.GetData<int>("DOOR"))) msg = "Вы закрыли дверь";
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, msg, 3000);
                     }
                     return;

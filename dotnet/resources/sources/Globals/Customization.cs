@@ -2205,7 +2205,7 @@ namespace iTeffa.Globals
                         nInventory.Add(player, new nItem(ItemType.Sprunk, 3));
                         nInventory.Add(player, new nItem(ItemType.Сrisps, 3));
                         Main.Players[player].LVL = 1;
-                        Finance.Wallet.Change(player, 5000);
+                        Modules.Wallet.Change(player, 5000);
                         Main.Accounts[player].VipLvl = 3;
                         Main.Accounts[player].VipDate = DateTime.Now.AddDays(3);
                         Interface.Dashboard.sendStats(player);

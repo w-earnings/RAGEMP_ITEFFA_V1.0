@@ -415,8 +415,8 @@ namespace iTeffa.Fractions.Realm
             nInventory.Remove(seller, ItemType.HealthKit, 1);
 
             Stocks.fracStocks[6].Money += Convert.ToInt32(player.GetData<int>("PRICE") * 0.85);
-            Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
-            Finance.Wallet.Change(seller, Convert.ToInt32(player.GetData<int>("PRICE") * 0.15));
+            Modules.Wallet.Change(player, -player.GetData<int>("PRICE"));
+            Modules.Wallet.Change(seller, Convert.ToInt32(player.GetData<int>("PRICE") * 0.15));
 
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили аптечку", 3000);
             Plugins.Notice.Send(seller, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок ({player.Value}) купил у Вас аптечку", 3000);
@@ -454,8 +454,8 @@ namespace iTeffa.Fractions.Realm
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Игрок ({seller.Value}) вылечил Вас", 3000);
                 Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 NAPI.Player.SetPlayerHealth(player, 100);
-                Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
-                Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
+                Modules.Wallet.Change(player, -player.GetData<int>("PRICE"));
+                Modules.Wallet.Change(seller, player.GetData<int>("PRICE"));
                 Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
                 return;
             }
@@ -464,8 +464,8 @@ namespace iTeffa.Fractions.Realm
                 Plugins.Notice.Send(seller, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы вылечили игрока ({player.Value})", 3000);
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Игрок ({seller.Value}) вылечил Вас", 3000);
                 NAPI.Player.SetPlayerHealth(player, 100);
-                Finance.Wallet.Change(player, -player.GetData<int>("PRICE"));
-                Finance.Wallet.Change(seller, player.GetData<int>("PRICE"));
+                Modules.Wallet.Change(player, -player.GetData<int>("PRICE"));
+                Modules.Wallet.Change(seller, player.GetData<int>("PRICE"));
                 Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", player.GetData<int>("PRICE"), $"payHeal");
                 Plugins.Trigger.ClientEvent(player, "stopScreenEffect", "PPFilter");
                 return;
@@ -800,7 +800,7 @@ namespace iTeffa.Fractions.Realm
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас нет татуировок в этой зоне", 3000);
                 return;
             }
-            if (!Finance.Wallet.Change(client, -600))
+            if (!Modules.Wallet.Change(client, -600))
             {
                 Plugins.Notice.Send(client, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Недостаточно средств", 3000);
                 return;

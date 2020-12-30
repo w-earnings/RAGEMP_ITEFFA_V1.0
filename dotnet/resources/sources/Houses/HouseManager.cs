@@ -382,7 +382,7 @@ namespace iTeffa.Houses
             house.SendPlayer(player);
             Finance.Bank.Accounts[house.BankID].Balance = Convert.ToInt32(house.Price / 100 * 0.02) * 2;
 
-            Finance.Wallet.Change(player, -house.Price);
+            Modules.Wallet.Change(player, -house.Price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"server", house.Price, $"houseBuy({house.ID})");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы купили этот дом, не забудьте внести налог за него в банкомате", 3000);
             return;
@@ -548,7 +548,7 @@ namespace iTeffa.Houses
                     price = Convert.ToInt32(house.Price * 0.8);
                     break;
             }
-            Finance.Wallet.Change(player, price);
+            Modules.Wallet.Change(player, price);
             Loggings.Money($"server", $"player({Main.Players[player].UUID})", Convert.ToInt32(house.Price * 0.6), $"houseSell({house.ID})");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали свой дом государству за {price}$", 3000);
         }
@@ -601,7 +601,7 @@ namespace iTeffa.Houses
             }
             var vData = VehicleManager.Vehicles[item.ID];
             var price = (BusinessManager.ProductsOrderPrice.ContainsKey(vData.Model)) ? Convert.ToInt32(BusinessManager.ProductsOrderPrice[vData.Model] * 0.5) : 0;
-            Finance.Wallet.Change(player, price);
+            Modules.Wallet.Change(player, price);
             Loggings.Money($"server", $"player({Main.Players[player].UUID})", price, $"carSell({vData.Model})");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы продали {vData.Model} ({item.ID}) за {price}$", 3000);
             VehicleManager.Remove(item.ID);
@@ -816,7 +816,7 @@ namespace iTeffa.Houses
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
-                Finance.Wallet.Change(player, -15000);
+                Modules.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Оружейный сейф");
                 Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Оружейный сейф)");
             }
@@ -827,7 +827,7 @@ namespace iTeffa.Houses
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
-                Finance.Wallet.Change(player, -15000);
+                Modules.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Шкаф с одеждой");
                 Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с одеждой)");
             }
@@ -838,7 +838,7 @@ namespace iTeffa.Houses
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно денег на покупку данной мебели.", 3000);
                     return;
                 }
-                Finance.Wallet.Change(player, -15000);
+                Modules.Wallet.Change(player, -15000);
                 FurnitureManager.newFurniture(house.ID, "Шкаф с предметами");
                 Loggings.Money("server", $"player({Main.Players[player].UUID})", 15000, $"buyFurn({house.ID} | Шкаф с предметами)");
             }
@@ -897,7 +897,7 @@ namespace iTeffa.Houses
                 house.DestroyFurniture(f.ID);
                 FurnitureManager.HouseFurnitures[house.ID].Remove(id);
                 FurnitureManager.FurnituresItems[house.ID].Remove(id);
-                Finance.Wallet.Change(player, 7500);
+                Modules.Wallet.Change(player, 7500);
                 MenuManager.Close(player);
                 return;
             }
@@ -1186,7 +1186,7 @@ namespace iTeffa.Houses
                         return;
                     }
                     var vClass = NAPI.Vehicle.GetVehicleClass((VehicleHash)NAPI.Util.GetHashKey(vData.Model));
-                    if (!Finance.Wallet.Change(player, -VehicleManager.VehicleRepairPrice[vClass]))
+                    if (!Modules.Wallet.Change(player, -VehicleManager.VehicleRepairPrice[vClass]))
                     {
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "У Вас недостаточно средств", 3000);
                         return;
@@ -1221,7 +1221,7 @@ namespace iTeffa.Houses
                     NAPI.Entity.DeleteEntity(veh);
                     garage.SendVehicleIntoGarage(number);
 
-                    Finance.Wallet.Change(player, -200);
+                    Modules.Wallet.Change(player, -200);
                     Loggings.Money($"player({Main.Players[player].UUID})", $"server", 200, $"carEvac");
                     Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Ваша машина была отогнана в гараж", 3000);
                     return;
@@ -1236,7 +1236,7 @@ namespace iTeffa.Houses
                             var pricespawncar = 2500;
                             if (Main.Players[player].Money > pricespawncar)
                                 Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.BottomCenter, $"Ваша машина будет доставлена в течении 10-ти секунд", 3000);
-                            Finance.Wallet.Change(player, -pricespawncar);
+                            Modules.Wallet.Change(player, -pricespawncar);
                             NAPI.Task.Run(() =>
                             {
                                 garage.SpawnCarAtPosition(player, number, player.Position, player.Rotation);
@@ -1338,7 +1338,7 @@ namespace iTeffa.Houses
                         }
                     }
 
-                    if (!Finance.Wallet.Change(player, -1000))
+                    if (!Modules.Wallet.Change(player, -1000))
                     {
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, "Смена замков стоит $1000", 3000);
                         return;
@@ -1460,13 +1460,13 @@ namespace iTeffa.Houses
             House house = GetHouse(seller, true);
             var price = player.GetData<int>("HOUSE_PRICE");
             if (house == null || house.Owner != seller.Name) return;
-            if (!Finance.Wallet.Change(player, -price))
+            if (!Modules.Wallet.Change(player, -price))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно средств", 3000);
                 return;
             }
             CheckAndKick(player);
-            Finance.Wallet.Change(seller, price);
+            Modules.Wallet.Change(seller, price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", price, $"houseSell({house.ID})");
             seller.TriggerEvent("deleteCheckpoint", 333);
             seller.TriggerEvent("deleteGarageBlip");

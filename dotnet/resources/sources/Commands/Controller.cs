@@ -268,15 +268,15 @@ namespace iTeffa.Commands
                 if (playerOneResult > playerTwoResult)
                 {
                     Plugins.Notice.Send(originPlayer, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
-                    Finance.Wallet.Change(originPlayer, money);
-                    Finance.Wallet.Change(playerTwo, -money);
+                    Modules.Wallet.Change(originPlayer, money);
+                    Modules.Wallet.Change(playerTwo, -money);
                     return 1;
                 }
                 else
                 {
                     Plugins.Notice.Send(playerTwo, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы выиграли у соперника ${money}$", 3000);
-                    Finance.Wallet.Change(originPlayer, -money);
-                    Finance.Wallet.Change(playerTwo, money);
+                    Modules.Wallet.Change(originPlayer, -money);
+                    Modules.Wallet.Change(playerTwo, money);
                     return 2;
                 }
             }

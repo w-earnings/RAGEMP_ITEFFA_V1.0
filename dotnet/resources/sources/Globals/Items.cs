@@ -890,13 +890,13 @@ namespace iTeffa.Globals
 
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"{nInventory.TypesCounts[types.Item1]} EXP", 3000);
 
-                            Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item2]);
+                            Modules.Wallet.Change(player, nInventory.TypesCounts[types.Item2]);
 
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"$ {nInventory.TypesCounts[types.Item2]}", 3000);
                         }
                         else
                         {
-                            Finance.Wallet.Change(player, nInventory.TypesCounts[types.Item1]);
+                            Modules.Wallet.Change(player, nInventory.TypesCounts[types.Item1]);
 
                             Plugins.Notice.Send(player, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"$ {nInventory.TypesCounts[types.Item1]}", 3000);
 

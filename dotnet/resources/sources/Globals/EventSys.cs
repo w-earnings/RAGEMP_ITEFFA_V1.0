@@ -402,7 +402,7 @@ namespace iTeffa.Globals
                 if (reward != 0)
                 {
                     NAPI.Chat.SendChatMessageToAll("!{#A87C33}Победитель " + winner.Name + " получил приз в размере " + reward + "$.");
-                    Finance.Wallet.Change(winner, (int)reward);
+                    Modules.Wallet.Change(winner, (int)reward);
                 }
                 else NAPI.Chat.SendChatMessageToAll("!{#A87C33}Победитель: " + winner.Name + ".");
             }

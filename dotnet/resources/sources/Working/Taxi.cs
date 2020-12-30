@@ -44,7 +44,7 @@ namespace iTeffa.Working
                     NAPI.Data.SetEntityData(vehicle, "DRIVER", player);
                     vehicle.SetData("ON_WORK", true);
 
-                    if (!Finance.Wallet.Change(player, taxiRentCost))
+                    if (!Modules.Wallet.Change(player, taxiRentCost))
                     {
                         Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно денег", 3000);
                         return;
@@ -63,12 +63,12 @@ namespace iTeffa.Working
             
             if (!Main.Players.ContainsKey(seller)) return;
 
-            if(!Finance.Wallet.Change(player, -price))
+            if(!Modules.Wallet.Change(player, -price))
             {
                 Plugins.Notice.Send(player, Plugins.TypeNotice.Error, Plugins.PositionNotice.TopCenter, $"Недостаточно денег", 3000);
                 return;
             }
-            Finance.Wallet.Change(seller, price);
+            Modules.Wallet.Change(seller, price);
             Loggings.Money($"player({Main.Players[player].UUID})", $"player({Main.Players[seller].UUID})", taxiRentCost, $"taxiPay");
             Plugins.Notice.Send(player, Plugins.TypeNotice.Success, Plugins.PositionNotice.TopCenter, $"Вы оплатили проезд", 3000);
             Plugins.Notice.Send(seller, Plugins.TypeNotice.Info, Plugins.PositionNotice.TopCenter, $"Игрок " + player.Name.Replace('_', ' ') + " оплатил проезд", 3000);
